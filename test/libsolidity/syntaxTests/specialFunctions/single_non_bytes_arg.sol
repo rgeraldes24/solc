@@ -2,7 +2,6 @@ contract C {
     function f() pure public {
         g(keccak256(uint(2)));
         g(sha256(uint(2)));
-        g(ripemd160(uint(2)));
     }
     function g(bytes32) pure internal {}
 }

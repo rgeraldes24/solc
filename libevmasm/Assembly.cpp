@@ -915,10 +915,6 @@ LinkerObject const& Assembly::assemble() const
 		case Push:
 		{
 			unsigned b = numberEncodingSize(i.data());
-			if (b == 0 && !m_evmVersion.hasPush0())
-			{
-				b = 1;
-			}
 			ret.bytecode.push_back(static_cast<uint8_t>(pushInstruction(b)));
 			if (b > 0)
 			{

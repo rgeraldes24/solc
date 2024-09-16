@@ -13,7 +13,7 @@
     sstore(20, e)
 }
 // ====
-// EVMVersion: >byzantium
+// EVMVersion: >shanghai
 // ----
 // step: fullSuite
 //

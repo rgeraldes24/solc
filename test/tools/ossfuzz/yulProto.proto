@@ -388,16 +388,7 @@ message Data {
 
 message Program {
   enum Version {
-    HOMESTEAD = 0;
-    TANGERINE = 1;
-    SPURIOUS = 2;
-    BYZANTIUM = 3;
-    CONSTANTINOPLE = 4;
-    PETERSBURG = 5;
-    ISTANBUL = 6;
-    BERLIN = 7;
-    LONDON = 8;
-    PARIS = 9;
+    SHANGHAI = 0;
   }
   oneof program_oneof {
     Block block = 1;

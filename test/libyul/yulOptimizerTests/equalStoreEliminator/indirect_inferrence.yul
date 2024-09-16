@@ -12,7 +12,7 @@
     mstore(a, b)
 }
 // ====
-// EVMVersion: >=byzantium
+// EVMVersion: >=shanghai
 // ----
 // step: equalStoreEliminator
 //

@@ -1939,8 +1939,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash;
 				keccak256;
 				sha256;
-				ripemd160;
-				ecrecover;
 				addmod;
 				mulmod;
 				this;
@@ -1973,8 +1971,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash(0);
 				keccak256(data);
 				sha256(data);
-				ripemd160(data);
-				ecrecover(0x0, 0, 0, 0);
 				addmod(1, 2, 3);
 				mulmod(1, 2, 3);
 				selfdestruct(payable(0));

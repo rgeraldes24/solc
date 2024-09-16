@@ -101,15 +101,15 @@ else
 fi
 
 
-EVM_VERSIONS="homestead byzantium"
+EVM_VERSIONS="shanghai"
 
-if [ -z "$CI" ]
-then
-    EVM_VERSIONS+=" constantinople petersburg istanbul berlin london paris shanghai"
-fi
+#if [ -z "$CI" ]
+#then
+#    EVM_VERSIONS+=" constantinople petersburg istanbul berlin london paris shanghai"
+#fi
 
 # And then run the Solidity unit-tests in the matrix combination of optimizer / no optimizer
-# and homestead / byzantium VM
+# and shanghai VM
 for optimize in "" "--optimize"
 do
     for vm in $EVM_VERSIONS

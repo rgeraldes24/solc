@@ -4,7 +4,7 @@
     sstore(10, a)
 }
 // ====
-// EVMVersion: >byzantium
+// EVMVersion: >shanghai
 // ----
 // step: expressionSimplifier
 //

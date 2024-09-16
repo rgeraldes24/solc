@@ -3,7 +3,7 @@
 	sstore(0x64, x)
 }
 // ====
-// EVMVersion: >=byzantium
+// EVMVersion: >=shanghai
 // ----
 // Trace:
 //   STATICCALL(153, 69, 0, 32, 48, 32)

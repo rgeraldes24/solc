@@ -1155,27 +1155,10 @@ void TypeChecker::endVisit(TryStatement const& _tryStatement)
 					*clause.parameters()->parameters().front()->type() != *TypeProvider::bytesMemory()
 				)
 					m_errorReporter.typeError(6231_error, clause.location(), "Expected `catch (bytes memory ...) { ... }` or `catch { ... }`.");
-				if (!m_evmVersion.supportsReturndata())
-					m_errorReporter.typeError(
-						9908_error,
-						clause.location(),
-						"This catch clause type cannot be used on the selected EVM version (" +
-						m_evmVersion.name() +
-						"). You need at least a Byzantium-compatible EVM or use `catch { ... }`."
-					);
 			}
 		}
 		else if (clause.errorName() == "Error" || clause.errorName() == "Panic")
 		{
-			if (!m_evmVersion.supportsReturndata())
-				m_errorReporter.typeError(
-					1812_error,
-					clause.location(),
-					"This catch clause type cannot be used on the selected EVM version (" +
-					m_evmVersion.name() +
-					"). You need at least a Byzantium-compatible EVM or use `catch { ... }`."
-				);
-
 			if (clause.errorName() == "Error")
 			{
 				if (errorClause)
@@ -2082,17 +2065,6 @@ void TypeChecker::typeCheckFunctionCall(
 		return;
 	}
 
-	// Check for unsupported use of bare static call
-	if (
-		_functionType->kind() == FunctionType::Kind::BareStaticCall &&
-		!m_evmVersion.hasStaticCall()
-	)
-		m_errorReporter.typeError(
-			5052_error,
-			_functionCall.location(),
-			"\"staticcall\" is not supported by the VM version."
-		);
-
 	// Perform standard function call type checking
 	typeCheckFunctionGeneralChecks(_functionCall, _functionType);
 }
@@ -2565,8 +2537,7 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 			}
 			else if (
 				_functionType->kind() == FunctionType::Kind::KECCAK256 ||
-				_functionType->kind() == FunctionType::Kind::SHA256 ||
-				_functionType->kind() == FunctionType::Kind::RIPEMD160
+				_functionType->kind() == FunctionType::Kind::SHA256
 			)
 			{
 				solAssert(!isVariadic, "");
@@ -2683,8 +2654,7 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 					};
 				else if (
 					_functionType->kind() == FunctionType::Kind::KECCAK256 ||
-					_functionType->kind() == FunctionType::Kind::SHA256 ||
-					_functionType->kind() == FunctionType::Kind::RIPEMD160
+					_functionType->kind() == FunctionType::Kind::SHA256
 				)
 					return {
 						7556_error,
@@ -3073,13 +3043,6 @@ bool TypeChecker::visit(FunctionCallOptions const& _functionCallOptions)
 			);
 	}
 
-	if (setSalt && !m_evmVersion.hasCreate2())
-		m_errorReporter.typeError(
-			5189_error,
-			_functionCallOptions.location(),
-			"Unsupported call option \"salt\" (requires Constantinople-compatible VMs)."
-		);
-
 	_functionCallOptions.annotation().type = expressionFunctionType->copyAndSetCallOptions(setGas, setValue, setSalt);
 	return false;
 }
@@ -3395,45 +3358,7 @@ bool TypeChecker::visit(MemberAccess const& _memberAccess)
 			(memberName == "min" ||	memberName == "max")
 		)
 			annotation.isPure = true;
-		else if (magicType->kind() == MagicType::Kind::Block)
-		{
-			if (memberName == "chainid" && !m_evmVersion.hasChainID())
-				m_errorReporter.typeError(
-					3081_error,
-					_memberAccess.location(),
-					"\"chainid\" is not supported by the VM version."
-				);
-			else if (memberName == "basefee" && !m_evmVersion.hasBaseFee())
-				m_errorReporter.typeError(
-					5921_error,
-					_memberAccess.location(),
-					"\"basefee\" is not supported by the VM version."
-				);
-			else if (memberName == "prevrandao" && !m_evmVersion.hasPrevRandao())
-				m_errorReporter.warning(
-					9432_error,
-					_memberAccess.location(),
-					"\"prevrandao\" is not supported by the VM version and will be treated as \"difficulty\"."
-				);
-			else if (memberName == "difficulty" && m_evmVersion.hasPrevRandao())
-				m_errorReporter.warning(
-					8417_error,
-					_memberAccess.location(),
-					"Since the VM version paris, \"difficulty\" was replaced by \"prevrandao\", which now returns a random number based on the beacon chain."
-				);
-		}
 	}
-
-	if (
-		_memberAccess.expression().annotation().type->category() == Type::Category::Address &&
-		memberName == "codehash" &&
-		!m_evmVersion.hasExtCodeHash()
-	)
-		m_errorReporter.typeError(
-			7598_error,
-			_memberAccess.location(),
-			"\"codehash\" is not supported by the VM version."
-		);
 
 	if (!annotation.isPure.set())
 		annotation.isPure = false;

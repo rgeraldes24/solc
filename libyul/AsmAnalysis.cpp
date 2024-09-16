@@ -705,29 +705,7 @@ bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocatio
 		);
 	};
 
-	if (_instr == evmasm::Instruction::RETURNDATACOPY && !m_evmVersion.supportsReturndata())
-		errorForVM(7756_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::RETURNDATASIZE && !m_evmVersion.supportsReturndata())
-		errorForVM(4778_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::STATICCALL && !m_evmVersion.hasStaticCall())
-		errorForVM(1503_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::SHL && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(6612_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::SHR && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(7458_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::SAR && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(2054_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::CREATE2 && !m_evmVersion.hasCreate2())
-		errorForVM(6166_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::EXTCODEHASH && !m_evmVersion.hasExtCodeHash())
-		errorForVM(7110_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::CHAINID && !m_evmVersion.hasChainID())
-		errorForVM(1561_error, "only available for Istanbul-compatible");
-	else if (_instr == evmasm::Instruction::SELFBALANCE && !m_evmVersion.hasSelfBalance())
-		errorForVM(7721_error, "only available for Istanbul-compatible");
-	else if (_instr == evmasm::Instruction::BASEFEE && !m_evmVersion.hasBaseFee())
-		errorForVM(5430_error, "only available for London-compatible");
-	else if (_instr == evmasm::Instruction::PC)
+	if (_instr == evmasm::Instruction::PC)
 		m_errorReporter.error(
 			2450_error,
 			Error::Type::SyntaxError,

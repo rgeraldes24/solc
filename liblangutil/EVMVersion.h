@@ -48,21 +48,11 @@ class EVMVersion:
 public:
 	EVMVersion() = default;
 
-	static EVMVersion homestead() { return {Version::Homestead}; }
-	static EVMVersion tangerineWhistle() { return {Version::TangerineWhistle}; }
-	static EVMVersion spuriousDragon() { return {Version::SpuriousDragon}; }
-	static EVMVersion byzantium() { return {Version::Byzantium}; }
-	static EVMVersion constantinople() { return {Version::Constantinople}; }
-	static EVMVersion petersburg() { return {Version::Petersburg}; }
-	static EVMVersion istanbul() { return {Version::Istanbul}; }
-	static EVMVersion berlin() { return {Version::Berlin}; }
-	static EVMVersion london() { return {Version::London}; }
-	static EVMVersion paris() { return {Version::Paris}; }
 	static EVMVersion shanghai() { return {Version::Shanghai}; }
 
 	static std::optional<EVMVersion> fromString(std::string const& _version)
 	{
-		for (auto const& v: {homestead(), tangerineWhistle(), spuriousDragon(), byzantium(), constantinople(), petersburg(), istanbul(), berlin(), london(), paris(), shanghai()})
+		for (auto const& v: {shanghai()})
 			if (_version == v.name())
 				return v;
 		return std::nullopt;
@@ -75,32 +65,10 @@ public:
 	{
 		switch (m_version)
 		{
-		case Version::Homestead: return "homestead";
-		case Version::TangerineWhistle: return "tangerineWhistle";
-		case Version::SpuriousDragon: return "spuriousDragon";
-		case Version::Byzantium: return "byzantium";
-		case Version::Constantinople: return "constantinople";
-		case Version::Petersburg: return "petersburg";
-		case Version::Istanbul: return "istanbul";
-		case Version::Berlin: return "berlin";
-		case Version::London: return "london";
-		case Version::Paris: return "paris";
 		case Version::Shanghai: return "shanghai";
 		}
 		return "INVALID";
 	}
-
-	/// Has the RETURNDATACOPY and RETURNDATASIZE opcodes.
-	bool supportsReturndata() const { return *this >= byzantium(); }
-	bool hasStaticCall() const { return *this >= byzantium(); }
-	bool hasBitwiseShifting() const { return *this >= constantinople(); }
-	bool hasCreate2() const { return *this >= constantinople(); }
-	bool hasExtCodeHash() const { return *this >= constantinople(); }
-	bool hasChainID() const { return *this >= istanbul(); }
-	bool hasSelfBalance() const { return *this >= istanbul(); }
-	bool hasBaseFee() const { return *this >= london(); }
-	bool hasPrevRandao() const { return *this >= paris(); }
-	bool hasPush0() const { return *this >= shanghai(); }
 
 	bool hasOpcode(evmasm::Instruction _opcode) const;
 
@@ -109,7 +77,7 @@ public:
 	bool canOverchargeGasForCall() const { return *this >= tangerineWhistle(); }
 
 private:
-	enum class Version { Homestead, TangerineWhistle, SpuriousDragon, Byzantium, Constantinople, Petersburg, Istanbul, Berlin, London, Paris, Shanghai };
+	enum class Version { Shanghai };
 
 	EVMVersion(Version _version): m_version(_version) {}
 

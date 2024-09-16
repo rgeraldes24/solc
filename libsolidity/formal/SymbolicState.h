@@ -251,23 +251,6 @@ private:
 			{"sha256", std::make_shared<smtutil::ArraySort>(
 				smt::smtSort(*TypeProvider::bytesStorage()),
 				smtSort(*TypeProvider::fixedBytes(32))
-			)},
-			{"ripemd160", std::make_shared<smtutil::ArraySort>(
-				smt::smtSort(*TypeProvider::bytesStorage()),
-				smtSort(*TypeProvider::fixedBytes(20))
-			)},
-			{"ecrecover", std::make_shared<smtutil::ArraySort>(
-				std::make_shared<smtutil::TupleSort>(
-					"ecrecover_input_type",
-					std::vector<std::string>{"hash", "v", "r", "s"},
-					std::vector<smtutil::SortPointer>{
-						smt::smtSort(*TypeProvider::fixedBytes(32)),
-						smt::smtSort(*TypeProvider::uint(8)),
-						smt::smtSort(*TypeProvider::fixedBytes(32)),
-						smt::smtSort(*TypeProvider::fixedBytes(32))
-					}
-				),
-				smtSort(*TypeProvider::address())
 			)}
 		},
 		m_context

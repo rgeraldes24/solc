@@ -214,39 +214,18 @@ void EVMHost::recordCalls(evmc_message const& _message) noexcept
 evmc::Result EVMHost::call(evmc_message const& _message) noexcept
 {
 	recordCalls(_message);
-	if (_message.recipient == 0x0000000000000000000000000000000000000001_address)
-		return precompileECRecover(_message);
-	else if (_message.recipient == 0x0000000000000000000000000000000000000002_address)
+	if (_message.recipient == 0x0000000000000000000000000000000000000002_address)
 		return precompileSha256(_message);
-	else if (_message.recipient == 0x0000000000000000000000000000000000000003_address)
-		return precompileRipeMD160(_message);
 	else if (_message.recipient == 0x0000000000000000000000000000000000000004_address)
 		return precompileIdentity(_message);
-	else if (_message.recipient == 0x0000000000000000000000000000000000000005_address && m_evmVersion >= langutil::EVMVersion::byzantium())
+	else if (_message.recipient == 0x0000000000000000000000000000000000000005_address)
 		return precompileModExp(_message);
-	else if (_message.recipient == 0x0000000000000000000000000000000000000006_address && m_evmVersion >= langutil::EVMVersion::byzantium())
-	{
-		if (m_evmVersion <= langutil::EVMVersion::istanbul())
-			return precompileALTBN128G1Add<EVMC_ISTANBUL>(_message);
-		else
-			return precompileALTBN128G1Add<EVMC_LONDON>(_message);
-	}
-	else if (_message.recipient == 0x0000000000000000000000000000000000000007_address && m_evmVersion >= langutil::EVMVersion::byzantium())
-	{
-		if (m_evmVersion <= langutil::EVMVersion::istanbul())
-			return precompileALTBN128G1Mul<EVMC_ISTANBUL>(_message);
-		else
-			return precompileALTBN128G1Mul<EVMC_LONDON>(_message);
-	}
-	else if (_message.recipient == 0x0000000000000000000000000000000000000008_address && m_evmVersion >= langutil::EVMVersion::byzantium())
-	{
-		if (m_evmVersion <= langutil::EVMVersion::istanbul())
-			return precompileALTBN128PairingProduct<EVMC_ISTANBUL>(_message);
-		else
-			return precompileALTBN128PairingProduct<EVMC_LONDON>(_message);
-	}
-	else if (_message.recipient == 0x0000000000000000000000000000000000000009_address && m_evmVersion >= langutil::EVMVersion::istanbul())
-		return precompileBlake2f(_message);
+	else if (_message.recipient == 0x0000000000000000000000000000000000000006_address)
+		return precompileALTBN128G1Add<EVMC_LONDON>(_message);
+	else if (_message.recipient == 0x0000000000000000000000000000000000000007_address)
+		return precompileALTBN128G1Mul<EVMC_LONDON>(_message);
+	else if (_message.recipient == 0x0000000000000000000000000000000000000008_address)
+		return precompileALTBN128PairingProduct<EVMC_LONDON>(_message);
 
 	auto const stateBackup = accounts;
 
@@ -419,46 +398,6 @@ evmc::bytes32 EVMHost::convertToEVMC(h256 const& _data)
 	return d;
 }
 
-evmc::Result EVMHost::precompileECRecover(evmc_message const& _message) noexcept
-{
-	// NOTE this is a partial implementation for some inputs.
-
-	// Fixed cost of 3000 gas.
-	constexpr int64_t gas_cost = 3000;
-
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
-		{
-			fromHex(
-				"18c547e4f7b0f325ad1e56f57e26c745b09a3e503d86e00e5255ff7f715d3d1c"
-				"000000000000000000000000000000000000000000000000000000000000001c"
-				"73b1693892219d736caba55bdb67216e485557ea6b6af75f37096c9aa6a5a75f"
-				"eeb940b1d03b21e36b0e47e79769f095fe2ab855bd91e3a38756b7d75a9c4549"
-			),
-			{
-				fromHex("000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"),
-				gas_cost
-			}
-		},
-		{
-			fromHex(
-				"47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"
-				"000000000000000000000000000000000000000000000000000000000000001c"
-				"debaaa0cddb321b2dcaaf846d39605de7b97e77ba6106587855b9106cb104215"
-				"61a22d94fa8b8a687ff9c911c844d1c016d1a685a9166858f9c7c1bc85128aca"
-			),
-			{
-				fromHex("0000000000000000000000008743523d96a1b2cbe0c6909653a56da18ed484af"),
-				gas_cost
-			}
-		}
-	};
-	evmc::Result result = precompileGeneric(_message, inputOutput);
-	// ECRecover will return success with empty response in case of failure
-	if (result.status_code != EVMC_SUCCESS && result.status_code != EVMC_OUT_OF_GAS)
-		return resultWithGas(_message.gas, gas_cost, {});
-	return result;
-}
-
 evmc::Result EVMHost::precompileSha256(evmc_message const& _message) noexcept
 {
 	// static data so that we do not need a release routine...
@@ -472,108 +411,6 @@ evmc::Result EVMHost::precompileSha256(evmc_message const& _message) noexcept
 	int64_t gas_cost = 60 + 12 * ((static_cast<int64_t>(_message.input_size) + 31) / 32);
 
 	return resultWithGas(_message.gas, gas_cost, hash);
-}
-
-evmc::Result EVMHost::precompileRipeMD160(evmc_message const& _message) noexcept
-{
-	// NOTE this is a partial implementation for some inputs.
-
-	// Base 600 gas + 120 gas / word.
-	constexpr auto calc_cost = [](int64_t size) -> int64_t {
-		return 600 + 120 * ((size + 31) / 32);
-	};
-
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
-		{
-			bytes{},
-			{
-				fromHex("0000000000000000000000009c1185a5c5e9fc54612808977ee8f548b2258d31"),
-				calc_cost(0)
-			}
-		},
-		{
-			fromHex("0000000000000000000000000000000000000000000000000000000000000004"),
-			{
-				fromHex("0000000000000000000000001b0f3c404d12075c68c938f9f60ebea4f74941a0"),
-				calc_cost(32)
-			}
-		},
-		{
-			fromHex("0000000000000000000000000000000000000000000000000000000000000005"),
-			{
-				fromHex("000000000000000000000000ee54aa84fc32d8fed5a5fe160442ae84626829d9"),
-				calc_cost(32)
-			}
-		},
-		{
-			fromHex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"),
-			{
-				fromHex("0000000000000000000000001cf4e77f5966e13e109703cd8a0df7ceda7f3dc3"),
-				calc_cost(32)
-			}
-		},
-		{
-			fromHex("0000000000000000000000000000000000000000000000000000000000000000"),
-			{
-				fromHex("000000000000000000000000f93175303eba2a7b372174fc9330237f5ad202fc"),
-				calc_cost(32)
-			}
-		},
-		{
-			fromHex(
-				"0800000000000000000000000000000000000000000000000000000000000000"
-				"0401000000000000000000000000000000000000000000000000000000000000"
-				"0000000400000000000000000000000000000000000000000000000000000000"
-				"00000100"
-			),
-			{
-				fromHex("000000000000000000000000f93175303eba2a7b372174fc9330237f5ad202fc"),
-				calc_cost(100)
-			}
-		},
-		{
-			fromHex(
-				"0800000000000000000000000000000000000000000000000000000000000000"
-				"0501000000000000000000000000000000000000000000000000000000000000"
-				"0000000500000000000000000000000000000000000000000000000000000000"
-				"00000100"
-			),
-			{
-				fromHex("0000000000000000000000004f4fc112e2bfbe0d38f896a46629e08e2fcfad5"),
-				calc_cost(100)
-			}
-		},
-		{
-			fromHex(
-				"08ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-				"ff010000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-				"ffffffff00000000000000000000000000000000000000000000000000000000"
-				"00000100"
-			),
-			{
-				fromHex("000000000000000000000000c0a2e4b1f3ff766a9a0089e7a410391730872495"),
-				calc_cost(100)
-			}
-		},
-		{
-			fromHex(
-				"6162636465666768696a6b6c6d6e6f707172737475767778797a414243444546"
-				"4748494a4b4c4d4e4f505152535455565758595a303132333435363738393f21"
-			),
-			{
-				fromHex("00000000000000000000000036c6b90a49e17d4c1e1b0e634ec74124d9b207da"),
-				calc_cost(64)
-			}
-		},
-		{
-			fromHex("6162636465666768696a6b6c6d6e6f707172737475767778797a414243444546"),
-			{
-				fromHex("000000000000000000000000ac5ab22e07b0fb80c69b6207902f725e2507e546"),
-				calc_cost(32)
-			}
-		}
-	};
-	return precompileGeneric(_message, inputOutput);
 }
 
 evmc::Result EVMHost::precompileIdentity(evmc_message const& _message) noexcept
@@ -1119,12 +956,6 @@ evmc::Result EVMHost::precompileALTBN128PairingProduct(evmc_message const& _mess
 		}
 	};
 	return precompileGeneric(_message, inputOutput);
-}
-
-evmc::Result EVMHost::precompileBlake2f(evmc_message const&) noexcept
-{
-	// TODO implement
-	return resultWithFailure();
 }
 
 evmc::Result EVMHost::precompileGeneric(

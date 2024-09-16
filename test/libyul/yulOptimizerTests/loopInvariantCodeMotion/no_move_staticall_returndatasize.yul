@@ -10,7 +10,7 @@
   }
 }
 // ====
-// EVMVersion: >=byzantium
+// EVMVersion: >=shanghai
 // ----
 // step: loopInvariantCodeMotion
 //

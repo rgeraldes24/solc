@@ -17,7 +17,7 @@
     sstore(_1, mload(memPtr))
 }
 // ====
-// EVMVersion: >byzantium
+// EVMVersion: >shanghai
 // ----
 // step: fullSuite
 //

@@ -4,7 +4,7 @@
   }
 }
 // ====
-// EVMVersion: >byzantium
+// EVMVersion: >shanghai
 // ----
 // step: expressionSimplifier
 //

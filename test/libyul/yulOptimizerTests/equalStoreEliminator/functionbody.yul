@@ -27,7 +27,7 @@
 
 }
 // ====
-// EVMVersion: >=byzantium
+// EVMVersion: >=shanghai
 // ----
 // step: equalStoreEliminator
 //

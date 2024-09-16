@@ -7,5 +7,5 @@ contract C {
 	}
 }
 // ====
-// EVMVersion: >=byzantium
+// EVMVersion: >=shanghai
 // ----
