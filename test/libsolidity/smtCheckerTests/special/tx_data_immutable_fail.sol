@@ -1,7 +1,6 @@
 contract C {
 	bytes32 bhash;
 	address coin;
-	uint dif;
 	uint prevrandao;
 	uint glimit;
 	uint number;
@@ -16,7 +15,6 @@ contract C {
 	function f() public payable {
 		bhash = blockhash(12);
 		coin = block.coinbase;
-		dif = block.difficulty;
 		prevrandao = block.prevrandao;
 		glimit = block.gaslimit;
 		number = block.number;
@@ -32,7 +30,6 @@ contract C {
 
 		assert(bhash == blockhash(122));
 		assert(coin != block.coinbase);
-		assert(dif != block.difficulty);
 		assert(prevrandao != block.prevrandao);
 		assert(glimit != block.gaslimit);
 		assert(number != block.number);
@@ -48,7 +45,6 @@ contract C {
 	function fi() internal view {
 		assert(bhash == blockhash(122));
 		assert(coin != block.coinbase);
-		assert(dif != block.difficulty);
 		assert(prevrandao != block.prevrandao);
 		assert(glimit != block.gaslimit);
 		assert(number != block.number);
@@ -65,9 +61,6 @@ contract C {
 // SMTEngine: all
 // SMTIgnoreCex: yes
 // ----
-// Warning 8417: (293-309): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
-// Warning 8417: (646-662): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
-// Warning 8417: (1129-1145): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
 // Warning 6328: (563-594): CHC: Assertion violation happens here.
 // Warning 6328: (598-628): CHC: Assertion violation happens here.
 // Warning 6328: (632-663): CHC: Assertion violation happens here.

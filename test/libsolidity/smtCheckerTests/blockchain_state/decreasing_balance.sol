@@ -8,6 +8,7 @@ contract C {
 		a.transfer(x);
 	}
 	function inv() public view {
+		// TODO(rgeraldes24)
 		// If only looking at `f`, it looks like this.balance always decreases.
 		// However, the edge case of a contract `selfdestruct` sending its remaining balance
 		// to this contract should make the claim false (since there's no fallback/receive here).

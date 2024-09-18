@@ -304,7 +304,7 @@ YulEVMBuiltin:
 	| 'returndatacopy' | 'extcodehash' | 'create' | 'create2' | 'call'
 	| 'delegatecall' | 'staticcall' | 'return' | 'revert' | 'invalid'
 	| 'log0' | 'log1' | 'log2' | 'log3' | 'log4' | 'chainid' | 'origin' | 'gasprice'
-	| 'blockhash' | 'coinbase' | 'timestamp' | 'number' | 'difficulty' | 'prevrandao'
+	| 'blockhash' | 'coinbase' | 'timestamp' | 'number' | 'prevrandao'
 	| 'gaslimit' | 'basefee';
 
 YulLBrace: '{' -> pushMode(YulMode);

@@ -976,9 +976,6 @@ string EVMHostPrinter::state()
 		storage();
 		balance();
 	}
-	// TODO(rgeraldes24): remove
-	// else
-	// 	selfdestructRecords();
 
 	callRecords();
 	return m_stateStream.str();

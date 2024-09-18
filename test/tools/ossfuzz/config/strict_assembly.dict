@@ -6,7 +6,7 @@
 " callvalue() "
 " codesize() "
 " coinbase() "
-" difficulty() "
+" prevrandao() "
 " gas() "
 " gaslimit() "
 " gasprice() "

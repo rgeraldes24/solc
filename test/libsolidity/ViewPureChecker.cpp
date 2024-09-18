@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(environment_access)
 	std::vector<std::string> view{
 		"block.coinbase",
 		"block.timestamp",
-		"block.difficulty",
+		"block.prevrandao",
 		"block.number",
 		"block.gaslimit",
 		"blockhash(7)",
@@ -50,9 +50,8 @@ BOOST_AUTO_TEST_CASE(environment_access)
 		"tx.gasprice",
 		"this",
 		"address(1).balance",
+		"address(0x4242).staticcall(\"\")",
 	};
-	// TODO(rgeraldes24): add to the vector from the get go
-	view.emplace_back("address(0x4242).staticcall(\"\")");
 
 	// ``block.blockhash`` and ``blockhash`` are tested separately below because their usage will
 	// produce warnings that can't be handled in a generic way.

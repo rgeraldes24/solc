@@ -214,7 +214,7 @@ message NullaryOp {
     COINBASE = 11;
     TIMESTAMP = 12;
     NUMBER = 13;
-    DIFFICULTY = 14;
+    PREVRANDAO = 14;
     GASLIMIT = 15;
     SELFBALANCE = 16;
     CHAINID = 17;

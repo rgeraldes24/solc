@@ -15,8 +15,6 @@ contract C {
 		assert(block.timestamp <= 2**256 - 1);
 		assert(block.chainid >= 0);
 		assert(block.chainid <= 2**256 - 1);
-		assert(block.difficulty >= 0);
-		assert(block.difficulty <= 2**256 - 1);
 		assert(block.prevrandao > 2**64);
 		assert(block.prevrandao <= 2**256 - 1);
 		assert(block.gaslimit >= 0);
@@ -44,8 +42,6 @@ contract D {
 			assert(block.timestamp <= 2**256 - 1);
 			assert(block.chainid >= 0);
 			assert(block.chainid <= 2**256 - 1);
-			assert(block.difficulty >= 0);
-			assert(block.difficulty <= 2**256 - 1);
 			assert(block.prevrandao > 2**64);
 			assert(block.prevrandao <= 2**256 - 1);
 			assert(block.gaslimit >= 0);
@@ -58,8 +54,4 @@ contract D {
 // ====
 // SMTEngine: all
 // ----
-// Warning 8417: (565-581): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
-// Warning 8417: (598-614): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
-// Warning 8417: (1447-1463): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
-// Warning 8417: (1481-1497): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
 // Info 1391: CHC: 44 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

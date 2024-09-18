@@ -1,6 +1,6 @@
 " address(this).balance "
 " block.coinbase "
-" block.difficulty "
+" block.prevrandao "
 " block.gaslimit "
 " block.number "
 " block.timestamp "

@@ -5,7 +5,6 @@ contract C
 	}
 	function g() internal {
 		assert(msg.sender == block.coinbase);
-		assert(block.difficulty == block.gaslimit);
 		assert(block.prevrandao == block.gaslimit);
 		assert(block.number == block.timestamp);
 		assert(tx.gasprice == msg.value);
@@ -21,7 +20,6 @@ contract C
 // SMTEngine: all
 // SMTIgnoreCex: yes
 // ----
-// Warning 8417: (128-144): Since the VM version paris, "difficulty" was replaced by "prevrandao", which now returns a random number based on the beacon chain.
 // Warning 6328: (81-117): CHC: Assertion violation happens here.
 // Warning 6328: (121-163): CHC: Assertion violation happens here.
 // Warning 6328: (167-209): CHC: Assertion violation happens here.

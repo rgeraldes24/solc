@@ -644,7 +644,7 @@ void ProtoConverter::visit(NullaryOp const& _x)
 			op == NullaryOp::ADDRESS ||
 			op == NullaryOp::TIMESTAMP ||
 			op == NullaryOp::NUMBER ||
-			op == NullaryOp::DIFFICULTY
+			op == NullaryOp::PREVRANDAO
 		)
 	)
 	{
@@ -693,7 +693,7 @@ void ProtoConverter::visit(NullaryOp const& _x)
 	case NullaryOp::NUMBER:
 		m_output << "number()";
 		break;
-	case NullaryOp::DIFFICULTY:
+	case NullaryOp::PREVRANDAO:
 		m_output << "prevrandao()";
 		break;
 	case NullaryOp::GASLIMIT:

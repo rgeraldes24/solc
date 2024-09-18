@@ -1925,7 +1925,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				block.basefee;
 				block.chainid;
 				block.coinbase;
-				block.difficulty;
 				block.prevrandao;
 				block.gaslimit;
 				block.number;

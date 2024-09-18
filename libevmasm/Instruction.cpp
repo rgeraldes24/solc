@@ -75,7 +75,6 @@ std::map<std::string, Instruction> const solidity::evmasm::c_instructions =
 	{ "COINBASE", Instruction::COINBASE },
 	{ "TIMESTAMP", Instruction::TIMESTAMP },
 	{ "NUMBER", Instruction::NUMBER },
-	{ "DIFFICULTY", Instruction::PREVRANDAO },
 	{ "PREVRANDAO", Instruction::PREVRANDAO },
 	{ "GASLIMIT", Instruction::GASLIMIT },
 	{ "CHAINID", Instruction::CHAINID },
