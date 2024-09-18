@@ -617,7 +617,6 @@ void BMC::endVisit(FunctionCall const& _funCall)
 	case FunctionType::Kind::External:
 	case FunctionType::Kind::DelegateCall:
 	case FunctionType::Kind::BareCall:
-	case FunctionType::Kind::BareCallCode:
 	case FunctionType::Kind::BareDelegateCall:
 	case FunctionType::Kind::BareStaticCall:
 	case FunctionType::Kind::Creation:

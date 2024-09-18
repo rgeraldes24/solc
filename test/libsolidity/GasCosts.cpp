@@ -38,7 +38,7 @@ namespace solidity::frontend::test
 #define CHECK_DEPLOY_GAS(_gasNoOpt, _gasOpt, _evmVersion) \
 	do \
 	{ \
-		u256 metaCost = GasMeter::dataGas(m_compiler.cborMetadata(m_compiler.lastContractName()), true, _evmVersion); \
+		u256 metaCost = GasMeter::dataGas(m_compiler.cborMetadata(m_compiler.lastContractName()), true); \
 		u256 gasOpt{_gasOpt}; \
 		u256 gasNoOpt{_gasNoOpt}; \
 		u256 gas = m_optimiserSettings == OptimiserSettings::minimal() ? gasNoOpt : gasOpt; \
@@ -94,75 +94,35 @@ BOOST_AUTO_TEST_CASE(string_storage)
 	m_appendCBORMetadata = false;
 	compileAndRun(sourceCode);
 
-	auto evmVersion = solidity::test::CommonOptions::get().evmVersion();
-
-	if (evmVersion <= EVMVersion::byzantium())
-	{
-		if (CommonOptions::get().useABIEncoderV1)
-			CHECK_DEPLOY_GAS(133045, 129731, evmVersion);
-		else
-			CHECK_DEPLOY_GAS(144999, 121229, evmVersion);
-	}
 	// This is only correct on >=Constantinople.
-	else if (!CommonOptions::get().useABIEncoderV1)
+	if (!CommonOptions::get().useABIEncoderV1)
 	{
 		if (CommonOptions::get().optimize)
 		{
-			// Costs with 0 are cases which cannot be triggered in tests.
-			if (evmVersion < EVMVersion::istanbul())
-				CHECK_DEPLOY_GAS(0, 109241, evmVersion);
-			else if (evmVersion < EVMVersion::shanghai())
-				CHECK_DEPLOY_GAS(0, 97697, evmVersion);
-			// Shanghai is cheaper due to `push0`
-			else
-				CHECK_DEPLOY_GAS(0, 97071, evmVersion);
+			CHECK_DEPLOY_GAS(0, 97071, evmVersion);
 		}
 		else
 		{
-			if (evmVersion < EVMVersion::istanbul())
-				CHECK_DEPLOY_GAS(139013, 123969, evmVersion);
-			else if (evmVersion < EVMVersion::shanghai())
-				CHECK_DEPLOY_GAS(123361, 110969, evmVersion);
-			// Shanghai is cheaper due to `push0`
-			else
-				CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
+			CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
 		}
 	}
-	else if (evmVersion < EVMVersion::istanbul())
-		CHECK_DEPLOY_GAS(125829, 118559, evmVersion);
-	else if (evmVersion < EVMVersion::shanghai())
-		CHECK_DEPLOY_GAS(114077, 96461, evmVersion);
 	else
 		CHECK_DEPLOY_GAS(114077, 95835, evmVersion);
 
-	if (evmVersion >= EVMVersion::byzantium())
+	callContractFunction("f()");
+	// This is only correct on >=Constantinople.
+	if (!CommonOptions::get().useABIEncoderV1)
 	{
-		callContractFunction("f()");
-		if (evmVersion == EVMVersion::byzantium())
-			CHECK_GAS(21741, 21522, 20);
-		// This is only correct on >=Constantinople.
-		else if (!CommonOptions::get().useABIEncoderV1)
+		if (CommonOptions::get().optimize)
 		{
-			if (CommonOptions::get().optimize)
-			{
-				if (evmVersion < EVMVersion::istanbul())
-					CHECK_GAS(0, 21526, 20);
-				else
-					CHECK_GAS(0, 21318, 20);
-			}
-			else
-			{
-				if (evmVersion < EVMVersion::istanbul())
-					CHECK_GAS(21736, 21559, 20);
-				else
-					CHECK_GAS(21528, 21351, 20);
-			}
+			CHECK_GAS(0, 21318, 20);
 		}
-		else if (evmVersion < EVMVersion::istanbul())
-			CHECK_GAS(21546, 21526, 20);
 		else
-			CHECK_GAS(21332, 21322, 20);
+		{
+			CHECK_GAS(21528, 21351, 20);
+		}
 	}
+	CHECK_GAS(21332, 21322, 20);
 }
 
 BOOST_AUTO_TEST_CASE(single_callvaluecheck)

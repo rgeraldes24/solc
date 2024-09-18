@@ -45,7 +45,6 @@
   let storage := 1
   let calldata := 1
   let struct := 1
-  let throw := 1
   let try := 1
   let type := 1
   let unicode := 1

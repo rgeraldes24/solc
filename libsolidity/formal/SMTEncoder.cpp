@@ -715,7 +715,6 @@ void SMTEncoder::endVisit(FunctionCall const& _funCall)
 			);
 		break;
 	case FunctionType::Kind::DelegateCall:
-	case FunctionType::Kind::BareCallCode:
 	case FunctionType::Kind::BareDelegateCall:
 	default:
 		m_unsupportedErrors.warning(

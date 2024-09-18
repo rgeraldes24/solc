@@ -11,13 +11,12 @@
   pop(create(1, 1, 0))
   pop(create2(1, 1, 0, 1))
   pop(call(1, 1, 1, 1, 0, 1, 0))
-  pop(callcode(1, 1, 1, 1, 0, 1, 0))
   pop(delegatecall(1, 1, 1, 0, 1, 0))
   pop(staticcall(1, 1, 1, 0, 1, 0))
   return(1, 0)
 }
 // ====
-// EVMVersion: >=constantinople
+// EVMVersion: >=shanghai
 // ----
 // Trace:
 //   RETURNDATACOPY(0, 1, 0)
@@ -32,7 +31,6 @@
 //   CREATE(1, 0, 0)
 //   CREATE2(1, 0, 0, 1)
 //   CALL(1, 1, 1, 0, 0, 1, 0)
-//   CALLCODE(1, 1, 1, 0, 0, 1, 0)
 //   DELEGATECALL(1, 1, 0, 0, 1, 0)
 //   STATICCALL(1, 1, 0, 0, 1, 0)
 //   RETURN(0, 0)

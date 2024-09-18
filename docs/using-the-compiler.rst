@@ -291,9 +291,7 @@ Input Description
           }
         },
         // Version of the EVM to compile for.
-        // Affects type checking and code generation. Can be homestead,
-        // tangerineWhistle, spuriousDragon, byzantium, constantinople,
-        // petersburg, istanbul, berlin, london, paris or shanghai (default)
+        // Affects type checking and code generation. Can be shanghai (default)
         "evmVersion": "shanghai",
         // Optional: Change compilation pipeline to go through the Yul intermediate representation.
         // This is false by default.

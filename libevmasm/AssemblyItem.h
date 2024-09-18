@@ -112,7 +112,7 @@ public:
 	/// @returns a pair, where the first element is the json-assembly
 	/// item name, where second element is the string representation
 	/// of it's data.
-	std::pair<std::string, std::string> nameAndData(langutil::EVMVersion _evmVersion) const;
+	std::pair<std::string, std::string> nameAndData() const;
 
 	bytes const& verbatimData() const { assertThrow(m_type == VerbatimBytecode, util::Exception, ""); return std::get<2>(*m_verbatimBytecode); }
 

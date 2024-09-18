@@ -25,8 +25,3 @@
 using namespace solidity;
 using namespace solidity::evmasm;
 using namespace solidity::langutil;
-
-bool EVMVersion::hasOpcode(Instruction _opcode) const
-{
-	return true;
-}

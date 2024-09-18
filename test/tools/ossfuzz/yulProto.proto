@@ -29,14 +29,13 @@ message MultiVarDecl {
 message LowLevelCall {
   enum Type {
     CALL = 0;
-    CALLCODE = 1;
     DELEGATECALL = 2;
     STATICCALL = 3;
   }
   required Type callty = 1;
   required Expression gas = 2;
   required Expression addr = 3;
-  // Valid for call and callcode only
+  // Valid for call only
   required Expression wei = 4;
   required Expression in = 5;
   required Expression insize = 6;
@@ -319,15 +318,10 @@ message RetRevStmt {
   required Expression size = 3;
 }
 
-message SelfDestructStmt {
-  required Expression addr = 1;
-}
-
 message TerminatingStmt {
   oneof term_oneof {
     StopInvalidStmt   stop_invalid = 1;
     RetRevStmt        ret_rev = 2;
-    SelfDestructStmt  self_des = 3;
   }
 }
 

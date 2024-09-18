@@ -748,18 +748,18 @@ void StackLayoutGenerator::fillInJunk(CFG::BasicBlock const& _block, CFG::Functi
 			if (_swapDepth > 16)
 				opGas += 1000;
 			else
-				opGas += evmasm::GasMeter::runGas(evmasm::swapInstruction(_swapDepth), langutil::EVMVersion());
+				opGas += evmasm::GasMeter::runGas(evmasm::swapInstruction(_swapDepth));
 		};
 		auto dupOrPush = [&](StackSlot const& _slot)
 		{
 			if (canBeFreelyGenerated(_slot))
-				opGas += evmasm::GasMeter::runGas(evmasm::pushInstruction(32), langutil::EVMVersion());
+				opGas += evmasm::GasMeter::runGas(evmasm::pushInstruction(32));
 			else
 			{
 				if (auto depth = util::findOffset(_source | ranges::views::reverse, _slot))
 				{
 					if (*depth < 16)
-						opGas += evmasm::GasMeter::runGas(evmasm::dupInstruction(static_cast<unsigned>(*depth + 1)), langutil::EVMVersion());
+						opGas += evmasm::GasMeter::runGas(evmasm::dupInstruction(static_cast<unsigned>(*depth + 1)));
 					else
 						opGas += 1000;
 				}
@@ -771,11 +771,11 @@ void StackLayoutGenerator::fillInJunk(CFG::BasicBlock const& _block, CFG::Functi
 					yulAssert(util::contains(m_currentFunctionInfo->returnVariables, std::get<VariableSlot>(_slot)));
 					// Strictly speaking the cost of the PUSH0 depends on the targeted EVM version, but the difference
 					// will not matter here.
-					opGas += evmasm::GasMeter::runGas(evmasm::pushInstruction(0), langutil::EVMVersion());;
+					opGas += evmasm::GasMeter::runGas(evmasm::pushInstruction(0));;
 				}
 			}
 		};
-		auto pop = [&]() { opGas += evmasm::GasMeter::runGas(evmasm::Instruction::POP,langutil::EVMVersion()); };
+		auto pop = [&]() { opGas += evmasm::GasMeter::runGas(evmasm::Instruction::POP); };
 		createStackLayout(_source, _target, swap, dupOrPush, pop);
 		return opGas;
 	};

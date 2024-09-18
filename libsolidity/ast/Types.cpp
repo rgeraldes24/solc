@@ -556,7 +556,6 @@ MemberList::MemberMap AddressType::nativeMembers(ASTNode const*) const
 		{"code", TypeProvider::array(DataLocation::Memory)},
 		{"codehash",  TypeProvider::fixedBytes(32)},
 		{"call", TypeProvider::function(strings{"bytes memory"}, strings{"bool", "bytes memory"}, FunctionType::Kind::BareCall, StateMutability::Payable)},
-		{"callcode", TypeProvider::function(strings{"bytes memory"}, strings{"bool", "bytes memory"}, FunctionType::Kind::BareCallCode, StateMutability::Payable)},
 		{"delegatecall", TypeProvider::function(strings{"bytes memory"}, strings{"bool", "bytes memory"}, FunctionType::Kind::BareDelegateCall, StateMutability::NonPayable)},
 		{"staticcall", TypeProvider::function(strings{"bytes memory"}, strings{"bool", "bytes memory"}, FunctionType::Kind::BareStaticCall, StateMutability::View)}
 	};
@@ -3004,7 +3003,6 @@ TypePointers FunctionType::returnParameterTypesWithoutDynamicTypes() const
 		m_kind == Kind::External ||
 		m_kind == Kind::DelegateCall ||
 		m_kind == Kind::BareCall ||
-		m_kind == Kind::BareCallCode ||
 		m_kind == Kind::BareDelegateCall ||
 		m_kind == Kind::BareStaticCall
 	)
@@ -3040,14 +3038,12 @@ std::string FunctionType::richIdentifier() const
 	case Kind::External: id += "external"; break;
 	case Kind::DelegateCall: id += "delegatecall"; break;
 	case Kind::BareCall: id += "barecall"; break;
-	case Kind::BareCallCode: id += "barecallcode"; break;
 	case Kind::BareDelegateCall: id += "baredelegatecall"; break;
 	case Kind::BareStaticCall: id += "barestaticcall"; break;
 	case Kind::Creation: id += "creation"; break;
 	case Kind::Send: id += "send"; break;
 	case Kind::Transfer: id += "transfer"; break;
 	case Kind::KECCAK256: id += "keccak256"; break;
-	case Kind::Selfdestruct: id += "selfdestruct"; break;
 	case Kind::Revert: id += "revert"; break;
 	case Kind::SHA256: id += "sha256"; break;
 	case Kind::GasLeft: id += "gasleft"; break;
@@ -3280,7 +3276,6 @@ std::vector<std::tuple<std::string, Type const*>> FunctionType::makeStackItems()
 		};
 		break;
 	case Kind::BareCall:
-	case Kind::BareCallCode:
 	case Kind::BareDelegateCall:
 	case Kind::BareStaticCall:
 	case Kind::Transfer:
@@ -3375,7 +3370,6 @@ MemberList::MemberMap FunctionType::nativeMembers(ASTNode const* _scope) const
 	case Kind::External:
 	case Kind::Creation:
 	case Kind::BareCall:
-	case Kind::BareCallCode:
 	case Kind::BareDelegateCall:
 	case Kind::BareStaticCall:
 	{
@@ -3582,7 +3576,6 @@ bool FunctionType::isBareCall() const
 	switch (m_kind)
 	{
 	case Kind::BareCall:
-	case Kind::BareCallCode:
 	case Kind::BareDelegateCall:
 	case Kind::BareStaticCall:
 	case Kind::SHA256:
@@ -3771,7 +3764,6 @@ bool FunctionType::padArguments() const
 	switch (m_kind)
 	{
 	case Kind::BareCall:
-	case Kind::BareCallCode:
 	case Kind::BareDelegateCall:
 	case Kind::BareStaticCall:
 	case Kind::SHA256:

@@ -1251,14 +1251,12 @@ public:
 		External, ///< external call using CALL
 		DelegateCall, ///< external call using DELEGATECALL, i.e. not exchanging the storage
 		BareCall, ///< CALL without function hash
-		BareCallCode, ///< CALLCODE without function hash
 		BareDelegateCall, ///< DELEGATECALL without function hash
 		BareStaticCall, ///< STATICCALL without function hash
 		Creation, ///< external call using CREATE
 		Send, ///< CALL, but without data and gas
 		Transfer, ///< CALL, but without data and throws on error
 		KECCAK256, ///< KECCAK256
-		Selfdestruct, ///< SELFDESTRUCT
 		Revert, ///< REVERT
 		SHA256, ///< CALL to special contract for sha256
 		Event, ///< syntactic sugar for LOG*
@@ -1488,7 +1486,6 @@ public:
 		case FunctionType::Kind::KECCAK256:
 		case FunctionType::Kind::SHA256:
 		case FunctionType::Kind::BareCall:
-		case FunctionType::Kind::BareCallCode:
 		case FunctionType::Kind::BareDelegateCall:
 		case FunctionType::Kind::BareStaticCall:
 			return true;

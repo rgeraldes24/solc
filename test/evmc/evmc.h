@@ -77,7 +77,6 @@ enum evmc_call_kind
     EVMC_CALL = 0,         /**< Request CALL. */
     EVMC_DELEGATECALL = 1, /**< Request DELEGATECALL. Valid since Homestead.
                                 The value param ignored. */
-    EVMC_CALLCODE = 2,     /**< Request CALLCODE. */
     EVMC_CREATE = 3,       /**< Request CREATE. */
     EVMC_CREATE2 = 4       /**< Request CREATE2. Valid since Constantinople.*/
 };
@@ -124,7 +123,7 @@ struct evmc_message
      * This is the address of the account which storage/balance/nonce is going to be modified
      * by the message execution. In case of ::EVMC_CALL, this is also the account where the
      * message value evmc_message::value is going to be transferred.
-     * For ::EVMC_CALLCODE or ::EVMC_DELEGATECALL, this may be different from
+     * For ::EVMC_DELEGATECALL, this may be different from
      * the evmc_message::code_address.
      *
      * Defined as `r` in the Yellow Paper.
@@ -176,7 +175,7 @@ struct evmc_message
     /**
      * The address of the code to be executed.
      *
-     * For ::EVMC_CALLCODE or ::EVMC_DELEGATECALL this may be different from
+     * For ::EVMC_DELEGATECALL this may be different from
      * the evmc_message::recipient.
      * Not required when invoking evmc_execute_fn(), only when invoking evmc_call_fn().
      * Ignored if kind is ::EVMC_CREATE or ::EVMC_CREATE2.
@@ -683,22 +682,6 @@ typedef size_t (*evmc_copy_code_fn)(struct evmc_host_context* context,
                                     size_t buffer_size);
 
 /**
- * Selfdestruct callback function.
- *
- * This callback function is used by an EVM to SELFDESTRUCT given contract.
- * The execution of the contract will not be stopped, that is up to the EVM.
- *
- * @param context      The pointer to the Host execution context. See ::evmc_host_context.
- * @param address      The address of the contract to be selfdestructed.
- * @param beneficiary  The address where the remaining ETH is going to be transferred.
- * @return             The information if the given address has not been registered as
- *                     selfdestructed yet. True if registered for the first time, false otherwise.
- */
-typedef bool (*evmc_selfdestruct_fn)(struct evmc_host_context* context,
-                                     const evmc_address* address,
-                                     const evmc_address* beneficiary);
-
-/**
  * Log callback function.
  *
  * This callback function is used by an EVM to inform about a LOG that happened
@@ -804,9 +787,6 @@ struct evmc_host_interface
 
     /** Copy code callback function. */
     evmc_copy_code_fn copy_code;
-
-    /** Selfdestruct callback function. */
-    evmc_selfdestruct_fn selfdestruct;
 
     /** Call callback function. */
     evmc_call_fn call;

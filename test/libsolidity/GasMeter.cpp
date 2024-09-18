@@ -102,10 +102,9 @@ public:
 
 	static GasMeter::GasConsumption gasForTransaction(bytes const& _data, bool _isCreation)
 	{
-		auto evmVersion = solidity::test::CommonOptions::get().evmVersion();
 		GasMeter::GasConsumption gas = _isCreation ? GasCosts::txCreateGas : GasCosts::txGas;
 		for (auto i: _data)
-			gas += i != 0 ? GasCosts::txDataNonZeroGas(evmVersion) : GasCosts::txDataZeroGas;
+			gas += i != 0 ? GasCosts::txDataNonZeroGas : GasCosts::txDataZeroGas;
 		return gas;
 	}
 };
@@ -152,7 +151,7 @@ BOOST_AUTO_TEST_CASE(updating_store)
 			}
 		}
 	)";
-	testCreationTimeGas(sourceCode, m_evmVersion < langutil::EVMVersion::constantinople() ? u256(0) : u256(9600));
+	testCreationTimeGas(sourceCode, u256(9600));
 }
 
 BOOST_AUTO_TEST_CASE(branches)
@@ -196,8 +195,6 @@ BOOST_AUTO_TEST_CASE(function_calls)
 	testRunTimeGas(
 		"f(uint256)",
 		std::vector<bytes>{encodeArgs(2), encodeArgs(8)},
-		m_evmVersion < EVMVersion::berlin() ?
-		u256(0) :
 		u256(2100)
 	);
 }
@@ -225,8 +222,6 @@ BOOST_AUTO_TEST_CASE(multiple_external_functions)
 	testRunTimeGas(
 		"f(uint256)",
 		std::vector<bytes>{encodeArgs(2), encodeArgs(8)},
-		m_evmVersion < EVMVersion::berlin() ?
-		u256(0) :
 		u256(2100)
 	);
 

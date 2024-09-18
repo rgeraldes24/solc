@@ -1389,7 +1389,6 @@ void CompilerStack::assembleYul(
 	//   If contract creation returns data with length greater than 0x6000 (2^14 + 2^13) bytes,
 	//   contract creation fails with an out of gas error.
 	if (
-		m_evmVersion >= langutil::EVMVersion::spuriousDragon() &&
 		compiledContract.runtimeObject.bytecode.size() > 0x6000
 	)
 		m_errorReporter.warning(
@@ -1877,7 +1876,7 @@ Json::Value CompilerStack::gasEstimates(std::string const& _contractName) const
 	if (evmasm::AssemblyItems const* items = assemblyItems(_contractName))
 	{
 		Gas executionGas = gasEstimator.functionalEstimation(*items);
-		Gas codeDepositGas{evmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false, m_evmVersion)};
+		Gas codeDepositGas{evmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false)};
 
 		Json::Value creation(Json::objectValue);
 		creation["codeDepositCost"] = gasToJson(codeDepositGas);

@@ -1101,10 +1101,7 @@ void TypeChecker::endVisit(TryStatement const& _tryStatement)
 	TryCatchClause const& successClause = *_tryStatement.clauses().front();
 	if (successClause.parameters())
 	{
-		TypePointers returnTypes =
-			m_evmVersion.supportsReturndata() ?
-			functionType.returnParameterTypes() :
-			functionType.returnParameterTypesWithoutDynamicTypes();
+		TypePointers returnTypes = functionType.returnParameterTypes();
 		std::vector<ASTPointer<VariableDeclaration>> const& parameters =
 			successClause.parameters()->parameters();
 		if (returnTypes.size() != parameters.size())
@@ -1434,7 +1431,6 @@ void TypeChecker::endVisit(ExpressionStatement const& _statement)
 			auto kind = callType->kind();
 			if (
 				kind == FunctionType::Kind::BareCall ||
-				kind == FunctionType::Kind::BareCallCode ||
 				kind == FunctionType::Kind::BareDelegateCall ||
 				kind == FunctionType::Kind::BareStaticCall
 			)
@@ -2513,7 +2509,6 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 			}
 			else if (
 				_functionType->kind() == FunctionType::Kind::BareCall ||
-				_functionType->kind() == FunctionType::Kind::BareCallCode ||
 				_functionType->kind() == FunctionType::Kind::BareDelegateCall ||
 				_functionType->kind() == FunctionType::Kind::BareStaticCall
 			)
@@ -2641,7 +2636,6 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 					msg += " " + result.message();
 				if (
 					_functionType->kind() == FunctionType::Kind::BareCall ||
-					_functionType->kind() == FunctionType::Kind::BareCallCode ||
 					_functionType->kind() == FunctionType::Kind::BareDelegateCall ||
 					_functionType->kind() == FunctionType::Kind::BareStaticCall
 				)
@@ -2882,9 +2876,7 @@ bool TypeChecker::visit(FunctionCall const& _functionCall)
 		default:
 		{
 			typeCheckFunctionCall(_functionCall, functionType);
-			returnTypes = m_evmVersion.supportsReturndata() ?
-				functionType->returnParameterTypes() :
-				functionType->returnParameterTypesWithoutDynamicTypes();
+			returnTypes = functionType->returnParameterTypes();
 			break;
 		}
 		}
@@ -2935,7 +2927,6 @@ bool TypeChecker::visit(FunctionCallOptions const& _functionCallOptions)
 		kind != FunctionType::Kind::Creation &&
 		kind != FunctionType::Kind::External &&
 		kind != FunctionType::Kind::BareCall &&
-		kind != FunctionType::Kind::BareCallCode &&
 		kind != FunctionType::Kind::BareDelegateCall &&
 		kind != FunctionType::Kind::BareStaticCall
 	)
@@ -3664,32 +3655,6 @@ bool TypeChecker::visit(Identifier const& _identifier)
 	annotation.requiredLookup =
 		dynamic_cast<CallableDeclaration const*>(annotation.referencedDeclaration) ?
 		VirtualLookup::Virtual : VirtualLookup::Static;
-
-	// Check for deprecated function names.
-	// The check is done here for the case without an actual function call.
-	if (FunctionType const* fType = dynamic_cast<FunctionType const*>(_identifier.annotation().type))
-	{
-		if (_identifier.name() == "sha3" && fType->kind() == FunctionType::Kind::KECCAK256)
-			m_errorReporter.typeError(
-				3557_error,
-				_identifier.location(),
-				"\"sha3\" has been deprecated in favour of \"keccak256\"."
-			);
-		else if (_identifier.name() == "suicide" && fType->kind() == FunctionType::Kind::Selfdestruct)
-			m_errorReporter.typeError(
-				8050_error,
-				_identifier.location(),
-				"\"suicide\" has been deprecated in favour of \"selfdestruct\"."
-			);
-		else if (_identifier.name() == "selfdestruct" && fType->kind() == FunctionType::Kind::Selfdestruct)
-			m_errorReporter.warning(
-				5159_error,
-				_identifier.location(),
-				"\"selfdestruct\" has been deprecated. "
-				"The underlying opcode will eventually undergo breaking changes, "
-				"and its use is not recommended."
-			);
-	}
 
 	if (
 		MagicVariableDeclaration const* magicVar =

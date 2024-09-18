@@ -236,15 +236,6 @@ bool StaticAnalyzer::visit(MemberAccess const& _memberAccess)
 			);
 	}
 
-	if (_memberAccess.memberName() == "callcode")
-		if (auto const* type = dynamic_cast<FunctionType const*>(_memberAccess.annotation().type))
-			if (type->kind() == FunctionType::Kind::BareCallCode)
-				m_errorReporter.typeError(
-					2256_error,
-					_memberAccess.location(),
-					"\"callcode\" has been deprecated in favour of \"delegatecall\"."
-				);
-
 	if (m_constructor)
 	{
 		auto const* expr = &_memberAccess.expression();

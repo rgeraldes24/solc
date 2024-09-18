@@ -58,7 +58,6 @@ contract C {
             pop(staticcall(0, 1, 2, 3, 4, 5))
             return(0, 1)
             revert(0, 1)
-            //selfdestruct(0)
             invalid()
             //log0(0, 1)
             //log1(0, 1, 2)

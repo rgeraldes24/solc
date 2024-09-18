@@ -77,7 +77,6 @@ Block and Transaction Properties
 - ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.chainid`` (``uint``): current chain id
 - ``block.coinbase`` (``address payable``): current block miner's address
-- ``block.difficulty`` (``uint``): current block difficulty (``EVM < Paris``). For other EVM versions it behaves as a deprecated alias for ``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
 - ``block.gaslimit`` (``uint``): current block gaslimit
 - ``block.number`` (``uint``): current block number
 - ``block.prevrandao`` (``uint``): random number provided by the beacon chain (``EVM >= Paris``)
@@ -215,7 +214,7 @@ Mathematical and Cryptographic Functions
 
     When running ``sha256`` on a *private blockchain*, you might encounter Out-of-Gas. This is because this function is implemented as "precompiled contract" and only really exists after it receives the first message (although its contract code is hardcoded). Messages to non-existing contracts are more expensive and thus the execution might run into an Out-of-Gas error. A workaround for this problem is to first send Wei (1 for example) to each of the contracts before you use them in your actual contracts. This is not an issue on the main or test net.
 
-.. index:: balance, codehash, send, transfer, call, callcode, delegatecall, staticcall
+.. index:: balance, codehash, send, transfer, call, delegatecall, staticcall
 
 .. _address_related:
 
@@ -282,11 +281,6 @@ For more information, see the section on :ref:`address`.
     Prior to version 0.5.0, ``.call``, ``.delegatecall`` and ``.staticcall`` only returned the
     success condition and not the return data.
 
-.. note::
-    Prior to version 0.5.0, there was a member called ``callcode`` with similar but slightly different
-    semantics than ``delegatecall``.
-
-
 .. index:: this, selfdestruct, super
 
 Contract-related
@@ -298,24 +292,7 @@ Contract-related
 ``super``
     A contract one level higher in the inheritance hierarchy
 
-``selfdestruct(address payable recipient)``
-    Destroy the current contract, sending its funds to the given :ref:`address`
-    and end execution.
-    Note that ``selfdestruct`` has some peculiarities inherited from the EVM:
-
-    - the receiving contract's receive function is not executed.
-    - the contract is only really destroyed at the end of the transaction and ``revert`` s might "undo" the destruction.
-
 Furthermore, all functions of the current contract are callable directly including the current function.
-
-.. warning::
-    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
-    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behavior
-    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
-
-.. note::
-    Prior to version 0.5.0, there was a function called ``suicide`` with the same
-    semantics as ``selfdestruct``.
 
 .. index:: type, creationCode, runtimeCode
 

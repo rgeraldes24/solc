@@ -14,7 +14,6 @@ contract C {
             pop(call(0, 1, 2, 3, 4, 5, 6))
             pop(callcode(0, 1, 2, 3, 4, 5, 6))
             pop(delegatecall(0, 1, 2, 3, 4, 5))
-            selfdestruct(0)
             log0(0, 1)
             log1(0, 1, 2)
             log2(0, 1, 2, 3)
@@ -35,7 +34,6 @@ contract C {
     }
 }
 // ----
-// Warning 1699: (498-510): "selfdestruct" has been deprecated. The underlying opcode will eventually undergo breaking changes, and its use is not recommended.
 // Warning 5740: (526-853): Unreachable code.
 // TypeError 2527: (79-87): Function declared as pure, but this expression (potentially) reads from the environment or state and thus requires "view".
 // TypeError 8961: (101-113): Function cannot be declared as pure because this expression (potentially) modifies the state.

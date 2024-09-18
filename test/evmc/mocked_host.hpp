@@ -127,10 +127,6 @@ public:
     /// The record of all LOGs passed to the emit_log() method.
     std::vector<log_record> recorded_logs;
 
-    /// The record of all SELFDESTRUCTs from the selfdestruct() method
-    /// as a map selfdestructed_address => [beneficiary1, beneficiary2, ...].
-    std::unordered_map<address, std::vector<address>> recorded_selfdestructs;
-
 private:
     /// The copy of call inputs for the recorded_calls record.
     std::vector<bytes> m_recorded_calls_inputs;
@@ -366,15 +362,6 @@ public:
         if (n > 0)
             std::copy_n(&code[code_offset], n, buffer_data);
         return n;
-    }
-
-    /// Selfdestruct the account (EVMC host method).
-    bool selfdestruct(const address& addr, const address& beneficiary) noexcept override
-    {
-        record_account_access(addr);
-        auto& beneficiaries = recorded_selfdestructs[addr];
-        beneficiaries.emplace_back(beneficiary);
-        return beneficiaries.size() == 1;
     }
 
     /// Call/create other contract (EVMC host method).

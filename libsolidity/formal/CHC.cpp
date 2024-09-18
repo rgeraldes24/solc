@@ -602,7 +602,6 @@ void CHC::endVisit(FunctionCall const& _funCall)
 		visitDeployment(_funCall);
 		break;
 	case FunctionType::Kind::DelegateCall:
-	case FunctionType::Kind::BareCallCode:
 	case FunctionType::Kind::BareDelegateCall:
 		SMTEncoder::endVisit(_funCall);
 		unknownFunctionCall(_funCall);
@@ -1489,8 +1488,8 @@ void CHC::defineExternalFunctionInterface(FunctionDefinition const& _function, C
 	m_context.addAssertion(initialConstraints(_contract, &_function));
 	m_context.addAssertion(state().txTypeConstraints() && state().txFunctionConstraints(_function));
 
-	// The contract may have received funds through a selfdestruct or
-	// block.coinbase, which do not trigger calls into the contract.
+	// The contract may have received funds through block.coinbase, 
+	// which do not trigger calls into the contract.
 	// So the only constraint we can add here is that the balance of
 	// the contract grows by at least `msg.value`.
 	SymbolicIntVariable k{TypeProvider::uint256(), TypeProvider::uint256(), "funds_" + std::to_string(m_context.newUniqueId()), m_context};

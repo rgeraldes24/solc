@@ -78,7 +78,7 @@ void EVMObjectCompiler::run(Object& _object, bool _optimize)
 			_optimize && (m_dialect.evmVersion() == langutil::EVMVersion()),
 			"Experimental EOF support is only available for optimized via-IR compilation and the most recent EVM version."
 		);
-	if (_optimize && m_dialect.evmVersion().canOverchargeGasForCall())
+	if (_optimize)
 	{
 		auto stackErrors = OptimizedEVMCodeTransform::run(
 			m_assembly,

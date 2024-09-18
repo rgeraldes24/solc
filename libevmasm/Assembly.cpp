@@ -443,7 +443,7 @@ Json::Value Assembly::assemblyJSON(std::map<std::string, unsigned> const& _sourc
 				sourceIndex = static_cast<int>(iter->second);
 		}
 
-		auto [name, data] = item.nameAndData(m_evmVersion);
+		auto [name, data] = item.nameAndData();
 		Json::Value jsonItem;
 		jsonItem["name"] = name;
 		jsonItem["begin"] = item.location().start;

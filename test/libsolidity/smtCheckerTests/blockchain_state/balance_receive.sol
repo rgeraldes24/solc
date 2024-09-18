@@ -4,7 +4,7 @@ contract C {
 		prevBalance = address(this).balance;
 	}
 	function f() public payable {
-		assert(address(this).balance == prevBalance + msg.value); // should fail because there might be funds from selfdestruct/block.coinbase
+		assert(address(this).balance == prevBalance + msg.value); // should fail because there might be funds from block.coinbase
 		assert(address(this).balance < prevBalance + msg.value); // should fail
 		assert(address(this).balance >= prevBalance + msg.value); // should hold
 		prevBalance = address(this).balance;

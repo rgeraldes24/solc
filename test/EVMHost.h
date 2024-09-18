@@ -59,7 +59,6 @@ public:
 	using MockedHost::access_storage;
 
 	// Modified features of MockedHost.
-	bool selfdestruct(evmc::address const& _addr, evmc::address const& _beneficiary) noexcept final;
 	evmc::Result call(evmc_message const& _message) noexcept final;
 	evmc::bytes32 get_block_hash(int64_t number) const noexcept final;
 
@@ -101,7 +100,7 @@ private:
 	void transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recipient, u256 const& _value) noexcept;
 
 	/// Start a new transaction frame.
-	/// This will perform selfdestructs, apply storage status changes across all accounts,
+	/// This will apply storage status changes across all accounts,
 	/// and clear account/storage access indicator for EIP-2929.
 	void newTransactionFrame();
 
@@ -148,8 +147,6 @@ private:
 	void callRecords();
 	/// Outputs balance of account to stateStream.
 	void balance();
-	/// Outputs self-destruct record for account to stateStream.
-	void selfdestructRecords();
 
 	std::ostringstream m_stateStream;
 	EVMHost& m_host;

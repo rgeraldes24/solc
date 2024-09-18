@@ -179,15 +179,13 @@ enum class Instruction: uint8_t
 
 	CREATE = 0xf0,		///< create a new account with associated code
 	CALL,				///< message-call into an account
-	CALLCODE,			///< message-call with another account's code only
 	RETURN,				///< halt execution returning output data
-	DELEGATECALL,		///< like CALLCODE but keeps caller's value and sender
+	DELEGATECALL,		///< like CALLCODE but keeps caller's value and sender // TODO(rgeraldes24): desc
 	CREATE2 = 0xf5,		///< create new account with associated code at address `sha3(0xff + sender + salt + init code) % 2**160`
 	STATICCALL = 0xfa,	///< like CALL but disallow state modifications
 
 	REVERT = 0xfd,		///< halt execution, revert state and return output data
-	INVALID = 0xfe,		///< invalid instruction for expressing runtime errors (e.g., division-by-zero)
-	SELFDESTRUCT = 0xff	///< halt execution and register account for later deletion
+	INVALID = 0xfe		///< invalid instruction for expressing runtime errors (e.g., division-by-zero)
 };
 
 /// @returns true if the instruction is of the CALL opcode family
@@ -196,7 +194,6 @@ constexpr bool isCallInstruction(Instruction _inst) noexcept
 	switch (_inst)
 	{
 		case Instruction::CALL:
-		case Instruction::CALLCODE:
 		case Instruction::DELEGATECALL:
 		case Instruction::STATICCALL:
 			return true;
@@ -308,7 +305,7 @@ struct InstructionInfo
 };
 
 /// Information on all the instructions.
-InstructionInfo instructionInfo(Instruction _inst, langutil::EVMVersion _evmVersion);
+InstructionInfo instructionInfo(Instruction _inst);
 
 /// check whether instructions exists.
 bool isValidInstruction(Instruction _inst);

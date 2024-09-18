@@ -883,12 +883,8 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
 |                         |     |   | and 1 on success                                                |
 |                         |     |   | :ref:`See more <yul-call-return-area>`                          |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| callcode(g, a, v, in,   |     | F | identical to ``call`` but only use the code from a and stay     |
-| insize, out, outsize)   |     |   | in the context of the current contract otherwise                |
-|                         |     |   | :ref:`See more <yul-call-return-area>`                          |
-+-------------------------+-----+---+-----------------------------------------------------------------+
 | delegatecall(g, a, in,  |     | H | identical to ``callcode`` but also keep ``caller``              |
-| insize, out, outsize)   |     |   | and ``callvalue``                                               |
+| insize, out, outsize)   |     |   | and ``callvalue`` TODO(rgeraldes24): desc                       |
 |                         |     |   | :ref:`See more <yul-call-return-area>`                          |
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | staticcall(g, a, in,    |     | B | identical to ``call(g, a, 0, in, insize, out, outsize)`` but do |

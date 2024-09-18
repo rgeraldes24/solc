@@ -58,7 +58,6 @@ contract C {
             pop(staticcall(0, 1, 2, 3, 4, 5))
             return(0, 1)
             revert(0, 1)
-            selfdestruct(0)
             invalid()
             log0(0, 1)
             log1(0, 1, 2)
@@ -85,7 +84,6 @@ contract C {
 // ====
 // EVMVersion: >=paris
 // ----
-// Warning 1699: (1754-1766): "selfdestruct" has been deprecated. The underlying opcode will eventually undergo breaking changes, and its use is not recommended.
 // Warning 5740: (89-1716): Unreachable code.
 // Warning 5740: (1729-1741): Unreachable code.
 // Warning 5740: (1754-1769): Unreachable code.

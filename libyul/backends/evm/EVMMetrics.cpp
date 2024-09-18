@@ -87,26 +87,25 @@ void GasMeterVisitor::operator()(FunctionCall const& _funCall)
 
 void GasMeterVisitor::operator()(Literal const& _lit)
 {
-	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::PUSH1, m_dialect.evmVersion());
+	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::PUSH1);
 	m_dataGas +=
 		singleByteDataGas() +
 		evmasm::GasMeter::dataGas(
 			toCompactBigEndian(valueOfLiteral(_lit), 1),
-			m_isCreation,
-			m_dialect.evmVersion()
+			m_isCreation
 		);
 }
 
 void GasMeterVisitor::operator()(Identifier const&)
 {
-	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::DUP1, m_dialect.evmVersion());
+	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::DUP1);
 	m_dataGas += singleByteDataGas();
 }
 
 bigint GasMeterVisitor::singleByteDataGas() const
 {
 	if (m_isCreation)
-		return evmasm::GasCosts::txDataNonZeroGas(m_dialect.evmVersion());
+		return evmasm::GasCosts::txDataNonZeroGas;
 	else
 		return evmasm::GasCosts::createDataGas;
 }
@@ -114,11 +113,11 @@ bigint GasMeterVisitor::singleByteDataGas() const
 void GasMeterVisitor::instructionCostsInternal(evmasm::Instruction _instruction)
 {
 	if (_instruction == evmasm::Instruction::EXP)
-		m_runGas += evmasm::GasCosts::expGas + evmasm::GasCosts::expByteGas(m_dialect.evmVersion());
+		m_runGas += evmasm::GasCosts::expGas + evmasm::GasCosts::expByteGas;
 	else if (_instruction == evmasm::Instruction::KECCAK256)
 		// Assumes that Keccak-256 is computed on a single word (rounded up).
 		m_runGas += evmasm::GasCosts::keccak256Gas + evmasm::GasCosts::keccak256WordGas;
 	else
-		m_runGas += evmasm::GasMeter::runGas(_instruction, m_dialect.evmVersion());
+		m_runGas += evmasm::GasMeter::runGas(_instruction);
 	m_dataGas += singleByteDataGas();
 }

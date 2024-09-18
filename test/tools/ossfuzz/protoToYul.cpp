@@ -289,15 +289,12 @@ void ProtoConverter::visit(BinaryOp const& _x)
 		m_output << "gt";
 		break;
 	case BinaryOp::SHR:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "shr";
 		break;
 	case BinaryOp::SHL:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "shl";
 		break;
 	case BinaryOp::SAR:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "sar";
 		break;
 	case BinaryOp::SDIV:
@@ -670,12 +667,7 @@ void ProtoConverter::visit(NullaryOp const& _x)
 		m_output << "codesize()";
 		break;
 	case NullaryOp::RETURNDATASIZE:
-		// If evm supports returndatasize, we generate it. Otherwise,
-		// we output a dictionary token.
-		if (m_evmVersion.supportsReturndata())
-			m_output << "returndatasize()";
-		else
-			m_output << dictionaryToken();
+		m_output << "returndatasize()";
 		break;
 	case NullaryOp::ADDRESS:
 		m_output << "address()";
@@ -739,7 +731,6 @@ void ProtoConverter::visit(CopyFunc const& _x)
 		m_output << "codecopy";
 		break;
 	case CopyFunc::RETURNDATA:
-		yulAssert(m_evmVersion.supportsReturndata(), "Proto fuzzer: Invalid evm version");
 		m_output << "returndatacopy";
 		break;
 	case CopyFunc::DATA:
@@ -963,14 +954,10 @@ void ProtoConverter::visit(LowLevelCall const& _x)
 	case LowLevelCall::CALL:
 		m_output << "call(";
 		break;
-	case LowLevelCall::CALLCODE:
-		m_output << "callcode(";
-		break;
 	case LowLevelCall::DELEGATECALL:
 		m_output << "delegatecall(";
 		break;
 	case LowLevelCall::STATICCALL:
-		yulAssert(m_evmVersion.hasStaticCall(), "Proto fuzzer: Invalid evm version");
 		m_output << "staticcall(";
 		break;
 	}
@@ -978,7 +965,7 @@ void ProtoConverter::visit(LowLevelCall const& _x)
 	m_output << ", ";
 	visit(_x.addr());
 	m_output << ", ";
-	if (type == LowLevelCall::CALL || type == LowLevelCall::CALLCODE)
+	if (type == LowLevelCall::CALL)
 	{
 		visit(_x.wei());
 		m_output << ", ";
@@ -1259,14 +1246,6 @@ void ProtoConverter::visit(RetRevStmt const& _x)
 	m_output << "mod(";
 	visit(_x.size());
 	m_output << ", " << to_string(s_maxSize) << ")";
-	m_output << ")\n";
-}
-
-void ProtoConverter::visit(SelfDestructStmt const& _x)
-{
-	m_output << "selfdestruct";
-	m_output << "(";
-	visit(_x.addr());
 	m_output << ")\n";
 }
 

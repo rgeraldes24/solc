@@ -349,11 +349,7 @@ void OptimizedEVMCodeTransform::createStackLayout(std::shared_ptr<DebugData cons
 				},
 				[&](JunkSlot const&)
 				{
-					// Note: this will always be popped, so we can push anything.
-					if (m_assembly.evmVersion().hasPush0())
-						m_assembly.appendConstant(0);
-					else
-						m_assembly.appendInstruction(evmasm::Instruction::CODESIZE);
+					m_assembly.appendConstant(0);
 				}
 			}, _slot);
 		},

@@ -51,8 +51,8 @@ BOOST_AUTO_TEST_CASE(environment_access)
 		"this",
 		"address(1).balance",
 	};
-	if (solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		view.emplace_back("address(0x4242).staticcall(\"\")");
+	// TODO(rgeraldes24): add to the vector from the get go
+	view.emplace_back("address(0x4242).staticcall(\"\")");
 
 	// ``block.blockhash`` and ``blockhash`` are tested separately below because their usage will
 	// produce warnings that can't be handled in a generic way.
@@ -104,10 +104,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall)
 			}
 		}
 	)";
-	if (!solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		CHECK_ERROR(text, TypeError, "\"staticcall\" is not supported by the VM version.");
-	else
-		CHECK_SUCCESS_NO_WARNINGS(text);
+	CHECK_SUCCESS_NO_WARNINGS(text);
 }
 
 
@@ -120,8 +117,7 @@ BOOST_AUTO_TEST_CASE(assembly_staticcall)
 			}
 		}
 	)";
-	if (solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		CHECK_SUCCESS_NO_WARNINGS(text);
+	CHECK_SUCCESS_NO_WARNINGS(text);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

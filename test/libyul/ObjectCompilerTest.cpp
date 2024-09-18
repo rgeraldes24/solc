@@ -92,7 +92,7 @@ TestCase::TestResult ObjectCompilerTest::run(ostream& _stream, string const& _li
 			"Bytecode: " +
 			util::toHex(obj.bytecode->bytecode) +
 			"\nOpcodes: " +
-			boost::trim_copy(evmasm::disassemble(obj.bytecode->bytecode, solidity::test::CommonOptions::get().evmVersion())) +
+			boost::trim_copy(evmasm::disassemble(obj.bytecode->bytecode)) +
 			"\nSourceMappings:" +
 			(obj.sourceMappings->empty() ? "" : " " + *obj.sourceMappings) +
 			"\n";

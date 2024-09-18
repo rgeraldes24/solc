@@ -143,7 +143,8 @@ The full contract
         /// destroy the contract and reclaim the leftover funds.
         function shutdown() external {
             require(msg.sender == owner);
-            selfdestruct(payable(msg.sender));
+            // TODO(rgeraldes24): replace with transfer
+            // selfdestruct(payable(msg.sender));
         }
 
         /// signature methods.

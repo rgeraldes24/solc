@@ -192,19 +192,6 @@ Constructors
   disallowed.  If you only want to specify an inheritance relation without
   giving arguments, do not provide parentheses at all.
 
-Functions
----------
-
-* Function ``callcode`` is now disallowed (in favor of ``delegatecall``). It
-  is still possible to use it via inline assembly.
-
-* ``suicide`` is now disallowed (in favor of ``selfdestruct``).
-
-* ``sha3`` is now disallowed (in favor of ``keccak256``).
-
-* ``throw`` is now disallowed (in favor of ``revert``, ``require`` and
-  ``assert``).
-
 Conversions
 -----------
 

@@ -170,15 +170,13 @@ bool Inliner::shouldInlineFullFunctionBody(size_t _tag, ranges::span<AssemblyIte
 		numberOfCallSites * codeSize(uninlinedCallSitePattern) +
 		codeSize(uninlinedFunctionPattern) +
 		functionBodySize,
-		m_isCreation,
-		m_evmVersion
+		m_isCreation
 	);
 	// When inlining the execution cost beyond the actual function execution is zero,
 	// but for each call site a copy of the function is deposited.
 	bigint inlinedDepositCost = GasMeter::dataGas(
 		numberOfCallSites * functionBodySize,
-		m_isCreation,
-		m_evmVersion
+		m_isCreation
 	);
 	// If the block is referenced from outside the current subassembly, the original function cannot be removed.
 	// Note that the function also cannot always be removed, if it is not referenced from outside, but in that case
@@ -186,8 +184,7 @@ bool Inliner::shouldInlineFullFunctionBody(size_t _tag, ranges::span<AssemblyIte
 	if (m_tagsReferencedFromOutside.count(_tag))
 		inlinedDepositCost += GasMeter::dataGas(
 			codeSize(uninlinedFunctionPattern) + functionBodySize,
-			m_isCreation,
-			m_evmVersion
+			m_isCreation
 		);
 
 	// If the estimated runtime cost over the lifetime of the contract plus the deposit cost in the uninlined case
@@ -225,8 +222,8 @@ std::optional<AssemblyItem> Inliner::shouldInline(size_t _tag, AssemblyItem cons
 			AssemblyItem{Instruction::JUMP},
 		};
 		if (
-			GasMeter::dataGas(codeSize(_block.items), m_isCreation, m_evmVersion) <=
-			GasMeter::dataGas(codeSize(jumpPattern), m_isCreation, m_evmVersion)
+			GasMeter::dataGas(codeSize(_block.items), m_isCreation) <=
+			GasMeter::dataGas(codeSize(jumpPattern), m_isCreation)
 		)
 			return blockExit;
 	}

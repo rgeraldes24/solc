@@ -96,39 +96,17 @@ EVMHost::EVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 		assertThrow(false, Exception, "");
 	}
 
-	if (_evmVersion == langutil::EVMVersion::homestead())
-		m_evmRevision = EVMC_HOMESTEAD;
-	else if (_evmVersion == langutil::EVMVersion::tangerineWhistle())
-		m_evmRevision = EVMC_TANGERINE_WHISTLE;
-	else if (_evmVersion == langutil::EVMVersion::spuriousDragon())
-		m_evmRevision = EVMC_SPURIOUS_DRAGON;
-	else if (_evmVersion == langutil::EVMVersion::byzantium())
-		m_evmRevision = EVMC_BYZANTIUM;
-	else if (_evmVersion == langutil::EVMVersion::constantinople())
-		m_evmRevision = EVMC_CONSTANTINOPLE;
-	else if (_evmVersion == langutil::EVMVersion::petersburg())
-		m_evmRevision = EVMC_PETERSBURG;
-	else if (_evmVersion == langutil::EVMVersion::istanbul())
-		m_evmRevision = EVMC_ISTANBUL;
-	else if (_evmVersion == langutil::EVMVersion::berlin())
-		m_evmRevision = EVMC_BERLIN;
-	else if (_evmVersion == langutil::EVMVersion::london())
-		m_evmRevision = EVMC_LONDON;
-	else if (_evmVersion == langutil::EVMVersion::paris())
-		m_evmRevision = EVMC_PARIS;
-	else if (_evmVersion == langutil::EVMVersion::shanghai())
+	if (_evmVersion == langutil::EVMVersion::shanghai())
 		m_evmRevision = EVMC_SHANGHAI;
 	else
 		assertThrow(false, Exception, "Unsupported EVM version");
 
-	if (m_evmRevision >= EVMC_PARIS)
-		// This is the value from the merge block.
-		tx_context.block_prev_randao = 0xa86c2e601b6c44eb4848f7d23d9df3113fbcac42041c49cbed5000cb4f118777_bytes32;
-	else
-		tx_context.block_prev_randao = evmc::uint256be{200000000};
+	
+	// This is the value from the merge block. // TODO(rgeraldes24)
+	tx_context.block_prev_randao = 0xa86c2e601b6c44eb4848f7d23d9df3113fbcac42041c49cbed5000cb4f118777_bytes32;
 	tx_context.block_gas_limit = 20000000;
 	tx_context.block_coinbase = 0x7878787878787878787878787878787878787878_address;
-	tx_context.tx_gas_price = evmc::uint256be{3000000000};
+	tx_context.tx_gas_price = evmc::uint256be{3000000000}; // TODO(rgeraldes24)
 	tx_context.tx_origin = 0x9292929292929292929292929292929292929292_address;
 	// Mainnet according to EIP-155
 	tx_context.chain_id = evmc::uint256be{1};
@@ -145,8 +123,6 @@ EVMHost::EVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 void EVMHost::reset()
 {
 	accounts.clear();
-	// Clear self destruct records
-	recorded_selfdestructs.clear();
 	// Clear call records
 	recorded_calls.clear();
 	// Clear EIP-2929 account access indicator
@@ -164,8 +140,7 @@ void EVMHost::reset()
 		// 1wei
 		accounts[address].balance = evmc::uint256be{1};
 		// Set according to EIP-1052.
-		if (precompiledAddress < 5 || m_evmVersion >= langutil::EVMVersion::byzantium())
-			accounts[address].codehash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470_bytes32;
+		accounts[address].codehash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470_bytes32;		
 	}
 }
 
@@ -180,10 +155,6 @@ void EVMHost::newTransactionFrame()
 			value.access_status = EVMC_ACCESS_COLD; // Clear EIP-2929 storage access indicator
 			value.original = value.current;			// Clear EIP-2200 dirty slot
 		}
-	// Process selfdestruct list
-	for (auto& [address, _]: recorded_selfdestructs)
-		accounts.erase(address);
-	recorded_selfdestructs.clear();
 }
 
 void EVMHost::transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recipient, u256 const& _value) noexcept
@@ -191,16 +162,6 @@ void EVMHost::transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recip
 	assertThrow(u256(convertFromEVMC(_sender.balance)) >= _value, Exception, "Insufficient balance for transfer");
 	_sender.balance = convertToEVMC(u256(convertFromEVMC(_sender.balance)) - _value);
 	_recipient.balance = convertToEVMC(u256(convertFromEVMC(_recipient.balance)) + _value);
-}
-
-bool EVMHost::selfdestruct(const evmc::address& _addr, const evmc::address& _beneficiary) noexcept
-{
-	// TODO actual selfdestruct is even more complicated.
-
-	transfer(accounts[_addr], accounts[_beneficiary], convertFromEVMC(accounts[_addr].balance));
-
-	// Record self destructs. Clearing will be done in newTransactionFrame().
-	return MockedHost::selfdestruct(_addr, _beneficiary);
 }
 
 void EVMHost::recordCalls(evmc_message const& _message) noexcept
@@ -239,7 +200,7 @@ evmc::Result EVMHost::call(evmc_message const& _message) noexcept
 	{
 		message.gas -= message.kind == EVMC_CREATE ? evmasm::GasCosts::txCreateGas : evmasm::GasCosts::txGas;
 		for (size_t i = 0; i < message.input_size; ++i)
-			message.gas -= message.input_data[i] == 0 ? evmasm::GasCosts::txDataZeroGas : evmasm::GasCosts::txDataNonZeroGas(m_evmVersion);
+			message.gas -= message.input_data[i] == 0 ? evmasm::GasCosts::txDataZeroGas : evmasm::GasCosts::txDataNonZeroGas;
 		if (message.gas < 0)
 		{
 			evmc::Result result;
@@ -312,7 +273,7 @@ evmc::Result EVMHost::call(evmc_message const& _message) noexcept
 
 	auto& destination = accounts[message.recipient];
 
-	if (value != 0 && message.kind != EVMC_DELEGATECALL && message.kind != EVMC_CALLCODE)
+	if (value != 0 && message.kind != EVMC_DELEGATECALL)
 	{
 		if (value > convertFromEVMC(sender.balance))
 		{
@@ -1015,8 +976,9 @@ string EVMHostPrinter::state()
 		storage();
 		balance();
 	}
-	else
-		selfdestructRecords();
+	// TODO(rgeraldes24): remove
+	// else
+	// 	selfdestructRecords();
 
 	callRecords();
 	return m_stateStream.str();
@@ -1040,16 +1002,6 @@ void EVMHostPrinter::balance()
 		<< endl;
 }
 
-void EVMHostPrinter::selfdestructRecords()
-{
-	for (auto const& record: m_host.recorded_selfdestructs)
-		for (auto const& beneficiary: record.second)
-			m_stateStream << "SELFDESTRUCT"
-				<< " BENEFICIARY "
-				<< m_host.convertFromEVMC(beneficiary)
-				<< endl;
-}
-
 void EVMHostPrinter::callRecords()
 {
 	static auto constexpr callKind = [](evmc_call_kind _kind) -> string
@@ -1060,8 +1012,6 @@ void EVMHostPrinter::callRecords()
 				return "CALL";
 			case evmc_call_kind::EVMC_DELEGATECALL:
 				return "DELEGATECALL";
-			case evmc_call_kind::EVMC_CALLCODE:
-				return "CALLCODE";
 			case evmc_call_kind::EVMC_CREATE:
 				return "CREATE";
 			case evmc_call_kind::EVMC_CREATE2:

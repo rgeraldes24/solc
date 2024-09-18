@@ -1042,8 +1042,6 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 	case FunctionType::Kind::BareStaticCall:
 		appendBareCall(_functionCall, arguments);
 		break;
-	case FunctionType::Kind::BareCallCode:
-		solAssert(false, "Callcode has been removed.");
 	case FunctionType::Kind::Event:
 	{
 		auto const& event = dynamic_cast<EventDefinition const&>(functionType->declaration());
@@ -1496,12 +1494,10 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 		break;
 	}
 	case FunctionType::Kind::GasLeft:
-	case FunctionType::Kind::Selfdestruct:
 	case FunctionType::Kind::BlockHash:
 	{
 		static std::map<FunctionType::Kind, std::string> functions = {
 			{FunctionType::Kind::GasLeft, "gas"},
-			{FunctionType::Kind::Selfdestruct, "selfdestruct"},
 			{FunctionType::Kind::BlockHash, "blockhash"},
 		};
 		solAssert(functions.find(functionType->kind()) != functions.end());
@@ -1621,12 +1617,11 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 		Whiskers templ(R"(
 			let <pos> := <allocateUnbounded>()
 			let <end> := <encodeArgs>(<pos> <argumentString>)
-			let <success> := <call>(<gas>, <address> <?isCall>, 0</isCall>, <pos>, sub(<end>, <pos>), 0, 32)
+			let <success> := <call>(<gas>, <address>, <pos>, sub(<end>, <pos>), 0, 32)
 			if iszero(<success>) { <forwardingRevert>() }
 			let <retVars> := <shl>(mload(0))
 		)");
-		templ("call", m_context.evmVersion().hasStaticCall() ? "staticcall" : "call");
-		templ("isCall", !m_context.evmVersion().hasStaticCall());
+		templ("call", "staticcall");
 		templ("shl", m_utils.shiftLeftFunction(offset * 8));
 		templ("allocateUnbounded", m_utils.allocateUnboundedFunction());
 		templ("pos", m_context.newYulVariable());
@@ -1637,16 +1632,7 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 		templ("success", m_context.newYulVariable());
 		templ("retVars", IRVariable(_functionCall).commaSeparatedList());
 		templ("forwardingRevert", m_utils.forwardingRevertFunction());
-		if (m_context.evmVersion().canOverchargeGasForCall())
-			// Send all gas (requires tangerine whistle EVM)
-			templ("gas", "gas()");
-		else
-		{
-			// @todo The value 10 is not exact and this could be fine-tuned,
-			// but this has worked for years in the old code generator.
-			u256 gasNeededByCaller = evmasm::GasCosts::callGas(m_context.evmVersion()) + 10 + evmasm::GasCosts::callNewAccountGas;
-			templ("gas", "sub(gas(), " + formatNumber(gasNeededByCaller) + ")");
-		}
+		templ("gas", "gas()");
 
 		appendCode() << templ.render();
 
@@ -1792,7 +1778,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 			solAssert(dynamic_cast<AddressType const&>(*_memberAccess.expression().annotation().type).stateMutability() == StateMutability::Payable);
 			define(IRVariable{_memberAccess}.part("address"), _memberAccess.expression());
 		}
-		else if (std::set<std::string>{"call", "callcode", "delegatecall", "staticcall"}.count(member))
+		else if (std::set<std::string>{"call", "delegatecall", "staticcall"}.count(member))
 			define(IRVariable{_memberAccess}.part("address"), _memberAccess.expression());
 		else
 			solAssert(false, "Invalid member access to address");
@@ -1861,13 +1847,8 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 			define(_memberAccess) << "coinbase()\n";
 		else if (member == "timestamp")
 			define(_memberAccess) << "timestamp()\n";
-		else if (member == "difficulty" || member == "prevrandao")
-		{
-			if (m_context.evmVersion().hasPrevRandao())
-				define(_memberAccess) << "prevrandao()\n";
-			else
-				define(_memberAccess) << "difficulty()\n";
-		}
+		else if (member == "prevrandao")
+			define(_memberAccess) << "prevrandao()\n";
 		else if (member == "number")
 			define(_memberAccess) << "number()\n";
 		else if (member == "gaslimit")
@@ -2130,7 +2111,6 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 				case FunctionType::Kind::Creation:
 				case FunctionType::Kind::Send:
 				case FunctionType::Kind::BareCall:
-				case FunctionType::Kind::BareCallCode:
 				case FunctionType::Kind::BareDelegateCall:
 				case FunctionType::Kind::BareStaticCall:
 				case FunctionType::Kind::Transfer:
@@ -2541,9 +2521,9 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 	);
 
 	bool const isDelegateCall = funKind == FunctionType::Kind::DelegateCall;
-	bool const useStaticCall = funType.stateMutability() <= StateMutability::View && m_context.evmVersion().hasStaticCall();
+	bool const useStaticCall = funType.stateMutability() <= StateMutability::View;
 
-	ReturnInfo const returnInfo{m_context.evmVersion(), funType};
+	ReturnInfo const returnInfo{funType};
 
 	TypePointers parameterTypes = funType.parameterTypes();
 	TypePointers argumentTypes;
@@ -2559,17 +2539,6 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 	{
 		argumentTypes.emplace_back(&type(*arg));
 		argumentStrings += IRVariable(*arg).stackSlots();
-	}
-
-
-	if (!m_context.evmVersion().canOverchargeGasForCall())
-	{
-		// Touch the end of the output area so that we do not pay for memory resize during the call
-		// (which we would have to subtract from the gas left)
-		// We could also just use MLOAD; POP right before the gas calculation, but the optimizer
-		// would remove that, so we use MSTORE here.
-		if (!funType.gasSet() && returnInfo.estimatedReturnSize > 0)
-			appendCode() << "mstore(add(" << m_utils.allocateUnboundedFunction() << "() , " << std::to_string(returnInfo.estimatedReturnSize) << "), 0)\n";
 	}
 
 	// NOTE: When the expected size of returndata is static, we pass that in to the call opcode and it gets copied automatically.
@@ -2594,11 +2563,9 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 				returndatacopy(<pos>, 0, <returnDataSizeVar>)
 			<!isReturndataSizeDynamic>
 				let <returnDataSizeVar> := <staticReturndataSize>
-				<?supportsReturnData>
-					if gt(<returnDataSizeVar>, returndatasize()) {
-						<returnDataSizeVar> := returndatasize()
-					}
-				</supportsReturnData>
+				if gt(<returnDataSizeVar>, returndatasize()) {
+					<returnDataSizeVar> := returndatasize()
+				}
 			</isReturndataSizeDynamic>
 
 			// update freeMemoryPointer according to dynamic return size
@@ -2617,7 +2584,6 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 		encodedHeadSize += t->decodingType()->calldataHeadSize();
 	bool const checkExtcodesize =
 		encodedHeadSize == 0 ||
-		!m_context.evmVersion().supportsReturndata() ||
 		m_context.revertStrings() >= RevertStrings::Debug;
 	templ("checkExtcodesize", checkExtcodesize);
 
@@ -2634,11 +2600,8 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 	templ("funSel", IRVariable(_functionCall.expression()).part("functionSelector").name());
 	templ("address", IRVariable(_functionCall.expression()).part("address").name());
 
-	if (returnInfo.dynamicReturnSize)
-		solAssert(m_context.evmVersion().supportsReturndata());
 	templ("returnDataSizeVar", m_context.newYulVariable());
 	templ("staticReturndataSize", std::to_string(returnInfo.estimatedReturnSize));
-	templ("supportsReturnData", m_context.evmVersion().supportsReturndata());
 
 	std::string const retVars = IRVariable(_functionCall).commaSeparatedList();
 	templ("retVars", retVars);
@@ -2663,20 +2626,11 @@ void IRGeneratorForStatements::appendExternalFunctionCall(
 
 	if (funType.gasSet())
 		templ("gas", IRVariable(_functionCall.expression()).part("gas").name());
-	else if (m_context.evmVersion().canOverchargeGasForCall())
-		// Send all gas (requires tangerine whistle EVM)
-		templ("gas", "gas()");
 	else
 	{
-		// send all gas except the amount needed to execute "SUB" and "CALL"
-		// @todo this retains too much gas for now, needs to be fine-tuned.
-		u256 gasNeededByCaller = evmasm::GasCosts::callGas(m_context.evmVersion()) + 10;
-		if (funType.valueSet())
-			gasNeededByCaller += evmasm::GasCosts::callValueTransferGas;
-		if (!checkExtcodesize)
-			gasNeededByCaller += evmasm::GasCosts::callNewAccountGas; // we never know
-		templ("gas", "sub(gas(), " + formatNumber(gasNeededByCaller) + ")");
-	}
+		templ("gas", "gas()");
+	}	
+	
 	// Order is important here, STATICCALL might overlap with DELEGATECALL.
 	if (isDelegateCall)
 		templ("call", "delegatecall");
@@ -2704,8 +2658,6 @@ void IRGeneratorForStatements::appendBareCall(
 	);
 	FunctionType::Kind const funKind = funType.kind();
 
-	solAssert(funKind != FunctionType::Kind::BareStaticCall || m_context.evmVersion().hasStaticCall());
-	solAssert(funKind != FunctionType::Kind::BareCallCode, "Callcode has been removed.");
 	solAssert(
 		funKind == FunctionType::Kind::BareCall ||
 		funKind == FunctionType::Kind::BareDelegateCall ||
@@ -2764,18 +2716,9 @@ void IRGeneratorForStatements::appendBareCall(
 
 	if (funType.gasSet())
 		templ("gas", IRVariable(_functionCall.expression()).part("gas").name());
-	else if (m_context.evmVersion().canOverchargeGasForCall())
-		// Send all gas (requires tangerine whistle EVM)
-		templ("gas", "gas()");
 	else
 	{
-		// send all gas except the amount needed to execute "SUB" and "CALL"
-		// @todo this retains too much gas for now, needs to be fine-tuned.
-		u256 gasNeededByCaller = evmasm::GasCosts::callGas(m_context.evmVersion()) + 10;
-		if (funType.valueSet())
-			gasNeededByCaller += evmasm::GasCosts::callValueTransferGas;
-		gasNeededByCaller += evmasm::GasCosts::callNewAccountGas; // we never know
-		templ("gas", "sub(gas(), " + formatNumber(gasNeededByCaller) + ")");
+		templ("gas", "gas()");
 	}
 
 	appendCode() << templ.render();
@@ -3338,7 +3281,6 @@ void IRGeneratorForStatements::handleCatchFallback(TryCatchClause const& _fallba
 	setLocation(_fallback);
 	if (_fallback.parameters())
 	{
-		solAssert(m_context.evmVersion().supportsReturndata());
 		solAssert(
 			_fallback.parameters()->parameters().size() == 1 &&
 			_fallback.parameters()->parameters().front() &&

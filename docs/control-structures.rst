@@ -563,7 +563,7 @@ and will wrap without an error if used inside an unchecked block:
 Explicit type conversions will always truncate and never cause a failing assertion
 with the exception of a conversion from an integer to an enum type.
 
-.. index:: ! exception, ! throw, ! assert, ! require, ! revert, ! errors
+.. index:: ! exception, ! assert, ! require, ! revert, ! errors
 
 .. _assert-and-require:
 
@@ -656,7 +656,7 @@ an ``Error`` or a ``Panic`` (or whatever else was given):
 #. If you call a function via a message call but it does not finish
    properly (i.e., it runs out of gas, has no matching function, or
    throws an exception itself), except when a low level operation
-   ``call``, ``send``, ``delegatecall``, ``callcode`` or ``staticcall``
+   ``call``, ``send``, ``delegatecall`` or ``staticcall``
    is used. The low level operations never throw exceptions but
    indicate failures by returning ``false``.
 #. If you create a contract using the ``new`` keyword but the contract
@@ -784,10 +784,6 @@ In the above example, ``revert("Not enough Ether provided.");`` returns the foll
     0x4e6f7420656e6f7567682045746865722070726f76696465642e000000000000 // String data
 
 The provided message can be retrieved by the caller using ``try``/``catch`` as shown below.
-
-.. note::
-    There used to be a keyword called ``throw`` with the same semantics as ``revert()`` which
-    was deprecated in version 0.4.13 and removed in version 0.5.0.
 
 
 .. _try-catch:

@@ -1943,7 +1943,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				mulmod;
 				this;
 				super;
-				selfdestruct;
 				address(0).balance;
 				address(0).code;
 				address(0).codehash;
@@ -1973,7 +1972,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				sha256(data);
 				addmod(1, 2, 3);
 				mulmod(1, 2, 3);
-				selfdestruct(payable(0));
 				payable(0).send(0);
 				payable(0).transfer(0);
 				address(0).call(data);

@@ -98,7 +98,7 @@ u256 EVMInstructionInterpreter::eval(
 	using namespace solidity::evmasm;
 	using evmasm::Instruction;
 
-	auto info = instructionInfo(_instruction, m_evmVersion);
+	auto info = instructionInfo(_instruction);
 	yulAssert(static_cast<size_t>(info.args) == _arguments.size(), "");
 
 	auto const& arg = _arguments;
@@ -269,7 +269,7 @@ u256 EVMInstructionInterpreter::eval(
 	case Instruction::NUMBER:
 		return m_state.blockNumber;
 	case Instruction::PREVRANDAO:
-		return (m_evmVersion < langutil::EVMVersion::paris()) ? m_state.difficulty : m_state.prevrandao;
+		return m_state.prevrandao;
 	case Instruction::GASLIMIT:
 		return m_state.gaslimit;
 	// --------------- memory / storage / logs ---------------
@@ -331,7 +331,6 @@ u256 EVMInstructionInterpreter::eval(
 		else
 			return 0xdddddd;
 	case Instruction::CALL:
-	case Instruction::CALLCODE:
 		accessMemory(arg[3], arg[4]);
 		accessMemory(arg[5], arg[6]);
 		logTrace(_instruction, arg);
@@ -367,11 +366,6 @@ u256 EVMInstructionInterpreter::eval(
 		BOOST_THROW_EXCEPTION(ExplicitlyTerminated());
 	case Instruction::INVALID:
 		logTrace(_instruction);
-		m_state.storage.clear();
-		m_state.trace.clear();
-		BOOST_THROW_EXCEPTION(ExplicitlyTerminated());
-	case Instruction::SELFDESTRUCT:
-		logTrace(_instruction, arg);
 		m_state.storage.clear();
 		m_state.trace.clear();
 		BOOST_THROW_EXCEPTION(ExplicitlyTerminated());
@@ -551,7 +545,7 @@ void EVMInstructionInterpreter::logTrace(
 )
 {
 	logTrace(
-		evmasm::instructionInfo(_instruction, m_evmVersion).name,
+		evmasm::instructionInfo(_instruction).name,
 		SemanticInformation::memory(_instruction) == SemanticInformation::Effect::Write,
 		_arguments,
 		_data
@@ -631,7 +625,7 @@ std::pair<bool, size_t> EVMInstructionInterpreter::isInputMemoryPtrModified(
 		else
 			return {false, 0};
 	}
-	if (_pseudoInstruction == "CALL" || _pseudoInstruction == "CALLCODE")
+	if (_pseudoInstruction == "CALL")
 	{
 		if (_arguments[4] == 0)
 			return {true, 3};
