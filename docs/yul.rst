@@ -883,8 +883,12 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
 |                         |     |   | and 1 on success                                                |
 |                         |     |   | :ref:`See more <yul-call-return-area>`                          |
 +-------------------------+-----+---+-----------------------------------------------------------------+
+| callcode(g, a, v, in,   |     | F | identical to ``call`` but only use the code from a and stay     |
+| insize, out, outsize)   |     |   | in the context of the current contract otherwise                |
+|                         |     |   | :ref:`See more <yul-call-return-area>`                          |
++-------------------------+-----+---+-----------------------------------------------------------------+
 | delegatecall(g, a, in,  |     | H | identical to ``callcode`` but also keep ``caller``              |
-| insize, out, outsize)   |     |   | and ``callvalue`` TODO(rgeraldes24): desc                       |
+| insize, out, outsize)   |     |   | and ``callvalue``                                               |
 |                         |     |   | :ref:`See more <yul-call-return-area>`                          |
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | staticcall(g, a, in,    |     | B | identical to ``call(g, a, 0, in, insize, out, outsize)`` but do |
@@ -927,6 +931,8 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | number()                |     | F | current block number                                            |
 +-------------------------+-----+---+-----------------------------------------------------------------+
+| difficulty()            |     | F | difficulty of the current block (see note below)                |
++-------------------------+-----+---+-----------------------------------------------------------------+
 | prevrandao()            |     | P | randomness provided by the beacon chain (see note below)        |
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | gaslimit()              |     | F | block gas limit of the current block                            |
@@ -941,6 +947,21 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
   using the ``returndatacopy`` opcode. If it returns less data, then the remaining bytes are not touched at all.
   You need to use the ``returndatasize`` opcode to check which part of this memory area contains the return data.
   The remaining bytes will retain their values as of before the call.
+
+.. note::
+  The ``difficulty()`` instruction is disallowed in EVM version >= Paris.
+  With the Paris network upgrade the semantics of the instruction that was previously called
+  ``difficulty`` have been changed and the instruction was renamed to ``prevrandao``.
+  It can now return arbitrary values in the full 256-bit range, whereas the highest recorded
+  difficulty value within Ethash was ~54 bits.
+  This change is described in `EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_.
+  Please note that irrelevant to which EVM version is selected in the compiler, the semantics of
+  instructions depend on the final chain of deployment.
+
+.. warning::
+    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
+    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behavior
+    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
 
 In some internal dialects, there are additional functions:
 
