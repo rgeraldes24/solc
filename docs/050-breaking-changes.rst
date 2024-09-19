@@ -402,7 +402,6 @@ Old version:
             // Var is fine in this version.
             var z = someInteger();
             x += z;
-            // TODO(rgeraldes24): old version
             // Throw is fine in this version.
             if (x > 100)
                 throw;

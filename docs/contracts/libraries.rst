@@ -1,4 +1,4 @@
-.. index:: ! library, delegatecall
+.. index:: ! library, callcode, delegatecall
 
 .. _libraries:
 
@@ -8,6 +8,7 @@ Libraries
 
 Libraries are similar to contracts, but their purpose is that they are deployed
 only once at a specific address and their code is reused using the ``DELEGATECALL``
+(``CALLCODE`` until Homestead)
 feature of the EVM. This means that if library functions are called, their code
 is executed in the context of the calling contract, i.e. ``this`` points to the
 calling contract, and especially the storage from the calling contract can be
@@ -122,7 +123,8 @@ are all compiled as calls (``DELEGATECALL``) to an external
 contract/library. If you use libraries, be aware that an
 actual external function call is performed.
 ``msg.sender``, ``msg.value`` and ``this`` will retain their values
-in this call, though.
+in this call, though (prior to Homestead, because of the use of ``CALLCODE``, ``msg.sender`` and
+``msg.value`` changed, though).
 
 The following example shows how to use :ref:`types stored in memory <data-location>` and
 internal functions in libraries in order to implement
@@ -264,7 +266,7 @@ Call Protection For Libraries
 =============================
 
 As mentioned in the introduction, if a library's code is executed
-using a ``CALL`` instead of a ``DELEGATECALL``,
+using a ``CALL`` instead of a ``DELEGATECALL`` or ``CALLCODE``,
 it will revert unless a ``view`` or ``pure`` function is called.
 
 The EVM does not provide a direct way for a contract to detect
