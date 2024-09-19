@@ -239,7 +239,7 @@ Mathematical and Cryptographic Functions
 
 .. note::
 
-    When running ``sha256`` on a *private blockchain*, you might encounter Out-of-Gas. This is because this function is implemented as "precompiled contract" and only really exists after it receives the first message (although its contract code is hardcoded). Messages to non-existing contracts are more expensive and thus the execution might run into an Out-of-Gas error. A workaround for this problem is to first send Wei (1 for example) to each of the contracts before you use them in your actual contracts. This is not an issue on the main or test net.
+    When running ``sha256``, ``ripemd160`` or ``ecrecover`` on a *private blockchain*, you might encounter Out-of-Gas. This is because these functions are implemented as "precompiled contracts" and only really exist after they receive the first message (although their contract code is hardcoded). Messages to non-existing contracts are more expensive and thus the execution might run into an Out-of-Gas error. A workaround for this problem is to first send Wei (1 for example) to each of the contracts before you use them in your actual contracts. This is not an issue on the main or test net.
 
 .. index:: balance, codehash, send, transfer, call, callcode, delegatecall, staticcall
 
