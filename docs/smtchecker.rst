@@ -936,7 +936,8 @@ the arguments.
 |``addmod``, ``mulmod``             |Supported precisely.                  |
 +-----------------------------------+--------------------------------------+
 |``gasleft``, ``blockhash``,        |Abstracted with UF.                   |
-|``keccak256``                      |                                      |
+|``keccak256``, ``ecrecover``       |                                      |
+|``ripemd160``                      |                                      |
 +-----------------------------------+--------------------------------------+
 |pure functions without             |Abstracted with UF                    |
 |implementation (external or        |                                      |

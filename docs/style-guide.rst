@@ -663,8 +663,7 @@ Yes:
     }
 
     function shutdown() public onlyOwner {
-        // TODO(rgeraldes24)
-        // selfdestruct(owner);
+        selfdestruct(owner);
     }
 
 No:

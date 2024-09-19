@@ -301,10 +301,10 @@ YulEVMBuiltin:
 	| 'pop' | 'mload' | 'mstore' | 'mstore8' | 'sload' | 'sstore' | 'msize' | 'gas'
 	| 'address' | 'balance' | 'selfbalance' | 'caller' | 'callvalue' | 'calldataload'
 	| 'calldatasize' | 'calldatacopy' | 'extcodesize' | 'extcodecopy' | 'returndatasize'
-	| 'returndatacopy' | 'extcodehash' | 'create' | 'create2' | 'call'
-	| 'delegatecall' | 'staticcall' | 'return' | 'revert' | 'invalid'
+	| 'returndatacopy' | 'extcodehash' | 'create' | 'create2' | 'call' | 'callcode'
+	| 'delegatecall' | 'staticcall' | 'return' | 'revert' | 'selfdestruct' | 'invalid'
 	| 'log0' | 'log1' | 'log2' | 'log3' | 'log4' | 'chainid' | 'origin' | 'gasprice'
-	| 'blockhash' | 'coinbase' | 'timestamp' | 'number' | 'prevrandao'
+	| 'blockhash' | 'coinbase' | 'timestamp' | 'number' | 'difficulty' | 'prevrandao'
 	| 'gaslimit' | 'basefee';
 
 YulLBrace: '{' -> pushMode(YulMode);
