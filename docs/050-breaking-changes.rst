@@ -192,6 +192,19 @@ Constructors
   disallowed.  If you only want to specify an inheritance relation without
   giving arguments, do not provide parentheses at all.
 
+Functions
+---------
+
+* Function ``callcode`` is now disallowed (in favor of ``delegatecall``). It
+  is still possible to use it via inline assembly.
+
+* ``suicide`` is now disallowed (in favor of ``selfdestruct``).
+
+* ``sha3`` is now disallowed (in favor of ``keccak256``).
+
+* ``throw`` is now disallowed (in favor of ``revert``, ``require`` and
+  ``assert``).
+
 Conversions
 -----------
 
@@ -389,6 +402,7 @@ Old version:
             // Var is fine in this version.
             var z = someInteger();
             x += z;
+            // TODO(rgeraldes24): old version
             // Throw is fine in this version.
             if (x > 100)
                 throw;
