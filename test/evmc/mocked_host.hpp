@@ -442,6 +442,7 @@ public:
         return already_accessed ? EVMC_ACCESS_WARM : EVMC_ACCESS_COLD;
     }
 
+    // TODO(rgeraldes24): desc
     /// Access the account's storage value at the given key.
     ///
     /// This method is required by EIP-2929 introduced in ::EVMC_BERLIN. In records

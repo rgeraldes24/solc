@@ -120,8 +120,6 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	// TODO(rgeraldes24)
-	// Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::berlin());
 	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");

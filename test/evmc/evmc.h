@@ -855,108 +855,14 @@ typedef enum evmc_set_option_result (*evmc_set_option_fn)(struct evmc_vm* vm,
 enum evmc_revision
 {
     /**
-     * The Frontier revision.
-     *
-     * The one Ethereum launched with.
-     */
-    EVMC_FRONTIER = 0,
-
-    /**
-     * The Homestead revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-606
-     */
-    EVMC_HOMESTEAD = 1,
-
-    /**
-     * The Tangerine Whistle revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-608
-     */
-    EVMC_TANGERINE_WHISTLE = 2,
-
-    /**
-     * The Spurious Dragon revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-607
-     */
-    EVMC_SPURIOUS_DRAGON = 3,
-
-    /**
-     * The Byzantium revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-609
-     */
-    EVMC_BYZANTIUM = 4,
-
-    /**
-     * The Constantinople revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1013
-     */
-    EVMC_CONSTANTINOPLE = 5,
-
-    /**
-     * The Petersburg revision.
-     *
-     * Other names: Constantinople2, ConstantinopleFix.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1716
-     */
-    EVMC_PETERSBURG = 6,
-
-    /**
-     * The Istanbul revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1679
-     */
-    EVMC_ISTANBUL = 7,
-
-    /**
-     * The Berlin revision.
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/berlin.md
-     */
-    EVMC_BERLIN = 8,
-
-    /**
-     * The London revision.
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/london.md
-     */
-    EVMC_LONDON = 9,
-
-    /**
-     * The Paris revision (aka The Merge).
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/paris.md
-     */
-    EVMC_PARIS = 10,
-
-    /**
      * The Shanghai revision.
      *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/shanghai.md
+     * The one Zond launched with.
      */
-    EVMC_SHANGHAI = 11,
-
-    /**
-     * The Cancun revision.
-     *
-     * The future next revision after Shanghai.
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md
-     */
-    EVMC_CANCUN = 12,
-
-    /**
-     * The Prague revision.
-     *
-     * The future next revision after Cancun.
-     */
-    EVMC_PRAGUE = 13,
+    EVMC_SHANGHAI = 0,
 
     /** The maximum EVM revision supported. */
-    EVMC_MAX_REVISION = EVMC_PRAGUE,
+    EVMC_MAX_REVISION = EVMC_SHANGHAI,
 
     /**
      * The latest known EVM revision with finalized specification.

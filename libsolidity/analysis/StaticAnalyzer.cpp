@@ -198,19 +198,7 @@ bool StaticAnalyzer::visit(MemberAccess const& _memberAccess)
 {
 	if (MagicType const* type = dynamic_cast<MagicType const*>(_memberAccess.expression().annotation().type))
 	{
-		if (type->kind() == MagicType::Kind::Message && _memberAccess.memberName() == "gas")
-			m_errorReporter.typeError(
-				1400_error,
-				_memberAccess.location(),
-				"\"msg.gas\" has been deprecated in favor of \"gasleft()\""
-			);
-		else if (type->kind() == MagicType::Kind::Block && _memberAccess.memberName() == "blockhash")
-			m_errorReporter.typeError(
-				8113_error,
-				_memberAccess.location(),
-				"\"block.blockhash()\" has been deprecated in favor of \"blockhash()\""
-			);
-		else if (type->kind() == MagicType::Kind::MetaType && _memberAccess.memberName() == "runtimeCode")
+		if (type->kind() == MagicType::Kind::MetaType && _memberAccess.memberName() == "runtimeCode")
 		{
 			if (!m_constructorUsesAssembly)
 				m_constructorUsesAssembly = std::make_unique<ConstructorUsesAssembly>();

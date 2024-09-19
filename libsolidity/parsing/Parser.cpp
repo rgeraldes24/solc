@@ -1324,12 +1324,6 @@ ASTPointer<Statement> Parser::parseStatement(bool _allowUnchecked)
 		statement = nodeFactory.createNode<Return>(docString, expression);
 			break;
 	}
-	case Token::Throw:
-	{
-		statement = ASTNodeFactory(*this).createNode<Throw>(docString);
-		advance();
-		break;
-	}
 	case Token::Try:
 		return parseTryStatement(docString);
 	case Token::Assembly:

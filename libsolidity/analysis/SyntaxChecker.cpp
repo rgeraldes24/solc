@@ -264,17 +264,6 @@ bool SyntaxChecker::visit(Break const& _breakStatement)
 	return true;
 }
 
-bool SyntaxChecker::visit(Throw const& _throwStatement)
-{
-	m_errorReporter.syntaxError(
-		4538_error,
-		_throwStatement.location(),
-		"\"throw\" is deprecated in favour of \"revert()\", \"require()\" and \"assert()\"."
-	);
-
-	return true;
-}
-
 bool SyntaxChecker::visit(Literal const& _literal)
 {
 	size_t invalidSequence;

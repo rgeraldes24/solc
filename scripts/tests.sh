@@ -103,11 +103,6 @@ fi
 
 EVM_VERSIONS="shanghai"
 
-#if [ -z "$CI" ]
-#then
-#    EVM_VERSIONS+=" cancun"
-#fi
-
 # And then run the Solidity unit-tests in the matrix combination of optimizer / no optimizer
 # and shanghai VM
 for optimize in "" "--optimize"

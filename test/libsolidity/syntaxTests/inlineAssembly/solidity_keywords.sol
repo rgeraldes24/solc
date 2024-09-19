@@ -47,7 +47,6 @@ contract C {
   let storage := 1
   let calldata := 1
   let struct := 1
-  let throw := 1
   let try := 1
   // type shadows the Solidity function
   let unicode := 1

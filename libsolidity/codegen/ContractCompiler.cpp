@@ -1306,12 +1306,6 @@ bool ContractCompiler::visit(Return const& _return)
 	return false;
 }
 
-bool ContractCompiler::visit(Throw const&)
-{
-	solAssert(false, "Throw statement is disallowed.");
-	return false;
-}
-
 bool ContractCompiler::visit(EmitStatement const& _emit)
 {
 	CompilerContext::LocationSetter locationSetter(m_context, _emit);

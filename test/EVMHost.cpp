@@ -182,11 +182,11 @@ evmc::Result EVMHost::call(evmc_message const& _message) noexcept
 	else if (_message.recipient == 0x0000000000000000000000000000000000000005_address)
 		return precompileModExp(_message);
 	else if (_message.recipient == 0x0000000000000000000000000000000000000006_address)
-		return precompileALTBN128G1Add<EVMC_LONDON>(_message);
+		return precompileALTBN128G1Add(_message);
 	else if (_message.recipient == 0x0000000000000000000000000000000000000007_address)
-		return precompileALTBN128G1Mul<EVMC_LONDON>(_message);
+		return precompileALTBN128G1Mul(_message);
 	else if (_message.recipient == 0x0000000000000000000000000000000000000008_address)
-		return precompileALTBN128PairingProduct<EVMC_LONDON>(_message);
+		return precompileALTBN128PairingProduct(_message);
 
 	auto const stateBackup = accounts;
 
@@ -285,18 +285,13 @@ evmc::Result EVMHost::call(evmc_message const& _message) noexcept
 		transfer(sender, destination, value);
 	}
 
-	// Populate the access access list (enabled since Berlin).
+	// Populate the access access list.
 	// Note, this will also properly touch the created address.
 	// TODO: support a user supplied access list too
-	if (m_evmRevision >= EVMC_BERLIN)
-	{
-		access_account(message.sender);
-		access_account(message.recipient);
-
-		// EIP-3651 rule
-		if (m_evmRevision >= EVMC_SHANGHAI)
-			access_account(tx_context.block_coinbase);
-	}
+	access_account(message.sender);
+	access_account(message.recipient);
+	// EIP-3651 rule
+	access_account(tx_context.block_coinbase);
 
 	if (message.kind == EVMC_CREATE || message.kind == EVMC_CREATE2)
 	{
@@ -392,13 +387,11 @@ evmc::Result EVMHost::precompileModExp(evmc_message const&) noexcept
 	return resultWithFailure();
 }
 
-template <evmc_revision Revision>
 evmc::Result EVMHost::precompileALTBN128G1Add(evmc_message const& _message) noexcept
 {
 	// NOTE this is a partial implementation for some inputs.
 
-	// Fixed 500 or 150 gas.
-	int64_t gas_cost = (Revision < EVMC_ISTANBUL) ? 500 : 150;
+	int64_t gas_cost = 150;
 
 	static map<bytes, EVMPrecompileOutput> const inputOutput{
 		{
@@ -660,13 +653,11 @@ evmc::Result EVMHost::precompileALTBN128G1Add(evmc_message const& _message) noex
 	return precompileGeneric(_message, inputOutput);
 }
 
-template <evmc_revision Revision>
 evmc::Result EVMHost::precompileALTBN128G1Mul(evmc_message const& _message) noexcept
 {
 	// NOTE this is a partial implementation for some inputs.
 
-	// Fixed 40000 or 6000 gas.
-	int64_t gas_cost = (Revision < EVMC_ISTANBUL) ? 40000 : 6000;
+	int64_t gas_cost = 6000;
 
 	static map<bytes, EVMPrecompileOutput> const inputOutput{
 		{
@@ -750,15 +741,12 @@ evmc::Result EVMHost::precompileALTBN128G1Mul(evmc_message const& _message) noex
 	return precompileGeneric(_message, inputOutput);
 }
 
-template <evmc_revision Revision>
 evmc::Result EVMHost::precompileALTBN128PairingProduct(evmc_message const& _message) noexcept
 {
 	// Base + per pairing gas.
 	constexpr auto calc_cost = [](unsigned points) -> int64_t {
 		// Number of 192-byte points.
-		return (Revision < EVMC_ISTANBUL) ?
-			(100000 + 80000 * points):
-			(45000 + 34000 * points);
+		return (45000 + 34000 * points);
 	};
 
 	// NOTE this is a partial implementation for some inputs.
