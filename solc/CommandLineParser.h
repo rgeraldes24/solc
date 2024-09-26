@@ -249,12 +249,12 @@ public:
 
 	CommandLineOptions const& options() const { return m_options; }
 
-	static void printHelp(std::ostream& _out) { _out << optionsDescription(true /* _forHelp */); }
+	static void printHelp(std::ostream& _out) { _out << optionsDescription(); }
 
 private:
 	/// @returns a specification of all named command-line options accepted by the compiler.
 	/// The object can be used to parse command-line arguments or to generate the help screen.
-	static boost::program_options::options_description optionsDescription(bool _forHelp = false);
+	static boost::program_options::options_description optionsDescription();
 
 	/// @returns a specification of all positional command-line arguments accepted by the compiler.
 	/// The object can be used to parse command-line arguments or to generate the help screen.

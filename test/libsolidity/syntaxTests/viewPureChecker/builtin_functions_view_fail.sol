@@ -19,6 +19,5 @@ contract C {
 // ----
 // TypeError 8961: (52-77): Function cannot be declared as view because this expression (potentially) modifies the state.
 // TypeError 8961: (132-153): Function cannot be declared as view because this expression (potentially) modifies the state.
-// TypeError 8961: (201-228): Function cannot be declared as view because this expression (potentially) modifies the state.
-// TypeError 8961: (293-323): Function cannot be declared as view because this expression (potentially) modifies the state.
-// TypeError 8961: (414-436): Function cannot be declared as view because this expression (potentially) modifies the state.
+// TypeError 8961: (219-249): Function cannot be declared as view because this expression (potentially) modifies the state.
+// TypeError 8961: (340-362): Function cannot be declared as view because this expression (potentially) modifies the state.

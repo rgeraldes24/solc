@@ -53,7 +53,6 @@ contract C {
             pop(create(0, 1, 2))
             pop(create2(0, 1, 2, 3))
             pop(call(0, 1, 2, 3, 4, 5, 6))
-            pop(callcode(0, 1, 2, 3, 4, 5, 6))
             pop(delegatecall(0, 1, 2, 3, 4, 5))
             pop(staticcall(0, 1, 2, 3, 4, 5))
             return(0, 1)
@@ -82,8 +81,7 @@ contract C {
     }
 }
 // ----
-// Warning 5740: (89-1716): Unreachable code.
-// Warning 5740: (1729-1741): Unreachable code.
-// Warning 5740: (1754-1769): Unreachable code.
-// Warning 5740: (1782-1791): Unreachable code.
-// Warning 5740: (1804-2215): Unreachable code.
+// Warning 5740: (89-1669): Unreachable code.
+// Warning 5740: (1682-1694): Unreachable code.
+// Warning 5740: (1707-1716): Unreachable code.
+// Warning 5740: (1729-2140): Unreachable code.

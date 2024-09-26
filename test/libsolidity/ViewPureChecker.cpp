@@ -85,12 +85,6 @@ BOOST_AUTO_TEST_CASE(environment_access)
 			"Function state mutability can be restricted to pure",
 			"Statement has no effect."
 	}));
-
-	CHECK_ERROR(
-		"contract C { function f() view public { block.blockhash; } }",
-		TypeError,
-		"\"block.blockhash()\" has been deprecated in favor of \"blockhash()\""
-	);
 }
 
 BOOST_AUTO_TEST_CASE(address_staticcall)

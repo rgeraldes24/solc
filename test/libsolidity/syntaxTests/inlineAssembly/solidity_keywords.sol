@@ -109,4 +109,4 @@ contract C {
   }
 }
 // ----
-// Warning 5740: (955-2168): Unreachable code.
+// Warning 5740: (955-2151): Unreachable code.

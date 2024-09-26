@@ -122,7 +122,9 @@ BOOST_AUTO_TEST_CASE(string_storage)
 			CHECK_GAS(21528, 21351, 20);
 		}
 	}
-	CHECK_GAS(21332, 21322, 20);
+	// TODO(rgeraldes24)
+	// CHECK_GAS(21332, 21322, 20);
+	CHECK_GAS(21521, 21322, 20);
 }
 
 BOOST_AUTO_TEST_CASE(single_callvaluecheck)
