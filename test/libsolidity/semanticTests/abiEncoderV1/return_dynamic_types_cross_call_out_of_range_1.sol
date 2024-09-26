@@ -11,8 +11,6 @@ contract C {
         return true;
     }
 }
-// ====
-// EVMVersion: =homestead
 // ----
 // f(uint256): 0x60 -> true
 // f(uint256): 0x7f -> true

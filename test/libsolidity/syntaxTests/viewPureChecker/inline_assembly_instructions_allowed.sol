@@ -81,8 +81,6 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=paris
 // ----
 // Warning 5740: (89-1716): Unreachable code.
 // Warning 5740: (1729-1741): Unreachable code.

@@ -11,8 +11,6 @@
     sstore(a, b)
   }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // Trace:
 // Memory dump:

@@ -6,8 +6,6 @@
     let b := and(0xffffffffffffffffffffffffffffffffffffffff, create2(0, 0, 0x20, 0))
     sstore(a, b)
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: expressionSimplifier
 //

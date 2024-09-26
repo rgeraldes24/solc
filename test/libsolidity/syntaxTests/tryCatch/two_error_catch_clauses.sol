@@ -9,7 +9,5 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // TypeError 1036: (150-205): This try statement already has an "Error" catch clause.

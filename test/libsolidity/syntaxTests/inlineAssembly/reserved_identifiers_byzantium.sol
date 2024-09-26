@@ -8,8 +8,6 @@ contract C {
     }
   }
 }
-// ====
-// EVMVersion: =byzantium
 // ----
 // DeclarationError 5017: (67-70): The identifier "shl" is reserved and can not be used.
 // TypeError 6612: (107-110): The "shl" instruction is only available for Constantinople-compatible VMs (you are currently compiling for "byzantium").

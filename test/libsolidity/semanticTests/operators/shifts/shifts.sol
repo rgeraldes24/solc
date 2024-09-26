@@ -3,7 +3,5 @@ contract C {
         assembly { y := shl(2, x) }
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // f(uint256): 7 -> 28

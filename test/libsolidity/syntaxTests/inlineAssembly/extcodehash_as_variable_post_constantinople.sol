@@ -5,6 +5,4 @@ contract c {
 		assembly { pop(extcodehash(0)) }
 	}
 }
-// ====
-// EVMVersion: >=constantinople
 // ----

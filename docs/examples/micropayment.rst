@@ -159,7 +159,7 @@ The full contract
             // this recreates the message that was signed on the client
             bytes32 message = prefixed(keccak256(abi.encodePacked(msg.sender, amount, nonce, this)));
 
-            require(recoverSigner(message, signature) == owner);
+            // require(recoverSigner(message, signature) == owner);
 
             payable(msg.sender).transfer(amount);
         }
@@ -167,7 +167,8 @@ The full contract
         /// destroy the contract and reclaim the leftover funds.
         function shutdown() external {
             require(msg.sender == owner);
-            selfdestruct(payable(msg.sender));
+            // TODO(rgeraldes24)
+            // selfdestruct(payable(msg.sender));
         }
 
         /// signature methods.
@@ -190,15 +191,15 @@ The full contract
             return (v, r, s);
         }
 
-        function recoverSigner(bytes32 message, bytes memory sig)
-            internal
-            pure
-            returns (address)
-        {
-            (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
-
-            return ecrecover(message, v, r, s);
-        }
+        //function recoverSigner(bytes32 message, bytes memory sig)
+        //    internal
+        //    pure
+        //    returns (address)
+        //{
+        //    (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
+        //
+        //    return ecrecover(message, v, r, s);
+        //}
 
         /// builds a prefixed hash to mimic the behavior of eth_sign.
         function prefixed(bytes32 hash) internal pure returns (bytes32) {
@@ -364,7 +365,8 @@ The full contract
             require(isValidSignature(amount, signature));
 
             recipient.transfer(amount);
-            selfdestruct(sender);
+            // TODO(rgeraldes24)
+            // selfdestruct(sender);
         }
 
         /// the sender can extend the expiration at any time
@@ -379,7 +381,8 @@ The full contract
         /// then the Ether is released back to the sender.
         function claimTimeout() external {
             require(block.timestamp >= expiration);
-            selfdestruct(sender);
+            // TODO(rgeraldes24)
+            // selfdestruct(sender);
         }
 
         function isValidSignature(uint256 amount, bytes memory signature)
@@ -390,7 +393,8 @@ The full contract
             bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount)));
 
             // check that the signature is from the payment sender
-            return recoverSigner(message, signature) == sender;
+            // return recoverSigner(message, signature) == sender;
+            return true;
         }
 
         /// All functions below this are just taken from the chapter
@@ -415,15 +419,15 @@ The full contract
             return (v, r, s);
         }
 
-        function recoverSigner(bytes32 message, bytes memory sig)
-            internal
-            pure
-            returns (address)
-        {
-            (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
-
-            return ecrecover(message, v, r, s);
-        }
+        // function recoverSigner(bytes32 message, bytes memory sig)
+        //    internal
+        //    pure
+        //    returns (address)
+        //{
+        //    (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
+        //
+        //    return ecrecover(message, v, r, s);
+        //}
 
         /// builds a prefixed hash to mimic the behavior of eth_sign.
         function prefixed(bytes32 hash) internal pure returns (bytes32) {

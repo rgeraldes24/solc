@@ -6,7 +6,5 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: =london
 // ----
 // ParserError 5568: (98-105): Cannot use builtin function name "basefee" as identifier name.

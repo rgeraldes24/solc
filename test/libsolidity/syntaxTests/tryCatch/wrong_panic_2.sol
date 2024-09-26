@@ -5,7 +5,5 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // TypeError 1271: (72-109): Expected `catch Panic(uint ...) { ... }`.

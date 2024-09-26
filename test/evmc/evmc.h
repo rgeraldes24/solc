@@ -75,10 +75,10 @@ typedef struct evmc_address
 enum evmc_call_kind
 {
     EVMC_CALL = 0,         /**< Request CALL. */
-    EVMC_DELEGATECALL = 1, /**< Request DELEGATECALL. Valid since Homestead.
+    EVMC_DELEGATECALL = 1, /**< Request DELEGATECALL.
                                 The value param ignored. */
     EVMC_CREATE = 3,       /**< Request CREATE. */
-    EVMC_CREATE2 = 4       /**< Request CREATE2. Valid since Constantinople.*/
+    EVMC_CREATE2 = 4       /**< Request CREATE2. */
 };
 
 /** The flags for ::evmc_message. */

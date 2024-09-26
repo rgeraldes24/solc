@@ -18,8 +18,6 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=london
 // ----
 // Warning 5740: (336-468): Unreachable code.
 // TypeError 8961: (75-87): Function cannot be declared as view because this expression (potentially) modifies the state.

@@ -9,8 +9,6 @@ contract C {
         return addressArray.length;
     }
 }
-// ====
-// EVMVersion: >=petersburg
 // ----
 // set_get_length(uint256): 0 -> 0
 // set_get_length(uint256): 1 -> 1

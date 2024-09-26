@@ -15,8 +15,6 @@
   pop(staticcall(1, 1, 1, 0, 1, 0))
   return(1, 0)
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // Trace:
 //   RETURNDATACOPY(0, 1, 0)

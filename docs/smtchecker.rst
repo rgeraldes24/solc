@@ -959,7 +959,9 @@ the arguments.
 Using abstraction means loss of precise knowledge, but in many cases it does
 not mean loss of proving power.
 
-.. code-block:: solidity
+// TODO(rgeraldes24): ecrecover
+// .. code-block:: solidity
+.. code-block:: none
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;

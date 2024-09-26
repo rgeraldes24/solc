@@ -12,8 +12,6 @@
 	pop(msize())
 	pop(keccak256(0, 10))
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // Trace:
 // Memory dump:

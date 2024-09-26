@@ -1,6 +1,7 @@
 ==== Source: s1.sol ====
 function f() {
-	ecrecover("1234", 1, "0", abi.decode("", (bytes2)));
+	// TODO(rgeraldes24)
+	// ecrecover("1234", 1, "0", abi.decode("", (bytes2)));
 }
 ==== Source: s2.sol ====
 contract C {}

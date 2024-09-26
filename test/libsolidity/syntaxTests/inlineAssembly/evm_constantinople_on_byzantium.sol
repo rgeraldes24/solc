@@ -17,8 +17,6 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: =byzantium
 // ----
 // TypeError 6612: (103-106): The "shl" instruction is only available for Constantinople-compatible VMs (you are currently compiling for "byzantium").
 // DeclarationError 8678: (96-116): Variable count for assignment to "ret" does not match number of values (1 vs. 0)

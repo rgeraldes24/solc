@@ -289,8 +289,9 @@ BOOST_AUTO_TEST_CASE(oversize_string_literals)
 BOOST_AUTO_TEST_CASE(magic_variables)
 {
 	CHECK_ASSEMBLE_ERROR("{ pop(this) }", DeclarationError, "Identifier \"this\" not found");
-	CHECK_ASSEMBLE_ERROR("{ pop(ecrecover) }", DeclarationError, "Identifier \"ecrecover\" not found");
-	BOOST_CHECK(successAssemble("{ let ecrecover := 1 pop(ecrecover) }"));
+	// TODO(rgeralddes24)
+	// CHECK_ASSEMBLE_ERROR("{ pop(ecrecover) }", DeclarationError, "Identifier \"ecrecover\" not found");
+	// BOOST_CHECK(successAssemble("{ let ecrecover := 1 pop(ecrecover) }"));
 }
 
 BOOST_AUTO_TEST_CASE(stack_variables)

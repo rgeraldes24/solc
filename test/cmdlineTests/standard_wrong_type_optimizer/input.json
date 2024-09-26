@@ -10,7 +10,7 @@
 	"settings":
 	{
 		"optimizer": 1,
-		"evmVersion": "byzantium",
+		"evmVersion": "shanghai",
 		"metadata": {
 			"useLiteralContent": true
 		}

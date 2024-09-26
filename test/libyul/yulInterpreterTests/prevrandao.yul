@@ -1,8 +1,6 @@
 {
   sstore(0, prevrandao())
 }
-// ====
-// EVMVersion: >=paris
 // ----
 // Trace:
 // Memory dump:

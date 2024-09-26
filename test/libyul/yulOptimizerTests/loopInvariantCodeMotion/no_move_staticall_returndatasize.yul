@@ -9,8 +9,6 @@
     mstore(a, inv)
   }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: loopInvariantCodeMotion
 //

@@ -12,8 +12,6 @@
         }
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: fullSuite
 //

@@ -10,6 +10,4 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----

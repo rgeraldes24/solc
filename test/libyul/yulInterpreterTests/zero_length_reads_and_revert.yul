@@ -15,8 +15,6 @@
   pop(staticcall(1, 1, 1, 0, 1, 0))
   revert(1, 0)
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // Trace:
 //   RETURNDATACOPY(0, 1, 0)

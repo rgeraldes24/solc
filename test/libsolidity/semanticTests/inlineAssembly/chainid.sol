@@ -5,7 +5,5 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // f() -> 1

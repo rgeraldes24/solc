@@ -1396,7 +1396,7 @@ void CompilerStack::assembleYul(
 			_contract.location(),
 			"Contract code size is "s +
 			std::to_string(compiledContract.runtimeObject.bytecode.size()) +
-			" bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). "
+			" bytes and exceeds 24576 bytes. "
 			"This contract may not be deployable on Mainnet. "
 			"Consider enabling the optimizer (with a low \"runs\" value!), "
 			"turning off revert strings, or using libraries."
@@ -1406,7 +1406,6 @@ void CompilerStack::assembleYul(
 	//   If initcode is larger than 0xC000 bytes (twice the runtime code limit),
 	//   then contract creation fails with an out of gas error.
 	if (
-		m_evmVersion >= langutil::EVMVersion::shanghai() &&
 		compiledContract.object.bytecode.size() > 0xC000
 	)
 		m_errorReporter.warning(
@@ -1414,7 +1413,7 @@ void CompilerStack::assembleYul(
 			_contract.location(),
 			"Contract initcode size is "s +
 			std::to_string(compiledContract.object.bytecode.size()) +
-			" bytes and exceeds 49152 bytes (a limit introduced in Shanghai). "
+			" bytes and exceeds 49152 bytes. "
 			"This contract may not be deployable on Mainnet. "
 			"Consider enabling the optimizer (with a low \"runs\" value!), "
 			"turning off revert strings, or using libraries."

@@ -14,8 +14,6 @@
         v := calldataload(add(data, mul(i, 0x20)))
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // step: fullSuite
 //

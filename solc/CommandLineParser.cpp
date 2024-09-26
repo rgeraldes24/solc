@@ -601,12 +601,11 @@ General Information)").c_str(),
 			g_strOverwrite.c_str(),
 			"Overwrite existing files (used together with -o)."
 		)
-		// TODO(rgeraldes24)
-		// (
-		// 	g_strEVMVersion.c_str(),
-		// 	po::value<std::string>()->value_name("version")->default_value(EVMVersion{}.name()),
-		// 	"Select desired EVM version: Either homestead or shanghai."
-		// )
+		(
+			g_strEVMVersion.c_str(),
+			po::value<std::string>()->value_name("version")->default_value(EVMVersion{}.name()),
+			"Select desired EVM version: shanghai."
+		)
 	;
 	if (!_forHelp) // Note: We intentionally keep this undocumented for now.
 		outputOptions.add_options()

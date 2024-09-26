@@ -22,7 +22,6 @@ contract C {
     }
 }
 // ====
-// EVMVersion: >=constantinople
 // compileViaYul: also
 // ----
 // createDSalted(bytes32,uint256): 42, 64 ->

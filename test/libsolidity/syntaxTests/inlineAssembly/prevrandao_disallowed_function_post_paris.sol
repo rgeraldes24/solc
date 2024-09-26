@@ -15,7 +15,5 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=paris
 // ----
 // ParserError 5568: (101-111): Cannot use builtin function name "prevrandao" as identifier name.
