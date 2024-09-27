@@ -607,6 +607,7 @@ void CHC::endVisit(FunctionCall const& _funCall)
 		unknownFunctionCall(_funCall);
 		break;
 	case FunctionType::Kind::KECCAK256:
+	case FunctionType::Kind::DepositRoot:
 	case FunctionType::Kind::SHA256:
 	case FunctionType::Kind::BlockHash:
 	case FunctionType::Kind::AddMod:

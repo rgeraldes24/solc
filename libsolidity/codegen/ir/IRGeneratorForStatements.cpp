@@ -1596,6 +1596,7 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 
 		break;
 	}
+	case FunctionType::Kind::DepositRoot:
 	case FunctionType::Kind::SHA256:
 	{
 		solAssert(!_functionCall.annotation().tryCall);
@@ -1604,6 +1605,7 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 		solAssert(!functionType->hasBoundFirstArgument());
 
 		static std::map<FunctionType::Kind, std::tuple<unsigned, size_t>> precompiles = {
+			{FunctionType::Kind::DepositRoot, std::make_tuple(1, 0)},
 			{FunctionType::Kind::SHA256, std::make_tuple(2, 0)},
 		};
 		auto [ address, offset ] = precompiles[functionType->kind()];
@@ -2114,6 +2116,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 				case FunctionType::Kind::BareDelegateCall:
 				case FunctionType::Kind::BareStaticCall:
 				case FunctionType::Kind::Transfer:
+				case FunctionType::Kind::DepositRoot:
 				case FunctionType::Kind::SHA256:
 				default:
 					solAssert(false, "unsupported member function");

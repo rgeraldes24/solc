@@ -62,7 +62,6 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 
 	YulStack stack(
 		langutil::EVMVersion(),
-		nullopt,
 		YulStack::Language::StrictAssembly,
 		solidity::frontend::OptimiserSettings::full(),
 		DebugInfoSelection::All()

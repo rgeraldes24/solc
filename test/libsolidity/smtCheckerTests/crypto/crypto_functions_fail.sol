@@ -10,6 +10,12 @@ contract C {
 		// Disabled because of Spacer nondeterminism.
 		//assert(s0 == s1);
 	}
+	function e(bytes memory p0, bytes memory w0, bytes memory a0, bytes memory s0, bytes memory p1, bytes memory w1, bytes memory a1, bytes memory s1) public pure {
+		bytes32 r0 = depositroot(p0, w0, a0, s0);
+		bytes32 r1 = depositroot(p1, w1, a1, s1);
+		// Disabled because of Spacer nondeterminism.
+		//assert(r0 == r1);
+	}
 }
 // ====
 // SMTEngine: all

@@ -1048,10 +1048,12 @@ bool ExpressionCompiler::visit(FunctionCall const& _functionCall)
 				m_context << Instruction::MULMOD;
 			break;
 		}
+		case FunctionType::Kind::DepositRoot:
 		case FunctionType::Kind::SHA256:
 		{
 			_functionCall.expression().accept(*this);
 			static std::map<FunctionType::Kind, u256> const contractAddresses{
+				{FunctionType::Kind::DepositRoot, 1},
 				{FunctionType::Kind::SHA256, 2}
 			};
 			m_context << contractAddresses.at(function.kind());
@@ -1613,6 +1615,7 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 					case FunctionType::Kind::BareDelegateCall:
 					case FunctionType::Kind::BareStaticCall:
 					case FunctionType::Kind::Transfer:
+					case FunctionType::Kind::DepositRoot:
 					case FunctionType::Kind::SHA256:
 					default:
 						solAssert(false, "unsupported member function");
@@ -2643,6 +2646,10 @@ void ExpressionCompiler::appendExternalFunctionCall(
 	// Move arguments to memory, will not update the free memory pointer (but will update the memory
 	// pointer on the stack).
 	bool encodeInPlace = _functionType.takesArbitraryParameters() || _functionType.isBareCall();
+	if (_functionType.kind() == FunctionType::Kind::DepositRoot)
+		// This would be the only combination of padding and in-place encoding,
+		// but all parameters of ecrecover are value types anyway.
+		encodeInPlace = false;
 	bool encodeForLibraryCall = funKind == FunctionType::Kind::DelegateCall;
 	utils().encodeToMemory(
 		argumentTypes,

@@ -1,7 +1,6 @@
 ==== Source: s1.sol ====
 function f() {
-	// TODO(rgeraldes24)
-	// ecrecover("", 1, "", "");
+	depositroot("", "", "", "");
 }
 ==== Source: s2.sol ====
 contract C {}

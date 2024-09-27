@@ -251,6 +251,19 @@ private:
 			{"sha256", std::make_shared<smtutil::ArraySort>(
 				smt::smtSort(*TypeProvider::bytesStorage()),
 				smtSort(*TypeProvider::fixedBytes(32))
+			)},
+			{"depositroot", std::make_shared<smtutil::ArraySort>(
+				std::make_shared<smtutil::TupleSort>(
+					"depositroot_input_type",
+					std::vector<std::string>{"pubkey", "withdrawal_credentials", "amount", "signature"},
+					std::vector<smtutil::SortPointer>{
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage())
+					}
+				),
+				smtSort(*TypeProvider::fixedBytes(32))
 			)}
 		},
 		m_context

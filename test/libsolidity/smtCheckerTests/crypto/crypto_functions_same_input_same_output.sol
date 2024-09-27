@@ -11,6 +11,12 @@ contract C {
 		bytes32 s1 = sha256(b1);
 		assert(s0 == s1);
 	}
+	function d(bytes memory p0, bytes memory w0, bytes memory a0, bytes memory s0) public pure {
+		(bytes memory p1, bytes memory w1, bytes memory a1, bytes memory s1) = (p0, w0, a0, s0);
+		bytes32 r0 = depositroot(p0, w0, a0, s0);
+		bytes32 r1 = depositroot(p1, w1, a1, s1);
+		assert(r0 == r1);
+	}
 }
 // ====
 // SMTEngine: all

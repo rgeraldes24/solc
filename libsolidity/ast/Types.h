@@ -1258,6 +1258,7 @@ public:
 		Transfer, ///< CALL, but without data and throws on error
 		KECCAK256, ///< KECCAK256
 		Revert, ///< REVERT
+		DepositRoot, ///< Cx§ALL to special contract for depositroot
 		SHA256, ///< CALL to special contract for sha256
 		Event, ///< syntactic sugar for LOG*
 		Error, ///< creating an error instance in revert or require
@@ -1466,7 +1467,7 @@ public:
 	bool hasDeclaration() const { return !!m_declaration; }
 	/// @returns true if the result of this function only depends on its arguments,
 	/// does not modify the state and is a compile-time constant.
-	/// Currently, this will only return true for internal functions like keccak.
+	/// Currently, this will only return true for internal functions like keccak and depositroot.
 	bool isPure() const;
 	bool isPayable() const { return m_stateMutability == StateMutability::Payable; }
 	/// @return A shared pointer of StructuredDocumentation.

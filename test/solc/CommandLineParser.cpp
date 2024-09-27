@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.dir = "/tmp/out";
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = EVMVersion::shanghai(); // TODO(rgeraldes24)
+		expectedOptions.output.evmVersion = EVMVersion::shanghai();
 		expectedOptions.output.viaIR = true;
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");

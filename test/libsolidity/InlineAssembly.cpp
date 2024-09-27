@@ -61,7 +61,6 @@ std::optional<Error> parseAndReturnFirstError(
 {
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		_language,
 		solidity::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -131,7 +130,6 @@ void parsePrintCompare(std::string const& _source, bool _canWarn = false)
 {
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -222,7 +220,6 @@ BOOST_AUTO_TEST_CASE(print_string_literal_unicode)
 	std::string parsed = "object \"object\" {\n    code { let x := \"\\xe1\\xae\\xac\" }\n}\n";
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -289,9 +286,8 @@ BOOST_AUTO_TEST_CASE(oversize_string_literals)
 BOOST_AUTO_TEST_CASE(magic_variables)
 {
 	CHECK_ASSEMBLE_ERROR("{ pop(this) }", DeclarationError, "Identifier \"this\" not found");
-	// TODO(rgeralddes24)
-	// CHECK_ASSEMBLE_ERROR("{ pop(ecrecover) }", DeclarationError, "Identifier \"ecrecover\" not found");
-	// BOOST_CHECK(successAssemble("{ let ecrecover := 1 pop(ecrecover) }"));
+	CHECK_ASSEMBLE_ERROR("{ pop(depositroot) }", DeclarationError, "Identifier \"depositroot\" not found");
+	BOOST_CHECK(successAssemble("{ let depositroot := 1 pop(depositroot) }"));
 }
 
 BOOST_AUTO_TEST_CASE(stack_variables)

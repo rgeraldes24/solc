@@ -42,6 +42,7 @@ int magicVariableToID(std::string const& _name)
 	else if (_name == "assert") return -3;
 	else if (_name == "block") return -4;
 	else if (_name == "blockhash") return -5;
+	else if (_name == "depositroot") return -6;
 	else if (_name == "gasleft") return -7;
 	else if (_name == "keccak256") return -8;
 	else if (_name == "msg") return -15;
@@ -70,6 +71,7 @@ inline std::vector<std::shared_ptr<MagicVariableDeclaration const>> constructMag
 		magicVarDecl("assert", TypeProvider::function(strings{"bool"}, strings{}, FunctionType::Kind::Assert, StateMutability::Pure)),
 		magicVarDecl("block", TypeProvider::magic(MagicType::Kind::Block)),
 		magicVarDecl("blockhash", TypeProvider::function(strings{"uint256"}, strings{"bytes32"}, FunctionType::Kind::BlockHash, StateMutability::View)),
+		magicVarDecl("depositroot", TypeProvider::function(strings{"bytes memory", "bytes memory", "bytes memory", "bytes memory"}, strings{"bytes32"}, FunctionType::Kind::DepositRoot, StateMutability::Pure)),
 		magicVarDecl("gasleft", TypeProvider::function(strings(), strings{"uint256"}, FunctionType::Kind::GasLeft, StateMutability::View)),
 		magicVarDecl("keccak256", TypeProvider::function(strings{"bytes memory"}, strings{"bytes32"}, FunctionType::Kind::KECCAK256, StateMutability::Pure)),
 		magicVarDecl("msg", TypeProvider::magic(MagicType::Kind::Message)),

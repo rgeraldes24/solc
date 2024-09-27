@@ -1938,6 +1938,7 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash;
 				keccak256;
 				sha256;
+				depositroot;
 				addmod;
 				mulmod;
 				this;
@@ -1969,6 +1970,7 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash(0);
 				keccak256(data);
 				sha256(data);
+				depositroot(data, data, data, data);
 				addmod(1, 2, 3);
 				mulmod(1, 2, 3);
 				payable(0).send(0);

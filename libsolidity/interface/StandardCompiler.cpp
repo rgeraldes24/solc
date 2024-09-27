@@ -799,16 +799,6 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 		ret.evmVersion = *version;
 	}
 
-	if (settings.isMember("eofVersion"))
-	{
-		if (!settings["eofVersion"].isUInt())
-			return formatFatalError(Error::Type::JSONError, "eofVersion must be an unsigned integer.");
-		auto eofVersion = settings["evmVersion"].asUInt();
-		if (eofVersion != 1)
-			return formatFatalError(Error::Type::JSONError, "Invalid EOF version requested.");
-		ret.eofVersion = 1;
-	}
-
 	if (settings.isMember("debug"))
 	{
 		if (auto result = checkKeys(settings["debug"], {"revertStrings", "debugInfo"}, "settings.debug"))
@@ -1503,7 +1493,6 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 
 	YulStack stack(
 		_inputsAndSettings.evmVersion,
-		_inputsAndSettings.eofVersion,
 		YulStack::Language::StrictAssembly,
 		_inputsAndSettings.optimiserSettings,
 		_inputsAndSettings.debugInfoSelection.has_value() ?

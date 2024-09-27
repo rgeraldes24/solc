@@ -143,7 +143,6 @@ int registerTests(
 	TestCase::Config config{
 		fullpath.string(),
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		solidity::test::CommonOptions::get().vmPaths,
 		solidity::test::CommonOptions::get().enforceGasTest,
 		solidity::test::CommonOptions::get().enforceGasTestMinValue,

@@ -234,15 +234,6 @@ void CompilerStack::setEVMVersion(langutil::EVMVersion _version)
 	m_evmVersion = _version;
 }
 
-void CompilerStack::setEOFVersion(std::optional<uint8_t> _version)
-{
-	if (m_stackState >= CompilationSuccessful)
-		solThrow(CompilerError, "Must set EOF version before compiling.");
-	if (_version && _version != 1)
-		solThrow(CompilerError, "Invalid EOF version.");
-	m_eofVersion = _version;
-}
-
 void CompilerStack::setModelCheckerSettings(ModelCheckerSettings _settings)
 {
 	if (m_stackState >= ParsedAndImported)
@@ -1426,7 +1417,6 @@ void CompilerStack::compileContract(
 )
 {
 	solAssert(!m_viaIR, "");
-	solUnimplementedAssert(!m_eofVersion.has_value(), "Experimental EOF support is only available for via-IR compilation.");
 	solAssert(m_stackState >= AnalysisSuccessful, "");
 
 	if (_otherCompilers.count(&_contract))
@@ -1493,7 +1483,6 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 
 	IRGenerator generator(
 		m_evmVersion,
-		m_eofVersion,
 		m_revertStrings,
 		sourceIndices(),
 		m_debugInfoSelection,
@@ -1508,7 +1497,6 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 
 	yul::YulStack stack(
 		m_evmVersion,
-		m_eofVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1542,7 +1530,6 @@ void CompilerStack::generateEVMFromIR(ContractDefinition const& _contract)
 	// Re-parse the Yul IR in EVM dialect
 	yul::YulStack stack(
 		m_evmVersion,
-		m_eofVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1706,8 +1693,6 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 	if (_forIR)
 		meta["settings"]["viaIR"] = _forIR;
 	meta["settings"]["evmVersion"] = m_evmVersion.name();
-	if (m_eofVersion.has_value())
-		meta["settings"]["eofVersion"] = *m_eofVersion;
 	meta["settings"]["compilationTarget"][_contract.contract->sourceUnitName()] =
 		*_contract.contract->annotation().canonicalName;
 
@@ -1832,7 +1817,7 @@ bytes CompilerStack::createCBORMetadata(Contract const& _contract, bool _forIR) 
 	else
 		solAssert(m_metadataHash == MetadataHash::None, "Invalid metadata hash");
 
-	if (experimentalMode || m_eofVersion.has_value())
+	if (experimentalMode)
 		encoder.pushBool("experimental", true);
 	if (m_metadataFormat == MetadataFormat::WithReleaseVersionTag)
 		encoder.pushBytes("solc", VersionCompactBytes);

@@ -3125,8 +3125,7 @@ BOOST_AUTO_TEST_CASE(bare_call_invalid_address)
 
 BOOST_AUTO_TEST_CASE(bare_call_return_data)
 {
-	std::vector<std::string> calltypes = {"call", "delegatecall"};
-	calltypes.emplace_back("staticcall"); // TODO(rgeraldes24): include above			
+	std::vector<std::string> calltypes = {"call", "delegatecall", "staticcall"};
 	for (std::string const& calltype: calltypes)
 	{
 		std::string sourceCode = R"DELIMITER(
