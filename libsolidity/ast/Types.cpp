@@ -3771,6 +3771,7 @@ bool FunctionType::padArguments() const
 	case Kind::BareStaticCall:
 	case Kind::SHA256:
 	case Kind::KECCAK256:
+	case Kind::DepositRoot:
 	case Kind::ABIEncodePacked:
 		return false;
 	default:

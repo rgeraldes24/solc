@@ -2646,10 +2646,11 @@ void ExpressionCompiler::appendExternalFunctionCall(
 	// Move arguments to memory, will not update the free memory pointer (but will update the memory
 	// pointer on the stack).
 	bool encodeInPlace = _functionType.takesArbitraryParameters() || _functionType.isBareCall();
-	if (_functionType.kind() == FunctionType::Kind::DepositRoot)
-		// This would be the only combination of padding and in-place encoding,
-		// but all parameters of ecrecover are value types anyway.
-		encodeInPlace = false;
+	// TODO(rgeraldes24)
+	// if (_functionType.kind() == FunctionType::Kind::DepositRoot)
+	// 	// This would be the only combination of padding and in-place encoding,
+	// 	// but all parameters of ecrecover are value types anyway.
+	// 	encodeInPlace = false;
 	bool encodeForLibraryCall = funKind == FunctionType::Kind::DelegateCall;
 	utils().encodeToMemory(
 		argumentTypes,
