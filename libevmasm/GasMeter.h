@@ -75,8 +75,6 @@ namespace GasCosts
 	static unsigned const sstoreClearsSchedule = sstoreResetGas + accessListStorageKeyCost;
 	static unsigned const totalSstoreSetGas = sstoreSetGas + coldSloadCost;
 	/// Corresponds to SSTORE_RESET_GAS from EIP-2929
-	/// For Berlin, the maximum is SSTORE_RESET_GAS + COLD_SLOAD_COST = 5000
-	/// For previous versions, it's a fixed 5000
 	static unsigned const totalSstoreResetGas = sstoreResetGas + coldSloadCost;
 	static unsigned const extCodeGas = coldAccountAccessCost;
 	static unsigned const balanceGas = coldAccountAccessCost;

@@ -959,7 +959,7 @@ the arguments.
 Using abstraction means loss of precise knowledge, but in many cases it does
 not mean loss of proving power.
 
-// TODO(rgeraldes24): ecrecover
+// NOTE(rgeraldes24): ecrecover not available
 // .. code-block:: solidity
 .. code-block:: none
 
@@ -1075,8 +1075,6 @@ in the constructor in order to be consistent with the EVM rules.
 The contract's balance may also increase without triggering any calls to the
 contract, if
 
-- ``selfdestruct`` is executed by another contract with the analyzed contract
-  as the target of the remaining funds,
 - the contract is the coinbase (i.e., ``block.coinbase``) of some block.
 
 To model this properly, the SMTChecker assumes that at every new transaction

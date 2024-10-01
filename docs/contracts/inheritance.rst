@@ -36,12 +36,10 @@ some :ref:`differences <multi-inheritance>`.
 
 Details are given in the following example.
 
-// code-block:: solidity
 .. code-block:: none
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract Owned {
         constructor() { owner = payable(msg.sender); }
@@ -57,8 +55,6 @@ Details are given in the following example.
         // The keyword `virtual` means that the function can change
         // its behavior in derived classes ("overriding").
         function destroy() virtual public {
-            // TODO(rgeraldes24)
-            // if (msg.sender == owner) selfdestruct(owner);
         }
     }
 
@@ -128,12 +124,10 @@ Note that above, we call ``Destructible.destroy()`` to "forward" the
 destruction request. The way this is done is problematic, as
 seen in the following example:
 
-// code-block:: solidity
 .. code-block:: none
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -142,8 +136,6 @@ seen in the following example:
 
     contract Destructible is owned {
         function destroy() public virtual {
-            // TODO(rgeraldes24)
-            // if (msg.sender == owner) selfdestruct(owner);
         }
     }
 
@@ -163,12 +155,10 @@ A call to ``Final.destroy()`` will call ``Base2.destroy`` because we specify it
 explicitly in the final override, but this function will bypass
 ``Base1.destroy``. The way around this is to use ``super``:
 
-// code-block:: solidity
 .. code-block:: none
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -177,8 +167,6 @@ explicitly in the final override, but this function will bypass
 
     contract Destructible is owned {
         function destroy() virtual public {
-            // TODO(rgeraldes24)
-            // if (msg.sender == owner) selfdestruct(owner);
         }
     }
 

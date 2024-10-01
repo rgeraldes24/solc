@@ -40,8 +40,7 @@ contract SignedMessageOracle is Oracle {
     /// @param s Signature parameter
     constructor(bytes32 _descriptionHash, uint8 v, bytes32 r, bytes32 s)
     {
-        // TODO(rgeraldes24): ecrecover
-        // signer = ecrecover(_descriptionHash, v, r, s);
+        // NOTE(rgeraldes24): removed ecrecover step
         descriptionHash = _descriptionHash;
     }
 
@@ -55,11 +54,8 @@ contract SignedMessageOracle is Oracle {
         public
         isSigner
     {
-        // TODO(rgeraldes24): ecrecover
-        // Result is not set yet and nonce and signer are valid
-        // require(   !isSet
-        //        && _nonce > nonce
-        //        && signer == ecrecover(keccak256(abi.encodePacked(descriptionHash, newSigner, _nonce)), v, r, s));
+        // NOTE(rgeraldes24): removed ecrecover step
+        require(!isSet && _nonce > nonce);
         nonce = _nonce;
         signer = newSigner;
         emit SignerReplacement(newSigner);
@@ -73,10 +69,9 @@ contract SignedMessageOracle is Oracle {
     function setOutcome(int _outcome, uint8 v, bytes32 r, bytes32 s)
         public
     {
-        // TODO(rgeraldes24): ecrecover
+        // NOTE(rgeraldes24): removed ecrecover step
         // Result is not set yet and signer is valid
-        // require(   !isSet
-        //        && signer == ecrecover(keccak256(abi.encodePacked(descriptionHash, _outcome)), v, r, s));
+        require(!isSet);
         isSet = true;
         outcome = _outcome;
         emit OutcomeAssignment(_outcome);

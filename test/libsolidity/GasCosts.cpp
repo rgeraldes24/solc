@@ -81,50 +81,49 @@ namespace solidity::frontend::test
 
 BOOST_FIXTURE_TEST_SUITE(GasCostTests, SolidityExecutionFramework)
 
-// TODO(rgeraldes24): fix
-// BOOST_AUTO_TEST_CASE(string_storage)
-// {
-// 	char const* sourceCode = R"(
-// 		contract C {
-// 			function f() pure public {
-// 				require(false, "Not Authorized. This function can only be called by the custodian or owner of this contract");
-// 			}
-// 		}
-// 	)";
-// 	m_compiler.setMetadataFormat(CompilerStack::MetadataFormat::NoMetadata);
-// 	m_appendCBORMetadata = false;
-// 	compileAndRun(sourceCode);
+BOOST_AUTO_TEST_CASE(string_storage)
+{
+	char const* sourceCode = R"(
+		contract C {
+			function f() pure public {
+				require(false, "Not Authorized. This function can only be called by the custodian or owner of this contract");
+			}
+		}
+	)";
+	m_compiler.setMetadataFormat(CompilerStack::MetadataFormat::NoMetadata);
+	m_appendCBORMetadata = false;
+	compileAndRun(sourceCode);
 
-// 	// This is only correct on >=Constantinople.
-// 	if (!CommonOptions::get().useABIEncoderV1)
-// 	{
-// 		if (CommonOptions::get().optimize)
-// 		{
-// 			CHECK_DEPLOY_GAS(0, 97071, evmVersion);
-// 		}
-// 		else
-// 		{
-// 			CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
-// 		}
-// 	}
-// 	else
-// 		CHECK_DEPLOY_GAS(114077, 95835, evmVersion);
+	// This is only correct on >=Constantinople.
+	if (!CommonOptions::get().useABIEncoderV1)
+	{
+		if (CommonOptions::get().optimize)
+		{
+			CHECK_DEPLOY_GAS(0, 97071, evmVersion);
+		}
+		else
+		{
+			CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
+		}
+	}
+	else
+		CHECK_DEPLOY_GAS(114077, 95835, evmVersion);
 
-// 	callContractFunction("f()");
-// 	// This is only correct on >=Constantinople.
-// 	if (!CommonOptions::get().useABIEncoderV1)
-// 	{
-// 		if (CommonOptions::get().optimize)
-// 		{
-// 			CHECK_GAS(0, 21318, 20);
-// 		}
-// 		else
-// 		{
-// 			CHECK_GAS(21528, 21351, 20);
-// 		}
-// 	}
-// 	CHECK_GAS(21332, 21322, 20);
-// }
+	callContractFunction("f()");
+	// This is only correct on >=Constantinople.
+	if (!CommonOptions::get().useABIEncoderV1)
+	{
+		if (CommonOptions::get().optimize)
+		{
+			CHECK_GAS(0, 21318, 20);
+		}
+		else
+		{
+			CHECK_GAS(21528, 21351, 20);
+		}
+	}
+	CHECK_GAS(21332, 21322, 20);
+}
 
 BOOST_AUTO_TEST_CASE(single_callvaluecheck)
 {

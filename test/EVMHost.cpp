@@ -102,7 +102,7 @@ EVMHost::EVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 		assertThrow(false, Exception, "Unsupported EVM version");
 
 	
-	// This is the value from the merge block. // TODO(rgeraldes24)
+	// This is the value from the merge block.
 	tx_context.block_prev_randao = 0xa86c2e601b6c44eb4848f7d23d9df3113fbcac42041c49cbed5000cb4f118777_bytes32;
 	tx_context.block_gas_limit = 20000000;
 	tx_context.block_coinbase = 0x7878787878787878787878787878787878787878_address;

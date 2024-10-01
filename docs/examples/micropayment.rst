@@ -144,7 +144,7 @@ The full contract
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
+
     contract ReceiverPays {
         address owner = msg.sender;
 
@@ -167,8 +167,6 @@ The full contract
         /// destroy the contract and reclaim the leftover funds.
         function shutdown() external {
             require(msg.sender == owner);
-            // TODO(rgeraldes24)
-            // selfdestruct(payable(msg.sender));
         }
 
         /// signature methods.
@@ -191,19 +189,9 @@ The full contract
             return (v, r, s);
         }
 
-        //function recoverSigner(bytes32 message, bytes memory sig)
-        //    internal
-        //    pure
-        //    returns (address)
-        //{
-        //    (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
-        //
-        //    return ecrecover(message, v, r, s);
-        //}
-
         /// builds a prefixed hash to mimic the behavior of eth_sign.
         function prefixed(bytes32 hash) internal pure returns (bytes32) {
-            return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+            return keccak256(abi.encodePacked("\x19Zond Signed Message:\n32", hash));
         }
     }
 
@@ -320,8 +308,7 @@ carries the highest total owed. If the sender were allowed to call this function
 they could provide a message with a lower amount and cheat the recipient out of what they are owed.
 
 The function verifies the signed message matches the given parameters.
-If everything checks out, the recipient is sent their portion of the Ether,
-and the sender is sent the rest via a ``selfdestruct``.
+If everything checks out, the recipient is sent their portion of the Ether.
 You can see the ``close`` function in the full contract.
 
 Channel Expiration
@@ -343,7 +330,6 @@ The full contract
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
     contract SimplePaymentChannel {
         address payable public sender;      // The account sending payments.
         address payable public recipient;   // The account receiving the payments.
@@ -360,13 +346,11 @@ The full contract
         /// the recipient can close the channel at any time by presenting a
         /// signed amount from the sender. the recipient will be sent that amount,
         /// and the remainder will go back to the sender
-        function close(uint256 amount, bytes memory signature) external {
+        function close(uint256 amount) external {
             require(msg.sender == recipient);
-            require(isValidSignature(amount, signature));
+            require(isValidSignature(amount));
 
             recipient.transfer(amount);
-            // TODO(rgeraldes24)
-            // selfdestruct(sender);
         }
 
         /// the sender can extend the expiration at any time
@@ -381,19 +365,15 @@ The full contract
         /// then the Ether is released back to the sender.
         function claimTimeout() external {
             require(block.timestamp >= expiration);
-            // TODO(rgeraldes24)
-            // selfdestruct(sender);
         }
 
-        function isValidSignature(uint256 amount, bytes memory signature)
+        function isValidSignature(uint256 amount)
             internal
             view
             returns (bool)
         {
             bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount)));
 
-            // check that the signature is from the payment sender
-            // return recoverSigner(message, signature) == sender;
             return true;
         }
 
@@ -419,19 +399,9 @@ The full contract
             return (v, r, s);
         }
 
-        // function recoverSigner(bytes32 message, bytes memory sig)
-        //    internal
-        //    pure
-        //    returns (address)
-        //{
-        //    (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
-        //
-        //    return ecrecover(message, v, r, s);
-        //}
-
         /// builds a prefixed hash to mimic the behavior of eth_sign.
         function prefixed(bytes32 hash) internal pure returns (bytes32) {
-            return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+            return keccak256(abi.encodePacked("\x19Zond Signed Message:\n32", hash));
         }
     }
 
@@ -468,7 +438,7 @@ and we use JavaScript. The following code borrows the ``constructPaymentMessage`
     function prefixed(hash) {
         return ethereumjs.ABI.soliditySHA3(
             ["string", "bytes32"],
-            ["\x19Ethereum Signed Message:\n32", hash]
+            ["\x19Zond Signed Message:\n32", hash]
         );
     }
 

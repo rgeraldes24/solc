@@ -656,9 +656,9 @@ an ``Error`` or a ``Panic`` (or whatever else was given):
 #. If you call a function via a message call but it does not finish
    properly (i.e., it runs out of gas, has no matching function, or
    throws an exception itself), except when a low level operation
-   ``call``, ``send``, ``delegatecall``, ``callcode`` or ``staticcall``
-   is used. The low level operations never throw exceptions but
-   indicate failures by returning ``false``.
+   ``call``, ``send``, ``delegatecall`` or ``staticcall`` is used.
+   The low level operations never throw exceptions but indicate
+   failures by returning ``false``.
 #. If you create a contract using the ``new`` keyword but the contract
    creation :ref:`does not finish properly<creating-contracts>`.
 

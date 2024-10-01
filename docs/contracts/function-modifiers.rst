@@ -20,7 +20,6 @@ if they are marked ``virtual``. For details, please see
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.1 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -48,8 +47,6 @@ if they are marked ``virtual``. For details, please see
         // causes that calls to `destroy` only have an effect if
         // they are made by the stored owner.
         function destroy() public onlyOwner {
-            // TODO(rgeraldes24)
-            // selfdestruct(owner);
         }
     }
 
