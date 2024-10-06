@@ -5,11 +5,11 @@ contract C {
     function g() view public {
         require(payable(this).send(2));
     }
-    function i() view public {
+    function h() view public {
         (bool success,) = address(this).delegatecall("");
         require(success);
     }
-    function j() view public {
+    function i() view public {
         (bool success,) = address(this).call("");
         require(success);
     }
