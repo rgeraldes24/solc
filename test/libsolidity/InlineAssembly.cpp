@@ -352,11 +352,6 @@ BOOST_AUTO_TEST_CASE(shift)
 	BOOST_CHECK(successAssemble("{ pop(sar(10, 32)) }"));
 }
 
-BOOST_AUTO_TEST_CASE(shift_constantinople_warning)
-{
-	return;
-}
-
 BOOST_AUTO_TEST_SUITE_END() // }}}
 
 BOOST_AUTO_TEST_SUITE_END()
