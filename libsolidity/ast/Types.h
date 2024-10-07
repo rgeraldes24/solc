@@ -1258,7 +1258,7 @@ public:
 		Transfer, ///< CALL, but without data and throws on error
 		KECCAK256, ///< KECCAK256
 		Revert, ///< REVERT
-		DepositRoot, ///< Cx§ALL to special contract for depositroot
+		DepositRoot, ///< CALL to special contract for depositroot
 		SHA256, ///< CALL to special contract for sha256
 		Event, ///< syntactic sugar for LOG*
 		Error, ///< creating an error instance in revert or require
