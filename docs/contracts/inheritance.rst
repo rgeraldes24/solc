@@ -437,15 +437,6 @@ You can use internal parameters in a constructor (for example storage pointers).
 the contract has to be marked :ref:`abstract <abstract-contract>`, because these parameters
 cannot be assigned valid values from outside but only through the constructors of derived contracts.
 
-.. warning::
-    Prior to version 0.4.22, constructors were defined as functions with the same name as the contract.
-    This syntax was deprecated and is not allowed anymore in version 0.5.0.
-
-.. warning::
-    Prior to version 0.7.0, you had to specify the visibility of constructors as either
-    ``internal`` or ``public``.
-
-
 .. index:: ! base;constructor, inheritance list, contract;abstract, abstract contract
 
 Arguments for Base Constructors

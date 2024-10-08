@@ -11,10 +11,10 @@ contract C {
 
 	constructor(bytes memory _data, bytes memory _pubkey, bytes memory _withdrawal_credentials, bytes memory _amount, bytes memory _signature) {
 		data = _data;
-		pubkey = pubkey;
+		pubkey = _pubkey;
 		withdrawal_credentials = _withdrawal_credentials;
 		amount = _amount;
-		signature = _signature
+		signature = _signature;
 
 		kec = keccak256(data);
 		sha = sha256(data);
@@ -33,4 +33,4 @@ contract C {
 // ====
 // SMTEngine: all
 // ----
-// Info 1391: CHC: 4 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+// Info 1391: CHC: 3 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

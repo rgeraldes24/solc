@@ -145,11 +145,6 @@ throws an exception or goes out of gas.
     external functions happen after any changes to state variables in your contract
     so your contract is not vulnerable to a reentrancy exploit.
 
-.. note::
-    Before Solidity 0.6.2, the recommended way to specify the value and gas was to
-    use ``f.value(x).gas(g)()``. This was deprecated in Solidity 0.6.2 and is no
-    longer possible since Solidity 0.7.0.
-
 Function Calls with Named Parameters
 ------------------------------------
 
@@ -784,11 +779,6 @@ In the above example, ``revert("Not enough Ether provided.");`` returns the foll
     0x4e6f7420656e6f7567682045746865722070726f76696465642e000000000000 // String data
 
 The provided message can be retrieved by the caller using ``try``/``catch`` as shown below.
-
-.. note::
-    There used to be a keyword called ``throw`` with the same semantics as ``revert()`` which
-    was deprecated in version 0.4.13 and removed in version 0.5.0.
-
 
 .. _try-catch:
 

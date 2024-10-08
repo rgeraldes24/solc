@@ -117,17 +117,6 @@ Block and Transaction Properties
     You can only access the hashes of the most recent 256 blocks, all other
     values will be zero.
 
-.. note::
-    The function ``blockhash`` was previously known as ``block.blockhash``, which was deprecated in
-    version 0.4.22 and removed in version 0.5.0.
-
-.. note::
-    The function ``gasleft`` was previously known as ``msg.gas``, which was deprecated in
-    version 0.4.21 and removed in version 0.5.0.
-
-.. note::
-    In version 0.7.0, the alias ``now`` (for ``block.timestamp``) was removed.
-
 .. index:: abi, encoding, packed
 
 ABI Encoding and Decoding Functions
@@ -187,7 +176,7 @@ more details on error handling and when to use which function.
 ``revert(string memory reason)``
     abort execution and revert state changes, providing an explanatory string
 
-.. index:: keccak256, ripemd160, sha256, ecrecover, addmod, mulmod, cryptography,
+.. index:: keccak256, sha256, depositroot, addmod, mulmod, cryptography,
 
 .. _mathematical-and-cryptographic-functions:
 
@@ -210,10 +199,7 @@ Mathematical and Cryptographic Functions
 ``sha256(bytes memory) returns (bytes32)``
     compute the SHA-256 hash of the input
 
-``ripemd160(bytes memory) returns (bytes20)``
-    compute RIPEMD-160 hash of the input
-
-``ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)``
+``depositroot(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)`` // TODO(rgeraldes24)
     recover the address associated with the public key from elliptic curve signature or return zero on error.
     The function parameters correspond to ECDSA values of the signature:
 

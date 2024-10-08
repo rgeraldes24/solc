@@ -93,7 +93,7 @@ namespace GasCosts
 	static unsigned const txGas = 21000;
 	static unsigned const txCreateGas = 53000;
 	static unsigned const txDataZeroGas = 4;
-	static unsigned txDataNonZeroGas = 16;
+	static unsigned const txDataNonZeroGas = 16;
 	static unsigned const copyGas = 3;
 }
 

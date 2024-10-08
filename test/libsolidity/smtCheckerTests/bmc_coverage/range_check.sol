@@ -54,4 +54,4 @@ contract D {
 // ====
 // SMTEngine: bmc
 // ----
-// Info 6002: BMC: 44 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+// Info 6002: BMC: 40 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

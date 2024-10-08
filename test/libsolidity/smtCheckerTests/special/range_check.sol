@@ -54,4 +54,4 @@ contract D {
 // ====
 // SMTEngine: all
 // ----
-// Info 1391: CHC: 44 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+// Info 1391: CHC: 40 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

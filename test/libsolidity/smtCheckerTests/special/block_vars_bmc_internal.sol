@@ -30,11 +30,10 @@ contract C {
 // ====
 // SMTEngine: bmc
 // ----
-// Warning 4661: (409-435): BMC: Assertion violation happens here.
-// Warning 4661: (569-599): BMC: Assertion violation happens here.
-// Warning 4661: (627-658): BMC: Assertion violation happens here.
-// Warning 4661: (686-724): BMC: Assertion violation happens here.
-// Warning 4661: (752-781): BMC: Assertion violation happens here.
-// Warning 4661: (809-839): BMC: Assertion violation happens here.
-// Warning 4661: (867-903): BMC: Assertion violation happens here.
-// Info 6002: BMC: 12 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+// Warning 4661: (337-363): BMC: Assertion violation happens here.
+// Warning 4661: (497-527): BMC: Assertion violation happens here.
+// Warning 4661: (555-593): BMC: Assertion violation happens here.
+// Warning 4661: (621-650): BMC: Assertion violation happens here.
+// Warning 4661: (678-708): BMC: Assertion violation happens here.
+// Warning 4661: (736-772): BMC: Assertion violation happens here.
+// Info 6002: BMC: 10 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

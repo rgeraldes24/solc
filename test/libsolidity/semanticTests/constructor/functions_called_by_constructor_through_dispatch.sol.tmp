@@ -2,7 +2,7 @@ contract Test {
     bytes6 name;
 
     constructor() {
-        function (bytes6 _name) internal setter = setName;
+        function (bytes6) internal setter = setName;
         setter("abcdef");
 
         applyShift(leftByteShift, 3);

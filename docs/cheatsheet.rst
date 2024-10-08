@@ -85,14 +85,14 @@ Validations and Assertions
 - ``revert()``: abort execution and revert state changes
 - ``revert(string memory message)``: abort execution and revert state changes providing an explanatory string
 
-.. index:: cryptography, keccak256, sha256, ripemd160, ecrecover, addmod, mulmod
+.. index:: cryptography, keccak256, sha256, depositroot, addmod, mulmod
 
 Mathematical and Cryptographic Functions
 ========================================
 
 - ``keccak256(bytes memory) returns (bytes32)``: compute the Keccak-256 hash of the input
 - ``sha256(bytes memory) returns (bytes32)``: compute the SHA-256 hash of the input
-- ``ripemd160(bytes memory) returns (bytes20)``: compute the RIPEMD-160 hash of the input
+- ``depositroot(bytes memory) returns (bytes20)``: compute the RIPEMD-160 hash of the input // TODO(rgeraldes24)
 - ``ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)``: recover address associated with
   the public key from elliptic curve signature, return zero on error
 - ``addmod(uint x, uint y, uint k) returns (uint)``: compute ``(x + y) % k`` where the addition is performed with

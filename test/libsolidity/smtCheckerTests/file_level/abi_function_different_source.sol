@@ -5,5 +5,5 @@ function f() {
 ==== Source: s2.sol ====
 contract C {}
 // ----
-// Warning 6133: (s1.sol:16-67): Statement has no effect.
-// Warning 2018: (s1.sol:0-70): Function state mutability can be restricted to pure
+// Warning 6133: (s1.sol:16-59): Statement has no effect.
+// Warning 2018: (s1.sol:0-62): Function state mutability can be restricted to pure

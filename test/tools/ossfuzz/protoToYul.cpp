@@ -1259,9 +1259,6 @@ void ProtoConverter::visit(TerminatingStmt const& _x)
 	case TerminatingStmt::kRetRev:
 		visit(_x.ret_rev());
 		break;
-	case TerminatingStmt::kSelfDes:
-		visit(_x.self_des());
-		break;
 	case TerminatingStmt::TERM_ONEOF_NOT_SET:
 		break;
 	}

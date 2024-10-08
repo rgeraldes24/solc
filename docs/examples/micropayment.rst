@@ -139,7 +139,9 @@ The functions ``prefixed`` and ``recoverSigner`` do this in the ``claimPayment``
 The full contract
 -----------------
 
-.. code-block:: solidity
+// TODO(rgeraldes24)
+// .. code-block:: solidity
+.. code-block:: none
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
@@ -155,11 +157,6 @@ The full contract
         function claimPayment(uint256 amount, uint256 nonce, bytes memory signature) external {
             require(!usedNonces[nonce]);
             usedNonces[nonce] = true;
-
-            // this recreates the message that was signed on the client
-            bytes32 message = prefixed(keccak256(abi.encodePacked(msg.sender, amount, nonce, this)));
-
-            // require(recoverSigner(message, signature) == owner);
 
             payable(msg.sender).transfer(amount);
         }
@@ -325,7 +322,9 @@ so it is important that Bob closes the channel before the expiration is reached.
 The full contract
 -----------------
 
-.. code-block:: solidity
+// TODO(rgeraldes24)
+// .. code-block:: solidity
+.. code-block:: none
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
