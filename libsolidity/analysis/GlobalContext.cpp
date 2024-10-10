@@ -47,7 +47,6 @@ int magicVariableToID(std::string const& _name)
 	else if (_name == "keccak256") return -8;
 	else if (_name == "msg") return -15;
 	else if (_name == "mulmod") return -16;
-	else if (_name == "now") return -17;
 	else if (_name == "require") return -18;
 	else if (_name == "revert") return -19;
 	else if (_name == "sha256") return -22;
@@ -76,7 +75,6 @@ inline std::vector<std::shared_ptr<MagicVariableDeclaration const>> constructMag
 		magicVarDecl("keccak256", TypeProvider::function(strings{"bytes memory"}, strings{"bytes32"}, FunctionType::Kind::KECCAK256, StateMutability::Pure)),
 		magicVarDecl("msg", TypeProvider::magic(MagicType::Kind::Message)),
 		magicVarDecl("mulmod", TypeProvider::function(strings{"uint256", "uint256", "uint256"}, strings{"uint256"}, FunctionType::Kind::MulMod, StateMutability::Pure)),
-		magicVarDecl("now", TypeProvider::uint256()),
 		magicVarDecl("require", TypeProvider::function(strings{"bool"}, strings{}, FunctionType::Kind::Require, StateMutability::Pure)),
 		magicVarDecl("require", TypeProvider::function(strings{"bool", "string memory"}, strings{}, FunctionType::Kind::Require, StateMutability::Pure)),
 		magicVarDecl("revert", TypeProvider::function(strings(), strings(), FunctionType::Kind::Revert, StateMutability::Pure)),

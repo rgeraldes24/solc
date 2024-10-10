@@ -133,7 +133,7 @@ explanatory purposes.
           "myDirectory/myFile.sol": "MyContract"
         },
         // Required for Solidity.
-        "evmVersion": "london",
+        "evmVersion": "shanghai",
         // Required for Solidity: Addresses for libraries used.
         "libraries": {
           "MyLib": "0x123123..."

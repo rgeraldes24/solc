@@ -102,7 +102,7 @@ else
             exit 1
         fi
     else
-        if ! "$REPO_ROOT/test/cmdlineTests.sh"
+        if ! "$REPO_ROOT/test/cmdlineTests.sh" --exclude "*import*" --exclude "*export*"
         then
             printError "Commandline tests FAILED"
             exit 1

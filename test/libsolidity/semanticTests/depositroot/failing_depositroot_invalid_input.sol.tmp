@@ -1,8 +1,0 @@
-contract C {
-    // Note that the precompile does not return zero but returns nothing.
-    function f() public returns (bytes32) {
-        return depositroot("abc", "abc", "abc", "abc");
-    }
-}
-// ----
-// f() -> 0

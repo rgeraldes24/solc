@@ -2396,10 +2396,6 @@ void IRGeneratorForStatements::endVisit(Identifier const& _identifier)
 			solAssert(_identifier.name() == "this");
 			define(_identifier) << "address()\n";
 			break;
-		case Type::Category::Integer:
-			solAssert(_identifier.name() == "now");
-			define(_identifier) << "timestamp()\n";
-			break;
 		case Type::Category::TypeType:
 		{
 			auto typeType = dynamic_cast<TypeType const*>(magicVar->type());

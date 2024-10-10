@@ -948,37 +948,6 @@ the arguments.
 
 Using abstraction means loss of precise knowledge, but in many cases it does
 not mean loss of proving power.
-
-// NOTE(rgeraldes24): ecrecover not available
-// .. code-block:: solidity
-.. code-block:: none
-
-    // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
-
-    contract Recover
-    {
-        function f(
-            bytes32 hash,
-            uint8 v1, uint8 v2,
-            bytes32 r1, bytes32 r2,
-            bytes32 s1, bytes32 s2
-        ) public pure returns (address) {
-            address a1 = ecrecover(hash, v1, r1, s1);
-            require(v1 == v2);
-            require(r1 == r2);
-            require(s1 == s2);
-            address a2 = ecrecover(hash, v2, r2, s2);
-            assert(a1 == a2);
-            return a1;
-        }
-    }
-
-In the example above, the SMTChecker is not expressive enough to actually
-compute ``ecrecover``, but by modelling the function calls as uninterpreted
-functions we know that the return value is the same when called on equivalent
-parameters. This is enough to prove that the assertion above is always true.
-
 Abstracting a function call with an UF can be done for functions known to be
 deterministic, and can be easily done for pure functions.  It is however
 difficult to do this with general external functions, since they might depend

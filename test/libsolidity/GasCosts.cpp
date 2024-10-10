@@ -94,7 +94,6 @@ BOOST_AUTO_TEST_CASE(string_storage)
 	m_appendCBORMetadata = false;
 	compileAndRun(sourceCode);
 
-	// This is only correct on >=Constantinople.
 	if (!CommonOptions::get().useABIEncoderV1)
 	{
 		if (CommonOptions::get().optimize)

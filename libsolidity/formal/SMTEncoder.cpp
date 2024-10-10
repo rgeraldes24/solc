@@ -926,8 +926,6 @@ void SMTEncoder::endVisit(Identifier const& _identifier)
 	}
 	else if (_identifier.annotation().type->category() == Type::Category::Function)
 		visitFunctionIdentifier(_identifier);
-	else if (_identifier.name() == "now")
-		defineGlobalVariable(_identifier.name(), _identifier);
 	else if (_identifier.name() == "this")
 	{
 		defineExpr(_identifier, state().thisAddress());

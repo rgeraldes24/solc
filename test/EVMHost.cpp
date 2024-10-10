@@ -106,7 +106,7 @@ EVMHost::EVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 	tx_context.block_prev_randao = 0xa86c2e601b6c44eb4848f7d23d9df3113fbcac42041c49cbed5000cb4f118777_bytes32;
 	tx_context.block_gas_limit = 20000000;
 	tx_context.block_coinbase = 0x7878787878787878787878787878787878787878_address;
-	tx_context.tx_gas_price = evmc::uint256be{3000000000}; // TODO(rgeraldes24)
+	tx_context.tx_gas_price = evmc::uint256be{3000000000};
 	tx_context.tx_origin = 0x9292929292929292929292929292929292929292_address;
 	// Mainnet according to EIP-155
 	tx_context.chain_id = evmc::uint256be{1};
@@ -390,7 +390,6 @@ evmc::Result EVMHost::precompileDepositRoot(evmc_message const& _message) noexce
 		}
 	};
 	evmc::Result result = precompileGeneric(_message, inputOutput);
-	// ECRecover will return success with empty response in case of failure
 	if (result.status_code != EVMC_SUCCESS && result.status_code != EVMC_OUT_OF_GAS)
 		return resultWithGas(_message.gas, gas_cost, {});
 	return result;

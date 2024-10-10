@@ -859,7 +859,7 @@ enum evmc_revision
      *
      * The one Zond launched with.
      */
-    EVMC_SHANGHAI = 0,
+    EVMC_SHANGHAI = 11,
 
     /** The maximum EVM revision supported. */
     EVMC_MAX_REVISION = EVMC_SHANGHAI,
