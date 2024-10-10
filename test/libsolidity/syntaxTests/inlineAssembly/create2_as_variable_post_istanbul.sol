@@ -4,6 +4,4 @@ contract c {
 		assembly { pop(create2(0, 0, 0, 0)) }
 	}
 }
-// ====
-// EVMVersion: >=constantinople
 // ----

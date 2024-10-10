@@ -8,8 +8,6 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=london
 // ----
 // f() -> 7
 // g() -> 7

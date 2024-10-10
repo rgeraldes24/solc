@@ -127,7 +127,6 @@ parameterDeclaration: type=typeName location=dataLocation? name=identifier?;
 /**
  * Definition of a constructor.
  * Must always supply an implementation.
- * Note that specifying internal or public visibility is deprecated.
  */
 constructorDefinition
 locals[boolean payableSet = false, boolean visibilitySet = false]

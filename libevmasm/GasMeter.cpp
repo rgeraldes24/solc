@@ -44,9 +44,9 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 	switch (_item.type())
 	{
 	case Push:
-		if (m_evmVersion.hasPush0() && _item.data() == 0)
+		if (_item.data() == 0)
 		{
-			gas = runGas(Instruction::PUSH0, m_evmVersion);
+			gas = runGas(Instruction::PUSH0);
 			break;
 		}
 		[[fallthrough]];
@@ -57,10 +57,10 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 	case PushProgramSize:
 	case PushLibraryAddress:
 	case PushDeployTimeAddress:
-		gas = runGas(Instruction::PUSH1, m_evmVersion);
+		gas = runGas(Instruction::PUSH1);
 		break;
 	case Tag:
-		gas = runGas(Instruction::JUMPDEST, m_evmVersion);
+		gas = runGas(Instruction::JUMPDEST);
 		break;
 	case Operation:
 	{
@@ -75,29 +75,29 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 				m_state->storageContent().count(slot) &&
 				classes.knownNonZero(m_state->storageContent().at(slot))
 			))
-				gas = GasCosts::totalSstoreResetGas(m_evmVersion); //@todo take refunds into account
+				gas = GasCosts::totalSstoreResetGas; //@todo take refunds into account
 			else
-				gas = GasCosts::totalSstoreSetGas(m_evmVersion);
+				gas = GasCosts::totalSstoreSetGas;
 			break;
 		}
 		case Instruction::SLOAD:
-			gas = GasCosts::sloadGas(m_evmVersion);
+			gas = GasCosts::sloadGas;
 			break;
 		case Instruction::RETURN:
 		case Instruction::REVERT:
-			gas = runGas(_item.instruction(), m_evmVersion);
+			gas = runGas(_item.instruction());
 			gas += memoryGas(0, -1);
 			break;
 		case Instruction::MLOAD:
 		case Instruction::MSTORE:
-			gas = runGas(_item.instruction(), m_evmVersion);
+			gas = runGas(_item.instruction());
 			gas += memoryGas(classes.find(Instruction::ADD, {
 				m_state->relativeStackElement(0),
 				classes.find(AssemblyItem(32))
 			}));
 			break;
 		case Instruction::MSTORE8:
-			gas = runGas(_item.instruction(), m_evmVersion);
+			gas = runGas(_item.instruction());
 			gas += memoryGas(classes.find(Instruction::ADD, {
 				m_state->relativeStackElement(0),
 				classes.find(AssemblyItem(1))
@@ -111,18 +111,18 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 		case Instruction::CALLDATACOPY:
 		case Instruction::CODECOPY:
 		case Instruction::RETURNDATACOPY:
-			gas = runGas(_item.instruction(), m_evmVersion);
+			gas = runGas(_item.instruction());
 			gas += memoryGas(0, -2);
 			gas += wordGas(GasCosts::copyGas, m_state->relativeStackElement(-2));
 			break;
 		case Instruction::EXTCODESIZE:
-			gas = GasCosts::extCodeGas(m_evmVersion);
+			gas = GasCosts::extCodeGas;
 			break;
 		case Instruction::EXTCODEHASH:
-			gas = GasCosts::balanceGas(m_evmVersion);
+			gas = GasCosts::balanceGas;
 			break;
 		case Instruction::EXTCODECOPY:
-			gas = GasCosts::extCodeGas(m_evmVersion);
+			gas = GasCosts::extCodeGas;
 			gas += memoryGas(-1, -3);
 			gas += wordGas(GasCosts::copyGas, m_state->relativeStackElement(-3));
 			break;
@@ -141,7 +141,6 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 			break;
 		}
 		case Instruction::CALL:
-		case Instruction::CALLCODE:
 		case Instruction::DELEGATECALL:
 		case Instruction::STATICCALL:
 		{
@@ -150,7 +149,7 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 				gas = GasConsumption::infinite();
 			else
 			{
-				gas = GasCosts::callGas(m_evmVersion);
+				gas = GasCosts::callGas;
 				if (u256 const* value = classes.knownConstant(m_state->relativeStackElement(0)))
 					gas += (*value);
 				else
@@ -167,10 +166,6 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 			}
 			break;
 		}
-		case Instruction::SELFDESTRUCT:
-			gas = GasCosts::selfdestructGas(m_evmVersion);
-			gas += GasCosts::callNewAccountGas; // We very rarely know whether the address exists.
-			break;
 		case Instruction::CREATE:
 		case Instruction::CREATE2:
 			if (_includeExternalCosts)
@@ -190,23 +185,23 @@ GasMeter::GasConsumption GasMeter::estimateMax(AssemblyItem const& _item, bool _
 				{
 					// Note: msb() counts from 0 and throws on 0 as input.
 					unsigned const significantByteCount  = (static_cast<unsigned>(boost::multiprecision::msb(*value)) + 1u + 7u) / 8u;
-					gas += GasCosts::expByteGas(m_evmVersion) * significantByteCount;
+					gas += GasCosts::expByteGas * significantByteCount;
 				}
 			}
 			else
-				gas += GasCosts::expByteGas(m_evmVersion) * 32;
+				gas += GasCosts::expByteGas * 32;
 			break;
 		case Instruction::BALANCE:
-			gas = GasCosts::balanceGas(m_evmVersion);
+			gas = GasCosts::balanceGas;
 			break;
 		case Instruction::CHAINID:
-			gas = runGas(Instruction::CHAINID, m_evmVersion);
+			gas = runGas(Instruction::CHAINID);
 			break;
 		case Instruction::SELFBALANCE:
-			gas = runGas(Instruction::SELFBALANCE, m_evmVersion);
+			gas = runGas(Instruction::SELFBALANCE);
 			break;
 		default:
-			gas = runGas(_item.instruction(), m_evmVersion);
+			gas = runGas(_item.instruction());
 			break;
 		}
 		break;
@@ -257,12 +252,12 @@ GasMeter::GasConsumption GasMeter::memoryGas(int _stackPosOffset, int _stackPosS
 		}));
 }
 
-unsigned GasMeter::runGas(Instruction _instruction, langutil::EVMVersion _evmVersion)
+unsigned GasMeter::runGas(Instruction _instruction)
 {
 	if (_instruction == Instruction::JUMPDEST)
 		return 1;
 
-	switch (instructionInfo(_instruction, _evmVersion).gasPriceTier)
+	switch (instructionInfo(_instruction).gasPriceTier)
 	{
 	case Tier::Zero:    return GasCosts::tier0Gas;
 	case Tier::Base:    return GasCosts::tier1Gas;
@@ -273,17 +268,17 @@ unsigned GasMeter::runGas(Instruction _instruction, langutil::EVMVersion _evmVer
 	case Tier::Ext:     return GasCosts::tier6Gas;
 	default: break;
 	}
-	assertThrow(false, OptimizerException, "Invalid gas tier for instruction " + instructionInfo(_instruction, _evmVersion).name);
+	assertThrow(false, OptimizerException, "Invalid gas tier for instruction " + instructionInfo(_instruction).name);
 	return 0;
 }
 
-u256 GasMeter::dataGas(bytes const& _data, bool _inCreation, langutil::EVMVersion _evmVersion)
+u256 GasMeter::dataGas(bytes const& _data, bool _inCreation)
 {
 	bigint gas = 0;
 	if (_inCreation)
 	{
 		for (auto b: _data)
-			gas += (b != 0) ? GasCosts::txDataNonZeroGas(_evmVersion) : GasCosts::txDataZeroGas;
+			gas += (b != 0) ? GasCosts::txDataNonZeroGas : GasCosts::txDataZeroGas;
 	}
 	else
 		gas = bigint(GasCosts::createDataGas) * _data.size();
@@ -292,9 +287,9 @@ u256 GasMeter::dataGas(bytes const& _data, bool _inCreation, langutil::EVMVersio
 }
 
 
-u256 GasMeter::dataGas(uint64_t _length, bool _inCreation, langutil::EVMVersion _evmVersion)
+u256 GasMeter::dataGas(uint64_t _length, bool _inCreation)
 {
-	bigint gas = bigint(_length) * (_inCreation ? GasCosts::txDataNonZeroGas(_evmVersion) : GasCosts::createDataGas);
+	bigint gas = bigint(_length) * (_inCreation ? GasCosts::txDataNonZeroGas : GasCosts::createDataGas);
 	assertThrow(gas < bigint(u256(-1)), OptimizerException, "Gas cost exceeds 256 bits.");
 	return u256(gas);
 }

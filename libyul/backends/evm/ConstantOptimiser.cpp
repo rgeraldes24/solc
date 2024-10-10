@@ -151,14 +151,7 @@ Representation const& RepresentationFinder::findRepresentation(u256 const& _valu
 		if (abs(lowerPart) >= (powerOfTwo >> 8))
 			continue;
 		Representation newRoutine;
-		if (m_dialect.evmVersion().hasBitwiseShifting())
-			newRoutine = represent("shl"_yulstring, represent(bits), findRepresentation(upperPart));
-		else
-		{
-			newRoutine = represent("exp"_yulstring, represent(2), represent(bits));
-			if (upperPart != 1)
-				newRoutine = represent("mul"_yulstring, findRepresentation(upperPart), newRoutine);
-		}
+		newRoutine = represent("shl"_yulstring, represent(bits), findRepresentation(upperPart));
 
 		if (newRoutine.cost >= routine.cost)
 			continue;

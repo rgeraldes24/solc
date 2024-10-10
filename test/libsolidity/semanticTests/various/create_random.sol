@@ -31,8 +31,6 @@ contract C {
         return address(uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), creator, salt, codehash)))));
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // addr() -> 0xc06afe3a8444fc0004668591e8306bfb9968e79e
 // testRunner() -> 0x137aa4dfc0911524504fcd4d98501f179bc13b4a, 0x2c1c30623ddd93e0b765a6caaca0c859eeb0644d

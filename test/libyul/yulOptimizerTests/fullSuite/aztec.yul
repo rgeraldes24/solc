@@ -228,8 +228,6 @@
         mstore(0x00, keccak256(0x300, mul(n, 0x80)))
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // step: fullSuite
 //

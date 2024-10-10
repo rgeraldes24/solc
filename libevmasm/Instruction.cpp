@@ -75,7 +75,6 @@ std::map<std::string, Instruction> const solidity::evmasm::c_instructions =
 	{ "COINBASE", Instruction::COINBASE },
 	{ "TIMESTAMP", Instruction::TIMESTAMP },
 	{ "NUMBER", Instruction::NUMBER },
-	{ "DIFFICULTY", Instruction::PREVRANDAO },
 	{ "PREVRANDAO", Instruction::PREVRANDAO },
 	{ "GASLIMIT", Instruction::GASLIMIT },
 	{ "CHAINID", Instruction::CHAINID },
@@ -165,14 +164,12 @@ std::map<std::string, Instruction> const solidity::evmasm::c_instructions =
 	{ "LOG4", Instruction::LOG4 },
 	{ "CREATE", Instruction::CREATE },
 	{ "CALL", Instruction::CALL },
-	{ "CALLCODE", Instruction::CALLCODE },
 	{ "STATICCALL", Instruction::STATICCALL },
 	{ "RETURN", Instruction::RETURN },
 	{ "DELEGATECALL", Instruction::DELEGATECALL },
 	{ "CREATE2", Instruction::CREATE2 },
 	{ "REVERT", Instruction::REVERT },
-	{ "INVALID", Instruction::INVALID },
-	{ "SELFDESTRUCT", Instruction::SELFDESTRUCT }
+	{ "INVALID", Instruction::INVALID }
 };
 
 /// @note InstructionInfo is assumed to be the same across all EVM versions except for the instruction name.
@@ -314,22 +311,18 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::LOG4,		{ "LOG4",			0, 6, 0, true, Tier::Special } },
 	{ Instruction::CREATE,		{ "CREATE",			0, 3, 1, true, Tier::Special } },
 	{ Instruction::CALL,		{ "CALL",			0, 7, 1, true, Tier::Special } },
-	{ Instruction::CALLCODE,	{ "CALLCODE",		0, 7, 1, true, Tier::Special } },
 	{ Instruction::RETURN,		{ "RETURN",			0, 2, 0, true, Tier::Zero } },
 	{ Instruction::DELEGATECALL,	{ "DELEGATECALL",	0, 6, 1, true, Tier::Special } },
 	{ Instruction::STATICCALL,	{ "STATICCALL",		0, 6, 1, true, Tier::Special } },
 	{ Instruction::CREATE2,		{ "CREATE2",		0, 4, 1, true, Tier::Special } },
 	{ Instruction::REVERT,		{ "REVERT",		0, 2, 0, true, Tier::Zero } },
-	{ Instruction::INVALID,		{ "INVALID",		0, 0, 0, true, Tier::Zero } },
-	{ Instruction::SELFDESTRUCT,	{ "SELFDESTRUCT",		0, 1, 0, true, Tier::Special } }
+	{ Instruction::INVALID,		{ "INVALID",		0, 0, 0, true, Tier::Zero } }
 };
 
-InstructionInfo solidity::evmasm::instructionInfo(Instruction _inst, langutil::EVMVersion _evmVersion)
+InstructionInfo solidity::evmasm::instructionInfo(Instruction _inst)
 {
 	try
 	{
-		if (_inst == Instruction::PREVRANDAO && _evmVersion < langutil::EVMVersion::paris())
-			return InstructionInfo({ "DIFFICULTY", 0, 0, 1, false, Tier::Base });
 		return c_instructionInfo.at(_inst);
 	}
 	catch (...)

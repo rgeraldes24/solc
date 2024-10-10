@@ -167,7 +167,7 @@ at each version. Backward compatibility is not guaranteed between each version.
 - ``istanbul``
    - Opcodes ``chainid`` and ``selfbalance`` are available in assembly.
 - ``berlin``
-   - Gas costs for ``SLOAD``, ``*CALL``, ``BALANCE``, ``EXT*`` and ``SELFDESTRUCT`` increased. The
+   - Gas costs for ``SLOAD``, ``*CALL``, ``BALANCE`` and ``EXT*`` increased. The
      compiler assumes cold gas costs for such operations. This is relevant for gas estimation and
      the optimizer.
 - ``london``
@@ -244,7 +244,7 @@ Input Description
           // Optional: keccak256 hash of the source file
           "keccak256": "0x234...",
           // Required (unless "urls" is used): literal contents of the source file
-          "content": "contract destructible is owned { function shutdown() { if (msg.sender == owner) selfdestruct(owner); } }"
+          "content": "contract destructible is owned { function shutdown() {} }"
         }
       },
       // Optional
@@ -318,9 +318,7 @@ Input Description
           }
         },
         // Version of the EVM to compile for.
-        // Affects type checking and code generation. Can be homestead,
-        // tangerineWhistle, spuriousDragon, byzantium, constantinople,
-        // petersburg, istanbul, berlin, london, paris or shanghai (default)
+        // Affects type checking and code generation. Can be shanghai (default)
         "evmVersion": "shanghai",
         // Optional: Change compilation pipeline to go through the Yul intermediate representation.
         // This is false by default.

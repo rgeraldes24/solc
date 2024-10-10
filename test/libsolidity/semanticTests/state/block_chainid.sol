@@ -3,8 +3,6 @@ contract C {
         return block.chainid;
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // f() -> 1
 // f() -> 1

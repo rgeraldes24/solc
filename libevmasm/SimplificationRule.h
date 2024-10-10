@@ -143,14 +143,12 @@ struct EVMBuiltins
 	static auto constexpr LOG4 = PatternGenerator<Instruction::LOG4>{};
 	static auto constexpr CREATE = PatternGenerator<Instruction::CREATE>{};
 	static auto constexpr CALL = PatternGenerator<Instruction::CALL>{};
-	static auto constexpr CALLCODE = PatternGenerator<Instruction::CALLCODE>{};
 	static auto constexpr STATICCALL = PatternGenerator<Instruction::STATICCALL>{};
 	static auto constexpr RETURN = PatternGenerator<Instruction::RETURN>{};
 	static auto constexpr DELEGATECALL = PatternGenerator<Instruction::DELEGATECALL>{};
 	static auto constexpr CREATE2 = PatternGenerator<Instruction::CREATE2>{};
 	static auto constexpr REVERT = PatternGenerator<Instruction::REVERT>{};
 	static auto constexpr INVALID = PatternGenerator<Instruction::INVALID>{};
-	static auto constexpr SELFDESTRUCT = PatternGenerator<Instruction::SELFDESTRUCT>{};
 };
 
 }

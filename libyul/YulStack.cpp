@@ -147,7 +147,7 @@ void YulStack::compileEVM(AbstractAssembly& _assembly, bool _optimize) const
 			break;
 	}
 
-	EVMObjectCompiler::compile(*m_parserResult, _assembly, *dialect, _optimize, m_eofVersion);
+	EVMObjectCompiler::compile(*m_parserResult, _assembly, *dialect, _optimize);
 }
 
 void YulStack::optimize(Object& _object, bool _isCreation)

@@ -21,8 +21,6 @@
         sstore(add(keccak256(_1, 0x20), 0x0a), 0x05)
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: fullSuite
 //

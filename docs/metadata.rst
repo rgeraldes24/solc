@@ -177,7 +177,7 @@ explanatory purposes.
       "sources": {
         "destructible": {
           // Required (unless "url" is used): literal contents of the source file
-          "content": "contract destructible is owned { function destroy() { if (msg.sender == owner) selfdestruct(owner); } }",
+          "content": "contract destructible is owned { function destroy() {} }",
           // Required: keccak256 hash of the source file
           "keccak256": "0x234..."
         },

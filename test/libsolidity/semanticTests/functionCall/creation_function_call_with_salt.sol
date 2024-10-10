@@ -13,8 +13,6 @@ contract D {
         return c.i();
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // constructor(): 2 ->
 // gas irOptimized: 192866

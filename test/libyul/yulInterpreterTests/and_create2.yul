@@ -4,8 +4,6 @@
     let b := and(u160max, create2(0, u160max, 0, 0))
     mstore(0, eq(a, b))
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // Trace:
 //   CREATE2(0, 0, 0, 0)

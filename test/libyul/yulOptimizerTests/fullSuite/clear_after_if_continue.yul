@@ -6,8 +6,6 @@
     }
     if y { revert(0, 0) }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: fullSuite
 //

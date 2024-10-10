@@ -29,7 +29,6 @@ using namespace solidity::evmasm;
 
 void solidity::evmasm::eachInstruction(
 	bytes const& _mem,
-	langutil::EVMVersion _evmVersion,
 	std::function<void(Instruction,u256 const&)> const& _onInstruction
 )
 {
@@ -38,7 +37,7 @@ void solidity::evmasm::eachInstruction(
 		Instruction const instr{*it};
 		int additional = 0;
 		if (isValidInstruction(instr))
-			additional = instructionInfo(instr, _evmVersion).additional;
+			additional = instructionInfo(instr).additional;
 
 		u256 data{};
 
@@ -57,15 +56,15 @@ void solidity::evmasm::eachInstruction(
 	}
 }
 
-std::string solidity::evmasm::disassemble(bytes const& _mem, langutil::EVMVersion _evmVersion, std::string const& _delimiter)
+std::string solidity::evmasm::disassemble(bytes const& _mem, std::string const& _delimiter)
 {
 	std::stringstream ret;
-	eachInstruction(_mem, _evmVersion, [&](Instruction _instr, u256 const& _data) {
+	eachInstruction(_mem, [&](Instruction _instr, u256 const& _data) {
 		if (!isValidInstruction(_instr))
 			ret << "0x" << std::uppercase << std::hex << static_cast<int>(_instr) << _delimiter;
 		else
 		{
-			InstructionInfo info = instructionInfo(_instr, _evmVersion);
+			InstructionInfo info = instructionInfo(_instr);
 			ret << info.name;
 			if (info.additional)
 				ret << " 0x" << std::uppercase << std::hex << _data;

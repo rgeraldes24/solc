@@ -59,7 +59,6 @@ pair<bool, ErrorList> parse(string const& _source)
 	{
 		YulStack asmStack(
 			solidity::test::CommonOptions::get().evmVersion(),
-			solidity::test::CommonOptions::get().eofVersion(),
 			YulStack::Language::StrictAssembly,
 			solidity::frontend::OptimiserSettings::none(),
 			DebugInfoSelection::All()
@@ -120,7 +119,7 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::berlin());
+	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");
 	auto object = objectParser.parse(make_shared<Scanner>(stream), false);
@@ -182,7 +181,6 @@ BOOST_AUTO_TEST_CASE(to_string)
 	expectation = boost::replace_all_copy(expectation, "\t", "    ");
 	YulStack asmStack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		YulStack::Language::StrictAssembly,
 		solidity::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()

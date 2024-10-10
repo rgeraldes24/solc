@@ -334,17 +334,11 @@ std::string YulUtilFunctions::shiftLeftFunction(size_t _numBits)
 			Whiskers(R"(
 			function <functionName>(value) -> newValue {
 				newValue :=
-				<?hasShifts>
 					shl(<numBits>, value)
-				<!hasShifts>
-					mul(value, <multiplier>)
-				</hasShifts>
 			}
 			)")
 			("functionName", functionName)
 			("numBits", std::to_string(_numBits))
-			("hasShifts", m_evmVersion.hasBitwiseShifting())
-			("multiplier", toCompactHexWithPrefix(u256(1) << _numBits))
 			.render();
 	});
 }
@@ -357,15 +351,10 @@ std::string YulUtilFunctions::shiftLeftFunctionDynamic()
 			Whiskers(R"(
 			function <functionName>(bits, value) -> newValue {
 				newValue :=
-				<?hasShifts>
 					shl(bits, value)
-				<!hasShifts>
-					mul(value, exp(2, bits))
-				</hasShifts>
 			}
 			)")
 			("functionName", functionName)
-			("hasShifts", m_evmVersion.hasBitwiseShifting())
 			.render();
 	});
 }
@@ -383,17 +372,11 @@ std::string YulUtilFunctions::shiftRightFunction(size_t _numBits)
 			Whiskers(R"(
 			function <functionName>(value) -> newValue {
 				newValue :=
-				<?hasShifts>
 					shr(<numBits>, value)
-				<!hasShifts>
-					div(value, <multiplier>)
-				</hasShifts>
 			}
 			)")
 			("functionName", functionName)
-			("hasShifts", m_evmVersion.hasBitwiseShifting())
 			("numBits", std::to_string(_numBits))
-			("multiplier", toCompactHexWithPrefix(u256(1) << _numBits))
 			.render();
 	});
 }
@@ -406,15 +389,10 @@ std::string YulUtilFunctions::shiftRightFunctionDynamic()
 			Whiskers(R"(
 			function <functionName>(bits, value) -> newValue {
 				newValue :=
-				<?hasShifts>
 					shr(bits, value)
-				<!hasShifts>
-					div(value, exp(2, bits))
-				</hasShifts>
 			}
 			)")
 			("functionName", functionName)
-			("hasShifts", m_evmVersion.hasBitwiseShifting())
 			.render();
 	});
 }
@@ -426,21 +404,10 @@ std::string YulUtilFunctions::shiftRightSignedFunctionDynamic()
 		return
 			Whiskers(R"(
 			function <functionName>(bits, value) -> result {
-				<?hasShifts>
-					result := sar(bits, value)
-				<!hasShifts>
-					let divisor := exp(2, bits)
-					let xor_mask := sub(0, slt(value, 0))
-					result := xor(div(xor(value, xor_mask), divisor), xor_mask)
-					// combined version of
-					//   switch slt(value, 0)
-					//   case 0 { result := div(value, divisor) }
-					//   default { result := not(div(not(value), divisor)) }
-				</hasShifts>
+				result := sar(bits, value)
 			}
 			)")
 			("functionName", functionName)
-			("hasShifts", m_evmVersion.hasBitwiseShifting())
 			.render();
 	});
 }
@@ -3968,28 +3935,18 @@ std::string YulUtilFunctions::packedHashFunction(
 
 std::string YulUtilFunctions::forwardingRevertFunction()
 {
-	bool forward = m_evmVersion.supportsReturndata();
-	std::string functionName = "revert_forward_" + std::to_string(forward);
+	std::string functionName = "revert_forward_" + std::to_string(true);
 	return m_functionCollector.createFunction(functionName, [&]() {
-		if (forward)
-			return Whiskers(R"(
-				function <functionName>() {
-					let pos := <allocateUnbounded>()
-					returndatacopy(pos, 0, returndatasize())
-					revert(pos, returndatasize())
-				}
-			)")
-			("functionName", functionName)
-			("allocateUnbounded", allocateUnboundedFunction())
-			.render();
-		else
-			return Whiskers(R"(
-				function <functionName>() {
-					revert(0, 0)
-				}
-			)")
-			("functionName", functionName)
-			.render();
+		return Whiskers(R"(
+			function <functionName>() {
+				let pos := <allocateUnbounded>()
+				returndatacopy(pos, 0, returndatasize())
+				revert(pos, returndatasize())
+			}
+		)")
+		("functionName", functionName)
+		("allocateUnbounded", allocateUnboundedFunction())
+		.render();
 	});
 }
 
@@ -4463,7 +4420,6 @@ std::string YulUtilFunctions::panicFunction(util::PanicCode _code)
 std::string YulUtilFunctions::returnDataSelectorFunction()
 {
 	std::string const functionName = "return_data_selector";
-	solAssert(m_evmVersion.supportsReturndata(), "");
 
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return util::Whiskers(R"(
@@ -4483,7 +4439,6 @@ std::string YulUtilFunctions::returnDataSelectorFunction()
 std::string YulUtilFunctions::tryDecodeErrorMessageFunction()
 {
 	std::string const functionName = "try_decode_error_message";
-	solAssert(m_evmVersion.supportsReturndata(), "");
 
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return util::Whiskers(R"(
@@ -4522,7 +4477,6 @@ std::string YulUtilFunctions::tryDecodeErrorMessageFunction()
 std::string YulUtilFunctions::tryDecodePanicDataFunction()
 {
 	std::string const functionName = "try_decode_panic_data";
-	solAssert(m_evmVersion.supportsReturndata(), "");
 
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return util::Whiskers(R"(
@@ -4546,22 +4500,17 @@ std::string YulUtilFunctions::extractReturndataFunction()
 	return m_functionCollector.createFunction(functionName, [&]() {
 		return util::Whiskers(R"(
 			function <functionName>() -> data {
-				<?supportsReturndata>
-					switch returndatasize()
-					case 0 {
-						data := <emptyArray>()
-					}
-					default {
-						data := <allocateArray>(returndatasize())
-						returndatacopy(add(data, 0x20), 0, returndatasize())
-					}
-				<!supportsReturndata>
+				switch returndatasize()
+				case 0 {
 					data := <emptyArray>()
-				</supportsReturndata>
+				}
+				default {
+					data := <allocateArray>(returndatasize())
+					returndatacopy(add(data, 0x20), 0, returndatasize())
+				}
 			}
 		)")
 		("functionName", functionName)
-		("supportsReturndata", m_evmVersion.supportsReturndata())
 		("allocateArray", allocateMemoryArrayFunction(*TypeProvider::bytesMemory()))
 		("emptyArray", zeroValueFunction(*TypeProvider::bytesMemory()))
 		.render();

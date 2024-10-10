@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_CASE(immutables_and_its_source_maps)
 			auto const numberOfMappings = std::count(sourceMappings.begin(), sourceMappings.end(), ';');
 
 			LinkerObject const& obj = assembly.assemble();
-			std::string const disassembly = disassemble(obj.bytecode, evmVersion, "\n");
+			std::string const disassembly = disassemble(obj.bytecode, "\n");
 			auto const numberOfOpcodes = std::count(disassembly.begin(), disassembly.end(), '\n');
 
 			#if 0 // {{{ debug prints
@@ -330,9 +330,9 @@ BOOST_AUTO_TEST_CASE(immutable)
 
 	checkCompilation(_assembly);
 
-	std::string genericPush0 = evmVersion.hasPush0() ? "5f" : "6000";
+	std::string genericPush0 = "5f";
 	// PUSH1 0x1b v/s PUSH1 0x19
-	std::string dataOffset = evmVersion.hasPush0() ? "6019" : "601b" ;
+	std::string dataOffset = "6019";
 
 	BOOST_CHECK_EQUAL(
 		_assembly.assemble().toHex(),

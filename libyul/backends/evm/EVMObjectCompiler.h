@@ -37,19 +37,17 @@ public:
 		Object& _object,
 		AbstractAssembly& _assembly,
 		EVMDialect const& _dialect,
-		bool _optimize,
-		std::optional<uint8_t> _eofVersion
+		bool _optimize
 	);
 private:
-	EVMObjectCompiler(AbstractAssembly& _assembly, EVMDialect const& _dialect, std::optional<uint8_t> _eofVersion):
-		m_assembly(_assembly), m_dialect(_dialect), m_eofVersion(_eofVersion)
+	EVMObjectCompiler(AbstractAssembly& _assembly, EVMDialect const& _dialect):
+		m_assembly(_assembly), m_dialect(_dialect)
 	{}
 
 	void run(Object& _object, bool _optimize);
 
 	AbstractAssembly& m_assembly;
 	EVMDialect const& m_dialect;
-	std::optional<uint8_t> m_eofVersion;
 };
 
 }

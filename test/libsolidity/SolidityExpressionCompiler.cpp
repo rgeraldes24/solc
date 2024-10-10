@@ -209,9 +209,7 @@ BOOST_AUTO_TEST_CASE(literal_false)
 	)";
 	bytes code = compileFirstExpression(sourceCode);
 
-	bytes expectation = solidity::test::CommonOptions::get().evmVersion().hasPush0() ?
-		bytes{uint8_t(Instruction::PUSH0)} :
-		bytes{uint8_t(Instruction::PUSH1), 0x0};
+	bytes expectation = bytes{uint8_t(Instruction::PUSH0)};
 
 	BOOST_CHECK_EQUAL_COLLECTIONS(code.begin(), code.end(), expectation.begin(), expectation.end());
 }
@@ -346,11 +344,8 @@ BOOST_AUTO_TEST_CASE(arithmetic)
 		}
 	)";
 	bytes code = compileFirstExpression(sourceCode, {}, {{"test", "f", "y"}});
-	bool hasPush0 = solidity::test::CommonOptions::get().evmVersion().hasPush0();
-	bytes push0Bytes = hasPush0 ?
-		bytes{uint8_t(Instruction::PUSH0)} :
-		bytes{uint8_t(Instruction::PUSH1), 0x0};
-	uint8_t size = hasPush0 ? 0x65: 0x67;
+	bytes push0Bytes = bytes{uint8_t(Instruction::PUSH0)};
+	uint8_t size = 0x65;
 	bytes panic =
 		bytes{
 			uint8_t(Instruction::JUMPDEST),
@@ -471,9 +466,7 @@ BOOST_AUTO_TEST_CASE(unary_operators)
 	)";
 	bytes code = compileFirstExpression(sourceCode, {}, {{"test", "f", "y"}});
 
-	bytes push0Bytes = solidity::test::CommonOptions::get().evmVersion().hasPush0() ?
-		bytes{uint8_t(Instruction::PUSH0)} :
-		bytes{uint8_t(Instruction::PUSH1), 0x0};
+	bytes push0Bytes = bytes{uint8_t(Instruction::PUSH0)};
 
 	bytes expectation;
 	if (solidity::test::CommonOptions::get().optimize)
@@ -683,11 +676,8 @@ BOOST_AUTO_TEST_CASE(selfbalance)
 
 	bytes code = compileFirstExpression(sourceCode, {}, {});
 
-	if (solidity::test::CommonOptions::get().evmVersion().hasSelfBalance())
-	{
-		bytes expectation({uint8_t(Instruction::SELFBALANCE)});
-		BOOST_CHECK_EQUAL_COLLECTIONS(code.begin(), code.end(), expectation.begin(), expectation.end());
-	}
+	bytes expectation({uint8_t(Instruction::SELFBALANCE)});
+	BOOST_CHECK_EQUAL_COLLECTIONS(code.begin(), code.end(), expectation.begin(), expectation.end());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

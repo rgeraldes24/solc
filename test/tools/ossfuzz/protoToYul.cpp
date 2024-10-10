@@ -96,26 +96,8 @@ EVMVersion ProtoConverter::evmVersionMapping(Program_Version const& _ver)
 {
 	switch (_ver)
 	{
-	case Program::HOMESTEAD:
-		return EVMVersion::homestead();
-	case Program::TANGERINE:
-		return EVMVersion::tangerineWhistle();
-	case Program::SPURIOUS:
-		return EVMVersion::spuriousDragon();
-	case Program::BYZANTIUM:
-		return EVMVersion::byzantium();
-	case Program::CONSTANTINOPLE:
-		return EVMVersion::constantinople();
-	case Program::PETERSBURG:
-		return EVMVersion::petersburg();
-	case Program::ISTANBUL:
-		return EVMVersion::istanbul();
-	case Program::BERLIN:
-		return EVMVersion::berlin();
-	case Program::LONDON:
-		return EVMVersion::london();
-	case Program::PARIS:
-		return EVMVersion::paris();
+	case Program::SHANGHAI:
+		return EVMVersion::shanghai();
 	}
 }
 
@@ -271,13 +253,6 @@ void ProtoConverter::visit(BinaryOp const& _x)
 {
 	BinaryOp_BOp op = _x.op();
 
-	if ((op == BinaryOp::SHL || op == BinaryOp::SHR || op == BinaryOp::SAR) &&
-		!m_evmVersion.hasBitwiseShifting())
-	{
-		m_output << dictionaryToken();
-		return;
-	}
-
 	switch (op)
 	{
 	case BinaryOp::ADD:
@@ -314,15 +289,12 @@ void ProtoConverter::visit(BinaryOp const& _x)
 		m_output << "gt";
 		break;
 	case BinaryOp::SHR:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "shr";
 		break;
 	case BinaryOp::SHL:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "shl";
 		break;
 	case BinaryOp::SAR:
-		yulAssert(m_evmVersion.hasBitwiseShifting(), "Proto fuzzer: Invalid evm version");
 		m_output << "sar";
 		break;
 	case BinaryOp::SDIV:
@@ -581,14 +553,6 @@ void ProtoConverter::visit(UnaryOp const& _x)
 {
 	UnaryOp_UOp op = _x.op();
 
-	// Replace calls to extcodehash on unsupported EVMs with a dictionary
-	// token.
-	if (op == UnaryOp::EXTCODEHASH && !m_evmVersion.hasExtCodeHash())
-	{
-		m_output << dictionaryToken();
-		return;
-	}
-
 	// The following instructions may lead to change of EVM state and are hence
 	// excluded to avoid false positives.
 	if (
@@ -680,7 +644,7 @@ void ProtoConverter::visit(NullaryOp const& _x)
 			op == NullaryOp::ADDRESS ||
 			op == NullaryOp::TIMESTAMP ||
 			op == NullaryOp::NUMBER ||
-			op == NullaryOp::DIFFICULTY
+			op == NullaryOp::PREVRANDAO
 		)
 	)
 	{
@@ -703,12 +667,7 @@ void ProtoConverter::visit(NullaryOp const& _x)
 		m_output << "codesize()";
 		break;
 	case NullaryOp::RETURNDATASIZE:
-		// If evm supports returndatasize, we generate it. Otherwise,
-		// we output a dictionary token.
-		if (m_evmVersion.supportsReturndata())
-			m_output << "returndatasize()";
-		else
-			m_output << dictionaryToken();
+		m_output << "returndatasize()";
 		break;
 	case NullaryOp::ADDRESS:
 		m_output << "address()";
@@ -734,30 +693,17 @@ void ProtoConverter::visit(NullaryOp const& _x)
 	case NullaryOp::NUMBER:
 		m_output << "number()";
 		break;
-	case NullaryOp::DIFFICULTY:
-		if (m_evmVersion >= EVMVersion::paris())
-			m_output << "prevrandao()";
-		else
-			m_output << "difficulty()";
+	case NullaryOp::PREVRANDAO:
+		m_output << "prevrandao()";
 		break;
 	case NullaryOp::GASLIMIT:
 		m_output << "gaslimit()";
 		break;
 	case NullaryOp::SELFBALANCE:
-		// Replace calls to selfbalance() on unsupported EVMs with a dictionary
-		// token.
-		if (m_evmVersion.hasSelfBalance())
-			m_output << "selfbalance()";
-		else
-			m_output << dictionaryToken();
+		m_output << "selfbalance()";
 		break;
 	case NullaryOp::CHAINID:
-		// Replace calls to chainid() on unsupported EVMs with a dictionary
-		// token.
-		if (m_evmVersion.hasChainID())
-			m_output << "chainid()";
-		else
-			m_output << dictionaryToken();
+		m_output << "chainid()";
 		break;
 	}
 }
@@ -769,11 +715,6 @@ void ProtoConverter::visit(CopyFunc const& _x)
 	// datacopy() is valid only if we are inside
 	// a Yul object.
 	if (type == CopyFunc::DATA && !m_isObject)
-		return;
-
-	// We don't generate code if the copy function is returndatacopy
-	// and the underlying evm does not support it.
-	if (type == CopyFunc::RETURNDATA && !m_evmVersion.supportsReturndata())
 		return;
 
 	// Code copy may change state if e.g., some byte of code
@@ -790,7 +731,6 @@ void ProtoConverter::visit(CopyFunc const& _x)
 		m_output << "codecopy";
 		break;
 	case CopyFunc::RETURNDATA:
-		yulAssert(m_evmVersion.supportsReturndata(), "Proto fuzzer: Invalid evm version");
 		m_output << "returndatacopy";
 		break;
 	case CopyFunc::DATA:
@@ -1009,28 +949,15 @@ void ProtoConverter::visit(LowLevelCall const& _x)
 {
 	LowLevelCall_Type type = _x.callty();
 
-	// Generate staticcall if it is supported by the underlying evm
-	if (type == LowLevelCall::STATICCALL && !m_evmVersion.hasStaticCall())
-	{
-		// Since staticcall is supposed to return 0 on success and 1 on
-		// failure, we can use counter value to emulate it
-		m_output << ((counter() % 2) ? "0" : "1");
-		return;
-	}
-
 	switch (type)
 	{
 	case LowLevelCall::CALL:
 		m_output << "call(";
 		break;
-	case LowLevelCall::CALLCODE:
-		m_output << "callcode(";
-		break;
 	case LowLevelCall::DELEGATECALL:
 		m_output << "delegatecall(";
 		break;
 	case LowLevelCall::STATICCALL:
-		yulAssert(m_evmVersion.hasStaticCall(), "Proto fuzzer: Invalid evm version");
 		m_output << "staticcall(";
 		break;
 	}
@@ -1038,7 +965,7 @@ void ProtoConverter::visit(LowLevelCall const& _x)
 	m_output << ", ";
 	visit(_x.addr());
 	m_output << ", ";
-	if (type == LowLevelCall::CALL || type == LowLevelCall::CALLCODE)
+	if (type == LowLevelCall::CALL)
 	{
 		visit(_x.wei());
 		m_output << ", ";
@@ -1064,14 +991,6 @@ void ProtoConverter::visit(LowLevelCall const& _x)
 void ProtoConverter::visit(Create const& _x)
 {
 	Create_Type type = _x.createty();
-
-	// Replace a call to create2 on unsupported EVMs with a dictionary
-	// token.
-	if (type == Create::CREATE2 && !m_evmVersion.hasCreate2())
-	{
-		m_output << dictionaryToken();
-		return;
-	}
 
 	switch (type)
 	{
@@ -1330,14 +1249,6 @@ void ProtoConverter::visit(RetRevStmt const& _x)
 	m_output << ")\n";
 }
 
-void ProtoConverter::visit(SelfDestructStmt const& _x)
-{
-	m_output << "selfdestruct";
-	m_output << "(";
-	visit(_x.addr());
-	m_output << ")\n";
-}
-
 void ProtoConverter::visit(TerminatingStmt const& _x)
 {
 	switch (_x.term_oneof_case())
@@ -1347,9 +1258,6 @@ void ProtoConverter::visit(TerminatingStmt const& _x)
 		break;
 	case TerminatingStmt::kRetRev:
 		visit(_x.ret_rev());
-		break;
-	case TerminatingStmt::kSelfDes:
-		visit(_x.self_des());
 		break;
 	case TerminatingStmt::TERM_ONEOF_NOT_SET:
 		break;

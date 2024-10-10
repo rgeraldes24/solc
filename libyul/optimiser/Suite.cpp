@@ -146,7 +146,6 @@ void OptimiserSuite::run(
 	bool usesOptimizedCodeGenerator =
 		_optimizeStackAllocation &&
 		evmDialect &&
-		evmDialect->evmVersion().canOverchargeGasForCall() &&
 		evmDialect->providesObjectAccess();
 	std::set<YulString> reservedIdentifiers = _externallyUsedIdentifiers;
 	reservedIdentifiers += _dialect.fixedFunctionNames();

@@ -71,9 +71,7 @@ object "C_15" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {

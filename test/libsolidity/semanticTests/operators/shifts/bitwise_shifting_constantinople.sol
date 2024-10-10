@@ -17,8 +17,6 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // shl(uint256,uint256): 0x01, 0x02 -> 0x04
 // shl(uint256,uint256): 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, 0x01 -> 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe

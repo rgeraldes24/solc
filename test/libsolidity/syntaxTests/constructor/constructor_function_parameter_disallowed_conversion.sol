@@ -39,7 +39,6 @@ contract C {
     }
 
     function testDefault() public returns (uint) {
-        selfdestruct(payable(address(this)));
     }
 
     function testDifferentSignature(uint a) public pure returns (uint) {

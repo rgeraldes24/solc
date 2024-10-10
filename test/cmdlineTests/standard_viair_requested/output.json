@@ -59,9 +59,7 @@ object \"C_3\" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {
@@ -152,9 +150,7 @@ object \"D_16\" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {
@@ -270,9 +266,7 @@ object \"D_16\" {
 
                     function shift_right_224_unsigned(value) -> newValue {
                         newValue :=
-
                         shr(224, value)
-
                     }
 
                     function allocate_unbounded() -> memPtr {

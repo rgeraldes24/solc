@@ -68,7 +68,7 @@
                         "src": "78:2:0",
                         "statements": []
                       },
-                      "evmVersion": "istanbul",
+                      "evmVersion": "shanghai",
                       "externalReferences": [],
                       "id": 4,
                       "nodeType": "InlineAssembly",

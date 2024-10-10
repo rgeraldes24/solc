@@ -9,6 +9,4 @@ contract C {
         }
     }
 }
-// ====
-// EVMVersion: >=paris
 // ----
