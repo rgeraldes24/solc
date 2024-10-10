@@ -678,6 +678,7 @@ bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocatio
 		_instr != evmasm::Instruction::JUMPDEST,
 	"");
 
+	// NOTE(rgeraldes24): unused for now
 	// auto errorForVM = [&](ErrorId _errorId, std::string const& vmKindMessage) {
 	// 	m_errorReporter.typeError(
 	// 		_errorId,
