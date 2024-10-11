@@ -5,5 +5,11 @@ contract C {
     function g() public view returns (uint) {
         return address(0).balance;
     }
+    function h() public view returns (bytes32) {
+        return address(this).codehash;
+    }
+    function i() public view returns (bytes32) {
+        return address(0).codehash;
+    }
 }
 // ----

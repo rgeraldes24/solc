@@ -26,5 +26,11 @@ contract C {
     function l() public view {
         assembly { pop(extcodesize(0)) }
     }
+    function m() public view {
+        assembly { pop(chainid()) }
+    }
+    function n() public view {
+        assembly { pop(extcodehash(0)) }
+    }
 }
 // ----
