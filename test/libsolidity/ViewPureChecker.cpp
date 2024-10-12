@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(environment_access)
 		"address(0x4242).staticcall(\"\")",
 	};
 
-	// ``block.blockhash`` and ``blockhash`` are tested separately below because their usage will
+	// ``blockhash`` is tested separately below because its usage will
 	// produce warnings that can't be handled in a generic way.
 	std::vector<std::string> pure{
 		"msg.data",
