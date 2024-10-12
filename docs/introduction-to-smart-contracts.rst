@@ -555,9 +555,9 @@ receives the address of the new contract on the stack.
 Deactivate and Self-destruct
 ============================
 
-Removing the contract in theory sounds like a good
-idea, but it is potentially dangerous, as if someone sends Ether to removed
-contracts, the Ether is forever lost.
+Removing the contract in theory sounds like a good idea, but it is potentially
+dangerous, as if someone sends Ether to removed contracts, the Ether is forever
+lost.
 
 If you want to deactivate your contracts, you should instead **disable** them
 by changing some internal state which causes all functions to revert. This
