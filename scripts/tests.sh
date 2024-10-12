@@ -93,20 +93,10 @@ then
     "$REPO_ROOT/test/cmdlineTests.sh" &
     CMDLINE_PID=$!
 else
-    # TODO(rgeraldes24): refactor
-    if [[ -n "$no_smt" ]]
-    then    
-        if ! "$REPO_ROOT/test/cmdlineTests.sh" "$no_smt"
-        then
-            printError "Commandline tests FAILED"
-            exit 1
-        fi
-    else
-        if ! "$REPO_ROOT/test/cmdlineTests.sh" --exclude "*import*" --exclude "*export*"
-        then
-            printError "Commandline tests FAILED"
-            exit 1
-        fi
+    if ! "$REPO_ROOT/test/cmdlineTests.sh" "$no_smt"
+    then
+        printError "Commandline tests FAILED"
+        exit 1
     fi
 fi
 
