@@ -1,6 +1,6 @@
 contract C {
     function f() public returns (bool) {
-        (bool success, ) = address(1).call("");
+        (bool success, ) = address(4).call("");
         return success;
     }
 }

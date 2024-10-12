@@ -356,7 +356,7 @@ evmc::bytes32 EVMHost::convertToEVMC(h256 const& _data)
 	return d;
 }
 
-evmc::Result EVMHost::precompileDepositRoot(evmc_message const& _message) noexcept
+evmc::Result EVMHost::precompileDepositRoot(evmc_message const& /*_message*/) noexcept
 {
 	// TODO implement
 	return resultWithFailure();
