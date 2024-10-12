@@ -67,20 +67,19 @@ There are special variables and functions which always exist in the global
 namespace and are mainly used to provide information about the blockchain
 or are general-use utility functions.
 
-.. index:: abi, block, coinbase, difficulty, prevrandao, encode, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin
+.. index:: abi, block, coinbase, prevrandao, encode, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin
 
 
 Block and Transaction Properties
 --------------------------------
 
 - ``blockhash(uint blockNumber) returns (bytes32)``: hash of the given block when ``blocknumber`` is one of the 256 most recent blocks; otherwise returns zero
-- ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
+- ``block.basefee`` (``uint``): current block's base fee
 - ``block.chainid`` (``uint``): current chain id
 - ``block.coinbase`` (``address payable``): current block miner's address
-- ``block.difficulty`` (``uint``): current block difficulty (``EVM < Paris``). For other EVM versions it behaves as a deprecated alias for ``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
 - ``block.gaslimit`` (``uint``): current block gaslimit
 - ``block.number`` (``uint``): current block number
-- ``block.prevrandao`` (``uint``): random number provided by the beacon chain (``EVM >= Paris``)
+- ``block.prevrandao`` (``uint``): random number provided by the beacon chain
 - ``block.timestamp`` (``uint``): current block timestamp as seconds since unix epoch
 - ``gasleft() returns (uint256)``: remaining gas
 - ``msg.data`` (``bytes calldata``): complete calldata
@@ -117,17 +116,6 @@ Block and Transaction Properties
     The block hashes are not available for all blocks for scalability reasons.
     You can only access the hashes of the most recent 256 blocks, all other
     values will be zero.
-
-.. note::
-    The function ``blockhash`` was previously known as ``block.blockhash``, which was deprecated in
-    version 0.4.22 and removed in version 0.5.0.
-
-.. note::
-    The function ``gasleft`` was previously known as ``msg.gas``, which was deprecated in
-    version 0.4.21 and removed in version 0.5.0.
-
-.. note::
-    In version 0.7.0, the alias ``now`` (for ``block.timestamp``) was removed.
 
 .. index:: abi, encoding, packed
 
@@ -188,7 +176,7 @@ more details on error handling and when to use which function.
 ``revert(string memory reason)``
     abort execution and revert state changes, providing an explanatory string
 
-.. index:: keccak256, ripemd160, sha256, ecrecover, addmod, mulmod, cryptography,
+.. index:: keccak256, sha256, depositroot, addmod, mulmod, cryptography,
 
 .. _mathematical-and-cryptographic-functions:
 
@@ -204,44 +192,17 @@ Mathematical and Cryptographic Functions
 ``keccak256(bytes memory) returns (bytes32)``
     compute the Keccak-256 hash of the input
 
-.. note::
-
-    There used to be an alias for ``keccak256`` called ``sha3``, which was removed in version 0.5.0.
-
 ``sha256(bytes memory) returns (bytes32)``
     compute the SHA-256 hash of the input
 
-``ripemd160(bytes memory) returns (bytes20)``
-    compute RIPEMD-160 hash of the input
-
-``ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)``
-    recover the address associated with the public key from elliptic curve signature or return zero on error.
-    The function parameters correspond to ECDSA values of the signature:
-
-    * ``r`` = first 32 bytes of signature
-    * ``s`` = second 32 bytes of signature
-    * ``v`` = final 1 byte of signature
-
-    ``ecrecover`` returns an ``address``, and not an ``address payable``. See :ref:`address payable<address>` for
-    conversion, in case you need to transfer funds to the recovered address.
-
-    For further details, read `example usage <https://ethereum.stackexchange.com/questions/1777/workflow-on-signing-a-string-with-private-key-followed-by-signature-verificatio>`_.
-
-.. warning::
-
-    If you use ``ecrecover``, be aware that a valid signature can be turned into a different valid signature without
-    requiring knowledge of the corresponding private key. In the Homestead hard fork, this issue was fixed
-    for _transaction_ signatures (see `EIP-2 <https://eips.ethereum.org/EIPS/eip-2#specification>`_), but
-    the ecrecover function remained unchanged.
-
-    This is usually not a problem unless you require signatures to be unique or use them to identify items.
-    OpenZeppelin has an `ECDSA helper library <https://docs.openzeppelin.com/contracts/4.x/api/utils#ECDSA>`_ that you can use as a wrapper for ``ecrecover`` without this issue.
+``depositroot(bytes memory pubkey, bytes memory withdrawal_credentials, bytes memory amount, bytes memory sig) returns (bytes32)``
+    compute the deposit root
 
 .. note::
 
-    When running ``sha256``, ``ripemd160`` or ``ecrecover`` on a *private blockchain*, you might encounter Out-of-Gas. This is because these functions are implemented as "precompiled contracts" and only really exist after they receive the first message (although their contract code is hardcoded). Messages to non-existing contracts are more expensive and thus the execution might run into an Out-of-Gas error. A workaround for this problem is to first send Wei (1 for example) to each of the contracts before you use them in your actual contracts. This is not an issue on the main or test net.
+    When running ``sha256`` or ``depositroot`` on a *private blockchain*, you might encounter Out-of-Gas. This is because these functions are implemented as "precompiled contracts" and only really exist after they receive the first message (although their contract code is hardcoded). Messages to non-existing contracts are more expensive and thus the execution might run into an Out-of-Gas error. A workaround for this problem is to first send Wei (1 for example) to each of the contracts before you use them in your actual contracts. This is not an issue on the main or test net.
 
-.. index:: balance, codehash, send, transfer, call, callcode, delegatecall, staticcall
+.. index:: balance, codehash, send, transfer, call, delegatecall, staticcall
 
 .. _address_related:
 
@@ -304,16 +265,8 @@ For more information, see the section on :ref:`address`.
    This is of course not the case if storage pointers are passed as function arguments as in the case for
    the high-level libraries.
 
-.. note::
-    Prior to version 0.5.0, ``.call``, ``.delegatecall`` and ``.staticcall`` only returned the
-    success condition and not the return data.
 
-.. note::
-    Prior to version 0.5.0, there was a member called ``callcode`` with similar but slightly different
-    semantics than ``delegatecall``.
-
-
-.. index:: this, selfdestruct, super
+.. index:: this, super
 
 Contract-related
 ----------------
@@ -324,24 +277,7 @@ Contract-related
 ``super``
     A contract one level higher in the inheritance hierarchy
 
-``selfdestruct(address payable recipient)``
-    Destroy the current contract, sending its funds to the given :ref:`address`
-    and end execution.
-    Note that ``selfdestruct`` has some peculiarities inherited from the EVM:
-
-    - the receiving contract's receive function is not executed.
-    - the contract is only really destroyed at the end of the transaction and ``revert`` s might "undo" the destruction.
-
 Furthermore, all functions of the current contract are callable directly including the current function.
-
-.. warning::
-    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
-    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behavior
-    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
-
-.. note::
-    Prior to version 0.5.0, there was a function called ``suicide`` with the same
-    semantics as ``selfdestruct``.
 
 .. index:: type, creationCode, runtimeCode
 

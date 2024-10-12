@@ -37,7 +37,6 @@ namespace solidity::frontend
  *  - whether continue/break is in a for/while loop.
  *  - whether a modifier contains at least one '_'
  *  - issues deprecation warnings for unary '+'
- *  - issues deprecation warning for throw
  *  - whether the msize instruction is used and the Yul optimizer is enabled at the same time.
  *  - selection of the ABI coder through pragmas.
  */
@@ -77,8 +76,6 @@ private:
 
 	bool visit(Continue const& _continueStatement) override;
 	bool visit(Break const& _breakStatement) override;
-
-	bool visit(Throw const& _throwStatement) override;
 
 	bool visit(UnaryOperation const& _operation) override;
 

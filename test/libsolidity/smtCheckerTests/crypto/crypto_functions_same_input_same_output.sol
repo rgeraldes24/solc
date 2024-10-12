@@ -11,20 +11,14 @@ contract C {
 		bytes32 s1 = sha256(b1);
 		assert(s0 == s1);
 	}
-	function r(bytes memory b0) public pure {
-		bytes memory b1 = b0;
-		bytes32 r0 = ripemd160(b0);
-		bytes32 r1 = ripemd160(b1);
+	function d(bytes memory p0, bytes memory w0, bytes memory a0, bytes memory s0) public pure {
+		(bytes memory p1, bytes memory w1, bytes memory a1, bytes memory s1) = (p0, w0, a0, s0);
+		bytes32 r0 = depositroot(p0, w0, a0, s0);
+		bytes32 r1 = depositroot(p1, w1, a1, s1);
 		assert(r0 == r1);
-	}
-	function e(bytes32 h0, uint8 v0, bytes32 r0, bytes32 s0) public pure {
-		(bytes32 h1, uint8 v1, bytes32 r1, bytes32 s1) = (h0, v0, r0, s0);
-		address a0 = ecrecover(h0, v0, r0, s0);
-		address a1 = ecrecover(h1, v1, r1, s1);
-		assert(a0 == a1);
 	}
 }
 // ====
 // SMTEngine: all
 // ----
-// Info 1391: CHC: 4 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.
+// Info 1391: CHC: 3 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

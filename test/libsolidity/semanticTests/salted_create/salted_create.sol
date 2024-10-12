@@ -16,8 +16,6 @@ contract A {
         return false;
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // different_salt() -> true
 // same_salt() -> true

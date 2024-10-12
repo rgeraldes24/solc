@@ -5,8 +5,6 @@
     mstore(4, 0x32)
     revert(_1, 0x24)
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: unusedStoreEliminator
 //

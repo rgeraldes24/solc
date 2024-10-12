@@ -9,7 +9,7 @@
   }
  },
  "settings": {
-  "evmVersion": "petersburg",
+  "evmVersion": "shanghai",
   "outputSelection": {
    "": {
     "": [

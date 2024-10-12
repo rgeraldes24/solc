@@ -11,8 +11,6 @@
     function shadow_id() {}
   }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // Trace:
 // Memory dump:

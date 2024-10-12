@@ -287,8 +287,6 @@ contract Test {
 /// Disabled because the point seems to be not well-formed, we need to find another example.
 /// testMul() -> true
 //
-// ====
-// EVMVersion: >=constantinople
 // ----
 // library: Pairing
 // f() -> true

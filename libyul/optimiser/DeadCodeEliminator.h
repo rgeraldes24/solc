@@ -37,7 +37,7 @@ struct OptimiserStepContext;
  * Optimisation stage that removes unreachable code
  *
  * Unreachable code is any code within a block which is preceded by a
- * leave, return, invalid, break, continue, selfdestruct or revert or
+ * leave, return, invalid, break, continue or revert or
  * a call to a user-defined function that never returns (either due to
  * recursion or a call to return / revert / stop).
  *

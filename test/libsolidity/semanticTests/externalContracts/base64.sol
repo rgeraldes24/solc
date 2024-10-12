@@ -29,8 +29,6 @@ contract test {
 // Test cases derived from Base64 specification: RFC4648
 // https://datatracker.ietf.org/doc/html/rfc4648#section-10
 //
-// ====
-// EVMVersion: >=constantinople
 // ----
 // constructor()
 // gas irOptimized: 405832

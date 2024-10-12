@@ -13,8 +13,6 @@ contract C {
 			return address(f(0));
 	}
 }
-// ====
-// EVMVersion: >=byzantium
 // ----
 // constructor(), 20 wei
 // gas irOptimized: 166148

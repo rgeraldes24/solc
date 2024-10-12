@@ -370,12 +370,6 @@ Array Members
     To use arrays of arrays in external (instead of public) functions, you need to
     activate ABI coder v2.
 
-.. note::
-    In EVM versions before Byzantium, it was not possible to access
-    dynamic arrays returned from function calls. If you call functions
-    that return dynamic arrays, make sure to use an EVM that is set to
-    Byzantium mode.
-
 .. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0

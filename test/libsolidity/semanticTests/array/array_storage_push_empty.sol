@@ -8,8 +8,6 @@ contract C {
             require(storageArray[i] == 0);
     }
 }
-// ====
-// EVMVersion: >=petersburg
 // ----
 // pushEmpty(uint256): 128
 // gas irOptimized: 401024

@@ -8,6 +8,4 @@ Solidity by Example
 
 .. include:: examples/safe-remote.rst
 
-.. include:: examples/micropayment.rst
-
 .. include:: examples/modular.rst

@@ -47,12 +47,11 @@ namespace
 {
 
 std::pair<YulString, BuiltinFunctionForEVM> createEVMFunction(
-	langutil::EVMVersion _evmVersion,
 	std::string const& _name,
 	evmasm::Instruction _instruction
 )
 {
-	evmasm::InstructionInfo info = evmasm::instructionInfo(_instruction, _evmVersion);
+	evmasm::InstructionInfo info = evmasm::instructionInfo(_instruction);
 	BuiltinFunctionForEVM f;
 	f.name = YulString{_name};
 	f.parameters.resize(static_cast<size_t>(info.args));
@@ -111,29 +110,13 @@ std::pair<YulString, BuiltinFunctionForEVM> createFunction(
 	return {name, f};
 }
 
-std::set<YulString> createReservedIdentifiers(langutil::EVMVersion _evmVersion)
+std::set<YulString> createReservedIdentifiers()
 {
-	// TODO remove this in 0.9.0. We allow creating functions or identifiers in Yul with the name
-	// basefee for VMs before london.
-	auto baseFeeException = [&](evmasm::Instruction _instr) -> bool
-	{
-		return _instr == evmasm::Instruction::BASEFEE && _evmVersion < langutil::EVMVersion::london();
-	};
-
-	// TODO remove this in 0.9.0. We allow creating functions or identifiers in Yul with the name
-	// prevrandao for VMs before paris.
-	auto prevRandaoException = [&](std::string const& _instrName) -> bool
-	{
-		// Using string comparison as the opcode is the same as for "difficulty"
-		return _instrName == "prevrandao" && _evmVersion < langutil::EVMVersion::paris();
-	};
-
 	std::set<YulString> reserved;
 	for (auto const& instr: evmasm::c_instructions)
 	{
 		std::string name = toLower(instr.first);
-		if (!baseFeeException(instr.second) && !prevRandaoException(name))
-			reserved.emplace(name);
+		reserved.emplace(name);
 	}
 	reserved += std::vector<YulString>{
 		"linkersymbol"_yulstring,
@@ -146,15 +129,8 @@ std::set<YulString> createReservedIdentifiers(langutil::EVMVersion _evmVersion)
 	return reserved;
 }
 
-std::map<YulString, BuiltinFunctionForEVM> createBuiltins(langutil::EVMVersion _evmVersion, bool _objectAccess)
+std::map<YulString, BuiltinFunctionForEVM> createBuiltins(bool _objectAccess)
 {
-
-	// Exclude prevrandao as builtin for VMs before paris and difficulty for VMs after paris.
-	auto prevRandaoException = [&](std::string const& _instrName) -> bool
-	{
-		return (_instrName == "prevrandao" && _evmVersion < langutil::EVMVersion::paris()) || (_instrName == "difficulty" && _evmVersion >= langutil::EVMVersion::paris());
-	};
-
 	std::map<YulString, BuiltinFunctionForEVM> builtins;
 	for (auto const& instr: evmasm::c_instructions)
 	{
@@ -167,11 +143,9 @@ std::map<YulString, BuiltinFunctionForEVM> createBuiltins(langutil::EVMVersion _
 			!evmasm::isPushInstruction(opcode) &&
 			opcode != evmasm::Instruction::JUMP &&
 			opcode != evmasm::Instruction::JUMPI &&
-			opcode != evmasm::Instruction::JUMPDEST &&
-			_evmVersion.hasOpcode(opcode) &&
-			!prevRandaoException(name)
+			opcode != evmasm::Instruction::JUMPDEST
 		)
-			builtins.emplace(createEVMFunction(_evmVersion, name, opcode));
+			builtins.emplace(createEVMFunction(name, opcode));
 	}
 
 	if (_objectAccess)
@@ -307,8 +281,8 @@ std::regex const& verbatimPattern()
 EVMDialect::EVMDialect(langutil::EVMVersion _evmVersion, bool _objectAccess):
 	m_objectAccess(_objectAccess),
 	m_evmVersion(_evmVersion),
-	m_functions(createBuiltins(_evmVersion, _objectAccess)),
-	m_reserved(createReservedIdentifiers(_evmVersion))
+	m_functions(createBuiltins(_objectAccess)),
+	m_reserved(createReservedIdentifiers())
 {
 }
 

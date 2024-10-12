@@ -264,17 +264,6 @@ bool SyntaxChecker::visit(Break const& _breakStatement)
 	return true;
 }
 
-bool SyntaxChecker::visit(Throw const& _throwStatement)
-{
-	m_errorReporter.syntaxError(
-		4538_error,
-		_throwStatement.location(),
-		"\"throw\" is deprecated in favour of \"revert()\", \"require()\" and \"assert()\"."
-	);
-
-	return true;
-}
-
 bool SyntaxChecker::visit(Literal const& _literal)
 {
 	size_t invalidSequence;
@@ -482,7 +471,7 @@ bool SyntaxChecker::visit(FunctionTypeName const& _node)
 {
 	for (auto const& decl: _node.parameterTypeList()->parameters())
 		if (!decl->name().empty())
-			m_errorReporter.warning(6162_error, decl->location(), "Naming function type parameters is deprecated.");
+			m_errorReporter.syntaxError(6162_error, decl->location(), "Parameters in function types may not be named.");
 
 	for (auto const& decl: _node.returnParameterTypeList()->parameters())
 		if (!decl->name().empty())

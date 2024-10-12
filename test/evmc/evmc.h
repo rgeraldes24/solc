@@ -75,11 +75,10 @@ typedef struct evmc_address
 enum evmc_call_kind
 {
     EVMC_CALL = 0,         /**< Request CALL. */
-    EVMC_DELEGATECALL = 1, /**< Request DELEGATECALL. Valid since Homestead.
+    EVMC_DELEGATECALL = 1, /**< Request DELEGATECALL.
                                 The value param ignored. */
-    EVMC_CALLCODE = 2,     /**< Request CALLCODE. */
     EVMC_CREATE = 3,       /**< Request CREATE. */
-    EVMC_CREATE2 = 4       /**< Request CREATE2. Valid since Constantinople.*/
+    EVMC_CREATE2 = 4       /**< Request CREATE2. */
 };
 
 /** The flags for ::evmc_message. */
@@ -124,7 +123,7 @@ struct evmc_message
      * This is the address of the account which storage/balance/nonce is going to be modified
      * by the message execution. In case of ::EVMC_CALL, this is also the account where the
      * message value evmc_message::value is going to be transferred.
-     * For ::EVMC_CALLCODE or ::EVMC_DELEGATECALL, this may be different from
+     * For ::EVMC_DELEGATECALL, this may be different from
      * the evmc_message::code_address.
      *
      * Defined as `r` in the Yellow Paper.
@@ -176,7 +175,7 @@ struct evmc_message
     /**
      * The address of the code to be executed.
      *
-     * For ::EVMC_CALLCODE or ::EVMC_DELEGATECALL this may be different from
+     * For ::EVMC_DELEGATECALL this may be different from
      * the evmc_message::recipient.
      * Not required when invoking evmc_execute_fn(), only when invoking evmc_call_fn().
      * Ignored if kind is ::EVMC_CREATE or ::EVMC_CREATE2.
@@ -683,22 +682,6 @@ typedef size_t (*evmc_copy_code_fn)(struct evmc_host_context* context,
                                     size_t buffer_size);
 
 /**
- * Selfdestruct callback function.
- *
- * This callback function is used by an EVM to SELFDESTRUCT given contract.
- * The execution of the contract will not be stopped, that is up to the EVM.
- *
- * @param context      The pointer to the Host execution context. See ::evmc_host_context.
- * @param address      The address of the contract to be selfdestructed.
- * @param beneficiary  The address where the remaining ETH is going to be transferred.
- * @return             The information if the given address has not been registered as
- *                     selfdestructed yet. True if registered for the first time, false otherwise.
- */
-typedef bool (*evmc_selfdestruct_fn)(struct evmc_host_context* context,
-                                     const evmc_address* address,
-                                     const evmc_address* beneficiary);
-
-/**
  * Log callback function.
  *
  * This callback function is used by an EVM to inform about a LOG that happened
@@ -805,9 +788,6 @@ struct evmc_host_interface
     /** Copy code callback function. */
     evmc_copy_code_fn copy_code;
 
-    /** Selfdestruct callback function. */
-    evmc_selfdestruct_fn selfdestruct;
-
     /** Call callback function. */
     evmc_call_fn call;
 
@@ -875,108 +855,14 @@ typedef enum evmc_set_option_result (*evmc_set_option_fn)(struct evmc_vm* vm,
 enum evmc_revision
 {
     /**
-     * The Frontier revision.
-     *
-     * The one Ethereum launched with.
-     */
-    EVMC_FRONTIER = 0,
-
-    /**
-     * The Homestead revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-606
-     */
-    EVMC_HOMESTEAD = 1,
-
-    /**
-     * The Tangerine Whistle revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-608
-     */
-    EVMC_TANGERINE_WHISTLE = 2,
-
-    /**
-     * The Spurious Dragon revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-607
-     */
-    EVMC_SPURIOUS_DRAGON = 3,
-
-    /**
-     * The Byzantium revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-609
-     */
-    EVMC_BYZANTIUM = 4,
-
-    /**
-     * The Constantinople revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1013
-     */
-    EVMC_CONSTANTINOPLE = 5,
-
-    /**
-     * The Petersburg revision.
-     *
-     * Other names: Constantinople2, ConstantinopleFix.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1716
-     */
-    EVMC_PETERSBURG = 6,
-
-    /**
-     * The Istanbul revision.
-     *
-     * https://eips.ethereum.org/EIPS/eip-1679
-     */
-    EVMC_ISTANBUL = 7,
-
-    /**
-     * The Berlin revision.
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/berlin.md
-     */
-    EVMC_BERLIN = 8,
-
-    /**
-     * The London revision.
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/london.md
-     */
-    EVMC_LONDON = 9,
-
-    /**
-     * The Paris revision (aka The Merge).
-     *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/paris.md
-     */
-    EVMC_PARIS = 10,
-
-    /**
      * The Shanghai revision.
      *
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/shanghai.md
+     * The one Zond launched with.
      */
     EVMC_SHANGHAI = 11,
 
-    /**
-     * The Cancun revision.
-     *
-     * The future next revision after Shanghai.
-     * https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/cancun.md
-     */
-    EVMC_CANCUN = 12,
-
-    /**
-     * The Prague revision.
-     *
-     * The future next revision after Cancun.
-     */
-    EVMC_PRAGUE = 13,
-
     /** The maximum EVM revision supported. */
-    EVMC_MAX_REVISION = EVMC_PRAGUE,
+    EVMC_MAX_REVISION = EVMC_SHANGHAI,
 
     /**
      * The latest known EVM revision with finalized specification.

@@ -3,6 +3,4 @@ contract C {
         return address(this).codehash;
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----

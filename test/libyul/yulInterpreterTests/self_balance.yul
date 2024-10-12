@@ -4,8 +4,6 @@
   mstore(0x40, balance(div(mul(address(), 2), 2)))
   mstore(0x60, balance(add(address(), 1)))
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // Trace:
 // Memory dump:

@@ -55,7 +55,6 @@ TestCase::TestResult EVMCodeTransformTest::run(ostream& _stream, string const& _
 	settings.optimizeStackAllocation = m_stackOpt;
 	YulStack stack(
 		EVMVersion{},
-		nullopt,
 		YulStack::Language::StrictAssembly,
 		settings,
 		DebugInfoSelection::All()
@@ -74,8 +73,7 @@ TestCase::TestResult EVMCodeTransformTest::run(ostream& _stream, string const& _
 		*stack.parserResult(),
 		adapter,
 		EVMDialect::strictAssemblyForEVMObjects(EVMVersion{}),
-		m_stackOpt,
-		nullopt
+		m_stackOpt
 	);
 
 	std::ostringstream output;

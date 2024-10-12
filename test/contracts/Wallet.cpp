@@ -378,7 +378,6 @@ contract Wallet is multisig, multiowned, daylimit {
 	}
 	// destroys the contract sending everything to `_to`.
 	function shutdown(address payable _to) onlymanyowners(keccak256(msg.data)) external {
-		selfdestruct(_to);
 	}
 
 	// gets called for plain ether transfers

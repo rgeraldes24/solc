@@ -419,8 +419,7 @@ void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
 
 	// Setup memOut* values
 	if (
-		_instruction == evmasm::Instruction::CALL ||
-		_instruction == evmasm::Instruction::CALLCODE
+		_instruction == evmasm::Instruction::CALL
 	)
 	{
 		memOutOffset = values()[5];

@@ -78,18 +78,18 @@ unsigned ConstantOptimisationMethod::optimiseConstants(
 	return optimisations;
 }
 
-bigint ConstantOptimisationMethod::simpleRunGas(AssemblyItems const& _items, langutil::EVMVersion _evmVersion)
+bigint ConstantOptimisationMethod::simpleRunGas(AssemblyItems const& _items)
 {
 	bigint gas = 0;
 	for (AssemblyItem const& item: _items)
 		if (item.type() == Push)
-			gas += GasMeter::runGas(Instruction::PUSH1, _evmVersion);
+			gas += GasMeter::runGas(Instruction::PUSH1);
 		else if (item.type() == Operation)
 		{
 			if (item.instruction() == Instruction::EXP)
 				gas += GasCosts::expGas;
 			else
-				gas += GasMeter::runGas(item.instruction(), _evmVersion);
+				gas += GasMeter::runGas(item.instruction());
 		}
 	return gas;
 }
@@ -97,7 +97,7 @@ bigint ConstantOptimisationMethod::simpleRunGas(AssemblyItems const& _items, lan
 bigint ConstantOptimisationMethod::dataGas(bytes const& _data) const
 {
 	assertThrow(_data.size() > 0, OptimizerException, "Empty bytecode generated.");
-	return bigint(GasMeter::dataGas(_data, m_params.isCreation, m_params.evmVersion));
+	return bigint(GasMeter::dataGas(_data, m_params.isCreation));
 }
 
 size_t ConstantOptimisationMethod::bytesRequired(AssemblyItems const& _items)
@@ -130,9 +130,9 @@ void ConstantOptimisationMethod::replaceConstants(
 bigint LiteralMethod::gasNeeded() const
 {
 	return combineGas(
-		simpleRunGas({Instruction::PUSH1}, m_params.evmVersion),
+		simpleRunGas({Instruction::PUSH1}),
 		// PUSHX plus data
-		(m_params.isCreation ? GasCosts::txDataNonZeroGas(m_params.evmVersion) : GasCosts::createDataGas) + dataGas(toCompactBigEndian(m_value, 1)),
+		(m_params.isCreation ? GasCosts::txDataNonZeroGas : GasCosts::createDataGas) + dataGas(toCompactBigEndian(m_value, 1)),
 		0
 	);
 }
@@ -141,9 +141,9 @@ bigint CodeCopyMethod::gasNeeded() const
 {
 	return combineGas(
 		// Run gas: we ignore memory increase costs
-		simpleRunGas(copyRoutine(), m_params.evmVersion) + GasCosts::copyGas,
+		simpleRunGas(copyRoutine()) + GasCosts::copyGas,
 		// Data gas for copy routines: Some bytes are zero, but we ignore them.
-		bytesRequired(copyRoutine()) * (m_params.isCreation ? GasCosts::txDataNonZeroGas(m_params.evmVersion) : GasCosts::createDataGas),
+		bytesRequired(copyRoutine()) * (m_params.isCreation ? GasCosts::txDataNonZeroGas : GasCosts::createDataGas),
 		// Data gas for data itself
 		dataGas(toBigEndian(m_value))
 	);
@@ -222,17 +222,8 @@ AssemblyItems ComputeMethod::findRepresentation(u256 const& _value)
 			AssemblyItems newRoutine;
 			if (lowerPart != 0)
 				newRoutine += findRepresentation(u256(abs(lowerPart)));
-			if (m_params.evmVersion.hasBitwiseShifting())
-			{
-				newRoutine += findRepresentation(upperPart);
-				newRoutine += AssemblyItems{u256(bits), Instruction::SHL};
-			}
-			else
-			{
-				newRoutine += AssemblyItems{u256(bits), u256(2), Instruction::EXP};
-				if (upperPart != 1)
-					newRoutine += findRepresentation(upperPart) + AssemblyItems{Instruction::MUL};
-			}
+			newRoutine += findRepresentation(upperPart);
+			newRoutine += AssemblyItems{u256(bits), Instruction::SHL};
 			if (lowerPart > 0)
 				newRoutine += AssemblyItems{Instruction::ADD};
 			else if (lowerPart < 0)
@@ -284,20 +275,10 @@ bool ComputeMethod::checkRepresentation(u256 const& _value, AssemblyItems const&
 				sp[0] = ~sp[0];
 				break;
 			case Instruction::SHL:
-				assertThrow(
-					m_params.evmVersion.hasBitwiseShifting(),
-					OptimizerException,
-					"Shift generated for invalid EVM version."
-				);
 				assertThrow(sp[0] <= u256(255), OptimizerException, "Invalid shift generated.");
 				sp[-1] = u256(bigint(sp[-1]) << unsigned(sp[0]));
 				break;
 			case Instruction::SHR:
-				assertThrow(
-					m_params.evmVersion.hasBitwiseShifting(),
-					OptimizerException,
-					"Shift generated for invalid EVM version."
-				);
 				assertThrow(sp[0] <= u256(255), OptimizerException, "Invalid shift generated.");
 				sp[-1] = sp[-1] >> unsigned(sp[0]);
 				break;
@@ -321,9 +302,9 @@ bigint ComputeMethod::gasNeeded(AssemblyItems const& _routine) const
 {
 	auto numExps = static_cast<size_t>(count(_routine.begin(), _routine.end(), Instruction::EXP));
 	return combineGas(
-		simpleRunGas(_routine, m_params.evmVersion) + numExps * (GasCosts::expGas + GasCosts::expByteGas(m_params.evmVersion)),
+		simpleRunGas(_routine) + numExps * (GasCosts::expGas + GasCosts::expByteGas),
 		// Data gas for routine: Some bytes are zero, but we ignore them.
-		bytesRequired(_routine) * (m_params.isCreation ? GasCosts::txDataNonZeroGas(m_params.evmVersion) : GasCosts::createDataGas),
+		bytesRequired(_routine) * (m_params.isCreation ? GasCosts::txDataNonZeroGas : GasCosts::createDataGas),
 		0
 	);
 }

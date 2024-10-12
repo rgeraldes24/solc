@@ -120,7 +120,7 @@ struct FunctionFlow
 	CFGNode* exit = nullptr;
 	/// Revert node. Control flow of the function in case of revert.
 	/// This node is empty and does not have any exits, but may have multiple entries
-	/// (e.g. all assert, require, revert and throw statements).
+	/// (e.g. all assert, require and revert statements).
 	CFGNode* revert = nullptr;
 	/// Transaction return node. Destination node for inline assembly "return" calls.
 	/// This node is empty and does not have any exits, but may have multiple entries

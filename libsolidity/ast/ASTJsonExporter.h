@@ -107,7 +107,6 @@ public:
 	bool visit(Continue const& _node) override;
 	bool visit(Break const& _node) override;
 	bool visit(Return const& _node) override;
-	bool visit(Throw const& _node) override;
 	bool visit(EmitStatement const& _node) override;
 	bool visit(RevertStatement const& _node) override;
 	bool visit(VariableDeclarationStatement const& _node) override;

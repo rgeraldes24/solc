@@ -32,4 +32,3 @@ contract B
     }
 }
 // ====
-// EVMVersion: >=byzantium

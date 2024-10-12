@@ -104,8 +104,6 @@ void CommonOptions::addOptions()
 {
 	options.add_options()
 		("evm-version", po::value(&evmVersionString), "which EVM version to use")
-		// "eof-version" is declared as uint64_t, since uint8_t will be parsed as character by boost.
-		("eof-version", po::value<uint64_t>()->implicit_value(1u), "which EOF version to use")
 		("testpath", po::value<fs::path>(&this->testPath)->default_value(solidity::test::testPath()), "path to test files")
 		("vm", po::value<std::vector<fs::path>>(&vmPaths), "path to evmc library, can be supplied multiple times.")
 		("batches", po::value<size_t>(&this->batches)->default_value(1), "set number of batches to split the tests into")
@@ -170,14 +168,6 @@ bool CommonOptions::parse(int argc, char const* const* argv)
 		auto parsedOptions = cmdLineParser.run();
 		po::store(parsedOptions, arguments);
 		po::notify(arguments);
-		if (arguments.count("eof-version"))
-		{
-			// Request as uint64_t, since uint8_t will be parsed as character by boost.
-			uint64_t eofVersion = arguments["eof-version"].as<uint64_t>();
-			if (eofVersion != 1)
-				BOOST_THROW_EXCEPTION(std::runtime_error("Invalid EOF version: " + to_string(eofVersion)));
-			m_eofVersion = 1;
-		}
 
 		for (auto const& parsedOption: parsedOptions.options)
 			if (parsedOption.position_key >= 0)

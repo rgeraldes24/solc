@@ -100,7 +100,6 @@ private:
 	void visit(ExtCodeCopy const&);
 	void visit(StopInvalidStmt const&);
 	void visit(RetRevStmt const&);
-	void visit(SelfDestructStmt const&);
 	void visit(TerminatingStmt const&);
 	/// @param _f is the function call to be visited.
 	/// @param _name is the name of the function called.

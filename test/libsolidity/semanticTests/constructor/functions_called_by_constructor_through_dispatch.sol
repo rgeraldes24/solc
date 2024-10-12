@@ -2,7 +2,7 @@ contract Test {
     bytes6 name;
 
     constructor() {
-        function (bytes6 _name) internal setter = setName;
+        function (bytes6) internal setter = setName;
         setter("abcdef");
 
         applyShift(leftByteShift, 3);
@@ -20,7 +20,7 @@ contract Test {
         return _value << _shift * 8;
     }
 
-    function applyShift(function (bytes6 _value, uint _shift) internal returns (bytes6) _shiftOperator, uint _bytes) internal {
+    function applyShift(function (bytes6, uint) internal returns (bytes6) _shiftOperator, uint _bytes) internal {
         name = _shiftOperator(name, _bytes);
     }
 }

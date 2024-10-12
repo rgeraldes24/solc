@@ -1251,18 +1251,15 @@ public:
 		External, ///< external call using CALL
 		DelegateCall, ///< external call using DELEGATECALL, i.e. not exchanging the storage
 		BareCall, ///< CALL without function hash
-		BareCallCode, ///< CALLCODE without function hash
 		BareDelegateCall, ///< DELEGATECALL without function hash
 		BareStaticCall, ///< STATICCALL without function hash
 		Creation, ///< external call using CREATE
 		Send, ///< CALL, but without data and gas
 		Transfer, ///< CALL, but without data and throws on error
 		KECCAK256, ///< KECCAK256
-		Selfdestruct, ///< SELFDESTRUCT
 		Revert, ///< REVERT
-		ECRecover, ///< CALL to special contract for ecrecover
+		DepositRoot, ///< CALL to special contract for depositroot
 		SHA256, ///< CALL to special contract for sha256
-		RIPEMD160, ///< CALL to special contract for ripemd160
 		Event, ///< syntactic sugar for LOG*
 		Error, ///< creating an error instance in revert or require
 		Wrap, ///< customType.wrap(...) for user defined value types
@@ -1470,7 +1467,7 @@ public:
 	bool hasDeclaration() const { return !!m_declaration; }
 	/// @returns true if the result of this function only depends on its arguments,
 	/// does not modify the state and is a compile-time constant.
-	/// Currently, this will only return true for internal functions like keccak and ecrecover.
+	/// Currently, this will only return true for internal functions like keccak and depositroot.
 	bool isPure() const;
 	bool isPayable() const { return m_stateMutability == StateMutability::Payable; }
 	/// @return A shared pointer of StructuredDocumentation.
@@ -1489,9 +1486,7 @@ public:
 		{
 		case FunctionType::Kind::KECCAK256:
 		case FunctionType::Kind::SHA256:
-		case FunctionType::Kind::RIPEMD160:
 		case FunctionType::Kind::BareCall:
-		case FunctionType::Kind::BareCallCode:
 		case FunctionType::Kind::BareDelegateCall:
 		case FunctionType::Kind::BareStaticCall:
 			return true;

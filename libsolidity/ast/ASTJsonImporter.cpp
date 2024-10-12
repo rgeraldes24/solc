@@ -218,8 +218,6 @@ ASTPointer<ASTNode> ASTJsonImporter::convertJsonToASTNode(Json::Value const& _js
 		return createEmitStatement(_json);
 	if (nodeType == "RevertStatement")
 		return createRevertStatement(_json);
-	if (nodeType == "Throw")
-		return createThrow(_json);
 	if (nodeType == "VariableDeclarationStatement")
 		return createVariableDeclarationStatement(_json);
 	if (nodeType == "ExpressionStatement")
@@ -843,14 +841,6 @@ ASTPointer<Return> ASTJsonImporter::createReturn(Json::Value const&  _node)
 		_node,
 		nullOrASTString(_node, "documentation"),
 		nullOrCast<Expression>(member(_node, "expression"))
-	);
-}
-
-ASTPointer<Throw> ASTJsonImporter::createThrow(Json::Value const&  _node)
-{
-	return createASTNode<Throw>(
-		_node,
-		nullOrASTString(_node, "documentation")
 	);
 }
 

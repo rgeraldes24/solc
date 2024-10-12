@@ -1070,8 +1070,6 @@
         result := and(add(value_389, 31), not(31))
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: fullSuite
 //

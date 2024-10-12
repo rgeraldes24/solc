@@ -664,9 +664,8 @@ void SMTEncoder::endVisit(FunctionCall const& _funCall)
 	case FunctionType::Kind::BareCall:
 		break;
 	case FunctionType::Kind::KECCAK256:
-	case FunctionType::Kind::ECRecover:
+	case FunctionType::Kind::DepositRoot:
 	case FunctionType::Kind::SHA256:
-	case FunctionType::Kind::RIPEMD160:
 		visitCryptoFunction(_funCall);
 		break;
 	case FunctionType::Kind::BlockHash:
@@ -717,7 +716,6 @@ void SMTEncoder::endVisit(FunctionCall const& _funCall)
 			);
 		break;
 	case FunctionType::Kind::DelegateCall:
-	case FunctionType::Kind::BareCallCode:
 	case FunctionType::Kind::BareDelegateCall:
 	default:
 		m_unsupportedErrors.warning(
@@ -839,21 +837,19 @@ void SMTEncoder::visitCryptoFunction(FunctionCall const& _funCall)
 		result = smtutil::Expression::select(state().cryptoFunction("keccak256"), arg0);
 	else if (kind == FunctionType::Kind::SHA256)
 		result = smtutil::Expression::select(state().cryptoFunction("sha256"), arg0);
-	else if (kind == FunctionType::Kind::RIPEMD160)
-		result = smtutil::Expression::select(state().cryptoFunction("ripemd160"), arg0);
-	else if (kind == FunctionType::Kind::ECRecover)
+	else if (kind == FunctionType::Kind::DepositRoot)
 	{
-		auto e = state().cryptoFunction("ecrecover");
+		auto e = state().cryptoFunction("depositroot");
 		auto arg0 = expr(*_funCall.arguments().at(0));
 		auto arg1 = expr(*_funCall.arguments().at(1));
 		auto arg2 = expr(*_funCall.arguments().at(2));
 		auto arg3 = expr(*_funCall.arguments().at(3));
 		auto inputSort = dynamic_cast<smtutil::ArraySort&>(*e.sort).domain;
-		auto ecrecoverInput = smtutil::Expression::tuple_constructor(
+		auto depositrootInput = smtutil::Expression::tuple_constructor(
 			smtutil::Expression(std::make_shared<smtutil::SortSort>(inputSort), ""),
 			{arg0, arg1, arg2, arg3}
 		);
-		result = smtutil::Expression::select(e, ecrecoverInput);
+		result = smtutil::Expression::select(e, depositrootInput);
 	}
 	else
 		solAssert(false, "");
@@ -930,8 +926,6 @@ void SMTEncoder::endVisit(Identifier const& _identifier)
 	}
 	else if (_identifier.annotation().type->category() == Type::Category::Function)
 		visitFunctionIdentifier(_identifier);
-	else if (_identifier.name() == "now")
-		defineGlobalVariable(_identifier.name(), _identifier);
 	else if (_identifier.name() == "this")
 	{
 		defineExpr(_identifier, state().thisAddress());
@@ -1359,10 +1353,6 @@ bool SMTEncoder::visit(MemberAccess const& _memberAccess)
 			auto const& name = identifier->name();
 			solAssert(name == "block" || name == "msg" || name == "tx", "");
 			auto memberName = _memberAccess.memberName();
-
-			// TODO remove this for 0.9.0
-			if (name == "block" && memberName == "difficulty")
-				memberName = "prevrandao";
 
 			defineExpr(_memberAccess, state().txMember(name + "." + memberName));
 		}

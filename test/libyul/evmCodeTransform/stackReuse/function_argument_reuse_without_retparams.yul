@@ -6,7 +6,6 @@
 }
 // ====
 // stackOptimization: true
-// EVMVersion: >=shanghai
 // ----
 //     /* "":0:88   */
 //   stop

@@ -209,10 +209,6 @@ void ViewPureChecker::endVisit(Identifier const& _identifier)
 				// reads the address
 				mutability = StateMutability::View;
 			break;
-		case Type::Category::Integer:
-			solAssert(_identifier.name() == "now", "");
-			mutability = StateMutability::View;
-			break;
 		default:
 			break;
 		}

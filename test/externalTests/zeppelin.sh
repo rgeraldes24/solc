@@ -47,7 +47,7 @@ function zeppelin_test
     local config_file="hardhat.config.js"
 
     local compile_only_presets=(
-        #ir-no-optimize           # Compilation fails with "Contract initcode size is 49410 bytes and exceeds 49152 bytes (a limit introduced in Shanghai)."
+        #ir-no-optimize           # Compilation fails with "Contract initcode size is 49410 bytes and exceeds 49152 bytes."
         ir-optimize-evm-only      # FIXME: A few tests fail with "Transaction: ... exited with an error (status 0) after consuming all gas."
 )
     local settings_presets=(

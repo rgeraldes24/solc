@@ -10,7 +10,5 @@ contract C {
         return g_ptr == g_ptr_dirty;
   }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // comparison_operators_for_external_function_pointers_with_dirty_bits() -> true

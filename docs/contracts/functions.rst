@@ -164,9 +164,8 @@ View Functions
 Functions can be declared ``view`` in which case they promise not to modify the state.
 
 .. note::
-  If the compiler's EVM target is Byzantium or newer (default) the opcode
-  ``STATICCALL`` is used when ``view`` functions are called, which enforces the state
-  to stay unmodified as part of the EVM execution. For library ``view`` functions
+  The opcode ``STATICCALL`` is used when ``view`` functions are called, which enforces the
+  state to stay unmodified as part of the EVM execution. For library ``view`` functions
   ``DELEGATECALL`` is used, because there is no combined ``DELEGATECALL`` and ``STATICCALL``.
   This means library ``view`` functions do not have run-time checks that prevent state
   modifications. This should not impact security negatively because library code is
@@ -177,7 +176,6 @@ The following statements are considered modifying the state:
 #. Writing to state variables.
 #. :ref:`Emitting events <events>`.
 #. :ref:`Creating other contracts <creating-contracts>`.
-#. Using ``selfdestruct``.
 #. Sending Ether via calls.
 #. Calling any function not marked ``view`` or ``pure``.
 #. Using low-level calls.
@@ -221,8 +219,8 @@ only its inputs and ``msg.data``, but without any knowledge of the current block
 This means that reading from ``immutable`` variables can be a non-pure operation.
 
 .. note::
-  If the compiler's EVM target is Byzantium or newer (default) the opcode ``STATICCALL`` is used,
-  which does not guarantee that the state is not read, but at least that it is not modified.
+  The opcode ``STATICCALL`` is used, which does not guarantee that the state is not read, but
+  at least that it is not modified.
 
 In addition to the list of state modifying statements explained above, the following are considered reading from the state:
 
@@ -322,8 +320,7 @@ will consume more gas than the 2300 gas stipend:
 
 .. warning::
     A contract without a receive Ether function can receive Ether as a
-    recipient of a *coinbase transaction* (aka *miner block reward*)
-    or as a destination of a ``selfdestruct``.
+    recipient of a *coinbase transaction* (aka *miner block reward*).
 
     A contract cannot react to such Ether transfers and thus also
     cannot reject them. This is a design choice of the EVM and
