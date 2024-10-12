@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(simple_contract)
 	testCreationTimeGas(sourceCode);
 }
 
-// TODO(rgeraldes24): fix: check gas.value - _tolerance <= m_gasUsed has failed [113769 > 93769]
+// TODO(now.youtrack.cloud/issue/TS-14): check gas.value - _tolerance <= m_gasUsed has failed [113769 > 93769]
 /*
 BOOST_AUTO_TEST_CASE(store_keccak256)
 {
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE(store_keccak256)
 }
 */
 
-// TODO(rgeraldes24): fix: check gas.value - _tolerance <= m_gasUsed has failed [98816 > 80516]
+// TODO(now.youtrack.cloud/issue/TS-14): check gas.value - _tolerance <= m_gasUsed has failed [98816 > 80516]
 /*
 BOOST_AUTO_TEST_CASE(updating_store)
 {
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(updating_store)
 }
 */
 
-// TODO(rgeraldes24): fix: check gas.value - _tolerance <= m_gasUsed has failed [43559 > 23560]
+// TODO(now.youtrack.cloud/issue/TS-14): check gas.value - _tolerance <= m_gasUsed has failed [43559 > 23560]
 /*
 BOOST_AUTO_TEST_CASE(branches)
 {
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(branches)
 }
 */
 
-// TODO(rgeraldes24): check gas.value - _tolerance <= m_gasUsed has failed [43671 > 23671]
+// TODO(now.youtrack.cloud/issue/TS-14): check gas.value - _tolerance <= m_gasUsed has failed [43671 > 23671]
 /*
 BOOST_AUTO_TEST_CASE(function_calls)
 {
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_CASE(function_calls)
 }
 */
 
-// TODO(rgeraldes24): check gas.value - _tolerance <= m_gasUsed has failed [43671 > 23671]
+// TODO(now.youtrack.cloud/issue/TS-14): check gas.value - _tolerance <= m_gasUsed has failed [43671 > 23671]
 /*
 BOOST_AUTO_TEST_CASE(multiple_external_functions)
 {

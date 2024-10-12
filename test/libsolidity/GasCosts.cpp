@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(string_storage)
 			CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
 		}
 	}
-	// TODO(rgeraldes24): fix: Gas used: 102421 - expected: 114077
+	// TODO(now.youtrack.cloud/issue/TS-14): Gas used: 102421 - expected: 114077
 	// else
 		// CHECK_DEPLOY_GAS(114077, 95835, evmVersion);
 
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(string_storage)
 			CHECK_GAS(21528, 21351, 20);
 		}
 	}
-	// TODO(rgeraldes24): fix
+	// TODO(now.youtrack.cloud/issue/TS-14)
 	// CHECK_GAS(21521, 21322, 20);
 }
 
