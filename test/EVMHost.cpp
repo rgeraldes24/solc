@@ -358,41 +358,8 @@ evmc::bytes32 EVMHost::convertToEVMC(h256 const& _data)
 
 evmc::Result EVMHost::precompileDepositRoot(evmc_message const& _message) noexcept
 {
-	// NOTE this is a partial implementation for some inputs.
-
-	// Fixed cost of 3000 gas.
-	constexpr int64_t gas_cost = 3000;
-
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
-		{
-			fromHex(
-				"18c547e4f7b0f325ad1e56f57e26c745b09a3e503d86e00e5255ff7f715d3d1c"
-				"000000000000000000000000000000000000000000000000000000000000001c"
-				"73b1693892219d736caba55bdb67216e485557ea6b6af75f37096c9aa6a5a75f"
-				"eeb940b1d03b21e36b0e47e79769f095fe2ab855bd91e3a38756b7d75a9c4549"
-			),
-			{
-				fromHex("000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b"),
-				gas_cost
-			}
-		},
-		{
-			fromHex(
-				"47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"
-				"000000000000000000000000000000000000000000000000000000000000001c"
-				"debaaa0cddb321b2dcaaf846d39605de7b97e77ba6106587855b9106cb104215"
-				"61a22d94fa8b8a687ff9c911c844d1c016d1a685a9166858f9c7c1bc85128aca"
-			),
-			{
-				fromHex("0000000000000000000000008743523d96a1b2cbe0c6909653a56da18ed484af"),
-				gas_cost
-			}
-		}
-	};
-	evmc::Result result = precompileGeneric(_message, inputOutput);
-	if (result.status_code != EVMC_SUCCESS && result.status_code != EVMC_OUT_OF_GAS)
-		return resultWithGas(_message.gas, gas_cost, {});
-	return result;
+	// TODO implement
+	return resultWithFailure();
 }
 
 evmc::Result EVMHost::precompileSha256(evmc_message const& _message) noexcept
