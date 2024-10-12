@@ -15,9 +15,8 @@ inheritable properties of contracts and may be overridden by derived contracts, 
 if they are marked ``virtual``. For details, please see
 :ref:`Modifier Overriding <modifier-overriding>`.
 
-// .. code-block:: solidity
-.. code-block:: none
-
+.. code-block:: solidity
+    
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.1 <0.9.0;
 
