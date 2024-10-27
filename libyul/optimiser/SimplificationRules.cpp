@@ -249,7 +249,7 @@ Expression Pattern::toExpression(std::shared_ptr<DebugData const> const& _debugD
 		for (auto const& arg: m_arguments)
 			arguments.emplace_back(arg.toExpression(_debugData, _evmVersion));
 
-		std::string name = util::toLower(instructionInfo(m_instruction, _evmVersion).name);
+		std::string name = util::toLower(instructionInfo(m_instruction).name);
 
 		return FunctionCall{_debugData,
 			Identifier{_debugData, YulString{name}},

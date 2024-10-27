@@ -17,8 +17,6 @@
         v := add(v, calldataload(7))
     }
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // step: fullSuite
 //

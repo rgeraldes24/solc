@@ -1,45 +1,41 @@
 contract C {
 	bytes data;
-	bytes32 h;
-	uint8 v;
-	bytes32 r;
-	bytes32 s;
+	bytes pubkey;
+	bytes withdrawal_credentials;
+	bytes amount;
+	bytes signature;
 
 	bytes32 kec;
 	bytes32 sha;
-	bytes32 rip;
-	address erc;
+	bytes32 dep;
 
-	constructor(bytes memory _data, bytes32 _h, uint8 _v, bytes32 _r, bytes32 _s) {
+	constructor(bytes memory _data, bytes memory _pubkey, bytes memory _withdrawal_credentials, bytes memory _amount, bytes memory _signature) {
 		data = _data;
-		h = _h;
-		v = _v;
-		r = _r;
-		s = _s;
+		pubkey = _pubkey;
+		withdrawal_credentials = _withdrawal_credentials
+		amount = _amount;
+		signature = _signature;
 
 		kec = keccak256(data);
 		sha = sha256(data);
-		rip = ripemd160(data);
-		erc = ecrecover(h, v, r, s);
+		dep = depositroot(pubkey, withdrawal_credentials, amount, signature);
 	}
 
-	function set(bytes memory _data, bytes32 _h, uint8 _v, bytes32 _r, bytes32 _s) public {
+	function set(bytes memory _data, bytes memory _pubkey, bytes memory _withdrawal_credentials, bytes memory _amount, bytes memory _signature) public {
 		data = _data;
-		h = _h;
-		v = _v;
-		r = _r;
-		s = _s;
+		pubkey = _pubkey;
+		withdrawal_credentials = _withdrawal_credentials;
+		amount = _amount;
+		signature = _signature;
 	}
 
 	function f() public view {
 		bytes32 _kec = keccak256(data);
 		bytes32 _sha = sha256(data);
-		bytes32 _rip = ripemd160(data);
-		address _erc = ecrecover(h, v, r, s);
+		bytes32 _dep = depositroot(pubkey, withdrawal_credentials, amount, signature);
 		assert(_kec == kec);
 		assert(_sha == sha);
-		assert(_rip == rip);
-		assert(_erc == erc);
+		assert(_dep == dep);
 	}
 }
 // ====

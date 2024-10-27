@@ -25,8 +25,6 @@
         var := add(_2, _2)
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: fullSuite
 //

@@ -234,15 +234,6 @@ void CompilerStack::setEVMVersion(langutil::EVMVersion _version)
 	m_evmVersion = _version;
 }
 
-void CompilerStack::setEOFVersion(std::optional<uint8_t> _version)
-{
-	if (m_stackState >= CompilationSuccessful)
-		solThrow(CompilerError, "Must set EOF version before compiling.");
-	if (_version && _version != 1)
-		solThrow(CompilerError, "Invalid EOF version.");
-	m_eofVersion = _version;
-}
-
 void CompilerStack::setModelCheckerSettings(ModelCheckerSettings _settings)
 {
 	if (m_stackState >= ParsedAndImported)
@@ -1389,7 +1380,6 @@ void CompilerStack::assembleYul(
 	//   If contract creation returns data with length greater than 0x6000 (2^14 + 2^13) bytes,
 	//   contract creation fails with an out of gas error.
 	if (
-		m_evmVersion >= langutil::EVMVersion::spuriousDragon() &&
 		compiledContract.runtimeObject.bytecode.size() > 0x6000
 	)
 		m_errorReporter.warning(
@@ -1397,7 +1387,7 @@ void CompilerStack::assembleYul(
 			_contract.location(),
 			"Contract code size is "s +
 			std::to_string(compiledContract.runtimeObject.bytecode.size()) +
-			" bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). "
+			" bytes and exceeds 24576 bytes. "
 			"This contract may not be deployable on Mainnet. "
 			"Consider enabling the optimizer (with a low \"runs\" value!), "
 			"turning off revert strings, or using libraries."
@@ -1407,7 +1397,6 @@ void CompilerStack::assembleYul(
 	//   If initcode is larger than 0xC000 bytes (twice the runtime code limit),
 	//   then contract creation fails with an out of gas error.
 	if (
-		m_evmVersion >= langutil::EVMVersion::shanghai() &&
 		compiledContract.object.bytecode.size() > 0xC000
 	)
 		m_errorReporter.warning(
@@ -1415,7 +1404,7 @@ void CompilerStack::assembleYul(
 			_contract.location(),
 			"Contract initcode size is "s +
 			std::to_string(compiledContract.object.bytecode.size()) +
-			" bytes and exceeds 49152 bytes (a limit introduced in Shanghai). "
+			" bytes and exceeds 49152 bytes. "
 			"This contract may not be deployable on Mainnet. "
 			"Consider enabling the optimizer (with a low \"runs\" value!), "
 			"turning off revert strings, or using libraries."
@@ -1428,7 +1417,6 @@ void CompilerStack::compileContract(
 )
 {
 	solAssert(!m_viaIR, "");
-	solUnimplementedAssert(!m_eofVersion.has_value(), "Experimental EOF support is only available for via-IR compilation.");
 	solAssert(m_stackState >= AnalysisSuccessful, "");
 
 	if (_otherCompilers.count(&_contract))
@@ -1495,7 +1483,6 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 
 	IRGenerator generator(
 		m_evmVersion,
-		m_eofVersion,
 		m_revertStrings,
 		sourceIndices(),
 		m_debugInfoSelection,
@@ -1510,7 +1497,6 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 
 	yul::YulStack stack(
 		m_evmVersion,
-		m_eofVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1544,7 +1530,6 @@ void CompilerStack::generateEVMFromIR(ContractDefinition const& _contract)
 	// Re-parse the Yul IR in EVM dialect
 	yul::YulStack stack(
 		m_evmVersion,
-		m_eofVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1708,8 +1693,6 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 	if (_forIR)
 		meta["settings"]["viaIR"] = _forIR;
 	meta["settings"]["evmVersion"] = m_evmVersion.name();
-	if (m_eofVersion.has_value())
-		meta["settings"]["eofVersion"] = *m_eofVersion;
 	meta["settings"]["compilationTarget"][_contract.contract->sourceUnitName()] =
 		*_contract.contract->annotation().canonicalName;
 
@@ -1834,7 +1817,7 @@ bytes CompilerStack::createCBORMetadata(Contract const& _contract, bool _forIR) 
 	else
 		solAssert(m_metadataHash == MetadataHash::None, "Invalid metadata hash");
 
-	if (experimentalMode || m_eofVersion.has_value())
+	if (experimentalMode)
 		encoder.pushBool("experimental", true);
 	if (m_metadataFormat == MetadataFormat::WithReleaseVersionTag)
 		encoder.pushBytes("solc", VersionCompactBytes);
@@ -1877,7 +1860,7 @@ Json::Value CompilerStack::gasEstimates(std::string const& _contractName) const
 	if (evmasm::AssemblyItems const* items = assemblyItems(_contractName))
 	{
 		Gas executionGas = gasEstimator.functionalEstimation(*items);
-		Gas codeDepositGas{evmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false, m_evmVersion)};
+		Gas codeDepositGas{evmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false)};
 
 		Json::Value creation(Json::objectValue);
 		creation["codeDepositCost"] = gasToJson(codeDepositGas);

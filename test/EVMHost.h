@@ -59,7 +59,6 @@ public:
 	using MockedHost::access_storage;
 
 	// Modified features of MockedHost.
-	bool selfdestruct(evmc::address const& _addr, evmc::address const& _beneficiary) noexcept final;
 	evmc::Result call(evmc_message const& _message) noexcept final;
 	evmc::bytes32 get_block_hash(int64_t number) const noexcept final;
 
@@ -101,25 +100,20 @@ private:
 	void transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recipient, u256 const& _value) noexcept;
 
 	/// Start a new transaction frame.
-	/// This will perform selfdestructs, apply storage status changes across all accounts,
+	/// This will apply storage status changes across all accounts,
 	/// and clear account/storage access indicator for EIP-2929.
 	void newTransactionFrame();
 
 	/// Records calls made via @param _message.
 	void recordCalls(evmc_message const& _message) noexcept;
 
-	static evmc::Result precompileECRecover(evmc_message const& _message) noexcept;
+	static evmc::Result precompileDepositRoot(evmc_message const& _message) noexcept;
 	static evmc::Result precompileSha256(evmc_message const& _message) noexcept;
-	static evmc::Result precompileRipeMD160(evmc_message const& _message) noexcept;
 	static evmc::Result precompileIdentity(evmc_message const& _message) noexcept;
 	static evmc::Result precompileModExp(evmc_message const& _message) noexcept;
-	template <evmc_revision Revision>
 	static evmc::Result precompileALTBN128G1Add(evmc_message const& _message) noexcept;
-	template <evmc_revision Revision>
 	static evmc::Result precompileALTBN128G1Mul(evmc_message const& _message) noexcept;
-	template <evmc_revision Revision>
 	static evmc::Result precompileALTBN128PairingProduct(evmc_message const& _message) noexcept;
-	static evmc::Result precompileBlake2f(evmc_message const& _message) noexcept;
 	static evmc::Result precompileGeneric(evmc_message const& _message, std::map<bytes, EVMPrecompileOutput> const& _inOut) noexcept;
 	/// @returns a result object with gas usage and result data taken from @a _data.
 	/// The outcome will be a failure if the limit < required.
@@ -151,8 +145,6 @@ private:
 	void callRecords();
 	/// Outputs balance of account to stateStream.
 	void balance();
-	/// Outputs self-destruct record for account to stateStream.
-	void selfdestructRecords();
 
 	std::ostringstream m_stateStream;
 	EVMHost& m_host;

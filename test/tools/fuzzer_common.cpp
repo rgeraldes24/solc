@@ -41,16 +41,7 @@ using namespace solidity::langutil;
 using namespace solidity::util;
 
 static vector<EVMVersion> s_evmVersions = {
-	EVMVersion::homestead(),
-	EVMVersion::tangerineWhistle(),
-	EVMVersion::spuriousDragon(),
-	EVMVersion::byzantium(),
-	EVMVersion::constantinople(),
-	EVMVersion::petersburg(),
-	EVMVersion::istanbul(),
-	EVMVersion::berlin(),
-	EVMVersion::london(),
-	EVMVersion::paris()
+	EVMVersion::shanghai()
 };
 
 void FuzzerUtil::testCompilerJsonInterface(string const& _input, bool _optimize, bool _quiet)
@@ -67,7 +58,7 @@ void FuzzerUtil::testCompilerJsonInterface(string const& _input, bool _optimize,
 	config["settings"]["optimizer"] = Json::objectValue;
 	config["settings"]["optimizer"]["enabled"] = _optimize;
 	config["settings"]["optimizer"]["runs"] = static_cast<int>(OptimiserSettings{}.expectedExecutionsPerDeployment);
-	config["settings"]["evmVersion"] = "berlin";
+	config["settings"]["evmVersion"] = "shanghai";
 
 	// Enable all SourceUnit-level outputs.
 	config["settings"]["outputSelection"]["*"][""][0] = "*";

@@ -1925,7 +1925,6 @@ BOOST_AUTO_TEST_CASE(builtins)
 				block.basefee;
 				block.chainid;
 				block.coinbase;
-				block.difficulty;
 				block.prevrandao;
 				block.gaslimit;
 				block.number;
@@ -1939,13 +1938,11 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash;
 				keccak256;
 				sha256;
-				ripemd160;
-				ecrecover;
+				depositroot;
 				addmod;
 				mulmod;
 				this;
 				super;
-				selfdestruct;
 				address(0).balance;
 				address(0).code;
 				address(0).codehash;
@@ -1973,11 +1970,9 @@ BOOST_AUTO_TEST_CASE(builtins)
 				blockhash(0);
 				keccak256(data);
 				sha256(data);
-				ripemd160(data);
-				ecrecover(0x0, 0, 0, 0);
+				depositroot(data, data, data, data);
 				addmod(1, 2, 3);
 				mulmod(1, 2, 3);
-				selfdestruct(payable(0));
 				payable(0).send(0);
 				payable(0).transfer(0);
 				address(0).call(data);

@@ -1028,26 +1028,6 @@ BOOST_AUTO_TEST_CASE(evm_version)
 		)";
 	};
 	Json::Value result;
-	result = compile(inputForVersion("\"evmVersion\": \"homestead\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"homestead\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"tangerineWhistle\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"tangerineWhistle\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"spuriousDragon\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"spuriousDragon\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"byzantium\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"byzantium\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"constantinople\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"constantinople\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"petersburg\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"petersburg\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"istanbul\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"istanbul\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"berlin\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"berlin\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"london\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"london\"") != std::string::npos);
-	result = compile(inputForVersion("\"evmVersion\": \"paris\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"paris\"") != std::string::npos);
 	result = compile(inputForVersion("\"evmVersion\": \"shanghai\","));
 	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"shanghai\"") != std::string::npos);
 	// test default

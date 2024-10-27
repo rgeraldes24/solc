@@ -456,8 +456,6 @@
         converted := cleanup_assert_t_uint160(value)
     }
 }
-// ====
-// EVMVersion: >=shanghai
 // ----
 // step: fullSuite
 //

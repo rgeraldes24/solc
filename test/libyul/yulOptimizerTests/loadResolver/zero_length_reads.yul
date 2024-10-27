@@ -11,13 +11,10 @@
   pop(create(1, 1, 0))
   pop(create2(1, 1, 0, 1))
   pop(call(1, 1, 1, 1, 0, 1, 0))
-  pop(callcode(1, 1, 1, 1, 0, 1, 0))
   pop(delegatecall(1, 1, 1, 0, 1, 0))
   pop(staticcall(1, 1, 1, 0, 1, 0))
   return(1, 0)
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: loadResolver
 //
@@ -37,7 +34,6 @@
 //         pop(create(_2, 0, _1))
 //         pop(create2(_2, 0, _1, _2))
 //         pop(call(_2, _2, _2, 0, _1, _2, _1))
-//         pop(callcode(_2, _2, _2, 0, _1, _2, _1))
 //         pop(delegatecall(_2, _2, 0, _1, _2, _1))
 //         pop(staticcall(_2, _2, 0, _1, _2, _1))
 //         return(0, _1)

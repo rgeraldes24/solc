@@ -40,7 +40,6 @@ Details are given in the following example.
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract Owned {
         constructor() { owner = payable(msg.sender); }
@@ -56,7 +55,6 @@ Details are given in the following example.
         // The keyword `virtual` means that the function can change
         // its behavior in derived classes ("overriding").
         function destroy() virtual public {
-            if (msg.sender == owner) selfdestruct(owner);
         }
     }
 
@@ -130,7 +128,6 @@ seen in the following example:
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -139,7 +136,6 @@ seen in the following example:
 
     contract Destructible is owned {
         function destroy() public virtual {
-            if (msg.sender == owner) selfdestruct(owner);
         }
     }
 
@@ -163,7 +159,6 @@ explicitly in the final override, but this function will bypass
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
-    // This will report a warning due to deprecated selfdestruct
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -172,7 +167,6 @@ explicitly in the final override, but this function will bypass
 
     contract Destructible is owned {
         function destroy() virtual public {
-            if (msg.sender == owner) selfdestruct(owner);
         }
     }
 
@@ -435,15 +429,6 @@ equivalent to ``constructor() {}``. For example:
 You can use internal parameters in a constructor (for example storage pointers). In this case,
 the contract has to be marked :ref:`abstract <abstract-contract>`, because these parameters
 cannot be assigned valid values from outside but only through the constructors of derived contracts.
-
-.. warning::
-    Prior to version 0.4.22, constructors were defined as functions with the same name as the contract.
-    This syntax was deprecated and is not allowed anymore in version 0.5.0.
-
-.. warning::
-    Prior to version 0.7.0, you had to specify the visibility of constructors as either
-    ``internal`` or ``public``.
-
 
 .. index:: ! base;constructor, inheritance list, contract;abstract, abstract contract
 

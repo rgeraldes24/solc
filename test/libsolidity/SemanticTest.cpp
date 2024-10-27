@@ -59,12 +59,11 @@ std::ostream& solidity::frontend::test::operator<<(std::ostream& _output, Requir
 SemanticTest::SemanticTest(
 	std::string const& _filename,
 	langutil::EVMVersion _evmVersion,
-	std::optional<uint8_t> _eofVersion,
 	std::vector<boost::filesystem::path> const& _vmPaths,
 	bool _enforceGasCost,
 	u256 _enforceGasCostMinValue
 ):
-	SolidityExecutionFramework(_evmVersion, _eofVersion, _vmPaths, false),
+	SolidityExecutionFramework(_evmVersion, _vmPaths, false),
 	EVMVersionRestrictedTestCase(_filename),
 	m_sources(m_reader.sources()),
 	m_lineOffset(m_reader.lineNumber()),
@@ -316,7 +315,7 @@ TestCase::TestResult SemanticTest::run(std::ostream& _stream, std::string const&
 {
 	TestResult result = TestResult::Success;
 
-	if (m_testCaseWantsLegacyRun && !m_eofVersion.has_value())
+	if (m_testCaseWantsLegacyRun)
 		result = runTest(_stream, _linePrefix, _formatted, false /* _isYulRun */);
 
 	if (m_testCaseWantsYulRun && result == TestResult::Success)
@@ -447,10 +446,6 @@ TestCase::TestResult SemanticTest::runTest(
 				m_gasCostFailure = true;
 			}
 
-			// Pre byzantium, it was not possible to return failure data, so we disregard
-			// output mismatch for those EVM versions.
-			if (test.call().expectations.failure && !m_transactionSuccessful && !m_evmVersion.supportsReturndata())
-				outputMismatch = false;
 			if (m_transactionSuccessful != !test.call().expectations.failure || outputMismatch)
 				success = false;
 

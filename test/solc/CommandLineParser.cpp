@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 			"--ignore-missing",
 			"--output-dir=/tmp/out",
 			"--overwrite",
-			"--evm-version=spuriousDragon",
+			"--evm-version=shanghai",
 			"--via-ir",
 			"--experimental-via-ir",
 			"--revert-strings=strip",
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.dir = "/tmp/out";
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = EVMVersion::spuriousDragon();
+		expectedOptions.output.evmVersion = EVMVersion::shanghai();
 		expectedOptions.output.viaIR = true;
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 			"--allow-paths=/tmp,/home,project,../contracts",
 			"--ignore-missing",
 			"--overwrite",
-			"--evm-version=spuriousDragon",
+			"--evm-version=shanghai",
 			"--revert-strings=strip",      // Accepted but has no effect in assembly mode
 			"--debug-info=location",
 			"--pretty-json",
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.input.allowedDirectories = {"/tmp", "/home", "project", "../contracts", "c", "/usr/lib"};
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = EVMVersion::spuriousDragon();
+		expectedOptions.output.evmVersion = EVMVersion::shanghai();
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
 		expectedOptions.formatting.json = JsonFormat {JsonFormat::Pretty, 1};
@@ -381,7 +381,7 @@ BOOST_AUTO_TEST_CASE(standard_json_mode_options)
 		"--ignore-missing",
 		"--output-dir=/tmp/out",           // Accepted but has no effect in Standard JSON mode
 		"--overwrite",                     // Accepted but has no effect in Standard JSON mode
-		"--evm-version=spuriousDragon",    // Ignored in Standard JSON mode
+		"--evm-version=shanghai",    // Ignored in Standard JSON mode
 		"--revert-strings=strip",          // Accepted but has no effect in Standard JSON mode
 		"--pretty-json",
 		"--json-indent=1",

@@ -617,7 +617,6 @@ void BMC::endVisit(FunctionCall const& _funCall)
 	case FunctionType::Kind::External:
 	case FunctionType::Kind::DelegateCall:
 	case FunctionType::Kind::BareCall:
-	case FunctionType::Kind::BareCallCode:
 	case FunctionType::Kind::BareDelegateCall:
 	case FunctionType::Kind::BareStaticCall:
 	case FunctionType::Kind::Creation:
@@ -641,9 +640,8 @@ void BMC::endVisit(FunctionCall const& _funCall)
 		break;
 	}
 	case FunctionType::Kind::KECCAK256:
-	case FunctionType::Kind::ECRecover:
+	case FunctionType::Kind::DepositRoot:
 	case FunctionType::Kind::SHA256:
-	case FunctionType::Kind::RIPEMD160:
 	case FunctionType::Kind::BlockHash:
 	case FunctionType::Kind::AddMod:
 	case FunctionType::Kind::MulMod:

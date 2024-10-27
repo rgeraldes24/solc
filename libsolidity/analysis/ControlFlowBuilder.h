@@ -58,7 +58,6 @@ private:
 	bool visit(WhileStatement const& _whileStatement) override;
 	bool visit(Break const&) override;
 	bool visit(Continue const&) override;
-	bool visit(Throw const&) override;
 	bool visit(RevertStatement const&) override;
 	bool visit(PlaceholderStatement const&) override;
 	bool visit(FunctionCall const& _functionCall) override;

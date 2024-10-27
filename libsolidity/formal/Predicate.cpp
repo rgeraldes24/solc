@@ -264,10 +264,6 @@ std::string Predicate::formatSummaryCall(
 						ASTString const& name = identifier->name();
 						auto memberName = _memberAccess.memberName();
 
-						// TODO remove this for 0.9.0
-						if (name == "block" && memberName == "difficulty")
-							memberName = "prevrandao";
-
 						if (name == "block" || name == "msg" || name == "tx")
 							txVars.insert(name + "." + memberName);
 					}

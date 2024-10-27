@@ -28,7 +28,6 @@ contract C {
 	}
 }
 // ====
-// EVMVersion: >homestead
 // ----
 // f(uint256), 2000 ether: 0 -> true
 // f(uint256), 2000 ether: 100 -> false

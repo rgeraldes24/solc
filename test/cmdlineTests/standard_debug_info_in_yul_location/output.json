@@ -110,9 +110,7 @@ object \"C_54\" {
 
         function shift_left_0(value) -> newValue {
             newValue :=
-
             shl(0, value)
-
         }
 
         function update_byte_slice_32_shift_0(value, toInsert) -> result {
@@ -203,9 +201,7 @@ object \"C_54\" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {
@@ -253,9 +249,7 @@ object \"C_54\" {
 
             function shift_right_unsigned_dynamic(bits, value) -> newValue {
                 newValue :=
-
                 shr(bits, value)
-
             }
 
             function cleanup_from_storage_t_int256(value) -> cleaned {
@@ -396,9 +390,7 @@ object \"C_54\" {
 
             function shift_right_0_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(0, value)
-
             }
 
             function extract_from_storage_value_offset_0t_int256(slot_value) -> value {
@@ -418,9 +410,7 @@ object \"C_54\" {
 
             function shift_left_0(value) -> newValue {
                 newValue :=
-
                 shl(0, value)
-
             }
 
             function update_byte_slice_32_shift_0(value, toInsert) -> result {
@@ -498,9 +488,7 @@ object \"C_54\" {
 
             function shift_left_224(value) -> newValue {
                 newValue :=
-
                 shl(224, value)
-
             }
 
             function revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() {
@@ -566,7 +554,6 @@ object \"C_54\" {
                 if _12 {
 
                     let _13 := 32
-
                     if gt(_13, returndatasize()) {
                         _13 := returndatasize()
                     }
@@ -878,9 +865,7 @@ object \"D_72\" {
 
         function shift_right_0_unsigned(value) -> newValue {
             newValue :=
-
             shr(0, value)
-
         }
 
         function cleanup_from_storage_t_int256(value) -> cleaned {
@@ -918,9 +903,7 @@ object \"D_72\" {
 
         function shift_left_0(value) -> newValue {
             newValue :=
-
             shl(0, value)
-
         }
 
         function update_byte_slice_32_shift_0(value, toInsert) -> result {
@@ -1041,9 +1024,7 @@ object \"D_72\" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {
@@ -1091,9 +1072,7 @@ object \"D_72\" {
 
             function shift_right_unsigned_dynamic(bits, value) -> newValue {
                 newValue :=
-
                 shr(bits, value)
-
             }
 
             function cleanup_from_storage_t_int256(value) -> cleaned {
@@ -1234,9 +1213,7 @@ object \"D_72\" {
 
             function shift_right_0_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(0, value)
-
             }
 
             function extract_from_storage_value_offset_0t_int256(slot_value) -> value {
@@ -1256,9 +1233,7 @@ object \"D_72\" {
 
             function shift_left_0(value) -> newValue {
                 newValue :=
-
                 shl(0, value)
-
             }
 
             function update_byte_slice_32_shift_0(value, toInsert) -> result {
@@ -1336,9 +1311,7 @@ object \"D_72\" {
 
             function shift_left_224(value) -> newValue {
                 newValue :=
-
                 shl(224, value)
-
             }
 
             function revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() {
@@ -1404,7 +1377,6 @@ object \"D_72\" {
                 if _12 {
 
                     let _13 := 32
-
                     if gt(_13, returndatasize()) {
                         _13 := returndatasize()
                     }

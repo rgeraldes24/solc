@@ -317,10 +317,7 @@ Lastly, these modifiers can be combined. Their order does not matter:
 
 In a similar way, the function ``delegatecall`` can be used: the difference is that only the code of the given address is used, all other aspects (storage, balance, ...) are taken from the current contract. The purpose of ``delegatecall`` is to use library code which is stored in another contract. The user has to ensure that the layout of storage in both contracts is suitable for delegatecall to be used.
 
-.. note::
-    Prior to homestead, only a limited variant called ``callcode`` was available that did not provide access to the original ``msg.sender`` and ``msg.value`` values. This function was removed in version 0.5.0.
-
-Since byzantium ``staticcall`` can be used as well. This is basically the same as ``call``, but will revert if the called function modifies the state in any way.
+Function ``staticcall`` can be used as well. This is basically the same as ``call``, but will revert if the called function modifies the state in any way.
 
 All three functions ``call``, ``delegatecall`` and ``staticcall`` are very low-level functions and should only be used as a *last resort* as they break the type-safety of Solidity.
 
@@ -823,14 +820,6 @@ External (or public) functions have the following members:
 
 * ``.address`` returns the address of the contract of the function.
 * ``.selector`` returns the :ref:`ABI function selector <abi_function_selector>`
-
-.. note::
-  External (or public) functions used to have the additional members
-  ``.gas(uint)`` and ``.value(uint)``. These were deprecated in Solidity 0.6.2
-  and removed in Solidity 0.7.0. Instead use ``{gas: ...}`` and ``{value: ...}``
-  to specify the amount of gas or the amount of wei sent to a function,
-  respectively. See :ref:`External Function Calls <external-function-calls>` for
-  more information.
 
 Example that shows how to use the members:
 

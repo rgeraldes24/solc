@@ -38,11 +38,10 @@ void EVMObjectCompiler::compile(
 	Object& _object,
 	AbstractAssembly& _assembly,
 	EVMDialect const& _dialect,
-	bool _optimize,
-	std::optional<uint8_t> _eofVersion
+	bool _optimize
 )
 {
-	EVMObjectCompiler compiler(_assembly, _dialect, _eofVersion);
+	EVMObjectCompiler compiler(_assembly, _dialect);
 	compiler.run(_object, _optimize);
 }
 
@@ -59,7 +58,7 @@ void EVMObjectCompiler::run(Object& _object, bool _optimize)
 			auto subAssemblyAndID = m_assembly.createSubAssembly(isCreation, subObject->name.str());
 			context.subIDs[subObject->name] = subAssemblyAndID.second;
 			subObject->subId = subAssemblyAndID.second;
-			compile(*subObject, *subAssemblyAndID.first, m_dialect, _optimize, m_eofVersion);
+			compile(*subObject, *subAssemblyAndID.first, m_dialect, _optimize);
 		}
 		else
 		{
@@ -73,12 +72,7 @@ void EVMObjectCompiler::run(Object& _object, bool _optimize)
 
 	yulAssert(_object.analysisInfo, "No analysis info.");
 	yulAssert(_object.code, "No code.");
-	if (m_eofVersion.has_value())
-		yulAssert(
-			_optimize && (m_dialect.evmVersion() == langutil::EVMVersion()),
-			"Experimental EOF support is only available for optimized via-IR compilation and the most recent EVM version."
-		);
-	if (_optimize && m_dialect.evmVersion().canOverchargeGasForCall())
+	if (_optimize)
 	{
 		auto stackErrors = OptimizedEVMCodeTransform::run(
 			m_assembly,

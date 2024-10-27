@@ -111,7 +111,6 @@ private:
 	ASTPointer<Continue> createContinue(Json::Value const& _node);
 	ASTPointer<Break> createBreak(Json::Value const& _node);
 	ASTPointer<Return> createReturn(Json::Value const& _node);
-	ASTPointer<Throw> createThrow(Json::Value const& _node);
 	ASTPointer<EmitStatement> createEmitStatement(Json::Value const& _node);
 	ASTPointer<RevertStatement> createRevertStatement(Json::Value const& _node);
 	ASTPointer<VariableDeclarationStatement> createVariableDeclarationStatement(Json::Value const& _node);

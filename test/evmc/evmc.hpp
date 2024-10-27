@@ -469,9 +469,6 @@ public:
                              uint8_t* buffer_data,
                              size_t buffer_size) const noexcept = 0;
 
-    /// @copydoc evmc_host_interface::selfdestruct
-    virtual bool selfdestruct(const address& addr, const address& beneficiary) noexcept = 0;
-
     /// @copydoc evmc_host_interface::call
     virtual Result call(const evmc_message& msg) noexcept = 0;
 
@@ -553,11 +550,6 @@ public:
                      size_t buffer_size) const noexcept final
     {
         return host->copy_code(context, &address, code_offset, buffer_data, buffer_size);
-    }
-
-    bool selfdestruct(const address& addr, const address& beneficiary) noexcept final
-    {
-        return host->selfdestruct(context, &addr, &beneficiary);
     }
 
     Result call(const evmc_message& message) noexcept final
@@ -800,13 +792,6 @@ inline size_t copy_code(evmc_host_context* h,
     return Host::from_context(h)->copy_code(*addr, code_offset, buffer_data, buffer_size);
 }
 
-inline bool selfdestruct(evmc_host_context* h,
-                         const evmc_address* addr,
-                         const evmc_address* beneficiary) noexcept
-{
-    return Host::from_context(h)->selfdestruct(*addr, *beneficiary);
-}
-
 inline evmc_result call(evmc_host_context* h, const evmc_message* msg) noexcept
 {
     return Host::from_context(h)->call(*msg).release_raw();
@@ -852,7 +837,7 @@ inline const evmc_host_interface& Host::get_interface() noexcept
         ::evmc::internal::account_exists, ::evmc::internal::get_storage,
         ::evmc::internal::set_storage,    ::evmc::internal::get_balance,
         ::evmc::internal::get_code_size,  ::evmc::internal::get_code_hash,
-        ::evmc::internal::copy_code,      ::evmc::internal::selfdestruct,
+        ::evmc::internal::copy_code,      
         ::evmc::internal::call,           ::evmc::internal::get_tx_context,
         ::evmc::internal::get_block_hash, ::evmc::internal::emit_log,
         ::evmc::internal::access_account, ::evmc::internal::access_storage,

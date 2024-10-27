@@ -116,9 +116,9 @@ struct OpPop: SimplePeepholeOptimizerMethod<OpPop>
 		if (_pop == Instruction::POP && _op.type() == Operation)
 		{
 			Instruction instr = _op.instruction();
-			if (instructionInfo(instr, langutil::EVMVersion()).ret == 1 && !instructionInfo(instr, langutil::EVMVersion()).sideEffects)
+			if (instructionInfo(instr).ret == 1 && !instructionInfo(instr).sideEffects)
 			{
-				for (int j = 0; j < instructionInfo(instr, langutil::EVMVersion()).args; j++)
+				for (int j = 0; j < instructionInfo(instr).args; j++)
 					*_out = {Instruction::POP, _op.location()};
 				return true;
 			}
@@ -140,7 +140,7 @@ struct OpStop: SimplePeepholeOptimizerMethod<OpStop>
 			if (_op.type() == Operation)
 			{
 				Instruction instr = _op.instruction();
-				if (!instructionInfo(instr, langutil::EVMVersion()).sideEffects)
+				if (!instructionInfo(instr).sideEffects)
 				{
 					*_out = {Instruction::STOP, _op.location()};
 					return true;
@@ -172,7 +172,7 @@ struct OpReturnRevert: SimplePeepholeOptimizerMethod<OpReturnRevert>
 			(_pushOrDup.type() == Push || _pushOrDup == dupInstruction(1))
 		)
 			if (
-				(_op.type() == Operation && !instructionInfo(_op.instruction(), langutil::EVMVersion()).sideEffects) ||
+				(_op.type() == Operation && !instructionInfo(_op.instruction()).sideEffects) ||
 				_op.type() == Push
 			)
 			{
@@ -468,7 +468,6 @@ struct UnreachableCode
 			it[0] != Instruction::RETURN &&
 			it[0] != Instruction::STOP &&
 			it[0] != Instruction::INVALID &&
-			it[0] != Instruction::SELFDESTRUCT &&
 			it[0] != Instruction::REVERT
 		)
 			return false;

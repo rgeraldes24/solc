@@ -1101,10 +1101,7 @@ void TypeChecker::endVisit(TryStatement const& _tryStatement)
 	TryCatchClause const& successClause = *_tryStatement.clauses().front();
 	if (successClause.parameters())
 	{
-		TypePointers returnTypes =
-			m_evmVersion.supportsReturndata() ?
-			functionType.returnParameterTypes() :
-			functionType.returnParameterTypesWithoutDynamicTypes();
+		TypePointers returnTypes = functionType.returnParameterTypes();
 		std::vector<ASTPointer<VariableDeclaration>> const& parameters =
 			successClause.parameters()->parameters();
 		if (returnTypes.size() != parameters.size())
@@ -1155,27 +1152,10 @@ void TypeChecker::endVisit(TryStatement const& _tryStatement)
 					*clause.parameters()->parameters().front()->type() != *TypeProvider::bytesMemory()
 				)
 					m_errorReporter.typeError(6231_error, clause.location(), "Expected `catch (bytes memory ...) { ... }` or `catch { ... }`.");
-				if (!m_evmVersion.supportsReturndata())
-					m_errorReporter.typeError(
-						9908_error,
-						clause.location(),
-						"This catch clause type cannot be used on the selected EVM version (" +
-						m_evmVersion.name() +
-						"). You need at least a Byzantium-compatible EVM or use `catch { ... }`."
-					);
 			}
 		}
 		else if (clause.errorName() == "Error" || clause.errorName() == "Panic")
 		{
-			if (!m_evmVersion.supportsReturndata())
-				m_errorReporter.typeError(
-					1812_error,
-					clause.location(),
-					"This catch clause type cannot be used on the selected EVM version (" +
-					m_evmVersion.name() +
-					"). You need at least a Byzantium-compatible EVM or use `catch { ... }`."
-				);
-
 			if (clause.errorName() == "Error")
 			{
 				if (errorClause)
@@ -1451,7 +1431,6 @@ void TypeChecker::endVisit(ExpressionStatement const& _statement)
 			auto kind = callType->kind();
 			if (
 				kind == FunctionType::Kind::BareCall ||
-				kind == FunctionType::Kind::BareCallCode ||
 				kind == FunctionType::Kind::BareDelegateCall ||
 				kind == FunctionType::Kind::BareStaticCall
 			)
@@ -2082,17 +2061,6 @@ void TypeChecker::typeCheckFunctionCall(
 		return;
 	}
 
-	// Check for unsupported use of bare static call
-	if (
-		_functionType->kind() == FunctionType::Kind::BareStaticCall &&
-		!m_evmVersion.hasStaticCall()
-	)
-		m_errorReporter.typeError(
-			5052_error,
-			_functionCall.location(),
-			"\"staticcall\" is not supported by the VM version."
-		);
-
 	// Perform standard function call type checking
 	typeCheckFunctionGeneralChecks(_functionCall, _functionType);
 }
@@ -2541,7 +2509,6 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 			}
 			else if (
 				_functionType->kind() == FunctionType::Kind::BareCall ||
-				_functionType->kind() == FunctionType::Kind::BareCallCode ||
 				_functionType->kind() == FunctionType::Kind::BareDelegateCall ||
 				_functionType->kind() == FunctionType::Kind::BareStaticCall
 			)
@@ -2565,8 +2532,7 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 			}
 			else if (
 				_functionType->kind() == FunctionType::Kind::KECCAK256 ||
-				_functionType->kind() == FunctionType::Kind::SHA256 ||
-				_functionType->kind() == FunctionType::Kind::RIPEMD160
+				_functionType->kind() == FunctionType::Kind::SHA256
 			)
 			{
 				solAssert(!isVariadic, "");
@@ -2670,7 +2636,6 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 					msg += " " + result.message();
 				if (
 					_functionType->kind() == FunctionType::Kind::BareCall ||
-					_functionType->kind() == FunctionType::Kind::BareCallCode ||
 					_functionType->kind() == FunctionType::Kind::BareDelegateCall ||
 					_functionType->kind() == FunctionType::Kind::BareStaticCall
 				)
@@ -2683,8 +2648,7 @@ void TypeChecker::typeCheckFunctionGeneralChecks(
 					};
 				else if (
 					_functionType->kind() == FunctionType::Kind::KECCAK256 ||
-					_functionType->kind() == FunctionType::Kind::SHA256 ||
-					_functionType->kind() == FunctionType::Kind::RIPEMD160
+					_functionType->kind() == FunctionType::Kind::SHA256
 				)
 					return {
 						7556_error,
@@ -2912,9 +2876,7 @@ bool TypeChecker::visit(FunctionCall const& _functionCall)
 		default:
 		{
 			typeCheckFunctionCall(_functionCall, functionType);
-			returnTypes = m_evmVersion.supportsReturndata() ?
-				functionType->returnParameterTypes() :
-				functionType->returnParameterTypesWithoutDynamicTypes();
+			returnTypes = functionType->returnParameterTypes();
 			break;
 		}
 		}
@@ -2965,7 +2927,6 @@ bool TypeChecker::visit(FunctionCallOptions const& _functionCallOptions)
 		kind != FunctionType::Kind::Creation &&
 		kind != FunctionType::Kind::External &&
 		kind != FunctionType::Kind::BareCall &&
-		kind != FunctionType::Kind::BareCallCode &&
 		kind != FunctionType::Kind::BareDelegateCall &&
 		kind != FunctionType::Kind::BareStaticCall
 	)
@@ -3072,13 +3033,6 @@ bool TypeChecker::visit(FunctionCallOptions const& _functionCallOptions)
 				"Unknown call option \"" + name + "\". Valid options are \"salt\", \"value\" and \"gas\"."
 			);
 	}
-
-	if (setSalt && !m_evmVersion.hasCreate2())
-		m_errorReporter.typeError(
-			5189_error,
-			_functionCallOptions.location(),
-			"Unsupported call option \"salt\" (requires Constantinople-compatible VMs)."
-		);
 
 	_functionCallOptions.annotation().type = expressionFunctionType->copyAndSetCallOptions(setGas, setValue, setSalt);
 	return false;
@@ -3395,45 +3349,7 @@ bool TypeChecker::visit(MemberAccess const& _memberAccess)
 			(memberName == "min" ||	memberName == "max")
 		)
 			annotation.isPure = true;
-		else if (magicType->kind() == MagicType::Kind::Block)
-		{
-			if (memberName == "chainid" && !m_evmVersion.hasChainID())
-				m_errorReporter.typeError(
-					3081_error,
-					_memberAccess.location(),
-					"\"chainid\" is not supported by the VM version."
-				);
-			else if (memberName == "basefee" && !m_evmVersion.hasBaseFee())
-				m_errorReporter.typeError(
-					5921_error,
-					_memberAccess.location(),
-					"\"basefee\" is not supported by the VM version."
-				);
-			else if (memberName == "prevrandao" && !m_evmVersion.hasPrevRandao())
-				m_errorReporter.warning(
-					9432_error,
-					_memberAccess.location(),
-					"\"prevrandao\" is not supported by the VM version and will be treated as \"difficulty\"."
-				);
-			else if (memberName == "difficulty" && m_evmVersion.hasPrevRandao())
-				m_errorReporter.warning(
-					8417_error,
-					_memberAccess.location(),
-					"Since the VM version paris, \"difficulty\" was replaced by \"prevrandao\", which now returns a random number based on the beacon chain."
-				);
-		}
 	}
-
-	if (
-		_memberAccess.expression().annotation().type->category() == Type::Category::Address &&
-		memberName == "codehash" &&
-		!m_evmVersion.hasExtCodeHash()
-	)
-		m_errorReporter.typeError(
-			7598_error,
-			_memberAccess.location(),
-			"\"codehash\" is not supported by the VM version."
-		);
 
 	if (!annotation.isPure.set())
 		annotation.isPure = false;
@@ -3739,46 +3655,6 @@ bool TypeChecker::visit(Identifier const& _identifier)
 	annotation.requiredLookup =
 		dynamic_cast<CallableDeclaration const*>(annotation.referencedDeclaration) ?
 		VirtualLookup::Virtual : VirtualLookup::Static;
-
-	// Check for deprecated function names.
-	// The check is done here for the case without an actual function call.
-	if (FunctionType const* fType = dynamic_cast<FunctionType const*>(_identifier.annotation().type))
-	{
-		if (_identifier.name() == "sha3" && fType->kind() == FunctionType::Kind::KECCAK256)
-			m_errorReporter.typeError(
-				3557_error,
-				_identifier.location(),
-				"\"sha3\" has been deprecated in favour of \"keccak256\"."
-			);
-		else if (_identifier.name() == "suicide" && fType->kind() == FunctionType::Kind::Selfdestruct)
-			m_errorReporter.typeError(
-				8050_error,
-				_identifier.location(),
-				"\"suicide\" has been deprecated in favour of \"selfdestruct\"."
-			);
-		else if (_identifier.name() == "selfdestruct" && fType->kind() == FunctionType::Kind::Selfdestruct)
-			m_errorReporter.warning(
-				5159_error,
-				_identifier.location(),
-				"\"selfdestruct\" has been deprecated. "
-				"The underlying opcode will eventually undergo breaking changes, "
-				"and its use is not recommended."
-			);
-	}
-
-	if (
-		MagicVariableDeclaration const* magicVar =
-		dynamic_cast<MagicVariableDeclaration const*>(annotation.referencedDeclaration)
-	)
-		if (magicVar->type()->category() == Type::Category::Integer)
-		{
-			solAssert(_identifier.name() == "now", "");
-			m_errorReporter.typeError(
-				7359_error,
-				_identifier.location(),
-				"\"now\" has been deprecated. Use \"block.timestamp\" instead."
-			);
-		}
 
 	return false;
 }

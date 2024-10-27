@@ -252,22 +252,18 @@ private:
 				smt::smtSort(*TypeProvider::bytesStorage()),
 				smtSort(*TypeProvider::fixedBytes(32))
 			)},
-			{"ripemd160", std::make_shared<smtutil::ArraySort>(
-				smt::smtSort(*TypeProvider::bytesStorage()),
-				smtSort(*TypeProvider::fixedBytes(20))
-			)},
-			{"ecrecover", std::make_shared<smtutil::ArraySort>(
+			{"depositroot", std::make_shared<smtutil::ArraySort>(
 				std::make_shared<smtutil::TupleSort>(
-					"ecrecover_input_type",
-					std::vector<std::string>{"hash", "v", "r", "s"},
+					"depositroot_input_type",
+					std::vector<std::string>{"pubkey", "withdrawal_credentials", "amount", "signature"},
 					std::vector<smtutil::SortPointer>{
-						smt::smtSort(*TypeProvider::fixedBytes(32)),
-						smt::smtSort(*TypeProvider::uint(8)),
-						smt::smtSort(*TypeProvider::fixedBytes(32)),
-						smt::smtSort(*TypeProvider::fixedBytes(32))
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage()),
+						smt::smtSort(*TypeProvider::bytesStorage())
 					}
 				),
-				smtSort(*TypeProvider::address())
+				smtSort(*TypeProvider::fixedBytes(32))
 			)}
 		},
 		m_context

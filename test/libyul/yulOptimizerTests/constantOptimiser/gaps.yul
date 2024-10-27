@@ -5,8 +5,6 @@
   for { let i := 0xff00000000000 } lt(i, 873687623427364) { i := add(i, 3234234234234) } {
   }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: constantOptimiser
 //

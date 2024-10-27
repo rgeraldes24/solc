@@ -251,7 +251,6 @@ bool StackCompressor::run(
 	if (auto evmDialect = dynamic_cast<EVMDialect const*>(&_dialect))
 		usesOptimizedCodeGenerator =
 			_optimizeStackAllocation &&
-			evmDialect->evmVersion().canOverchargeGasForCall() &&
 			evmDialect->providesObjectAccess();
 	bool allowMSizeOptimzation = !MSizeFinder::containsMSize(_dialect, *_object.code);
 	if (usesOptimizedCodeGenerator)

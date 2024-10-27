@@ -115,7 +115,6 @@ private:
 	bool visit(Continue const& _continueStatement) override;
 	bool visit(Break const& _breakStatement) override;
 	bool visit(Return const& _return) override;
-	bool visit(Throw const& _throw) override;
 	bool visit(EmitStatement const& _emit) override;
 	bool visit(RevertStatement const& _revert) override;
 	bool visit(VariableDeclarationStatement const& _variableDeclarationStatement) override;

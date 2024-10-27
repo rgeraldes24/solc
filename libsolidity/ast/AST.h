@@ -1860,18 +1860,6 @@ private:
 };
 
 /**
- * @brief The Throw statement to throw that triggers a solidity exception(jump to ErrorTag)
- */
-class Throw: public Statement
-{
-public:
-	explicit Throw(int64_t _id, SourceLocation const& _location, ASTPointer<ASTString> const& _docString):
-		Statement(_id, _location, _docString) {}
-	void accept(ASTVisitor& _visitor) override;
-	void accept(ASTConstVisitor& _visitor) const override;
-};
-
-/**
  * The revert statement is used to revert state changes and return error data.
  */
 class RevertStatement: public Statement

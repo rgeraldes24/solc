@@ -778,12 +778,6 @@ bool ASTJsonExporter::visit(Return const& _node)
 	return false;
 }
 
-bool ASTJsonExporter::visit(Throw const& _node)
-{
-	setJsonNode(_node, "Throw", {});
-	return false;
-}
-
 bool ASTJsonExporter::visit(EmitStatement const& _node)
 {
 	setJsonNode(_node, "EmitStatement", {

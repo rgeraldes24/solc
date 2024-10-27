@@ -64,7 +64,6 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// YulStack entry point
 	YulStack stack(
 		version,
-		nullopt,
 		YulStack::Language::StrictAssembly,
 		solidity::frontend::OptimiserSettings::full(),
 		DebugInfoSelection::All()

@@ -47,15 +47,6 @@ where the default is no engine. Selecting the engine enables the SMTChecker on a
 
 .. note::
 
-    Prior to Solidity 0.8.4, the default way to enable the SMTChecker was via
-    ``pragma experimental SMTChecker;`` and only the contracts containing the
-    pragma would be analyzed. That pragma has been deprecated, and although it
-    still enables the SMTChecker for backwards compatibility, it will be removed
-    in Solidity 0.9.0. Note also that now using the pragma even in a single file
-    enables the SMTChecker for all files.
-
-.. note::
-
     The lack of warnings for a verification target represents an undisputed
     mathematical proof of correctness, assuming no bugs in the SMTChecker and
     the underlying solver. Keep in mind that these problems are
@@ -936,8 +927,7 @@ the arguments.
 |``addmod``, ``mulmod``             |Supported precisely.                  |
 +-----------------------------------+--------------------------------------+
 |``gasleft``, ``blockhash``,        |Abstracted with UF.                   |
-|``keccak256``, ``ecrecover``       |                                      |
-|``ripemd160``                      |                                      |
+|``keccak256``, ``depositroot``     |                                      |
 +-----------------------------------+--------------------------------------+
 |pure functions without             |Abstracted with UF                    |
 |implementation (external or        |                                      |
@@ -958,35 +948,6 @@ the arguments.
 
 Using abstraction means loss of precise knowledge, but in many cases it does
 not mean loss of proving power.
-
-.. code-block:: solidity
-
-    // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
-
-    contract Recover
-    {
-        function f(
-            bytes32 hash,
-            uint8 v1, uint8 v2,
-            bytes32 r1, bytes32 r2,
-            bytes32 s1, bytes32 s2
-        ) public pure returns (address) {
-            address a1 = ecrecover(hash, v1, r1, s1);
-            require(v1 == v2);
-            require(r1 == r2);
-            require(s1 == s2);
-            address a2 = ecrecover(hash, v2, r2, s2);
-            assert(a1 == a2);
-            return a1;
-        }
-    }
-
-In the example above, the SMTChecker is not expressive enough to actually
-compute ``ecrecover``, but by modelling the function calls as uninterpreted
-functions we know that the return value is the same when called on equivalent
-parameters. This is enough to prove that the assertion above is always true.
-
 Abstracting a function call with an UF can be done for functions known to be
 deterministic, and can be easily done for pure functions.  It is however
 difficult to do this with general external functions, since they might depend
@@ -1073,8 +1034,6 @@ in the constructor in order to be consistent with the EVM rules.
 The contract's balance may also increase without triggering any calls to the
 contract, if
 
-- ``selfdestruct`` is executed by another contract with the analyzed contract
-  as the target of the remaining funds,
 - the contract is the coinbase (i.e., ``block.coinbase``) of some block.
 
 To model this properly, the SMTChecker assumes that at every new transaction

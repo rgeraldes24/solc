@@ -766,7 +766,7 @@ contract Optimizor is OptimizorAdmin {
         if (!purityChecker.check(target)) {
             revert NotPure();
         }
-        uint32 gas = chl.target.run(target, block.difficulty);
+        uint32 gas = chl.target.run(target, block.prevrandao);
         uint256 leaderTokenId = packTokenId(id, chl.solutions);
         uint32 leaderGas = extraDetails[leaderTokenId].gas;
         if ((leaderGas != 0) && (leaderGas <= gas)) {

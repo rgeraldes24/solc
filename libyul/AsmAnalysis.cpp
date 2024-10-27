@@ -311,14 +311,6 @@ std::vector<YulString> AsmAnalyzer::operator()(FunctionCall const& _funCall)
 
 	if (BuiltinFunction const* f = m_dialect.builtin(_funCall.functionName.name))
 	{
-		if (_funCall.functionName.name == "selfdestruct"_yulstring)
-			m_errorReporter.warning(
-				1699_error,
-				nativeLocationOf(_funCall.functionName),
-				"\"selfdestruct\" has been deprecated. "
-				"The underlying opcode will eventually undergo breaking changes, "
-				"and its use is not recommended."
-			);
 		parameterTypes = &f->parameters;
 		returnTypes = &f->returns;
 		if (!f->literalArguments.empty())
@@ -679,12 +671,6 @@ bool AsmAnalyzer::validateInstructions(std::string const& _instructionIdentifier
 
 bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocation const& _location)
 {
-	// We assume that returndatacopy, returndatasize and staticcall are either all available
-	// or all not available.
-	yulAssert(m_evmVersion.supportsReturndata() == m_evmVersion.hasStaticCall(), "");
-	// Similarly we assume bitwise shifting and create2 go together.
-	yulAssert(m_evmVersion.hasBitwiseShifting() == m_evmVersion.hasCreate2(), "");
-
 	// These instructions are disabled in the dialect.
 	yulAssert(
 		_instr != evmasm::Instruction::JUMP &&
@@ -692,42 +678,21 @@ bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocatio
 		_instr != evmasm::Instruction::JUMPDEST,
 	"");
 
-	auto errorForVM = [&](ErrorId _errorId, std::string const& vmKindMessage) {
-		m_errorReporter.typeError(
-			_errorId,
-			_location,
-			fmt::format(
-				"The \"{instruction}\" instruction is {kind} VMs (you are currently compiling for \"{version}\").",
-				fmt::arg("instruction", boost::to_lower_copy(instructionInfo(_instr, m_evmVersion).name)),
-				fmt::arg("kind", vmKindMessage),
-				fmt::arg("version", m_evmVersion.name())
-			)
-		);
-	};
+	// NOTE(rgeraldes24): unused for now
+	// auto errorForVM = [&](ErrorId _errorId, std::string const& vmKindMessage) {
+	// 	m_errorReporter.typeError(
+	// 		_errorId,
+	// 		_location,
+	// 		fmt::format(
+	// 			"The \"{instruction}\" instruction is {kind} VMs (you are currently compiling for \"{version}\").",
+	// 			fmt::arg("instruction", boost::to_lower_copy(instructionInfo(_instr).name)),
+	// 			fmt::arg("kind", vmKindMessage),
+	// 			fmt::arg("version", m_evmVersion.name())
+	// 		)
+	// 	);
+	// };
 
-	if (_instr == evmasm::Instruction::RETURNDATACOPY && !m_evmVersion.supportsReturndata())
-		errorForVM(7756_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::RETURNDATASIZE && !m_evmVersion.supportsReturndata())
-		errorForVM(4778_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::STATICCALL && !m_evmVersion.hasStaticCall())
-		errorForVM(1503_error, "only available for Byzantium-compatible");
-	else if (_instr == evmasm::Instruction::SHL && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(6612_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::SHR && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(7458_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::SAR && !m_evmVersion.hasBitwiseShifting())
-		errorForVM(2054_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::CREATE2 && !m_evmVersion.hasCreate2())
-		errorForVM(6166_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::EXTCODEHASH && !m_evmVersion.hasExtCodeHash())
-		errorForVM(7110_error, "only available for Constantinople-compatible");
-	else if (_instr == evmasm::Instruction::CHAINID && !m_evmVersion.hasChainID())
-		errorForVM(1561_error, "only available for Istanbul-compatible");
-	else if (_instr == evmasm::Instruction::SELFBALANCE && !m_evmVersion.hasSelfBalance())
-		errorForVM(7721_error, "only available for Istanbul-compatible");
-	else if (_instr == evmasm::Instruction::BASEFEE && !m_evmVersion.hasBaseFee())
-		errorForVM(5430_error, "only available for London-compatible");
-	else if (_instr == evmasm::Instruction::PC)
+	if (_instr == evmasm::Instruction::PC)
 		m_errorReporter.error(
 			2450_error,
 			Error::Type::SyntaxError,

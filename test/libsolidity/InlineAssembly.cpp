@@ -61,7 +61,6 @@ std::optional<Error> parseAndReturnFirstError(
 {
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		_language,
 		solidity::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -131,7 +130,6 @@ void parsePrintCompare(std::string const& _source, bool _canWarn = false)
 {
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -222,7 +220,6 @@ BOOST_AUTO_TEST_CASE(print_string_literal_unicode)
 	std::string parsed = "object \"object\" {\n    code { let x := \"\\xe1\\xae\\xac\" }\n}\n";
 	YulStack stack(
 		solidity::test::CommonOptions::get().evmVersion(),
-		solidity::test::CommonOptions::get().eofVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -289,8 +286,8 @@ BOOST_AUTO_TEST_CASE(oversize_string_literals)
 BOOST_AUTO_TEST_CASE(magic_variables)
 {
 	CHECK_ASSEMBLE_ERROR("{ pop(this) }", DeclarationError, "Identifier \"this\" not found");
-	CHECK_ASSEMBLE_ERROR("{ pop(ecrecover) }", DeclarationError, "Identifier \"ecrecover\" not found");
-	BOOST_CHECK(successAssemble("{ let ecrecover := 1 pop(ecrecover) }"));
+	CHECK_ASSEMBLE_ERROR("{ pop(depositroot) }", DeclarationError, "Identifier \"depositroot\" not found");
+	BOOST_CHECK(successAssemble("{ let depositroot := 1 pop(depositroot) }"));
 }
 
 BOOST_AUTO_TEST_CASE(stack_variables)
@@ -330,48 +327,29 @@ BOOST_AUTO_TEST_CASE(keccak256)
 
 BOOST_AUTO_TEST_CASE(returndatasize)
 {
-	if (!solidity::test::CommonOptions::get().evmVersion().supportsReturndata())
-		return;
 	BOOST_CHECK(successAssemble("{ let r := returndatasize() }"));
 }
 
 BOOST_AUTO_TEST_CASE(returndatacopy)
 {
-	if (!solidity::test::CommonOptions::get().evmVersion().supportsReturndata())
-		return;
 	BOOST_CHECK(successAssemble("{ returndatacopy(0, 32, 64) }"));
 }
 
 BOOST_AUTO_TEST_CASE(staticcall)
 {
-	if (!solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		return;
 	BOOST_CHECK(successAssemble("{ pop(staticcall(10000, 0x123, 64, 0x10, 128, 0x10)) }"));
 }
 
 BOOST_AUTO_TEST_CASE(create2)
 {
-	if (!solidity::test::CommonOptions::get().evmVersion().hasCreate2())
-		return;
 	BOOST_CHECK(successAssemble("{ pop(create2(10, 0x123, 32, 64)) }"));
 }
 
 BOOST_AUTO_TEST_CASE(shift)
 {
-	if (!solidity::test::CommonOptions::get().evmVersion().hasBitwiseShifting())
-		return;
 	BOOST_CHECK(successAssemble("{ pop(shl(10, 32)) }"));
 	BOOST_CHECK(successAssemble("{ pop(shr(10, 32)) }"));
 	BOOST_CHECK(successAssemble("{ pop(sar(10, 32)) }"));
-}
-
-BOOST_AUTO_TEST_CASE(shift_constantinople_warning)
-{
-	if (solidity::test::CommonOptions::get().evmVersion().hasBitwiseShifting())
-		return;
-	CHECK_PARSE_WARNING("{ shl(10, 32) }", TypeError, "The \"shl\" instruction is only available for Constantinople-compatible VMs");
-	CHECK_PARSE_WARNING("{ shr(10, 32) }", TypeError, "The \"shr\" instruction is only available for Constantinople-compatible VMs");
-	CHECK_PARSE_WARNING("{ sar(10, 32) }", TypeError, "The \"sar\" instruction is only available for Constantinople-compatible VMs");
 }
 
 BOOST_AUTO_TEST_SUITE_END() // }}}

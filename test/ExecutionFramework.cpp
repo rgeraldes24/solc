@@ -115,10 +115,7 @@ std::pair<bool, string> ExecutionFramework::compareAndCreateMessage(
 
 bytes ExecutionFramework::panicData(util::PanicCode _code)
 {
-	return
-		m_evmVersion.supportsReturndata() ?
-		toCompactBigEndian(selectorFromSignatureU32("Panic(uint256)"), 4) + encode(u256(static_cast<unsigned>(_code))) :
-		bytes();
+	return toCompactBigEndian(selectorFromSignatureU32("Panic(uint256)"), 4) + encode(u256(static_cast<unsigned>(_code)));
 }
 
 u256 ExecutionFramework::gasLimit() const
@@ -187,7 +184,7 @@ void ExecutionFramework::sendMessage(bytes const& _data, bool _isCreation, u256 
 	if (_isCreation)
 		m_contractAddress = EVMHost::convertFromEVMC(result.create_address);
 
-	unsigned const refundRatio = (m_evmVersion >= langutil::EVMVersion::london() ? 5 : 2);
+	unsigned const refundRatio = 5;
 	auto const totalGasUsed = InitialGas - result.gas_left;
 	auto const gasRefund = min(u256(result.gas_refund), totalGasUsed / refundRatio);
 

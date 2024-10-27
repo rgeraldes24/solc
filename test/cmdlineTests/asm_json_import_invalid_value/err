@@ -1,1 +1,1 @@
-Error: Assembly Import Error: Member 'value' defined for instruction 'DIFFICULTY', but the instruction does not need a value.
+Error: Assembly Import Error: Member 'value' defined for instruction 'PREVRANDAO', but the instruction does not need a value.

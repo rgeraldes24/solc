@@ -6,8 +6,6 @@
     sstore(a, b)
     sstore(c, d)
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // step: expressionSimplifier
 //

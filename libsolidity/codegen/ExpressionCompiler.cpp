@@ -734,8 +734,6 @@ bool ExpressionCompiler::visit(FunctionCall const& _functionCall)
 			_functionCall.expression().accept(*this);
 			appendExternalFunctionCall(function, arguments, _functionCall.annotation().tryCall);
 			break;
-		case FunctionType::Kind::BareCallCode:
-			solAssert(false, "Callcode has been removed.");
 		case FunctionType::Kind::Creation:
 		{
 			_functionCall.expression().accept(*this);
@@ -860,10 +858,6 @@ bool ExpressionCompiler::visit(FunctionCall const& _functionCall)
 			}
 			break;
 		}
-		case FunctionType::Kind::Selfdestruct:
-			acceptAndConvert(*arguments.front(), *function.parameterTypes().front(), true);
-			m_context << Instruction::SELFDESTRUCT;
-			break;
 		case FunctionType::Kind::Revert:
 		{
 			if (arguments.empty())
@@ -1054,15 +1048,13 @@ bool ExpressionCompiler::visit(FunctionCall const& _functionCall)
 				m_context << Instruction::MULMOD;
 			break;
 		}
-		case FunctionType::Kind::ECRecover:
+		case FunctionType::Kind::DepositRoot:
 		case FunctionType::Kind::SHA256:
-		case FunctionType::Kind::RIPEMD160:
 		{
 			_functionCall.expression().accept(*this);
 			static std::map<FunctionType::Kind, u256> const contractAddresses{
-				{FunctionType::Kind::ECRecover, 1},
-				{FunctionType::Kind::SHA256, 2},
-				{FunctionType::Kind::RIPEMD160, 3}
+				{FunctionType::Kind::DepositRoot, 1},
+				{FunctionType::Kind::SHA256, 2}
 			};
 			m_context << contractAddresses.at(function.kind());
 			for (unsigned i = function.sizeOnStack(); i > 0; --i)
@@ -1620,13 +1612,11 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 					case FunctionType::Kind::Creation:
 					case FunctionType::Kind::Send:
 					case FunctionType::Kind::BareCall:
-					case FunctionType::Kind::BareCallCode:
 					case FunctionType::Kind::BareDelegateCall:
 					case FunctionType::Kind::BareStaticCall:
 					case FunctionType::Kind::Transfer:
-					case FunctionType::Kind::ECRecover:
+					case FunctionType::Kind::DepositRoot:
 					case FunctionType::Kind::SHA256:
-					case FunctionType::Kind::RIPEMD160:
 					default:
 						solAssert(false, "unsupported member function");
 					}
@@ -1693,7 +1683,6 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 	// Another special case for `address(this).balance`. Post-Istanbul, we can use the selfbalance
 	// opcode.
 	if (
-		m_context.evmVersion().hasSelfBalance() &&
 		member == "balance" &&
 		_memberAccess.expression().annotation().type->category() == Type::Category::Address
 	)
@@ -1826,7 +1815,7 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 				true
 			);
 		}
-		else if ((std::set<std::string>{"call", "callcode", "delegatecall", "staticcall"}).count(member))
+		else if ((std::set<std::string>{"call", "delegatecall", "staticcall"}).count(member))
 			utils().convertType(
 				*_memberAccess.expression().annotation().type,
 				*TypeProvider::address(),
@@ -1868,7 +1857,7 @@ bool ExpressionCompiler::visit(MemberAccess const& _memberAccess)
 			m_context << Instruction::COINBASE;
 		else if (member == "timestamp")
 			m_context << Instruction::TIMESTAMP;
-		else if (member == "difficulty" || member == "prevrandao")
+		else if (member == "prevrandao")
 			m_context << Instruction::PREVRANDAO;
 		else if (member == "number")
 			m_context << Instruction::NUMBER;
@@ -2559,42 +2548,10 @@ void ExpressionCompiler::appendShiftOperatorCode(Token _operator, Type const& _v
 	switch (_operator)
 	{
 	case Token::SHL:
-		if (m_context.evmVersion().hasBitwiseShifting())
-			m_context << Instruction::SHL;
-		else
-			m_context << u256(2) << Instruction::EXP << Instruction::MUL;
+		m_context << Instruction::SHL;
 		break;
 	case Token::SAR:
-		if (m_context.evmVersion().hasBitwiseShifting())
-			m_context << (c_valueSigned ? Instruction::SAR : Instruction::SHR);
-		else
-		{
-			if (c_valueSigned)
-				// In the following assembly snippet, xor_mask will be zero, if value_to_shift is positive.
-				// Therefore xor'ing with xor_mask is the identity and the computation reduces to
-				// div(value_to_shift, exp(2, shift_amount)), which is correct, since for positive values
-				// arithmetic right shift is dividing by a power of two (which, as a bitwise operation, results
-				// in discarding bits on the right and filling with zeros from the left).
-				// For negative values arithmetic right shift, viewed as a bitwise operation, discards bits to the
-				// right and fills in ones from the left. This is achieved as follows:
-				// If value_to_shift is negative, then xor_mask will have all bits set, so xor'ing with xor_mask
-				// will flip all bits. First all bits in value_to_shift are flipped. As for the positive case,
-				// dividing by a power of two using integer arithmetic results in discarding bits to the right
-				// and filling with zeros from the left. Flipping all bits in the result again, turns all zeros
-				// on the left to ones and restores the non-discarded, shifted bits to their original value (they
-				// have now been flipped twice). In summary we now have discarded bits to the right and filled with
-				// ones from the left, i.e. we have performed an arithmetic right shift.
-				m_context.appendInlineAssembly(R"({
-					let xor_mask := sub(0, slt(value_to_shift, 0))
-					value_to_shift := xor(div(xor(value_to_shift, xor_mask), exp(2, shift_amount)), xor_mask)
-				})", {"value_to_shift", "shift_amount"});
-			else
-				m_context.appendInlineAssembly(R"({
-					value_to_shift := div(value_to_shift, exp(2, shift_amount))
-				})", {"value_to_shift", "shift_amount"});
-			m_context << Instruction::POP;
-
-		}
+		m_context << (c_valueSigned ? Instruction::SAR : Instruction::SHR);
 		break;
 	case Token::SHR:
 	default:
@@ -2648,13 +2605,9 @@ void ExpressionCompiler::appendExternalFunctionCall(
 
 	auto funKind = _functionType.kind();
 
-	solAssert(funKind != FunctionType::Kind::BareStaticCall || m_context.evmVersion().hasStaticCall(), "");
-
-	solAssert(funKind != FunctionType::Kind::BareCallCode, "Callcode has been removed.");
-
 	bool returnSuccessConditionAndReturndata = funKind == FunctionType::Kind::BareCall || funKind == FunctionType::Kind::BareDelegateCall || funKind == FunctionType::Kind::BareStaticCall;
 	bool isDelegateCall = funKind == FunctionType::Kind::BareDelegateCall || funKind == FunctionType::Kind::DelegateCall;
-	bool useStaticCall = funKind == FunctionType::Kind::BareStaticCall || (_functionType.stateMutability() <= StateMutability::View && m_context.evmVersion().hasStaticCall());
+	bool useStaticCall = funKind == FunctionType::Kind::BareStaticCall || (_functionType.stateMutability() <= StateMutability::View);
 
 	if (_tryCall)
 	{
@@ -2662,8 +2615,7 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		solAssert(!_functionType.isBareCall(), "");
 	}
 
-	ReturnInfo const returnInfo{m_context.evmVersion(), _functionType};
-	bool const haveReturndatacopy = m_context.evmVersion().supportsReturndata();
+	ReturnInfo const returnInfo{_functionType};
 	unsigned const retSize = returnInfo.estimatedReturnSize;
 	bool const dynamicReturnSize = returnInfo.dynamicReturnSize;
 	TypePointers const& returnTypes = returnInfo.returnTypes;
@@ -2682,34 +2634,6 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		argumentTypes.push_back(_arguments[i]->annotation().type);
 	}
 
-	if (funKind == FunctionType::Kind::ECRecover)
-	{
-		// Clears 32 bytes of currently free memory and advances free memory pointer.
-		// Output area will be "start of input area" - 32.
-		// The reason is that a failing ECRecover cannot be detected, it will just return
-		// zero bytes (which we cannot detect).
-		solAssert(0 < retSize && retSize <= 32, "");
-		utils().fetchFreeMemoryPointer();
-		m_context << u256(0) << Instruction::DUP2 << Instruction::MSTORE;
-		m_context << u256(32) << Instruction::ADD;
-		utils().storeFreeMemoryPointer();
-	}
-
-	if (!m_context.evmVersion().canOverchargeGasForCall())
-	{
-		// Touch the end of the output area so that we do not pay for memory resize during the call
-		// (which we would have to subtract from the gas left)
-		// We could also just use MLOAD; POP right before the gas calculation, but the optimizer
-		// would remove that, so we use MSTORE here.
-		if (!_functionType.gasSet() && retSize > 0)
-		{
-			m_context << u256(0);
-			utils().fetchFreeMemoryPointer();
-			// This touches too much, but that way we save some rounding arithmetic
-			m_context << u256(retSize) << Instruction::ADD << Instruction::MSTORE;
-		}
-	}
-
 	// Copy function identifier to memory.
 	utils().fetchFreeMemoryPointer();
 	if (!_functionType.isBareCall())
@@ -2722,10 +2646,6 @@ void ExpressionCompiler::appendExternalFunctionCall(
 	// Move arguments to memory, will not update the free memory pointer (but will update the memory
 	// pointer on the stack).
 	bool encodeInPlace = _functionType.takesArbitraryParameters() || _functionType.isBareCall();
-	if (_functionType.kind() == FunctionType::Kind::ECRecover)
-		// This would be the only combination of padding and in-place encoding,
-		// but all parameters of ecrecover are value types anyway.
-		encodeInPlace = false;
 	bool encodeForLibraryCall = funKind == FunctionType::Kind::DelegateCall;
 	utils().encodeToMemory(
 		argumentTypes,
@@ -2743,24 +2663,12 @@ void ExpressionCompiler::appendExternalFunctionCall(
 	// function identifier [unless bare]
 	// contract address
 
-	// Output data will replace input data, unless we have ECRecover (then, output
-	// area will be 32 bytes just before input area).
+	// Output data will replace input data.
 	// put on stack: <size of output> <memory pos of output> <size of input> <memory pos of input>
 	m_context << u256(retSize);
 	utils().fetchFreeMemoryPointer(); // This is the start of input
-	if (funKind == FunctionType::Kind::ECRecover)
-	{
-		// In this case, output is 32 bytes before input and has already been cleared.
-		m_context << u256(32) << Instruction::DUP2 << Instruction::SUB << Instruction::SWAP1;
-		// Here: <input end> <output size> <outpos> <input pos>
-		m_context << Instruction::DUP1 << Instruction::DUP5 << Instruction::SUB;
-		m_context << Instruction::SWAP1;
-	}
-	else
-	{
-		m_context << Instruction::DUP1 << Instruction::DUP4 << Instruction::SUB;
-		m_context << Instruction::DUP2;
-	}
+	m_context << Instruction::DUP1 << Instruction::DUP4 << Instruction::SUB;
+	m_context << Instruction::DUP2;
 
 	// CALL arguments: outSize, outOff, inSize, inOff (already present up to here)
 	// [value,] addr, gas (stack top)
@@ -2774,7 +2682,6 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		m_context << u256(0);
 	m_context << dupInstruction(m_context.baseToCurrentStackOffset(contractStackPos));
 
-	bool existenceChecked = false;
 	// Check the target contract exists (has code) for non-low-level calls.
 	if (funKind == FunctionType::Kind::External || funKind == FunctionType::Kind::DelegateCall)
 	{
@@ -2785,32 +2692,22 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		// code, the call will return empty data and the ABI decoder will revert.
 		if (
 			encodedHeadSize == 0 ||
-			!haveReturndatacopy ||
 			m_context.revertStrings() >= RevertStrings::Debug
 		)
 		{
 			m_context << Instruction::DUP1 << Instruction::EXTCODESIZE << Instruction::ISZERO;
 			m_context.appendConditionalRevert(false, "Target contract does not contain code");
-			existenceChecked = true;
 		}
 	}
 
 	if (_functionType.gasSet())
 		m_context << dupInstruction(m_context.baseToCurrentStackOffset(gasStackPos));
-	else if (m_context.evmVersion().canOverchargeGasForCall())
-		// Send all gas (requires tangerine whistle EVM)
-		m_context << Instruction::GAS;
 	else
 	{
-		// send all gas except the amount needed to execute "SUB" and "CALL"
-		// @todo this retains too much gas for now, needs to be fine-tuned.
-		u256 gasNeededByCaller = evmasm::GasCosts::callGas(m_context.evmVersion()) + 10;
-		if (_functionType.valueSet())
-			gasNeededByCaller += evmasm::GasCosts::callValueTransferGas;
-		if (!existenceChecked)
-			gasNeededByCaller += evmasm::GasCosts::callNewAccountGas; // we never know
-		m_context << gasNeededByCaller << Instruction::GAS << Instruction::SUB;
+		// Send all gas (requires tangerine whistle EVM)
+		m_context << Instruction::GAS;
 	}
+		
 	// Order is important here, STATICCALL might overlap with DELEGATECALL.
 	if (isDelegateCall)
 		m_context << Instruction::DELEGATECALL;
@@ -2855,21 +2752,6 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		if (!_functionType.returnParameterTypes().empty())
 			utils().returnDataToArray();
 	}
-	else if (funKind == FunctionType::Kind::RIPEMD160)
-	{
-		// fix: built-in contract returns right-aligned data
-		utils().fetchFreeMemoryPointer();
-		utils().loadFromMemoryDynamic(IntegerType(160), false, true, false);
-		utils().convertType(IntegerType(160), FixedBytesType(20));
-	}
-	else if (funKind == FunctionType::Kind::ECRecover)
-	{
-		// Output is 32 bytes before input / free mem pointer.
-		// Failing ecrecover cannot be detected, so we clear output before the call.
-		m_context << u256(32);
-		utils().fetchFreeMemoryPointer();
-		m_context << Instruction::SUB << Instruction::MLOAD;
-	}
 	else if (!returnTypes.empty())
 	{
 		utils().fetchFreeMemoryPointer();
@@ -2889,14 +2771,13 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		// Stack: return_data_start
 		if (dynamicReturnSize)
 		{
-			solAssert(haveReturndatacopy, "");
 			m_context.appendInlineAssembly("{ returndatacopy(return_data_start, 0, returndatasize()) }", {"return_data_start"});
 		}
 		else
 			solAssert(retSize > 0, "");
 		// Always use the actual return length, and not our calculated expected length, if returndatacopy is supported.
 		// This ensures it can catch badly formatted input from external calls.
-		m_context << (haveReturndatacopy ? evmasm::AssemblyItem(Instruction::RETURNDATASIZE) : u256(retSize));
+		m_context << evmasm::AssemblyItem(Instruction::RETURNDATASIZE);
 		// Stack: return_data_start return_data_size
 		if (needToUpdateFreeMemoryPtr)
 			m_context.appendInlineAssembly(R"({

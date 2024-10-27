@@ -734,7 +734,6 @@ std::vector<SimplificationRule<Pattern>> simplificationRuleListPart8(
 
 template<class Pattern>
 std::vector<SimplificationRule<Pattern>> evmRuleList(
-	langutil::EVMVersion _evmVersion,
 	Pattern A,
 	Pattern,
 	Pattern,
@@ -748,12 +747,10 @@ std::vector<SimplificationRule<Pattern>> evmRuleList(
 	using Word = typename Pattern::Word;
 	std::vector<SimplificationRule<Pattern>> rules;
 
-	if (_evmVersion.hasSelfBalance())
-		rules.push_back({
-			Builtins::BALANCE(Instruction::ADDRESS),
-			[]() -> Pattern { return Instruction::SELFBALANCE; }
-		});
-
+	rules.push_back({
+		Builtins::BALANCE(Instruction::ADDRESS),
+		[]() -> Pattern { return Instruction::SELFBALANCE; }
+	});
 	rules.emplace_back(
 		Builtins::EXP(0, X),
 		[=]() -> Pattern { return Builtins::ISZERO(X); }
@@ -762,28 +759,25 @@ std::vector<SimplificationRule<Pattern>> evmRuleList(
 		Builtins::EXP(1, X),
 		[=]() -> Pattern { return Word(1); }
 	);
-	if (_evmVersion.hasBitwiseShifting())
-	{
-		rules.emplace_back(
-			Builtins::EXP(2, X),
-			[=]() -> Pattern { return Builtins::SHL(X, 1); }
-		);
-		rules.emplace_back(
-			Builtins::MUL(A, X),
-			[=]() -> Pattern { return Builtins::SHL(u256(*binaryLogarithm(A.d())), X); },
-			[=] { return binaryLogarithm(A.d()).has_value(); }
-		);
-		rules.emplace_back(
-			Builtins::MUL(X, A),
-			[=]() -> Pattern { return Builtins::SHL(u256(*binaryLogarithm(A.d())), X); },
-			[=] { return binaryLogarithm(A.d()).has_value(); }
-		);
-		rules.emplace_back(
-			Builtins::DIV(X, A),
-			[=]() -> Pattern { return Builtins::SHR(u256(*binaryLogarithm(A.d())), X); },
-			[=] { return binaryLogarithm(A.d()).has_value(); }
-		);
-	}
+	rules.emplace_back(
+		Builtins::EXP(2, X),
+		[=]() -> Pattern { return Builtins::SHL(X, 1); }
+	);
+	rules.emplace_back(
+		Builtins::MUL(A, X),
+		[=]() -> Pattern { return Builtins::SHL(u256(*binaryLogarithm(A.d())), X); },
+		[=] { return binaryLogarithm(A.d()).has_value(); }
+	);
+	rules.emplace_back(
+		Builtins::MUL(X, A),
+		[=]() -> Pattern { return Builtins::SHL(u256(*binaryLogarithm(A.d())), X); },
+		[=] { return binaryLogarithm(A.d()).has_value(); }
+	);
+	rules.emplace_back(
+		Builtins::DIV(X, A),
+		[=]() -> Pattern { return Builtins::SHR(u256(*binaryLogarithm(A.d())), X); },
+		[=] { return binaryLogarithm(A.d()).has_value(); }
+	);
 	rules.emplace_back(
 		Builtins::EXP(Word(-1), X),
 		[=]() -> Pattern
@@ -834,7 +828,7 @@ std::vector<SimplificationRule<Pattern>> simplificationRuleList(
 	rules += simplificationRuleListPart8(A, B, C, W, X);
 
 	if (_evmVersion.has_value())
-		rules += evmRuleList(*_evmVersion, A, B, C, W, X, Y, Z);
+		rules += evmRuleList(A, B, C, W, X, Y, Z);
 
 	return rules;
 }

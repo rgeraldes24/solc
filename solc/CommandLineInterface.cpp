@@ -238,7 +238,7 @@ void CommandLineInterface::handleOpcode(std::string const& _contract)
 		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
 	);
 
-	std::string opcodes{evmasm::disassemble(m_assemblyStack->object(_contract).bytecode, m_options.output.evmVersion)};
+	std::string opcodes{evmasm::disassemble(m_assemblyStack->object(_contract).bytecode)};
 
 	if (!m_options.output.dir.empty())
 		createFile(m_assemblyStack->filesystemFriendlyName(_contract) + ".opcode", opcodes);
@@ -728,12 +728,6 @@ bool CommandLineInterface::parseArguments(int _argc, char const* const* _argv)
 
 void CommandLineInterface::processInput()
 {
-	if (m_options.output.evmVersion < EVMVersion::constantinople())
-		report(
-			Error::Severity::Warning,
-			"Support for EVM versions older than constantinople is deprecated and will be removed in the future."
-		);
-
 	switch (m_options.input.mode)
 	{
 	case InputMode::Help:
@@ -841,7 +835,6 @@ void CommandLineInterface::compile()
 		m_compiler->setLibraries(m_options.linker.libraries);
 		m_compiler->setViaIR(m_options.output.viaIR);
 		m_compiler->setEVMVersion(m_options.output.evmVersion);
-		m_compiler->setEOFVersion(m_options.output.eofVersion);
 		m_compiler->setRevertStringBehaviour(m_options.output.revertStrings);
 		if (m_options.output.debugInfoSelection.has_value())
 			m_compiler->selectDebugInfo(m_options.output.debugInfoSelection.value());
@@ -984,7 +977,7 @@ void CommandLineInterface::handleCombinedJSON()
 			if (m_options.compiler.combinedJsonRequests->binaryRuntime)
 				contractData[g_strBinaryRuntime] = m_assemblyStack->runtimeObject(contractName).toHex();
 			if (m_options.compiler.combinedJsonRequests->opcodes)
-				contractData[g_strOpcodes] = evmasm::disassemble(m_assemblyStack->object(contractName).bytecode, m_options.output.evmVersion);
+				contractData[g_strOpcodes] = evmasm::disassemble(m_assemblyStack->object(contractName).bytecode);
 			if (m_options.compiler.combinedJsonRequests->asm_)
 				contractData[g_strAsm] = m_assemblyStack->assemblyJSON(contractName);
 			if (m_options.compiler.combinedJsonRequests->srcMap)
@@ -1194,7 +1187,6 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 	{
 		auto& stack = yulStacks[src.first] = yul::YulStack(
 			m_options.output.evmVersion,
-			m_options.output.eofVersion,
 			_language,
 			m_options.optimiserSettings(),
 			m_options.output.debugInfoSelection.has_value() ?

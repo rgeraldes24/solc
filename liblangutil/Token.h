@@ -184,7 +184,6 @@ namespace solidity::langutil
 	K(Storage, "storage", 0)                                           \
 	K(CallData, "calldata", 0)                                         \
 	K(Struct, "struct", 0)                                             \
-	K(Throw, "throw", 0)                                               \
 	K(Try, "try", 0)                                                   \
 	K(Type, "type", 0)                                                 \
 	K(Unchecked, "unchecked", 0)                                       \

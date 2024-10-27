@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(environment_access)
 	std::vector<std::string> view{
 		"block.coinbase",
 		"block.timestamp",
-		"block.difficulty",
+		"block.prevrandao",
 		"block.number",
 		"block.gaslimit",
 		"blockhash(7)",
@@ -50,11 +50,10 @@ BOOST_AUTO_TEST_CASE(environment_access)
 		"tx.gasprice",
 		"this",
 		"address(1).balance",
+		"address(0x4242).staticcall(\"\")",
 	};
-	if (solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		view.emplace_back("address(0x4242).staticcall(\"\")");
 
-	// ``block.blockhash`` and ``blockhash`` are tested separately below because their usage will
+	// ``blockhash`` is tested separately below because its usage will
 	// produce warnings that can't be handled in a generic way.
 	std::vector<std::string> pure{
 		"msg.data",
@@ -86,12 +85,6 @@ BOOST_AUTO_TEST_CASE(environment_access)
 			"Function state mutability can be restricted to pure",
 			"Statement has no effect."
 	}));
-
-	CHECK_ERROR(
-		"contract C { function f() view public { block.blockhash; } }",
-		TypeError,
-		"\"block.blockhash()\" has been deprecated in favor of \"blockhash()\""
-	);
 }
 
 BOOST_AUTO_TEST_CASE(address_staticcall)
@@ -104,10 +97,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall)
 			}
 		}
 	)";
-	if (!solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		CHECK_ERROR(text, TypeError, "\"staticcall\" is not supported by the VM version.");
-	else
-		CHECK_SUCCESS_NO_WARNINGS(text);
+	CHECK_SUCCESS_NO_WARNINGS(text);
 }
 
 
@@ -120,8 +110,7 @@ BOOST_AUTO_TEST_CASE(assembly_staticcall)
 			}
 		}
 	)";
-	if (solidity::test::CommonOptions::get().evmVersion().hasStaticCall())
-		CHECK_SUCCESS_NO_WARNINGS(text);
+	CHECK_SUCCESS_NO_WARNINGS(text);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -17,8 +17,6 @@ contract A {
         return (x.getBalance(), y.getBalance(), z.getBalance());
     }
 }
-// ====
-// EVMVersion: >=constantinople
 // ----
 // f(), 10 ether -> 3007, 3008, 3009
 // gas irOptimized: 253005

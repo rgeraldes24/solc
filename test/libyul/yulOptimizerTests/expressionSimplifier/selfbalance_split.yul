@@ -3,8 +3,6 @@
     let ret := balance(a)
     sstore(a, ret)
 }
-// ====
-// EVMVersion: >=istanbul
 // ----
 // step: expressionSimplifier
 //

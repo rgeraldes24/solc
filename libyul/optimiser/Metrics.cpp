@@ -158,9 +158,7 @@ void CodeCost::operator()(Literal const& _literal)
 		for (u256 n = u256(_literal.value.str()); n >= 0x100; n >>= 8)
 			cost++;
 		if (valueOfLiteral(_literal) == 0)
-			if (auto evmDialect = dynamic_cast<EVMDialect const*>(&m_dialect))
-				if (evmDialect->evmVersion().hasPush0())
-					--m_cost;
+			--m_cost;
 		break;
 	case LiteralKind::String:
 		cost = _literal.value.str().size();
@@ -184,7 +182,7 @@ void CodeCost::visit(Expression const& _expression)
 
 void CodeCost::addInstructionCost(evmasm::Instruction _instruction)
 {
-	evmasm::Tier gasPriceTier = evmasm::instructionInfo(_instruction, evmVersionFromDialect(m_dialect)).gasPriceTier;
+	evmasm::Tier gasPriceTier = evmasm::instructionInfo(_instruction).gasPriceTier;
 	if (gasPriceTier < evmasm::Tier::VeryLow)
 		m_cost -= 1;
 	else if (gasPriceTier < evmasm::Tier::High)

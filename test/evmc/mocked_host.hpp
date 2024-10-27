@@ -127,10 +127,6 @@ public:
     /// The record of all LOGs passed to the emit_log() method.
     std::vector<log_record> recorded_logs;
 
-    /// The record of all SELFDESTRUCTs from the selfdestruct() method
-    /// as a map selfdestructed_address => [beneficiary1, beneficiary2, ...].
-    std::unordered_map<address, std::vector<address>> recorded_selfdestructs;
-
 private:
     /// The copy of call inputs for the recorded_calls record.
     std::vector<bytes> m_recorded_calls_inputs;
@@ -368,15 +364,6 @@ public:
         return n;
     }
 
-    /// Selfdestruct the account (EVMC host method).
-    bool selfdestruct(const address& addr, const address& beneficiary) noexcept override
-    {
-        record_account_access(addr);
-        auto& beneficiaries = recorded_selfdestructs[addr];
-        beneficiaries.emplace_back(beneficiary);
-        return beneficiaries.size() == 1;
-    }
-
     /// Call/create other contract (EVMC host method).
     Result call(const evmc_message& msg) noexcept override
     {
@@ -424,8 +411,8 @@ public:
 
     /// Record an account access.
     ///
-    /// This method is required by EIP-2929 introduced in ::EVMC_BERLIN. It will record the account
-    /// access in MockedHost::recorded_account_accesses and return previous access status.
+    /// This method is required by EIP-2929. It will record the account access in
+    /// MockedHost::recorded_account_accesses and return previous access status.
     /// This methods returns ::EVMC_ACCESS_WARM for known addresses of precompiles.
     /// The EIP-2929 specifies that evmc_message::sender and evmc_message::recipient are always
     /// ::EVMC_ACCESS_WARM. Therefore, you should init the MockedHost with:
@@ -457,10 +444,10 @@ public:
 
     /// Access the account's storage value at the given key.
     ///
-    /// This method is required by EIP-2929 introduced in ::EVMC_BERLIN. In records
-    /// that the given account's storage key has been access and returns the
-    /// previous access status. To mock storage access list (EIP-2930), you can
-    /// pre-init account's storage values with the ::EVMC_ACCESS_WARM flag:
+    /// This method is required by EIP-2929. In records that the given account's
+    /// storage key has been access and returns the previous access status.
+    /// To mock storage access list (EIP-2930), you can pre-init account's storage
+    /// values with the ::EVMC_ACCESS_WARM flag:
     ///
     ///     mocked_host.accounts[msg.recipient].storage[key] = {value,
     ///     EVMC_ACCESS_WARM};

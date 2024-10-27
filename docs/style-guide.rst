@@ -663,7 +663,6 @@ Yes:
     }
 
     function shutdown() public onlyOwner {
-        selfdestruct(owner);
     }
 
 No:
@@ -675,7 +674,6 @@ No:
     }
 
     function shutdown() onlyOwner public {
-        selfdestruct(owner);
     }
 
 For long function declarations, it is recommended to drop each argument onto

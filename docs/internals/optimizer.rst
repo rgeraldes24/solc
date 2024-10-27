@@ -771,7 +771,7 @@ and the call-constant state of the environment. Most expressions are movable.
 The following parts make an expression non-movable:
 
 - function calls (might be relaxed in the future if all statements in the function are movable)
-- opcodes that (can) have side-effects (like ``call`` or ``selfdestruct``)
+- opcodes that (can) have side-effects (like ``call``)
 - opcodes that read or write memory, storage or external state information
 - opcodes that depend on the current PC, memory size or returndata size
 
@@ -944,7 +944,7 @@ DeadCodeEliminator
 This optimization stage removes unreachable code.
 
 Unreachable code is any code within a block which is preceded by a
-leave, return, invalid, break, continue, selfdestruct, revert or by a call to a user-defined function that recurses infinitely.
+leave, return, invalid, break, continue, revert or by a call to a user-defined function that recurses infinitely.
 
 Function definitions are retained as they might be called by earlier
 code and thus are considered reachable.

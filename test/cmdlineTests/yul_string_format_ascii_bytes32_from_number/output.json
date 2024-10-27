@@ -62,9 +62,7 @@ object \"C_11\" {
 
             function shift_right_224_unsigned(value) -> newValue {
                 newValue :=
-
                 shr(224, value)
-
             }
 
             function allocate_unbounded() -> memPtr {
@@ -124,9 +122,7 @@ object \"C_11\" {
 
             function shift_left_224(value) -> newValue {
                 newValue :=
-
                 shl(224, value)
-
             }
 
             function convert_t_rational_1633837924_by_1_to_t_bytes4(value) -> converted {
