@@ -11,11 +11,11 @@ contract A {
 
 contract B {
     constructor() {
-        A(address(0x00)).get();
+        A(address(Z00)).get();
     }
 
     function foo() public view {
-        A(address(0x00)).get();
+        A(address(Z00)).get();
     }
 }
 ==== Source: B ====

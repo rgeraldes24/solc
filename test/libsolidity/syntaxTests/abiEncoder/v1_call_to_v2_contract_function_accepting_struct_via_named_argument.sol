@@ -14,7 +14,7 @@ import "A";
 
 contract Test {
     function foo() public view {
-        C(address(0x00)).set({_item: C.Item(50), _z: false, _y: "abc", _x: 30});
+        C(address(Z00)).set({_item: C.Item(50), _z: false, _y: "abc", _x: 30});
     }
 }
 // ----

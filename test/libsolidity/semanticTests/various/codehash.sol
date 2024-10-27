@@ -5,7 +5,7 @@ contract C {
     }
     function g() public returns (bytes32) {
         // precompile
-        return address(0x1).codehash;
+        return address(Z1).codehash;
     }
     function h() public returns (bool) {
         return address(this).codehash != 0;

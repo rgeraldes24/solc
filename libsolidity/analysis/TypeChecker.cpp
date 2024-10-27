@@ -3287,7 +3287,7 @@ bool TypeChecker::visit(MemberAccess const& _memberAccess)
 	else
 		annotation.isLValue = false;
 
-	// TODO some members might be pure, but for example `address(0x123).balance` is not pure
+	// TODO some members might be pure, but for example `address(Z123).balance` is not pure
 	// although every subexpression is, so leaving this limited for now.
 	if (auto tt = dynamic_cast<TypeType const*>(exprType))
 		if (
