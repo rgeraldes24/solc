@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_CASE(call_chains_through_externals)
 {
 	std::unique_ptr<CompilerStack> compilerStack = parseAndAnalyzeContracts(R"(
 		library L {
-			function ext() external { C(address(0x0)).ext(); }
+			function ext() external { C(address(Z0)).ext(); }
 			function pub() public {}
 			function inr() internal {}
 			function prv() private {}
@@ -364,7 +364,7 @@ BOOST_AUTO_TEST_CASE(call_chains_through_externals)
 
 			function ext2() external { this.ext(); this.pub(); L.ext(); L.pub(); }
 			function pub2() public { this.ext(); this.pub(); L.ext(); L.pub(); }
-			function pub3() public { C(address(0x0)).ext(); }
+			function pub3() public { C(address(Z0)).ext(); }
 		}
 	)"s);
 	std::tuple<CallGraphMap, CallGraphMap> graphs = collectGraphs(*compilerStack);

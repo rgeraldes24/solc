@@ -1,6 +1,6 @@
 contract test {
     function f() public {
-        address(0x12).delegatecall("abc");
+        address(Z12).delegatecall("abc");
     }
 }
 // ----

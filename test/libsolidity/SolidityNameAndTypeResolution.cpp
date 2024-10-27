@@ -425,7 +425,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall)
 	char const* sourceCode = R"(
 		contract C {
 			function f() public view returns(bool) {
-				(bool success,) = address(0x4242).staticcall("");
+				(bool success,) = address(Z4242).staticcall("");
 				return success;
 			}
 		}
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall_value)
 	char const* sourceCode = R"(
 		contract C {
 			function f() public view {
-				address(0x4242).staticcall.value;
+				address(Z4242).staticcall.value;
 			}
 		}
 	)";
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_CASE(address_call_full_return_type)
 	char const* sourceCode = R"(
 		contract C {
 			function f() public {
-				(bool success, bytes memory m) = address(0x4242).call("");
+				(bool success, bytes memory m) = address(Z4242).call("");
 				success; m;
 			}
 		}
@@ -465,7 +465,7 @@ BOOST_AUTO_TEST_CASE(address_delegatecall_full_return_type)
 	char const* sourceCode = R"(
 		contract C {
 			function f() public {
-				(bool success, bytes memory m) = address(0x4242).delegatecall("");
+				(bool success, bytes memory m) = address(Z4242).delegatecall("");
 				success; m;
 			}
 		}
@@ -480,7 +480,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall_full_return_type)
 	char const* sourceCode = R"(
 		contract C {
 			function f() public view {
-				(bool success, bytes memory m) = address(0x4242).staticcall("");
+				(bool success, bytes memory m) = address(Z4242).staticcall("");
 				success; m;
 			}
 		}

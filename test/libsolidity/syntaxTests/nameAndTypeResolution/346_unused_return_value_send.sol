@@ -1,6 +1,6 @@
 contract test {
     function f() public {
-        payable(address(0x12)).send(1);
+        payable(address(Z12)).send(1);
     }
 }
 // ----

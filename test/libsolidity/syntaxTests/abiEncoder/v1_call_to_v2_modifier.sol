@@ -11,7 +11,7 @@ contract A {
 
 contract B {
     modifier validate() {
-        A(address(0x00)).get();
+        A(address(Z00)).get();
         _;
     }
 }

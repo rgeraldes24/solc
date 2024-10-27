@@ -5,9 +5,9 @@ contract C {
   }
   function g() public returns (bytes memory) {
     C[] memory c = new C[](3);
-    c[0] = C(address(0x42));
-    c[1] = C(address(0x21));
-    c[2] = C(address(0x23));
+    c[0] = C(address(Z42));
+    c[1] = C(address(Z21));
+    c[2] = C(address(Z23));
     return abi.encode(c);
   }
 }

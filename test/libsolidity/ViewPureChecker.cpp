@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(environment_access)
 		"tx.gasprice",
 		"this",
 		"address(1).balance",
-		"address(0x4242).staticcall(\"\")",
+		"address(Z4242).staticcall(\"\")",
 	};
 
 	// ``blockhash`` is tested separately below because its usage will
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(address_staticcall)
 	std::string text = R"(
 		contract C {
 			function i() view public returns (bool) {
-				(bool success,) = address(0x4242).staticcall("");
+				(bool success,) = address(Z4242).staticcall("");
 				return success;
 			}
 		}

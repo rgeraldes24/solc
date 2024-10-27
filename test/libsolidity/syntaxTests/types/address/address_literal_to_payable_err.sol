@@ -1,7 +1,7 @@
 contract C {
     function f() public pure {
-        address payable a = address(0x00000000219ab540356cBB839Cbe05303d7705Fa);
-        address payable b = 0x00000000219ab540356cBB839Cbe05303d7705Fa;
+        address payable a = address(Z00000000219ab540356cBB839Cbe05303d7705Fa);
+        address payable b = Z00000000219ab540356cBB839Cbe05303d7705Fa;
     }
 }
 // ----

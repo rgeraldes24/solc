@@ -5,7 +5,7 @@ interface ReturnMoreData {
     function f(uint value) external pure returns (uint, uint, uint);
 }
 contract C {
-    Identity constant i = Identity(address(0x0004));
+    Identity constant i = Identity(address(Z0004));
     function testHighLevel() external pure returns (bool) {
         // Works because the extcodesize check is skipped
         // and the precompiled contract returns actual data.

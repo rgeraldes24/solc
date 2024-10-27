@@ -118,7 +118,7 @@ contract C {
             modifyStateVarZ();
         }
         /// NonIntegerCounter: isSimpleCounterLoop
-        for (address i = address(0x123); i < address(this); i = address(0x123 + 1)) {
+        for (address i = address(Z123); i < address(this); i = address(Z123 + 1)) {
         }
         /// AssemblyAfterAssignmentToCounter: isSimpleCounterLoop
         for (uint i = 0; i < 42; ++i) {
