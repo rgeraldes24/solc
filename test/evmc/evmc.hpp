@@ -292,10 +292,21 @@ constexpr T parse(std::string_view s) noexcept
     return from_hex<T>(s).value();
 }
 
-/// Literal for evmc::address.
-constexpr address operator""_address(const char* s) noexcept
+/// Converts a raw literal with Z prefix into value of type T.
+///
+/// This function is expected to be used on literals in constexpr context only.
+/// In case the input is invalid the std::terminate() is called.
+/// TODO(c++20): Use consteval.
+template <typename T>
+constexpr T parse_z_prefix(std::string_view s) noexcept
 {
-    return parse<address>(s);
+    return from_hex_z_prefix<T>(s).value();
+}
+
+/// Literal for evmc::address.
+constexpr address operator""_address(const char* s, unsigned long) noexcept
+{
+    return parse_z_prefix<address>(s);
 }
 
 /// Literal for evmc::bytes32.

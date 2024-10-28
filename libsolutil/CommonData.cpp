@@ -123,12 +123,41 @@ bytes solidity::util::fromHex(std::string const& _s, WhenError _throw)
 	return ret;
 }
 
+bytes solidity::util::fromHexZPrefix(std::string const& _s, WhenError _throw)
+{
+	if (_s.empty())
+		return {};
+
+	unsigned s = (_s.size() >= 1 && _s[0] == 'Z') ? 1 : 0;
+	std::vector<uint8_t> ret;
+	ret.reserve((_s.size() - s + 1) / 2);
+
+	if (_s.size() % 2)
+	{
+		int h = fromHex(_s[s++], _throw);
+		if (h != -1)
+			ret.push_back(static_cast<uint8_t>(h));
+		else
+			return bytes();
+	}
+	for (unsigned i = s; i < _s.size(); i += 2)
+	{
+		int h = fromHex(_s[i], _throw);
+		int l = fromHex(_s[i + 1], _throw);
+		if (h != -1 && l != -1)
+			ret.push_back(static_cast<uint8_t>(h * 16 + l));
+		else
+			return bytes();
+	}
+	return ret;
+}
+
 
 bool solidity::util::passesAddressChecksum(std::string const& _str, bool _strict)
 {
-	std::string s = _str.substr(0, 2) == "0x" ? _str : "0x" + _str;
+	std::string s = _str.substr(0, 1) == "Z" ? _str : "Z" + _str;
 
-	if (s.length() != 42)
+	if (s.length() != 41)
 		return false;
 
 	if (!_strict && (
@@ -142,13 +171,13 @@ bool solidity::util::passesAddressChecksum(std::string const& _str, bool _strict
 
 std::string solidity::util::getChecksummedAddress(std::string const& _addr)
 {
-	std::string s = _addr.substr(0, 2) == "0x" ? _addr.substr(2) : _addr;
+	std::string s = _addr.substr(0, 1) == "Z" ? _addr.substr(1) : _addr;
 	assertThrow(s.length() == 40, InvalidAddress, "");
 	assertThrow(s.find_first_not_of("0123456789abcdefABCDEF") == std::string::npos, InvalidAddress, "");
 
 	h256 hash = keccak256(boost::algorithm::to_lower_copy(s, std::locale::classic()));
 
-	std::string ret = "0x";
+	std::string ret = "Z";
 	for (unsigned i = 0; i < 40; ++i)
 	{
 		char addressCharacter = s[i];

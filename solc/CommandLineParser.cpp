@@ -425,7 +425,7 @@ void CommandLineParser::parseLibraryOption(std::string const& _input)
 				);
 
 			if (addrString.substr(0, 1) == "Z")
-				addrString = addrString.substr(q);
+				addrString = addrString.substr(1);
 			else
 				solThrow(
 					CommandLineValidationError,
@@ -698,7 +698,7 @@ General Information)").c_str(),
 			po::value<std::vector<std::string>>()->value_name("libs"),
 			"Direct string or file containing library addresses. Syntax: "
 			"<libraryName>=<address> [, or whitespace] ...\n"
-			"Address is interpreted as a hex string prefixed by 0x."
+			"Address is interpreted as a hex string prefixed by Z."
 		)
 	;
 	desc.add(linkerModeOptions);

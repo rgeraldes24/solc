@@ -1012,26 +1012,33 @@ bool Literal::isHexNumber() const
 	return boost::starts_with(value(), "0x");
 }
 
+bool Literal::isZPrefixHexNumber() const
+{
+	if (token() != Token::Number)
+		return false;
+	return boost::starts_with(value(), "Z");
+}
+
 bool Literal::looksLikeAddress() const
 {
 	if (subDenomination() != SubDenomination::None)
 		return false;
 
-	if (!isHexNumber())
+	if (!isZPrefixHexNumber())
 		return false;
 
-	return abs(int(valueWithoutUnderscores().length()) - 42) <= 1;
+	return abs(int(valueWithoutUnderscores().length()) - 41) <= 1;
 }
 
 bool Literal::passesAddressChecksum() const
 {
-	solAssert(isHexNumber(), "Expected hex number");
+	solAssert(isZPrefixHexNumber(), "Expected hex number");
 	return util::passesAddressChecksum(valueWithoutUnderscores(), true);
 }
 
 std::string Literal::getChecksummedAddress() const
 {
-	solAssert(isHexNumber(), "Expected hex number");
+	solAssert(isZPrefixHexNumber(), "Expected hex number");
 	/// Pad literal to be a proper hex address.
 	std::string address = valueWithoutUnderscores().substr(2);
 	if (address.length() > 40)

@@ -114,6 +114,7 @@ public:
 
 	/// Explicitly construct, copying from a string.
 	explicit FixedHash(std::string const& _s, ConstructFromStringType _t = FromHex, ConstructFromHashType _ht = FailIfDifferent):
+		// TODO(rgeraldes24): fix fromHexZPrefix if N == 20
 		FixedHash(_t == FromHex ? fromHex(_s, WhenError::Throw) : solidity::util::asBytes(_s), _ht)
 	{}
 

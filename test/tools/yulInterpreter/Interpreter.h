@@ -91,7 +91,7 @@ struct InterpreterState
 	/// Deployed code
 	bytes code = util::asBytes("codecodecodecodecode");
 	u256 gasprice = 0x66666666;
-	util::h160 coinbase = util::h160("0x0000000000000000000000000000000077777777");
+	util::h160 coinbase = util::h160("Z0000000000000000000000000000000077777777");
 	u256 timestamp = 0x88888888;
 	u256 blockNumber = 1024;
 	u256 prevrandao = (u256(1) << 64) + 1;
