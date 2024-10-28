@@ -424,13 +424,13 @@ void CommandLineParser::parseLibraryOption(std::string const& _input)
 					(isSeparatorEqualSign ? "equal sign" : "colon") + "."
 				);
 
-			if (addrString.substr(0, 2) == "0x")
-				addrString = addrString.substr(2);
+			if (addrString.substr(0, 1) == "Z")
+				addrString = addrString.substr(q);
 			else
 				solThrow(
 					CommandLineValidationError,
-					"The address " + addrString + " is not prefixed with \"0x\".\n"
-					"Note that the address must be prefixed with \"0x\"."
+					"The address " + addrString + " is not prefixed with \"Z\".\n"
+					"Note that the address must be prefixed with \"Z\"."
 				);
 
 			if (addrString.length() != 40)

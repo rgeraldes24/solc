@@ -125,7 +125,7 @@ contract GlobalRegistrar is Registrar, AuctionSystem {
 		record.renewalDate = block.timestamp + c_renewalInterval;
 		record.owner = auction.highestBidder;
 		emit Changed(_name);
-		if (previousOwner != 0x0000000000000000000000000000000000000000) {
+		if (previousOwner != Z0000000000000000000000000000000000000000) {
 			if (!record.owner.send(auction.sumOfBids - auction.highestBid / 100))
 				revert();
 		} else {

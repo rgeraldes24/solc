@@ -1300,7 +1300,7 @@ std::string ValueGetterVisitor::isabelleAddressValueAsString(std::string& _solAd
 {
 	// Isabelle encoder expects address literal to be exactly
 	// 20 bytes and a hex string.
-	// Example: 0x0102030405060708090a0102030405060708090a
+	// Example: Z0102030405060708090a0102030405060708090a
 	std::regex const addressPattern("address\\((.*)\\)");
 	std::smatch match;
 	solAssert(std::regex_match(_solAddressString, match, addressPattern), "Abiv2 fuzzer: Invalid address string");

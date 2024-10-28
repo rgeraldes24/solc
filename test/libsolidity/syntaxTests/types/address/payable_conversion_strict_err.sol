@@ -4,7 +4,7 @@ contract C {
         address payable b = payable(bytes20(0));
         address payable c = payable(2);
         // hex literal that is only 15 bytes long
-        address payable d = payable(0x002190356cBB839Cbe05303d7705Fa);
+        address payable d = payable(Z002190356cBB839Cbe05303d7705Fa);
 
         // The opposite should also be disallowed
         uint160 a1 = uint160(payable(0));
