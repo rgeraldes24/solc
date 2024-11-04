@@ -314,7 +314,7 @@ contract token is safeMath, module, announcementTypes {
             During ICO transactions are allowed only from genesis addresses.
             After sending the tokens, the ModuleHandler is notified and it will broadcast the fact among members
 
-            The 0xa636a97578d26a3b76b060bbc18226d954cf3757 address are blacklisted.
+            The Za636a97578d26a3b76b060bbc18226d954cf3757 address are blacklisted.
 
             @from       From who
             @to         To who

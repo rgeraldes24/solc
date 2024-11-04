@@ -850,7 +850,7 @@ BOOST_AUTO_TEST_CASE(library_linking)
 		"settings": {
 			"libraries": {
 				"library.sol": {
-					"L": "0x4200000000000000000000000000000000000001"
+					"L": "Z4200000000000000000000000000000000000001"
 				}
 			},
 			"outputSelection": {
@@ -888,7 +888,7 @@ BOOST_AUTO_TEST_CASE(linking_yul)
 		"settings": {
 			"libraries": {
 				"fileB": {
-					"L": "0x4200000000000000000000000000000000000001"
+					"L": "Z4200000000000000000000000000000000000001"
 				}
 			},
 			"outputSelection": {
@@ -920,7 +920,7 @@ BOOST_AUTO_TEST_CASE(linking_yul_empty_link_reference)
 		"settings": {
 			"libraries": {
 				"": {
-					"": "0x4200000000000000000000000000000000000001"
+					"": "Z4200000000000000000000000000000000000001"
 				}
 			},
 			"outputSelection": {
@@ -952,7 +952,7 @@ BOOST_AUTO_TEST_CASE(linking_yul_no_filename_in_link_reference)
 		"settings": {
 			"libraries": {
 				"": {
-					"L": "0x4200000000000000000000000000000000000001"
+					"L": "Z4200000000000000000000000000000000000001"
 				}
 			},
 			"outputSelection": {
@@ -984,7 +984,7 @@ BOOST_AUTO_TEST_CASE(linking_yul_same_library_name_different_files)
 		"settings": {
 			"libraries": {
 				"fileB": {
-					"L": "0x4200000000000000000000000000000000000001"
+					"L": "Z4200000000000000000000000000000000000001"
 				}
 			},
 			"outputSelection": {

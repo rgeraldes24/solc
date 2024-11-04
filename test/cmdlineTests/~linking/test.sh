@@ -18,7 +18,7 @@ grep -q -v '[/_]' L.bin
 
 # Now link
 printf "    "
-msg_on_error "$SOLC" --link --libraries x.sol:L=0x90f20564390eAe531E810af625A22f51385Cd222 C.bin
+msg_on_error "$SOLC" --link --libraries x.sol:L=Z90f20564390eAe531E810af625A22f51385Cd222 C.bin
 
 # Now the placeholder and explanation should be gone.
 grep -q -v '[/_]' C.bin
