@@ -98,11 +98,12 @@ contract C {
         /// NonIntegerTypeCondition: isSimpleCounterLoop
         for(uint i = 0; address(this) < msg.sender; ++i) {
         }
-        UINT ZERO = UINT.wrap(0);
+        // TODO(rgeraldes24): fix
+        UINT zERO = UINT.wrap(0);
         UINT ONE = UINT.wrap(1);
         UINT TEN = UINT.wrap(10);
         /// UDVTOperators: isSimpleCounterLoop
-        for(UINT i = ZERO; i < TEN; i = i + ONE) {
+        for(UINT i = zERO; i < TEN; i = i + ONE) {
         }
         /// CounterAssignmentConditionRHS: isSimpleCounterLoop
         for(uint i = 0; i < (i = i + 1); ++i) {
@@ -118,7 +119,7 @@ contract C {
             modifyStateVarZ();
         }
         /// NonIntegerCounter: isSimpleCounterLoop
-        for (address i = address(Z123); i < address(this); i = address(Z123 + 1)) {
+        for (address i = address(0x123); i < address(this); i = address(0x123 + 1)) {
         }
         /// AssemblyAfterAssignmentToCounter: isSimpleCounterLoop
         for (uint i = 0; i < 42; ++i) {

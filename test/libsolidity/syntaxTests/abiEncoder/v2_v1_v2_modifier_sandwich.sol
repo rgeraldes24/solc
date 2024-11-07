@@ -14,7 +14,7 @@ import "A";
 
 contract B {
     modifier validate() {
-        A(address(Z00)).get();
+        A(address(0x00)).get();
         _;
     }
 }

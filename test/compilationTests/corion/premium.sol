@@ -53,7 +53,7 @@ contract premium is module, safeMath {
             @genesisValue       Array of the balance of the genesis addresses
         */
         super.registerModuleHandler(moduleHandler);
-        require( dbAddress != address(Z00) );
+        require( dbAddress != address(0x00) );
         db = ptokenDB(dbAddress);
         if ( ! forReplace ) {
             require( db.replaceOwner(address(this)) );
@@ -273,7 +273,7 @@ contract premium is module, safeMath {
             @to        For who?
             @amount    Amount
         */
-        require( from != address(Z00) && to != address(Z00) && to != Za636A97578d26A3b76B060Bbc18226d954cf3757 );
+        require( from != address(0x00) && to != address(0x00) && to != Za636A97578d26A3b76B060Bbc18226d954cf3757 );
         require( ( ! isICO) || genesis[from] );
         require( db.decrease(from, amount) );
         require( db.increase(to, amount) );

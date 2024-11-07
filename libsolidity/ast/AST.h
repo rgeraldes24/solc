@@ -2421,8 +2421,9 @@ public:
 
 	/// @returns true if this is a number with a hex prefix.
 	bool isHexNumber() const;
-	/// @returns true if this is a number with a Z prefix.
-	bool isZPrefixHexNumber() const;
+	// TODO(rgeraldes24): review desc
+	/// @returns true if this is a address with a Z prefix.
+	bool isAddress() const;
 
 	/// @returns true if this looks like a checksummed address.
 	bool looksLikeAddress() const;

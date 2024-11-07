@@ -648,8 +648,8 @@ contract C {
     }
 
     function testOtherBinary() public pure {
-        assert(Address.unwrap(Address.wrap(address(Z01)) | Address.wrap(address(Z02))) == address(Z03));
-        assert(AddressPayable.unwrap(AddressPayable.wrap(payable(address(Z01))) | AddressPayable.wrap(payable(address(Z02)))) == payable(address(Z03)));
+        assert(Address.unwrap(Address.wrap(address(0x01)) | Address.wrap(address(0x02))) == address(0x03));
+        assert(AddressPayable.unwrap(AddressPayable.wrap(payable(address(0x01))) | AddressPayable.wrap(payable(address(0x02)))) == payable(address(0x03)));
         assert(Bool.unwrap(~Bool.wrap(true)) == false);
     }
 

@@ -37,7 +37,7 @@ contract schellingDB is safeMath, schellingVars {
     */
     address private owner;
     function replaceOwner(address newOwner) external returns(bool) {
-        require( owner == address(Z00) || msg.sender == owner );
+        require( owner == address(0x00) || msg.sender == owner );
         owner = newOwner;
         return true;
     }
@@ -409,7 +409,7 @@ contract schelling is module, announcementTypes, schellingVars {
         uint256 funds = getFunds(msg.sender);
 
         address _beneficiary = msg.sender;
-        if (beneficiary != address(Z00)) { _beneficiary = beneficiary; }
+        if (beneficiary != address(0x00)) { _beneficiary = beneficiary; }
         uint256 reward;
         require( voter.rewards > 0 );
         require( voter.status == voterStatus.base );

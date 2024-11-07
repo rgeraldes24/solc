@@ -64,9 +64,9 @@ contract token is safeMath, module, announcementTypes {
             @genesisValue               Array of balance of genesis addresses
         */
         super.registerModuleHandler(moduleHandler);
-        require( dbAddr != address(Z00) );
-        require( icoContractAddr != address(Z00) );
-        require( exchangeContractAddress != address(Z00) );
+        require( dbAddr != address(0x00) );
+        require( icoContractAddr != address(0x00) );
+        require( exchangeContractAddress != address(0x00) );
         db = tokenDB(dbAddr);
         icoAddr = icoContractAddr;
         exchangeAddress = exchangeContractAddress;
@@ -326,7 +326,7 @@ contract token is safeMath, module, announcementTypes {
             require( success );
             require( db.balanceOf(from) >= amount + _fee );
         }
-        require( from != address(Z00) && to != address(Z00) && to != Za636A97578d26A3b76B060Bbc18226d954cf3757 );
+        require( from != address(0x00) && to != address(0x00) && to != Za636A97578d26A3b76B060Bbc18226d954cf3757 );
         require( ( ! isICO) || genesis[from] );
         require( db.decrease(from, amount) );
         require( db.increase(to, amount) );
@@ -375,7 +375,7 @@ contract token is safeMath, module, announcementTypes {
         address _schellingAddr;
         (_success, _found, _schellingAddr) = moduleHandler(moduleHandlerAddress).getModuleAddressByName('Schelling');
         require( _success );
-        if ( _schellingAddr != address(Z00) && _found) {
+        if ( _schellingAddr != address(0x00) && _found) {
             require( db.decrease(owner, _forSchelling) );
             require( db.increase(_schellingAddr, _forSchelling) );
             _burn(owner, _forBurn);
@@ -425,7 +425,7 @@ contract token is safeMath, module, announcementTypes {
             @value     Quantity
         */
         require( db.increase(owner, value) );
-        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(address(Z00), owner, value) );
+        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(address(0x00), owner, value) );
         if ( isICO ) {
             require( ico(icoAddr).setInterestDB(owner, db.balanceOf(owner)) );
         }
@@ -454,7 +454,7 @@ contract token is safeMath, module, announcementTypes {
             @value     Quantity
         */
         require( db.decrease(owner, value) );
-        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(owner, address(Z00), value) );
+        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(owner, address(0x00), value) );
         emit Burn(owner, value);
     }
 

@@ -3287,7 +3287,7 @@ bool TypeChecker::visit(MemberAccess const& _memberAccess)
 	else
 		annotation.isLValue = false;
 
-	// TODO some members might be pure, but for example `address(Z123).balance` is not pure
+	// TODO some members might be pure, but for example `address(0x123).balance` is not pure
 	// although every subexpression is, so leaving this limited for now.
 	if (auto tt = dynamic_cast<TypeType const*>(exprType))
 		if (
@@ -3684,6 +3684,7 @@ void TypeChecker::endVisit(ElementaryTypeNameExpression const& _expr)
 	_expr.annotation().isConstant = false;
 }
 
+// TODO(rgeraldes24): review
 void TypeChecker::endVisit(Literal const& _literal)
 {
 	if (_literal.looksLikeAddress())
@@ -3696,7 +3697,7 @@ void TypeChecker::endVisit(Literal const& _literal)
 			// looksLikeAddress enforces that it is a hex literal starting with "0x"
 			msg =
 				"This looks like an address but is not exactly 40 hex digits. It is " +
-				std::to_string(_literal.valueWithoutUnderscores().length() - 2) +
+				std::to_string(_literal.valueWithoutUnderscores().length() - 1) +
 				" hex digits.";
 		else if (!_literal.passesAddressChecksum())
 		{

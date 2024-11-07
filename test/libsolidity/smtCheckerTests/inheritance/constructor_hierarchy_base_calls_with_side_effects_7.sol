@@ -18,12 +18,12 @@ contract B is A {
 	}
 }
 
-contract Z is B {
+contract T is B {
 	constructor() B(f()) {
 	}
 }
 
-contract C is Z {
+contract C is T {
 	constructor() {
 		assert(x == 1);
 		assert(x > 2); // should fail

@@ -15,6 +15,6 @@ contract C {
 // TypeError 9640: (72-91): Explicit type conversion not allowed from "uint160" to "address payable".
 // TypeError 9640: (121-140): Explicit type conversion not allowed from "bytes20" to "address payable".
 // TypeError 9640: (170-180): Explicit type conversion not allowed from "int_const 2" to "address payable".
-// TypeError 9640: (260-301): Explicit type conversion not allowed from "int_const 6807...(25 digits omitted)...4970" to "address payable".
-// TypeError 9640: (375-394): Explicit type conversion not allowed from "address payable" to "uint160".
-// TypeError 9640: (417-436): Explicit type conversion not allowed from "address payable" to "bytes20".
+// TypeError 9640: (260-300): Explicit type conversion not allowed from "int_const 6807...(25 digits omitted)...4970" to "address payable".
+// TypeError 9640: (374-393): Explicit type conversion not allowed from "address payable" to "uint160".
+// TypeError 9640: (416-435): Explicit type conversion not allowed from "address payable" to "bytes20".

@@ -11,7 +11,7 @@ contract C {
     address b = address(1);
     address c = address(0);
     address d = a;
-    address e = address(Z12345678);
+    address e = address(0x12345678);
     assert(c == d);
     assert(a == c);
     assert(e == address(305419896));

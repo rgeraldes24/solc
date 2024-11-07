@@ -11,11 +11,11 @@ contract A {
 
 contract B {
     constructor() validate {
-        A(address(Z00)).get();
+        A(address(0x00)).get();
     }
 
     modifier validate() {
-        A(address(Z00)).get();
+        A(address(0x00)).get();
         _;
     }
 }

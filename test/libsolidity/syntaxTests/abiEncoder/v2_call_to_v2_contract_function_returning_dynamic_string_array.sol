@@ -11,7 +11,7 @@ import "A";
 
 contract D {
     function g() public view {
-        C(address(Z00)).f();
+        C(address(0x00)).f();
     }
 }
 // ----

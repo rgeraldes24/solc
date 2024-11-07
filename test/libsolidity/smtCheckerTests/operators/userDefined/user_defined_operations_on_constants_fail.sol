@@ -26,7 +26,7 @@ function geq(I16 x, I16 y) pure returns (bool) { return I16.unwrap(x) >= I16.unw
 
 contract C {
     I16 constant MINUS_TWO = I16.wrap(-2);
-    I16 constant ZERO = I16.wrap(0);
+    I16 constant VALUEZERO = I16.wrap(0);
     I16 constant ONE = I16.wrap(1);
     I16 constant TWO = I16.wrap(2);
     I16 constant THREE = I16.wrap(3);

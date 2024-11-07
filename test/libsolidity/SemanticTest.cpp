@@ -218,9 +218,17 @@ std::string SemanticTest::formatEventParameter(std::optional<AnnotatedEventSigna
 		{
 			if (types.at(_index) == "bool")
 				abiType = ABIType(ABIType::Type::Boolean);
+			// else if (types.at(_index) == "address")
+			// 	abiType = ABIType(ABIType::Type::AddressHex);
 		}
 	}
-	return BytesUtils::formatBytes(_data, abiType);
+	const std::string res = BytesUtils::formatBytes(_data, abiType);
+	if (res.length() == 42 && res[0] == '0' && res[1] == 'x' ) {
+		std::cout << 
+		std::regex_replace(res, std::regex("0x"), "Z");
+	}
+
+	return res;
 }
 
 std::vector<std::string> SemanticTest::eventSideEffectHook(FunctionCall const&) const

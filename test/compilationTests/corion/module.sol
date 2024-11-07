@@ -124,7 +124,7 @@ value) virtual external onlyForModuleHandler returns (bool success) {
 
             @ret    This is the module handler address or not
         */
-        if ( moduleHandlerAddress == address(Z00) ) { return true; }
+        if ( moduleHandlerAddress == address(0x00) ) { return true; }
         if ( moduleStatus != status.Connected ) { return false; }
         return addr == moduleHandlerAddress;
     }

@@ -1,6 +1,6 @@
 contract test {
     function f() public {
-        address(Z12).call("abc");
+        address(0x12).call("abc");
     }
 }
 // ----

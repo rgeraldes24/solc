@@ -11,7 +11,7 @@ contract C {
 }
 
 library L {
-    B4 constant Z = ~B4.wrap(0x12345678);
+    B4 constant T = ~B4.wrap(0x12345678);
 }
 
 interface I {

@@ -421,13 +421,6 @@ bytes fromHex(std::string const& _s, WhenError _throw = WhenError::DontThrow);
 /// Converts byte array to a string containing the same (binary) data. Unless
 /// the byte array happens to contain ASCII data, this won't be printable.
 
-/// Converts a (printable) ASCII hex string into the corresponding byte stream.
-/// @example fromHexZPrefix("Z41626261") == asBytes("Abba")
-/// If _throw = ThrowType::DontThrow, it replaces bad hex characters with 0's, otherwise it will throw an exception.
-bytes fromHexZPrefix(std::string const& _s, WhenError _throw = WhenError::DontThrow);
-/// Converts byte array to a string containing the same (binary) data. Unless
-/// the byte array happens to contain ASCII data, this won't be printable.
-
 inline std::string asString(bytes const& _b)
 {
 	return std::string((char const*)_b.data(), (char const*)(_b.data() + _b.size()));

@@ -43,7 +43,7 @@ contract Test {
 		uint b = t.balanceOf(address(this));
 		assert(b == 1000);
 
-		address other = address(Z333);
+		address other = address(0x333);
 		require(address(this) != other);
 
 		uint c = t.balanceOf(other);

@@ -224,6 +224,7 @@ namespace solidity::langutil
 	K(FalseLiteral, "false", 0)                                        \
 	T(Number, nullptr, 0)                                              \
 	T(StringLiteral, nullptr, 0)                                       \
+	T(AddressLiteral, nullptr, 0)                                       \
 	T(UnicodeStringLiteral, nullptr, 0)                                \
 	T(HexStringLiteral, nullptr, 0)                                    \
 	T(CommentLiteral, nullptr, 0)                                      \

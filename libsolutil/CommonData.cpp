@@ -89,7 +89,9 @@ int solidity::util::fromHex(char _i, WhenError _throw)
 	if (_i >= 'A' && _i <= 'F')
 		return _i - 'A' + 10;
 	if (_throw == WhenError::Throw)
-		assertThrow(false, BadHexCharacter, std::to_string(_i));
+	{
+		assertThrow(false, BadHexCharacter, std::to_string(_i));	
+	}
 	else
 		return -1;
 }
@@ -100,35 +102,6 @@ bytes solidity::util::fromHex(std::string const& _s, WhenError _throw)
 		return {};
 
 	unsigned s = (_s.size() >= 2 && _s[0] == '0' && _s[1] == 'x') ? 2 : 0;
-	std::vector<uint8_t> ret;
-	ret.reserve((_s.size() - s + 1) / 2);
-
-	if (_s.size() % 2)
-	{
-		int h = fromHex(_s[s++], _throw);
-		if (h != -1)
-			ret.push_back(static_cast<uint8_t>(h));
-		else
-			return bytes();
-	}
-	for (unsigned i = s; i < _s.size(); i += 2)
-	{
-		int h = fromHex(_s[i], _throw);
-		int l = fromHex(_s[i + 1], _throw);
-		if (h != -1 && l != -1)
-			ret.push_back(static_cast<uint8_t>(h * 16 + l));
-		else
-			return bytes();
-	}
-	return ret;
-}
-
-bytes solidity::util::fromHexZPrefix(std::string const& _s, WhenError _throw)
-{
-	if (_s.empty())
-		return {};
-
-	unsigned s = (_s.size() >= 1 && _s[0] == 'Z') ? 1 : 0;
 	std::vector<uint8_t> ret;
 	ret.reserve((_s.size() - s + 1) / 2);
 

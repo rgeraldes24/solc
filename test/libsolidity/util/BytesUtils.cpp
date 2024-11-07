@@ -355,6 +355,10 @@ std::string BytesUtils::formatBytes(
 	case ABIType::Hex:
 		os << formatHex(_bytes, _abiType.alignDeclared);
 		break;
+	case ABIType::AddressHex:
+		std::cout << std::regex_replace(formatHex(_bytes, _abiType.alignDeclared), std::regex("0x"), "Z") + '\n';
+		os << std::regex_replace(formatHex(_bytes, _abiType.alignDeclared), std::regex("0x"), "Z");
+		break;	
 	case ABIType::HexString:
 		os << formatHexString(_bytes);
 		break;

@@ -981,7 +981,8 @@ For example this code
 
 is equivalent to
 
-.. code-block:: yul
+// TODO(rgeraldes24)
+//.. code-block:: yul
 
     let a := Z1234567890123456789012345678901234567890
 
