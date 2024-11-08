@@ -22,8 +22,10 @@ contract Main {
     struct V { W m; }
     struct W { X m; }
     struct X { Y m; }
-    struct Y { Z m; }
-    struct Z { BA m; }
+    // TODO(rgeraldes24)
+    // struct Y { Z m; }
+    // struct Z { BA m; }
+    struct Y { BA m; }
     struct BA { BB m; }
     struct BB { BC m; }
     struct BC { BD m; }

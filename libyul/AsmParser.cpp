@@ -520,6 +520,10 @@ std::variant<Literal, Identifier> Parser::parseLiteralOrIdentifier()
 			kind = LiteralKind::String;
 			break;
 		case Token::Number:
+			if (!isValidNumberLiteral(currentLiteral()))
+				fatalParserError(4828_error, "Invalid number literal.");
+			kind = LiteralKind::Number;
+			break;
 		case Token::AddressLiteral:
 			// TODO(rgeraldes24): Error: Invalid number literal.Z1234567890123456789012345678901234567890
 			// if (!isValidNumberLiteral(currentLiteral()))

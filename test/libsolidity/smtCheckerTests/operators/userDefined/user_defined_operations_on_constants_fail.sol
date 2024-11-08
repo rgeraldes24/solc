@@ -60,20 +60,20 @@ contract C {
 // ====
 // SMTEngine: all
 // ----
-// Warning 6328: (2012-2037): CHC: Assertion violation happens here.
-// Warning 6328: (2062-2089): CHC: Assertion violation happens here.
-// Warning 6328: (2114-2139): CHC: Assertion violation happens here.
-// Warning 6328: (2164-2184): CHC: Assertion violation happens here.
-// Warning 6328: (2260-2287): CHC: Assertion violation happens here.
-// Warning 6328: (2312-2337): CHC: Assertion violation happens here.
-// Warning 6328: (2362-2382): CHC: Assertion violation happens here.
-// Warning 6328: (2407-2434): CHC: Assertion violation happens here.
-// Warning 6328: (2459-2484): CHC: Assertion violation happens here.
-// Warning 6328: (2509-2534): CHC: Assertion violation happens here.
-// Warning 6328: (2610-2631): CHC: Assertion violation happens here.
-// Warning 6328: (2656-2674): CHC: Assertion violation happens here.
-// Warning 6328: (2699-2716): CHC: Assertion violation happens here.
-// Warning 6328: (2741-2758): CHC: Assertion violation happens here.
-// Warning 6328: (2783-2804): CHC: Assertion violation happens here.
-// Warning 6328: (2829-2850): CHC: Assertion violation happens here.
+// Warning 6328: (2017-2042): CHC: Assertion violation happens here.
+// Warning 6328: (2067-2094): CHC: Assertion violation happens here.
+// Warning 6328: (2119-2144): CHC: Assertion violation happens here.
+// Warning 6328: (2169-2189): CHC: Assertion violation happens here.
+// Warning 6328: (2265-2292): CHC: Assertion violation happens here.
+// Warning 6328: (2317-2342): CHC: Assertion violation happens here.
+// Warning 6328: (2367-2387): CHC: Assertion violation happens here.
+// Warning 6328: (2412-2439): CHC: Assertion violation happens here.
+// Warning 6328: (2464-2489): CHC: Assertion violation happens here.
+// Warning 6328: (2514-2539): CHC: Assertion violation happens here.
+// Warning 6328: (2615-2636): CHC: Assertion violation happens here.
+// Warning 6328: (2661-2679): CHC: Assertion violation happens here.
+// Warning 6328: (2704-2721): CHC: Assertion violation happens here.
+// Warning 6328: (2746-2763): CHC: Assertion violation happens here.
+// Warning 6328: (2788-2809): CHC: Assertion violation happens here.
+// Warning 6328: (2834-2855): CHC: Assertion violation happens here.
 // Info 1391: CHC: 5 verification condition(s) proved safe! Enable the model checker option "show proved safe" to see all of them.

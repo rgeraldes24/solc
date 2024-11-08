@@ -218,17 +218,36 @@ std::string SemanticTest::formatEventParameter(std::optional<AnnotatedEventSigna
 		{
 			if (types.at(_index) == "bool")
 				abiType = ABIType(ABIType::Type::Boolean);
-			// else if (types.at(_index) == "address")
-			// 	abiType = ABIType(ABIType::Type::AddressHex);
 		}
-	}
-	const std::string res = BytesUtils::formatBytes(_data, abiType);
-	if (res.length() == 42 && res[0] == '0' && res[1] == 'x' ) {
-		std::cout << 
-		std::regex_replace(res, std::regex("0x"), "Z");
-	}
 
-	return res;
+		// TODO(rgeraldes24)
+		// if (_index < _signature->types.size()) {
+		// 	if (_signature->types.at(_index) == "address")
+		// 		abiType = ABIType(ABIType::Type::AddressHex);
+		// }
+
+		// std::cout << "Signature:\n";
+		// std::cout << _signature->signature + '\n';
+		// std::cout << "Types:\n";
+		// for (std::string str: _signature->types)
+		// 	std::cout << str + '\n';
+		// std::cout << "Indexed Types:\n";
+		// for (std::string str: _signature->indexedTypes)
+		// 	std::cout << str + '\n';
+		// std::cout << "Non-Indexed Types:\n";
+		// for (std::string str: _signature->nonIndexedTypes)
+		// 	std::cout << str + '\n';
+
+	}
+	
+	/*
+	std::string res = BytesUtils::formatBytes(_data, abiType);
+	if (res.length() == 42 && res[0] == '0' && res[1] == 'x' ) {
+		res = std::regex_replace(res, std::regex("0x"), "Z");
+		
+	}
+	*/
+	return BytesUtils::formatBytes(_data, abiType);
 }
 
 std::vector<std::string> SemanticTest::eventSideEffectHook(FunctionCall const&) const
@@ -248,7 +267,7 @@ std::vector<std::string> SemanticTest::eventSideEffectHook(FunctionCall const&) 
 			sideEffect << "<anonymous>";
 
 		if (m_contractAddress != log.creator)
-			sideEffect << " from 0x" << log.creator;
+			sideEffect << " from Z" << log.creator;
 
 		std::vector<std::string> eventStrings;
 		size_t index{0};
@@ -289,10 +308,14 @@ std::optional<AnnotatedEventSignature> SemanticTest::matchEvent(util::h256 const
 				AnnotatedEventSignature eventInfo;
 				eventInfo.signature = eventFunctionType->externalSignature();
 				for (auto const& param: event->parameters())
+				{
 					if (param->isIndexed())
 						eventInfo.indexedTypes.emplace_back(param->type()->toString(true));
 					else
 						eventInfo.nonIndexedTypes.emplace_back(param->type()->toString(true));
+					eventInfo.types.emplace_back(param->type()->toString(true));
+				}
+					
 				result = eventInfo;
 			}
 		}

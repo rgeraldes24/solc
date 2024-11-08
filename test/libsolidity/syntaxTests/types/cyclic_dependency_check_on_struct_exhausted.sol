@@ -22,8 +22,11 @@ contract Main {
     struct V { W m; }
     struct W { X m; }
     struct X { Y m; }
-    struct Y { Z m; }
-    struct Z { BA m; }
+    // TODO(rgeraldes24): original
+    // struct Y { Z m; }
+    // struct Z { BA m; }
+    struct Y { YYY m; }
+    struct YYY { BA m; }
     struct BA { BB m; }
     struct BB { BC m; }
     struct BC { BD m; }
@@ -257,4 +260,4 @@ contract Main {
     struct JW { int i; }
 }
 // ----
-// DeclarationError 5651: (6091-6111): Struct definition exhausts cyclic dependency validator.
+// DeclarationError 5651: (6181-6201): Struct definition exhausts cyclic dependency validator.

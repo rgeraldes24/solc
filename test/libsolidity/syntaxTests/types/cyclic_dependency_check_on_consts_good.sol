@@ -23,8 +23,10 @@ contract Main {
     A constant V = W;
     A constant W = X;
     A constant X = Y;
-    A constant Y = Z;
-    A constant Z = BA;
+    // TODO(rgeraldes24)
+    // A constant Y = Z;
+    // A constant Z = BA;
+    A constant Y = BA;
     A constant BA = BB;
     A constant BB = BC;
     A constant BC = BD;
