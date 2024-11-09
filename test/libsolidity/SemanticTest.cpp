@@ -220,33 +220,15 @@ std::string SemanticTest::formatEventParameter(std::optional<AnnotatedEventSigna
 				abiType = ABIType(ABIType::Type::Boolean);
 		}
 
-		// TODO(rgeraldes24)
-		// if (_index < _signature->types.size()) {
-		// 	if (_signature->types.at(_index) == "address")
-		// 		abiType = ABIType(ABIType::Type::AddressHex);
-		// }
+		if (_indexed)
+			_index = _index - 1;
 
-		// std::cout << "Signature:\n";
-		// std::cout << _signature->signature + '\n';
-		// std::cout << "Types:\n";
-		// for (std::string str: _signature->types)
-		// 	std::cout << str + '\n';
-		// std::cout << "Indexed Types:\n";
-		// for (std::string str: _signature->indexedTypes)
-		// 	std::cout << str + '\n';
-		// std::cout << "Non-Indexed Types:\n";
-		// for (std::string str: _signature->nonIndexedTypes)
-		// 	std::cout << str + '\n';
-
+		if (_index < types.size()) {
+			if (types.at(_index) == "address")
+				abiType = ABIType(ABIType::Type::AddressHex);
+		}	
 	}
 	
-	/*
-	std::string res = BytesUtils::formatBytes(_data, abiType);
-	if (res.length() == 42 && res[0] == '0' && res[1] == 'x' ) {
-		res = std::regex_replace(res, std::regex("0x"), "Z");
-		
-	}
-	*/
 	return BytesUtils::formatBytes(_data, abiType);
 }
 

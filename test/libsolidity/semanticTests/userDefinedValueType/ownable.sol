@@ -1,3 +1,4 @@
+// TODO(rgeraldes24)
 // Implementation of OpenZepplin's
 // https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
 // using user defined value types.
@@ -22,9 +23,9 @@ contract Ownable {
     }
 }
 // ----
-// owner() -> Z1212121212121212121212121212120000000012
-// setOwner(address): Z1212121212121212121212121212120000000012 ->
-// ~ emit OwnershipTransferred(address,address): #Z1212121212121212121212121212120000000012, #Z1212121212121212121212121212120000000012
+// owner() -> 0x1212121212121212121212121212120000000012
+// setOwner(address): 0x1212121212121212121212121212120000000012 ->
+// ~ emit OwnershipTransferred(address,address): #0x1212121212121212121212121212120000000012, #0x1212121212121212121212121212120000000012
 // renounceOwnership() ->
 // owner() -> 0
-// setOwner(address): Z1212121212121212121212121212120000000012 -> FAILURE, hex"5fc483c5"
+// setOwner(address): 0x1212121212121212121212121212120000000012 -> FAILURE, hex"5fc483c5"
