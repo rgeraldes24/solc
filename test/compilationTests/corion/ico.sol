@@ -317,6 +317,7 @@ contract ico is safeMath {
         totalMint = safeAdd(totalMint, _reward);
         require( foundationAddress.send(_value * 10 / 100) );
         uint256 extra;
+        // TODO(rgeraldes24): try with address literal instead of uint
         if ( affilateAddress != address(0x00) && ( brought[affilateAddress].eth > 0 || interestDB[affilateAddress][0].amount > 0 ) ) {
             affiliate[affilateAddress].weight = safeAdd(affiliate[affilateAddress].weight, _reward);
             extra = affiliate[affilateAddress].weight;

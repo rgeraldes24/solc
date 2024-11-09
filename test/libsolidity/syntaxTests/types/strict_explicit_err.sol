@@ -1,6 +1,6 @@
 contract B{}
 
-enum E { Zero }
+enum E { Value }
 
 contract C
 {
@@ -32,21 +32,21 @@ contract C
         B p = B(0x00);
 
         int q = int(E(0));
-        int r = int(E.Zero);
+        int r = int(E.Value);
     }
 }
 // ----
-// TypeError 9640: (95-111): Explicit type conversion not allowed from "int8" to "uint16".
-// TypeError 9640: (154-163): Explicit type conversion not allowed from "int8" to "uint16".
-// TypeError 9640: (183-213): Explicit type conversion not allowed from "uint16" to "int8".
-// TypeError 9640: (270-277): Explicit type conversion not allowed from "uint16" to "int8".
-// TypeError 9640: (300-329): Explicit type conversion not allowed from "uint256" to "address".
-// TypeError 9640: (349-365): Explicit type conversion not allowed from "address" to "uint256".
-// TypeError 9640: (421-431): Explicit type conversion not allowed from "uint256" to "address".
-// TypeError 9640: (452-471): Explicit type conversion not allowed from "bytes10" to "int80".
-// TypeError 9640: (493-511): Explicit type conversion not allowed from "int80" to "bytes10".
-// TypeError 9640: (528-539): Explicit type conversion not allowed from "int256" to "contract B".
-// TypeError 9640: (557-569): Explicit type conversion not allowed from "contract B" to "int256".
-// TypeError 9640: (586-593): Explicit type conversion not allowed from "int_const 0" to "contract B".
-// TypeError 9640: (612-621): Explicit type conversion not allowed from "enum E" to "int256".
-// TypeError 9640: (639-650): Explicit type conversion not allowed from "enum E" to "int256".
+// TypeError 9640: (96-112): Explicit type conversion not allowed from "int8" to "uint16".
+// TypeError 9640: (155-164): Explicit type conversion not allowed from "int8" to "uint16".
+// TypeError 9640: (184-214): Explicit type conversion not allowed from "uint16" to "int8".
+// TypeError 9640: (271-278): Explicit type conversion not allowed from "uint16" to "int8".
+// TypeError 9640: (301-330): Explicit type conversion not allowed from "uint256" to "address".
+// TypeError 9640: (350-366): Explicit type conversion not allowed from "address" to "uint256".
+// TypeError 9640: (422-432): Explicit type conversion not allowed from "uint256" to "address".
+// TypeError 9640: (453-472): Explicit type conversion not allowed from "bytes10" to "int80".
+// TypeError 9640: (494-512): Explicit type conversion not allowed from "int80" to "bytes10".
+// TypeError 9640: (529-540): Explicit type conversion not allowed from "int256" to "contract B".
+// TypeError 9640: (558-570): Explicit type conversion not allowed from "contract B" to "int256".
+// TypeError 9640: (587-594): Explicit type conversion not allowed from "int_const 0" to "contract B".
+// TypeError 9640: (613-622): Explicit type conversion not allowed from "enum E" to "int256".
+// TypeError 9640: (640-652): Explicit type conversion not allowed from "enum E" to "int256".

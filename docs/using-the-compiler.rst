@@ -78,10 +78,10 @@ identify which libraries the placeholders represent. Note that the fully qualifi
 is the path of its source file and the library name separated by ``:``.
 You can use ``solc`` as a linker meaning that it will insert the library addresses for you at those points:
 
-Either add ``--libraries "file.sol:Math=0x1234567890123456789012345678901234567890 file.sol:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``solc`` using ``--libraries fileName``.
+Either add ``--libraries "file.sol:Math=Z1234567890123456789012345678901234567890 file.sol:Heap=ZabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``solc`` using ``--libraries fileName``.
 
 .. note::
-    Starting Solidity 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.sol:Math:0x1234567890123456789012345678901234567890 file.sol:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
+    Starting Solidity 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.sol:Math:Z1234567890123456789012345678901234567890 file.sol:Heap:ZabCD567890123456789012345678901234567890"`` will work too.
 
 .. index:: --standard-json, --base-path
 

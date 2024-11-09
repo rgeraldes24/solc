@@ -25,7 +25,7 @@ function leq(Int x, Int y) pure returns (bool) { return Int.unwrap(x) <= Int.unw
 function geq(Int x, Int y) pure returns (bool) { return Int.unwrap(x) >= Int.unwrap(y); }
 
 contract C {
-    Int constant ZERO = Int.wrap(0);
+    Int constant VALUEZERO = Int.wrap(0);
     Int constant ONE = Int.wrap(1);
     Int constant TWO = Int.wrap(2);
     Int constant THREE = Int.wrap(3);
@@ -33,7 +33,7 @@ contract C {
 
     function testBitwise() public pure {
         assert(Int.unwrap(ONE | TWO) == 3);
-        assert(Int.unwrap(ONE | ZERO) == 1);
+        assert(Int.unwrap(ONE | VALUEZERO) == 1);
 
         assert(Int.unwrap(ONE & THREE) == 1);
         assert(Int.unwrap(ONE & ONE) == 1);
@@ -41,20 +41,20 @@ contract C {
         assert(Int.unwrap(TWO ^ TWO) == 0);
         assert(Int.unwrap(TWO ^ ONE) == 3);
 
-        assert(Int.unwrap(~ZERO) == -1);
+        assert(Int.unwrap(~VALUEZERO) == -1);
         assert(Int.unwrap(~ONE) == -2);
         assert(Int.unwrap(~TWO) == -3);
     }
 
     function testArithmetic() public pure {
         assert(Int.unwrap(ONE + TWO) == 3);
-        assert(Int.unwrap(ONE + ZERO) == 1);
+        assert(Int.unwrap(ONE + VALUEZERO) == 1);
 
         assert(Int.unwrap(TWO - ONE) == 1);
         assert(Int.unwrap(THREE - THREE) == 0);
 
         assert(Int.unwrap(-TWO) == -2);
-        assert(Int.unwrap(-ZERO) == 0);
+        assert(Int.unwrap(-VALUEZERO) == 0);
 
         assert(Int.unwrap(ONE * ONE) == 1);
         assert(Int.unwrap(THREE * TWO) == 6);

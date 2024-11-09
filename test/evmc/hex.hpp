@@ -135,6 +135,28 @@ constexpr std::optional<T> from_hex(std::string_view s) noexcept
     return r;
 }
 
+/// Decodes hex-encoded string into custom type T with .bytes array of uint8_t.
+///
+/// When the input is smaller than the result type, the result is padded with zeros on the left
+/// (the result bytes of lowest indices are filled with zeros).
+/// TODO: Support optional left alignment.
+template <typename T>
+constexpr std::optional<T> from_hex_z_prefix(std::string_view s) noexcept
+{
+    // Omit the optional 0x prefix.
+    if (s.size() >= 1 && s[0] == 'Z')
+        s.remove_prefix(1);
+
+    T r{};  // The T must have .bytes array. This may be lifted if std::bit_cast is available.
+    constexpr auto num_out_bytes = std::size(r.bytes);
+    const auto num_in_bytes = s.length() / 2;
+    if (num_in_bytes > num_out_bytes)
+        return {};
+    if (!from_hex(s.begin(), s.end(), &r.bytes[num_out_bytes - num_in_bytes]))
+        return {};
+    return r;
+}
+
 /// Decodes hex encoded string to bytes. The whitespace in the input is ignored.
 ///
 /// In case the input is invalid the returned value is std::nullopt.

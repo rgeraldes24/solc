@@ -1972,6 +1972,7 @@ ASTPointer<Expression> Parser::parseLiteral()
 	case Token::TrueLiteral:
 	case Token::FalseLiteral:
 	case Token::Number:
+	case Token::AddressLiteral:
 	{
 		nodeFactory.markEndPosition();
 		advance();
@@ -2025,6 +2026,7 @@ ASTPointer<Expression> Parser::parsePrimaryExpression()
 	case Token::StringLiteral:
 	case Token::UnicodeStringLiteral:
 	case Token::HexStringLiteral:
+	case Token::AddressLiteral:
 		expression = parseLiteral();
 		break;
 	case Token::Identifier:

@@ -8,7 +8,7 @@ interface I {
     function y() external returns (string memory);
 }
 contract C {
-    I i = I(address(0xcafecafe));
+    I i = I(address(Zcafecafe));
     constructor() payable {}
     function f(uint c) external returns (uint) {
         if (c == 0) i.a();

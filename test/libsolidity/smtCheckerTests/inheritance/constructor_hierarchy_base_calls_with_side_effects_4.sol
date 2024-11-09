@@ -13,15 +13,15 @@ contract B is A {
 	}
 }
 
-abstract contract Z is A {
+abstract contract T is A {
 	uint k;
-	constructor(uint z) {
-		k = z;
+	constructor(uint t) {
+		k = t;
 	}
 }
 
-contract C is Z, B {
-	constructor(uint c) Z(x) B(c) {
+contract C is T, B {
+	constructor(uint c) T(x) B(c) {
 		assert(x == c + 1);
 		assert(k == 0);
 		assert(x == k); // should fail

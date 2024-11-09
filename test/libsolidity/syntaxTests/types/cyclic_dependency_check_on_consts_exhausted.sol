@@ -23,8 +23,10 @@ contract Main {
     A constant V = W;
     A constant W = X;
     A constant X = Y;
-    A constant Y = Z;
-    A constant Z = BA;
+    A constant Y = BA;
+    // TODO(rgeraldes24)
+    // A constant Y = Z;
+    // A constant Z = BA;
     A constant BA = BB;
     A constant BB = BC;
     A constant BC = BD;
@@ -259,4 +261,4 @@ contract Main {
     A constant JX = A(address(0x00));
 }
 // ----
-// DeclarationError 7380: (6105-6123): Variable definition exhausting cyclic dependency validator.
+// DeclarationError 7380: (6183-6215): Variable definition exhausting cyclic dependency validator.
