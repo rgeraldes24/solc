@@ -1,3 +1,3 @@
 CORION contracts, originally from
 
-https://github.com/CORIONplatform/solidity
+https://github.com/CORIONplatform/hyperion

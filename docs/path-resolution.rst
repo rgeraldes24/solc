@@ -4,11 +4,11 @@
 Import Path Resolution
 **********************
 
-In order to be able to support reproducible builds on all platforms, the Solidity compiler has to
+In order to be able to support reproducible builds on all platforms, the Hyperion compiler has to
 abstract away the details of the filesystem where source files are stored.
 Paths used in imports must work the same way everywhere while the command-line interface must be
 able to work with platform-specific paths to provide good user experience.
-This section aims to explain in detail how Solidity reconciles these requirements.
+This section aims to explain in detail how Hyperion reconciles these requirements.
 
 .. index:: ! virtual filesystem, ! VFS, ! source unit name
 .. _virtual-filesystem:
@@ -39,7 +39,7 @@ compilation fails.
 By default, the command-line compiler provides the *Host Filesystem Loader* - a rudimentary callback
 that interprets a source unit name as a path in the local filesystem.
 This callback can be disabled using the ``--no-import-callback`` command-line option.
-The `JavaScript interface <https://github.com/ethereum/solc-js>`_ does not provide any by default,
+The `JavaScript interface <https://github.com/ethereum/hypc-js>`_ does not provide any by default,
 but one can be provided by the user.
 This mechanism can be used to obtain source code from locations other then the local filesystem
 (which may not even be accessible, e.g. when the compiler is running in a browser).
@@ -63,14 +63,14 @@ Initial Content of the Virtual Filesystem
 
 The initial content of the VFS depends on how you invoke the compiler:
 
-#. **solc / command-line interface**
+#. **hypc / command-line interface**
 
    When you compile a file using the command-line interface of the compiler, you provide one or
-   more paths to files containing Solidity code:
+   more paths to files containing Hyperion code:
 
    .. code-block:: bash
 
-       solc contract.sol /usr/local/dapp-bin/token.sol
+       hypc contract.sol /usr/local/dapp-bin/token.sol
 
    The source unit name of a file loaded this way is constructed by converting its path to a
    canonical form and, if possible, making it relative to either the base path or one of the
@@ -83,14 +83,14 @@ The initial content of the VFS depends on how you invoke the compiler:
 #. **Standard JSON**
 
    When using the :ref:`Standard JSON <compiler-api>` API (via either the `JavaScript interface
-   <https://github.com/ethereum/solc-js>`_ or the ``--standard-json`` command-line option)
+   <https://github.com/ethereum/hypc-js>`_ or the ``--standard-json`` command-line option)
    you provide input in JSON format, containing, among other things, the content of all your source
    files:
 
    .. code-block:: json
 
        {
-           "language": "Solidity",
+           "language": "Hyperion",
            "sources": {
                "contract.sol": {
                    "content": "import \"./util.sol\";\ncontract C {}"
@@ -102,7 +102,7 @@ The initial content of the VFS depends on how you invoke the compiler:
                    "content": "contract Token {}"
                }
            },
-           "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+           "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
        }
 
    The ``sources`` dictionary becomes the initial content of the virtual filesystem and its keys
@@ -118,7 +118,7 @@ The initial content of the VFS depends on how you invoke the compiler:
    .. code-block:: json
 
        {
-           "language": "Solidity",
+           "language": "Hyperion",
            "sources": {
                "/usr/local/dapp-bin/token.sol": {
                    "urls": [
@@ -127,7 +127,7 @@ The initial content of the VFS depends on how you invoke the compiler:
                    ]
                }
            },
-           "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+           "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
        }
 
    If an import callback is available, the compiler will give it the strings specified in
@@ -145,7 +145,7 @@ The initial content of the VFS depends on how you invoke the compiler:
 
    .. code-block:: bash
 
-       echo 'import "./util.sol"; contract C {}' | solc -
+       echo 'import "./util.sol"; contract C {}' | hypc -
 
    ``-`` used as one of the arguments instructs the compiler to place the content of the standard
    input in the virtual filesystem under a special source unit name: ``<stdin>``.
@@ -166,7 +166,7 @@ Based on how the import path is specified, we can divide imports into two catego
   to be combined with the source unit name of the importing file.
 
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :caption: contracts/contract.sol
 
     import "./math/math.sol";
@@ -184,7 +184,7 @@ Direct Imports
 
 An import that does not start with ``./`` or ``../`` is a *direct import*.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     import "/project/lib/util.sol";         // source unit name: /project/lib/util.sol
     import "lib/util.sol";                  // source unit name: lib/util.sol
@@ -225,13 +225,13 @@ Relative Imports
 An import starting with ``./`` or ``../`` is a *relative import*.
 Such imports specify a path relative to the source unit name of the importing source unit:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :caption: /project/lib/math.sol
 
     import "./util.sol" as util;    // source unit name: /project/lib/util.sol
     import "../token.sol" as token; // source unit name: /project/token.sol
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :caption: lib/math.sol
 
     import "./util.sol" as util;    // source unit name: lib/util.sol
@@ -276,7 +276,7 @@ If your import paths are already normalized, you can expect the above algorithm 
 intuitive results.
 Here are some examples of what you can expect if they are not:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :caption: lib/src/../contract.sol
 
     import "./util/./util.sol";         // source unit name: lib/src/../util/util.sol
@@ -312,7 +312,7 @@ the library can be found in one of the npm package directories:
 
 .. code-block:: bash
 
-    solc contract.sol \
+    hypc contract.sol \
         --base-path . \
         --include-path node_modules/ \
         --include-path /usr/local/lib/node_modules/
@@ -402,7 +402,7 @@ The resulting file path becomes the source unit name.
 
     .. code-block:: bash
 
-        solc /project/contract.sol --base-path /project --include-path /lib
+        hypc /project/contract.sol --base-path /project --include-path /lib
 
 .. note::
 
@@ -438,7 +438,7 @@ The option accepts a comma-separated list of paths:
 .. code-block:: bash
 
     cd /home/user/project/
-    solc token/contract.sol \
+    hypc token/contract.sol \
         lib/util.sol=libs/util.sol \
         --base-path=token/ \
         --include-path=/lib/ \
@@ -506,11 +506,11 @@ and run the compiler with:
 
 .. code-block:: bash
 
-    solc github.com/ethereum/dapp-bin/=dapp-bin/ --base-path /project source.sol
+    hypc github.com/ethereum/dapp-bin/=dapp-bin/ --base-path /project source.sol
 
 you can use the following in your source file:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     import "github.com/ethereum/dapp-bin/library/math.sol"; // source unit name: dapp-bin/library/math.sol
 
@@ -544,7 +544,7 @@ you checked out to ``/project/dapp-bin_old``, then you can run:
 
 .. code-block:: bash
 
-    solc module1:github.com/ethereum/dapp-bin/=dapp-bin/ \
+    hypc module1:github.com/ethereum/dapp-bin/=dapp-bin/ \
          module2:github.com/ethereum/dapp-bin/=dapp-bin_old/ \
          --base-path /project \
          source.sol
@@ -562,7 +562,7 @@ Here are the detailed rules governing the behavior of remappings:
 
    .. code-block:: bash
 
-       solc /project/=/contracts/ /project/contract.sol # source unit name: /project/contract.sol
+       hypc /project/=/contracts/ /project/contract.sol # source unit name: /project/contract.sol
 
    In the example above the compiler will load the source code from ``/project/contract.sol`` and
    place it under that exact source unit name in the VFS, not under ``/contract/contract.sol``.
@@ -575,9 +575,9 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc ./=a/ /project/=b/ /project/contract.sol # source unit name: /project/contract.sol
+         hypc ./=a/ /project/=b/ /project/contract.sol # source unit name: /project/contract.sol
 
-     .. code-block:: solidity
+     .. code-block:: hyperion
          :caption: /project/contract.sol
 
          import "./util.sol" as util; // source unit name: b/util.sol
@@ -587,9 +587,9 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc /project/=/contracts/ /project/contract.sol --base-path /project # source unit name: contract.sol
+         hypc /project/=/contracts/ /project/contract.sol --base-path /project # source unit name: contract.sol
 
-     .. code-block:: solidity
+     .. code-block:: hyperion
          :caption: /project/contract.sol
 
          import "util.sol" as util; // source unit name: util.sol
@@ -612,9 +612,9 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc /project/=/contracts /project/contract.sol # source unit name: /project/contract.sol
+         hypc /project/=/contracts /project/contract.sol # source unit name: /project/contract.sol
 
-     .. code-block:: solidity
+     .. code-block:: hyperion
          :caption: /project/contract.sol
 
          import "/project/util.sol" as util; // source unit name: /contractsutil.sol
@@ -654,7 +654,7 @@ local path:
 
 .. code-block:: bash
 
-    solc :https://github.com/ethereum/dapp-bin=/usr/local/dapp-bin contract.sol
+    hypc :https://github.com/ethereum/dapp-bin=/usr/local/dapp-bin contract.sol
 
 Note the leading ``:``, which is necessary when the remapping context is empty.
 Otherwise the ``https:`` part would be interpreted by the compiler as the context.

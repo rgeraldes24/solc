@@ -1,6 +1,6 @@
 
 ======= optimizer_inliner_multireturn/input.sol:C =======
-EVM assembly:
+ZVM assembly:
     /* "optimizer_inliner_multireturn/input.sol":162:298  contract C {... */
   mstore(0x40, 0x80)
   callvalue

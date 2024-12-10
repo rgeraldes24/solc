@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -23,7 +23,7 @@
 #include <test/Common.h>
 #include <test/tools/IsolTestOptions.h>
 #include <test/InteractiveTests.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
@@ -39,17 +39,17 @@
 #endif
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity::util::formatting;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion::util::formatting;
 
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
 using TestCreator = TestCase::TestCaseCreator;
-using TestOptions = solidity::test::IsolTestOptions;
+using TestOptions = hyperion::test::IsolTestOptions;
 
 struct TestStats
 {
@@ -81,7 +81,7 @@ public:
 
 	bool matches(fs::path const& _path, string const& _name) const
 	{
-		return regex_match(_name, m_filterExpression) && solidity::test::isValidSemanticTestPath(_path);
+		return regex_match(_name, m_filterExpression) && hyperion::test::isValidSemanticTestPath(_path);
 	}
 
 private:
@@ -120,7 +120,7 @@ public:
 		TestOptions const& _options,
 		fs::path const& _basepath,
 		fs::path const& _path,
-		solidity::test::Batcher& _batcher
+		hyperion::test::Batcher& _batcher
 	);
 private:
 	enum class Request
@@ -158,7 +158,7 @@ TestTool::Result TestTool::process()
 
 			m_test = m_testCaseCreator(TestCase::Config{
 				m_path.string(),
-				m_options.evmVersion(),
+				m_options.zvmVersion(),
 				m_options.vmPaths,
 				m_options.enforceGasTest,
 				m_options.enforceGasTestMinValue
@@ -269,7 +269,7 @@ TestStats TestTool::processPath(
 	TestOptions const& _options,
 	fs::path const& _basepath,
 	fs::path const& _path,
-	solidity::test::Batcher& _batcher
+	hyperion::test::Batcher& _batcher
 )
 {
 	std::queue<fs::path> paths;
@@ -379,7 +379,7 @@ std::optional<TestStats> runTestSuite(
 	fs::path const& _basePath,
 	fs::path const& _subdirectory,
 	string const& _name,
-	solidity::test::Batcher& _batcher
+	hyperion::test::Batcher& _batcher
 )
 {
 	fs::path testPath{_basePath / _subdirectory};
@@ -422,7 +422,7 @@ std::optional<TestStats> runTestSuite(
 
 int main(int argc, char const *argv[])
 {
-	using namespace solidity::test;
+	using namespace hyperion::test;
 
 	try
 	{
@@ -441,7 +441,7 @@ int main(int argc, char const *argv[])
 
 		auto& options = dynamic_cast<IsolTestOptions const&>(CommonOptions::get());
 
-		if (!solidity::test::loadVMs(options))
+		if (!hyperion::test::loadVMs(options))
 			return EXIT_FAILURE;
 
 		if (options.disableSemanticTests)
@@ -508,7 +508,7 @@ int main(int argc, char const *argv[])
 		cerr << exception.what() << endl;
 		return 2;
 	}
-	catch (solidity::test::ConfigException const& exception)
+	catch (hyperion::test::ConfigException const& exception)
 	{
 		cerr << exception.what() << endl;
 		return 2;

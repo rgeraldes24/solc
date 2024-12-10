@@ -10,9 +10,9 @@ EXCLUDE_FILES=(
     "libsolutil/picosha2.h"
     "test/cmdlineTests/strict_asm_only_cr/input.yul"
     "test/libsolutil/UTF8.cpp"
-    "test/libsolidity/syntaxTests/license/license_cr_endings.sol"
-    "test/libsolidity/syntaxTests/license/license_crlf_endings.sol"
-    "test/libsolidity/syntaxTests/license/license_whitespace_trailing.sol"
+    "test/libhyperion/syntaxTests/license/license_cr_endings.sol"
+    "test/libhyperion/syntaxTests/license/license_crlf_endings.sol"
+    "test/libhyperion/syntaxTests/license/license_whitespace_trailing.sol"
     "test/scripts/fixtures/smt_contract_with_crlf_newlines.sol"
     "test/scripts/fixtures/smt_contract_with_cr_newlines.sol"
     "test/scripts/fixtures/smt_contract_with_mixed_newlines.sol"
@@ -21,31 +21,31 @@ EXCLUDE_FILES_JOINED=$(printf "%s\|" "${EXCLUDE_FILES[@]}")
 EXCLUDE_FILES_JOINED=${EXCLUDE_FILES_JOINED%??}
 
 NAMESPACE_STD_FREE_FILES=(
-    libevmasm/*
+    libzvmasm/*
     liblangutil/*
     libsmtutil/*
-    libsolc/*
-    libsolidity/analysis/*
-    libsolidity/ast/*
-    libsolidity/codegen/ir/*
-    libsolidity/codegen/*
-    libsolidity/formal/*
-    libsolidity/interface/*
-    libsolidity/lsp/*
-    libsolidity/parsing/*
+    libhypc/*
+    libhyperion/analysis/*
+    libhyperion/ast/*
+    libhyperion/codegen/ir/*
+    libhyperion/codegen/*
+    libhyperion/formal/*
+    libhyperion/interface/*
+    libhyperion/lsp/*
+    libhyperion/parsing/*
     libsolutil/*
     libyul/*
-    libyul/backends/evm/*
+    libyul/backends/zvm/*
     libyul/optimiser/*
-    solc/*
+    hypc/*
     test/contracts/*
-    test/libevmasm/*
+    test/libzvmasm/*
     test/liblangutil/*
     test/libsolutil/*
-    test/libsolidity/*
-    test/libsolidity/analysis/*
-    test/libsolidity/interface/*
-    test/libsolidity/util/*
+    test/libhyperion/*
+    test/libhyperion/analysis/*
+    test/libhyperion/interface/*
+    test/libhyperion/util/*
 )
 
 (
@@ -53,7 +53,7 @@ REPO_ROOT="$(dirname "$0")"/..
 cd "$REPO_ROOT" || exit 1
 
 WHITESPACE=$(git grep -n -I -E "^.*[[:space:]]+$" |
-    grep -v "test/libsolidity/ASTJSON\|test/compilationTests/zeppelin/LICENSE\|${EXCLUDE_FILES_JOINED}" || true
+    grep -v "test/libhyperion/ASTJSON\|test/compilationTests/zeppelin/LICENSE\|${EXCLUDE_FILES_JOINED}" || true
 )
 
 if [[ "$WHITESPACE" != "" ]]

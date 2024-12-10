@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -36,12 +36,12 @@
 #pragma warning(pop)
 #endif
 
-#include <test/libsolidity/SolidityExecutionFramework.h>
+#include <test/libhyperion/SolidityExecutionFramework.h>
 
-using namespace solidity::test;
-using namespace solidity::util;
+using namespace hyperion::test;
+using namespace hyperion::util;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 static char const* walletCode = R"DELIMITER(
 //sol Wallet
@@ -55,7 +55,7 @@ static char const* walletCode = R"DELIMITER(
 // some number (specified in constructor) of the set of owners (specified in the constructor, modifiable) before the
 // interior is executed.
 
-pragma solidity >=0.4.0 <0.9.0;
+pragma hyperion >=0.4.0 <0.9.0;
 
 contract multiowned {
 
@@ -466,7 +466,7 @@ BOOST_AUTO_TEST_CASE(creation)
 {
 	deployWallet(200);
 	BOOST_REQUIRE(callContractFunction("isOwner(address)", m_sender) == encodeArgs(true));
-	bool v2 = !solidity::test::CommonOptions::get().useABIEncoderV1;
+	bool v2 = !hyperion::test::CommonOptions::get().useABIEncoderV1;
 	BOOST_REQUIRE(callContractFunction("isOwner(address)", h256(~0)) == (v2 ? encodeArgs() : encodeArgs(false)));
 }
 

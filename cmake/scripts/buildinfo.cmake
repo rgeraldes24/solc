@@ -1,44 +1,44 @@
 # generates BuildInfo.h
 #
 # this module expects
-# ETH_SOURCE_DIR - main CMAKE_SOURCE_DIR
-# ETH_DST_DIR - main CMAKE_BINARY_DIR
-# ETH_BUILD_TYPE
-# ETH_BUILD_PLATFORM
+# ZOND_SOURCE_DIR - main CMAKE_SOURCE_DIR
+# ZOND_DST_DIR - main CMAKE_BINARY_DIR
+# ZOND_BUILD_TYPE
+# ZOND_BUILD_PLATFORM
 #
 # example usage:
-# cmake -DETH_SOURCE_DIR=. -DETH_DST_DIR=build -DETH_BUILD_TYPE=Debug -DETH_BUILD_PLATFORM=Darwin.appleclang -P scripts/buildinfo.cmake
+# cmake -DZOND_SOURCE_DIR=. -DZOND_DST_DIR=build -DZOND_BUILD_TYPE=Debug -DZOND_BUILD_PLATFORM=Darwin.appleclang -P scripts/buildinfo.cmake
 #
 # Its main output variables are SOL_VERSION_BUILDINFO and SOL_VERSION_PRERELEASE
 
-if (NOT ETH_BUILD_TYPE)
-	set(ETH_BUILD_TYPE "unknown")
+if (NOT ZOND_BUILD_TYPE)
+	set(ZOND_BUILD_TYPE "unknown")
 endif()
 
-if (NOT ETH_BUILD_PLATFORM)
-	set(ETH_BUILD_PLATFORM "unknown")
+if (NOT ZOND_BUILD_PLATFORM)
+	set(ZOND_BUILD_PLATFORM "unknown")
 endif()
 
 # Logic here: If prerelease.txt exists but is empty, it is a non-pre release.
 # If it does not exist, create our own prerelease string
-if (EXISTS ${ETH_SOURCE_DIR}/prerelease.txt)
-	file(READ ${ETH_SOURCE_DIR}/prerelease.txt SOL_VERSION_PRERELEASE)
+if (EXISTS ${ZOND_SOURCE_DIR}/prerelease.txt)
+	file(READ ${ZOND_SOURCE_DIR}/prerelease.txt SOL_VERSION_PRERELEASE)
 	string(STRIP "${SOL_VERSION_PRERELEASE}" SOL_VERSION_PRERELEASE)
 else()
 	string(TIMESTAMP SOL_VERSION_PRERELEASE "develop.%Y.%m.%d" UTC)
 	string(REPLACE .0 . SOL_VERSION_PRERELEASE "${SOL_VERSION_PRERELEASE}")
 endif()
 
-if (EXISTS ${ETH_SOURCE_DIR}/commit_hash.txt)
-	file(READ ${ETH_SOURCE_DIR}/commit_hash.txt SOL_COMMIT_HASH)
+if (EXISTS ${ZOND_SOURCE_DIR}/commit_hash.txt)
+	file(READ ${ZOND_SOURCE_DIR}/commit_hash.txt SOL_COMMIT_HASH)
 	string(STRIP ${SOL_COMMIT_HASH} SOL_COMMIT_HASH)
 else()
 	execute_process(
-		COMMAND git --git-dir=${ETH_SOURCE_DIR}/.git --work-tree=${ETH_SOURCE_DIR} rev-parse --short=8 HEAD
+		COMMAND git --git-dir=${ZOND_SOURCE_DIR}/.git --work-tree=${ZOND_SOURCE_DIR} rev-parse --short=8 HEAD
 		OUTPUT_VARIABLE SOL_COMMIT_HASH OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET
 	)
 	execute_process(
-		COMMAND git --git-dir=${ETH_SOURCE_DIR}/.git --work-tree=${ETH_SOURCE_DIR} diff HEAD --shortstat
+		COMMAND git --git-dir=${ZOND_SOURCE_DIR}/.git --work-tree=${ZOND_SOURCE_DIR} diff HEAD --shortstat
 		OUTPUT_VARIABLE SOL_LOCAL_CHANGES OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET
 	)
 endif()
@@ -61,14 +61,14 @@ if (SOL_COMMIT_HASH AND SOL_LOCAL_CHANGES)
 endif()
 
 set(SOL_VERSION_COMMIT "commit.${SOL_COMMIT_HASH}")
-set(SOl_VERSION_PLATFORM ETH_BUILD_PLATFORM)
-set(SOL_VERSION_BUILDINFO "commit.${SOL_COMMIT_HASH}.${ETH_BUILD_PLATFORM}")
+set(SOl_VERSION_PLATFORM ZOND_BUILD_PLATFORM)
+set(SOL_VERSION_BUILDINFO "commit.${SOL_COMMIT_HASH}.${ZOND_BUILD_PLATFORM}")
 
-set(TMPFILE "${ETH_DST_DIR}/BuildInfo.h.tmp")
-set(OUTFILE "${ETH_DST_DIR}/BuildInfo.h")
+set(TMPFILE "${ZOND_DST_DIR}/BuildInfo.h.tmp")
+set(OUTFILE "${ZOND_DST_DIR}/BuildInfo.h")
 
-configure_file("${ETH_BUILDINFO_IN}" "${TMPFILE}")
+configure_file("${ZOND_BUILDINFO_IN}" "${TMPFILE}")
 
-include("${ETH_CMAKE_DIR}/EthUtils.cmake")
+include("${ZOND_CMAKE_DIR}/EthUtils.cmake")
 replace_if_different("${TMPFILE}" "${OUTFILE}" CREATE)
 

@@ -1,5 +1,5 @@
 
-======= strict_asm_debug_info_print_location_only/input.yul (EVM) =======
+======= strict_asm_debug_info_print_location_only/input.yul (ZVM) =======
 
 Pretty printed source:
 /// @use-src 0:"input.sol"

@@ -1,6 +1,6 @@
 
 ======= optimizer_user_yul/input.sol:C =======
-EVM assembly:
+ZVM assembly:
     /* "optimizer_user_yul/input.sol":60:518  contract C... */
   mstore(0x40, 0x80)
     /* "optimizer_user_yul/input.sol":101:106  int a */

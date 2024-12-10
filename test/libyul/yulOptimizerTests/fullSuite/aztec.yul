@@ -10,8 +10,8 @@
  * and interopability with public decentralized exchanges.
  * Stay tuned for updates!
  *
- * Permission to use as test case in the Solidity compiler granted by the author:
- * https://github.com/ethereum/solidity/pull/5713#issuecomment-449042830
+ * Permission to use as test case in the Hyperion compiler granted by the author:
+ * https://github.com/ethereum/hyperion/pull/5713#issuecomment-449042830
 **/
 {
     validateJoinSplit()

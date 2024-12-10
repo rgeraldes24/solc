@@ -41,8 +41,8 @@
     "outputSelection": {
       "*": {
         "*": [
-          "evm.bytecode",
-          "evm.bytecode.sourceMap"
+          "zvm.bytecode",
+          "zvm.bytecode.sourceMap"
         ]
       }
     }

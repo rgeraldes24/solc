@@ -13,7 +13,7 @@ JSON AST (compact format):
             "id": 1,
             "literals":
             [
-                "solidity",
+                "hyperion",
                 "*"
             ],
             "nodeType": "PragmaDirective",

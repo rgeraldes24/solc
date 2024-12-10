@@ -171,9 +171,9 @@ def print_ids_per_file(ids, id_to_file_names, top_dir):
 
 def examine_id_coverage(top_dir, source_id_to_file_names, new_ids_only=False):
     test_sub_dirs = [
-        path.join("test", "libsolidity", "natspecJSON"),
-        path.join("test", "libsolidity", "smtCheckerTests"),
-        path.join("test", "libsolidity", "syntaxTests"),
+        path.join("test", "libhyperion", "natspecJSON"),
+        path.join("test", "libhyperion", "smtCheckerTests"),
+        path.join("test", "libhyperion", "syntaxTests"),
         path.join("test", "libyul", "yulSyntaxTests")
     ]
     test_file_names = find_files(
@@ -202,7 +202,7 @@ def examine_id_coverage(top_dir, source_id_to_file_names, new_ids_only=False):
         "4591", # "There are more than 256 warnings. Ignoring the rest."
                 # Due to 3805, the warning lists look different for different compiler builds.
         "1834", # Unimplemented feature error, as we do not test it anymore via cmdLineTests
-        "5430", # basefee being used in inline assembly for EVMVersion < london
+        "5430", # basefee being used in inline assembly for ZVMVersion < london
         "1180", # SMTChecker, covered by CL tests
         "2339", # SMTChecker, covered by CL tests
         "2961", # SMTChecker, covered by CL tests
@@ -286,7 +286,7 @@ def main(argv):
 
     source_file_names = find_files(
         cwd,
-        ["libevmasm", "liblangutil", "libsolc", "libsolidity", "libsolutil", "libyul", "solc"],
+        ["libzvmasm", "liblangutil", "libhypc", "libhyperion", "libsolutil", "libyul", "hypc"],
         [".h", ".cpp"]
     )
     source_id_to_file_names = find_ids_in_source_files(source_file_names)

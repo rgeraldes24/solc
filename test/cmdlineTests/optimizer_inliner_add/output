@@ -1,6 +1,6 @@
 
 ======= optimizer_inliner_add/input.sol:C =======
-EVM assembly:
+ZVM assembly:
     /* "optimizer_inliner_add/input.sol":165:305  contract C {... */
   mstore(0x40, 0x80)
   callvalue

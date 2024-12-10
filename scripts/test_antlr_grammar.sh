@@ -66,7 +66,7 @@ function test_file
       grep -v "^==== ExternalSource:" "${SOL_FILE}" | java \
         -classpath "${ANTLR_JAR}:${WORKDIR}/target/" \
         "org.antlr.v4.gui.TestRig" \
-        Solidity \
+        Hyperion \
         sourceUnit 2>&1
     )
   else
@@ -74,7 +74,7 @@ function test_file
       echo "assembly $(cat "${SOL_FILE}")" | java \
         -classpath "${ANTLR_JAR}:${WORKDIR}/target/" \
         "org.antlr.v4.gui.TestRig" \
-        Solidity \
+        Hyperion \
         assemblyStatement 2>&1
     )
   fi
@@ -110,9 +110,9 @@ do
   SOL_FILES+=("$line")
 done < <(
   grep --include "*.sol" -riL -E \
-    "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental solidity;" \
-    "${ROOT_DIR}/test/libsolidity/syntaxTests" \
-    "${ROOT_DIR}/test/libsolidity/semanticTests" |
+    "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental hyperion;" \
+    "${ROOT_DIR}/test/libhyperion/syntaxTests" \
+    "${ROOT_DIR}/test/libhyperion/semanticTests" |
       # Skipping the unicode tests as I couldn't adapt the lexical grammar to recursively counting RLO/LRO/PDF's.
       grep -v -E 'comments/.*_direction_override.*.sol' |
       grep -v -E 'literals/.*_direction_override.*.sol' |

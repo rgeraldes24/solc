@@ -1,6 +1,6 @@
 
 ======= asm_json/input.sol:C =======
-EVM assembly:
+ZVM assembly:
 {
   ".code":
   [

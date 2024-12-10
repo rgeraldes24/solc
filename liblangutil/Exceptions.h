@@ -1,24 +1,24 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
- * Solidity exception hierarchy.
+ * Hyperion exception hierarchy.
  */
 
 #pragma once
@@ -39,7 +39,7 @@
 #include <variant>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
@@ -65,9 +65,9 @@ struct InvalidAstError: virtual util::Exception {};
 #define solAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::InternalCompilerError, \
+		::hyperion::langutil::InternalCompilerError, \
 		(DESCRIPTION), \
-		"Solidity assertion failed" \
+		"Hyperion assertion failed" \
 	)
 
 
@@ -84,7 +84,7 @@ struct InvalidAstError: virtual util::Exception {};
 #define solUnimplementedAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::UnimplementedFeatureError, \
+		::hyperion::langutil::UnimplementedFeatureError, \
 		(DESCRIPTION), \
 		"Unimplemented feature" \
 	)
@@ -108,7 +108,7 @@ struct InvalidAstError: virtual util::Exception {};
 #define astAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::InvalidAstError, \
+		::hyperion::langutil::InvalidAstError, \
 		(DESCRIPTION), \
 		"AST assertion failed" \
 	)

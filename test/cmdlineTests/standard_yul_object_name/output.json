@@ -5,7 +5,7 @@
         {
             "NamedObject":
             {
-                "evm":
+                "zvm":
                 {
                     "assembly": "    /* \"A\":80:81   */
   0x00

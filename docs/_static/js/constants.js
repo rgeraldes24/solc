@@ -14,10 +14,10 @@ const MOON_ICON_PATH = `${ROOT_URL}/_static/img/moon.svg`;
 const LIGHT_HAMBURGER_PATH = `${ROOT_URL}/_static/img/hamburger-light.svg`;
 const DARK_HAMBURGER_PATH = `${ROOT_URL}/_static/img/hamburger-dark.svg`;
 const COLOR_TOGGLE_ICON_CLASS = "color-toggle-icon";
-const SOLIDITY_LOGO_CLASS = "solidity-logo";
+const SOLIDITY_LOGO_CLASS = "hyperion-logo";
 const LS_COLOR_SCHEME = "color-scheme";
 
-// Solidity navigation constants
+// Hyperion navigation constants
 const SOLIDITY_HOME_URL = "https://soliditylang.org";
 const BLOG_URL = `${SOLIDITY_HOME_URL}/blog`;
 const DOCS_URL = "/";

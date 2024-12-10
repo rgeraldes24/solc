@@ -3,11 +3,11 @@
 
 #pragma once
 
-namespace solidity::stdlib
+namespace hyperion::stdlib
 {
 
 static char const @STDLIB_FILE_NAME@[] = {
 	@STDLIB_FILE_CONTENT@, 0
 };
 
-} // namespace solidity::stdlib
+} // namespace hyperion::stdlib

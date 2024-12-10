@@ -1,5 +1,5 @@
 {
-	"language": "Solidity",
+	"language": "Hyperion",
 	"sources": {
 		"A": {"urls": ["standard_optimizer_invalid_detail_type/in.sol"]}
 	},

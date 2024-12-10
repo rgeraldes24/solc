@@ -34,7 +34,7 @@ def _git_run_command_mock(command):
 def _requests_get_mock(url, params, timeout):
     response_mock = Mock()
 
-    if url == 'https://api.github.com/repos/ethereum/solidity/pulls/12818':
+    if url == 'https://api.github.com/repos/ethereum/hyperion/pulls/12818':
         response_mock.json.return_value = {
             "head": {
                 "ref": "benchmark-downloader",
@@ -48,7 +48,7 @@ def _requests_get_mock(url, params, timeout):
         return response_mock
 
     if (
-        url == 'https://circleci.com/api/v2/project/gh/ethereum/solidity/pipeline' and
+        url == 'https://circleci.com/api/v2/project/gh/ethereum/hyperion/pipeline' and
         params.get('branch') == 'develop'
     ):
         response_mock.json.return_value = {
@@ -95,7 +95,7 @@ def _requests_get_mock(url, params, timeout):
         return response_mock
 
     if (
-        url == 'https://circleci.com/api/v2/project/gh/ethereum/solidity/pipeline' and
+        url == 'https://circleci.com/api/v2/project/gh/ethereum/hyperion/pipeline' and
         params.get('branch') == 'benchmark-downloader'
     ):
         response_mock.json.return_value = {
@@ -154,7 +154,7 @@ def _requests_get_mock(url, params, timeout):
         }
         return response_mock
 
-    if url == 'https://circleci.com/api/v2/project/gh/ethereum/solidity/1018023/artifacts':
+    if url == 'https://circleci.com/api/v2/project/gh/ethereum/hyperion/1018023/artifacts':
         response_mock.json.return_value = {
             "next_page_token": None,
             "items": [

@@ -1,18 +1,18 @@
 /*
-    This file is part of solidity.
+    This file is part of hyperion.
 
-    solidity is free software: you can redistribute it and/or modify
+    hyperion is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    solidity is distributed in the hope that it will be useful,
+    hyperion is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+    along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
  * @date 2018
@@ -21,15 +21,15 @@
 
 #include <test/Common.h>
 
-#include <test/libsolidity/ErrorCheck.h>
+#include <test/libhyperion/ErrorCheck.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/Scanner.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -44,10 +44,10 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 namespace
@@ -58,9 +58,9 @@ pair<bool, ErrorList> parse(string const& _source)
 	try
 	{
 		YulStack asmStack(
-			solidity::test::CommonOptions::get().evmVersion(),
+			hyperion::test::CommonOptions::get().zvmVersion(),
 			YulStack::Language::StrictAssembly,
-			solidity::frontend::OptimiserSettings::none(),
+			hyperion::frontend::OptimiserSettings::none(),
 			DebugInfoSelection::All()
 		);
 		bool success = asmStack.parseAndAnalyze("source", _source);
@@ -119,7 +119,7 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::shanghai());
+	Dialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(ZVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");
 	auto object = objectParser.parse(make_shared<Scanner>(stream), false);
@@ -134,7 +134,7 @@ do \
 { \
 	Error err = expectError((text), false); \
 	BOOST_CHECK(err.type() == (Error::Type::typ)); \
-	BOOST_CHECK(::solidity::frontend::test::searchErrorMessage(err, (substring))); \
+	BOOST_CHECK(::hyperion::frontend::test::searchErrorMessage(err, (substring))); \
 } while(0)
 
 BOOST_AUTO_TEST_SUITE(YulObjectParser)
@@ -180,9 +180,9 @@ BOOST_AUTO_TEST_CASE(to_string)
 )";
 	expectation = boost::replace_all_copy(expectation, "\t", "    ");
 	YulStack asmStack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().zvmVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::none(),
+		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()
 	);
 	BOOST_REQUIRE(asmStack.parseAndAnalyze("source", code));

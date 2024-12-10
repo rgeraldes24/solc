@@ -8,7 +8,7 @@
 
 #include <random>
 
-namespace solidity::yul::test::yul_fuzzer
+namespace hyperion::yul::test::yul_fuzzer
 {
 
 using ProtobufMessage = google::protobuf::Message;

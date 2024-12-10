@@ -1,5 +1,5 @@
 {
-	"language": "Solidity",
+	"language": "Hyperion",
 	"sources": {
 		"C": {"urls": ["standard_outputs_on_parsing_error/in.sol"]}
 	},

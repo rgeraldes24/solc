@@ -1,25 +1,25 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
 #include <test/libyul/YulOptimizerTest.h>
 #include <test/libyul/YulOptimizerTestCommon.h>
 
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 #include <test/libyul/Common.h>
 #include <test/Common.h>
 
@@ -35,17 +35,17 @@
 
 #include <fstream>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 YulOptimizerTest::YulOptimizerTest(string const& _filename):
-	EVMVersionRestrictedTestCase(_filename)
+	ZVMVersionRestrictedTestCase(_filename)
 {
 	boost::filesystem::path path(_filename);
 
@@ -55,8 +55,8 @@ YulOptimizerTest::YulOptimizerTest(string const& _filename):
 
 	m_source = m_reader.source();
 
-	auto dialectName = m_reader.stringSetting("dialect", "evm");
-	m_dialect = &dialect(dialectName, solidity::test::CommonOptions::get().evmVersion());
+	auto dialectName = m_reader.stringSetting("dialect", "zvm");
+	m_dialect = &dialect(dialectName, hyperion::test::CommonOptions::get().zvmVersion());
 
 	m_expectation = m_reader.simpleExpectations();
 }

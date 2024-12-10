@@ -54,14 +54,14 @@ set -e
 mkdir -p upload
 
 if [ ! -f upload/soljson.js ]; then
-  if [ -f build/solc/soljson.js ]; then
-    cp build/solc/soljson.js upload
-  elif [ -f build/libsolc/soljson.js ]; then
-    cp build/libsolc/soljson.js upload
-  elif [ -f emscripten_build/solc/soljson.js ]; then
-    cp emscripten_build/solc/soljson.js upload
-  elif [ -f emscripten_build/libsolc/soljson.js ]; then
-    cp emscripten_build/libsolc/soljson.js upload
+  if [ -f build/hypc/soljson.js ]; then
+    cp build/hypc/soljson.js upload
+  elif [ -f build/libhypc/soljson.js ]; then
+    cp build/libhypc/soljson.js upload
+  elif [ -f emscripten_build/hypc/soljson.js ]; then
+    cp emscripten_build/hypc/soljson.js upload
+  elif [ -f emscripten_build/libhypc/soljson.js ]; then
+    cp emscripten_build/libhypc/soljson.js upload
   fi
 fi
 

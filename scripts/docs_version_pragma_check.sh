@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2016 solidity contributors.
+# (c) 2016 hyperion contributors.
 #------------------------------------------------------------------------------
 
 # This script verifies that the examples compile with the oldest version mentioned in the pragma.
@@ -92,17 +92,17 @@ function findMinimalVersion
     local pragmaVersion
 
     # Get minimum compiler version defined by pragma
-    if (grep -Po '(?<=pragma solidity >=)\d+.\d+.\d+' "$f" >/dev/null)
+    if (grep -Po '(?<=pragma hyperion >=)\d+.\d+.\d+' "$f" >/dev/null)
     then
-        pragmaVersion="$(grep -Po '(?<=pragma solidity >=)\d+.\d+.\d+' "$f")"
+        pragmaVersion="$(grep -Po '(?<=pragma hyperion >=)\d+.\d+.\d+' "$f")"
         sign=">="
-    elif (grep -Po '(?<=pragma solidity \^)\d+.\d+.\d+' "$f" >/dev/null)
+    elif (grep -Po '(?<=pragma hyperion \^)\d+.\d+.\d+' "$f" >/dev/null)
     then
-        pragmaVersion="$(grep -Po '(?<=pragma solidity \^)\d+.\d+.\d+' "$f")"
+        pragmaVersion="$(grep -Po '(?<=pragma hyperion \^)\d+.\d+.\d+' "$f")"
         sign="^"
-    elif (grep -Po '(?<=pragma solidity >)\d+.\d+.\d+' "$f" >/dev/null)
+    elif (grep -Po '(?<=pragma hyperion >)\d+.\d+.\d+' "$f" >/dev/null)
     then
-        pragmaVersion="$(grep -Po '(?<=pragma solidity >)\d+.\d+.\d+' "$f")"
+        pragmaVersion="$(grep -Po '(?<=pragma hyperion >)\d+.\d+.\d+' "$f")"
         sign=">"
         greater=true;
     else
@@ -175,24 +175,24 @@ SOLTMPDIR=$(mktemp -d)
 
         opts+=(-v "$version")
 
-        solc_bin="solc-$version"
-        echo "$solc_bin"
-        if [[ ! -f "$solc_bin" ]]
+        hypc_bin="hypc-$version"
+        echo "$hypc_bin"
+        if [[ ! -f "$hypc_bin" ]]
         then
             echo "Downloading release from github..."
-            if wget -q "https://github.com/ethereum/solidity/releases/download/v$version/solc-static-linux" >/dev/null
+            if wget -q "https://github.com/ethereum/hyperion/releases/download/v$version/hypc-static-linux" >/dev/null
             then
-                mv solc-static-linux "$solc_bin"
+                mv hypc-static-linux "$hypc_bin"
             else
                 printError "No release $version was found on github!"
                 continue
             fi
         fi
 
-        ln -sf "$solc_bin" "solc"
-        chmod a+x solc
+        ln -sf "$hypc_bin" "hypc"
+        chmod a+x hypc
 
-        SOLC="$SOLTMPDIR/solc" compileFull "${opts[@]}" "$SOLTMPDIR/$f"
+        HYPC="$SOLTMPDIR/hypc" compileFull "${opts[@]}" "$SOLTMPDIR/$f"
     done
 )
 rm -rf "$SOLTMPDIR"

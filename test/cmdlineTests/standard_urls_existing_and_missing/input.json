@@ -1,5 +1,5 @@
 {
-    "language": "Solidity",
+    "language": "Hyperion",
     "sources": {
         "url_not_found.sol": {
             "urls": [
@@ -9,5 +9,5 @@
             ]
         }
     },
-    "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+    "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
 }

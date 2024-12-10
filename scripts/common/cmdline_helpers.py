@@ -13,7 +13,7 @@ from bytecodecompare.prepare_report import parse_cli_output
 
 DEFAULT_PREAMBLE = dedent("""
     // SPDX-License-Identifier: UNLICENSED
-    pragma solidity >=0.0;
+    pragma hyperion >=0.0;
 """)
 
 
@@ -37,13 +37,13 @@ def inside_temporary_dir(prefix):
     return tmp_dir_decorator
 
 
-def solc_bin_report(solc_binary: str, input_files: List[Path], via_ir: bool) -> FileReport:
+def hypc_bin_report(hypc_binary: str, input_files: List[Path], via_ir: bool) -> FileReport:
     """
-    Runs the solidity compiler binary
+    Runs the hyperion compiler binary
     """
 
     output = subprocess.check_output(
-        [solc_binary, '--bin'] +
+        [hypc_binary, '--bin'] +
         input_files +
         (['--via-ir'] if via_ir else []),
         encoding='utf8',

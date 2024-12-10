@@ -7,5 +7,5 @@ Error: Unknown pragma "thisdoesntexist"
 1 | pragma thisdoesntexist;
 | ^^^^^^^^^^^^^^^^^^^^^^^
 
-Warning: Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.0;"
+Warning: Source file does not specify required compiler version! Consider adding "pragma hyperion ^0.8.0;"
 --> syntaxTests/pragma/unknown_pragma.sol

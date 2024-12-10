@@ -5,7 +5,7 @@
         {
             "A1":
             {
-                "evm":
+                "zvm":
                 {
                     "bytecode":
                     {
@@ -18,7 +18,7 @@
         {
             "A1":
             {
-                "evm":
+                "zvm":
                 {
                     "bytecode":
                     {

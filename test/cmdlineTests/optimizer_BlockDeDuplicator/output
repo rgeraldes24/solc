@@ -1,6 +1,6 @@
 
 ======= optimizer_BlockDeDuplicator/input.sol:C =======
-EVM assembly:
+ZVM assembly:
     /* "optimizer_BlockDeDuplicator/input.sol":60:213  contract C {... */
   mstore(0x40, 0x80)
     /* "optimizer_BlockDeDuplicator/input.sol":179:210  function() r = true ? fun_x : f */

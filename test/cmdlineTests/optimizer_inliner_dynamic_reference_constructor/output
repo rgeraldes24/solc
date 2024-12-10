@@ -1,6 +1,6 @@
 
 ======= optimizer_inliner_dynamic_reference_constructor/input.sol:C =======
-EVM assembly:
+ZVM assembly:
     /* "optimizer_inliner_dynamic_reference_constructor/input.sol":60:361  contract C {... */
   mstore(0x40, 0x80)
     /* "optimizer_inliner_dynamic_reference_constructor/input.sol":77:101  constructor() { x = f; } */
