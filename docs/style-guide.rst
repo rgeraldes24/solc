@@ -274,7 +274,7 @@ Yes:
     // SPDX-License-Identifier: GPL-3.0
     pragma hyperion >=0.4.0 <0.9.0;
 
-    import "./Owned.sol";
+    import "./Owned.hyp";
 
     contract A {
         // ...
@@ -297,7 +297,7 @@ No:
     }
 
 
-    import "./Owned.sol";
+    import "./Owned.hyp";
 
 
     contract B is Owned {
@@ -1143,7 +1143,7 @@ Contract and Library Names
 * Contract and library names should also match their filenames.
 * If a contract file includes multiple contracts and/or libraries, then the filename should match the *core contract*. This is not recommended however if it can be avoided.
 
-As shown in the example below, if the contract name is ``Congress`` and the library name is ``Owned``, then their associated filenames should be ``Congress.sol`` and ``Owned.sol``.
+As shown in the example below, if the contract name is ``Congress`` and the library name is ``Owned``, then their associated filenames should be ``Congress.hyp`` and ``Owned.hyp``.
 
 Yes:
 
@@ -1152,7 +1152,7 @@ Yes:
     // SPDX-License-Identifier: GPL-3.0
     pragma hyperion >=0.7.0 <0.9.0;
 
-    // Owned.sol
+    // Owned.hyp
     contract Owned {
         address public owner;
 
@@ -1170,14 +1170,14 @@ Yes:
         }
     }
 
-and in ``Congress.sol``:
+and in ``Congress.hyp``:
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma hyperion >=0.4.0 <0.9.0;
 
-    import "./Owned.sol";
+    import "./Owned.hyp";
 
 
     contract Congress is Owned, TokenRecipient {
@@ -1191,7 +1191,7 @@ No:
     // SPDX-License-Identifier: GPL-3.0
     pragma hyperion >=0.7.0 <0.9.0;
 
-    // owned.sol
+    // owned.hyp
     contract owned {
         address public owner;
 
@@ -1209,7 +1209,7 @@ No:
         }
     }
 
-and in ``Congress.sol``:
+and in ``Congress.hyp``:
 
 .. code-block:: hyperion
 
@@ -1217,7 +1217,7 @@ and in ``Congress.sol``:
     pragma hyperion ^0.7.0;
 
 
-    import "./owned.sol";
+    import "./owned.hyp";
 
 
     contract Congress is owned, tokenRecipient {

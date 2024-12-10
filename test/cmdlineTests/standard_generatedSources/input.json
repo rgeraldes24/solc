@@ -1,7 +1,7 @@
 {
  "language": "Hyperion",
  "sources": {
-  "a.sol": {
+  "a.hyp": {
    "content": "// SPDX-License-Identifier: GPL-3.0\npragma abicoder v2; contract A { function f(uint[] memory) public view returns (uint256) { } }"
   }
  },

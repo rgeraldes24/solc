@@ -199,8 +199,8 @@ BOOST_AUTO_TEST_CASE(cli_input)
 {
 	TemporaryDirectory tempDir1(TEST_CASE_NAME);
 	TemporaryDirectory tempDir2(TEST_CASE_NAME);
-	createFilesWithParentDirs({tempDir1.path() / "input1.sol"});
-	createFilesWithParentDirs({tempDir2.path() / "input2.sol"});
+	createFilesWithParentDirs({tempDir1.path() / "input1.hyp"});
+	createFilesWithParentDirs({tempDir2.path() / "input2.hyp"});
 
 	boost::filesystem::path expectedRootPath = FileReader::normalizeCLIRootPathForVFS(tempDir1);
 	boost::filesystem::path expectedDir1 = expectedRootPath / tempDir1.path().relative_path();
@@ -214,8 +214,8 @@ BOOST_AUTO_TEST_CASE(cli_input)
 	};
 	map<string, string> expectedSources = {
 		{"<stdin>", ""},
-		{(expectedDir1 / "input1.sol").generic_string(), ""},
-		{(expectedDir2 / "input2.sol").generic_string(), ""},
+		{(expectedDir1 / "input1.hyp").generic_string(), ""},
+		{(expectedDir2 / "input2.hyp").generic_string(), ""},
 	};
 	PathSet expectedAllowedPaths = {
 		boost::filesystem::canonical(tempDir1),
@@ -227,8 +227,8 @@ BOOST_AUTO_TEST_CASE(cli_input)
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({
 		"hypc",
 		"a=b/c/d",
-		(tempDir1.path() / "input1.sol").string(),
-		(tempDir2.path() / "input2.sol").string(),
+		(tempDir1.path() / "input1.hyp").string(),
+		(tempDir2.path() / "input2.hyp").string(),
 		"a:b=c/d/e/",
 		"-",
 	});
@@ -246,25 +246,25 @@ BOOST_AUTO_TEST_CASE(cli_ignore_missing_some_files_exist)
 {
 	TemporaryDirectory tempDir1(TEST_CASE_NAME);
 	TemporaryDirectory tempDir2(TEST_CASE_NAME);
-	createFilesWithParentDirs({tempDir1.path() / "input1.sol"});
+	createFilesWithParentDirs({tempDir1.path() / "input1.hyp"});
 
 	boost::filesystem::path expectedRootPath = FileReader::normalizeCLIRootPathForVFS(tempDir1);
 	boost::filesystem::path expectedDir1 = expectedRootPath / tempDir1.path().relative_path();
 	soltestAssert(expectedDir1.is_absolute() || expectedDir1.root_path() == "/", "");
 
 	// NOTE: Allowed paths should not be added for skipped files.
-	map<string, string> expectedSources = {{(expectedDir1 / "input1.sol").generic_string(), ""}};
+	map<string, string> expectedSources = {{(expectedDir1 / "input1.hyp").generic_string(), ""}};
 	PathSet expectedAllowedPaths = {boost::filesystem::canonical(tempDir1)};
 
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({
 		"hypc",
-		(tempDir1.path() / "input1.sol").string(),
-		(tempDir2.path() / "input2.sol").string(),
+		(tempDir1.path() / "input1.hyp").string(),
+		(tempDir2.path() / "input2.hyp").string(),
 		"--ignore-missing",
 		"--no-color",
 	});
 	BOOST_TEST(result.success);
-	BOOST_TEST(result.stderrContent == "Info: \"" + (tempDir2.path() / "input2.sol").string() + "\" is not found. Skipping.\n");
+	BOOST_TEST(result.stderrContent == "Info: \"" + (tempDir2.path() / "input2.hyp").string() + "\" is not found. Skipping.\n");
 	BOOST_TEST(result.options.input.mode == InputMode::Compiler);
 	BOOST_TEST(!result.options.input.addStdin);
 	BOOST_CHECK_EQUAL(result.reader.sourceUnits(), expectedSources);
@@ -276,14 +276,14 @@ BOOST_AUTO_TEST_CASE(cli_ignore_missing_no_files_exist)
 	TemporaryDirectory tempDir(TEST_CASE_NAME);
 
 	string expectedMessage =
-		"Info: \"" + (tempDir.path() / "input1.sol").string() + "\" is not found. Skipping.\n"
-		"Info: \"" + (tempDir.path() / "input2.sol").string() + "\" is not found. Skipping.\n"
+		"Info: \"" + (tempDir.path() / "input1.hyp").string() + "\" is not found. Skipping.\n"
+		"Info: \"" + (tempDir.path() / "input2.hyp").string() + "\" is not found. Skipping.\n"
 		"Error: All specified input files either do not exist or are not regular files.\n";
 
 	OptionsReaderAndMessages result = runCLI({
 		"hypc",
-		(tempDir.path() / "input1.sol").string(),
-		(tempDir.path() / "input2.sol").string(),
+		(tempDir.path() / "input1.hyp").string(),
+		(tempDir.path() / "input2.hyp").string(),
 		"--ignore-missing",
 		"--no-color",
 	});
@@ -439,26 +439,26 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_no_base_path)
 
 	vector<string> commandLine = {
 		"hypc",
-		"contract1.sol",                                   // Relative path
-		"c/d/contract2.sol",                               // Relative path with subdirectories
-		currentDirNoSymlinks.string() + "/contract3.sol",  // Absolute path inside working dir
-		otherDirNoSymlinks.string() + "/contract4.sol",    // Absolute path outside of working dir
+		"contract1.hyp",                                   // Relative path
+		"c/d/contract2.hyp",                               // Relative path with subdirectories
+		currentDirNoSymlinks.string() + "/contract3.hyp",  // Absolute path inside working dir
+		otherDirNoSymlinks.string() + "/contract4.hyp",    // Absolute path outside of working dir
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"contract1.sol",
-		"c/d/contract2.sol",
-		currentDirNoSymlinks / "contract3.sol",
-		otherDirNoSymlinks / "contract4.sol",
+		"contract1.hyp",
+		"c/d/contract2.hyp",
+		currentDirNoSymlinks / "contract3.hyp",
+		otherDirNoSymlinks / "contract4.hyp",
 	};
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{"contract1.sol", ""},
-		{"c/d/contract2.sol", ""},
-		{"contract3.sol", ""},
-		{expectedOtherDir.generic_string() + "/contract4.sol", ""},
+		{"contract1.hyp", ""},
+		{"c/d/contract2.hyp", ""},
+		{"contract3.hyp", ""},
+		{expectedOtherDir.generic_string() + "/contract4.hyp", ""},
 	};
 
 	FileReader::FileSystemPathSet expectedAllowedDirectories = {
@@ -500,27 +500,27 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_same_as_work_dir)
 	vector<string> commandLine = {
 		"hypc",
 		"--base-path=" + currentDirNoSymlinks.string(),
-		"contract1.sol",                                   // Relative path
-		"c/d/contract2.sol",                               // Relative path with subdirectories
-		currentDirNoSymlinks.string() + "/contract3.sol",  // Absolute path inside working dir
-		otherDirNoSymlinks.string() + "/contract4.sol",    // Absolute path outside of working dir
+		"contract1.hyp",                                   // Relative path
+		"c/d/contract2.hyp",                               // Relative path with subdirectories
+		currentDirNoSymlinks.string() + "/contract3.hyp",  // Absolute path inside working dir
+		otherDirNoSymlinks.string() + "/contract4.hyp",    // Absolute path outside of working dir
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"contract1.sol",
-		"c/d/contract2.sol",
-		currentDirNoSymlinks / "contract3.sol",
-		otherDirNoSymlinks / "contract4.sol",
+		"contract1.hyp",
+		"c/d/contract2.hyp",
+		currentDirNoSymlinks / "contract3.hyp",
+		otherDirNoSymlinks / "contract4.hyp",
 	};
 	expectedOptions.input.basePath = currentDirNoSymlinks;
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{"contract1.sol", ""},
-		{"c/d/contract2.sol", ""},
-		{"contract3.sol", ""},
-		{expectedOtherDir.generic_string() + "/contract4.sol", ""},
+		{"contract1.hyp", ""},
+		{"c/d/contract2.hyp", ""},
+		{"contract3.hyp", ""},
+		{expectedOtherDir.generic_string() + "/contract4.hyp", ""},
 	};
 
 	FileReader::FileSystemPathSet expectedAllowedDirectories = {
@@ -569,30 +569,30 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_different_from_wor
 	vector<string> commandLine = {
 		"hypc",
 		"--base-path=" + baseDirNoSymlinks.string(),
-		"contract1.sol",                                   // Relative path
-		"c/d/contract2.sol",                               // Relative path with subdirectories
-		currentDirNoSymlinks.string() + "/contract3.sol",  // Absolute path inside working dir
-		otherDirNoSymlinks.string() + "/contract4.sol",    // Absolute path outside of working dir
-		baseDirNoSymlinks.string() + "/contract5.sol",     // Absolute path inside base path
+		"contract1.hyp",                                   // Relative path
+		"c/d/contract2.hyp",                               // Relative path with subdirectories
+		currentDirNoSymlinks.string() + "/contract3.hyp",  // Absolute path inside working dir
+		otherDirNoSymlinks.string() + "/contract4.hyp",    // Absolute path outside of working dir
+		baseDirNoSymlinks.string() + "/contract5.hyp",     // Absolute path inside base path
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"contract1.sol",
-		"c/d/contract2.sol",
-		currentDirNoSymlinks / "contract3.sol",
-		otherDirNoSymlinks / "contract4.sol",
-		baseDirNoSymlinks / "contract5.sol",
+		"contract1.hyp",
+		"c/d/contract2.hyp",
+		currentDirNoSymlinks / "contract3.hyp",
+		otherDirNoSymlinks / "contract4.hyp",
+		baseDirNoSymlinks / "contract5.hyp",
 	};
 	expectedOptions.input.basePath = baseDirNoSymlinks;
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{expectedWorkDir.generic_string() + "/contract1.sol", ""},
-		{expectedWorkDir.generic_string() + "/c/d/contract2.sol", ""},
-		{expectedCurrentDir.generic_string() + "/contract3.sol", ""},
-		{expectedOtherDir.generic_string() + "/contract4.sol", ""},
-		{"contract5.sol", ""},
+		{expectedWorkDir.generic_string() + "/contract1.hyp", ""},
+		{expectedWorkDir.generic_string() + "/c/d/contract2.hyp", ""},
+		{expectedCurrentDir.generic_string() + "/contract3.hyp", ""},
+		{expectedOtherDir.generic_string() + "/contract4.hyp", ""},
+		{"contract5.hyp", ""},
 	};
 
 	FileReader::FileSystemPathSet expectedAllowedDirectories = {
@@ -635,33 +635,33 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_relative_base_path)
 	vector<string> commandLine = {
 		"hypc",
 		"--base-path=base",
-		"contract1.sol",                                       // Relative path outside of base path
-		"base/contract2.sol",                                  // Relative path inside base path
-		currentDirNoSymlinks.string() + "/contract3.sol",      // Absolute path inside working dir
-		currentDirNoSymlinks.string() + "/base/contract4.sol", // Absolute path inside base path
-		otherDirNoSymlinks.string() + "/contract5.sol",        // Absolute path outside of working dir
-		otherDirNoSymlinks.string() + "/base/contract6.sol",   // Absolute path outside of working dir
+		"contract1.hyp",                                       // Relative path outside of base path
+		"base/contract2.hyp",                                  // Relative path inside base path
+		currentDirNoSymlinks.string() + "/contract3.hyp",      // Absolute path inside working dir
+		currentDirNoSymlinks.string() + "/base/contract4.hyp", // Absolute path inside base path
+		otherDirNoSymlinks.string() + "/contract5.hyp",        // Absolute path outside of working dir
+		otherDirNoSymlinks.string() + "/base/contract6.hyp",   // Absolute path outside of working dir
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"contract1.sol",
-		"base/contract2.sol",
-		currentDirNoSymlinks / "contract3.sol",
-		currentDirNoSymlinks / "base/contract4.sol",
-		otherDirNoSymlinks / "contract5.sol",
-		otherDirNoSymlinks / "base/contract6.sol",
+		"contract1.hyp",
+		"base/contract2.hyp",
+		currentDirNoSymlinks / "contract3.hyp",
+		currentDirNoSymlinks / "base/contract4.hyp",
+		otherDirNoSymlinks / "contract5.hyp",
+		otherDirNoSymlinks / "base/contract6.hyp",
 	};
 	expectedOptions.input.basePath = "base";
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{expectedWorkDir.generic_string() + "/contract1.sol", ""},
-		{"contract2.sol", ""},
-		{expectedWorkDir.generic_string() + "/contract3.sol", ""},
-		{"contract4.sol", ""},
-		{expectedOtherDir.generic_string() + "/contract5.sol", ""},
-		{expectedOtherDir.generic_string() + "/base/contract6.sol", ""},
+		{expectedWorkDir.generic_string() + "/contract1.hyp", ""},
+		{"contract2.hyp", ""},
+		{expectedWorkDir.generic_string() + "/contract3.hyp", ""},
+		{"contract4.hyp", ""},
+		{expectedOtherDir.generic_string() + "/contract5.hyp", ""},
+		{expectedOtherDir.generic_string() + "/base/contract6.hyp", ""},
 	};
 
 	FileReader::FileSystemPathSet expectedAllowedDirectories = {
@@ -703,33 +703,33 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_normalization_and_weird_name
 #if !defined(_WIN32)
 		// URLs. We interpret them as local paths.
 		// Note that : is not allowed in file names on Windows.
-		"file://c/d/contract1.sol",
-		"file:///c/d/contract2.sol",
-		"https://example.com/contract3.sol",
+		"file://c/d/contract1.hyp",
+		"file:///c/d/contract2.hyp",
+		"https://example.com/contract3.hyp",
 #endif
 
 		// Redundant slashes
-		"a/b//contract4.sol",
-		"a/b///contract5.sol",
-		"a/b////contract6.sol",
+		"a/b//contract4.hyp",
+		"a/b///contract5.hyp",
+		"a/b////contract6.hyp",
 
 		// Dot segments
-		"./a/b/contract7.sol",
-		"././a/b/contract8.sol",
-		"a/./b/contract9.sol",
-		"a/././b/contract10.sol",
+		"./a/b/contract7.hyp",
+		"././a/b/contract8.hyp",
+		"a/./b/contract9.hyp",
+		"a/././b/contract10.hyp",
 
 		// Dot dot segments
-		"../a/b/contract11.sol",
-		"../../a/b/contract12.sol",
-		"a/../b/contract13.sol",
-		"a/b/../../contract14.sol",
-		tempDirNoSymlinks.string() + "/x/y/z/a/../b/contract15.sol",
-		tempDirNoSymlinks.string() + "/x/y/z/a/b/../../contract16.sol",
+		"../a/b/contract11.hyp",
+		"../../a/b/contract12.hyp",
+		"a/../b/contract13.hyp",
+		"a/b/../../contract14.hyp",
+		tempDirNoSymlinks.string() + "/x/y/z/a/../b/contract15.hyp",
+		tempDirNoSymlinks.string() + "/x/y/z/a/b/../../contract16.hyp",
 
 		// Dot dot segments going beyond filesystem root
-		"/../" + tempDir.path().relative_path().generic_string() + "/contract17.sol",
-		"/../../" + tempDir.path().relative_path().generic_string() + "/contract18.sol",
+		"/../" + tempDir.path().relative_path().generic_string() + "/contract17.hyp",
+		"/../../" + tempDir.path().relative_path().generic_string() + "/contract18.hyp",
 
 #if !defined(_WIN32)
 		// Name conflict with source unit name of stdin.
@@ -738,86 +738,86 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_normalization_and_weird_name
 
 		// UNC paths on UNIX just resolve into normal paths. On Windows this would be an network
 		// share (and an error unless the share actually exists so I can't test it here).
-		uncPath + "/contract19.sol",
+		uncPath + "/contract19.hyp",
 
 		// Windows paths on non-Windows systems.
 		// Note that on Windows we tested them already just by using absolute paths.
-		"a\\b\\contract20.sol",
-		"C:\\a\\b\\contract21.sol",
+		"a\\b\\contract20.hyp",
+		"C:\\a\\b\\contract21.hyp",
 #endif
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
 #if !defined(_WIN32)
-		"file://c/d/contract1.sol",
-		"file:///c/d/contract2.sol",
-		"https://example.com/contract3.sol",
+		"file://c/d/contract1.hyp",
+		"file:///c/d/contract2.hyp",
+		"https://example.com/contract3.hyp",
 #endif
 
-		"a/b//contract4.sol",
-		"a/b///contract5.sol",
-		"a/b////contract6.sol",
+		"a/b//contract4.hyp",
+		"a/b///contract5.hyp",
+		"a/b////contract6.hyp",
 
-		"./a/b/contract7.sol",
-		"././a/b/contract8.sol",
-		"a/./b/contract9.sol",
-		"a/././b/contract10.sol",
+		"./a/b/contract7.hyp",
+		"././a/b/contract8.hyp",
+		"a/./b/contract9.hyp",
+		"a/././b/contract10.hyp",
 
-		"../a/b/contract11.sol",
-		"../../a/b/contract12.sol",
-		"a/../b/contract13.sol",
-		"a/b/../../contract14.sol",
-		tempDirNoSymlinks.string() + "/x/y/z/a/../b/contract15.sol",
-		tempDirNoSymlinks.string() + "/x/y/z/a/b/../../contract16.sol",
+		"../a/b/contract11.hyp",
+		"../../a/b/contract12.hyp",
+		"a/../b/contract13.hyp",
+		"a/b/../../contract14.hyp",
+		tempDirNoSymlinks.string() + "/x/y/z/a/../b/contract15.hyp",
+		tempDirNoSymlinks.string() + "/x/y/z/a/b/../../contract16.hyp",
 
-		"/../" + tempDir.path().relative_path().string() + "/contract17.sol",
-		"/../../" + tempDir.path().relative_path().string() + "/contract18.sol",
+		"/../" + tempDir.path().relative_path().string() + "/contract17.hyp",
+		"/../../" + tempDir.path().relative_path().string() + "/contract18.hyp",
 
 #if !defined(_WIN32)
 		"<stdin>",
 
-		uncPath + "/contract19.sol",
+		uncPath + "/contract19.hyp",
 
-		"a\\b\\contract20.sol",
-		"C:\\a\\b\\contract21.sol",
+		"a\\b\\contract20.hyp",
+		"C:\\a\\b\\contract21.hyp",
 #endif
 	};
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
 #if !defined(_WIN32)
-		{"file:/c/d/contract1.sol", ""},
-		{"file:/c/d/contract2.sol", ""},
-		{"https:/example.com/contract3.sol", ""},
+		{"file:/c/d/contract1.hyp", ""},
+		{"file:/c/d/contract2.hyp", ""},
+		{"https:/example.com/contract3.hyp", ""},
 #endif
 
-		{"a/b/contract4.sol", ""},
-		{"a/b/contract5.sol", ""},
-		{"a/b/contract6.sol", ""},
+		{"a/b/contract4.hyp", ""},
+		{"a/b/contract5.hyp", ""},
+		{"a/b/contract6.hyp", ""},
 
-		{"a/b/contract7.sol", ""},
-		{"a/b/contract8.sol", ""},
-		{"a/b/contract9.sol", ""},
-		{"a/b/contract10.sol", ""},
+		{"a/b/contract7.hyp", ""},
+		{"a/b/contract8.hyp", ""},
+		{"a/b/contract9.hyp", ""},
+		{"a/b/contract10.hyp", ""},
 
-		{expectedWorkDir.parent_path().generic_string() + "/a/b/contract11.sol", ""},
-		{expectedWorkDir.parent_path().parent_path().generic_string() + "/a/b/contract12.sol", ""},
-		{"b/contract13.sol", ""},
-		{"contract14.sol", ""},
-		{"b/contract15.sol", ""},
-		{"contract16.sol", ""},
+		{expectedWorkDir.parent_path().generic_string() + "/a/b/contract11.hyp", ""},
+		{expectedWorkDir.parent_path().parent_path().generic_string() + "/a/b/contract12.hyp", ""},
+		{"b/contract13.hyp", ""},
+		{"contract14.hyp", ""},
+		{"b/contract15.hyp", ""},
+		{"contract16.hyp", ""},
 
-		{"/" + tempDir.path().relative_path().generic_string() + "/contract17.sol", ""},
-		{"/" + tempDir.path().relative_path().generic_string() + "/contract18.sol", ""},
+		{"/" + tempDir.path().relative_path().generic_string() + "/contract17.hyp", ""},
+		{"/" + tempDir.path().relative_path().generic_string() + "/contract18.hyp", ""},
 
 #if !defined(_WIN32)
 		{"<stdin>", ""},
 
-		{uncPath + "/contract19.sol", ""},
+		{uncPath + "/contract19.hyp", ""},
 
-		{"a\\b\\contract20.sol", ""},
-		{"C:\\a\\b\\contract21.sol", ""},
+		{"a\\b\\contract20.hyp", ""},
+		{"C:\\a\\b\\contract21.hyp", ""},
 #endif
 	};
 
@@ -853,12 +853,12 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_normalization_and_weird_name
 BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_symlinks)
 {
 	TemporaryDirectory tempDir({"r/"}, TEST_CASE_NAME);
-	createFilesWithParentDirs({tempDir.path() / "x/y/z/contract.sol"});
+	createFilesWithParentDirs({tempDir.path() / "x/y/z/contract.hyp"});
 	TemporaryWorkingDirectory tempWorkDir(tempDir.path() / "r");
 
 	if (
 		!createSymlinkIfSupportedByFilesystem("../x/y", tempDir.path() / "r/sym", true) ||
-		!createSymlinkIfSupportedByFilesystem("contract.sol", tempDir.path() / "x/y/z/contract_symlink.sol", false)
+		!createSymlinkIfSupportedByFilesystem("contract.hyp", tempDir.path() / "x/y/z/contract_symlink.hyp", false)
 	)
 		return;
 
@@ -869,27 +869,27 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_symlinks)
 		"hypc",
 
 		"--base-path=../r/sym/z/",
-		"sym/z/contract.sol",            // File accessed directly + same dir symlink as base path
-		"../x/y/z/contract.sol",         // File accessed directly + different dir symlink than base path
-		"sym/z/contract_symlink.sol",    // File accessed via symlink + same dir symlink as base path
-		"../x/y/z/contract_symlink.sol", // File accessed via symlink + different dir symlink than base path
+		"sym/z/contract.hyp",            // File accessed directly + same dir symlink as base path
+		"../x/y/z/contract.hyp",         // File accessed directly + different dir symlink than base path
+		"sym/z/contract_symlink.hyp",    // File accessed via symlink + same dir symlink as base path
+		"../x/y/z/contract_symlink.hyp", // File accessed via symlink + different dir symlink than base path
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"sym/z/contract.sol",
-		"../x/y/z/contract.sol",
-		"sym/z/contract_symlink.sol",
-		"../x/y/z/contract_symlink.sol",
+		"sym/z/contract.hyp",
+		"../x/y/z/contract.hyp",
+		"sym/z/contract_symlink.hyp",
+		"../x/y/z/contract_symlink.hyp",
 	};
 	expectedOptions.input.basePath = "../r/sym/z/";
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{"contract.sol", ""},
-		{(expectedWorkDir.parent_path() / "x/y/z/contract.sol").generic_string(), ""},
-		{"contract_symlink.sol", ""},
-		{(expectedWorkDir.parent_path() / "x/y/z/contract_symlink.sol").generic_string(), ""},
+		{"contract.hyp", ""},
+		{(expectedWorkDir.parent_path() / "x/y/z/contract.hyp").generic_string(), ""},
+		{"contract_symlink.hyp", ""},
+		{(expectedWorkDir.parent_path() / "x/y/z/contract_symlink.hyp").generic_string(), ""},
 	};
 
 	FileReader::FileSystemPathSet expectedAllowedDirectories = {
@@ -945,31 +945,31 @@ BOOST_AUTO_TEST_CASE(cli_include_paths)
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 
 	string const mainContractSource = withPreamble(
-		"import \"contract.sol\";\n"
-		"import \"contract_via_callback.sol\";\n"
-		"import \"include.sol\";\n"
-		"import \"include_via_callback.sol\";\n"
-		"import \"nested.sol\";\n"
-		"import \"nested_via_callback.sol\";\n"
-		"import \"lib.sol\";\n"
-		"import \"lib_via_callback.sol\";\n"
+		"import \"contract.hyp\";\n"
+		"import \"contract_via_callback.hyp\";\n"
+		"import \"include.hyp\";\n"
+		"import \"include_via_callback.hyp\";\n"
+		"import \"nested.hyp\";\n"
+		"import \"nested_via_callback.hyp\";\n"
+		"import \"lib.hyp\";\n"
+		"import \"lib_via_callback.hyp\";\n"
 	);
 
 	string const onlyPreamble = withPreamble("");
 	createFilesWithParentDirs(
 		{
-			tempDir.path() / "base/contract.sol",
-			tempDir.path() / "base/contract_via_callback.sol",
-			tempDir.path() / "include/include.sol",
-			tempDir.path() / "include/include_via_callback.sol",
-			tempDir.path() / "lib/nested/nested.sol",
-			tempDir.path() / "lib/nested/nested_via_callback.sol",
-			tempDir.path() / "lib/lib.sol",
-			tempDir.path() / "lib/lib_via_callback.sol",
+			tempDir.path() / "base/contract.hyp",
+			tempDir.path() / "base/contract_via_callback.hyp",
+			tempDir.path() / "include/include.hyp",
+			tempDir.path() / "include/include_via_callback.hyp",
+			tempDir.path() / "lib/nested/nested.hyp",
+			tempDir.path() / "lib/nested/nested_via_callback.hyp",
+			tempDir.path() / "lib/lib.hyp",
+			tempDir.path() / "lib/lib_via_callback.hyp",
 		},
 		onlyPreamble
 	);
-	createFilesWithParentDirs({tempDir.path() / "base/main.sol"}, mainContractSource);
+	createFilesWithParentDirs({tempDir.path() / "base/main.hyp"}, mainContractSource);
 
 	boost::filesystem::path canonicalWorkDir = boost::filesystem::canonical(tempDir);
 	boost::filesystem::path expectedWorkDir = "/" / canonicalWorkDir.relative_path();
@@ -981,20 +981,20 @@ BOOST_AUTO_TEST_CASE(cli_include_paths)
 		"--include-path=include/",
 		"--include-path=lib/nested",
 		"--include-path=lib/",
-		"base/main.sol",
-		"base/contract.sol",
-		"include/include.sol",
-		"lib/nested/nested.sol",
-		"lib/lib.sol",
+		"base/main.hyp",
+		"base/contract.hyp",
+		"include/include.hyp",
+		"lib/nested/nested.hyp",
+		"lib/lib.hyp",
 	};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {
-		"base/main.sol",
-		"base/contract.sol",
-		"include/include.sol",
-		"lib/nested/nested.sol",
-		"lib/lib.sol",
+		"base/main.hyp",
+		"base/contract.hyp",
+		"include/include.hyp",
+		"lib/nested/nested.hyp",
+		"lib/lib.hyp",
 	};
 	expectedOptions.input.basePath = "base/";
 	expectedOptions.input.includePaths = {
@@ -1006,15 +1006,15 @@ BOOST_AUTO_TEST_CASE(cli_include_paths)
 	expectedOptions.modelChecker.initialize = true;
 
 	map<string, string> expectedSources = {
-		{"main.sol", mainContractSource},
-		{"contract.sol", onlyPreamble},
-		{"contract_via_callback.sol", onlyPreamble},
-		{"include.sol", onlyPreamble},
-		{"include_via_callback.sol", onlyPreamble},
-		{"nested.sol", onlyPreamble},
-		{"nested_via_callback.sol", onlyPreamble},
-		{"lib.sol", onlyPreamble},
-		{"lib_via_callback.sol", onlyPreamble},
+		{"main.hyp", mainContractSource},
+		{"contract.hyp", onlyPreamble},
+		{"contract_via_callback.hyp", onlyPreamble},
+		{"include.hyp", onlyPreamble},
+		{"include_via_callback.hyp", onlyPreamble},
+		{"nested.hyp", onlyPreamble},
+		{"nested_via_callback.hyp", onlyPreamble},
+		{"lib.hyp", onlyPreamble},
+		{"lib_via_callback.hyp", onlyPreamble},
 	};
 
 	vector<boost::filesystem::path> expectedIncludePaths = {
@@ -1089,17 +1089,17 @@ BOOST_AUTO_TEST_CASE(standard_json_include_paths)
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 
 	string const mainContractSource = withPreamble(
-		"import 'contract_via_callback.sol';\n"
-		"import 'include_via_callback.sol';\n"
-		"import 'nested_via_callback.sol';\n"
-		"import 'lib_via_callback.sol';\n"
+		"import 'contract_via_callback.hyp';\n"
+		"import 'include_via_callback.hyp';\n"
+		"import 'nested_via_callback.hyp';\n"
+		"import 'lib_via_callback.hyp';\n"
 	);
 
 	string const standardJsonInput = R"(
 		{
 			"language": "Hyperion",
 			"sources": {
-				"main.sol": {"content": ")" + mainContractSource + R"("}
+				"main.hyp": {"content": ")" + mainContractSource + R"("}
 			}
 		}
 	)";
@@ -1107,10 +1107,10 @@ BOOST_AUTO_TEST_CASE(standard_json_include_paths)
 	string const onlyPreamble = withPreamble("");
 	createFilesWithParentDirs(
 		{
-			tempDir.path() / "base/contract_via_callback.sol",
-			tempDir.path() / "include/include_via_callback.sol",
-			tempDir.path() / "lib/nested/nested_via_callback.sol",
-			tempDir.path() / "lib/lib_via_callback.sol",
+			tempDir.path() / "base/contract_via_callback.hyp",
+			tempDir.path() / "include/include_via_callback.hyp",
+			tempDir.path() / "lib/nested/nested_via_callback.hyp",
+			tempDir.path() / "lib/lib_via_callback.hyp",
 		},
 		onlyPreamble
 	);
@@ -1142,10 +1142,10 @@ BOOST_AUTO_TEST_CASE(standard_json_include_paths)
 	// because FileReader is only used once to initialize the compiler stack and after that
 	// its sources are irrelevant (even though the callback still stores everything it loads).
 	map<string, string> expectedSources = {
-		{"contract_via_callback.sol", onlyPreamble},
-		{"include_via_callback.sol", onlyPreamble},
-		{"nested_via_callback.sol", onlyPreamble},
-		{"lib_via_callback.sol", onlyPreamble},
+		{"contract_via_callback.hyp", onlyPreamble},
+		{"include_via_callback.hyp", onlyPreamble},
+		{"nested_via_callback.hyp", onlyPreamble},
+		{"lib_via_callback.hyp", onlyPreamble},
 	};
 
 	vector<boost::filesystem::path> expectedIncludePaths = {
@@ -1167,7 +1167,7 @@ BOOST_AUTO_TEST_CASE(standard_json_include_paths)
 		BOOST_TEST(errorDict["severity"] != "error");
 	BOOST_TEST(
 		(parsedStdout["sources"].getMemberNames() | ranges::to<set>) ==
-		(expectedSources | ranges::views::keys | ranges::to<set>) + set<string>{"main.sol"}
+		(expectedSources | ranges::views::keys | ranges::to<set>) + set<string>{"main.hyp"}
 	);
 
 	BOOST_REQUIRE(result.success);
@@ -1182,7 +1182,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_empty_path)
 {
 	TemporaryDirectory tempDir({"base/", "include/"}, TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
-	createFilesWithParentDirs({tempDir.path() / "base/main.sol"});
+	createFilesWithParentDirs({tempDir.path() / "base/main.hyp"});
 
 	string expectedMessage = "Empty values are not allowed in --include-path.";
 
@@ -1192,7 +1192,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_empty_path)
 			"--base-path=base/",
 			"--include-path", "include/",
 			"--include-path", "",
-			"base/main.sol",
+			"base/main.hyp",
 		}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
@@ -1203,12 +1203,12 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_without_base_path)
 {
 	TemporaryDirectory tempDir(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
-	createFilesWithParentDirs({tempDir.path() / "contract.sol"});
+	createFilesWithParentDirs({tempDir.path() / "contract.hyp"});
 
 	string expectedMessage = "--include-path option requires a non-empty base path.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"hypc", "--include-path", "include/", "contract.sol"}),
+		parseCommandLineAndReadInputFiles({"hypc", "--include-path", "include/", "contract.hyp"}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -1219,10 +1219,10 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 	TemporaryDirectory tempDir({"dir1/", "dir2/", "dir3/"}, TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 	createFilesWithParentDirs({
-		"dir1/contract1.sol",
-		"dir1/contract2.sol",
-		"dir2/contract1.sol",
-		"dir2/contract2.sol",
+		"dir1/contract1.hyp",
+		"dir1/contract2.hyp",
+		"dir2/contract1.hyp",
+		"dir2/contract2.hyp",
 	});
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::canonical(tempDir).relative_path();
@@ -1231,24 +1231,24 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 		"Source unit name collision detected. "
 		"The specified values of base path and/or include paths would result in multiple "
 		"input files being assigned the same source unit name:\n"
-		"contract1.sol matches: "
-		"\"" + (expectedWorkDir / "dir1/contract1.sol").generic_string() + "\", "
-		"\"" + (expectedWorkDir / "dir2/contract1.sol").generic_string() + "\"\n"
-		"contract2.sol matches: "
-		"\"" + (expectedWorkDir / "dir1/contract2.sol").generic_string() + "\", "
-		"\"" + (expectedWorkDir / "dir2/contract2.sol").generic_string() + "\"\n";
+		"contract1.hyp matches: "
+		"\"" + (expectedWorkDir / "dir1/contract1.hyp").generic_string() + "\", "
+		"\"" + (expectedWorkDir / "dir2/contract1.hyp").generic_string() + "\"\n"
+		"contract2.hyp matches: "
+		"\"" + (expectedWorkDir / "dir1/contract2.hyp").generic_string() + "\", "
+		"\"" + (expectedWorkDir / "dir2/contract2.hyp").generic_string() + "\"\n";
 
 	{
-		// import "contract1.sol" and import "contract2.sol" would be ambiguous:
+		// import "contract1.hyp" and import "contract2.hyp" would be ambiguous:
 		BOOST_CHECK_EXCEPTION(
 			parseCommandLineAndReadInputFiles({
 				"hypc",
 				"--base-path=dir1/",
 				"--include-path=dir2/",
-				"dir1/contract1.sol",
-				"dir2/contract1.sol",
-				"dir1/contract2.sol",
-				"dir2/contract2.sol",
+				"dir1/contract1.hyp",
+				"dir2/contract1.hyp",
+				"dir1/contract2.hyp",
+				"dir2/contract2.hyp",
 			}),
 			CommandLineValidationError,
 			[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
@@ -1256,17 +1256,17 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 	}
 
 	{
-		// import "contract1.sol" and import "contract2.sol" would be ambiguous:
+		// import "contract1.hyp" and import "contract2.hyp" would be ambiguous:
 		BOOST_CHECK_EXCEPTION(
 			parseCommandLineAndReadInputFiles({
 				"hypc",
 				"--base-path=dir3/",
 				"--include-path=dir1/",
 				"--include-path=dir2/",
-				"dir1/contract1.sol",
-				"dir2/contract1.sol",
-				"dir1/contract2.sol",
-				"dir2/contract2.sol",
+				"dir1/contract1.hyp",
+				"dir2/contract1.hyp",
+				"dir1/contract2.hyp",
+				"dir2/contract2.hyp",
 			}),
 			CommandLineValidationError,
 			[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
@@ -1280,8 +1280,8 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 			"--base-path=dir3/",
 			"--include-path=dir1/",
 			"--include-path=dir2/",
-			"dir1/contract1.sol",
-			"dir1/contract2.sol",
+			"dir1/contract1.hyp",
+			"dir1/contract2.hyp",
 		};
 		OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles(commandLine);
 		BOOST_TEST(result.stderrContent == "");
@@ -1295,9 +1295,9 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 			"--base-path=dir3/",
 			"--include-path=dir1/",
 			"--include-path=dir2/",
-			"dir1/contract1.sol",
-			"dir1/contract1.sol",
-			"./dir1/contract1.sol",
+			"dir1/contract1.hyp",
+			"dir1/contract1.hyp",
+			"./dir1/contract1.hyp",
 		};
 		OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles(commandLine);
 		BOOST_TEST(result.stderrContent == "");
@@ -1309,7 +1309,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_allow_duplicate_paths)
 {
 	TemporaryDirectory tempDir({"dir1/", "dir2/"}, TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
-	createFilesWithParentDirs({"dir1/contract.sol"});
+	createFilesWithParentDirs({"dir1/contract.hyp"});
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::canonical(tempDir).relative_path();
 	boost::filesystem::path expectedTempDir = "/" / tempDir.path().relative_path();
@@ -1326,7 +1326,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_allow_duplicate_paths)
 		"--include-path", (tempDir.path() / "dir1/").string(),
 		"--include-path", (expectedWorkDir / "dir1/").string(),
 		"--include-path", "dir1/",
-		"dir1/contract.sol",
+		"dir1/contract.hyp",
 	};
 
 	// Duplicates do not affect the result but are not removed from the include path list.
@@ -1356,10 +1356,10 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_ambiguous_import)
 	TemporaryDirectory tempDir({"base/", "include/"}, TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 
-	// Ambiguous: both base/contract.sol and include/contract.sol match the import.
-	string const mainContractSource = withPreamble("import \"contract.sol\";");
+	// Ambiguous: both base/contract.hyp and include/contract.hyp match the import.
+	string const mainContractSource = withPreamble("import \"contract.hyp\";");
 
-	createFilesWithParentDirs({"base/contract.sol", "include/contract.sol"}, withPreamble(""));
+	createFilesWithParentDirs({"base/contract.hyp", "include/contract.hyp"}, withPreamble(""));
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::canonical(tempDir).relative_path();
 
@@ -1372,13 +1372,13 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_ambiguous_import)
 	};
 
 	string expectedMessage =
-		"Error: Source \"contract.sol\" not found: Ambiguous import. "
+		"Error: Source \"contract.hyp\" not found: Ambiguous import. "
 		"Multiple matching files found inside base path and/or include paths: \"" +
-		(expectedWorkDir / "base/contract.sol").generic_string() + "\", \"" +
-		(expectedWorkDir / "include/contract.sol").generic_string() + "\".\n"
+		(expectedWorkDir / "base/contract.hyp").generic_string() + "\", \"" +
+		(expectedWorkDir / "include/contract.hyp").generic_string() + "\".\n"
 		" --> <stdin>:3:1:\n"
 		"  |\n"
-		"3 | import \"contract.sol\";\n"
+		"3 | import \"contract.hyp\";\n"
 		"  | ^^^^^^^^^^^^^^^^^^^^^^\n\n";
 
 	OptionsReaderAndMessages result = runCLI(commandLine, mainContractSource);

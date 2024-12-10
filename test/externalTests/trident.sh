@@ -80,14 +80,14 @@ function trident_test
     replace_version_pragmas
     force_hypc_modules "${DIR}/hypc"
 
-    # BentoBoxV1Flat.sol requires a few small tweaks to compile on 0.8.x.
+    # BentoBoxV1Flat.hyp requires a few small tweaks to compile on 0.8.x.
     # TODO: Remove once https://github.com/sushiswap/trident/pull/282 gets merged.
-    sed -i 's|uint128(-1)|type(uint128).max|g' contracts/flat/BentoBoxV1Flat.sol
-    sed -i 's|uint64(-1)|type(uint64).max|g' contracts/flat/BentoBoxV1Flat.sol
-    sed -i 's|uint32(-1)|type(uint32).max|g' contracts/flat/BentoBoxV1Flat.sol
-    sed -i 's|IERC20(0)|IERC20(address(0))|g' contracts/flat/BentoBoxV1Flat.sol
-    sed -i 's|IStrategy(0)|IStrategy(address(0))|g' contracts/flat/BentoBoxV1Flat.sol
-    find contracts -name "*.sol" -exec sed -i -e 's/^\(\s*\)\(assembly\)/\1\/\/\/ @hyperion memory-safe-assembly\n\1\2/' '{}' \;
+    sed -i 's|uint128(-1)|type(uint128).max|g' contracts/flat/BentoBoxV1Flat.hyp
+    sed -i 's|uint64(-1)|type(uint64).max|g' contracts/flat/BentoBoxV1Flat.hyp
+    sed -i 's|uint32(-1)|type(uint32).max|g' contracts/flat/BentoBoxV1Flat.hyp
+    sed -i 's|IERC20(0)|IERC20(address(0))|g' contracts/flat/BentoBoxV1Flat.hyp
+    sed -i 's|IStrategy(0)|IStrategy(address(0))|g' contracts/flat/BentoBoxV1Flat.hyp
+    find contracts -name "*.hyp" -exec sed -i -e 's/^\(\s*\)\(assembly\)/\1\/\/\/ @hyperion memory-safe-assembly\n\1\2/' '{}' \;
 
     # TODO: Remove this when https://github.com/NomicFoundation/hardhat/issues/3365 gets fixed.
     sed -i 's|it\(("Reverts on direct deployment via factory"\)|it.skip\1|g' test/MasterDeployer.test.ts

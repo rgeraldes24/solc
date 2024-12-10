@@ -189,7 +189,7 @@ They are stored in individual files inside the ``tests/libhyperion/syntaxTests``
 These files must contain annotations, stating the expected result(s) of the respective test.
 The test suite compiles and checks them against the given expectations.
 
-For example: ``./test/libhyperion/syntaxTests/double_stateVariable_declaration.sol``
+For example: ``./test/libhyperion/syntaxTests/double_stateVariable_declaration.hyp``
 
 .. code-block:: hyperion
 
@@ -222,7 +222,7 @@ Running ``./build/test/tools/isoltest`` again results in a test failure:
 
 .. code-block:: text
 
-    syntaxTests/double_stateVariable_declaration.sol: FAIL
+    syntaxTests/double_stateVariable_declaration.hyp: FAIL
         Contract:
             contract test {
                 uint256 variable;
@@ -260,12 +260,12 @@ and re-run the test. It now passes again:
 .. code-block:: text
 
     Re-running test case...
-    syntaxTests/double_stateVariable_declaration.sol: OK
+    syntaxTests/double_stateVariable_declaration.hyp: OK
 
 
 .. note::
 
-    Choose a name for the contract file that explains what it tests, e.g. ``double_variable_declaration.sol``.
+    Choose a name for the contract file that explains what it tests, e.g. ``double_variable_declaration.hyp``.
     Do not put more than one contract into a single file, unless you are testing inheritance or cross-contract calls.
     Each file should test one aspect of your new feature.
 
@@ -313,7 +313,7 @@ There are several kinds of command-line tests:
   In general may contain:
 
     - ``input.*``: a single input file, whose name will be supplied to ``hypc`` on the command line.
-      Usually ``input.sol`` or ``input.yul``.
+      Usually ``input.hyp`` or ``input.yul``.
     - ``args``: extra command-line arguments passed to ``hypc``.
     - ``stdin``: content to be passed to ``hypc`` via standard input.
     - ``output``: expected content of the standard output.

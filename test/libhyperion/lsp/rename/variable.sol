@@ -31,7 +31,7 @@ function freeFunction(C _contract) view returns(int)
 // }
 // <- {
 //     "changes": {
-//         "rename/variable.sol": [
+//         "rename/variable.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @VariableInFreeFunction
@@ -57,7 +57,7 @@ function freeFunction(C _contract) view returns(int)
 // }
 // <- {
 //     "changes": {
-//         "rename/variable.sol": [
+//         "rename/variable.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @VariableInFreeFunction
@@ -83,7 +83,7 @@ function freeFunction(C _contract) view returns(int)
 // }
 // <- {
 //     "changes": {
-//         "rename/variable.sol": [
+//         "rename/variable.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @VariableInFreeFunction
@@ -109,7 +109,7 @@ function freeFunction(C _contract) view returns(int)
 // }
 // <- {
 //     "changes": {
-//         "rename/variable.sol": [
+//         "rename/variable.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @VariableInFreeFunction

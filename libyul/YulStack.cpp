@@ -304,12 +304,12 @@ YulStack::assembleZVMWithDeployed(std::optional<std::string_view> _deployName) c
 }
 
 std::string YulStack::print(
-	CharStreamProvider const* _soliditySourceProvider
+	CharStreamProvider const* _hyperionSourceProvider
 ) const
 {
 	yulAssert(m_parserResult, "");
 	yulAssert(m_parserResult->code, "");
-	return m_parserResult->toString(&languageToDialect(m_language, m_zvmVersion), m_debugInfoSelection, _soliditySourceProvider) + "\n";
+	return m_parserResult->toString(&languageToDialect(m_language, m_zvmVersion), m_debugInfoSelection, _hyperionSourceProvider) + "\n";
 }
 
 Json::Value YulStack::astJson() const

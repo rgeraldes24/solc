@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: WTFPL
 pragma hyperion >=0.8.0;
 
-import "./PRBMathCommon.sol";
+import "./PRBMathCommon.hyp";
 
 /// @title PRBMathUD60x18
 /// @author Paul Razvan Berg

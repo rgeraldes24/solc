@@ -147,7 +147,7 @@ std::string dispenseLocationComment(langutil::SourceLocation const& _location, I
 		_location,
 		_context.sourceIndices(),
 		_context.debugInfoSelection(),
-		_context.soliditySourceProvider()
+		_context.hyperionSourceProvider()
 	);
 
 	return debugInfo.empty() ? "" : "/// " + debugInfo;

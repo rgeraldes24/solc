@@ -13,7 +13,7 @@ cd "$SOLTMPDIR"
 
 developmentVersion=$("$REPO_ROOT/scripts/get_version.sh")
 
-for f in *.yul *.sol
+for f in *.yul *.hyp
 do
     # The contributors guide uses syntax tests, but we cannot
     # really handle them here.

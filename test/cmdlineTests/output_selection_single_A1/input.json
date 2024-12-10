@@ -1,17 +1,17 @@
 {
  "language": "Hyperion",
  "sources": {
-  "a.sol": {
+  "a.hyp": {
    "content": "//SPDX-License-Identifier: GPL-3.0\npragma hyperion >=0.0;\ncontract A1 { function a(uint x) public pure { assert(x > 0); } } contract A2 { function a(uint x) public pure { assert(x > 0); } }"
   },
-  "b.sol": {
+  "b.hyp": {
    "content": "//SPDX-License-Identifier: GPL-3.0\npragma hyperion >=0.0;\ncontract A1 { function b(uint x) public pure { assert(x > 0); } } contract B2 { function b(uint x) public pure { assert(x > 0); } }"
   }
  },
  "settings": {
   "zvmVersion": "shanghai",
   "outputSelection": {
-   "a.sol": {
+   "a.hyp": {
     "A1": [
      "zvm.bytecode.object"
     ]

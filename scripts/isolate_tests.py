@@ -122,7 +122,7 @@ def extract_and_write(path, language):
 
         if language in ("yul", ""):
             yulCases  = extract_yul_docs_cases(path)
-    elif path.endswith('.sol'):
+    elif path.endswith('.hyp'):
         if language in ("hyperion", ""):
             with open(path, mode='r', encoding='utf8', newline='') as f:
                 cases = [f.read()]
@@ -159,7 +159,7 @@ if __name__ == '__main__':
             if 'compilationTests' in subdirs:
                 subdirs.remove('compilationTests')
             for f in files:
-                if basename(f) == "invalid_utf8_sequence.sol":
+                if basename(f) == "invalid_utf8_sequence.hyp":
                     continue  # ignore the test with broken utf-8 encoding
                 path = join(root, f)
                 extract_and_write(path, options.language)

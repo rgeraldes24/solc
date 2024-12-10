@@ -1,7 +1,7 @@
 {
     "contracts":
     {
-        "a.sol":
+        "a.hyp":
         {
             "A":
             {
@@ -177,7 +177,7 @@
     },
     "sources":
     {
-        "a.sol":
+        "a.hyp":
         {
             "id": 0
         }

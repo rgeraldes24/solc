@@ -1,11 +1,11 @@
 {
     "language": "Hyperion",
     "sources": {
-        "url_not_found.sol": {
+        "url_not_found.hyp": {
             "urls": [
-                "standard_urls_missing/non-existent-contract-1.sol",
-                "standard_urls_missing/non-existent-contract.sol",
-                "standard_urls_missing/non-existent-contract-2.sol"
+                "standard_urls_missing/non-existent-contract-1.hyp",
+                "standard_urls_missing/non-existent-contract.hyp",
+                "standard_urls_missing/non-existent-contract-2.hyp"
             ]
         }
     },

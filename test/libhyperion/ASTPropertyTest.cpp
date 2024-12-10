@@ -45,7 +45,7 @@ using namespace std::string_literals;
 ASTPropertyTest::ASTPropertyTest(std::string const& _filename):
 	TestCase(_filename)
 {
-	if (!boost::algorithm::ends_with(_filename, ".sol"))
+	if (!boost::algorithm::ends_with(_filename, ".hyp"))
 		BOOST_THROW_EXCEPTION(std::runtime_error("Not a Hyperion file: \"" + _filename + "\"."));
 
 	m_source = m_reader.source();

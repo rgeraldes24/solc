@@ -197,30 +197,30 @@ BOOST_AUTO_TEST_CASE(use_src_empty)
 
 BOOST_AUTO_TEST_CASE(use_src_simple)
 {
-	auto const [mapping, _] = tryGetSourceLocationMapping(R"(@use-src 0:"contract.sol")");
+	auto const [mapping, _] = tryGetSourceLocationMapping(R"(@use-src 0:"contract.hyp")");
 	BOOST_REQUIRE(mapping.has_value());
 	BOOST_REQUIRE_EQUAL(mapping->size(), 1);
-	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.sol");
+	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.hyp");
 }
 
 BOOST_AUTO_TEST_CASE(use_src_multiple)
 {
-	auto const [mapping, _] = tryGetSourceLocationMapping(R"(@use-src 0:"contract.sol", 1:"misc.yul")");
+	auto const [mapping, _] = tryGetSourceLocationMapping(R"(@use-src 0:"contract.hyp", 1:"misc.yul")");
 	BOOST_REQUIRE(mapping);
 	BOOST_REQUIRE_EQUAL(mapping->size(), 2);
-	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.sol");
+	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.hyp");
 	BOOST_REQUIRE_EQUAL(*mapping->at(1), "misc.yul");
 }
 
 BOOST_AUTO_TEST_CASE(use_src_escaped_filenames)
 {
 	auto const [mapping, _] = tryGetSourceLocationMapping(
-		R"(@use-src 42:"con\"tract@\".sol")"
+		R"(@use-src 42:"con\"tract@\".hyp")"
 	);
 	BOOST_REQUIRE(mapping);
 	BOOST_REQUIRE_EQUAL(mapping->size(), 1);
 	BOOST_REQUIRE(mapping->count(42));
-	BOOST_REQUIRE_EQUAL(*mapping->at(42), "con\"tract@\".sol");
+	BOOST_REQUIRE_EQUAL(*mapping->at(42), "con\"tract@\".hyp");
 }
 
 BOOST_AUTO_TEST_CASE(use_src_invalid_syntax_malformed_param_1)
@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE(use_src_invalid_syntax_malformed_param_2)
 BOOST_AUTO_TEST_CASE(use_src_error_unexpected_trailing_tokens)
 {
 	auto const [mapping, errors] = tryGetSourceLocationMapping(
-		R"(@use-src 1:"file.sol" @use-src 2:"foo.sol")"
+		R"(@use-src 1:"file.hyp" @use-src 2:"foo.hyp")"
 	);
 
 	BOOST_REQUIRE_EQUAL(errors.size(), 1);
@@ -254,11 +254,11 @@ BOOST_AUTO_TEST_CASE(use_src_error_unexpected_trailing_tokens)
 BOOST_AUTO_TEST_CASE(use_src_multiline)
 {
 	auto const [mapping, _] = tryGetSourceLocationMapping(
-		" @use-src \n  0:\"contract.sol\" \n , \n 1:\"misc.yul\""
+		" @use-src \n  0:\"contract.hyp\" \n , \n 1:\"misc.yul\""
 	);
 	BOOST_REQUIRE(mapping);
 	BOOST_REQUIRE_EQUAL(mapping->size(), 2);
-	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.sol");
+	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.hyp");
 	BOOST_REQUIRE_EQUAL(*mapping->at(1), "misc.yul");
 }
 
@@ -272,13 +272,13 @@ BOOST_AUTO_TEST_CASE(use_src_empty_body)
 BOOST_AUTO_TEST_CASE(use_src_leading_text)
 {
 	auto const [mapping, _] = tryGetSourceLocationMapping(
-		"@something else @use-src 0:\"contract.sol\", 1:\"misc.sol\""s
+		"@something else @use-src 0:\"contract.hyp\", 1:\"misc.hyp\""s
 	);
 	BOOST_REQUIRE(mapping);
 	BOOST_REQUIRE_EQUAL(mapping->size(), 2);
 	BOOST_REQUIRE(mapping->find(0) != mapping->end());
-	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.sol");
-	BOOST_REQUIRE_EQUAL(*mapping->at(1), "misc.sol");
+	BOOST_REQUIRE_EQUAL(*mapping->at(0), "contract.hyp");
+	BOOST_REQUIRE_EQUAL(*mapping->at(1), "misc.hyp");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

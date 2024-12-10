@@ -93,6 +93,6 @@ for (var optimize of [false, true])
 }
 EOF
     chmod +x hypc
-    ./hypc -- *.sol > /tmp/report.txt
+    ./hypc -- *.hyp > /tmp/report.txt
 )
 rm -rf "$TMPDIR"

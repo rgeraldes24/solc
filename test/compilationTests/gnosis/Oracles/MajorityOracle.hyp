@@ -1,5 +1,5 @@
 pragma hyperion >=0.0;
-import "../Oracles/Oracle.sol";
+import "../Oracles/Oracle.hyp";
 
 
 /// @title Majority oracle contract - Allows to resolve an event based on multiple oracles with majority vote

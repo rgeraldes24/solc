@@ -33,7 +33,7 @@
                 },
                 "sourceList":
                 [
-                    "contract.sol",
+                    "contract.hyp",
                     "#utility.yul"
                 ]
             },
@@ -46,7 +46,7 @@
     },
     "sourceList":
     [
-        "contract.sol",
+        "contract.hyp",
         "#utility.yul"
     ],
     "version": "<VERSION REMOVED>"
@@ -85,7 +85,7 @@ ZVM assembly:
     },
     "sourceList":
     [
-        "contract.sol",
+        "contract.hyp",
         "#utility.yul"
     ]
 }

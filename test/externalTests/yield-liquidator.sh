@@ -69,7 +69,7 @@ function yield_liquidator_test
     # The contract below is not used in any test and it depends on ISwapRouter which does not exists
     # in the main repository.
     # See: https://github.com/yieldprotocol/yield-liquidator-v2/blob/9a49d9a0e9398f6a6c07bad531e77d1001a1166f/src/swap_router.rs#L94
-    rm --force contracts/.YvBasicFlashLiquidator.sol
+    rm --force contracts/.YvBasicFlashLiquidator.hyp
 
     replace_version_pragmas
     neutralize_packaged_contracts

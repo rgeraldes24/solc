@@ -21,11 +21,11 @@
 # Bash script to test the import/exports.
 #
 # ast import/export tests:
-#   - first exporting a .sol file to JSON, then loading it into the compiler
+#   - first exporting a .hyp file to JSON, then loading it into the compiler
 #     and exporting it again. The second JSON should be identical to the first.
 #
 # zvm-assembly import/export tests:
-#   - first a .sol file will be compiled and the ZVM Assembly will be exported
+#   - first a .hyp file will be compiled and the ZVM Assembly will be exported
 #     to JSON format using --asm-json command-line option.
 #     The ZVM Assembly JSON output is then imported with --import-asm-json
 #     and compiled again. The binary generated initially and after the import
@@ -326,10 +326,10 @@ esac
 # boost_filesystem_bug specifically tests a local fix for a boost::filesystem
 # bug. Since the test involves a malformed path, there is no point in running
 # tests on it. See https://github.com/boostorg/filesystem/issues/176
-IMPORT_TEST_FILES=$(find "${TEST_DIRS[@]}" -name "*.sol" -and -not -name "boost_filesystem_bug.sol" -not -path "*/experimental/*")
+IMPORT_TEST_FILES=$(find "${TEST_DIRS[@]}" -name "*.hyp" -and -not -name "boost_filesystem_bug.hyp" -not -path "*/experimental/*")
 
 NSOURCES="$(echo "${IMPORT_TEST_FILES}" | wc -l)"
-echo "Looking at ${NSOURCES} .sol files..."
+echo "Looking at ${NSOURCES} .hyp files..."
 
 COUNTER=0
 TEST_DIR=$(mktemp -d -t "import-export-test-XXXXXX")

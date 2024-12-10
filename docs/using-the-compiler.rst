@@ -17,12 +17,12 @@ Basic Usage
 
 One of the build targets of the Hyperion repository is ``hypc``, the Hyperion commandline compiler.
 Using ``hypc --help`` provides you with an explanation of all options. The compiler can produce various outputs, ranging from simple binaries and assembly over an abstract syntax tree (parse tree) to estimations of gas usage.
-If you only want to compile a single file, you run it as ``hypc --bin sourceFile.sol`` and it will print the binary. If you want to get some of the more advanced output variants of ``hypc``, it is probably better to tell it to output everything to separate files using ``hypc -o outputDirectory --bin --ast-compact-json --asm sourceFile.sol``.
+If you only want to compile a single file, you run it as ``hypc --bin sourceFile.hyp`` and it will print the binary. If you want to get some of the more advanced output variants of ``hypc``, it is probably better to tell it to output everything to separate files using ``hypc -o outputDirectory --bin --ast-compact-json --asm sourceFile.hyp``.
 
 Optimizer Options
 -----------------
 
-Before you deploy your contract, activate the optimizer when compiling using ``hypc --optimize --bin sourceFile.sol``.
+Before you deploy your contract, activate the optimizer when compiling using ``hypc --optimize --bin sourceFile.hyp``.
 By default, the optimizer will optimize the contract assuming it is called 200 times across its lifetime
 (more specifically, it assumes each opcode is executed around 200 times).
 If you want the initial contract deployment to be cheaper and the later function executions to be more expensive,
@@ -43,7 +43,7 @@ it is also possible to provide :ref:`path redirects <import-remapping>` using ``
 
 .. code-block:: bash
 
-    hypc github.com/ethereum/dapp-bin/=/usr/local/lib/dapp-bin/ file.sol
+    hypc github.com/ethereum/dapp-bin/=/usr/local/lib/dapp-bin/ file.hyp
 
 This essentially instructs the compiler to search for anything starting with
 ``github.com/ethereum/dapp-bin/`` under ``/usr/local/lib/dapp-bin``.
@@ -78,10 +78,10 @@ identify which libraries the placeholders represent. Note that the fully qualifi
 is the path of its source file and the library name separated by ``:``.
 You can use ``hypc`` as a linker meaning that it will insert the library addresses for you at those points:
 
-Either add ``--libraries "file.sol:Math=0x1234567890123456789012345678901234567890 file.sol:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``hypc`` using ``--libraries fileName``.
+Either add ``--libraries "file.hyp:Math=0x1234567890123456789012345678901234567890 file.hyp:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``hypc`` using ``--libraries fileName``.
 
 .. note::
-    Starting Hyperion 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.sol:Math:0x1234567890123456789012345678901234567890 file.sol:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
+    Starting Hyperion 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.hyp:Math:0x1234567890123456789012345678901234567890 file.hyp:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
 
 .. index:: --standard-json, --base-path
 
@@ -182,7 +182,7 @@ Input Description
       {
         // The keys here are the "global" names of the source files,
         // imports can use other files via remappings (see below).
-        "myFile.sol":
+        "myFile.hyp":
         {
           // Optional: keccak256 hash of the source file
           // It is used to verify the retrieved content if imported via URLs.
@@ -198,7 +198,7 @@ Input Description
           [
             "bzzr://56ab...",
             "ipfs://Qma...",
-            "/tmp/path/to/file.sol"
+            "/tmp/path/to/file.hyp"
             // If files are used, their directories should be added to the command-line via
             // `--allow-paths <path>`.
           ]
@@ -336,7 +336,7 @@ Input Description
           // If remappings are used, this source file should match the global path
           // after remappings were applied.
           // If this key is an empty string, that refers to a global level.
-          "myFile.sol": {
+          "myFile.hyp": {
             "MyLib": "0x123123..."
           }
         },
@@ -405,8 +405,8 @@ Input Description
           // Chose which contracts should be analyzed as the deployed one.
           "contracts":
           {
-            "source1.sol": ["contract1"],
-            "source2.sol": ["contract2", "contract3"]
+            "source1.hyp": ["contract1"],
+            "source2.hyp": ["contract2", "contract3"]
           },
           // Choose how division and modulo operations should be encoded.
           // When using `false` they are replaced by multiplication with slack
@@ -459,14 +459,14 @@ Output Description
         {
           // Optional: Location within the source file.
           "sourceLocation": {
-            "file": "sourceFile.sol",
+            "file": "sourceFile.hyp",
             "start": 0,
             "end": 100
           },
           // Optional: Further locations (e.g. places of conflicting declarations)
           "secondarySourceLocations": [
             {
-              "file": "sourceFile.sol",
+              "file": "sourceFile.hyp",
               "start": 64,
               "end": 92,
               "message": "Other declaration is here:"
@@ -484,13 +484,13 @@ Output Description
           // Mandatory
           "message": "Invalid keyword",
           // Optional: the message formatted with source location
-          "formattedMessage": "sourceFile.sol:100: Invalid keyword"
+          "formattedMessage": "sourceFile.hyp:100: Invalid keyword"
         }
       ],
       // This contains the file-level outputs.
       // It can be limited/filtered by the outputSelection settings.
       "sources": {
-        "sourceFile.sol": {
+        "sourceFile.hyp": {
           // Identifier of the source (used in source maps)
           "id": 1,
           // The AST object
@@ -500,7 +500,7 @@ Output Description
       // This contains the contract-level outputs.
       // It can be limited/filtered by the outputSelection settings.
       "contracts": {
-        "sourceFile.sol": {
+        "sourceFile.hyp": {
           // If the language used has no contract names, this field should equal to an empty string.
           "ContractName": {
             // The Ethereum Contract ABI. If empty, it is represented as an empty array.
@@ -561,7 +561,7 @@ Output Description
                 }],
                 // If given, this is an unlinked object.
                 "linkReferences": {
-                  "libraryFile.sol": {
+                  "libraryFile.hyp": {
                     // Byte offsets into the bytecode.
                     // Linking replaces the 20 bytes located there.
                     "Library1": [

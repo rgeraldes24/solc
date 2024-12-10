@@ -65,10 +65,10 @@ BOOST_AUTO_TEST_SUITE(CommandLineParserTest)
 
 BOOST_AUTO_TEST_CASE(no_options)
 {
-	vector<string> commandLine = {"hypc", "contract.sol"};
+	vector<string> commandLine = {"hypc", "contract.hyp"};
 
 	CommandLineOptions expectedOptions;
-	expectedOptions.input.paths = {"contract.sol"};
+	expectedOptions.input.paths = {"contract.hyp"};
 	expectedOptions.modelChecker.initialize = true;
 	expectedOptions.modelChecker.settings = {};
 
@@ -102,15 +102,15 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 	{
 		vector<string> commandLine = {
 			"hypc",
-			"contract.sol",             // Both modes do not care about file names, just about
-			"/tmp/projects/token.sol",  // their content. They also both support stdin.
-			"/home/user/lib/dex.sol",
+			"contract.hyp",             // Both modes do not care about file names, just about
+			"/tmp/projects/token.hyp",  // their content. They also both support stdin.
+			"/home/user/lib/dex.hyp",
 			"file",
 			"input.json",
 			"-",
 			"/tmp=/usr/lib/",
 			"a:b=c/d",
-			":contract.sol=",
+			":contract.hyp=",
 			"--base-path=/home/user/",
 			"--include-path=/usr/lib/include/",
 			"--include-path=/home/user/include",
@@ -128,8 +128,8 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 			"--no-color",
 			"--error-codes",
 			"--libraries="
-				"dir1/file1.sol:L=0x1234567890123456789012345678901234567890,"
-				"dir2/file2.sol:L=0x1111122222333334444455555666667777788888",
+				"dir1/file1.hyp:L=0x1234567890123456789012345678901234567890,"
+				"dir2/file2.hyp:L=0x1111122222333334444455555666667777788888",
 			"--ast-compact-json", "--asm", "--asm-json", "--opcodes", "--bin", "--bin-runtime", "--abi",
 			"--ir", "--ir-ast-json", "--ir-optimized", "--ir-optimized-ast-json", "--hashes", "--userdoc", "--devdoc", "--metadata", "--storage-layout",
 			"--gas",
@@ -163,11 +163,11 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 
 		CommandLineOptions expectedOptions;
 		expectedOptions.input.mode = inputMode;
-		expectedOptions.input.paths = {"contract.sol", "/tmp/projects/token.sol", "/home/user/lib/dex.sol", "file", "input.json"};
+		expectedOptions.input.paths = {"contract.hyp", "/tmp/projects/token.hyp", "/home/user/lib/dex.hyp", "file", "input.json"};
 		expectedOptions.input.remappings = {
 			{"", "/tmp", "/usr/lib/"},
 			{"a", "b", "c/d"},
-			{"", "contract.sol", ""},
+			{"", "contract.hyp", ""},
 		};
 
 		expectedOptions.input.addStdin = true;
@@ -184,8 +184,8 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
 		expectedOptions.formatting.json = JsonFormat{JsonFormat::Pretty, 7};
 		expectedOptions.linker.libraries = {
-			{"dir1/file1.sol:L", h160("1234567890123456789012345678901234567890")},
-			{"dir2/file2.sol:L", h160("1111122222333334444455555666667777788888")},
+			{"dir1/file1.hyp:L", h160("1234567890123456789012345678901234567890")},
+			{"dir2/file2.hyp:L", h160("1111122222333334444455555666667777788888")},
 		};
 		expectedOptions.formatting.coloredOutput = false;
 		expectedOptions.formatting.withErrorIds = true;
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 
 BOOST_AUTO_TEST_CASE(no_cbor_metadata)
 {
-	vector<string> commandLine = {"hypc", "--no-cbor-metadata", "contract.sol"};
+	vector<string> commandLine = {"hypc", "--no-cbor-metadata", "contract.hyp"};
 	CommandLineOptions parsedOptions = parseCommandLine(commandLine);
 	bool assert = parsedOptions.metadata.format == CompilerStack::MetadataFormat::NoMetadata;
 
@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE(no_cbor_metadata)
 BOOST_AUTO_TEST_CASE(no_import_callback)
 {
 	std::vector<std::vector<std::string>> commandLinePerInputMode = {
-		{"hypc", "--no-import-callback", "contract.sol"},
+		{"hypc", "--no-import-callback", "contract.hyp"},
 		{"hypc", "--standard-json", "--no-import-callback", "input.json"},
 		{"hypc", "--assemble", "--no-import-callback", "input.yul"},
 		{"hypc", "--strict-assembly", "--no-import-callback", "input.yul"},
@@ -262,9 +262,9 @@ BOOST_AUTO_TEST_CASE(no_import_callback)
 
 BOOST_AUTO_TEST_CASE(via_ir_options)
 {
-	BOOST_TEST(!parseCommandLine({"hypc", "contract.sol"}).output.viaIR);
+	BOOST_TEST(!parseCommandLine({"hypc", "contract.hyp"}).output.viaIR);
 	for (string viaIrOption: {"--via-ir", "--experimental-via-ir"})
-		BOOST_TEST(parseCommandLine({"hypc", viaIrOption, "contract.sol"}).output.viaIR);
+		BOOST_TEST(parseCommandLine({"hypc", viaIrOption, "contract.hyp"}).output.viaIR);
 }
 
 BOOST_AUTO_TEST_CASE(assembly_mode_options)
@@ -308,8 +308,8 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 			"--no-color",
 			"--error-codes",
 			"--libraries="
-				"dir1/file1.sol:L=0x1234567890123456789012345678901234567890,"
-				"dir2/file2.sol:L=0x1111122222333334444455555666667777788888",
+				"dir1/file1.hyp:L=0x1234567890123456789012345678901234567890,"
+				"dir2/file2.hyp:L=0x1111122222333334444455555666667777788888",
 			"--asm",
 			"--bin",
 			"--ir-optimized",
@@ -345,8 +345,8 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.assembly.targetMachine = expectedMachine;
 		expectedOptions.assembly.inputLanguage = expectedLanguage;
 		expectedOptions.linker.libraries = {
-			{"dir1/file1.sol:L", h160("1234567890123456789012345678901234567890")},
-			{"dir2/file2.sol:L", h160("1111122222333334444455555666667777788888")},
+			{"dir1/file1.hyp:L", h160("1234567890123456789012345678901234567890")},
+			{"dir2/file2.hyp:L", h160("1111122222333334444455555666667777788888")},
 		};
 		expectedOptions.formatting.coloredOutput = false;
 		expectedOptions.formatting.withErrorIds = true;
@@ -388,8 +388,8 @@ BOOST_AUTO_TEST_CASE(standard_json_mode_options)
 		"--no-color",                      // Accepted but has no effect in Standard JSON mode
 		"--error-codes",                   // Accepted but has no effect in Standard JSON mode
 		"--libraries="                     // Ignored in Standard JSON mode
-			"dir1/file1.sol:L=0x1234567890123456789012345678901234567890,"
-			"dir2/file2.sol:L=0x1111122222333334444455555666667777788888",
+			"dir1/file1.hyp:L=0x1234567890123456789012345678901234567890,"
+			"dir2/file2.hyp:L=0x1111122222333334444455555666667777788888",
 		"--gas",                           // Accepted but has no effect in Standard JSON mode
 		"--combined-json=abi,bin",         // Accepted but has no effect in Standard JSON mode
 	};
@@ -490,7 +490,7 @@ BOOST_AUTO_TEST_CASE(optimizer_flags)
 
 BOOST_AUTO_TEST_CASE(default_optimiser_sequence)
 {
-	CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.sol", "--optimize"});
+	CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--optimize"});
 	BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, OptimiserSettings::DefaultYulOptimiserSteps);
 	BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, OptimiserSettings::DefaultYulOptimiserCleanupSteps);
 }
@@ -523,7 +523,7 @@ BOOST_AUTO_TEST_CASE(valid_optimiser_sequences)
 
 	for (size_t i = 0; i < validSequenceInputs.size(); ++i)
 	{
-		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.sol", "--optimize", "--yul-optimizations=" + validSequenceInputs[i]});
+		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--optimize", "--yul-optimizations=" + validSequenceInputs[i]});
 		auto const& [expectedYulOptimiserSteps, expectedYulCleanupSteps] = expectedParsedSequences[i];
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, expectedYulOptimiserSteps);
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, expectedYulCleanupSteps);
@@ -565,7 +565,7 @@ BOOST_AUTO_TEST_CASE(invalid_optimiser_sequences)
 
 	for (size_t i = 0; i < invalidSequenceInputs.size(); ++i)
 	{
-		vector<string> const commandLineOptions = {"hypc", "contract.sol", "--optimize", "--yul-optimizations=" + invalidSequenceInputs[i]};
+		vector<string> const commandLineOptions = {"hypc", "contract.hyp", "--optimize", "--yul-optimizations=" + invalidSequenceInputs[i]};
 		string const expectedErrorMessage = baseExpectedErrorMessage + expectedErrorMessages[i];
 		auto hasCorrectMessage = [&](CommandLineValidationError const& _exception) { return _exception.what() == expectedErrorMessage; };
 		BOOST_CHECK_EXCEPTION(parseCommandLine(commandLineOptions), CommandLineValidationError, hasCorrectMessage);
@@ -592,7 +592,7 @@ BOOST_AUTO_TEST_CASE(valid_empty_optimizer_sequences_without_optimize)
 
 	for (size_t i = 0; i < validSequenceInputs.size(); ++i)
 	{
-		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.sol", "--yul-optimizations=" + validSequenceInputs[i]});
+		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--yul-optimizations=" + validSequenceInputs[i]});
 		auto const& [expectedYulOptimiserSteps, expectedYulCleanupSteps] = expectedParsedSequences[i];
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, expectedYulOptimiserSteps);
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, expectedYulCleanupSteps);
@@ -603,7 +603,7 @@ BOOST_AUTO_TEST_CASE(invalid_optimizer_sequence_without_optimize)
 {
 	string const invalidSequence{"u: "};
 	string const expectedErrorMessage{"--yul-optimizations is invalid with a non-empty sequence if Yul optimizer is disabled."};
-	vector<string> commandLineOptions{"hypc", "contract.sol", "--yul-optimizations=" + invalidSequence};
+	vector<string> commandLineOptions{"hypc", "contract.hyp", "--yul-optimizations=" + invalidSequence};
 	auto hasCorrectMessage = [&](CommandLineValidationError const& _exception) { return _exception.what() == expectedErrorMessage; };
 	BOOST_CHECK_EXCEPTION(parseCommandLine(commandLineOptions), CommandLineValidationError, hasCorrectMessage);
 }

@@ -1,7 +1,7 @@
-==== ExternalSource: _stringutils/stringutils.sol ====
-==== Source: strings.sol ====
+==== ExternalSource: _stringutils/stringutils.hyp ====
+==== Source: strings.hyp ====
 pragma abicoder v2;
-import "_stringutils/stringutils.sol";
+import "_stringutils/stringutils.hyp";
 
 contract test {
     using strings for bytes32;

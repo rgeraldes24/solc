@@ -109,24 +109,24 @@ while IFS='' read -r line
 do
   SOL_FILES+=("$line")
 done < <(
-  grep --include "*.sol" -riL -E \
+  grep --include "*.hyp" -riL -E \
     "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental hyperion;" \
     "${ROOT_DIR}/test/libhyperion/syntaxTests" \
     "${ROOT_DIR}/test/libhyperion/semanticTests" |
       # Skipping the unicode tests as I couldn't adapt the lexical grammar to recursively counting RLO/LRO/PDF's.
-      grep -v -E 'comments/.*_direction_override.*.sol' |
-      grep -v -E 'literals/.*_direction_override.*.sol' |
+      grep -v -E 'comments/.*_direction_override.*.hyp' |
+      grep -v -E 'literals/.*_direction_override.*.hyp' |
       # Skipping a test with "revert E;" because ANTLR cannot distinguish it from
       # a variable declaration.
-      grep -v -E 'revertStatement/non_called.sol' |
+      grep -v -E 'revertStatement/non_called.hyp' |
       # Skipping tests with "let prevrandao := ..."
-      grep -v -E 'inlineAssembly/prevrandao_disallowed_function_post_paris.sol' |
+      grep -v -E 'inlineAssembly/prevrandao_disallowed_function_post_paris.hyp' |
       # Skipping license error, unrelated to the grammar
-      grep -v -E 'license/license_double5.sol' |
-      grep -v -E 'license/license_hidden_unicode.sol' |
-      grep -v -E 'license/license_unicode.sol' |
+      grep -v -E 'license/license_double5.hyp' |
+      grep -v -E 'license/license_hidden_unicode.hyp' |
+      grep -v -E 'license/license_unicode.hyp' |
       # Skipping tests with 'something.address' as 'address' as the grammar fails on those
-      grep -v -E 'inlineAssembly/external_function_pointer_address.*.sol'
+      grep -v -E 'inlineAssembly/external_function_pointer_address.*.hyp'
 )
 
 YUL_FILES=()

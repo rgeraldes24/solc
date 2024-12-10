@@ -1096,7 +1096,7 @@ void IRGenerator::resetContext(ContractDefinition const& _contract, ExecutionCon
 		m_context.revertStrings(),
 		m_context.sourceIndices(),
 		m_context.debugInfoSelection(),
-		m_context.soliditySourceProvider()
+		m_context.hyperionSourceProvider()
 	);
 	m_context = std::move(newContext);
 

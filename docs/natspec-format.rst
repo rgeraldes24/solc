@@ -176,12 +176,12 @@ above example will produce two different JSON files. One is meant to be
 consumed by the end user as a notice when a function is executed and the
 other to be used by the developer.
 
-If the above contract is saved as ``ex1.sol`` then you can generate the
+If the above contract is saved as ``ex1.hyp`` then you can generate the
 documentation using:
 
 .. code-block:: shell
 
-   hypc --userdoc --devdoc ex1.sol
+   hypc --userdoc --devdoc ex1.hyp
 
 And the output is below.
 

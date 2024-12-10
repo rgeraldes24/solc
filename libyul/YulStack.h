@@ -127,7 +127,7 @@ public:
 
 	/// Pretty-print the input after having parsed it.
 	std::string print(
-		langutil::CharStreamProvider const* _soliditySourceProvider = nullptr
+		langutil::CharStreamProvider const* _hyperionSourceProvider = nullptr
 	) const;
 	Json::Value astJson() const;
 	/// Return the parsed and analyzed object.

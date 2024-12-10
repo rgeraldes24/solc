@@ -105,7 +105,7 @@ Here, it reports the following:
     State: x = 1, y = 115792089237316195423570985008687907853269984665640564039457584007913129639935
     Overflow.stateAdd()
         Overflow.add(1, 115792089237316195423570985008687907853269984665640564039457584007913129639935) -- internal call
-     --> o.sol:9:20:
+     --> o.hyp:9:20:
       |
     9 |             return x_ + y_;
       |                    ^^^^^^^
@@ -240,7 +240,7 @@ gives us:
     Transaction trace:
     Test.constructor()
     Test.max([0, 0, 0, 0, 0])
-      --> max.sol:14:4:
+      --> max.hyp:14:4:
        |
     14 |            assert(m > a[i]);
 
@@ -337,7 +337,7 @@ the SMTChecker tells us exactly *how* to reach (2, 4):
     Robot.moveRightUp()
     State: x = 2, y = 4
     Robot.reach_2_4()
-      --> r.sol:35:4:
+      --> r.hyp:35:4:
        |
     35 |            assert(!(x == 2 && y == 4));
        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -418,7 +418,7 @@ that the assertion fails:
     Mutex.run()
         unknown.run() -- untrusted external call, synthesized as:
             Mutex.set(1) -- reentrant call
-      --> m.sol:32:3:
+      --> m.hyp:32:3:
        |
     32 | 		assert(xPre == x);
        | 		^^^^^^^^^^^^^^^^^
@@ -523,15 +523,15 @@ not analyzed as the most derived by the SMTChecker.
 
 The chosen contracts can be given via a comma-separated list (whitespace is not
 allowed) of <source>:<contract> pairs in the CLI:
-``--model-checker-contracts "<source1.sol:contract1>,<source2.sol:contract2>,<source2.sol:contract3>"``,
+``--model-checker-contracts "<source1.hyp:contract1>,<source2.hyp:contract2>,<source2.hyp:contract3>"``,
 and via the object ``settings.modelChecker.contracts`` in the :ref:`JSON input<compiler-api>`,
 which has the following form:
 
 .. code-block:: json
 
     "contracts": {
-        "source1.sol": ["contract1"],
-        "source2.sol": ["contract2", "contract3"]
+        "source1.hyp": ["contract1"],
+        "source2.hyp": ["contract2", "contract3"]
     }
 
 Trusted External Calls

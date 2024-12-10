@@ -1,7 +1,7 @@
 pragma hyperion >=0.0;
-import "../Oracles/Oracle.sol";
-import "../Events/EventFactory.sol";
-import "../Markets/MarketFactory.sol";
+import "../Oracles/Oracle.hyp";
+import "../Events/EventFactory.hyp";
+import "../Markets/MarketFactory.hyp";
 
 
 /// @title Futarchy oracle contract - Allows to create an oracle based on market behaviour

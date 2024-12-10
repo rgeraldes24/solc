@@ -170,7 +170,7 @@ void LanguageServer::changeConfiguration(Json::Value const& _settings)
 	// The settings item: "file-load-strategy" (enum) defaults to "project-directory" if not (or not correctly) set.
 	// It can be overridden during client's handshake or at runtime, as usual.
 	//
-	// If this value is set to "project-directory" (default), all .sol files located inside the project directory or reachable through symbolic links will be subject to operations.
+	// If this value is set to "project-directory" (default), all .hyp files located inside the project directory or reachable through symbolic links will be subject to operations.
 	//
 	// Operations include compiler analysis, but also finding all symbolic references or symbolic renaming.
 	//
@@ -227,7 +227,7 @@ std::vector<boost::filesystem::path> LanguageServer::allSolidityFilesFromProject
 #endif
 	for (fs::directory_entry const& dirEntry: directoryIterator)
 		if (
-			dirEntry.path().extension() == ".sol" &&
+			dirEntry.path().extension() == ".hyp" &&
 			(dirEntry.status().type() == fs::file_type::regular_file || resolvesToRegularFile(dirEntry.path()))
 		)
 			collectedPaths.push_back(dirEntry.path());

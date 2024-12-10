@@ -679,7 +679,7 @@ BOOST_AUTO_TEST_CASE(filename_with_colon)
 		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
-				"http://github.com/ethereum/hyperion/std/StandardToken.sol": {
+				"http://github.com/ethereum/hyperion/std/StandardToken.hyp": {
 					"A": [
 						"abi"
 					]
@@ -687,7 +687,7 @@ BOOST_AUTO_TEST_CASE(filename_with_colon)
 			}
 		},
 		"sources": {
-			"http://github.com/ethereum/hyperion/std/StandardToken.sol": {
+			"http://github.com/ethereum/hyperion/std/StandardToken.hyp": {
 				"content": "contract A { }"
 			}
 		}
@@ -695,7 +695,7 @@ BOOST_AUTO_TEST_CASE(filename_with_colon)
 	)";
 	Json::Value result = compile(input);
 	BOOST_CHECK(containsAtMostWarnings(result));
-	Json::Value contract = getContractResult(result, "http://github.com/ethereum/hyperion/std/StandardToken.sol", "A");
+	Json::Value contract = getContractResult(result, "http://github.com/ethereum/hyperion/std/StandardToken.hyp", "A");
 	BOOST_CHECK(contract.isObject());
 	BOOST_CHECK(contract["abi"].isArray());
 	BOOST_CHECK_EQUAL(util::jsonCompactPrint(contract["abi"]), "[]");
@@ -717,9 +717,9 @@ BOOST_AUTO_TEST_CASE(library_filename_with_colon)
 		},
 		"sources": {
 			"fileA": {
-				"content": "import \"git:library.sol\"; contract A { function f() public returns (uint) { return L.g(); } }"
+				"content": "import \"git:library.hyp\"; contract A { function f() public returns (uint) { return L.g(); } }"
 			},
-			"git:library.sol": {
+			"git:library.hyp": {
 				"content": "library L { function g() public returns (uint) { return 1; } }"
 			}
 		}
@@ -729,7 +729,7 @@ BOOST_AUTO_TEST_CASE(library_filename_with_colon)
 	BOOST_CHECK(containsAtMostWarnings(result));
 	Json::Value contract = getContractResult(result, "fileA", "A");
 	BOOST_CHECK(contract.isObject());
-	expectLinkReferences(contract, {{"git:library.sol", {"L"}}});
+	expectLinkReferences(contract, {{"git:library.hyp", {"L"}}});
 }
 
 BOOST_AUTO_TEST_CASE(libraries_invalid_top_level)
@@ -779,7 +779,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_hex)
 		"language": "Hyperion",
 		"settings": {
 			"libraries": {
-				"library.sol": {
+				"library.hyp": {
 					"L": "0x4200000000000000000000000000000000000xx1"
 				}
 			}
@@ -802,7 +802,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_length)
 		"language": "Hyperion",
 		"settings": {
 			"libraries": {
-				"library.sol": {
+				"library.hyp": {
 					"L1": "0x42",
 					"L2": "0x4200000000000000000000000000000000000001ff"
 				}
@@ -826,7 +826,7 @@ BOOST_AUTO_TEST_CASE(libraries_missing_hex_prefix)
 		"language": "Hyperion",
 		"settings": {
 			"libraries": {
-				"library.sol": {
+				"library.hyp": {
 					"L": "4200000000000000000000000000000000000001"
 				}
 			}
@@ -849,7 +849,7 @@ BOOST_AUTO_TEST_CASE(library_linking)
 		"language": "Hyperion",
 		"settings": {
 			"libraries": {
-				"library.sol": {
+				"library.hyp": {
 					"L": "0x4200000000000000000000000000000000000001"
 				}
 			},
@@ -863,12 +863,12 @@ BOOST_AUTO_TEST_CASE(library_linking)
 		},
 		"sources": {
 			"fileA": {
-				"content": "import \"library.sol\"; import \"library2.sol\"; contract A { function f() public returns (uint) { L2.g(); return L.g(); } }"
+				"content": "import \"library.hyp\"; import \"library2.hyp\"; contract A { function f() public returns (uint) { L2.g(); return L.g(); } }"
 			},
-			"library.sol": {
+			"library.hyp": {
 				"content": "library L { function g() public returns (uint) { return 1; } }"
 			},
-			"library2.sol": {
+			"library2.hyp": {
 				"content": "library L2 { function g() public { } }"
 			}
 		}
@@ -877,7 +877,7 @@ BOOST_AUTO_TEST_CASE(library_linking)
 	Json::Value result = compile(input);
 	BOOST_TEST(containsAtMostWarnings(result));
 	Json::Value contractResult = getContractResult(result, "fileA", "A");
-	expectLinkReferences(contractResult, {{"library2.sol", {"L2"}}});
+	expectLinkReferences(contractResult, {{"library2.hyp", {"L2"}}});
 }
 
 BOOST_AUTO_TEST_CASE(linking_yul)
@@ -1618,8 +1618,8 @@ BOOST_AUTO_TEST_CASE(stopAfter_ast_output)
 	{
 		"language": "Hyperion",
 		"sources": {
-			"a.sol": {
-				"content": "// SPDX-License-Identifier: GPL-3.0\nimport \"tes32.sol\";\n contract C is X { constructor() {} }"
+			"a.hyp": {
+				"content": "// SPDX-License-Identifier: GPL-3.0\nimport \"tes32.hyp\";\n contract C is X { constructor() {} }"
 			}
 		},
 		"settings": {
@@ -1630,8 +1630,8 @@ BOOST_AUTO_TEST_CASE(stopAfter_ast_output)
 	)";
 	Json::Value result = compile(input);
 	BOOST_CHECK(result["sources"].isObject());
-	BOOST_CHECK(result["sources"]["a.sol"].isObject());
-	BOOST_CHECK(result["sources"]["a.sol"]["ast"].isObject());
+	BOOST_CHECK(result["sources"]["a.hyp"].isObject());
+	BOOST_CHECK(result["sources"]["a.hyp"]["ast"].isObject());
 }
 
 BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract)
@@ -1640,16 +1640,16 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract)
 	{
 		"language": "Hyperion",
 		"sources": {
-			"BlockRewardAuRaBase.sol": {
+			"BlockRewardAuRaBase.hyp": {
 				"content": " contract Sacrifice { constructor() payable {} } abstract contract BlockRewardAuRaBase { function _transferNativeReward() internal { new Sacrifice(); } function _distributeTokenRewards() internal virtual; } "
 			},
-			"BlockRewardAuRaCoins.sol": {
-				"content": " import \"./BlockRewardAuRaBase.sol\"; contract BlockRewardAuRaCoins is BlockRewardAuRaBase { function transferReward() public { _transferNativeReward(); } function _distributeTokenRewards() internal override {} } "
+			"BlockRewardAuRaCoins.hyp": {
+				"content": " import \"./BlockRewardAuRaBase.hyp\"; contract BlockRewardAuRaCoins is BlockRewardAuRaBase { function transferReward() public { _transferNativeReward(); } function _distributeTokenRewards() internal override {} } "
 			}
 		},
 		"settings": {
 			"outputSelection": {
-				"BlockRewardAuRaCoins.sol": {
+				"BlockRewardAuRaCoins.hyp": {
 					"BlockRewardAuRaCoins": ["ir", "zvm.bytecode.sourceMap"]
 				}
 			}
@@ -1665,12 +1665,12 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract)
 
 	BOOST_REQUIRE(result["contracts"].isObject());
 	BOOST_REQUIRE(result["contracts"].size() == 1);
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"].isObject());
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"].size() == 1);
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"]["BlockRewardAuRaCoins"].isObject());
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"]["BlockRewardAuRaCoins"]["zvm"].isObject());
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"]["BlockRewardAuRaCoins"]["ir"].isString());
-	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.sol"]["BlockRewardAuRaCoins"]["zvm"]["bytecode"].isObject());
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"].isObject());
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"].size() == 1);
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"]["BlockRewardAuRaCoins"].isObject());
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"]["BlockRewardAuRaCoins"]["zvm"].isObject());
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"]["BlockRewardAuRaCoins"]["ir"].isString());
+	BOOST_REQUIRE(result["contracts"]["BlockRewardAuRaCoins.hyp"]["BlockRewardAuRaCoins"]["zvm"]["bytecode"].isObject());
 	BOOST_REQUIRE(result["sources"].isObject());
 	BOOST_REQUIRE(result["sources"].size() == 2);
 }
@@ -1681,13 +1681,13 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract_yul)
 	{
 		"language": "Hyperion",
 		"sources": {
-			"A.sol": {
+			"A.hyp": {
 				"content": "contract A {} contract B {} contract C { constructor() { new B(); } } contract D {}"
 			}
 		},
 		"settings": {
 			"outputSelection": {
-				"A.sol": {
+				"A.hyp": {
 					"C": ["ir"]
 				}
 			}
@@ -1703,12 +1703,12 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract_yul)
 
 	BOOST_REQUIRE(result["contracts"].isObject());
 	BOOST_REQUIRE(result["contracts"].size() == 1);
-	BOOST_REQUIRE(result["contracts"]["A.sol"].isObject());
-	BOOST_REQUIRE(result["contracts"]["A.sol"].size() == 1);
-	BOOST_REQUIRE(result["contracts"]["A.sol"]["C"].isObject());
-	BOOST_REQUIRE(result["contracts"]["A.sol"]["C"]["ir"].isString());
+	BOOST_REQUIRE(result["contracts"]["A.hyp"].isObject());
+	BOOST_REQUIRE(result["contracts"]["A.hyp"].size() == 1);
+	BOOST_REQUIRE(result["contracts"]["A.hyp"]["C"].isObject());
+	BOOST_REQUIRE(result["contracts"]["A.hyp"]["C"]["ir"].isString());
 
-	const std::string& irCode = result["contracts"]["A.sol"]["C"]["ir"].asString();
+	const std::string& irCode = result["contracts"]["A.hyp"]["C"]["ir"].asString();
 
 	// Make sure C and B contracts are deployed
 	BOOST_REQUIRE(irCode.find("object \"C") != std::string::npos);
@@ -1730,13 +1730,13 @@ BOOST_AUTO_TEST_CASE(source_location_of_bare_block)
 	{
 		"language": "Hyperion",
 		"sources": {
-			"A.sol": {
+			"A.hyp": {
 				"content": "contract A { constructor() { uint x = 2; { uint y = 3; } } }"
 			}
 		},
 		"settings": {
 			"outputSelection": {
-				"A.sol": {
+				"A.hyp": {
 					"A": ["zvm.bytecode.sourceMap"]
 				}
 			}
@@ -1750,7 +1750,7 @@ BOOST_AUTO_TEST_CASE(source_location_of_bare_block)
 	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
-	std::string sourceMap = result["contracts"]["A.sol"]["A"]["zvm"]["bytecode"]["sourceMap"].asString();
+	std::string sourceMap = result["contracts"]["A.hyp"]["A"]["zvm"]["bytecode"]["sourceMap"].asString();
 
 	// Check that the bare block's source location is referenced.
 	std::string sourceRef =

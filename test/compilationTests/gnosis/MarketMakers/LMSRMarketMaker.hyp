@@ -1,6 +1,6 @@
 pragma hyperion >=0.0;
-import "../Utils/Math.sol";
-import "../MarketMakers/MarketMaker.sol";
+import "../Utils/Math.hyp";
+import "../MarketMakers/MarketMaker.hyp";
 
 
 /// @title LMSR market maker contract - Calculates share prices based on share distribution and initial funding

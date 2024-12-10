@@ -114,7 +114,7 @@ instead of library functions.
     // The attached functions can be used throughout the rest of the module.
     // If you import the module, you have to
     // repeat the using directive there, for example as
-    //   import "flags.sol" as Flags;
+    //   import "flags.hyp" as Flags;
     //   using {Flags.insert, Flags.remove, Flags.contains}
     //     for Flags.Data;
     using {insert, remove, contains} for Data;

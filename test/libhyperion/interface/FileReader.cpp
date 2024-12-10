@@ -322,21 +322,21 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_should_not_resolve_symlinks_unless_r
 	boost::filesystem::path expectedPrefixWithoutSymlinks = expectedRootPath / boost::filesystem::weakly_canonical(tempDir).relative_path();
 
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.sol", SymlinkResolution::Disabled),
-		expectedPrefixWithSymlinks / "sym/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.hyp", SymlinkResolution::Disabled),
+		expectedPrefixWithSymlinks / "sym/contract.hyp"
 	);
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.sol", SymlinkResolution::Disabled),
-		expectedPrefixWithSymlinks / "abc/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.hyp", SymlinkResolution::Disabled),
+		expectedPrefixWithSymlinks / "abc/contract.hyp"
 	);
 
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.sol", SymlinkResolution::Enabled),
-		expectedPrefixWithoutSymlinks / "abc/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.hyp", SymlinkResolution::Enabled),
+		expectedPrefixWithoutSymlinks / "abc/contract.hyp"
 	);
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.sol", SymlinkResolution::Enabled),
-		expectedPrefixWithoutSymlinks / "abc/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.hyp", SymlinkResolution::Enabled),
+		expectedPrefixWithoutSymlinks / "abc/contract.hyp"
 	);
 }
 
@@ -358,60 +358,60 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_should_resolve_symlinks_in_workdir_w
 	for (SymlinkResolution resolveSymlinks: {SymlinkResolution::Enabled, SymlinkResolution::Disabled})
 	{
 		BOOST_CHECK_EQUAL(
-			FileReader::normalizeCLIPathForVFS("contract.sol", resolveSymlinks),
-			expectedWorkDir / "contract.sol"
+			FileReader::normalizeCLIPathForVFS("contract.hyp", resolveSymlinks),
+			expectedWorkDir / "contract.hyp"
 		);
 	}
 
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.sol", SymlinkResolution::Disabled),
-		expectedPrefix / "sym/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.hyp", SymlinkResolution::Disabled),
+		expectedPrefix / "sym/contract.hyp"
 	);
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.sol", SymlinkResolution::Disabled),
-		expectedPrefix / "abc/contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.hyp", SymlinkResolution::Disabled),
+		expectedPrefix / "abc/contract.hyp"
 	);
 
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.sol", SymlinkResolution::Enabled),
-		expectedWorkDir / "contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "sym/contract.hyp", SymlinkResolution::Enabled),
+		expectedWorkDir / "contract.hyp"
 	);
 	BOOST_CHECK_EQUAL(
-		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.sol", SymlinkResolution::Enabled),
-		expectedWorkDir / "contract.sol"
+		FileReader::normalizeCLIPathForVFS(tempDir.path() / "abc/contract.hyp", SymlinkResolution::Enabled),
+		expectedWorkDir / "contract.hyp"
 	);
 }
 
 BOOST_AUTO_TEST_CASE(isPathPrefix_file_prefix)
 {
-	BOOST_TEST(FileReader::isPathPrefix("/", "/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/contract.sol", "/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/contract.sol/", "/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/contract.sol/.", "/contract.sol"));
+	BOOST_TEST(FileReader::isPathPrefix("/", "/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/contract.hyp", "/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/contract.hyp/", "/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/contract.hyp/.", "/contract.hyp"));
 
-	BOOST_TEST(FileReader::isPathPrefix("/", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/bc", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/bc/def/contract.sol", "/a/bc/def/contract.sol"));
+	BOOST_TEST(FileReader::isPathPrefix("/", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/bc", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/bc/def/contract.hyp", "/a/bc/def/contract.hyp"));
 
-	BOOST_TEST(FileReader::isPathPrefix("/", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/bc", "/a/bc/def/contract.sol"));
-	BOOST_TEST(FileReader::isPathPrefix("/a/bc/def/contract.sol", "/a/bc/def/contract.sol"));
+	BOOST_TEST(FileReader::isPathPrefix("/", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/bc", "/a/bc/def/contract.hyp"));
+	BOOST_TEST(FileReader::isPathPrefix("/a/bc/def/contract.hyp", "/a/bc/def/contract.hyp"));
 
-	BOOST_TEST(!FileReader::isPathPrefix("/contract.sol", "/token.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/contract", "/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/contract.sol", "/contract"));
-	BOOST_TEST(!FileReader::isPathPrefix("/contract.so", "/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/contract.sol", "/contract.so"));
+	BOOST_TEST(!FileReader::isPathPrefix("/contract.hyp", "/token.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/contract", "/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/contract.hyp", "/contract"));
+	BOOST_TEST(!FileReader::isPathPrefix("/contract.so", "/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/contract.hyp", "/contract.so"));
 
-	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.sol", "/a/b/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/b/contract.sol", "/a/b/c/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.sol", "/a/b/c/d/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/d/contract.sol", "/a/b/c/contract.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.sol", "/contract.sol"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.hyp", "/a/b/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/b/contract.hyp", "/a/b/c/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.hyp", "/a/b/c/d/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/d/contract.hyp", "/a/b/c/contract.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/contract.hyp", "/contract.hyp"));
 }
 
 BOOST_AUTO_TEST_CASE(isPathPrefix_directory_prefix)
@@ -428,7 +428,7 @@ BOOST_AUTO_TEST_CASE(isPathPrefix_directory_prefix)
 
 	BOOST_TEST(!FileReader::isPathPrefix("/a", "/b/"));
 	BOOST_TEST(!FileReader::isPathPrefix("/a/", "/b/"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/contract.sol", "/a/b/"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/contract.hyp", "/a/b/"));
 
 	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c/", "/a/b/"));
 	BOOST_TEST(!FileReader::isPathPrefix("/a/b/c", "/a/b/"));
@@ -453,33 +453,33 @@ BOOST_AUTO_TEST_CASE(isPathPrefix_unc_path)
 
 BOOST_AUTO_TEST_CASE(isPathPrefix_case_sensitivity)
 {
-	BOOST_TEST(!FileReader::isPathPrefix("/a.sol", "/A.sol"));
-	BOOST_TEST(!FileReader::isPathPrefix("/A.sol", "/a.sol"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a.hyp", "/A.hyp"));
+	BOOST_TEST(!FileReader::isPathPrefix("/A.hyp", "/a.hyp"));
 	BOOST_TEST(!FileReader::isPathPrefix("/A/", "/a/"));
 	BOOST_TEST(!FileReader::isPathPrefix("/a/", "/A/"));
-	BOOST_TEST(!FileReader::isPathPrefix("/a/BC/def/", "/a/bc/def/contract.sol"));
+	BOOST_TEST(!FileReader::isPathPrefix("/a/BC/def/", "/a/bc/def/contract.hyp"));
 }
 
 BOOST_AUTO_TEST_CASE(stripPrefixIfPresent_file_prefix)
 {
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/", "/contract.sol"), "contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.sol", "/contract.sol"), ".");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.sol/", "/contract.sol"), ".");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.sol/.", "/contract.sol"), ".");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/", "/contract.hyp"), "contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.hyp", "/contract.hyp"), ".");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.hyp/", "/contract.hyp"), ".");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.hyp/.", "/contract.hyp"), ".");
 
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/", "/a/bc/def/contract.sol"), "a/bc/def/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a", "/a/bc/def/contract.sol"), "bc/def/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/", "/a/bc/def/contract.sol"), "bc/def/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc", "/a/bc/def/contract.sol"), "def/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc/def/", "/a/bc/def/contract.sol"), "contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc/def/contract.sol", "/a/bc/def/contract.sol"), ".");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/", "/a/bc/def/contract.hyp"), "a/bc/def/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a", "/a/bc/def/contract.hyp"), "bc/def/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/", "/a/bc/def/contract.hyp"), "bc/def/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc", "/a/bc/def/contract.hyp"), "def/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc/def/", "/a/bc/def/contract.hyp"), "contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/bc/def/contract.hyp", "/a/bc/def/contract.hyp"), ".");
 
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.sol", "/token.sol"), "/token.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract", "/contract.sol"), "/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.sol", "/contract"), "/contract");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.hyp", "/token.hyp"), "/token.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract", "/contract.hyp"), "/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/contract.hyp", "/contract"), "/contract");
 
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/b/c/contract.sol", "/a/b/contract.sol"), "/a/b/contract.sol");
-	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/b/contract.sol", "/a/b/c/contract.sol"), "/a/b/c/contract.sol");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/b/c/contract.hyp", "/a/b/contract.hyp"), "/a/b/contract.hyp");
+	BOOST_CHECK_EQUAL(FileReader::stripPrefixIfPresent("/a/b/contract.hyp", "/a/b/c/contract.hyp"), "/a/b/c/contract.hyp");
 }
 
 BOOST_AUTO_TEST_CASE(stripPrefixIfPresent_directory_prefix)
@@ -536,7 +536,7 @@ BOOST_AUTO_TEST_CASE(isUNCPath)
 	BOOST_TEST(!FileReader::isUNCPath("/"));
 	BOOST_TEST(!FileReader::isUNCPath("a"));
 	BOOST_TEST(!FileReader::isUNCPath("a/b/c"));
-	BOOST_TEST(!FileReader::isUNCPath("contract.sol"));
+	BOOST_TEST(!FileReader::isUNCPath("contract.hyp"));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

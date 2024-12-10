@@ -1,5 +1,5 @@
 {
-    let library_name := "contract/library.sol:L"
+    let library_name := "contract/library.hyp:L"
     let addr := linkersymbol(library_name)
 }
 // ====

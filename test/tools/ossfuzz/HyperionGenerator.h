@@ -192,10 +192,10 @@ private:
 	/// @returns a new source path name that is formed by concatenating
 	/// a static prefix @name m_sourceUnitNamePrefix, a monotonically
 	/// increasing counter starting from 0 and the postfix (extension)
-	/// ".sol".
+	/// ".hyp".
 	[[nodiscard]] std::string path() const
 	{
-		return m_sourceUnitNamePrefix + std::to_string(m_numSourceUnits) + ".sol";
+		return m_sourceUnitNamePrefix + std::to_string(m_numSourceUnits) + ".hyp";
 	}
 	/// Adds @param _path to list of source paths in global test
 	/// state and increments @name m_numSourceUnits.

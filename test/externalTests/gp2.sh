@@ -87,11 +87,11 @@ function gp2_test
     # Patch contracts for 0.8.x compatibility.
     # NOTE: I'm patching OpenZeppelin as well instead of installing OZ 4.0 because it requires less
     # work. The project imports files that were moved to different locations in 4.0.
-    sed -i 's|uint256(-1)|type(uint256).max|g' src/contracts/GPv2Settlement.sol
-    sed -i 's|return msg\.sender;|return payable(msg.sender);|g' node_modules/@openzeppelin/contracts/utils/Context.sol
+    sed -i 's|uint256(-1)|type(uint256).max|g' src/contracts/GPv2Settlement.hyp
+    sed -i 's|return msg\.sender;|return payable(msg.sender);|g' node_modules/@openzeppelin/contracts/utils/Context.hyp
     perl -i -0pe \
         "s/uint256 (executedBuyAmount = \(-tokenDeltas\[trade.buyTokenIndex\]\)\n\s+.toUint256\(\);)/uint256 executedBuyAmount; unchecked \{\1\}/g" \
-        src/contracts/GPv2Settlement.sol
+        src/contracts/GPv2Settlement.hyp
 
     # This test is not supposed to work. The compiler is supposed to enforce zero padding since
     # at least 0.5.8 (see https://github.com/ethereum/hyperion/pull/5815). For some reason the

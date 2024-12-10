@@ -11,7 +11,7 @@
                     {
                         "linkReferences":
                         {
-                            "contract/test.sol":
+                            "contract/test.hyp":
                             {
                                 "L2":
                                 [

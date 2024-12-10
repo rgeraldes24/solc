@@ -1,6 +1,6 @@
 pragma hyperion >=0.0;
-import "../Events/CategoricalEvent.sol";
-import "../Events/ScalarEvent.sol";
+import "../Events/CategoricalEvent.hyp";
+import "../Events/ScalarEvent.hyp";
 
 
 /// @title Event factory contract - Allows creation of categorical and scalar events

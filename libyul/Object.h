@@ -56,7 +56,7 @@ struct ObjectNode
 	virtual std::string toString(
 		Dialect const* _dialect,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
-		langutil::CharStreamProvider const* _soliditySourceProvider
+		langutil::CharStreamProvider const* _hyperionSourceProvider
 	) const = 0;
 	virtual Json::Value toJson() const = 0;
 };
@@ -73,7 +73,7 @@ struct Data: public ObjectNode
 	std::string toString(
 		Dialect const* _dialect,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
-		langutil::CharStreamProvider const* _soliditySourceProvider
+		langutil::CharStreamProvider const* _hyperionSourceProvider
 	) const override;
 	Json::Value toJson() const override;
 };
@@ -95,7 +95,7 @@ public:
 	std::string toString(
 		Dialect const* _dialect,
 		langutil::DebugInfoSelection const& _debugInfoSelection = langutil::DebugInfoSelection::Default(),
-		langutil::CharStreamProvider const* _soliditySourceProvider = nullptr
+		langutil::CharStreamProvider const* _hyperionSourceProvider = nullptr
 	) const;
 	/// @returns a compact JSON representation of the AST.
 	Json::Value toJson() const;

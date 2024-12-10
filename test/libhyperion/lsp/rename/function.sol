@@ -47,7 +47,7 @@ function free() pure
 // }
 // <- {
 //     "changes": {
-//         "rename/function.sol": [
+//         "rename/function.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @FunctionInFreeFunction
@@ -77,7 +77,7 @@ function free() pure
 // }
 // <- {
 //     "changes": {
-//         "rename/function.sol": [
+//         "rename/function.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @FunctionInFreeFunction
@@ -107,7 +107,7 @@ function free() pure
 // }
 // <- {
 //     "changes": {
-//         "rename/function.sol": [
+//         "rename/function.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @FunctionInFreeFunction
@@ -137,7 +137,7 @@ function free() pure
 // }
 // <- {
 //     "changes": {
-//         "rename/function.sol": [
+//         "rename/function.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @FunctionInFreeFunction
@@ -167,7 +167,7 @@ function free() pure
 // }
 // <- {
 //     "changes": {
-//         "rename/function.sol": [
+//         "rename/function.hyp": [
 //             {
 //                 "newText": "Renamed",
 //                 "range": @FunctionInFreeFunction

@@ -196,8 +196,8 @@ the library type to the ``address`` type, i.e. using ``address(LibraryName)``.
 As the compiler does not know the address where the library will be deployed, the compiled hex code
 will contain placeholders of the form ``__$30bbc0abd4d6364515865950d3e0d10953$__``. The placeholder
 is a 34 character prefix of the hex encoding of the keccak256 hash of the fully qualified library
-name, which would be for example ``libraries/bigint.sol:BigInt`` if the library was stored in a file
-called ``bigint.sol`` in a ``libraries/`` directory. Such bytecode is incomplete and should not be
+name, which would be for example ``libraries/bigint.hyp:BigInt`` if the library was stored in a file
+called ``bigint.hyp`` in a ``libraries/`` directory. Such bytecode is incomplete and should not be
 deployed. Placeholders need to be replaced with actual addresses. You can do that by either passing
 them to the compiler when the library is being compiled or by using the linker to update an already
 compiled binary. See :ref:`library-linking` for information on how to use the commandline compiler

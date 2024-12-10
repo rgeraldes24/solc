@@ -10,12 +10,12 @@ EXCLUDE_FILES=(
     "libsolutil/picosha2.h"
     "test/cmdlineTests/strict_asm_only_cr/input.yul"
     "test/libsolutil/UTF8.cpp"
-    "test/libhyperion/syntaxTests/license/license_cr_endings.sol"
-    "test/libhyperion/syntaxTests/license/license_crlf_endings.sol"
-    "test/libhyperion/syntaxTests/license/license_whitespace_trailing.sol"
-    "test/scripts/fixtures/smt_contract_with_crlf_newlines.sol"
-    "test/scripts/fixtures/smt_contract_with_cr_newlines.sol"
-    "test/scripts/fixtures/smt_contract_with_mixed_newlines.sol"
+    "test/libhyperion/syntaxTests/license/license_cr_endings.hyp"
+    "test/libhyperion/syntaxTests/license/license_crlf_endings.hyp"
+    "test/libhyperion/syntaxTests/license/license_whitespace_trailing.hyp"
+    "test/scripts/fixtures/smt_contract_with_crlf_newlines.hyp"
+    "test/scripts/fixtures/smt_contract_with_cr_newlines.hyp"
+    "test/scripts/fixtures/smt_contract_with_mixed_newlines.hyp"
 )
 EXCLUDE_FILES_JOINED=$(printf "%s\|" "${EXCLUDE_FILES[@]}")
 EXCLUDE_FILES_JOINED=${EXCLUDE_FILES_JOINED%??}

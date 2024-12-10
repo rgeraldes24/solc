@@ -261,7 +261,7 @@ std::string AsmPrinter::formatSourceLocation(
 	SourceLocation const& _location,
 	std::map<std::string, unsigned> const& _nameToSourceIndex,
 	DebugInfoSelection const& _debugInfoSelection,
-	CharStreamProvider const* _soliditySourceProvider
+	CharStreamProvider const* _hyperionSourceProvider
 )
 {
 	yulAssert(!_nameToSourceIndex.empty(), "");
@@ -279,12 +279,12 @@ std::string AsmPrinter::formatSourceLocation(
 
 		if (
 			_debugInfoSelection.snippet &&
-			_soliditySourceProvider &&
-			!_soliditySourceProvider->charStream(*_location.sourceName).isImportedFromAST()
+			_hyperionSourceProvider &&
+			!_hyperionSourceProvider->charStream(*_location.sourceName).isImportedFromAST()
 		)
 		{
 			solidityCodeSnippet = escapeAndQuoteString(
-				_soliditySourceProvider->charStream(*_location.sourceName).singleLineSnippet(_location)
+				_hyperionSourceProvider->charStream(*_location.sourceName).singleLineSnippet(_location)
 			);
 
 			// On top of escaping quotes we also escape the slash inside any `*/` to guard against

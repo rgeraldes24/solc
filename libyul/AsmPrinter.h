@@ -50,11 +50,11 @@ public:
 		Dialect const* _dialect = nullptr,
 		std::optional<std::map<unsigned, std::shared_ptr<std::string const>>> _sourceIndexToName = {},
 		langutil::DebugInfoSelection const& _debugInfoSelection = langutil::DebugInfoSelection::Default(),
-		langutil::CharStreamProvider const* _soliditySourceProvider = nullptr
+		langutil::CharStreamProvider const* _hyperionSourceProvider = nullptr
 	):
 		m_dialect(_dialect),
 		m_debugInfoSelection(_debugInfoSelection),
-		m_soliditySourceProvider(_soliditySourceProvider)
+		m_soliditySourceProvider(_hyperionSourceProvider)
 	{
 		if (_sourceIndexToName)
 			for (auto&& [index, name]: *_sourceIndexToName)
@@ -65,8 +65,8 @@ public:
 		Dialect const& _dialect,
 		std::optional<std::map<unsigned, std::shared_ptr<std::string const>>> _sourceIndexToName = {},
 		langutil::DebugInfoSelection const& _debugInfoSelection = langutil::DebugInfoSelection::Default(),
-		langutil::CharStreamProvider const* _soliditySourceProvider = nullptr
-	): AsmPrinter(&_dialect, _sourceIndexToName, _debugInfoSelection, _soliditySourceProvider) {}
+		langutil::CharStreamProvider const* _hyperionSourceProvider = nullptr
+	): AsmPrinter(&_dialect, _sourceIndexToName, _debugInfoSelection, _hyperionSourceProvider) {}
 
 	std::string operator()(Literal const& _literal);
 	std::string operator()(Identifier const& _identifier);

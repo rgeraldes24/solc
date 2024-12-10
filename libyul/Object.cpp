@@ -46,7 +46,7 @@ std::string Data::toString(Dialect const*, DebugInfoSelection const&, CharStream
 std::string Object::toString(
 	Dialect const* _dialect,
 	DebugInfoSelection const& _debugInfoSelection,
-	CharStreamProvider const* _soliditySourceProvider
+	CharStreamProvider const* _hyperionSourceProvider
 ) const
 {
 	yulAssert(code, "No code");
@@ -66,11 +66,11 @@ std::string Object::toString(
 		_dialect,
 		debugData->sourceNames,
 		_debugInfoSelection,
-		_soliditySourceProvider
+		_hyperionSourceProvider
 	)(*code);
 
 	for (auto const& obj: subObjects)
-		inner += "\n" + obj->toString(_dialect, _debugInfoSelection, _soliditySourceProvider);
+		inner += "\n" + obj->toString(_dialect, _debugInfoSelection, _hyperionSourceProvider);
 
 	return useSrcComment + "object \"" + name.str() + "\" {\n" + indent(inner) + "\n}";
 }

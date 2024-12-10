@@ -103,7 +103,7 @@ async function checkJSONPath(name, buggy, fine)
 
 function checkJsonPathTest(code, tmpdir, binary, query, idx) {
     return new Promise(function(resolve, reject) {
-        var solFile = tmpdir + "/jsonPath" + idx + ".sol"
+        var solFile = tmpdir + "/jsonPath" + idx + ".hyp"
         var astFile = tmpdir + "/ast" + idx + ".json"
         writeFilePromise(solFile, code)
         .then(() => {

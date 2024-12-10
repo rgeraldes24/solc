@@ -61,14 +61,14 @@ public:
 		RevertStrings _revertStrings,
 		std::map<std::string, unsigned> _sourceIndices,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
-		langutil::CharStreamProvider const* _soliditySourceProvider
+		langutil::CharStreamProvider const* _hyperionSourceProvider
 	):
 		m_zvmVersion(_zvmVersion),
 		m_executionContext(_executionContext),
 		m_revertStrings(_revertStrings),
 		m_sourceIndices(std::move(_sourceIndices)),
 		m_debugInfoSelection(_debugInfoSelection),
-		m_soliditySourceProvider(_soliditySourceProvider)
+		m_soliditySourceProvider(_hyperionSourceProvider)
 	{}
 
 	MultiUseYulFunctionCollector& functionCollector() { return m_functions; }
@@ -154,7 +154,7 @@ public:
 	bool immutableRegistered(VariableDeclaration const& _varDecl) const { return m_immutableVariables.count(&_varDecl); }
 
 	langutil::DebugInfoSelection debugInfoSelection() const { return m_debugInfoSelection; }
-	langutil::CharStreamProvider const* soliditySourceProvider() const { return m_soliditySourceProvider; }
+	langutil::CharStreamProvider const* hyperionSourceProvider() const { return m_soliditySourceProvider; }
 
 private:
 	langutil::ZVMVersion m_zvmVersion;
