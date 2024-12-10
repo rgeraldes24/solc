@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -21,12 +21,12 @@
 
 #include <test/tools/yulInterpreter/Interpreter.h>
 
-#include <test/tools/yulInterpreter/EVMInstructionInterpreter.h>
+#include <test/tools/yulInterpreter/ZVMInstructionInterpreter.h>
 
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
 #include <libyul/Utilities.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <liblangutil/Exceptions.h>
 
@@ -38,11 +38,11 @@
 #include <variant>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
-using solidity::util::h256;
+using hyperion::util::h256;
 
 void InterpreterState::dumpStorage(ostream& _out) const
 {
@@ -308,18 +308,18 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 			literalArguments = &builtin->literalArguments;
 	evaluateArgs(_funCall.arguments, literalArguments);
 
-	if (EVMDialect const* dialect = dynamic_cast<EVMDialect const*>(&m_dialect))
+	if (ZVMDialect const* dialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
 	{
-		if (BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
+		if (BuiltinFunctionForZVM const* fun = dialect->builtin(_funCall.functionName.name))
 		{
-			EVMInstructionInterpreter interpreter(dialect->evmVersion(), m_state, m_disableMemoryTrace);
+			ZVMInstructionInterpreter interpreter(dialect->zvmVersion(), m_state, m_disableMemoryTrace);
 
 			u256 const value = interpreter.evalBuiltin(*fun, _funCall.arguments, values());
 
 			if (
 				!m_disableExternalCalls &&
 				fun->instruction &&
-				evmasm::isCallInstruction(*fun->instruction)
+				zvmasm::isCallInstruction(*fun->instruction)
 			)
 				runExternalCall(*fun->instruction);
 
@@ -409,7 +409,7 @@ void ExpressionEvaluator::incrementStep()
 	}
 }
 
-void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
+void ExpressionEvaluator::runExternalCall(zvmasm::Instruction _instruction)
 {
 	u256 memOutOffset = 0;
 	u256 memOutSize = 0;
@@ -419,7 +419,7 @@ void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
 
 	// Setup memOut* values
 	if (
-		_instruction == evmasm::Instruction::CALL
+		_instruction == zvmasm::Instruction::CALL
 	)
 	{
 		memOutOffset = values()[5];
@@ -429,8 +429,8 @@ void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
 		memInSize = values()[4];
 	}
 	else if (
-		_instruction == evmasm::Instruction::DELEGATECALL ||
-		_instruction == evmasm::Instruction::STATICCALL
+		_instruction == zvmasm::Instruction::DELEGATECALL ||
+		_instruction == zvmasm::Instruction::STATICCALL
 	)
 	{
 		memOutOffset = values()[4];

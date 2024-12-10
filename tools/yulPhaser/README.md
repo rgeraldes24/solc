@@ -20,7 +20,7 @@ tools/yul-phaser ../test/libyul/yulOptimizerTests/fullSuite/*.yul \
     --random-population 100
 ```
 
-This assumes that you have a working copy of the Solidity repository and you're in the build directory within that working copy.
+This assumes that you have a working copy of the Hyperion repository and you're in the build directory within that working copy.
 
 Run `yul-phaser --help` for a full list of available options.
 
@@ -62,21 +62,21 @@ tools/yul-phaser *.yul                    \
     --population <your sequence>
 ```
 
-#### Using output from Solidity compiler
-`yul-phaser` can process the intermediate representation produced by `solc`:
+#### Using output from Hyperion compiler
+`yul-phaser` can process the intermediate representation produced by `hypc`:
 
 ``` bash
-solc/solc <sol file> --ir --output-dir <output directory>
+hypc/hypc <sol file> --ir --output-dir <output directory>
 ```
 
 After running this command you'll find one or more .yul files in the output directory.
 These files contain whole Yul objects rather than just raw Yul programs but `yul-phaser` is prepared to handle them too.
 
 #### Using optimisation step sequences with the compiler
-You can tell Yul optimiser to use a specific sequence for your code by passing `--yul-optimizations` option to `solc`:
+You can tell Yul optimiser to use a specific sequence for your code by passing `--yul-optimizations` option to `hypc`:
 
 ``` bash
-solc/solc <sol file> --optimize --ir-optimized --yul-optimizations <sequence>
+hypc/hypc <sol file> --optimize --ir-optimized --yul-optimizations <sequence>
 ```
 
 ### How to choose good parameters
@@ -85,7 +85,7 @@ The difficult part is providing a fairly representative set of input files.
 If the files you give do not need certain optimisations the tool will find sequences that do not use these optimisations and perform badly for programs that could benefit from them.
 If all the provided files greatly benefit from a specific optimisation, the sequence may not work well for programs that do not.
 
-We have conducted [a set of rough experiments](https://github.com/ethereum/solidity/issues/7806#issuecomment-598644491) to evaluate some combinations of parameter values.
+We have conducted [a set of rough experiments](https://github.com/ethereum/hyperion/issues/7806#issuecomment-598644491) to evaluate some combinations of parameter values.
 The conclusions were used to adjust the defaults but you might still benefit from some general observations:
 
 1. The algorithm that performed the best was `GEWEP`.

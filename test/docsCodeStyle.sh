@@ -30,7 +30,7 @@ SOLTMPDIR=$(mktemp -d)
             cp "$REPO_ROOT"/test/.solhint.json "$SOLTMPDIR"/.solhint.json
             cp "$REPO_ROOT"/test/.solhintignore "$SOLTMPDIR"/.solhintignore
 
-            for f in *.sol
+            for f in *.hyp
             do
                 echo "$f"
                 # Only report errors

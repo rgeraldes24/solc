@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This script is expected to produce working builds for all compiler versions >= 0.3.6 and
-# succeeding solc-js test runs for all compiler versions >= 0.5.0.
+# succeeding hypc-js test runs for all compiler versions >= 0.5.0.
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 [tagFilter] [outputDirectory] [options...]"

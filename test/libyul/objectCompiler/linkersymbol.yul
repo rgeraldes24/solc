@@ -1,6 +1,6 @@
 object "a" {
     code {
-        let addr := linkersymbol("contract/test.sol:L")
+        let addr := linkersymbol("contract/test.hyp:L")
         mstore(128, shl(227, 0x18530aaf))
         let success := call(gas(), addr, 0, 128, 4, 128, 0)
     }

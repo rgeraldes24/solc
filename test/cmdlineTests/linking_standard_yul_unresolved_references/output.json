@@ -5,13 +5,13 @@
         {
             "a":
             {
-                "evm":
+                "zvm":
                 {
                     "bytecode":
                     {
                         "linkReferences":
                         {
-                            "contract/test.sol":
+                            "contract/test.hyp":
                             {
                                 "L2":
                                 [

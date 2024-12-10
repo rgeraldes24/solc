@@ -6,7 +6,7 @@
 Events
 ******
 
-Solidity events give an abstraction on top of the EVM's logging functionality.
+Hyperion events give an abstraction on top of the ZVM's logging functionality.
 Applications can subscribe and listen to these events through the RPC interface of an Ethereum client.
 
 Events can be defined at file level or as inheritable members of contracts (including interfaces and libraries).
@@ -86,10 +86,10 @@ Members of Events
 Example
 =======
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.21 <0.9.0;
+    pragma hyperion >=0.4.21 <0.9.0;
 
     contract ClientReceipt {
         event Deposit(
@@ -153,5 +153,5 @@ Additional Resources for Understanding Events
 =============================================
 
 - `JavaScript documentation <https://github.com/web3/web3.js/blob/1.x/docs/web3-eth-contract.rst#events>`_
-- `Example usage of events <https://github.com/ethchange/smart-exchange/blob/master/lib/contracts/SmartExchange.sol>`_
+- `Example usage of events <https://github.com/ethchange/smart-exchange/blob/master/lib/contracts/SmartExchange.hyp>`_
 - `How to access them in js <https://github.com/ethchange/smart-exchange/blob/master/lib/exchange_transactions.js>`_

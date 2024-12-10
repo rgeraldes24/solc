@@ -24,9 +24,9 @@ while (( "$#" )); do
   shift
 done
 
-SOLIDITY_REPO_URL="https://github.com/ethereum/solidity"
-SOLC_JS_REPO_URL="https://github.com/ethereum/solc-js"
-SOLC_JS_BRANCH=wasmRebuildTests
+SOLIDITY_REPO_URL="https://github.com/ethereum/hyperion"
+HYPC_JS_REPO_URL="https://github.com/ethereum/hypc-js"
+HYPC_JS_BRANCH=wasmRebuildTests
 RELEASE_URL="https://binaries.soliditylang.org/bin"
 RELEASE_COMMIT_LIST_URL="$RELEASE_URL/list.txt"
 
@@ -57,7 +57,7 @@ function generate_bytecode_report
       git reset --hard HEAD --quiet
       git clean -f -d -x --quiet
 
-      for dir in build/solc build/libsolc emscripten_build/libsolc; do
+      for dir in build/hypc build/libhypc emscripten_build/libhypc; do
         mkdir -p $dir
         rm -rf $dir/soljson.js
         ln -sf "$1" $dir/soljson.js
@@ -97,7 +97,7 @@ function process_tag
   fi
 
   # compatibility symlink
-  ln -s . solidity
+  ln -s . hyperion
 
   local VERSION
   if [ -f ./scripts/get_version.sh ]; then
@@ -164,9 +164,9 @@ function process_tag
     fi
 
     echo -ne "TESTING ${CYAN}${TAG}${RESET}... "
-    cd /root/solc-js
+    cd /root/hypc-js
     npm version --allow-same-version --no-git-tag-version "${VERSION}" >/dev/null
-    sed -i -e "s/runTests(solc, .*)/runTests(solc, '${FULL_VERSION_SUFFIX}')/" test/compiler.js
+    sed -i -e "s/runTests(hypc, .*)/runTests(hypc, '${FULL_VERSION_SUFFIX}')/" test/compiler.js
     ln -sf "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js" soljson.js
     rm -f "${OUTPUTDIR}/log/success/test-$TAG.txt"
     rm -f "${OUTPUTDIR}/log/fail/test-$TAG.txt"
@@ -182,9 +182,9 @@ function process_tag
 
 cd /tmp
 
-echo "Check out solidity repository..."
+echo "Check out hyperion repository..."
 if [ -d /root/project ]; then
-  echo "Solidity repo checkout already exists."
+  echo "Hyperion repo checkout already exists."
 else
   git clone "${SOLIDITY_REPO_URL}" /root/project --quiet
 fi
@@ -196,14 +196,14 @@ cp scripts/bytecodecompare/storebytecode.sh /tmp
 # shellcheck disable=SC2016
 sed -i -e 's/rm -rf "\$TMPDIR"/cp "\$TMPDIR"\/report.txt \/tmp\/report.txt ; rm -rf "\$TMPDIR"/' /tmp/storebytecode.sh
 sed -i -e 's/REPO_ROOT=.*/REPO_ROOT=\/src/' /tmp/storebytecode.sh
-sed -i -e 's/git clone/git clone --branch '"${SOLC_JS_BRANCH}"'/' /tmp/storebytecode.sh
-export SOLC_EMSCRIPTEN="On"
+sed -i -e 's/git clone/git clone --branch '"${HYPC_JS_BRANCH}"'/' /tmp/storebytecode.sh
+export HYPC_EMSCRIPTEN="On"
 
-echo "Check out solc-js repository..."
-if [ -d /root/solc-js ]; then
-  echo "solc-js repo checkout already exists."
+echo "Check out hypc-js repository..."
+if [ -d /root/hypc-js ]; then
+  echo "hypc-js repo checkout already exists."
 else
-  git clone --branch "${SOLC_JS_BRANCH}" "${SOLC_JS_REPO_URL}" /root/solc-js --quiet
+  git clone --branch "${HYPC_JS_BRANCH}" "${HYPC_JS_REPO_URL}" /root/hypc-js --quiet
 fi
 
 echo "Create symbolic links for backwards compatibility with older emscripten docker images."
@@ -228,8 +228,8 @@ mkdir -p "${OUTPUTDIR}"/log/running
 mkdir -p "${OUTPUTDIR}"/log/reports
 mkdir -p "${OUTPUTDIR}"/bin
 
-echo "Prepare solc-js."
-cd /root/solc-js
+echo "Prepare hypc-js."
+cd /root/hypc-js
 npm install >/dev/null 2>&1
 
 echo "Install semver helper."

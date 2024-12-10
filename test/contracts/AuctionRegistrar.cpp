@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -21,9 +21,9 @@
  * Tests for a fixed fee registrar contract.
  */
 
-#include <test/libsolidity/SolidityExecutionFramework.h>
+#include <test/libhyperion/SolidityExecutionFramework.h>
 #include <test/contracts/ContractInterface.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <libsolutil/LazyInit.h>
 
@@ -32,17 +32,17 @@
 #include <string>
 #include <optional>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
 {
 static char const* registrarCode = R"DELIMITER(
-pragma solidity >=0.7.0 <0.9.0;
+pragma hyperion >=0.7.0 <0.9.0;
 
 abstract contract NameRegister {
 	function addr(string memory _name) public virtual view returns (address o_owner);
@@ -416,7 +416,7 @@ BOOST_AUTO_TEST_CASE(auction_simple)
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// "wait" until auction end
 
-	m_evmcHost->tx_context.block_timestamp += m_biddingTime + 10;
+	m_zvmcHost->tx_context.block_timestamp += m_biddingTime + 10;
 	// trigger auction again
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), m_sender);
@@ -428,7 +428,7 @@ BOOST_AUTO_TEST_CASE(auction_bidding)
 	std::string name = "x";
 
 	unsigned startTime = 0x776347e2;
-	m_evmcHost->tx_context.block_timestamp = startTime;
+	m_zvmcHost->tx_context.block_timestamp = startTime;
 
 	RegistrarInterface registrar(*this);
 	// initiate auction
@@ -436,19 +436,19 @@ BOOST_AUTO_TEST_CASE(auction_bidding)
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// overbid self
-	m_evmcHost->tx_context.block_timestamp = startTime + m_biddingTime - 10;
+	m_zvmcHost->tx_context.block_timestamp = startTime + m_biddingTime - 10;
 	registrar.setNextValue(12);
 	registrar.reserve(name);
 	// another bid by someone else
 	sendEther(account(1), 10 * ether);
 	m_sender = account(1);
-	m_evmcHost->tx_context.block_timestamp = startTime + 2 * m_biddingTime - 50;
+	m_zvmcHost->tx_context.block_timestamp = startTime + 2 * m_biddingTime - 50;
 	registrar.setNextValue(13);
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// end auction by first bidder (which is not highest) trying to overbid again (too late)
 	m_sender = account(0);
-	m_evmcHost->tx_context.block_timestamp = startTime + 4 * m_biddingTime;
+	m_zvmcHost->tx_context.block_timestamp = startTime + 4 * m_biddingTime;
 	registrar.setNextValue(20);
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), account(1));

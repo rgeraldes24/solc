@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Clones external test repositories from solidity-external-tests organization
+# Clones external test repositories from hyperion-external-tests organization
 # and for each of them pulls latest upstream changes from the main branch and
 # pushes them to our fork.
 #
 # The script assumes that the current user has write access to
-# solidity-external-tests and that git is configured to be able to push there
+# hyperion-external-tests and that git is configured to be able to push there
 # without specifying the password (e.g. with the key already unlocked and loaded
 # into ssh-agent). Otherwise git will keep asking for password for each repository.
 #
@@ -18,22 +18,22 @@
 #               If omitted, a temporary directory will be created.
 #
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2022 solidity contributors.
+# (c) 2022 hyperion contributors.
 #------------------------------------------------------------------------------
 
 set -euo pipefail
@@ -47,7 +47,7 @@ function clone_repo
     local fork_name="${3:-$upstream_repo}"
 
     if [[ ! -d $fork_name ]]; then
-        git clone "git@github.com:solidity-external-tests/${fork_name}.git" --no-checkout
+        git clone "git@github.com:hyperion-external-tests/${fork_name}.git" --no-checkout
     else
         echo "Reusing existing repo: ${fork_name}."
     fi

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13.0)
 
-set(ETH_CMAKE_DIR   "${CMAKE_CURRENT_LIST_DIR}/cmake"   CACHE PATH "The path to the cmake directory")
-list(APPEND CMAKE_MODULE_PATH ${ETH_CMAKE_DIR})
+set(ZOND_CMAKE_DIR   "${CMAKE_CURRENT_LIST_DIR}/cmake"   CACHE PATH "The path to the cmake directory")
+list(APPEND CMAKE_MODULE_PATH ${ZOND_CMAKE_DIR})
 
 # Set the build type, if none was specified.
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -24,7 +24,7 @@ eth_policy()
 set(PROJECT_VERSION "0.8.23")
 # OSX target needed in order to support std::visit
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
-project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
+project(hyperion VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
 
 include(TestBigEndian)
 TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
@@ -32,8 +32,8 @@ if (IS_BIG_ENDIAN)
 	message(FATAL_ERROR "${PROJECT_NAME} currently does not support big endian systems.")
 endif()
 
-option(SOLC_LINK_STATIC "Link solc executable statically on supported platforms" OFF)
-option(SOLC_STATIC_STDLIBS "Link solc against static versions of libgcc and libstdc++ on supported platforms" OFF)
+option(HYPC_LINK_STATIC "Link hypc executable statically on supported platforms" OFF)
+option(HYPC_STATIC_STDLIBS "Link hypc against static versions of libgcc and libstdc++ on supported platforms" OFF)
 option(STRICT_Z3_VERSION "Use the latest version of Z3" ON)
 option(PEDANTIC "Enable extra warnings and pedantic build flags. Treat all warnings as errors." ON)
 option(PROFILE_OPTIMIZER_STEPS "Output performance metrics for the optimiser steps." OFF)
@@ -92,7 +92,7 @@ You can also use -DUSE_Z3=OFF to build without Z3. In both cases use --no-smt wh
     if ("${Z3_VERSION_STRING}" VERSION_LESS ${MINIMUM_Z3_VERSION})
       message(
         FATAL_ERROR
-        "Solidity requires Z3 ${MINIMUM_Z3_VERSION} or newer. You can also use -DUSE_Z3=OFF to build without Z3."
+        "Hyperion requires Z3 ${MINIMUM_Z3_VERSION} or newer. You can also use -DUSE_Z3=OFF to build without Z3."
       )
     endif()
   endif()
@@ -114,8 +114,8 @@ if(${USE_Z3_DLOPEN})
   if(NOT ${Python3_FOUND})
     message(SEND_ERROR "Dynamic loading of Z3 requires Python 3 to be present at build time.")
   endif()
-  if(${SOLC_LINK_STATIC})
-    message(SEND_ERROR "solc cannot be linked statically when dynamically loading Z3.")
+  if(${HYPC_LINK_STATIC})
+    message(SEND_ERROR "hypc cannot be linked statically when dynamically loading Z3.")
   endif()
 elseif (${Z3_FOUND})
   add_definitions(-DHAVE_Z3)
@@ -133,18 +133,18 @@ if (NOT (${Z3_FOUND} OR ${CVC4_FOUND}))
   \nPlease install Z3 or CVC4 or remove the option disabling them (USE_Z3, USE_CVC4).")
 endif()
 
-add_subdirectory(libsolutil)
+add_subdirectory(libhyputil)
 add_subdirectory(liblangutil)
 add_subdirectory(libsmtutil)
-add_subdirectory(libevmasm)
+add_subdirectory(libzvmasm)
 add_subdirectory(libyul)
-add_subdirectory(libsolidity)
-add_subdirectory(libsolc)
+add_subdirectory(libhyperion)
+add_subdirectory(libhypc)
 add_subdirectory(libstdlib)
 add_subdirectory(tools)
 
 if (NOT EMSCRIPTEN)
-	add_subdirectory(solc)
+	add_subdirectory(hypc)
 endif()
 
 if (TESTS AND NOT EMSCRIPTEN)
