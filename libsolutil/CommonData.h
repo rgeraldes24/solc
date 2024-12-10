@@ -420,6 +420,7 @@ int fromHex(char _i, WhenError _throw);
 bytes fromHex(std::string const& _s, WhenError _throw = WhenError::DontThrow);
 /// Converts byte array to a string containing the same (binary) data. Unless
 /// the byte array happens to contain ASCII data, this won't be printable.
+
 inline std::string asString(bytes const& _b)
 {
 	return std::string((char const*)_b.data(), (char const*)(_b.data() + _b.size()));

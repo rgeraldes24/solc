@@ -19,12 +19,12 @@ contract B is A(9) {
 	}
 }
 
-contract Z is B {
-	constructor(uint z) B(z + f()) {
+contract T is B {
+	constructor(uint t) B(t + f()) {
 	}
 }
 
-contract C is Z(5) {
+contract C is T(5) {
 	constructor() {
 		assert(x == 15);
 		assert(x > 90); // should fail

@@ -3,24 +3,24 @@ contract A {
 	constructor (int a) { x = a; }
 }
 
-contract Z {
-	int z;
-	constructor(int _z) {
-		z = _z;
+contract T {
+	int t;
+	constructor(int _t) {
+		t = _t;
 	}
 }
 
-contract B is A, Z {
-	constructor(int b) A(b) Z(x) {
+contract B is A, T {
+	constructor(int b) A(b) T(x) {
 		assert(x == b);
-		assert(z == 0);
+		assert(t == 0);
 	}
 }
 
-contract F is Z, A {
-	constructor(int b) Z(x) A(b) {
+contract F is T, A {
+	constructor(int b) T(x) A(b) {
 		assert(x == b);
-		assert(z == 0);
+		assert(t == 0);
 	}
 }
 
