@@ -100,9 +100,9 @@ def extract_docs_cases(path, beginMarkers):
 
     return tests
 
-def write_cases(f, solidityTests, yulTests):
+def write_cases(f, hyperionTests, yulTests):
     cleaned_filename = f.replace(".","_").replace("-","_").replace(" ","_").lower()
-    for language, test in [("sol", t) for t in solidityTests] + [("yul", t) for t in yulTests]:
+    for language, test in [("hyp", t) for t in hyperionTests] + [("yul", t) for t in yulTests]:
         # When code examples are extracted they are indented by 8 spaces, which violates the style guide,
         # so before checking remove 4 spaces from each line.
         remainder = dedent(test)

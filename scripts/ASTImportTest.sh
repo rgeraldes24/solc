@@ -289,6 +289,7 @@ function test_import_export_equivalence {
             *) assertFail "Unknown import test type '${IMPORT_TEST_TYPE}'. Aborting." ;;
         esac
     else
+        echo "${sol_file}"
         UNCOMPILABLE=$((UNCOMPILABLE + 1))
 
         # solc will return exit code 2, if it was terminated by an uncaught exception.
