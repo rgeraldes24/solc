@@ -30,8 +30,8 @@ namespace solidity::frontend
 
 /// FileReader - used for progressively loading source code.
 ///
-/// It is used in solc to load files from CLI parameters, stdin, or from JSON and
-/// also used in the solc language server where solc is a long running process.
+/// It is used in hypc to load files from CLI parameters, stdin, or from JSON and
+/// also used in the hypc language server where hypc is a long running process.
 class FileReader
 {
 public:

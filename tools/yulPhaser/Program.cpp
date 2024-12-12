@@ -131,7 +131,7 @@ variant<unique_ptr<Block>, ErrorList> Program::parseObject(Dialect const& _diale
 	Object* deployedObject = nullptr;
 	if (object->subObjects.size() > 0)
 		for (auto& subObject: object->subObjects)
-			// solc --ir produces an object with a subobject of the same name as the outer object
+			// hypc --ir produces an object with a subobject of the same name as the outer object
 			// but suffixed with  "_deployed".
 			// The other object references the nested one which makes analysis fail. Below we try to
 			// extract just the nested one for that reason. This is just a heuristic. If there's no

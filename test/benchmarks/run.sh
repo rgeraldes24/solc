@@ -26,7 +26,7 @@ set -euo pipefail
 REPO_ROOT=$(cd "$(dirname "$0")/../../" && pwd)
 SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
 
-output_dir=$(mktemp -d -t solc-benchmark-XXXXXX)
+output_dir=$(mktemp -d -t hypc-benchmark-XXXXXX)
 result_legacy_file="${output_dir}/benchmark-legacy.txt"
 result_via_ir_file="${output_dir}/benchmark-via-ir.txt"
 warnings_and_errors_file="${output_dir}/benchmark-warn-err.txt"
@@ -38,7 +38,7 @@ function cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
-solc="${SOLIDITY_BUILD_DIR}/solc/solc"
+hypc="${SOLIDITY_BUILD_DIR}/hypc/hypc"
 benchmarks_dir="${REPO_ROOT}/test/benchmarks"
 benchmarks=("chains.hyp" "OptimizorClub.hyp" "verifier.hyp")
 time_bin_path=$(type -P time)
@@ -47,12 +47,12 @@ for input_file in "${benchmarks[@]}"
 do
     input_path="${benchmarks_dir}/${input_file}"
 
-    solc_command_legacy=("${solc}" --optimize --bin --color "${input_path}")
-    solc_command_via_ir=("${solc}" --via-ir --optimize --bin --color "${input_path}")
+    hypc_command_legacy=("${hypc}" --optimize --bin --color "${input_path}")
+    hypc_command_via_ir=("${hypc}" --via-ir --optimize --bin --color "${input_path}")
 
     # Legacy can fail.
-    "${time_bin_path}" --output "${result_legacy_file}" --format "%e" "${solc_command_legacy[@]}" >/dev/null 2>>"${warnings_and_errors_file}"
-    "${time_bin_path}" --output "${result_via_ir_file}" --format "%e" "${solc_command_via_ir[@]}" >/dev/null 2>>"${warnings_and_errors_file}"
+    "${time_bin_path}" --output "${result_legacy_file}" --format "%e" "${hypc_command_legacy[@]}" >/dev/null 2>>"${warnings_and_errors_file}"
+    "${time_bin_path}" --output "${result_via_ir_file}" --format "%e" "${hypc_command_via_ir[@]}" >/dev/null 2>>"${warnings_and_errors_file}"
 
     time_legacy=$(<"${result_legacy_file}")
     time_via_ir=$(<"${result_via_ir_file}")

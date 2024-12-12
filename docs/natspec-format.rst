@@ -181,7 +181,7 @@ documentation using:
 
 .. code-block:: shell
 
-   solc --userdoc --devdoc ex1.hyp
+   hypc --userdoc --devdoc ex1.hyp
 
 And the output is below.
 

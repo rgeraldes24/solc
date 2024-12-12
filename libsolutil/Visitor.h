@@ -62,11 +62,11 @@ struct VisitorFallback<> { template<typename T> void operator()(T&&) const {} };
 // See https://docs.microsoft.com/en-us/cpp/cpp/empty-bases,
 //     https://developercommunity.visualstudio.com/t/10005513.
 #if defined(_MSC_VER)
-#define SOLC_EMPTY_BASES __declspec(empty_bases)
+#define HYPC_EMPTY_BASES __declspec(empty_bases)
 #else
-#define SOLC_EMPTY_BASES
+#define HYPC_EMPTY_BASES
 #endif
 
-template <typename... Visitors> struct SOLC_EMPTY_BASES GenericVisitor: Visitors... { using Visitors::operator()...; };
+template <typename... Visitors> struct HYPC_EMPTY_BASES GenericVisitor: Visitors... { using Visitors::operator()...; };
 template <typename... Visitors> GenericVisitor(Visitors...) -> GenericVisitor<Visitors...>;
 }

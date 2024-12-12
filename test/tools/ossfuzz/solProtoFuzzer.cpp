@@ -83,6 +83,6 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	if (minimalResult.status_code == EVMC_SUCCESS)
 		solAssert(
 			EvmoneUtility::zeroWord(minimalResult.output_data, minimalResult.output_size),
-			"Proto solc fuzzer: Output incorrect"
+			"Proto hypc fuzzer: Output incorrect"
 		);
 }

@@ -33,10 +33,10 @@ from typing import List
 from typing import Set
 
 from test_helpers import download_project
-from test_helpers import get_solc_short_version
+from test_helpers import get_hypc_short_version
 from test_helpers import parse_command_line
 from test_helpers import parse_custom_presets
-from test_helpers import parse_solc_version
+from test_helpers import parse_hypc_version
 from test_helpers import replace_version_pragmas
 from test_helpers import settings_from_preset
 from test_helpers import SettingsPreset
@@ -59,31 +59,31 @@ class TestConfig:
 
 class BaseRunner(metaclass=ABCMeta):
     config: TestConfig
-    solc_binary_type: str
-    solc_binary_path: Path
+    hypc_binary_type: str
+    hypc_binary_path: Path
     presets: Set[SettingsPreset]
 
     def __init__(self, argv, config: TestConfig):
         args = parse_command_line(f"{config.name} external tests", argv)
         self.config = config
-        self.solc_binary_type = args.solc_binary_type
-        self.solc_binary_path = args.solc_binary_path
+        self.hypc_binary_type = args.hypc_binary_type
+        self.hypc_binary_path = args.hypc_binary_path
         self.presets = parse_custom_presets(args.selected_presets) if args.selected_presets else config.selected_presets()
         self.env = os.environ.copy()
         self.tmp_dir = mkdtemp(prefix=f"ext-test-{config.name}-")
         self.test_dir = Path(self.tmp_dir) / "ext"
 
-    def setup_solc(self) -> str:
-        if self.solc_binary_type == "solcjs":
-            # TODO: add support to solc-js
+    def setup_hypc(self) -> str:
+        if self.hypc_binary_type == "hypcjs":
+            # TODO: add support to hypc-js
             raise NotImplementedError()
-        print("Setting up solc...")
-        solc_version_output = subprocess.check_output(
-            [self.solc_binary_path, "--version"],
+        print("Setting up hypc...")
+        hypc_version_output = subprocess.check_output(
+            [self.hypc_binary_path, "--version"],
             shell=False,
             encoding="utf-8"
         ).split(":")[1]
-        return parse_solc_version(solc_version_output)
+        return parse_hypc_version(hypc_version_output)
 
     @staticmethod
     def enter_test_dir(fn):
@@ -129,9 +129,9 @@ def run_test(runner: BaseRunner):
     print(f"Testing {runner.config.name}...\n===========================")
     print(f"Selected settings presets: {' '.join(p.value for p in runner.presets)}")
 
-    # Configure solc compiler
-    solc_version = runner.setup_solc()
-    print(f"Using compiler version {solc_version}")
+    # Configure hypc compiler
+    hypc_version = runner.setup_hypc()
+    print(f"Using compiler version {hypc_version}")
 
     # Download project
     download_project(runner.test_dir, runner.config.repo_url, runner.config.ref_type, runner.config.ref)
@@ -143,8 +143,8 @@ def run_test(runner: BaseRunner):
     print(dedent(f"""\
         Configuring runner's profiles with:
         -------------------------------------
-        Binary type: {runner.solc_binary_type}
-        Compiler path: {runner.solc_binary_path}
+        Binary type: {runner.hypc_binary_type}
+        Compiler path: {runner.hypc_binary_path}
         -------------------------------------
     """))
     runner.configure()
@@ -156,8 +156,8 @@ def run_test(runner: BaseRunner):
             Settings preset: {preset.value}
             Settings: {settings}
             EVM version: {runner.config.evm_version}
-            Compiler version: {get_solc_short_version(solc_version)}
-            Compiler version (full): {solc_version}
+            Compiler version: {get_hypc_short_version(hypc_version)}
+            Compiler version (full): {hypc_version}
             -------------------------------------
         """))
         runner.compile(preset)

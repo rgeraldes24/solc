@@ -57,9 +57,9 @@ function gp2_test
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")
     print_presets_or_exit "$SELECTED_PRESETS"
 
-    setup_solc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
+    setup_hypc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
     download_project "$repo" "$ref_type" "$ref" "$DIR"
-    [[ $BINARY_TYPE == native ]] && replace_global_solc "$BINARY_PATH"
+    [[ $BINARY_TYPE == native ]] && replace_global_hypc "$BINARY_PATH"
 
     neutralize_package_lock
     neutralize_package_json_hooks

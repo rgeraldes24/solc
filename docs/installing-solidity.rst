@@ -153,11 +153,11 @@ with the most recent changes, please use the following:
 
 .. code-block:: bash
 
-    sudo snap install solc --edge
+    sudo snap install hypc --edge
 
 .. note::
 
-    The ``solc`` snap uses strict confinement. This is the most secure mode for snap packages
+    The ``hypc`` snap uses strict confinement. This is the most secure mode for snap packages
     but it comes with limitations, like accessing only the files in your ``/home`` and ``/media`` directories.
     For more information, go to `Demystifying Snap Confinement <https://snapcraft.io/blog/demystifying-snap-confinement>`_.
 
@@ -489,7 +489,7 @@ or even easier on Linux and macOS, you can run:
 
 .. code-block:: bash
 
-    #note: this will install binaries solc and soltest at usr/local/bin
+    #note: this will install binaries hypc and soltest at usr/local/bin
     ./scripts/build.sh
 
 .. warning::

@@ -57,16 +57,16 @@ function gnosis_safe_test
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")
     print_presets_or_exit "$SELECTED_PRESETS"
 
-    setup_solc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
+    setup_hypc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
     download_project "$repo" "$ref_type" "$ref" "$DIR"
-    [[ $BINARY_TYPE == native ]] && replace_global_solc "$BINARY_PATH"
+    [[ $BINARY_TYPE == native ]] && replace_global_hypc "$BINARY_PATH"
 
     # NOTE: The patterns below intentionally have hard-coded versions.
     # When the upstream updates them, there's a chance we can just remove the regex.
     sed -i 's|"@gnosis\.pm/mock-contract": "\^4\.0\.0"|"@gnosis.pm/mock-contract": "github:solidity-external-tests/mock-contract#master_080"|g' package.json
     sed -i 's|"@openzeppelin/contracts": "\^3\.4\.0"|"@openzeppelin/contracts": "^4.0.0"|g' package.json
 
-    # Disable two tests failing due to Hardhat's heuristics not yet updated to handle solc 0.8.10.
+    # Disable two tests failing due to Hardhat's heuristics not yet updated to handle hypc 0.8.10.
     # TODO: Remove this when Hardhat implements them (https://github.com/nomiclabs/hardhat/issues/2451).
     sed -i "s|\(it\)\((\"should revert if called directly\"\)|\1.skip\2|g" test/handlers/CompatibilityFallbackHandler.spec.ts
 
@@ -85,7 +85,7 @@ function gnosis_safe_test
     npm install hardhat-gas-reporter
 
     replace_version_pragmas
-    [[ $BINARY_TYPE == solcjs ]] && force_solc_modules "${DIR}/solc/dist"
+    [[ $BINARY_TYPE == hypcjs ]] && force_hypc_modules "${DIR}/hypc/dist"
 
     for preset in $SELECTED_PRESETS; do
         hardhat_run_test "$config_file" "$preset" "${compile_only_presets[*]}" compile_fn test_fn "$config_var"

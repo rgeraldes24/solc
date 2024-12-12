@@ -29,7 +29,7 @@
 
 #if !defined(NDEBUG)
 #include <fstream>
-#define lspDebug(message) (std::ofstream("/tmp/solc.log", std::ios::app) << (message) << std::endl)
+#define lspDebug(message) (std::ofstream("/tmp/hypc.log", std::ios::app) << (message) << std::endl)
 #else
 #define lspDebug(message) do {} while (0)
 #endif

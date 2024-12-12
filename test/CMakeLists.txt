@@ -79,7 +79,7 @@ set(libsolidity_sources
     libsolidity/GasTest.h
     libsolidity/Imports.cpp
     libsolidity/InlineAssembly.cpp
-    libsolidity/LibSolc.cpp
+    libsolidity/LibHypc.cpp
     libsolidity/Metadata.cpp
     libsolidity/MemoryGuardTest.cpp
     libsolidity/MemoryGuardTest.h
@@ -163,14 +163,14 @@ set(libyul_sources
 )
 detect_stray_source_files("${libyul_sources}" "libyul/")
 
-set(solcli_sources
-    solc/Common.cpp
-    solc/Common.h
-    solc/CommandLineInterface.cpp
-    solc/CommandLineInterfaceAllowPaths.cpp
-    solc/CommandLineParser.cpp
+set(hypcli_sources
+    hypc/Common.cpp
+    hypc/Common.h
+    hypc/CommandLineInterface.cpp
+    hypc/CommandLineInterfaceAllowPaths.cpp
+    hypc/CommandLineParser.cpp
 )
-detect_stray_source_files("${solcli_sources}" "solc/")
+detect_stray_source_files("${hypcli_sources}" "hypc/")
 
 set(yul_phaser_sources
     yulPhaser/TestHelpers.h
@@ -200,10 +200,10 @@ add_executable(soltest ${sources}
     ${libyul_sources}
     ${libsolidity_sources}
     ${libsolidity_util_sources}
-    ${solcli_sources}
+    ${hypcli_sources}
     ${yul_phaser_sources}
 )
-target_link_libraries(soltest PRIVATE solcli libsolc yul solidity smtutil solutil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework evmc)
+target_link_libraries(soltest PRIVATE hypcli libhypc yul solidity smtutil solutil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework evmc)
 
 
 # Special compilation flag for Visual Studio (version 2019 at least affected)

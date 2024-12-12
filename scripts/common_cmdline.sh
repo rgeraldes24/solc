@@ -65,7 +65,7 @@ function compileFull
     fi
 
     set +e
-    "$SOLC" "${args[@]}" "${files[@]}" >/dev/null 2>"$stderr_path"
+    "$HYPC" "${args[@]}" "${files[@]}" >/dev/null 2>"$stderr_path"
     local exit_code=$?
     local errors; errors=$(grep -v -E \
         -e 'Warning: This is a pre-release compiler version|Warning: Experimental features are turned on|pragma experimental ABIEncoderV2|^ +--> |^ +\||^[0-9]+ +\| ' \
@@ -95,7 +95,7 @@ function compileFull
 
         printError ""
         printError "While calling:"
-        echo      "\"$SOLC\" ${args[*]} ${files[*]}"
+        echo      "\"$HYPC\" ${args[*]} ${files[*]}"
         printError "Inside directory:"
         echo "    $(pwd)"
         printError "Input was:"
@@ -114,7 +114,7 @@ function singleContractOutputViaStandardJSON
     [[ $selected_output != "*" ]] || assertFail
 
     json_output=$(
-        "$SOLC" --standard-json --allow-paths "$(basename "$input_file")" - <<EOF
+        "$HYPC" --standard-json --allow-paths "$(basename "$input_file")" - <<EOF
         {
             "language": "${language}",
             "sources": {"${input_file}": {"urls": ["${input_file}"]}},

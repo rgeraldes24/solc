@@ -59,8 +59,8 @@ class FoundryRunner(BaseRunner):
         return dedent("""\
             [profile.{name}]
             gas_reports = ["*"]
-            auto_detect_solc = false
-            solc = "{solc}"
+            auto_detect_hypc = false
+            hypc = "{hypc}"
             evm_version = "{evm_version}"
             optimizer = {optimizer}
             via_ir = {via_ir}
@@ -78,7 +78,7 @@ class FoundryRunner(BaseRunner):
             settings = settings_from_preset(preset, self.config.evm_version)
             profiles.append(self.profile_section({
                 "name": self.profile_name(preset),
-                "solc": self.solc_binary_path,
+                "hypc": self.hypc_binary_path,
                 "evm_version": self.config.evm_version,
                 "optimizer": str(settings["optimizer"]["enabled"]).lower(),
                 "via_ir": str(settings["viaIR"]).lower(),

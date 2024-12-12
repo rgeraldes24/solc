@@ -44,7 +44,7 @@ fi
 
 REPO_ROOT=$(${READLINK} -f "$(dirname "$0")"/..)
 SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
-SOLC="${SOLIDITY_BUILD_DIR}/solc/solc"
+HYPC="${SOLIDITY_BUILD_DIR}/hypc/hypc"
 SPLITSOURCES="${REPO_ROOT}/scripts/splitSources.py"
 
 # shellcheck source=scripts/common.sh
@@ -116,9 +116,9 @@ function test_ast_import_export_equivalence
     local sol_file="$1"
     local input_files=( "${@:2}" )
 
-    local export_command=("$SOLC" --combined-json ast --pretty-json --json-indent 4 "${input_files[@]}")
-    local import_command=("$SOLC" --import-ast --combined-json ast --pretty-json --json-indent 4 expected.json)
-    local import_via_standard_json_command=("$SOLC" --combined-json ast --pretty-json --json-indent 4 --standard-json standard_json_input.json)
+    local export_command=("$HYPC" --combined-json ast --pretty-json --json-indent 4 "${input_files[@]}")
+    local import_command=("$HYPC" --import-ast --combined-json ast --pretty-json --json-indent 4 expected.json)
+    local import_via_standard_json_command=("$HYPC" --combined-json ast --pretty-json --json-indent 4 --standard-json standard_json_input.json)
 
     # export ast - save ast json as expected result (silently)
     if ! "${export_command[@]}" > expected.json 2> stderr_export.txt
@@ -170,27 +170,27 @@ function test_ast_import_export_equivalence
     TESTED=$((TESTED + 1))
 }
 
-function run_solc
+function run_hypc
 {
     local parameters=( "${@}" )
 
-    if ! "${SOLC}" "${parameters[@]}" > /dev/null 2> solc_stderr
+    if ! "${HYPC}" "${parameters[@]}" > /dev/null 2> hypc_stderr
     then
         printError "ERROR: ${parameters[*]}"
         printError "${PWD}"
         # FIXME: EXIT_ON_ERROR seems to be ignored here and in some other places.
         # We just exit unconditionally instead.
-        fail "$(cat solc_stderr)"
+        fail "$(cat hypc_stderr)"
     fi
-    rm solc_stderr
+    rm hypc_stderr
 }
 
-function run_solc_store_stdout
+function run_hypc_store_stdout
 {
     local output_file=$1
     local parameters=( "${@:2}" )
 
-    if ! "${SOLC}" "${parameters[@]}" > "${output_file}" 2> "${output_file}.error"
+    if ! "${HYPC}" "${parameters[@]}" > "${output_file}" 2> "${output_file}.error"
     then
         printError "ERROR: ${parameters[*]}"
         printError "${PWD}"
@@ -207,7 +207,7 @@ function test_evmjson_import_export_equivalence
     # Generate bytecode and EVM assembly JSON through normal complication
     mkdir -p export/
     local export_options=(--bin --asm-json "${input_files[@]}" --output-dir export/)
-    run_solc "${export_options[@]}"
+    run_hypc "${export_options[@]}"
 
     # NOTE: If there is no bytecode, the compiler produces a JSON file that contains just 'null'.
     # This is not accepted by assembly import though so we must skip such contracts.
@@ -229,7 +229,7 @@ function test_evmjson_import_export_equivalence
         bin_file_from_asm_import="import/$(basename "${asm_json_file}" .json).bin"
 
         local import_options=(--bin --import-asm-json "${asm_json_file}")
-        run_solc_store_stdout "${bin_file_from_asm_import}" "${import_options[@]}"
+        run_hypc_store_stdout "${bin_file_from_asm_import}" "${import_options[@]}"
 
         stripCLIDecorations < "$bin_file_from_asm_import" > tmpfile
         mv tmpfile "$bin_file_from_asm_import"
@@ -247,7 +247,7 @@ function test_evmjson_import_export_equivalence
             then
                 # NOTE: The import_options we print here refers to the wrong file (the last one
                 # processed by the previous loop) - but it's still a good starting point for debugging ;)
-                print_used_commands "${PWD}" "${SOLC} ${export_options[*]}" "${SOLC} ${import_options[*]}"
+                print_used_commands "${PWD}" "${HYPC} ${export_options[*]}" "${HYPC} ${import_options[*]}"
                 return 1
             fi
             FAILED=$((FAILED + 1))
@@ -266,7 +266,7 @@ function test_import_export_equivalence {
     local sol_file="$1"
     local input_files=( "${@:2}" )
     local output
-    local solc_return_code
+    local hypc_return_code
     local compile_test
 
     case "$IMPORT_TEST_TYPE" in
@@ -276,12 +276,12 @@ function test_import_export_equivalence {
     esac
 
     set +e
-    output=$("$SOLC" "${compile_test}" "${input_files[@]}" 2>&1)
-    solc_return_code=$?
+    output=$("$HYPC" "${compile_test}" "${input_files[@]}" 2>&1)
+    hypc_return_code=$?
     set -e
 
     # if input files where compilable with success
-    if (( solc_return_code == 0 ))
+    if (( hypc_return_code == 0 ))
     then
         case "$IMPORT_TEST_TYPE" in
             ast) test_ast_import_export_equivalence "${sol_file}" "${input_files[@]}" ;;
@@ -289,13 +289,12 @@ function test_import_export_equivalence {
             *) assertFail "Unknown import test type '${IMPORT_TEST_TYPE}'. Aborting." ;;
         esac
     else
-        echo "${sol_file}"
         UNCOMPILABLE=$((UNCOMPILABLE + 1))
 
-        # solc will return exit code 2, if it was terminated by an uncaught exception.
+        # hypc will return exit code 2, if it was terminated by an uncaught exception.
         # This should normally not happen, so we terminate the test execution here
-        # and print some details about the corresponding solc invocation.
-        if (( solc_return_code == 2 ))
+        # and print some details about the corresponding hypc invocation.
+        if (( hypc_return_code == 2 ))
         then
             # For the evm-assembly import/export tests, this script uses only the old code generator.
             # Some semantic tests can only be compiled with --via-ir (some need to be additionally
@@ -307,13 +306,13 @@ function test_import_export_equivalence {
             # will be treated as a fatal error and the script execution will be terminated with an error.
             if [[ "${output}" != *"UnimplementedFeatureError"* ]]
             then
-                fail "\n\nERROR: Uncaught exception while executing '${SOLC} ${compile_test} ${input_files[*]}':\n${output}\n"
+                fail "\n\nERROR: Uncaught exception while executing '${HYPC} ${compile_test} ${input_files[*]}':\n${output}\n"
             fi
         fi
     fi
 }
 
-command_available "$SOLC" --version
+command_available "$HYPC" --version
 command_available jq --version
 command_available "$EXPR" --version
 command_available "$READLINK" --version

@@ -37,12 +37,12 @@ TMPDIR=$(mktemp -d)
     cd "${TMPDIR}"
     "${SCRIPTDIR}/isolate_tests.py" /src/test/
 
-    cat > solc <<EOF
+    cat > hypc <<EOF
 #!/usr/bin/env node
 var process = require('process')
 var fs = require('fs')
 
-var compiler = require('/root/solc-js/wrapper.js')(require("${1}"))
+var compiler = require('/root/hypc-js/wrapper.js')(require("${1}"))
 
 for (var optimize of [false, true])
 {
@@ -92,7 +92,7 @@ for (var optimize of [false, true])
     }
 }
 EOF
-    chmod +x solc
-    ./solc -- *.hyp > /tmp/report.txt
+    chmod +x hypc
+    ./hypc -- *.hyp > /tmp/report.txt
 )
 rm -rf "$TMPDIR"

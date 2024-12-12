@@ -57,7 +57,7 @@ function bleeps_test
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")
     print_presets_or_exit "$SELECTED_PRESETS"
 
-    setup_solc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
+    setup_hypc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
     download_project "$repo" "$ref_type" "$ref" "$DIR"
 
     pushd "common-lib/"

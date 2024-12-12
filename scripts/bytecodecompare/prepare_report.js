@@ -2,7 +2,7 @@
 const process = require('process')
 const fs = require('fs')
 
-const compiler = require('solc')
+const compiler = require('hypc')
 
 SETTINGS_PRESETS = {
     'legacy-optimize':    {optimize: true,  viaIR: false},

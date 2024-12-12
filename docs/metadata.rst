@@ -21,7 +21,7 @@ the Swarm hash and not appending the metadata hash to the bytecode. These can be
 configured via the :ref:`Standard JSON Interface<compiler-api>`.
 
 You have to publish the metadata file to IPFS, Swarm, or another service so
-that others can access it. You create the file by using the ``solc --metadata``
+that others can access it. You create the file by using the ``hypc --metadata``
 command together with the ``--output-dir`` parameter. Without the parameter,
 the metadata will be written to standard output.
 The metadata contains IPFS and Swarm references to the source code, so you have to
@@ -229,7 +229,7 @@ Below are all the possible fields:
       "bzzr0": "<metadata hash>",
       // If any experimental features that affect code generation are used
       "experimental": true,
-      "solc": "<compiler version>"
+      "hypc": "<compiler version>"
     }
 
 Because we might support other ways to retrieve the
@@ -240,7 +240,7 @@ relevant part of the bytecode can be decoded with a CBOR decoder.
 
 Check the `Metadata Playground <https://playground.sourcify.dev/>`_ to see it in action.
 
-Whereas release builds of solc use a 3 byte encoding of the version as shown
+Whereas release builds of hypc use a 3 byte encoding of the version as shown
 above (one byte each for major, minor and patch version number), pre-release builds
 will instead use a complete version string including commit hash and build date.
 

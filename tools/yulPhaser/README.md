@@ -63,20 +63,20 @@ tools/yul-phaser *.yul                    \
 ```
 
 #### Using output from Solidity compiler
-`yul-phaser` can process the intermediate representation produced by `solc`:
+`yul-phaser` can process the intermediate representation produced by `hypc`:
 
 ``` bash
-solc/solc <sol file> --ir --output-dir <output directory>
+hypc/hypc <hyp file> --ir --output-dir <output directory>
 ```
 
 After running this command you'll find one or more .yul files in the output directory.
 These files contain whole Yul objects rather than just raw Yul programs but `yul-phaser` is prepared to handle them too.
 
 #### Using optimisation step sequences with the compiler
-You can tell Yul optimiser to use a specific sequence for your code by passing `--yul-optimizations` option to `solc`:
+You can tell Yul optimiser to use a specific sequence for your code by passing `--yul-optimizations` option to `hypc`:
 
 ``` bash
-solc/solc <sol file> --optimize --ir-optimized --yul-optimizations <sequence>
+hypc/hypc <hyp file> --optimize --ir-optimized --yul-optimizations <sequence>
 ```
 
 ### How to choose good parameters

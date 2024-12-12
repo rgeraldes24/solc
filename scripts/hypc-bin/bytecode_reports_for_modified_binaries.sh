@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ------------------------------------------------------------------------------
-# Determines versions of all release binaries from solc-bin repo modified in the
+# Determines versions of all release binaries from hypc-bin repo modified in the
 # specified commit range, finds all release binaries from one, selected platform
 # that match these versions and uses them to produce bytecode reports.
 #
@@ -14,20 +14,20 @@
 # 'report-<binary name>.txt'.
 #
 # Usage:
-#    <script name>.sh <PLATFORM> <BASE_REF> <TOP_REF> <SOLC_BIN_DIR> <SOLIDITY_DIR>
+#    <script name>.sh <PLATFORM> <BASE_REF> <TOP_REF> <HYPC_BIN_DIR> <SOLIDITY_DIR>
 #
 # PLATFORM: Platform name, corresponding the one of the top-level directories
-#     in solc-bin.
-# BASE_REF..TOP_REF: Commit range in the solc-bin repository to search for
+#     in hypc-bin.
+# BASE_REF..TOP_REF: Commit range in the hypc-bin repository to search for
 #     modified binaries.
-# SOLC_BIN_DIR: Directory containing a checkout of the ethereum/solc-bin
+# HYPC_BIN_DIR: Directory containing a checkout of the ethereum/hypc-bin
 #    repository with full history. Must be an absolute path.
 # SOLIDITY_DIR: Directory containing a checkout of the ethereum/solidity
 #    repository with full history. Bytecode report will be generated using
 #    scripts from the currently checked out revision. Must be an absolute path.
 #
 # Example:
-#    <script name>.sh linux-amd64 gh-pages pr-branch "$PWD/solc-bin" "$PWD/solidity"
+#    <script name>.sh linux-amd64 gh-pages pr-branch "$PWD/hypc-bin" "$PWD/solidity"
 # ------------------------------------------------------------------------------
 # This file is part of solidity.
 #
@@ -57,13 +57,13 @@ function die
     exit 1
 }
 
-function get_reported_solc_version
+function get_reported_hypc_version
 {
-    local solc_binary="$1"
+    local hypc_binary="$1"
 
-    local version_banner; version_banner=$("$solc_binary" --version)
+    local version_banner; version_banner=$("$hypc_binary" --version)
 
-    if [[ ! $(echo "$version_banner" | head -n 1) =~ ^solc,.*$ ]]; then
+    if [[ ! $(echo "$version_banner" | head -n 1) =~ ^hypc,.*$ ]]; then
         die "%s\nFULL OUTPUT:\n" "Invalid format of --version output" "$version_banner"
     fi
 
@@ -96,12 +96,12 @@ function validate_reported_version
 platform="$1"
 base_ref="$2"
 top_ref="$3"
-solc_bin_dir="$4"
+hypc_bin_dir="$4"
 solidity_dir="$5"
 
 report_dir="$PWD"
 tmp_dir=$(mktemp -d -t bytecode-reports-XXXXXX)
-solcjs_dir="$tmp_dir/solcjs"
+hypcjs_dir="$tmp_dir/hypcjs"
 script_dir="$solidity_dir/scripts"
 
 # Set locale to C to prevent it from affecting glob sort order.
@@ -109,17 +109,17 @@ export LC_ALL=C
 
 cd "$tmp_dir"
 
-git clone https://github.com/ethereum/solc-js.git "$solcjs_dir"
-cd "$solcjs_dir"
+git clone https://github.com/ethereum/hypc-js.git "$hypcjs_dir"
+cd "$hypcjs_dir"
 npm install
 npm run build
 
-cd "${solc_bin_dir}/${platform}/"
+cd "${hypc_bin_dir}/${platform}/"
 echo "Commit range: ${base_ref}..${top_ref}"
 
 modified_release_versions=$(
     git diff --name-only "${base_ref}" "${top_ref}" |
-    sed -n -E 's/^[^\/]+\/(solc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+)\+commit\.[0-9a-f]+(.[^.]+)?$/\2/p' |
+    sed -n -E 's/^[^\/]+\/(hypc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+)\+commit\.[0-9a-f]+(.[^.]+)?$/\2/p' |
     sort -V |
     uniq
 )
@@ -131,10 +131,10 @@ echo "$modified_release_versions"
 # unchanged but were're assuming that these directories are never directly used as a platform name.
 [[ $platform != bin && $platform != wasm ]] || die "Invalid platform name."
 
-platform_binaries="$(git ls-files "solc-${platform}-v*+commit.*" | sort -V)"
+platform_binaries="$(git ls-files "hypc-${platform}-v*+commit.*" | sort -V)"
 
 for binary_name in $platform_binaries; do
-    solidity_version_and_commit=$(echo "$binary_name" | sed -n -E 's/^solc-'"${platform}"'-v([0-9.]+\+commit\.[0-9a-f]+).*$/\1/p')
+    solidity_version_and_commit=$(echo "$binary_name" | sed -n -E 's/^hypc-'"${platform}"'-v([0-9.]+\+commit\.[0-9a-f]+).*$/\1/p')
     solidity_version=$(echo "$solidity_version_and_commit" | sed -n -E 's/^([0-9.]+).*$/\1/p')
 
     if echo "$modified_release_versions" | grep -x "$solidity_version"; then
@@ -150,13 +150,13 @@ for binary_name in $platform_binaries; do
         "${script_dir}/isolate_tests.py" "${work_dir}/solidity/test/"
 
         if [[ $platform == emscripten-wasm32 ]] || [[ $platform == emscripten-asmjs ]]; then
-            ln -sf "${solc_bin_dir}/${platform}/${binary_name}" "${solcjs_dir}/soljson.js"
-            ln -sf "${solc_bin_dir}/${platform}/${binary_name}" "${solcjs_dir}/dist/soljson.js"
-            npm install "${solcjs_dir}/dist"
+            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/soljson.js"
+            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/dist/soljson.js"
+            npm install "${hypcjs_dir}/dist"
             cp "${script_dir}/bytecodecompare/prepare_report.js" prepare_report.js
 
             validate_reported_version \
-                "$(node_modules/solc/solc.js --version)" \
+                "$(node_modules/hypc/hypc.js --version)" \
                 "$solidity_version_and_commit"
 
             # shellcheck disable=SC2035
@@ -168,10 +168,10 @@ for binary_name in $platform_binaries; do
             fi
 
             validate_reported_version \
-                "$(get_reported_solc_version "${solc_bin_dir}/${platform}/${binary_name}")" \
+                "$(get_reported_hypc_version "${hypc_bin_dir}/${platform}/${binary_name}")" \
                 "$solidity_version_and_commit"
 
-            "${script_dir}/bytecodecompare/prepare_report.py" "${solc_bin_dir}/${platform}/${binary_name}" \
+            "${script_dir}/bytecodecompare/prepare_report.py" "${hypc_bin_dir}/${platform}/${binary_name}" \
                 --interface cli \
                 --smt-use strip-pragmas \
                 --report-file "${report_dir}/report-${binary_name}.txt" \

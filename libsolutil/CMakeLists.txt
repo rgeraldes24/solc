@@ -47,6 +47,6 @@ target_link_libraries(solutil PUBLIC jsoncpp Boost::boost Boost::filesystem Boos
 target_include_directories(solutil PUBLIC "${PROJECT_SOURCE_DIR}")
 add_dependencies(solutil solidity_BuildInfo.h)
 
-if(SOLC_LINK_STATIC)
+if(HYPC_LINK_STATIC)
 	target_link_libraries(solutil PUBLIC Threads::Threads)
 endif()

@@ -177,7 +177,7 @@ For example, you could run the following command in your ``build`` folder:
 This creates symbols so that when you debug a test using the ``--debug`` flag,
 you have access to functions and variables in which you can break or print with.
 
-The CI runs additional tests (including ``solc-js`` and testing third party Solidity
+The CI runs additional tests (including ``hypc-js`` and testing third party Solidity
 frameworks) that require compiling the Emscripten target.
 
 Writing and Running Syntax Tests
@@ -282,7 +282,7 @@ You can also provide one or more `file name patterns <https://www.gnu.org/softwa
 in which case only the tests matching at least one pattern will be executed.
 It is also possible to exclude files matching a specific pattern by prefixing it with ``--exclude``.
 
-By default the script assumes that a ``solc`` binary is available inside the ``build/`` subdirectory
+By default the script assumes that a ``hypc`` binary is available inside the ``build/`` subdirectory
 inside the working copy.
 If you build the compiler outside of the source tree, you can use the ``SOLIDITY_BUILD_DIR`` environment
 variable to specify a different location for the build directory.
@@ -297,8 +297,8 @@ Example:
 The commands above will run tests from directories starting with ``test/cmdlineTests/standard_`` and
 subdirectories of ``test/cmdlineTests/`` that have ``_yul_`` somewhere in the name,
 but no test whose name starts with ``standard_yul_`` will be executed.
-It will also assume that the file ``solidity/build/solc/solc`` inside your home directory is the
-compiler binary (unless you are on Windows -- then ``solidity/build/solc/Release/solc.exe``).
+It will also assume that the file ``solidity/build/hypc/hypc`` inside your home directory is the
+compiler binary (unless you are on Windows -- then ``solidity/build/hypc/Release/hypc.exe``).
 
 There are several kinds of command-line tests:
 
@@ -307,15 +307,15 @@ There are several kinds of command-line tests:
 
     - ``input.json``: input file to be passed to the ``--standard-json`` option on the command line.
     - ``output.json``: expected Standard JSON output.
-    - ``args``: extra command-line arguments passed to ``solc``.
+    - ``args``: extra command-line arguments passed to ``hypc``.
 
 - *CLI test*: contains at least an ``input.*`` file (other than ``input.json``).
   In general may contain:
 
-    - ``input.*``: a single input file, whose name will be supplied to ``solc`` on the command line.
+    - ``input.*``: a single input file, whose name will be supplied to ``hypc`` on the command line.
       Usually ``input.hyp`` or ``input.yul``.
-    - ``args``: extra command-line arguments passed to ``solc``.
-    - ``stdin``: content to be passed to ``solc`` via standard input.
+    - ``args``: extra command-line arguments passed to ``hypc``.
+    - ``stdin``: content to be passed to ``hypc`` via standard input.
     - ``output``: expected content of the standard output.
     - ``err``: expected content of the standard error output.
     - ``exit``: expected exit code. If not provided, zero is expected.

@@ -20,13 +20,13 @@
 #                                   e.g. ./yul_coverage.sh --successful --list-files will just return a list of
 #                                   files where it's compilation result was successful
 #   Environment Variables
-#     SOLC can be set to change the used compiler.
+#     HYPC can be set to change the used compiler.
 #
 #   ./yul_coverage.sh
 #   run the script without any parameters to execute the tests will return stats.
 #
-#   SOLC=<path-to-solc> ./yul_coverage.sh
-#   To change the used compiler, just set the SOLC environment variable.
+#   HYPC=<path-to-hypc> ./yul_coverage.sh
+#   To change the used compiler, just set the HYPC environment variable.
 #
 # The documentation for solidity is hosted at:
 #
@@ -97,9 +97,9 @@ function show_output_if
 
 FAILED=()
 SUCCESS=()
-SOLC=${SOLC:-"$(command -v -- solc)"}
-if [ ! -f "${SOLC}" ]; then
-  echo "error: solc '${SOLC}' not found."
+HYPC=${HYPC:-"$(command -v -- hypc)"}
+if [ ! -f "${HYPC}" ]; then
+  echo "error: hypc '${HYPC}' not found."
   exit 1
 fi
 
@@ -109,7 +109,7 @@ function test_file
   local OUTPUT
   SOL_FILE=${1}
 
-  if OUTPUT=$("${SOLC}" --ir "${SOL_FILE}" 2>&1); then
+  if OUTPUT=$("${HYPC}" --ir "${SOL_FILE}" 2>&1); then
     SUCCESS+=("${SOL_FILE}")
     show_output_if ${SHOW_SUCCESSFUL}
   else

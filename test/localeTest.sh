@@ -6,7 +6,7 @@
 # C, tr_TR.utf8, ja_JP.eucjp.
 #
 # Usage:
-#    <script name>.sh <path to solc binary>
+#    <script name>.sh <path to hypc binary>
 #
 # ------------------------------------------------------------------------------
 # This file is part of solidity.
@@ -33,7 +33,7 @@ REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 # shellcheck source=scripts/common.sh
 source "${REPO_ROOT}/scripts/common.sh"
 
-solc_binary="$1"
+hypc_binary="$1"
 (( $# == 1 )) || fail "Expected exactly 1 argument."
 
 # This test won't work without some specific locales installed
@@ -53,31 +53,31 @@ EOF
 
 # Whatever locale is set by default.
 printTask "Testing the default locale..."
-default_locale_output=$(echo "$test_code" | "$solc_binary" - --bin)
+default_locale_output=$(echo "$test_code" | "$hypc_binary" - --bin)
 
 # Plain C locale
 printTask "Testing the C locale..."
 export LC_ALL=C
 [[ ${i^^} == "I" ]] || assertFail
-c_locale_output=$(echo "$test_code" | "$solc_binary" - --bin)
+c_locale_output=$(echo "$test_code" | "$hypc_binary" - --bin)
 diff_values "$default_locale_output" "$c_locale_output"
 
 # Turkish locale, which has capitalization rules (`i` -> `İ` and `I` to `ı`) that can make identifiers invalid.
 printTask "Testing the Turkish locale..."
 export LC_ALL=tr_TR.utf8
 [[ ${i^^} != "I" ]] || assertFail
-tr_locale_output=$(echo "$test_code" | "$solc_binary" - --bin)
+tr_locale_output=$(echo "$test_code" | "$hypc_binary" - --bin)
 diff_values "$default_locale_output" "$tr_locale_output"
 
 # A different locale, that should not do anything special to ASCII chars.
 printTask "Testing the Japanese locale..."
 export LC_ALL=ja_JP.eucjp
 [[ ${i^^} == "I" ]] || assertFail
-ja_locale_output=$(echo "$test_code" | "$solc_binary" - --bin)
+ja_locale_output=$(echo "$test_code" | "$hypc_binary" - --bin)
 diff_values "$default_locale_output" "$ja_locale_output"
 
 # The compiler should not crash if the locale is not valid.
 printTask "Testing an invalid locale..."
 export LC_ALL=__invalid_locale__ || true
-invalid_locale_output=$(echo "$test_code" | "$solc_binary" - --bin)
+invalid_locale_output=$(echo "$test_code" | "$hypc_binary" - --bin)
 diff_values "$default_locale_output" "$invalid_locale_output"

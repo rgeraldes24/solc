@@ -2,10 +2,10 @@ add_subdirectory(ossfuzz)
 
 add_subdirectory(yulInterpreter)
 add_executable(yulrun yulrun.cpp)
-target_link_libraries(yulrun PRIVATE yulInterpreter libsolc evmasm Boost::boost Boost::program_options)
+target_link_libraries(yulrun PRIVATE yulInterpreter libhypc evmasm Boost::boost Boost::program_options)
 
 add_executable(solfuzzer afl_fuzzer.cpp fuzzer_common.cpp)
-target_link_libraries(solfuzzer PRIVATE libsolc evmasm Boost::boost Boost::program_options Boost::system)
+target_link_libraries(solfuzzer PRIVATE libhypc evmasm Boost::boost Boost::program_options Boost::system)
 
 add_executable(yulopti yulopti.cpp)
 target_link_libraries(yulopti PRIVATE solidity Boost::boost Boost::program_options Boost::system)
@@ -49,4 +49,4 @@ add_executable(isoltest
 	../libyul/YulInterpreterTest.cpp
 )
 target_compile_definitions(isoltest PRIVATE ISOLTEST)
-target_link_libraries(isoltest PRIVATE evmc libsolc solidity yulInterpreter evmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)
+target_link_libraries(isoltest PRIVATE evmc libhypc solidity yulInterpreter evmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)

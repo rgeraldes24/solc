@@ -63,14 +63,14 @@ Initial Content of the Virtual Filesystem
 
 The initial content of the VFS depends on how you invoke the compiler:
 
-#. **solc / command-line interface**
+#. **hypc / command-line interface**
 
    When you compile a file using the command-line interface of the compiler, you provide one or
    more paths to files containing Solidity code:
 
    .. code-block:: bash
 
-       solc contract.hyp /usr/local/dapp-bin/token.hyp
+       hypc contract.hyp /usr/local/dapp-bin/token.hyp
 
    The source unit name of a file loaded this way is constructed by converting its path to a
    canonical form and, if possible, making it relative to either the base path or one of the
@@ -145,7 +145,7 @@ The initial content of the VFS depends on how you invoke the compiler:
 
    .. code-block:: bash
 
-       echo 'import "./util.hyp"; contract C {}' | solc -
+       echo 'import "./util.hyp"; contract C {}' | hypc -
 
    ``-`` used as one of the arguments instructs the compiler to place the content of the standard
    input in the virtual filesystem under a special source unit name: ``<stdin>``.
@@ -312,7 +312,7 @@ the library can be found in one of the npm package directories:
 
 .. code-block:: bash
 
-    solc contract.hyp \
+    hypc contract.hyp \
         --base-path . \
         --include-path node_modules/ \
         --include-path /usr/local/lib/node_modules/
@@ -402,7 +402,7 @@ The resulting file path becomes the source unit name.
 
     .. code-block:: bash
 
-        solc /project/contract.hyp --base-path /project --include-path /lib
+        hypc /project/contract.hyp --base-path /project --include-path /lib
 
 .. note::
 
@@ -438,7 +438,7 @@ The option accepts a comma-separated list of paths:
 .. code-block:: bash
 
     cd /home/user/project/
-    solc token/contract.hyp \
+    hypc token/contract.hyp \
         lib/util.hyp=libs/util.hyp \
         --base-path=token/ \
         --include-path=/lib/ \
@@ -506,7 +506,7 @@ and run the compiler with:
 
 .. code-block:: bash
 
-    solc github.com/ethereum/dapp-bin/=dapp-bin/ --base-path /project source.hyp
+    hypc github.com/ethereum/dapp-bin/=dapp-bin/ --base-path /project source.hyp
 
 you can use the following in your source file:
 
@@ -544,7 +544,7 @@ you checked out to ``/project/dapp-bin_old``, then you can run:
 
 .. code-block:: bash
 
-    solc module1:github.com/ethereum/dapp-bin/=dapp-bin/ \
+    hypc module1:github.com/ethereum/dapp-bin/=dapp-bin/ \
          module2:github.com/ethereum/dapp-bin/=dapp-bin_old/ \
          --base-path /project \
          source.hyp
@@ -562,7 +562,7 @@ Here are the detailed rules governing the behavior of remappings:
 
    .. code-block:: bash
 
-       solc /project/=/contracts/ /project/contract.hyp # source unit name: /project/contract.hyp
+       hypc /project/=/contracts/ /project/contract.hyp # source unit name: /project/contract.hyp
 
    In the example above the compiler will load the source code from ``/project/contract.hyp`` and
    place it under that exact source unit name in the VFS, not under ``/contract/contract.hyp``.
@@ -575,7 +575,7 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc ./=a/ /project/=b/ /project/contract.hyp # source unit name: /project/contract.hyp
+         hypc ./=a/ /project/=b/ /project/contract.hyp # source unit name: /project/contract.hyp
 
      .. code-block:: hyperion
          :caption: /project/contract.hyp
@@ -587,7 +587,7 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc /project/=/contracts/ /project/contract.hyp --base-path /project # source unit name: contract.hyp
+         hypc /project/=/contracts/ /project/contract.hyp --base-path /project # source unit name: contract.hyp
 
      .. code-block:: hyperion
          :caption: /project/contract.hyp
@@ -612,7 +612,7 @@ Here are the detailed rules governing the behavior of remappings:
 
      .. code-block:: bash
 
-         solc /project/=/contracts /project/contract.hyp # source unit name: /project/contract.hyp
+         hypc /project/=/contracts /project/contract.hyp # source unit name: /project/contract.hyp
 
      .. code-block:: hyperion
          :caption: /project/contract.hyp
@@ -654,7 +654,7 @@ local path:
 
 .. code-block:: bash
 
-    solc :https://github.com/ethereum/dapp-bin=/usr/local/dapp-bin contract.hyp
+    hypc :https://github.com/ethereum/dapp-bin=/usr/local/dapp-bin contract.hyp
 
 Note the leading ``:``, which is necessary when the remapping context is empty.
 Otherwise the ``https:`` part would be interpreted by the compiler as the context.

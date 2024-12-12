@@ -135,7 +135,7 @@ The following points are all covered by the coding style but come up so often th
 - [ ] New syntax: **does it have an [`ASTJSON`](test/libsolidity/ASTJSON/) test?**
 - [ ] New CLI or StandardJSON option:
     - [ ] **Does it have a [command-line test](test/cmdlineTests/)?**
-    - [ ] **Is the option listed for every input mode in [`CommandLineParser` tests](test/solc/CommandLineParser.cpp)?**
+    - [ ] **Is the option listed for every input mode in [`CommandLineParser` tests](test/hypc/CommandLineParser.cpp)?**
 - [ ] **Did you consider interactions with other language features?**
     - [ ] Are all types covered? Structs? Enums? Contracts/libraries/interfaces? User-defined value types?
         Value types: integers, fixed bytes, `address`, `address payable`, `bool`? Function pointers?

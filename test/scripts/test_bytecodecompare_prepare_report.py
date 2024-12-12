@@ -41,8 +41,8 @@ STACK_TOO_DEEP_CLI_OUTPUT = load_fixture('stack_too_deep_cli_output.txt')
 CODE_GENERATION_ERROR_JSON_OUTPUT = load_fixture('code_generation_error_json_output.json')
 CODE_GENERATION_ERROR_CLI_OUTPUT = load_fixture('code_generation_error_cli_output.txt')
 
-SOLC_0_4_0_CLI_OUTPUT = load_fixture('solc_0.4.0_cli_output.txt')
-SOLC_0_4_8_CLI_OUTPUT = load_fixture('solc_0.4.8_cli_output.txt')
+HYPC_0_4_0_CLI_OUTPUT = load_fixture('hypc_0.4.0_cli_output.txt')
+HYPC_0_4_8_CLI_OUTPUT = load_fixture('hypc_0.4.8_cli_output.txt')
 
 
 class PrepareReportTestBase(unittest.TestCase):
@@ -222,7 +222,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
         }
 
         (command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_SMOKE_TEST_SOL_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=False,
@@ -231,12 +231,12 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
             metadata_option_supported=True,
         )
 
-        self.assertEqual(command_line, ['solc', '--standard-json'])
+        self.assertEqual(command_line, ['hypc', '--standard-json'])
         self.assertEqual(json.loads(compiler_input), expected_compiler_input)
 
     def test_prepare_compiler_input_should_work_with_cli_interface(self):
         (command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_SMOKE_TEST_SOL_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=False,
@@ -247,7 +247,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['solc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--optimize', '--model-checker-engine', 'none']
+            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--optimize', '--model-checker-engine', 'none']
         )
         self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
 
@@ -272,7 +272,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
         }
 
         (command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH,
             preset=SettingsPreset.VIA_IR_OPTIMIZE,
             force_no_optimize_yul=False,
@@ -281,12 +281,12 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
             metadata_option_supported=True,
         )
 
-        self.assertEqual(command_line, ['solc', '--standard-json'])
+        self.assertEqual(command_line, ['hypc', '--standard-json'])
         self.assertEqual(json.loads(compiler_input), expected_compiler_input)
 
     def test_prepare_compiler_input_for_cli_preserves_newlines(self):
         (_command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=True,
@@ -299,7 +299,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
     def test_prepare_compiler_input_for_cli_should_handle_force_no_optimize_yul_flag(self):
         (command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_SMOKE_TEST_SOL_PATH,
             preset=SettingsPreset.LEGACY_NO_OPTIMIZE,
             force_no_optimize_yul=True,
@@ -310,13 +310,13 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['solc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--no-optimize-yul', '--model-checker-engine', 'none'],
+            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--no-optimize-yul', '--model-checker-engine', 'none'],
         )
         self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
 
     def test_prepare_compiler_input_for_cli_should_not_use_metadata_option_if_not_supported(self):
         (command_line, compiler_input) = prepare_compiler_input(
-            Path('solc'),
+            Path('hypc'),
             SMT_SMOKE_TEST_SOL_PATH,
             preset=SettingsPreset.VIA_IR_OPTIMIZE,
             force_no_optimize_yul=False,
@@ -327,7 +327,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['solc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--optimize', '--via-ir'],
+            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--optimize', '--via-ir'],
         )
         self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
 
@@ -558,7 +558,7 @@ class TestParseCLIOutput(PrepareReportTestBase):
 
         self.assertEqual(parse_cli_output(Path('file.hyp'), CODE_GENERATION_ERROR_CLI_OUTPUT), expected_report)
 
-    def test_parse_cli_output_should_handle_output_from_solc_0_4_0(self):
+    def test_parse_cli_output_should_handle_output_from_hypc_0_4_0(self):
         expected_report = FileReport(
             file_name=Path('contract.hyp'),
             contract_reports=[
@@ -571,9 +571,9 @@ class TestParseCLIOutput(PrepareReportTestBase):
             ]
         )
 
-        self.assertEqual(parse_cli_output(Path('contract.hyp'), SOLC_0_4_0_CLI_OUTPUT), expected_report)
+        self.assertEqual(parse_cli_output(Path('contract.hyp'), HYPC_0_4_0_CLI_OUTPUT), expected_report)
 
-    def test_parse_cli_output_should_handle_output_from_solc_0_4_8(self):
+    def test_parse_cli_output_should_handle_output_from_hypc_0_4_8(self):
         expected_report = FileReport(
             file_name=Path('contract.hyp'),
             contract_reports=[
@@ -588,7 +588,7 @@ class TestParseCLIOutput(PrepareReportTestBase):
             ]
         )
 
-        self.assertEqual(parse_cli_output(Path('contract.hyp'), SOLC_0_4_8_CLI_OUTPUT), expected_report)
+        self.assertEqual(parse_cli_output(Path('contract.hyp'), HYPC_0_4_8_CLI_OUTPUT), expected_report)
 
     def test_parse_cli_output_should_handle_leading_and_trailing_spaces(self):
         compiler_output = (

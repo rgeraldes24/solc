@@ -167,7 +167,7 @@ function msg_on_error
     else
         printError ""
         printError "Command failed: ${error_message}"
-        printError "    command: $SOLC ${command[*]}"
+        printError "    command: $HYPC ${command[*]}"
         if [[ -s "$stdout_file" ]]
         then
             printError "--- stdout ---"

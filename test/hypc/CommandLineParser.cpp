@@ -16,12 +16,12 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-/// Unit tests for solc/CommandLineParser.h
+/// Unit tests for hypc/CommandLineParser.h
 
-#include <solc/CommandLineParser.h>
-#include <solc/Exceptions.h>
+#include <hypc/CommandLineParser.h>
+#include <hypc/Exceptions.h>
 
-#include <test/solc/Common.h>
+#include <test/hypc/Common.h>
 
 #include <test/Common.h>
 #include <test/libsolidity/util/SoltestErrors.h>
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(CommandLineParserTest)
 
 BOOST_AUTO_TEST_CASE(no_options)
 {
-	vector<string> commandLine = {"solc", "contract.hyp"};
+	vector<string> commandLine = {"hypc", "contract.hyp"};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.paths = {"contract.hyp"};
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(help_license_version)
 
 	for (auto const& [option, expectedMode]: expectedModePerOption)
 	{
-		CommandLineOptions parsedOptions = parseCommandLine({"solc", option});
+		CommandLineOptions parsedOptions = parseCommandLine({"hypc", option});
 
 		CommandLineOptions expectedOptions;
 		expectedOptions.input.mode = expectedMode;
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 	for (InputMode inputMode: {InputMode::Compiler, InputMode::CompilerWithASTImport})
 	{
 		vector<string> commandLine = {
-			"solc",
+			"hypc",
 			"contract.hyp",             // Both modes do not care about file names, just about
 			"/tmp/projects/token.hyp",  // their content. They also both support stdin.
 			"/home/user/lib/dex.hyp",
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 
 BOOST_AUTO_TEST_CASE(no_cbor_metadata)
 {
-	vector<string> commandLine = {"solc", "--no-cbor-metadata", "contract.hyp"};
+	vector<string> commandLine = {"hypc", "--no-cbor-metadata", "contract.hyp"};
 	CommandLineOptions parsedOptions = parseCommandLine(commandLine);
 	bool assert = parsedOptions.metadata.format == CompilerStack::MetadataFormat::NoMetadata;
 
@@ -244,13 +244,13 @@ BOOST_AUTO_TEST_CASE(no_cbor_metadata)
 BOOST_AUTO_TEST_CASE(no_import_callback)
 {
 	std::vector<std::vector<std::string>> commandLinePerInputMode = {
-		{"solc", "--no-import-callback", "contract.hyp"},
-		{"solc", "--standard-json", "--no-import-callback", "input.json"},
-		{"solc", "--assemble", "--no-import-callback", "input.yul"},
-		{"solc", "--strict-assembly", "--no-import-callback", "input.yul"},
-		{"solc", "--import-ast", "--no-import-callback", "ast.json"},
-		{"solc", "--link", "--no-import-callback", "input.bin"},
-		{"solc", "--yul", "--no-import-callback", "input.yul"},
+		{"hypc", "--no-import-callback", "contract.hyp"},
+		{"hypc", "--standard-json", "--no-import-callback", "input.json"},
+		{"hypc", "--assemble", "--no-import-callback", "input.yul"},
+		{"hypc", "--strict-assembly", "--no-import-callback", "input.yul"},
+		{"hypc", "--import-ast", "--no-import-callback", "ast.json"},
+		{"hypc", "--link", "--no-import-callback", "input.bin"},
+		{"hypc", "--yul", "--no-import-callback", "input.yul"},
 	};
 
 	for (auto const& commandLine: commandLinePerInputMode)
@@ -262,9 +262,9 @@ BOOST_AUTO_TEST_CASE(no_import_callback)
 
 BOOST_AUTO_TEST_CASE(via_ir_options)
 {
-	BOOST_TEST(!parseCommandLine({"solc", "contract.hyp"}).output.viaIR);
+	BOOST_TEST(!parseCommandLine({"hypc", "contract.hyp"}).output.viaIR);
 	for (string viaIrOption: {"--via-ir", "--experimental-via-ir"})
-		BOOST_TEST(parseCommandLine({"solc", viaIrOption, "contract.hyp"}).output.viaIR);
+		BOOST_TEST(parseCommandLine({"hypc", viaIrOption, "contract.hyp"}).output.viaIR);
 }
 
 BOOST_AUTO_TEST_CASE(assembly_mode_options)
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 	for (auto const& [assemblyOptions, expectedMachine, expectedLanguage]: allowedCombinations)
 	{
 		vector<string> commandLine = {
-			"solc",
+			"hypc",
 			"contract.yul",
 			"/tmp/projects/token.yul",
 			"/home/user/lib/dex.yul",
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 BOOST_AUTO_TEST_CASE(standard_json_mode_options)
 {
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"input.json",
 		"--standard-json",
 		"--base-path=/home/user/",
@@ -446,7 +446,7 @@ BOOST_AUTO_TEST_CASE(invalid_options_input_modes_combinations)
 			string optionNameWithoutValue = optionName.substr(0, separatorPosition);
 			soltestAssert(!optionNameWithoutValue.empty());
 
-			vector<string> commandLine = {"solc", optionName, "file", inputMode};
+			vector<string> commandLine = {"hypc", optionName, "file", inputMode};
 
 			string expectedMessage = "The following options are not supported in the current input mode: " + optionNameWithoutValue;
 			auto hasCorrectMessage = [&](CommandLineValidationError const& _exception) { return _exception.what() == expectedMessage; };
@@ -482,7 +482,7 @@ BOOST_AUTO_TEST_CASE(optimizer_flags)
 	for (auto const& [inputMode, inputModeFlag]: inputModeFlagMap)
 		for (auto const& [optimizerFlags, expectedOptimizerSettings]: settingsMap)
 		{
-			vector<string> commandLine = {"solc", inputModeFlag, "file"};
+			vector<string> commandLine = {"hypc", inputModeFlag, "file"};
 			commandLine += optimizerFlags;
 			BOOST_CHECK(parseCommandLine(commandLine).optimiserSettings() == expectedOptimizerSettings);
 		}
@@ -490,7 +490,7 @@ BOOST_AUTO_TEST_CASE(optimizer_flags)
 
 BOOST_AUTO_TEST_CASE(default_optimiser_sequence)
 {
-	CommandLineOptions const& commandLineOptions = parseCommandLine({"solc", "contract.hyp", "--optimize"});
+	CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--optimize"});
 	BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, OptimiserSettings::DefaultYulOptimiserSteps);
 	BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, OptimiserSettings::DefaultYulOptimiserCleanupSteps);
 }
@@ -523,7 +523,7 @@ BOOST_AUTO_TEST_CASE(valid_optimiser_sequences)
 
 	for (size_t i = 0; i < validSequenceInputs.size(); ++i)
 	{
-		CommandLineOptions const& commandLineOptions = parseCommandLine({"solc", "contract.hyp", "--optimize", "--yul-optimizations=" + validSequenceInputs[i]});
+		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--optimize", "--yul-optimizations=" + validSequenceInputs[i]});
 		auto const& [expectedYulOptimiserSteps, expectedYulCleanupSteps] = expectedParsedSequences[i];
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, expectedYulOptimiserSteps);
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, expectedYulCleanupSteps);
@@ -565,7 +565,7 @@ BOOST_AUTO_TEST_CASE(invalid_optimiser_sequences)
 
 	for (size_t i = 0; i < invalidSequenceInputs.size(); ++i)
 	{
-		vector<string> const commandLineOptions = {"solc", "contract.hyp", "--optimize", "--yul-optimizations=" + invalidSequenceInputs[i]};
+		vector<string> const commandLineOptions = {"hypc", "contract.hyp", "--optimize", "--yul-optimizations=" + invalidSequenceInputs[i]};
 		string const expectedErrorMessage = baseExpectedErrorMessage + expectedErrorMessages[i];
 		auto hasCorrectMessage = [&](CommandLineValidationError const& _exception) { return _exception.what() == expectedErrorMessage; };
 		BOOST_CHECK_EXCEPTION(parseCommandLine(commandLineOptions), CommandLineValidationError, hasCorrectMessage);
@@ -592,7 +592,7 @@ BOOST_AUTO_TEST_CASE(valid_empty_optimizer_sequences_without_optimize)
 
 	for (size_t i = 0; i < validSequenceInputs.size(); ++i)
 	{
-		CommandLineOptions const& commandLineOptions = parseCommandLine({"solc", "contract.hyp", "--yul-optimizations=" + validSequenceInputs[i]});
+		CommandLineOptions const& commandLineOptions = parseCommandLine({"hypc", "contract.hyp", "--yul-optimizations=" + validSequenceInputs[i]});
 		auto const& [expectedYulOptimiserSteps, expectedYulCleanupSteps] = expectedParsedSequences[i];
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserSteps, expectedYulOptimiserSteps);
 		BOOST_CHECK_EQUAL(commandLineOptions.optimiserSettings().yulOptimiserCleanupSteps, expectedYulCleanupSteps);
@@ -603,7 +603,7 @@ BOOST_AUTO_TEST_CASE(invalid_optimizer_sequence_without_optimize)
 {
 	string const invalidSequence{"u: "};
 	string const expectedErrorMessage{"--yul-optimizations is invalid with a non-empty sequence if Yul optimizer is disabled."};
-	vector<string> commandLineOptions{"solc", "contract.hyp", "--yul-optimizations=" + invalidSequence};
+	vector<string> commandLineOptions{"hypc", "contract.hyp", "--yul-optimizations=" + invalidSequence};
 	auto hasCorrectMessage = [&](CommandLineValidationError const& _exception) { return _exception.what() == expectedErrorMessage; };
 	BOOST_CHECK_EXCEPTION(parseCommandLine(commandLineOptions), CommandLineValidationError, hasCorrectMessage);
 }

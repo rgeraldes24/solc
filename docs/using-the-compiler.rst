@@ -2,7 +2,7 @@
 Using the Compiler
 ******************
 
-.. index:: ! commandline compiler, compiler;commandline, ! solc
+.. index:: ! commandline compiler, compiler;commandline, ! hypc
 
 .. _commandline-compiler:
 
@@ -10,19 +10,19 @@ Using the Commandline Compiler
 ******************************
 
 .. note::
-    This section does not apply to :ref:`solcjs <solcjs>`, not even if it is used in commandline mode.
+    This section does not apply to :ref:`hypcjs <hypcjs>`, not even if it is used in commandline mode.
 
 Basic Usage
 -----------
 
-One of the build targets of the Solidity repository is ``solc``, the Solidity commandline compiler.
-Using ``solc --help`` provides you with an explanation of all options. The compiler can produce various outputs, ranging from simple binaries and assembly over an abstract syntax tree (parse tree) to estimations of gas usage.
-If you only want to compile a single file, you run it as ``solc --bin sourceFile.hyp`` and it will print the binary. If you want to get some of the more advanced output variants of ``solc``, it is probably better to tell it to output everything to separate files using ``solc -o outputDirectory --bin --ast-compact-json --asm sourceFile.hyp``.
+One of the build targets of the Solidity repository is ``hypc``, the Solidity commandline compiler.
+Using ``hypc --help`` provides you with an explanation of all options. The compiler can produce various outputs, ranging from simple binaries and assembly over an abstract syntax tree (parse tree) to estimations of gas usage.
+If you only want to compile a single file, you run it as ``hypc --bin sourceFile.hyp`` and it will print the binary. If you want to get some of the more advanced output variants of ``hypc``, it is probably better to tell it to output everything to separate files using ``hypc -o outputDirectory --bin --ast-compact-json --asm sourceFile.hyp``.
 
 Optimizer Options
 -----------------
 
-Before you deploy your contract, activate the optimizer when compiling using ``solc --optimize --bin sourceFile.hyp``.
+Before you deploy your contract, activate the optimizer when compiling using ``hypc --optimize --bin sourceFile.hyp``.
 By default, the optimizer will optimize the contract assuming it is called 200 times across its lifetime
 (more specifically, it assumes each opcode is executed around 200 times).
 If you want the initial contract deployment to be cheaper and the later function executions to be more expensive,
@@ -43,7 +43,7 @@ it is also possible to provide :ref:`path redirects <import-remapping>` using ``
 
 .. code-block:: bash
 
-    solc github.com/ethereum/dapp-bin/=/usr/local/lib/dapp-bin/ file.hyp
+    hypc github.com/ethereum/dapp-bin/=/usr/local/lib/dapp-bin/ file.hyp
 
 This essentially instructs the compiler to search for anything starting with
 ``github.com/ethereum/dapp-bin/`` under ``/usr/local/lib/dapp-bin``.
@@ -76,19 +76,19 @@ The placeholder is a 34 character prefix of the hex encoding of the keccak256 ha
 The bytecode file will also contain lines of the form ``// <placeholder> -> <fq library name>`` at the end to help
 identify which libraries the placeholders represent. Note that the fully qualified library name
 is the path of its source file and the library name separated by ``:``.
-You can use ``solc`` as a linker meaning that it will insert the library addresses for you at those points:
+You can use ``hypc`` as a linker meaning that it will insert the library addresses for you at those points:
 
-Either add ``--libraries "file.hyp:Math=0x1234567890123456789012345678901234567890 file.hyp:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``solc`` using ``--libraries fileName``.
+Either add ``--libraries "file.hyp:Math=0x1234567890123456789012345678901234567890 file.hyp:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``hypc`` using ``--libraries fileName``.
 
 .. note::
     Starting Solidity 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.hyp:Math:0x1234567890123456789012345678901234567890 file.hyp:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
 
 .. index:: --standard-json, --base-path
 
-If ``solc`` is called with the option ``--standard-json``, it will expect a JSON input (as explained below) on the standard input, and return a JSON output on the standard output. This is the recommended interface for more complex and especially automated uses. The process will always terminate in a "success" state and report any errors via the JSON output.
+If ``hypc`` is called with the option ``--standard-json``, it will expect a JSON input (as explained below) on the standard input, and return a JSON output on the standard output. This is the recommended interface for more complex and especially automated uses. The process will always terminate in a "success" state and report any errors via the JSON output.
 The option ``--base-path`` is also processed in standard-json mode.
 
-If ``solc`` is called with the option ``--link``, all input files are interpreted to be unlinked binaries (hex-encoded) in the ``__$53aea86b7d70b31448b230b20ae141a537$__``-format given above and are linked in-place (if the input is read from stdin, it is written to stdout). All options except ``--libraries`` are ignored (including ``-o``) in this case.
+If ``hypc`` is called with the option ``--link``, all input files are interpreted to be unlinked binaries (hex-encoded) in the ``__$53aea86b7d70b31448b230b20ae141a537$__``-format given above and are linked in-place (if the input is read from stdin, it is written to stdout). All options except ``--libraries`` are ignored (including ``-o``) in this case.
 
 .. warning::
     Manually linking libraries on the generated bytecode is discouraged because it does not update
@@ -97,12 +97,12 @@ If ``solc`` is called with the option ``--link``, all input files are interprete
     on when linking is performed.
 
     You should ask the compiler to link the libraries at the time a contract is compiled by either
-    using the ``--libraries`` option of ``solc`` or the ``libraries`` key if you use the
+    using the ``--libraries`` option of ``hypc`` or the ``libraries`` key if you use the
     standard-JSON interface to the compiler.
 
 .. note::
     The library placeholder used to be the fully qualified name of the library itself
-    instead of the hash of it. This format is still supported by ``solc --link`` but
+    instead of the hash of it. This format is still supported by ``hypc --link`` but
     the compiler will no longer output it. This change was made to reduce
     the likelihood of a collision between libraries, since only the first 36 characters
     of the fully qualified library name could be used.
@@ -126,7 +126,7 @@ On the command-line, you can select the EVM version as follows:
 
 .. code-block:: shell
 
-  solc --evm-version <VERSION> contract.hyp
+  hypc --evm-version <VERSION> contract.hyp
 
 In the :ref:`standard JSON interface <compiler-api>`, use the ``"evmVersion"``
 key in the ``"settings"`` field:

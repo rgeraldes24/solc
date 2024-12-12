@@ -9,7 +9,7 @@
 # The reports should be placed in subdirectories of the current working
 # directory and their names should follow one of the following patterns:
 #
-#     report-solc-<platform>-v<solidity version>+commit.<commit hash>.txt
+#     report-hypc-<platform>-v<solidity version>+commit.<commit hash>.txt
 #     report-soljson-<platform>-v<solidity version>+commit.<commit hash>.js.txt
 #
 # Reports corresponding to the same version and commit hash are grouped together
@@ -43,7 +43,7 @@ echo "$report_files"
 
 versions_in_report_names=$(
     echo "$report_files" |
-    sed -n -E 's/^\.\/[^\/]+\/report-(solc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+\+commit\.[0-9a-f]+)(.[^.]+)?\.txt$/\2/p' |
+    sed -n -E 's/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+\+commit\.[0-9a-f]+)(.[^.]+)?\.txt$/\2/p' |
     sort -V |
     uniq
 )
@@ -53,7 +53,7 @@ for solidity_version_and_commit in $versions_in_report_names; do
     echo "Comparing reports for Solidity ${solidity_version_and_commit}:"
     mapfile -t report_files_for_version < <(
         echo "$report_files" |
-        sed -n -E '/^\.\/[^\/]+\/report-(solc|soljson)-[0-9a-zA-Z-]+-v'"${solidity_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
+        sed -n -E '/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v'"${solidity_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
     )
 
     diff --report-identical-files --brief --from-file "${report_files_for_version[@]}" || ((++num_failed_comparisons))

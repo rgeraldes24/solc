@@ -56,12 +56,12 @@ function colony_test
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")
     print_presets_or_exit "$SELECTED_PRESETS"
 
-    setup_solc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
+    setup_hypc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
     download_project "$repo" "$ref_type" "$ref" "$DIR"
-    [[ $BINARY_TYPE == native ]] && replace_global_solc "$BINARY_PATH"
+    [[ $BINARY_TYPE == native ]] && replace_global_hypc "$BINARY_PATH"
 
     neutralize_package_json_hooks
-    force_truffle_compiler_settings "$config_file" "$BINARY_TYPE" "${DIR}/solc/dist" "$(first_word "$SELECTED_PRESETS")"
+    force_truffle_compiler_settings "$config_file" "$BINARY_TYPE" "${DIR}/hypc/dist" "$(first_word "$SELECTED_PRESETS")"
     yarn install
     git submodule update --init
 
@@ -71,10 +71,10 @@ function colony_test
     cd ..
 
     replace_version_pragmas
-    [[ $BINARY_TYPE == solcjs ]] && force_solc_modules "${DIR}/solc/dist"
+    [[ $BINARY_TYPE == hypcjs ]] && force_hypc_modules "${DIR}/hypc/dist"
 
     for preset in $SELECTED_PRESETS; do
-        truffle_run_test "$config_file" "$BINARY_TYPE" "${DIR}/solc/dist" "$preset" "${compile_only_presets[*]}" compile_fn test_fn
+        truffle_run_test "$config_file" "$BINARY_TYPE" "${DIR}/hypc/dist" "$preset" "${compile_only_presets[*]}" compile_fn test_fn
         store_benchmark_report truffle colony "$repo" "$preset"
     done
 }

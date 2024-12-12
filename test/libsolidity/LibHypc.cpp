@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 /**
  * @date 2017
- * Unit tests for libsolc/libsolc.cpp.
+ * Unit tests for libhypc/libhypc.cpp.
  */
 
 #include <string>
@@ -25,7 +25,7 @@
 #include <libsolutil/JSON.h>
 #include <libsolidity/interface/ReadFile.h>
 #include <libsolidity/interface/Version.h>
-#include <libsolc/libsolc.h>
+#include <libhypc/libhypc.h>
 
 
 namespace solidity::frontend::test
@@ -74,7 +74,7 @@ char* stringToSolidity(std::string const& _input)
 
 } // end anonymous namespace
 
-BOOST_AUTO_TEST_SUITE(LibSolc)
+BOOST_AUTO_TEST_SUITE(LibHypc)
 
 BOOST_AUTO_TEST_CASE(read_version)
 {

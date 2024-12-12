@@ -25,7 +25,7 @@ function test_cli_and_standard_json_equivalence
     cli_output=$(
         # shellcheck disable=SC2086 # Intentionally unquoted. May contain multiple options.
         msg_on_error --no-stderr \
-            "$SOLC" $cli_options "$selected_cli_output" "$input_file_relative_path"
+            "$HYPC" $cli_options "$selected_cli_output" "$input_file_relative_path"
     )
     standard_json_output=$(
         singleContractOutputViaStandardJSON \

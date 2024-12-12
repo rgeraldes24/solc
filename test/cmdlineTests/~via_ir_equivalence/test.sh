@@ -24,7 +24,7 @@ function test_via_ir_equivalence()
     [[ $optimize_flag == "" ]] || output_file_prefix+="_optimize"
 
     msg_on_error --no-stderr \
-        "$SOLC" --ir-optimized --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
+        "$HYPC" --ir-optimized --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
             stripCLIDecorations |
             split_on_empty_lines_into_numbered_files "$output_file_prefix" ".yul"
 
@@ -33,14 +33,14 @@ function test_via_ir_equivalence()
     for yul_file in $(find . -name "${output_file_prefix}*.yul" | sort -V); do
         asm_output_two_stage+=$(
             msg_on_error --no-stderr \
-                "$SOLC" --strict-assembly --asm "${optimizer_flags[@]}" --no-optimize-yul "$yul_file" |
+                "$HYPC" --strict-assembly --asm "${optimizer_flags[@]}" --no-optimize-yul "$yul_file" |
                     stripCLIDecorations
         )
     done
 
     asm_output_via_ir=$(
         msg_on_error --no-stderr \
-            "$SOLC" --via-ir --asm --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
+            "$HYPC" --via-ir --asm --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
                 stripCLIDecorations
     )
 
@@ -51,14 +51,14 @@ function test_via_ir_equivalence()
     for yul_file in $(find . -name "${output_file_prefix}*.yul" | sort -V); do
         bin_output_two_stage+=$(
             msg_on_error --no-stderr \
-                "$SOLC" --strict-assembly --bin "${optimizer_flags[@]}" "$yul_file" --no-optimize-yul |
+                "$HYPC" --strict-assembly --bin "${optimizer_flags[@]}" "$yul_file" --no-optimize-yul |
                     stripCLIDecorations
         )
     done
 
     bin_output_via_ir=$(
         msg_on_error --no-stderr \
-            "$SOLC" --via-ir --bin "${optimizer_flags[@]}" "$solidity_file" | stripCLIDecorations
+            "$HYPC" --via-ir --bin "${optimizer_flags[@]}" "$solidity_file" | stripCLIDecorations
     )
 
     diff_values "$bin_output_two_stage" "$bin_output_via_ir" --ignore-space-change --ignore-blank-lines
@@ -68,7 +68,7 @@ function test_via_ir_equivalence()
 }
 
 externalContracts=(
-    externalTests/solc-js/DAO/TokenCreation.hyp
+    externalTests/hypc-js/DAO/TokenCreation.hyp
     libsolidity/semanticTests/externalContracts/_prbmath/PRBMathSD59x18.hyp
     libsolidity/semanticTests/externalContracts/_prbmath/PRBMathUD60x18.hyp
     libsolidity/semanticTests/externalContracts/_stringutils/stringutils.hyp
@@ -78,7 +78,7 @@ externalContracts=(
 )
 
 requiresOptimizer=(
-    externalTests/solc-js/DAO/TokenCreation.hyp
+    externalTests/hypc-js/DAO/TokenCreation.hyp
     libsolidity/semanticTests/externalContracts/deposit_contract.hyp
     libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.hyp
     libsolidity/semanticTests/externalContracts/snark.hyp

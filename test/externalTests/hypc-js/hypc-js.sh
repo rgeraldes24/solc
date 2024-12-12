@@ -26,27 +26,28 @@ source scripts/externalTests/common.sh
 
 SOLJSON="$1"
 VERSION="$2"
-SOLCJS_CHECKOUT="$3" # optional
+HYPCJS_CHECKOUT="$3" # optional
 
-[[ $SOLJSON != "" && -f "$SOLJSON" && $VERSION != "" ]] || fail "Usage: $0 <path to soljson.js> <version> [<path to solc-js>]"
+[[ $SOLJSON != "" && -f "$SOLJSON" && $VERSION != "" ]] || fail "Usage: $0 <path to hypjson.js> <version> [<path to hypc-js>]"
 
-function solcjs_test
+# TODO(rgeraldes24)
+function hypcjs_test
 {
     TEST_DIR=$(pwd)
-    SOLCJS_INPUT_DIR="$TEST_DIR"/test/externalTests/solc-js
+    HYPCJS_INPUT_DIR="$TEST_DIR"/test/externalTests/hypc-js
 
-    # set up solc-js on the branch specified
-    setup_solc "$DIR" solcjs "$SOLJSON" master solc/ "$SOLCJS_CHECKOUT"
-    cd solc/
+    # set up hypc-js on the branch specified
+    setup_hypc "$DIR" hypcjs "$SOLJSON" master hypc/ "$HYPCJS_CHECKOUT"
+    cd hypc/
 
     printLog "Updating index.js file..."
     echo "require('./determinism.js');" >> test/index.js
 
     printLog "Copying determinism.js..."
-    cp -f "$SOLCJS_INPUT_DIR/determinism.js" test/
+    cp -f "$HYPCJS_INPUT_DIR/determinism.js" test/
 
     printLog "Copying contracts..."
-    cp -Rf "$SOLCJS_INPUT_DIR/DAO" test/
+    cp -Rf "$HYPCJS_INPUT_DIR/DAO" test/
 
     printLog "Copying SMTChecker tests..."
     # We do not copy all tests because that takes too long.
@@ -64,4 +65,4 @@ function solcjs_test
     npm test
 }
 
-external_test solc-js solcjs_test
+external_test hypc-js hypcjs_test

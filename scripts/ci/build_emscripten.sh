@@ -79,7 +79,7 @@ function build() {
 
     cd ..
     mkdir -p upload
-    scripts/ci/pack_soljson.sh "$build_dir/libsolc/soljson.js" "$build_dir/libsolc/soljson.wasm" upload/soljson.js
+    scripts/ci/pack_soljson.sh "$build_dir/libhypc/soljson.js" "$build_dir/libhypc/soljson.wasm" upload/soljson.js
     cp upload/soljson.js ./
 
     OUTPUT_SIZE=$(ls -la soljson.js)

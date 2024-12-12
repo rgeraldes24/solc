@@ -54,7 +54,7 @@ string TestState::randomPath(set<string> const& _sourceUnitPaths) const
 	size_t increment = uRandDist->distributionOneToN(_sourceUnitPaths.size()) - 1;
 	solAssert(
 		increment >= 0 && increment < _sourceUnitPaths.size(),
-		"Solc custom mutator: Invalid increment"
+		"Hypc custom mutator: Invalid increment"
 	);
 	advance(it, increment);
 	return *it;
@@ -62,7 +62,7 @@ string TestState::randomPath(set<string> const& _sourceUnitPaths) const
 
 string TestState::randomPath() const
 {
-	solAssert(!empty(), "Solc custom mutator: Null test state");
+	solAssert(!empty(), "Hypc custom mutator: Null test state");
 	return randomPath(sourceUnitPaths);
 }
 
@@ -78,7 +78,7 @@ string TestState::randomNonCurrentPath() const
 	/// To obtain a source path that is not the currently visited
 	/// source unit itself, we require at least one other source
 	/// unit to be previously visited.
-	solAssert(size() >= 2, "Solc custom mutator: Invalid test state");
+	solAssert(size() >= 2, "Hypc custom mutator: Invalid test state");
 
 	set<string> filteredSourcePaths;
 	string currentPath = currentSourceUnitPath;

@@ -1,4 +1,4 @@
-name: solc
+name: hypc
 version: develop
 version-script: git describe --exact-match --tags 2> /dev/null || echo "develop"
 summary: The Solidity Contract-Oriented Programming Language
@@ -18,8 +18,8 @@ grade: stable
 confinement: strict
 
 apps:
-  solc:
-    command: usr/local/bin/solc
+  hypc:
+    command: usr/local/bin/hypc
     plugs: [home]
 
 parts:

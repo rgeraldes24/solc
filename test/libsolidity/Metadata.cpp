@@ -138,14 +138,14 @@ BOOST_AUTO_TEST_CASE(metadata_stamp)
 			}
 
 			if (metadataFormat == CompilerStack::MetadataFormat::NoMetadata)
-				BOOST_CHECK(cborMetadata.count("solc") == 0);
+				BOOST_CHECK(cborMetadata.count("hypc") == 0);
 			else
 			{
-				BOOST_CHECK(cborMetadata.count("solc") == 1);
+				BOOST_CHECK(cborMetadata.count("hypc") == 1);
 				if (metadataFormat == CompilerStack::MetadataFormat::WithReleaseVersionTag)
-					BOOST_CHECK(cborMetadata.at("solc") == util::toHex(VersionCompactBytes));
+					BOOST_CHECK(cborMetadata.at("hypc") == util::toHex(VersionCompactBytes));
 				else
-					BOOST_CHECK(cborMetadata.at("solc") == VersionStringStrict);
+					BOOST_CHECK(cborMetadata.at("hypc") == VersionStringStrict);
 			}
 		}
 }
@@ -211,14 +211,14 @@ BOOST_AUTO_TEST_CASE(metadata_stamp_experimental)
 			}
 
 			if (metadataFormat == CompilerStack::MetadataFormat::NoMetadata)
-				BOOST_CHECK(cborMetadata.count("solc") == 0);
+				BOOST_CHECK(cborMetadata.count("hypc") == 0);
 			else
 			{
-				BOOST_CHECK(cborMetadata.count("solc") == 1);
+				BOOST_CHECK(cborMetadata.count("hypc") == 1);
 				if (metadataFormat == CompilerStack::MetadataFormat::WithReleaseVersionTag)
-					BOOST_CHECK(cborMetadata.at("solc") == util::toHex(VersionCompactBytes));
+					BOOST_CHECK(cborMetadata.at("hypc") == util::toHex(VersionCompactBytes));
 				else
-					BOOST_CHECK(cborMetadata.at("solc") == VersionStringStrict);
+					BOOST_CHECK(cborMetadata.at("hypc") == VersionStringStrict);
 				BOOST_CHECK(cborMetadata.count("experimental") == 1);
 				BOOST_CHECK(cborMetadata.at("experimental") == "true");
 			}

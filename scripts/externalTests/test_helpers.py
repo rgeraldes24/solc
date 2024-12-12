@@ -36,8 +36,8 @@ sys.path.insert(0, f"{PROJECT_ROOT}/scripts/common")
 
 from git_helpers import git_commit_hash
 
-SOLC_FULL_VERSION_REGEX = re.compile(r"^[a-zA-Z: ]*(.*)$")
-SOLC_SHORT_VERSION_REGEX = re.compile(r"^([0-9.]+).*\+|\-$")
+HYPC_FULL_VERSION_REGEX = re.compile(r"^[a-zA-Z: ]*(.*)$")
+HYPC_SHORT_VERSION_REGEX = re.compile(r"^([0-9.]+).*\+|\-$")
 
 
 class SettingsPreset(Enum):
@@ -74,18 +74,18 @@ def parse_custom_presets(presets: List[str]) -> Set[SettingsPreset]:
 def parse_command_line(description: str, args: List[str]):
     arg_parser = ArgumentParser(description)
     arg_parser.add_argument(
-        "solc_binary_type",
-        metavar="solc-binary-type",
+        "hypc_binary_type",
+        metavar="hypc-binary-type",
         type=str,
         default="native",
-        choices=["native", "solcjs"],
+        choices=["native", "hypcjs"],
         help="""Solidity compiler binary type""",
     )
     arg_parser.add_argument(
-        "solc_binary_path",
-        metavar="solc-binary-path",
+        "hypc_binary_path",
+        metavar="hypc-binary-path",
         type=Path,
-        help="""Path to solc binary""",
+        help="""Path to hypc binary""",
     )
     arg_parser.add_argument(
         "selected_presets",
@@ -120,18 +120,18 @@ def download_project(test_dir: Path, repo_url: str, ref_type: str = "branch", re
     print(f"Current commit hash: {git_commit_hash()}")
 
 
-def parse_solc_version(solc_version_string: str) -> str:
-    solc_version_match = re.search(SOLC_FULL_VERSION_REGEX, solc_version_string)
-    if solc_version_match is None:
-        raise RuntimeError(f"Solc version could not be found in: {solc_version_string}.")
-    return solc_version_match.group(1)
+def parse_hypc_version(hypc_version_string: str) -> str:
+    hypc_version_match = re.search(HYPC_FULL_VERSION_REGEX, hypc_version_string)
+    if hypc_version_match is None:
+        raise RuntimeError(f"Hypc version could not be found in: {hypc_version_string}.")
+    return hypc_version_match.group(1)
 
 
-def get_solc_short_version(solc_full_version: str) -> str:
-    solc_short_version_match = re.search(SOLC_SHORT_VERSION_REGEX, solc_full_version)
-    if solc_short_version_match is None:
-        raise RuntimeError(f"Error extracting short version string from: {solc_full_version}.")
-    return solc_short_version_match.group(1)
+def get_hypc_short_version(hypc_full_version: str) -> str:
+    hypc_short_version_match = re.search(HYPC_SHORT_VERSION_REGEX, hypc_full_version)
+    if hypc_short_version_match is None:
+        raise RuntimeError(f"Error extracting short version string from: {hypc_full_version}.")
+    return hypc_short_version_match.group(1)
 
 
 def store_benchmark_report(self):

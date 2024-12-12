@@ -223,7 +223,7 @@ fragment HexCharacter: [0-9A-Fa-f];
 
 /**
  * Scanned but not used by any rule, i.e, disallowed.
- * solc parser considers number starting with '0', not immediately followed by '.' or 'x' as
+ * hypc parser considers number starting with '0', not immediately followed by '.' or 'x' as
  * octal, even if non octal digits '8' and '9' are present.
  */
 OctalNumber: '0' DecimalDigits ('.' DecimalDigits)?;

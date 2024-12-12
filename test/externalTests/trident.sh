@@ -65,7 +65,7 @@ function trident_test
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")
     print_presets_or_exit "$SELECTED_PRESETS"
 
-    setup_solc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
+    setup_hypc "$DIR" "$BINARY_TYPE" "$BINARY_PATH"
     download_project "$repo" "$ref_type" "$ref" "$DIR"
 
     # TODO: Currently tests work only with the exact versions from yarn.lock.
@@ -78,7 +78,7 @@ function trident_test
     yarn install
 
     replace_version_pragmas
-    force_solc_modules "${DIR}/solc"
+    force_hypc_modules "${DIR}/hypc"
 
     # BentoBoxV1Flat.hyp requires a few small tweaks to compile on 0.8.x.
     # TODO: Remove once https://github.com/sushiswap/trident/pull/282 gets merged.

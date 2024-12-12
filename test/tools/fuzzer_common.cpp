@@ -27,7 +27,7 @@
 #include <libevmasm/Assembly.h>
 #include <libevmasm/ConstantOptimiser.h>
 
-#include <libsolc/libsolc.h>
+#include <libhypc/libhypc.h>
 
 #include <liblangutil/Exceptions.h>
 

@@ -16,12 +16,12 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-/// Unit tests for solc/CommandLineInterface.h
+/// Unit tests for hypc/CommandLineInterface.h
 
-#include <solc/CommandLineInterface.h>
-#include <solc/Exceptions.h>
+#include <hypc/CommandLineInterface.h>
+#include <hypc/Exceptions.h>
 
-#include <test/solc/Common.h>
+#include <test/hypc/Common.h>
 
 #include <test/Common.h>
 #include <test/libsolidity/util/Common.h>
@@ -119,17 +119,17 @@ BOOST_AUTO_TEST_SUITE(CommandLineInterfaceTest)
 
 BOOST_AUTO_TEST_CASE(help)
 {
-	OptionsReaderAndMessages result = runCLI({"solc", "--help"}, "");
+	OptionsReaderAndMessages result = runCLI({"hypc", "--help"}, "");
 
 	BOOST_TEST(result.success);
-	BOOST_TEST(boost::starts_with(result.stdoutContent, "solc, the Solidity commandline compiler."));
+	BOOST_TEST(boost::starts_with(result.stdoutContent, "hypc, the Solidity commandline compiler."));
 	BOOST_TEST(result.stderrContent == "");
 	BOOST_TEST(result.options.input.mode == InputMode::Help);
 }
 
 BOOST_AUTO_TEST_CASE(license)
 {
-	OptionsReaderAndMessages result = runCLI({"solc", "--license"}, "");
+	OptionsReaderAndMessages result = runCLI({"hypc", "--license"}, "");
 
 	BOOST_TEST(result.success);
 	BOOST_TEST(boost::starts_with(result.stdoutContent, "Most of the code is licensed under GPLv3"));
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(license)
 
 BOOST_AUTO_TEST_CASE(version)
 {
-	OptionsReaderAndMessages result = runCLI({"solc", "--version"}, "");
+	OptionsReaderAndMessages result = runCLI({"hypc", "--version"}, "");
 
 	BOOST_TEST(result.success);
 	BOOST_TEST(boost::ends_with(result.stdoutContent, "Version: " + solidity::frontend::VersionString + "\n"));
@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE(multiple_input_modes)
 		for (string const& mode2: inputModeOptions)
 			if (mode1 != mode2)
 				BOOST_CHECK_EXCEPTION(
-					parseCommandLineAndReadInputFiles({"solc", mode1, mode2}),
+					parseCommandLineAndReadInputFiles({"hypc", mode1, mode2}),
 					CommandLineValidationError,
 					[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 				);
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE(no_import_callback_allowed_paths)
 		"Select at most one.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", options[0], options[1], "."}),
+		parseCommandLineAndReadInputFiles({"hypc", options[0], options[1], "."}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE(cli_input)
 	};
 
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({
-		"solc",
+		"hypc",
 		"a=b/c/d",
 		(tempDir1.path() / "input1.hyp").string(),
 		(tempDir2.path() / "input2.hyp").string(),
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(cli_ignore_missing_some_files_exist)
 	PathSet expectedAllowedPaths = {boost::filesystem::canonical(tempDir1)};
 
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({
-		"solc",
+		"hypc",
 		(tempDir1.path() / "input1.hyp").string(),
 		(tempDir2.path() / "input2.hyp").string(),
 		"--ignore-missing",
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(cli_ignore_missing_no_files_exist)
 		"Error: All specified input files either do not exist or are not regular files.\n";
 
 	OptionsReaderAndMessages result = runCLI({
-		"solc",
+		"hypc",
 		(tempDir.path() / "input1.hyp").string(),
 		(tempDir.path() / "input2.hyp").string(),
 		"--ignore-missing",
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(cli_not_a_file)
 	string expectedMessage = "\"" + tempDir.path().string() + "\" is not a valid file.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", tempDir.path().string()}),
+		parseCommandLineAndReadInputFiles({"hypc", tempDir.path().string()}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -310,7 +310,7 @@ BOOST_AUTO_TEST_CASE(standard_json_base_path)
 	TemporaryWorkingDirectory tempWorkDir(tempDir.path().root_path());
 
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({
-		"solc",
+		"hypc",
 		"--standard-json",
 		"--base-path=" + tempDir.path().string(),
 	});
@@ -326,7 +326,7 @@ BOOST_AUTO_TEST_CASE(standard_json_base_path)
 
 BOOST_AUTO_TEST_CASE(standard_json_no_input_file)
 {
-	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({"solc", "--standard-json"});
+	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({"hypc", "--standard-json"});
 	BOOST_TEST(result.success);
 	BOOST_TEST(result.stderrContent == "");
 	BOOST_TEST(result.options.input.mode == InputMode::StandardJson);
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(standard_json_no_input_file)
 
 BOOST_AUTO_TEST_CASE(standard_json_dash)
 {
-	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({"solc", "--standard-json", "-"});
+	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles({"hypc", "--standard-json", "-"});
 	BOOST_TEST(result.success);
 	BOOST_TEST(result.stderrContent == "");
 	BOOST_TEST(result.options.input.mode == InputMode::StandardJson);
@@ -352,7 +352,7 @@ BOOST_AUTO_TEST_CASE(standard_json_one_input_file)
 	TemporaryDirectory tempDir(TEST_CASE_NAME);
 	createFilesWithParentDirs({tempDir.path() / "input.json"});
 
-	vector<string> commandLine = {"solc", "--standard-json", (tempDir.path() / "input.json").string()};
+	vector<string> commandLine = {"hypc", "--standard-json", (tempDir.path() / "input.json").string()};
 	OptionsReaderAndMessages result = parseCommandLineAndReadInputFiles(commandLine);
 	BOOST_TEST(result.success);
 	BOOST_TEST(result.stderrContent == "");
@@ -369,7 +369,7 @@ BOOST_AUTO_TEST_CASE(standard_json_two_input_files)
 		"Please either specify a single file name or provide its content on standard input.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", "--standard-json", "input1.json", "input2.json"}),
+		parseCommandLineAndReadInputFiles({"hypc", "--standard-json", "input1.json", "input2.json"}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -382,7 +382,7 @@ BOOST_AUTO_TEST_CASE(standard_json_one_input_file_and_stdin)
 		"Please either specify a single file name or provide its content on standard input.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", "--standard-json", "input1.json", "-"}),
+		parseCommandLineAndReadInputFiles({"hypc", "--standard-json", "input1.json", "-"}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -398,7 +398,7 @@ BOOST_AUTO_TEST_CASE(standard_json_ignore_missing)
 
 	BOOST_CHECK_EXCEPTION(
 		parseCommandLineAndReadInputFiles({
-			"solc",
+			"hypc",
 			"--standard-json",
 			(tempDir.path() / "input.json").string(),
 			"--ignore-missing",
@@ -415,7 +415,7 @@ BOOST_AUTO_TEST_CASE(standard_json_remapping)
 		"Please put them under 'settings.remappings' in the JSON input.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", "--standard-json", "a=b"}),
+		parseCommandLineAndReadInputFiles({"hypc", "--standard-json", "a=b"}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -438,7 +438,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_no_base_path)
 	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"contract1.hyp",                                   // Relative path
 		"c/d/contract2.hyp",                               // Relative path with subdirectories
 		currentDirNoSymlinks.string() + "/contract3.hyp",  // Absolute path inside working dir
@@ -498,7 +498,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_same_as_work_dir)
 	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--base-path=" + currentDirNoSymlinks.string(),
 		"contract1.hyp",                                   // Relative path
 		"c/d/contract2.hyp",                               // Relative path with subdirectories
@@ -567,7 +567,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_different_from_wor
 	soltestAssert(expectedBaseDir.is_absolute() || expectedBaseDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--base-path=" + baseDirNoSymlinks.string(),
 		"contract1.hyp",                                   // Relative path
 		"c/d/contract2.hyp",                               // Relative path with subdirectories
@@ -633,7 +633,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_relative_base_path)
 	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--base-path=base",
 		"contract1.hyp",                                       // Relative path outside of base path
 		"base/contract2.hyp",                                  // Relative path inside base path
@@ -698,7 +698,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_normalization_and_weird_name
 	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 
 #if !defined(_WIN32)
 		// URLs. We interpret them as local paths.
@@ -866,7 +866,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_symlinks)
 	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 
 		"--base-path=../r/sym/z/",
 		"sym/z/contract.hyp",            // File accessed directly + same dir symlink as base path
@@ -915,7 +915,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_and_stdin)
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
 
-	vector<string> commandLine = {"solc", "--base-path=base", "-"};
+	vector<string> commandLine = {"hypc", "--base-path=base", "-"};
 
 	CommandLineOptions expectedOptions;
 	expectedOptions.input.addStdin = true;
@@ -975,7 +975,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths)
 	boost::filesystem::path expectedWorkDir = "/" / canonicalWorkDir.relative_path();
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--no-color",
 		"--base-path=base/",
 		"--include-path=include/",
@@ -1055,7 +1055,7 @@ BOOST_AUTO_TEST_CASE(cli_no_contracts_to_compile)
 	)";
 
 	string const expectedStdoutContent = "Compiler run successful. No contracts to compile.\n";
-	OptionsReaderAndMessages result = runCLI({"solc", "-"}, contractSource);
+	OptionsReaderAndMessages result = runCLI({"hypc", "-"}, contractSource);
 
 	if (SemVerVersion{string(VersionString)}.isPrerelease())
 		BOOST_TEST(result.stdoutContent == "");
@@ -1074,7 +1074,7 @@ BOOST_AUTO_TEST_CASE(cli_no_output)
 		})";
 
 	string const expectedStdoutContent = "Compiler run successful. No output generated.\n";
-	OptionsReaderAndMessages result = runCLI({"solc", "-"}, contractSource);
+	OptionsReaderAndMessages result = runCLI({"hypc", "-"}, contractSource);
 
 	if (SemVerVersion{string(VersionString)}.isPrerelease())
 		BOOST_TEST(result.stdoutContent == "");
@@ -1118,7 +1118,7 @@ BOOST_AUTO_TEST_CASE(standard_json_include_paths)
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::canonical(tempDir).relative_path();
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--base-path=base/",
 		"--include-path=include/",
 		"--include-path=lib/nested",
@@ -1188,7 +1188,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_empty_path)
 
 	BOOST_CHECK_EXCEPTION(
 		parseCommandLineAndReadInputFiles({
-			"solc",
+			"hypc",
 			"--base-path=base/",
 			"--include-path", "include/",
 			"--include-path", "",
@@ -1208,7 +1208,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_without_base_path)
 	string expectedMessage = "--include-path option requires a non-empty base path.";
 
 	BOOST_CHECK_EXCEPTION(
-		parseCommandLineAndReadInputFiles({"solc", "--include-path", "include/", "contract.hyp"}),
+		parseCommandLineAndReadInputFiles({"hypc", "--include-path", "include/", "contract.hyp"}),
 		CommandLineValidationError,
 		[&](auto const& _exception) { BOOST_TEST(_exception.what() == expectedMessage); return true; }
 	);
@@ -1242,7 +1242,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 		// import "contract1.hyp" and import "contract2.hyp" would be ambiguous:
 		BOOST_CHECK_EXCEPTION(
 			parseCommandLineAndReadInputFiles({
-				"solc",
+				"hypc",
 				"--base-path=dir1/",
 				"--include-path=dir2/",
 				"dir1/contract1.hyp",
@@ -1259,7 +1259,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 		// import "contract1.hyp" and import "contract2.hyp" would be ambiguous:
 		BOOST_CHECK_EXCEPTION(
 			parseCommandLineAndReadInputFiles({
-				"solc",
+				"hypc",
 				"--base-path=dir3/",
 				"--include-path=dir1/",
 				"--include-path=dir2/",
@@ -1276,7 +1276,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 	{
 		// No conflict if files with the same name exist but only one is given to the compiler.
 		vector<string> commandLine = {
-			"solc",
+			"hypc",
 			"--base-path=dir3/",
 			"--include-path=dir1/",
 			"--include-path=dir2/",
@@ -1291,7 +1291,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_detect_source_unit_name_collisions
 	{
 		// The same file specified multiple times is not a conflict.
 		vector<string> commandLine = {
-			"solc",
+			"hypc",
 			"--base-path=dir3/",
 			"--include-path=dir1/",
 			"--include-path=dir2/",
@@ -1315,7 +1315,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_should_allow_duplicate_paths)
 	boost::filesystem::path expectedTempDir = "/" / tempDir.path().relative_path();
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--base-path=dir1/",
 		"--include-path", "dir1",
 		"--include-path", "dir1",
@@ -1364,7 +1364,7 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_ambiguous_import)
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::canonical(tempDir).relative_path();
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"--no-color",
 		"--base-path=base/",
 		"--include-path=include/",

@@ -48,8 +48,8 @@ function verify_input
     local binary_path="$2"
     local selected_presets="$3"
 
-    (( $# >= 2 && $# <= 3 )) || fail "Usage: $0 native|solcjs <path to solc or soljson.js> [preset]"
-    [[ $binary_type == native || $binary_type == solcjs ]] || fail "Invalid binary type: '${binary_type}'. Must be either 'native' or 'solcjs'."
+    (( $# >= 2 && $# <= 3 )) || fail "Usage: $0 native|hypcjs <path to hypc or soljson.js> [preset]"
+    [[ $binary_type == native || $binary_type == hypcjs ]] || fail "Invalid binary type: '${binary_type}'. Must be either 'native' or 'hypcjs'."
     [[ -f "$binary_path" ]] || fail "The compiler binary does not exist at '${binary_path}'"
 
     if [[ $selected_presets != "" ]]
@@ -64,65 +64,66 @@ function verify_input
     fi
 }
 
-function setup_solc
+function setup_hypc
 {
     local test_dir="$1"
     local binary_type="$2"
     local binary_path="$3"
-    local solcjs_branch="${4:-master}"
-    local install_dir="${5:-solc/}"
-    local solcjs_dir="$6"
+    local hypcjs_branch="${4:-master}"
+    local install_dir="${5:-hypc/}"
+    local hypcjs_dir="$6"
 
-    [[ $binary_type == native || $binary_type == solcjs ]] || assertFail
-    [[ $binary_type == solcjs || $solcjs_dir == "" ]] || assertFail
+    [[ $binary_type == native || $binary_type == hypcjs ]] || assertFail
+    [[ $binary_type == hypcjs || $hypcjs_dir == "" ]] || assertFail
 
     cd "$test_dir"
 
-    if [[ $binary_type == solcjs ]]
+    if [[ $binary_type == hypcjs ]]
     then
-        printLog "Setting up solc-js..."
-        if [[ $solcjs_dir == "" ]]; then
-            printLog "Cloning branch ${solcjs_branch}..."
-            git clone --depth 1 -b "$solcjs_branch" https://github.com/ethereum/solc-js.git "$install_dir"
+        printLog "Setting up hypc-js..."
+        if [[ $hypcjs_dir == "" ]]; then
+            printLog "Cloning branch ${hypcjs_branch}..."
+            # TODO(rgeraldes24)
+            git clone --depth 1 -b "$hypcjs_branch" https://github.com/ethereum/hypc-js.git "$install_dir"
         else
-            printLog "Using local solc-js from ${solcjs_dir}..."
-            cp -ra "$solcjs_dir" solc
+            printLog "Using local hypc-js from ${hypcjs_dir}..."
+            cp -ra "$hypcjs_dir" hypc
         fi
 
         pushd "$install_dir"
         npm install
         cp "$binary_path" soljson.js
         npm run build
-        SOLCVERSION=$(dist/solc.js --version)
+        HYPCVERSION=$(dist/hypc.js --version)
         popd
     else
-        printLog "Setting up solc..."
-        SOLCVERSION=$("$binary_path" --version | tail -n 1 | sed -n -E 's/^Version: (.*)$/\1/p')
+        printLog "Setting up hypc..."
+        HYPCVERSION=$("$binary_path" --version | tail -n 1 | sed -n -E 's/^Version: (.*)$/\1/p')
     fi
 
-    SOLCVERSION_SHORT=$(echo "$SOLCVERSION" | sed -En 's/^([0-9.]+).*\+commit\.[0-9a-f]+.*$/\1/p')
-    printLog "Using compiler version $SOLCVERSION"
+    HYPCVERSION=$(echo "$HYPCVERSION" | sed -En 's/^([0-9.]+).*\+commit\.[0-9a-f]+.*$/\1/p')
+    printLog "Using compiler version $HYPCVERSION"
 }
 
 function download_project
 {
     local repo="$1"
     local ref_type="$2"
-    local solcjs_ref="$3"
+    local hypcjs_ref="$3"
     local test_dir="$4"
 
     [[ $ref_type == commit || $ref_type == branch || $ref_type == tag ]] || assertFail
 
-    printLog "Cloning ${ref_type} ${solcjs_ref} of ${repo}..."
+    printLog "Cloning ${ref_type} ${hypcjs_ref} of ${repo}..."
     if [[ $ref_type == commit ]]; then
         mkdir ext
         cd ext
         git init
         git remote add origin "$repo"
-        git fetch --depth 1 origin "$solcjs_ref"
+        git fetch --depth 1 origin "$hypcjs_ref"
         git reset --hard FETCH_HEAD
     else
-        git clone --depth 1 "$repo" -b "$solcjs_ref" "$test_dir/ext"
+        git clone --depth 1 "$repo" -b "$hypcjs_ref" "$test_dir/ext"
         cd ext
     fi
     echo "Current commit hash: $(git rev-parse HEAD)"
@@ -172,22 +173,22 @@ function neutralize_packaged_contracts
     find node_modules/ -path '*artifacts/build-info/*.json' -delete
 }
 
-function force_solc_modules
+function force_hypc_modules
 {
-    local custom_solcjs_path="${1:-solc/}"
+    local custom_hypcjs_path="${1:-hypc/}"
 
     [[ -d node_modules/ ]] || assertFail
 
-    printLog "Replacing all installed solc-js with a link to the latest version..."
-    soljson_binaries=$(find node_modules -type f -path "*/solc/soljson.js")
+    printLog "Replacing all installed hypc-js with a link to the latest version..."
+    soljson_binaries=$(find node_modules -type f -path "*/hypc/soljson.js")
     for soljson_binary in $soljson_binaries
     do
-        local solc_module_path
-        solc_module_path=$(dirname "$soljson_binary")
+        local hypc_module_path
+        hypc_module_path=$(dirname "$soljson_binary")
 
-        printLog "Found and replaced solc-js in $solc_module_path"
-        rm -r "$solc_module_path"
-        ln -s "$custom_solcjs_path" "$solc_module_path"
+        printLog "Found and replaced hypc-js in $hypc_module_path"
+        rm -r "$hypc_module_path"
+        ln -s "$custom_hypcjs_path" "$hypc_module_path"
     done
 }
 
@@ -195,30 +196,30 @@ function force_truffle_compiler_settings
 {
     local config_file="$1"
     local binary_type="$2"
-    local solc_path="$3"
+    local hypc_path="$3"
     local preset="$4"
     local evm_version="${5:-"$CURRENT_EVM_VERSION"}"
     local extra_settings="$6"
     local extra_optimizer_settings="$7"
 
-    [[ $binary_type == native || $binary_type == solcjs ]] || assertFail
+    [[ $binary_type == native || $binary_type == hypcjs ]] || assertFail
 
-    [[ $binary_type == native ]] && local solc_path="native"
+    [[ $binary_type == native ]] && local hypc_path="native"
 
     printLog "Forcing Truffle compiler settings..."
     echo "-------------------------------------"
     echo "Config file: $config_file"
     echo "Binary type: $binary_type"
-    echo "Compiler path: $solc_path"
+    echo "Compiler path: $hypc_path"
     echo "Settings preset: ${preset}"
     echo "Settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "EVM version: $evm_version"
-    echo "Compiler version: ${SOLCVERSION_SHORT}"
-    echo "Compiler version (full): ${SOLCVERSION}"
+    echo "Compiler version: ${HYPCVERSION_SHORT}"
+    echo "Compiler version (full): ${HYPCVERSION}"
     echo "-------------------------------------"
 
     local compiler_settings gas_reporter_settings
-    compiler_settings=$(truffle_compiler_settings "$solc_path" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
+    compiler_settings=$(truffle_compiler_settings "$hypc_path" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
     gas_reporter_settings=$(eth_gas_reporter_settings "$preset")
 
     {
@@ -268,16 +269,16 @@ function force_hardhat_compiler_binary
 {
     local config_file="$1"
     local binary_type="$2"
-    local solc_path="$3"
+    local hypc_path="$3"
 
     printLog "Configuring Hardhat..."
     echo "-------------------------------------"
     echo "Config file: ${config_file}"
     echo "Binary type: ${binary_type}"
-    echo "Compiler path: ${solc_path}"
+    echo "Compiler path: ${hypc_path}"
 
     local language="${config_file##*.}"
-    hardhat_solc_build_subtask "$SOLCVERSION_SHORT" "$SOLCVERSION" "$binary_type" "$solc_path" "$language" >> "$config_file"
+    hardhat_hypc_build_subtask "$HYPCVERSION_SHORT" "$HYPCVERSION" "$binary_type" "$hypc_path" "$language" >> "$config_file"
 }
 
 function force_hardhat_unlimited_contract_size
@@ -317,12 +318,12 @@ function force_hardhat_compiler_settings
     echo "Settings preset: ${preset}"
     echo "Settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "EVM version: ${evm_version}"
-    echo "Compiler version: ${SOLCVERSION_SHORT}"
-    echo "Compiler version (full): ${SOLCVERSION}"
+    echo "Compiler version: ${HYPCVERSION_SHORT}"
+    echo "Compiler version (full): ${HYPCVERSION}"
     echo "-------------------------------------"
 
     local compiler_settings gas_reporter_settings
-    compiler_settings=$(hardhat_compiler_settings "$SOLCVERSION_SHORT" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
+    compiler_settings=$(hardhat_compiler_settings "$HYPCVERSION_SHORT" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
     gas_reporter_settings=$(eth_gas_reporter_settings "$preset")
     if [[ $config_file == *\.js ]]; then
         [[ $config_var_name == "" ]] || assertFail
@@ -340,24 +341,24 @@ function force_hardhat_compiler_settings
 
 function truffle_verify_compiler_version
 {
-    local solc_version="$1"
-    local full_solc_version="$2"
+    local hypc_version="$1"
+    local full_hypc_version="$2"
 
-    printLog "Verify that the correct version (${solc_version}/${full_solc_version}) of the compiler was used to compile the contracts..."
-    grep "$full_solc_version" --recursive --quiet build/contracts || fail "Wrong compiler version detected."
+    printLog "Verify that the correct version (${hypc_version}/${full_hypc_version}) of the compiler was used to compile the contracts..."
+    grep "$full_hypc_version" --recursive --quiet build/contracts || fail "Wrong compiler version detected."
 }
 
 function hardhat_verify_compiler_version
 {
-    local solc_version="$1"
-    local full_solc_version="$2"
+    local hypc_version="$1"
+    local full_hypc_version="$2"
 
-    printLog "Verify that the correct version (${solc_version}/${full_solc_version}) of the compiler was used to compile the contracts..."
+    printLog "Verify that the correct version (${hypc_version}/${full_hypc_version}) of the compiler was used to compile the contracts..."
     local build_info_files
     build_info_files=$(find . -path '*artifacts/build-info/*.json')
     for build_info_file in $build_info_files; do
-        grep '"solcVersion":[[:blank:]]*"'"${solc_version}"'"' --quiet "$build_info_file" || fail "Wrong compiler version detected in ${build_info_file}."
-        grep '"solcLongVersion":[[:blank:]]*"'"${full_solc_version}"'"' --quiet "$build_info_file" || fail "Wrong compiler version detected in ${build_info_file}."
+        grep '"hypcVersion":[[:blank:]]*"'"${hypc_version}"'"' --quiet "$build_info_file" || fail "Wrong compiler version detected in ${build_info_file}."
+        grep '"hypcLongVersion":[[:blank:]]*"'"${full_hypc_version}"'"' --quiet "$build_info_file" || fail "Wrong compiler version detected in ${build_info_file}."
     done
 }
 
@@ -397,13 +398,13 @@ function settings_from_preset
     esac
 }
 
-function replace_global_solc
+function replace_global_hypc
 {
-    local solc_path="$1"
+    local hypc_path="$1"
 
-    [[ ! -e solc ]] || fail "A file named 'solc' already exists in '${PWD}'."
+    [[ ! -e hypc ]] || fail "A file named 'hypc' already exists in '${PWD}'."
 
-    ln -s "$solc_path" solc
+    ln -s "$hypc_path" hypc
     export PATH="$PWD:$PATH"
 }
 
@@ -424,65 +425,65 @@ function eth_gas_reporter_settings
 
 function truffle_compiler_settings
 {
-    local solc_path="$1"
+    local hypc_path="$1"
     local preset="$2"
     local evm_version="$3"
     local extra_settings="$4"
     local extra_optimizer_settings="$5"
 
     echo "{"
-    echo "    solc: {"
-    echo "        version: \"${solc_path}\","
+    echo "    hypc: {"
+    echo "        version: \"${hypc_path}\","
     echo "        settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "    }"
     echo "}"
 }
 
-function hardhat_solc_build_subtask {
-    local solc_version="$1"
-    local full_solc_version="$2"
+function hardhat_hypc_build_subtask {
+    local hypc_version="$1"
+    local full_hypc_version="$2"
     local binary_type="$3"
-    local solc_path="$4"
+    local hypc_path="$4"
     local language="$5"
 
-    [[ $binary_type == native || $binary_type == solcjs ]] || assertFail
+    [[ $binary_type == native || $binary_type == hypcjs ]] || assertFail
 
-    [[ $binary_type == native ]] && local is_solcjs=false
-    [[ $binary_type == solcjs ]] && local is_solcjs=true
+    [[ $binary_type == native ]] && local is_hypcjs=false
+    [[ $binary_type == hypcjs ]] && local is_hypcjs=true
 
     if [[ $language == js ]]; then
-        echo "const {TASK_COMPILE_SOLIDITY_GET_SOLC_BUILD} = require('hardhat/builtin-tasks/task-names');"
+        echo "const {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} = require('hardhat/builtin-tasks/task-names');"
         echo "const assert = require('assert');"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_SOLC_BUILD, async (args, hre, runSuper) => {"
+        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args, hre, runSuper) => {"
     else
         [[ $language == ts ]] || assertFail
-        echo "import {TASK_COMPILE_SOLIDITY_GET_SOLC_BUILD} from 'hardhat/builtin-tasks/task-names';"
+        echo "import {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} from 'hardhat/builtin-tasks/task-names';"
         echo "import assert = require('assert');"
         echo "import {subtask} from 'hardhat/config';"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_SOLC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
+        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
     fi
 
-    echo "    assert(args.solcVersion == '${solc_version}', 'Unexpected solc version: ' + args.solcVersion)"
+    echo "    assert(args.hypcVersion == '${hypc_version}', 'Unexpected hypc version: ' + args.hypcVersion)"
     echo "    return {"
-    echo "        compilerPath: '$(realpath "$solc_path")',"
-    echo "        isSolcJs: ${is_solcjs},"
-    echo "        version: args.solcVersion,"
-    echo "        longVersion: '${full_solc_version}'"
+    echo "        compilerPath: '$(realpath "$hypc_path")',"
+    echo "        isHypcJs: ${is_hypcjs},"
+    echo "        version: args.hypcVersion,"
+    echo "        longVersion: '${full_hypc_version}'"
     echo "    }"
     echo "})"
 }
 
 function hardhat_compiler_settings {
-    local solc_version="$1"
+    local hypc_version="$1"
     local preset="$2"
     local evm_version="$3"
     local extra_settings="$4"
     local extra_optimizer_settings="$5"
 
     echo "{"
-    echo "    version: '${solc_version}',"
+    echo "    version: '${hypc_version}',"
     echo "    settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "}"
 }
@@ -499,7 +500,7 @@ function compile_and_run_test
 
     printLog "Running compile function..."
     time $compile_fn
-    $verify_fn "$SOLCVERSION_SHORT" "$SOLCVERSION"
+    $verify_fn "$HYPCVERSION_SHORT" "$HYPCVERSION"
 
     if [[ "$COMPILE_ONLY" == 1 || " $compile_only_presets " == *" $preset "* ]]; then
         printLog "Skipping test function..."
@@ -513,7 +514,7 @@ function truffle_run_test
 {
     local config_file="$1"
     local binary_type="$2"
-    local solc_path="$3"
+    local hypc_path="$3"
     local preset="$4"
     local compile_only_presets="$5"
     local compile_fn="$6"
@@ -522,7 +523,7 @@ function truffle_run_test
     local extra_optimizer_settings="$9"
 
     truffle_clean
-    force_truffle_compiler_settings "$config_file" "$binary_type" "$solc_path" "$preset" "$CURRENT_EVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
+    force_truffle_compiler_settings "$config_file" "$binary_type" "$hypc_path" "$preset" "$CURRENT_EVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
     compile_and_run_test compile_fn test_fn truffle_verify_compiler_version "$preset" "$compile_only_presets"
 }
 

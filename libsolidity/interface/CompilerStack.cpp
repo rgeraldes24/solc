@@ -1820,14 +1820,14 @@ bytes CompilerStack::createCBORMetadata(Contract const& _contract, bool _forIR) 
 	if (experimentalMode)
 		encoder.pushBool("experimental", true);
 	if (m_metadataFormat == MetadataFormat::WithReleaseVersionTag)
-		encoder.pushBytes("solc", VersionCompactBytes);
+		encoder.pushBytes("hypc", VersionCompactBytes);
 	else
 	{
 		solAssert(
 			m_metadataFormat == MetadataFormat::WithPrereleaseVersionTag,
 			"Invalid metadata format."
 		);
-		encoder.pushString("solc", VersionStringStrict);
+		encoder.pushString("hypc", VersionStringStrict);
 	}
 	return encoder.serialise();
 }

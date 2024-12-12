@@ -45,24 +45,24 @@ def display_available_external_tests(_):
     print(*detect_external_tests().keys())
 
 
-def run_test_scripts(solc_binary_type: str, solc_binary_path: Path, tests: dict):
+def run_test_scripts(hypc_binary_type: str, hypc_binary_path: Path, tests: dict):
     for test_name, test_script_path in tests.items():
         print(f"Running {test_name} external test...")
         subprocess.run(
-            [test_script_path, solc_binary_type, solc_binary_path],
+            [test_script_path, hypc_binary_type, hypc_binary_path],
             check=True
         )
 
 
 def run_external_tests(args: dict):
-    solc_binary_type = args["solc_binary_type"]
-    solc_binary_path = args["solc_binary_path"]
+    hypc_binary_type = args["hypc_binary_type"]
+    hypc_binary_path = args["hypc_binary_path"]
 
     all_test_scripts = detect_external_tests()
     selected_tests = args["selected_tests"]
     if args["run_all"]:
         assert len(selected_tests) == 0
-        run_test_scripts(solc_binary_type, solc_binary_path, all_test_scripts)
+        run_test_scripts(hypc_binary_type, hypc_binary_path, all_test_scripts)
         return
 
     if len(selected_tests) == 0:
@@ -76,8 +76,8 @@ def run_external_tests(args: dict):
             f"External test(s) not found: {', '.join(unrecognized_tests)}"
         )
     run_test_scripts(
-        solc_binary_type,
-        solc_binary_path,
+        hypc_binary_type,
+        hypc_binary_path,
         {k: all_test_scripts[k] for k in selected_tests},
     )
 
@@ -100,16 +100,16 @@ def parse_commandline() -> Namespace:
     run_command.set_defaults(cmd=run_external_tests)
 
     run_command.add_argument(
-        "--solc-binary-type",
-        dest="solc_binary_type",
+        "--hypc-binary-type",
+        dest="hypc_binary_type",
         type=str,
         required=True,
-        choices=["native", "solcjs"],
+        choices=["native", "hypcjs"],
         help="Type of the solidity compiler binary to be used.",
     )
     run_command.add_argument(
-        "--solc-binary-path",
-        dest="solc_binary_path",
+        "--hypc-binary-path",
+        dest="hypc_binary_path",
         type=Path,
         required=True,
         help="Path to the solidity compiler binary.",

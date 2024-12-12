@@ -78,7 +78,7 @@ Editor Integrations
         Solidity plugin for Microsoft Visual Studio Code that includes syntax highlighting and the Solidity compiler.
 
     * `Solidity Visual Studio Code extension, by Nomic Foundation <https://marketplace.visualstudio.com/items?itemName=NomicFoundation.hardhat-solidity>`_
-        Solidity and Hardhat support by the Hardhat team, including: syntax highlighting, jump to definition, renames, quick fixes and inline solc warnings and errors.
+        Solidity and Hardhat support by the Hardhat team, including: syntax highlighting, jump to definition, renames, quick fixes and inline hypc warnings and errors.
 
     * `Solidity Visual Auditor extension <https://marketplace.visualstudio.com/items?itemName=tintinweb.solidity-visual-auditor>`_
         Adds security centric syntax and semantic highlighting to Visual Studio Code.

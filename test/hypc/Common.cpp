@@ -16,10 +16,10 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/solc/Common.h>
+#include <test/hypc/Common.h>
 #include <test/libsolidity/util/Common.h>
 
-#include <solc/CommandLineInterface.h>
+#include <hypc/CommandLineInterface.h>
 
 #include <sstream>
 

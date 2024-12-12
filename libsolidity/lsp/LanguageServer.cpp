@@ -288,7 +288,7 @@ void LanguageServer::compileAndUpdateDiagnostics()
 			continue;
 
 		Json::Value jsonDiag;
-		jsonDiag["source"] = "solc";
+		jsonDiag["source"] = "hypc";
 		jsonDiag["severity"] = toDiagnosticSeverity(error->type());
 		jsonDiag["code"] = Json::UInt64{error->errorId().error};
 		std::string message = Error::formatErrorType(error->type()) + ":";
@@ -412,7 +412,7 @@ void LanguageServer::handleInitialize(MessageID _id, Json::Value const& _args)
 		changeConfiguration(_args["initializationOptions"]);
 
 	Json::Value replyArgs;
-	replyArgs["serverInfo"]["name"] = "solc";
+	replyArgs["serverInfo"]["name"] = "hypc";
 	replyArgs["serverInfo"]["version"] = std::string(VersionNumber);
 	replyArgs["capabilities"]["definitionProvider"] = true;
 	replyArgs["capabilities"]["implementationProvider"] = true;

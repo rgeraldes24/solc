@@ -16,9 +16,9 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-/// Utilities shared by multiple tests for code in solc/.
+/// Utilities shared by multiple tests for code in hypc/.
 
-#include <solc/CommandLineParser.h>
+#include <hypc/CommandLineParser.h>
 
 #include <boost/test/unit_test.hpp>
 

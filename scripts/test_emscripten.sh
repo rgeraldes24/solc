@@ -35,8 +35,8 @@ else
 fi
 
 REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
-SOLJSON="$REPO_ROOT/$BUILD_DIR/libsolc/soljson.js"
+SOLJSON="$REPO_ROOT/$BUILD_DIR/libhypc/soljson.js"
 VERSION=$("$REPO_ROOT"/scripts/get_version.sh)
 
-echo "Running solcjs tests...."
-"$REPO_ROOT/test/externalTests/solc-js/solc-js.sh" "$SOLJSON" "$VERSION"
+echo "Running hypcjs tests...."
+"$REPO_ROOT/test/externalTests/hypc-js/hypc-js.sh" "$SOLJSON" "$VERSION"

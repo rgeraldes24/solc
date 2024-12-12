@@ -24,7 +24,7 @@ NAMESPACE_STD_FREE_FILES=(
     libevmasm/*
     liblangutil/*
     libsmtutil/*
-    libsolc/*
+    libhypc/*
     libsolidity/analysis/*
     libsolidity/ast/*
     libsolidity/codegen/ir/*
@@ -37,7 +37,7 @@ NAMESPACE_STD_FREE_FILES=(
     libyul/*
     libyul/backends/evm/*
     libyul/optimiser/*
-    solc/*
+    hypc/*
     test/contracts/*
     test/libevmasm/*
     test/liblangutil/*

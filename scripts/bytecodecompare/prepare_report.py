@@ -440,7 +440,7 @@ def commandline_parser() -> ArgumentParser:
         dest='force_no_optimize_yul',
         default=False,
         action='store_true',
-        help="Explicitly disable Yul optimizer in CLI runs without optimization to work around a bug in solc 0.6.0 and 0.6.1."
+        help="Explicitly disable Yul optimizer in CLI runs without optimization to work around a bug in hypc 0.6.0 and 0.6.1."
     )
     parser.add_argument('--report-file', dest='report_file', default='report.txt', help="The file to write the report to.")
     parser.add_argument('--verbose', dest='verbose', default=False, action='store_true', help="More verbose output.")

@@ -63,7 +63,7 @@ Simple Example
 ==============
 
 The following example program is written in the EVM dialect and computes exponentiation.
-It can be compiled using ``solc --strict-assembly``. The builtin functions
+It can be compiled using ``hypc --strict-assembly``. The builtin functions
 ``mul`` and ``div`` compute product and division, respectively.
 
 .. code-block:: yul
@@ -1225,7 +1225,7 @@ and optionally specify the :ref:`expected number of contract executions <optimiz
 
 .. code-block:: sh
 
-    solc --strict-assembly --optimize --optimize-runs 200
+    hypc --strict-assembly --optimize --optimize-runs 200
 
 In Solidity mode, the Yul optimizer is activated together with the regular optimizer.
 

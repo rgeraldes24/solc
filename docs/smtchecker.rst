@@ -816,7 +816,7 @@ The user can choose which solvers should be used, if available, via the CLI
 option ``--model-checker-solvers {all,cvc4,eld,smtlib2,z3}`` or the JSON option
 ``settings.modelChecker.solvers=[smtlib2,z3]``, where:
 
-- ``cvc4`` is only available if the ``solc`` binary is compiled with it. Only BMC uses ``cvc4``.
+- ``cvc4`` is only available if the ``hypc`` binary is compiled with it. Only BMC uses ``cvc4``.
 - ``eld`` is used via its binary which must be installed in the system. Only CHC uses ``eld``, and only if ``z3`` is not enabled.
 - ``smtlib2`` outputs SMT/Horn queries in the `smtlib2 <http://smtlib.cs.uiowa.edu/>`_ format.
   These can be used together with the compiler's `callback mechanism <https://github.com/ethereum/solc-js>`_ so that
@@ -824,14 +824,14 @@ option ``--model-checker-solvers {all,cvc4,eld,smtlib2,z3}`` or the JSON option
   This can be used by both BMC and CHC depending on which solvers are called.
 - ``z3`` is available
 
-  - if ``solc`` is compiled with it;
+  - if ``hypc`` is compiled with it;
   - if a dynamic ``z3`` library of version >=4.8.x is installed in a Linux system (from Solidity 0.7.6);
   - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the JavaScript binary of the compiler.
 
 .. note::
   z3 version 4.8.16 broke ABI compatibility with previous versions and cannot
-  be used with solc <=0.8.13. If you are using z3 >=4.8.16 please use solc
-  >=0.8.14, and conversely, only use older z3 with older solc releases.
+  be used with hypc <=0.8.13. If you are using z3 >=4.8.16 please use hypc
+  >=0.8.14, and conversely, only use older z3 with older hypc releases.
   We also recommend using the latest z3 release which is what SMTChecker also does.
 
 Since both BMC and CHC use ``z3``, and ``z3`` is available in a greater variety

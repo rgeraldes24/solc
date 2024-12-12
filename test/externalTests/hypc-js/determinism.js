@@ -1,6 +1,6 @@
 const tape = require('tape');
 const fs = require('fs');
-const solc = require('../index.js');
+const hypc = require('../index.js');
 
 tape('Deterministic Compilation', function (t) {
   t.test('DAO', function (st) {
@@ -14,7 +14,7 @@ tape('Deterministic Compilation', function (t) {
       input[file] = { content: fs.readFileSync(testdir + file, 'utf8') };
     }
     for (i = 0; i < 10; i++) {
-      const output = JSON.parse(solc.compile(JSON.stringify({
+      const output = JSON.parse(hypc.compile(JSON.stringify({
         language: 'Solidity',
         settings: {
           optimizer: {

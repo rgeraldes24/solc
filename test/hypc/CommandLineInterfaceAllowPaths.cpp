@@ -16,11 +16,11 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-/// Unit tests for solc/CommandLineInterface.h
+/// Unit tests for hypc/CommandLineInterface.h
 
-#include <solc/CommandLineInterface.h>
+#include <hypc/CommandLineInterface.h>
 
-#include <test/solc/Common.h>
+#include <test/hypc/Common.h>
 
 #include <test/Common.h>
 #include <test/FilesystemUtils.h>
@@ -85,7 +85,7 @@ ImportCheck checkImport(
 		);
 
 	vector<string> commandLine = {
-		"solc",
+		"hypc",
 		"-",
 		"--no-color",
 		"--error-codes",

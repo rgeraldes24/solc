@@ -151,8 +151,8 @@ if (("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" MA
 			# Disallow deprecated emscripten build options.
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s STRICT=1")
 			set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s STRICT=1")
-			# Export the Emscripten-generated auxiliary methods which are needed by solc-js.
-			# Which methods of libsolc itself are exported is specified in libsolc/CMakeLists.txt.
+			# Export the Emscripten-generated auxiliary methods which are needed by hypc-js.
+			# Which methods of libhypc itself are exported is specified in libhypc/CMakeLists.txt.
 			set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap','addFunction','removeFunction','UTF8ToString','lengthBytesUTF8','stringToUTF8','setValue']")
 			# Build for webassembly target.
 			set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s WASM=1")

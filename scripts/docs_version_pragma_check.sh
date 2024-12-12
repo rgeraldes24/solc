@@ -175,24 +175,24 @@ SOLTMPDIR=$(mktemp -d)
 
         opts+=(-v "$version")
 
-        solc_bin="solc-$version"
-        echo "$solc_bin"
-        if [[ ! -f "$solc_bin" ]]
+        hypc_bin="hypc-$version"
+        echo "$hypc_bin"
+        if [[ ! -f "$hypc_bin" ]]
         then
             echo "Downloading release from github..."
-            if wget -q "https://github.com/ethereum/solidity/releases/download/v$version/solc-static-linux" >/dev/null
+            if wget -q "https://github.com/ethereum/solidity/releases/download/v$version/hypc-static-linux" >/dev/null
             then
-                mv solc-static-linux "$solc_bin"
+                mv hypc-static-linux "$hypc_bin"
             else
                 printError "No release $version was found on github!"
                 continue
             fi
         fi
 
-        ln -sf "$solc_bin" "solc"
-        chmod a+x solc
+        ln -sf "$hypc_bin" "hypc"
+        chmod a+x hypc
 
-        SOLC="$SOLTMPDIR/solc" compileFull "${opts[@]}" "$SOLTMPDIR/$f"
+        HYPC="$SOLTMPDIR/hypc" compileFull "${opts[@]}" "$SOLTMPDIR/$f"
     done
 )
 rm -rf "$SOLTMPDIR"
