@@ -39,7 +39,7 @@ load it into a ``bytes`` variable. This is possible with "plain Solidity" too, b
 ``<address>.code``. But the point here is that reusable assembly libraries can enhance the
 Solidity language without a compiler change.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.16 <0.9.0;
@@ -65,7 +65,7 @@ Solidity language without a compiler change.
 Inline assembly is also beneficial in cases where the optimizer fails to produce
 efficient code, for example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.16 <0.9.0;
@@ -141,7 +141,7 @@ accessed using ``x.address`` and ``x.selector``.
 The selector consists of four right-aligned bytes.
 Both values can be assigned to. For example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
@@ -176,7 +176,7 @@ though.
 
 Local Solidity variables are available for assignments, for example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
@@ -295,7 +295,7 @@ or assigns to Solidity variables in memory.
 However, you can specifically annotate an assembly block to indicate that it in fact respects Solidity's memory
 model as follows:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     assembly ("memory-safe") {
         ...
@@ -316,7 +316,7 @@ Since this is mainly about the optimizer, these restrictions still need to be fo
 reverts or terminates. As an example, the following assembly snippet is not memory safe, because the value of
 ``returndatasize()`` may exceed the 64 byte scratch space:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     assembly {
       returndatacopy(0, 0, returndatasize())
@@ -326,7 +326,7 @@ reverts or terminates. As an example, the following assembly snippet is not memo
 On the other hand, the following code *is* memory safe, because memory beyond the location pointed to by the
 free memory pointer can safely be used as temporary scratch space:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     assembly ("memory-safe") {
       let p := mload(0x40)
@@ -339,7 +339,7 @@ but you can only use memory starting from the current offset given by the free m
 
 If the memory operations use a length of zero, it is also fine to just use any offset (not only if it falls into the scratch space):
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     assembly ("memory-safe") {
       revert(0, 0)
@@ -348,7 +348,7 @@ If the memory operations use a length of zero, it is also fine to just use any o
 Note that not only memory operations in inline assembly itself can be memory-unsafe, but also assignments to
 Solidity variables of reference type in memory. For example the following is not memory-safe:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     bytes memory x;
     assembly {
@@ -367,7 +367,7 @@ in memory is automatically considered memory-safe and does not need to be annota
 In case you are developing a library that is meant to be compatible across multiple versions
 of Solidity, you can use a special comment to annotate an assembly block as memory-safe:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     /// @solidity memory-safe-assembly
     assembly {

@@ -104,7 +104,7 @@ Let us rewrite the set example from the
 :ref:`libraries` section in this way, using file-level functions
 instead of library functions.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.13;
@@ -114,7 +114,7 @@ instead of library functions.
     // The attached functions can be used throughout the rest of the module.
     // If you import the module, you have to
     // repeat the using directive there, for example as
-    //   import "flags.sol" as Flags;
+    //   import "flags.hyp" as Flags;
     //   using {Flags.insert, Flags.remove, Flags.contains}
     //     for Flags.Data;
     using {insert, remove, contains} for Data;
@@ -160,7 +160,7 @@ instead of library functions.
 It is also possible to extend built-in types in that way.
 In this example, we will use a library.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.13;
@@ -203,7 +203,7 @@ functions are called.
 
 Another example shows how to define a custom operator for a user-defined type:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.19;

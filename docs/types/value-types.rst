@@ -241,7 +241,7 @@ For a quick reference of all members of address, see :ref:`address_related`.
 It is possible to query the balance of an address using the property ``balance``
 and to send Ether (in units of wei) to a payable address using the ``transfer`` function:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     address payable x = payable(0x123);
@@ -278,7 +278,7 @@ and ``abi.encodeWithSignature`` can be used to encode structured data.
 
 Example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     bytes memory payload = abi.encodeWithSignature("register(string)", "MyName");
     (bool success, bytes memory returnData) = address(nameReg).call(payload);
@@ -299,19 +299,19 @@ Example:
 
 It is possible to adjust the supplied gas with the ``gas`` modifier:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     address(nameReg).call{gas: 1000000}(abi.encodeWithSignature("register(string)", "MyName"));
 
 Similarly, the supplied Ether value can be controlled too:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     address(nameReg).call{value: 1 ether}(abi.encodeWithSignature("register(string)", "MyName"));
 
 Lastly, these modifiers can be combined. Their order does not matter:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     address(nameReg).call{gas: 1000000, value: 1 ether}(abi.encodeWithSignature("register(string)", "MyName"));
 
@@ -509,7 +509,7 @@ regardless of the type of the right (exponent) operand.
     for the type of ``2.5`` and ``uint128``, the Solidity compiler does not accept
     this code.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     uint128 a = 1;
     uint128 b = 2.5 + a + 0.5;
@@ -552,7 +552,7 @@ It starts with a newline byte, followed by a double quote, a single
 quote a backslash character and then (without separator) the
 character sequence ``abcdef``.
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     "\n\"\'\\abc\
@@ -569,7 +569,7 @@ Unicode Literals
 While regular string literals can only contain ASCII, Unicode literals – prefixed with the keyword ``unicode`` – can contain any valid UTF-8 sequence.
 They also support the very same escape sequences as regular string literals.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     string memory a = unicode"Hello 😃";
 
@@ -611,7 +611,7 @@ Using ``type(NameOfEnum).min`` and ``type(NameOfEnum).max`` you can get the
 smallest and respectively largest value of the given enum.
 
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.8;
@@ -674,7 +674,7 @@ The following example illustrates a custom type ``UFixed256x18`` representing a 
 type with 18 decimals and a minimal library to do arithmetic operations on the type.
 
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.8;
@@ -737,7 +737,7 @@ be passed via and returned from external function calls.
 
 Function types are notated as follows:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     function (<parameter types>) {internal|external} [pure|view|payable] [returns (<return types>)]
@@ -823,7 +823,7 @@ External (or public) functions have the following members:
 
 Example that shows how to use the members:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.4 <0.9.0;
@@ -841,7 +841,7 @@ Example that shows how to use the members:
 
 Example that shows how to use internal function types:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.16 <0.9.0;
@@ -901,7 +901,7 @@ Example that shows how to use internal function types:
 
 Another example that uses external function types:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.22 <0.9.0;

@@ -1,5 +1,5 @@
 {
-    let addr:u256 := linkersymbol("contract/library.sol:L")
+    let addr:u256 := linkersymbol("contract/library.hyp:L")
     function linkersymbol(x) {}
 }
 // ====

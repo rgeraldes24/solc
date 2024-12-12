@@ -60,7 +60,7 @@ def save_bytecode(bytecode_path: Path, reports: FileReport, contract: Optional[s
 
 
 def add_preamble(source_path: Path, preamble: str = DEFAULT_PREAMBLE):
-    for source in source_path.glob('**/*.sol'):
+    for source in source_path.glob('**/*.hyp'):
         with open(source, 'r+', encoding='utf8') as f:
             content = f.read()
             f.seek(0, 0)

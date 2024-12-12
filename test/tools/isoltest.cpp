@@ -76,7 +76,7 @@ public:
 		boost::replace_all(filter, "/", "\\/");
 		boost::replace_all(filter, "*", ".*");
 
-		m_filterExpression = regex{"(" + filter + "(\\.sol|\\.yul|\\.stack))"};
+		m_filterExpression = regex{"(" + filter + "(\\.hyp|\\.yul|\\.stack))"};
 	}
 
 	bool matches(fs::path const& _path, string const& _name) const

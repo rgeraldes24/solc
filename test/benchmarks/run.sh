@@ -40,7 +40,7 @@ trap cleanup SIGINT SIGTERM
 
 solc="${SOLIDITY_BUILD_DIR}/solc/solc"
 benchmarks_dir="${REPO_ROOT}/test/benchmarks"
-benchmarks=("chains.sol" "OptimizorClub.sol" "verifier.sol")
+benchmarks=("chains.hyp" "OptimizorClub.hyp" "verifier.hyp")
 time_bin_path=$(type -P time)
 
 for input_file in "${benchmarks[@]}"

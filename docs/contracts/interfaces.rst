@@ -22,7 +22,7 @@ an interface should be possible without any information loss.
 
 Interfaces are denoted by their own keyword:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.2 <0.9.0;
@@ -43,7 +43,7 @@ this is only possible if the overriding function is marked ``virtual``.
 Interfaces can inherit from other interfaces. This has the same rules as normal
 inheritance.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.2 <0.9.0;

@@ -117,7 +117,7 @@ std::shared_ptr<Block> ObjectParser::parseCode(std::optional<SourceNameMap> _sou
 
 std::optional<SourceNameMap> ObjectParser::tryParseSourceNameMapping() const
 {
-	// @use-src 0:"abc.sol", 1:"foo.sol", 2:"bar.sol"
+	// @use-src 0:"abc.hyp", 1:"foo.hyp", 2:"bar.hyp"
 	//
 	// UseSrcList := UseSrc (',' UseSrc)*
 	// UseSrc     := [0-9]+ ':' FileName

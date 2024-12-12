@@ -407,7 +407,7 @@ def generate_report(
 def commandline_parser() -> ArgumentParser:
     script_description = (
         "Generates a report listing bytecode and metadata obtained by compiling all the "
-        "*.sol files found in the current working directory using the provided binary."
+        "*.hyp files found in the current working directory using the provided binary."
     )
 
     parser = ArgumentParser(description=script_description)
@@ -465,7 +465,7 @@ if __name__ == "__main__":
         presets = options.presets
 
     generate_report(
-        glob("*.sol"),
+        glob("*.hyp"),
         Path(options.compiler_path),
         CompilerInterface(options.interface),
         [SettingsPreset(p) for preset_group in presets for p in preset_group],

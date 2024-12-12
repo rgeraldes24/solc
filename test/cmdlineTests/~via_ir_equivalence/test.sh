@@ -14,7 +14,7 @@ function test_via_ir_equivalence()
     [[ $optimize_flag == --optimize || $optimize_flag == "" ]] || assertFail "The second argument must be --optimize if present."
 
     local output_file_prefix
-    output_file_prefix=$(basename "$solidity_file" .sol)
+    output_file_prefix=$(basename "$solidity_file" .hyp)
 
     SOLTMPDIR=$(mktemp -d -t "cmdline-test-via-ir-equivalence-${output_file_prefix}-XXXXXX")
     pushd "$SOLTMPDIR" > /dev/null
@@ -68,20 +68,20 @@ function test_via_ir_equivalence()
 }
 
 externalContracts=(
-    externalTests/solc-js/DAO/TokenCreation.sol
-    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathSD59x18.sol
-    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathUD60x18.sol
-    libsolidity/semanticTests/externalContracts/_stringutils/stringutils.sol
-    libsolidity/semanticTests/externalContracts/deposit_contract.sol
-    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.sol
-    libsolidity/semanticTests/externalContracts/snark.sol
+    externalTests/solc-js/DAO/TokenCreation.hyp
+    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathSD59x18.hyp
+    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathUD60x18.hyp
+    libsolidity/semanticTests/externalContracts/_stringutils/stringutils.hyp
+    libsolidity/semanticTests/externalContracts/deposit_contract.hyp
+    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.hyp
+    libsolidity/semanticTests/externalContracts/snark.hyp
 )
 
 requiresOptimizer=(
-    externalTests/solc-js/DAO/TokenCreation.sol
-    libsolidity/semanticTests/externalContracts/deposit_contract.sol
-    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.sol
-    libsolidity/semanticTests/externalContracts/snark.sol
+    externalTests/solc-js/DAO/TokenCreation.hyp
+    libsolidity/semanticTests/externalContracts/deposit_contract.hyp
+    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.hyp
+    libsolidity/semanticTests/externalContracts/snark.hyp
 )
 
 for contractFile in "${externalContracts[@]}"

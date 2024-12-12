@@ -340,7 +340,7 @@ private:
 
 /**
  * Import directive for referencing other files / source objects.
- * Example: import "abc.sol" // imports all symbols of "abc.sol" into current scope
+ * Example: import "abc.hyp" // imports all symbols of "abc.hyp" into current scope
  * Source objects are identified by a string which can be a file name but does not have to be.
  * Other ways to use it:
  * import "abc" as x; // creates symbol "x" that contains all symbols in "abc"

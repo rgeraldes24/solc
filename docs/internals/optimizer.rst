@@ -173,7 +173,7 @@ is used as replacement if it is smaller. If a basic block is split at a
 ``JUMPI`` and during the analysis, the condition evaluates to a constant,
 the ``JUMPI`` is replaced based on the value of the constant. Thus code like
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     uint x = 7;
     data[7] = 9;
@@ -184,7 +184,7 @@ the ``JUMPI`` is replaced based on the value of the constant. Thus code like
 
 simplifies to this:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     data[7] = 9;
     return 1;

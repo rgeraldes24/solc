@@ -13,7 +13,7 @@ which causes
 all changes in the current call to be reverted and passes the error data back to the
 caller.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.4;

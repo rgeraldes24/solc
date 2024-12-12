@@ -189,9 +189,9 @@ They are stored in individual files inside the ``tests/libsolidity/syntaxTests``
 These files must contain annotations, stating the expected result(s) of the respective test.
 The test suite compiles and checks them against the given expectations.
 
-For example: ``./test/libsolidity/syntaxTests/double_stateVariable_declaration.sol``
+For example: ``./test/libsolidity/syntaxTests/double_stateVariable_declaration.hyp``
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     contract test {
         uint256 variable;
@@ -210,7 +210,7 @@ In the above example, the state variable ``variable`` was declared twice, which 
 The ``isoltest`` tool is used for these tests and you can find it under ``./build/test/tools/``. It is an interactive tool which allows
 editing of failing contracts using your preferred text editor. Let's try to break this test by removing the second declaration of ``variable``:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     contract test {
         uint256 variable;
@@ -222,7 +222,7 @@ Running ``./build/test/tools/isoltest`` again results in a test failure:
 
 .. code-block:: text
 
-    syntaxTests/double_stateVariable_declaration.sol: FAIL
+    syntaxTests/double_stateVariable_declaration.hyp: FAIL
         Contract:
             contract test {
                 uint256 variable;
@@ -248,7 +248,7 @@ All of these options apply to the current contract, except ``quit`` which stops 
 
 Automatically updating the test above changes it to
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     contract test {
         uint256 variable;
@@ -260,12 +260,12 @@ and re-run the test. It now passes again:
 .. code-block:: text
 
     Re-running test case...
-    syntaxTests/double_stateVariable_declaration.sol: OK
+    syntaxTests/double_stateVariable_declaration.hyp: OK
 
 
 .. note::
 
-    Choose a name for the contract file that explains what it tests, e.g. ``double_variable_declaration.sol``.
+    Choose a name for the contract file that explains what it tests, e.g. ``double_variable_declaration.hyp``.
     Do not put more than one contract into a single file, unless you are testing inheritance or cross-contract calls.
     Each file should test one aspect of your new feature.
 
@@ -313,7 +313,7 @@ There are several kinds of command-line tests:
   In general may contain:
 
     - ``input.*``: a single input file, whose name will be supplied to ``solc`` on the command line.
-      Usually ``input.sol`` or ``input.yul``.
+      Usually ``input.hyp`` or ``input.yul``.
     - ``args``: extra command-line arguments passed to ``solc``.
     - ``stdin``: content to be passed to ``solc`` via standard input.
     - ``output``: expected content of the standard output.

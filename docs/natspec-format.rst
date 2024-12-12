@@ -58,7 +58,7 @@ The following example shows a contract and a function using all available tags.
 
   This may change in the future.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.2 < 0.9.0;
@@ -176,12 +176,12 @@ above example will produce two different JSON files. One is meant to be
 consumed by the end user as a notice when a function is executed and the
 other to be used by the developer.
 
-If the above contract is saved as ``ex1.sol`` then you can generate the
+If the above contract is saved as ``ex1.hyp`` then you can generate the
 documentation using:
 
 .. code-block:: shell
 
-   solc --userdoc --devdoc ex1.sol
+   solc --userdoc --devdoc ex1.hyp
 
 And the output is below.
 

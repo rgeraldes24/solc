@@ -39,8 +39,8 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 
 	if (const char* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
 	{
-		// With libFuzzer binary run this to generate the solidity source file x.sol from a proto input:
-		// PROTO_FUZZER_DUMP_PATH=x.sol ./a.out proto-input
+		// With libFuzzer binary run this to generate the solidity source file x.hyp from a proto input:
+		// PROTO_FUZZER_DUMP_PATH=x.hyp ./a.out proto-input
 		ofstream of(dump_path);
 		of << contract_source;
 	}
@@ -50,7 +50,7 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 	EVMHost hostContext(version, evmone);
 	string contractName = "C";
 	string methodName = "test()";
-	StringMap source({{"test.sol", contract_source}});
+	StringMap source({{"test.hyp", contract_source}});
 	CompilerInput cInput(version, source, contractName, OptimiserSettings::minimal(), {});
 	EvmoneUtility evmoneUtil(
 		hostContext,

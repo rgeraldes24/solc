@@ -53,7 +53,7 @@ std::map<std::string, std::string> requireParsedCBORMetadata(bytes const& _bytec
 std::optional<std::string> compileAndCheckLicenseMetadata(std::string const& _contractName, char const* _sourceCode)
 {
 	CompilerStack compilerStack;
-	compilerStack.setSources({{"A.sol", _sourceCode}});
+	compilerStack.setSources({{"A.hyp", _sourceCode}});
 	BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 
 	std::string const& serialisedMetadata = compilerStack.metadata(_contractName);
@@ -62,12 +62,12 @@ std::optional<std::string> compileAndCheckLicenseMetadata(std::string const& _co
 	BOOST_CHECK(solidity::test::isValidMetadata(metadata));
 
 	BOOST_CHECK_EQUAL(metadata["sources"].size(), 1);
-	BOOST_REQUIRE(metadata["sources"].isMember("A.sol"));
+	BOOST_REQUIRE(metadata["sources"].isMember("A.hyp"));
 
-	if (metadata["sources"]["A.sol"].isMember("license"))
+	if (metadata["sources"]["A.hyp"].isMember("license"))
 	{
-		BOOST_REQUIRE(metadata["sources"]["A.sol"]["license"].isString());
-		return metadata["sources"]["A.sol"]["license"].asString();
+		BOOST_REQUIRE(metadata["sources"]["A.hyp"]["license"].isString());
+		return metadata["sources"]["A.hyp"]["license"].asString();
 	}
 	else
 		return std::nullopt;

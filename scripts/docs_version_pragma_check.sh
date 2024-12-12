@@ -140,7 +140,7 @@ SOLTMPDIR=$(mktemp -d)
 
     getAllAvailableVersions
 
-    for f in *.sol
+    for f in *.hyp
     do
         # The contributors guide uses syntax tests, but we cannot
         # really handle them here.

@@ -32,10 +32,10 @@ else:
         tty.setcbreak(sys.stdin.fileno())
 
 
-# Type for the pure test name without .sol suffix or sub directory
+# Type for the pure test name without .hyp suffix or sub directory
 TestName = NewType("TestName", str)
 
-# Type for the test path, e.g.  subdir/mytest.sol
+# Type for the test path, e.g.  subdir/mytest.hyp
 RelativeTestPath = NewType("RelativeTestPath", str)
 
 
@@ -593,7 +593,7 @@ class FileTestRunner:
             for diagnostics in published_diagnostics:
                 if not diagnostics["uri"].startswith(self.suite.project_root_uri + "/"):
                     raise RuntimeError(
-                        f"'{self.test_name}.sol' imported file outside of test directory: '{diagnostics['uri']}'"
+                        f"'{self.test_name}.hyp' imported file outside of test directory: '{diagnostics['uri']}'"
                     )
                 self.open_tests.append(self.suite.normalizeUri(diagnostics["uri"]))
 
@@ -814,7 +814,7 @@ class FileTestRunner:
             # Needs to be done before the loop or it might be called only after
             # we found "range" or "position"
             if "uri" in data:
-                markers = self.suite.get_test_tags(data["uri"][:-len(".sol")], self.sub_dir)
+                markers = self.suite.get_test_tags(data["uri"][:-len(".hyp")], self.sub_dir)
 
             for key, val in data.items():
                 if key == "range":
@@ -826,7 +826,7 @@ class FileTestRunner:
                 elif key == "changes":
                     for path, list_of_changes in val.items():
                         test_name, file_sub_dir = split_path(path)
-                        markers = self.suite.get_test_tags(test_name[:-len(".sol")], file_sub_dir)
+                        markers = self.suite.get_test_tags(test_name[:-len(".hyp")], file_sub_dir)
                         for change in list_of_changes:
                             if "range" in change:
                                 change["range"] = findMarker(change["range"])
@@ -958,8 +958,8 @@ class SolidityLSPTestSuite: # {{{
     # {{{ helpers
     def get_test_file_path(self, test_case_name, sub_dir=None):
         if sub_dir:
-            return f"{self.project_root_dir}/{sub_dir}/{test_case_name}.sol"
-        return f"{self.project_root_dir}/{test_case_name}.sol"
+            return f"{self.project_root_dir}/{sub_dir}/{test_case_name}.hyp"
+        return f"{self.project_root_dir}/{test_case_name}.hyp"
 
     def get_test_file_uri(self, test_case_name, sub_dir=None):
         return PurePath(self.get_test_file_path(test_case_name, sub_dir)).as_uri()
@@ -1013,7 +1013,7 @@ class SolidityLSPTestSuite: # {{{
         return sorted(reports, key=lambda x: x['uri'])
 
     def normalizeUri(self, uri):
-        return uri.replace(self.project_root_uri + "/", "")[:-len(".sol")]
+        return uri.replace(self.project_root_uri + "/", "")[:-len(".hyp")]
 
     def fetch_and_format_diagnostics(self, solc: JsonRpcProcess, test, sub_dir=None):
         expectations = ""
@@ -1243,7 +1243,7 @@ class SolidityLSPTestSuite: # {{{
         for item in recursive_iter(content):
             if "uri" in item and "range" in item:
                 try:
-                    markers = self.get_test_tags(item["uri"][:-len(".sol")], sub_dir)
+                    markers = self.get_test_tags(item["uri"][:-len(".hyp")], sub_dir)
                     replace_range(item, markers)
                 except FileNotFoundError:
                     # Skip over errors as this is user provided input that can
@@ -1253,7 +1253,7 @@ class SolidityLSPTestSuite: # {{{
                 for file, changes_for_file in item["changes"].items():
                     test_name, file_sub_dir = split_path(file)
                     try:
-                        markers = self.get_test_tags(test_name[:-len(".sol")], file_sub_dir)
+                        markers = self.get_test_tags(test_name[:-len(".hyp")], file_sub_dir)
                         for change in changes_for_file:
                             replace_range(change, markers)
 
@@ -1332,7 +1332,7 @@ class SolidityLSPTestSuite: # {{{
     # {{{ actual tests
     def test_analyze_all_project_files_flat(self, solc: JsonRpcProcess) -> None:
         """
-        Tests the option (default) to analyze all .sol project files even when they have not been actively
+        Tests the option (default) to analyze all .hyp project files even when they have not been actively
         opened yet. This is how other LSPs (at least for C++) work too and it makes cross-unit tasks
         actually correct (e.g. symbolic rename, find all references, ...).
 
@@ -1348,17 +1348,17 @@ class SolidityLSPTestSuite: # {{{
         published_diagnostics = self.wait_for_diagnostics(solc)
         self.expect_equal(len(published_diagnostics), 3, "Diagnostic reports for 3 files")
 
-        # C.sol
+        # C.hyp
         report = published_diagnostics[0]
         self.expect_equal(report['uri'], self.get_test_file_uri('C', SUBDIR), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 0, "no diagnostics")
 
-        # D.sol
+        # D.hyp
         report = published_diagnostics[1]
         self.expect_equal(report['uri'], self.get_test_file_uri('D', SUBDIR), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 0, "no diagnostics")
 
-        # E.sol
+        # E.hyp
         report = published_diagnostics[2]
         self.expect_equal(report['uri'], self.get_test_file_uri('E', SUBDIR), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 0, "no diagnostics")
@@ -1417,7 +1417,7 @@ class SolidityLSPTestSuite: # {{{
             self.expect_equal(len(report['diagnostics']), 0, "no diagnostics")
 
         # Check last report (should be the custom imported lib).
-        # This file is analyzed because it was imported via "A/B/C/foo.sol".
+        # This file is analyzed because it was imported via "A/B/C/foo.hyp".
         last_report = published_diagnostics[len(EXPECTED_URIS)]
         self.expect_equal(last_report['uri'], self.get_test_file_uri('second', 'other-include-dir/otherlib'), "Correct file URI")
         self.expect_equal(len(last_report['diagnostics']), 0, "no diagnostics")
@@ -1457,7 +1457,7 @@ class SolidityLSPTestSuite: # {{{
         self.expect_equal(report['uri'], self.get_test_file_uri(TEST_NAME), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 0, "no diagnostics")
 
-        # imported file (goto/lib.sol):
+        # imported file (goto/lib.hyp):
         report = published_diagnostics[1]
         self.expect_equal(report['uri'], self.get_test_file_uri('lib', 'goto'), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 1, "one diagnostic")
@@ -1530,7 +1530,7 @@ class SolidityLSPTestSuite: # {{{
 
         # imported file
         report = published_diagnostics[1]
-        self.expect_equal(report['uri'], f"{self.project_root_uri}/other-include-dir/otherlib/otherlib.sol")
+        self.expect_equal(report['uri'], f"{self.project_root_uri}/other-include-dir/otherlib/otherlib.hyp")
         diagnostics = report['diagnostics']
         self.expect_equal(len(diagnostics), 1, "no diagnostics")
         self.expect_diagnostic(diagnostics[0], code=2018, lineNo=5, startEndColumns=(4, 62))
@@ -1567,7 +1567,7 @@ class SolidityLSPTestSuite: # {{{
 
         # imported file
         report = published_diagnostics[1]
-        self.expect_equal(report['uri'], f"{self.project_root_uri}/other-include-dir/otherlib/otherlib.sol")
+        self.expect_equal(report['uri'], f"{self.project_root_uri}/other-include-dir/otherlib/otherlib.hyp")
         diagnostics = report['diagnostics']
         self.expect_equal(len(diagnostics), 1)
         self.expect_diagnostic(diagnostics[0], code=2018, lineNo=5, startEndColumns=(4, 62))
@@ -1628,7 +1628,7 @@ class SolidityLSPTestSuite: # {{{
         self.expect_equal(report['uri'], self.get_test_file_uri(main_file_name), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 0, "one diagnostic")
 
-        # imported file (./goto/lib.sol):
+        # imported file (./goto/lib.hyp):
         report = published_diagnostics[1]
         self.expect_equal(report['uri'], self.get_test_file_uri('lib', 'goto'), "Correct file URI")
         self.expect_equal(len(report['diagnostics']), 1, "one diagnostic")
@@ -1647,9 +1647,9 @@ class SolidityLSPTestSuite: # {{{
 
         for sub_dir in map(lambda filepath: filepath.name, sub_dirs):
             tests = map(
-                lambda file_object, sd=sub_dir: sd + "/" + file_object.name[:-len(".sol")],
+                lambda file_object, sd=sub_dir: sd + "/" + file_object.name[:-len(".hyp")],
                 filter(
-                    lambda filepath: filepath.is_file() and filepath.name.endswith('.sol'),
+                    lambda filepath: filepath.is_file() and filepath.name.endswith('.hyp'),
                     os.scandir(f"{self.project_root_dir}/{sub_dir}")
                 )
             )
@@ -1728,7 +1728,7 @@ class SolidityLSPTestSuite: # {{{
 
         marker = self.get_test_tags('lib', 'goto')["@diagnostics"]
 
-        # lib.sol: Fix the unused variable message by removing it.
+        # lib.hyp: Fix the unused variable message by removing it.
         solc.send_message(
             'textDocument/didChange',
             {
@@ -1749,10 +1749,10 @@ class SolidityLSPTestSuite: # {{{
         self.expect_equal(len(published_diagnostics), 2, "published diagnostics count")
         report1 = published_diagnostics[0]
         self.expect_equal(report1['uri'], self.get_test_file_uri('didOpen_with_import'), "Correct file URI")
-        self.expect_equal(len(report1['diagnostics']), 0, "no diagnostics in didOpen_with_import.sol")
+        self.expect_equal(len(report1['diagnostics']), 0, "no diagnostics in didOpen_with_import.hyp")
         report2 = published_diagnostics[1]
         self.expect_equal(report2['uri'], self.get_test_file_uri('lib', 'goto'), "Correct file URI")
-        self.expect_equal(len(report2['diagnostics']), 0, "no diagnostics in lib.sol")
+        self.expect_equal(len(report2['diagnostics']), 0, "no diagnostics in lib.hyp")
 
         # Now close the file and expect the warning to re-appear
         solc.send_message(
@@ -1770,7 +1770,7 @@ class SolidityLSPTestSuite: # {{{
         """
 
         self.setup_lsp(solc)
-        FILE_A_URI = 'file:///a.sol'
+        FILE_A_URI = 'file:///a.hyp'
         solc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_A_URI,
@@ -1786,7 +1786,7 @@ class SolidityLSPTestSuite: # {{{
         self.expect_equal(len(reports), 1, "one publish diagnostics notification")
         self.expect_equal(len(reports[0]['diagnostics']), 0, "should not contain diagnostics")
 
-        FILE_B_URI = 'file:///b.sol'
+        FILE_B_URI = 'file:///b.hyp'
         solc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_B_URI,
@@ -1813,7 +1813,7 @@ class SolidityLSPTestSuite: # {{{
                         'start': { 'line': 2, 'character': 0 },
                         'end': { 'line': 2, 'character': 0 }
                     },
-                    'text': 'import "./b.sol";\n'
+                    'text': 'import "./b.hyp";\n'
                 }
             ]
         })
@@ -1826,10 +1826,10 @@ class SolidityLSPTestSuite: # {{{
             'textDocument/didClose',
             { 'textDocument': { 'uri': FILE_B_URI }}
         )
-        # We only get one diagnostics message since the diagnostics for b.sol was empty.
+        # We only get one diagnostics message since the diagnostics for b.hyp was empty.
         reports = self.wait_for_diagnostics(solc)
         self.expect_equal(len(reports), 1, "one publish diagnostics notification")
-        self.expect_diagnostic(reports[0]['diagnostics'][0], 6275, 2, (0, 17)) # a.sol: File B not found
+        self.expect_diagnostic(reports[0]['diagnostics'][0], 6275, 2, (0, 17)) # a.hyp: File B not found
         self.expect_equal(reports[0]['uri'], FILE_A_URI, "Correct uri")
 
     def test_textDocument_closing_virtual_file_removes_imported_real_file(self, solc: JsonRpcProcess) -> None:
@@ -1840,7 +1840,7 @@ class SolidityLSPTestSuite: # {{{
         """
 
         self.setup_lsp(solc)
-        FILE_A_URI = f'{self.project_root_uri}/a.sol'
+        FILE_A_URI = f'{self.project_root_uri}/a.hyp'
         solc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_A_URI,
@@ -1849,7 +1849,7 @@ class SolidityLSPTestSuite: # {{{
                 'text':
                     '// SPDX-License-Identifier: UNLICENSED\n'
                     'pragma solidity >=0.8.0;\n'
-                    'import "./goto/lib.sol";\n'
+                    'import "./goto/lib.hyp";\n'
             }
         })
         reports = self.wait_for_diagnostics(solc)
@@ -1858,17 +1858,17 @@ class SolidityLSPTestSuite: # {{{
 
         marker = self.get_test_tags("lib", 'goto')["@diagnostics"]
 
-        # unused variable in lib.sol
+        # unused variable in lib.hyp
         self.expect_diagnostic(reports[1]['diagnostics'][0], code=2072, marker=marker)
 
-        # Now close the file and expect the warning for lib.sol to be removed
+        # Now close the file and expect the warning for lib.hyp to be removed
         solc.send_message(
             'textDocument/didClose',
             { 'textDocument': { 'uri': FILE_A_URI }}
         )
         reports = self.wait_for_diagnostics(solc)
         self.expect_equal(len(reports), 1, '')
-        self.expect_equal(reports[0]['uri'], f'{self.project_root_uri}/goto/lib.sol', "")
+        self.expect_equal(reports[0]['uri'], f'{self.project_root_uri}/goto/lib.hyp', "")
         self.expect_equal(len(reports[0]['diagnostics']), 0, "should not contain diagnostics")
 
     def test_textDocument_didChange_at_eol(self, solc: JsonRpcProcess) -> None:
@@ -1935,7 +1935,7 @@ class SolidityLSPTestSuite: # {{{
         the didOpen_with_import test case. Then we can use
         the same verification calls to ensure it worked as expected.
         """
-        # This FILE_NAME must be alphabetically before lib.sol to not over-complify
+        # This FILE_NAME must be alphabetically before lib.hyp to not over-complify
         # the test logic in verify_didOpen_with_import_diagnostics.
         FILE_NAME = 'a_new_file'
         FILE_URI = self.get_test_file_uri(FILE_NAME)

@@ -130,7 +130,7 @@ explanatory purposes.
         // Required for Solidity: File path and the name of the contract or library this
         // metadata is created for.
         "compilationTarget": {
-          "myDirectory/myFile.sol": "MyContract"
+          "myDirectory/myFile.hyp": "MyContract"
         },
         // Required for Solidity.
         "evmVersion": "shanghai",
@@ -181,7 +181,7 @@ explanatory purposes.
           // Required: keccak256 hash of the source file
           "keccak256": "0x234..."
         },
-        "myDirectory/myFile.sol": {
+        "myDirectory/myFile.hyp": {
           // Required: keccak256 hash of the source file
           "keccak256": "0x123...",
           // Optional: SPDX license identifier as given in the source file

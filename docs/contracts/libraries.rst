@@ -50,7 +50,7 @@ The following example illustrates how to use libraries (but using a manual metho
 be sure to check out :ref:`using for <using-for>` for a
 more advanced example to implement a set).
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -128,7 +128,7 @@ The following example shows how to use :ref:`types stored in memory <data-locati
 internal functions in libraries in order to implement
 custom types without the overhead of external function calls:
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
@@ -196,8 +196,8 @@ the library type to the ``address`` type, i.e. using ``address(LibraryName)``.
 As the compiler does not know the address where the library will be deployed, the compiled hex code
 will contain placeholders of the form ``__$30bbc0abd4d6364515865950d3e0d10953$__``. The placeholder
 is a 34 character prefix of the hex encoding of the keccak256 hash of the fully qualified library
-name, which would be for example ``libraries/bigint.sol:BigInt`` if the library was stored in a file
-called ``bigint.sol`` in a ``libraries/`` directory. Such bytecode is incomplete and should not be
+name, which would be for example ``libraries/bigint.hyp:BigInt`` if the library was stored in a file
+called ``bigint.hyp`` in a ``libraries/`` directory. Such bytecode is incomplete and should not be
 deployed. Placeholders need to be replaced with actual addresses. You can do that by either passing
 them to the compiler when the library is being compiled or by using the linker to update an already
 compiled binary. See :ref:`library-linking` for information on how to use the commandline compiler
@@ -241,7 +241,7 @@ The argument encoding is the same as for the regular contract ABI, except for st
 Similarly to the contract ABI, the selector consists of the first four bytes of the Keccak256-hash of the signature.
 Its value can be obtained from Solidity using the ``.selector`` member as follows:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.5.14 <0.9.0;

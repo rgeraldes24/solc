@@ -977,7 +977,7 @@ For example this code
 
 .. code-block:: yul
 
-    let a := linkersymbol("file.sol:Math")
+    let a := linkersymbol("file.hyp:Math")
 
 is equivalent to
 
@@ -985,7 +985,7 @@ is equivalent to
 
     let a := 0x1234567890123456789012345678901234567890
 
-when the linker is invoked with ``--libraries "file.sol:Math=0x1234567890123456789012345678901234567890``
+when the linker is invoked with ``--libraries "file.hyp:Math=0x1234567890123456789012345678901234567890``
 option.
 
 See :ref:`Using the Commandline Compiler <commandline-compiler>` for details about the Solidity linker.

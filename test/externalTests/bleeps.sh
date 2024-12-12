@@ -69,11 +69,11 @@ function bleeps_test
     pushd "contracts/"
     sed -i 's|"bleeps-common": "workspace:\*",|"bleeps-common": "file:../common-lib/",|g' package.json
 
-    sed -i 's/function() public/fallback() external/g' src/externals/WETH9.sol
-    sed -i 's/this\.balance/address(this).balance/g' src/externals/WETH9.sol
-    sed -i 's/uint(-1)/type(uint).max/g' src/externals/WETH9.sol
-    sed -i 's/msg\.sender\.transfer(/payable(msg.sender).transfer(/g' src/externals/WETH9.sol
-    sed -i 's/^\s*\(Deposit\|Withdrawal\|Approval\|Transfer\)(/emit \1(/g' src/externals/WETH9.sol
+    sed -i 's/function() public/fallback() external/g' src/externals/WETH9.hyp
+    sed -i 's/this\.balance/address(this).balance/g' src/externals/WETH9.hyp
+    sed -i 's/uint(-1)/type(uint).max/g' src/externals/WETH9.hyp
+    sed -i 's/msg\.sender\.transfer(/payable(msg.sender).transfer(/g' src/externals/WETH9.hyp
+    sed -i 's/^\s*\(Deposit\|Withdrawal\|Approval\|Transfer\)(/emit \1(/g' src/externals/WETH9.hyp
 
     # This test does not currently pass due to an upstream problem.
     # TODO: Remove this line when https://github.com/wighawag/bleeps/issues/2 is fixed
@@ -96,7 +96,7 @@ function bleeps_test
     # Remove this when Bleeps gets updated to support newer OpenZeppelin.
     perl -i -0pe \
         "s/(function hashProposal\(\n        address\[\] )calldata( targets,\n        uint256\[\] )calldata( values,\n        bytes\[\] )calldata( calldatas,)/\1memory\2memory\3memory\4/g" \
-        node_modules/@openzeppelin/contracts/governance/IGovernor.sol
+        node_modules/@openzeppelin/contracts/governance/IGovernor.hyp
 
     replace_version_pragmas
 

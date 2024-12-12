@@ -36,7 +36,7 @@ some :ref:`differences <multi-inheritance>`.
 
 Details are given in the following example.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -124,7 +124,7 @@ Note that above, we call ``Destructible.destroy()`` to "forward" the
 destruction request. The way this is done is problematic, as
 seen in the following example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -155,7 +155,7 @@ A call to ``Final.destroy()`` will call ``Base2.destroy`` because we specify it
 explicitly in the final override, but this function will bypass
 ``Base1.destroy``. The way around this is to use ``super``:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -211,7 +211,7 @@ The mutability may be changed to a more strict one following the order:
 
 The following example demonstrates changing mutability and visibility:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -235,7 +235,7 @@ and have not yet been overridden by another base contract (on some path through 
 Additionally, if a contract inherits the same function from multiple (unrelated)
 bases, it has to explicitly override it:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -262,7 +262,7 @@ the function is defined in a common base contract
 or if there is a unique function in a common base contract
 that already overrides all other functions.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -310,7 +310,7 @@ Public state variables can override external functions if the
 parameter and return types of the function matches the getter function
 of the variable:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -342,7 +342,7 @@ Function modifiers can override each other. This works in the same way as
 ``virtual`` keyword must be used on the overridden modifier
 and the ``override`` keyword must be used in the overriding modifier:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -361,7 +361,7 @@ and the ``override`` keyword must be used in the overriding modifier:
 In case of multiple inheritance, all direct base contracts must be specified
 explicitly:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -409,7 +409,7 @@ If there is no
 constructor, the contract will assume the default constructor, which is
 equivalent to ``constructor() {}``. For example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -439,7 +439,7 @@ The constructors of all the base contracts will be called following the
 linearization rules explained below. If the base constructors have arguments,
 derived contracts need to specify all of them. This can be done in two ways:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -513,7 +513,7 @@ stopping at the first match. If a base contract has already been searched, it is
 In the following code, Solidity will give the
 error "Linearization of inheritance graph impossible".
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.0 <0.9.0;
@@ -534,7 +534,7 @@ C3 linearization is not too important in practice.
 
 One area where inheritance linearization is especially important and perhaps not as clear is when there are multiple constructors in the inheritance hierarchy. The constructors will always be executed in the linearized order, regardless of the order in which their arguments are provided in the inheriting contract's constructor.  For example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;

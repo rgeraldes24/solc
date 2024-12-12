@@ -13,7 +13,7 @@ SOURCE_FILE_PATTERN = r"\b\d+_error\b"
 def read_file(file_name):
     content = None
     _, tail = path.split(file_name)
-    is_latin = tail == "invalid_utf8_sequence.sol"
+    is_latin = tail == "invalid_utf8_sequence.hyp"
     try:
         with open(file_name, "r", encoding="latin-1" if is_latin else ENCODING) as f:
             content = f.read()
@@ -179,7 +179,7 @@ def examine_id_coverage(top_dir, source_id_to_file_names, new_ids_only=False):
     test_file_names = find_files(
         top_dir,
         test_sub_dirs,
-        [".sol", ".yul"]
+        [".hyp", ".yul"]
     )
     source_ids = source_id_to_file_names.keys()
     test_ids = find_ids_in_test_files(test_file_names)

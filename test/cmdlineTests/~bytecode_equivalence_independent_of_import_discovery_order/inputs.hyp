@@ -1,0 +1,29 @@
+==== Source: A.hyp ====
+import "@/D.hyp";
+import "B.hyp";
+
+contract A is B {
+    function a() public pure {
+        e();
+    }
+}
+
+==== Source: B.hyp ====
+import "C.hyp";
+
+abstract contract B is C {}
+
+==== Source: C.hyp ====
+abstract contract C {
+    function c() public pure returns (uint) {
+        return 0;
+    }
+}
+
+==== Source: @/D.hyp ====
+import "@/E.hyp";
+
+==== Source: @/E.hyp ====
+function e() pure returns (bytes memory returndata) {
+    return "";
+}

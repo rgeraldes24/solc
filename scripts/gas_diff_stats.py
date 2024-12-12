@@ -117,7 +117,7 @@ def semantictest_statistics():
 
     table = []
 
-    for path in Path("test/libsolidity/semanticTests").rglob("*.sol"):
+    for path in Path("test/libsolidity/semanticTests").rglob("*.hyp"):
         fname = path.as_posix()
         parsed = try_parse_git_diff(fname)
         if parsed is None:

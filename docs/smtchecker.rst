@@ -64,7 +64,7 @@ Tutorial
 Overflow
 ========
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -105,7 +105,7 @@ Here, it reports the following:
     State: x = 1, y = 115792089237316195423570985008687907853269984665640564039457584007913129639935
     Overflow.stateAdd()
         Overflow.add(1, 115792089237316195423570985008687907853269984665640564039457584007913129639935) -- internal call
-     --> o.sol:9:20:
+     --> o.hyp:9:20:
       |
     9 |             return x_ + y_;
       |                    ^^^^^^^
@@ -113,7 +113,7 @@ Here, it reports the following:
 If we add ``require`` statements that filter out overflow cases,
 the SMTChecker proves that no overflow is reachable (by not reporting warnings):
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -151,7 +151,7 @@ Since ``f`` is indeed monotonically increasing, the SMTChecker proves that our
 property is correct. You are encouraged to play with the property and the function
 definition to see what results come out!
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -173,7 +173,7 @@ The following code searches for the maximum element of an unrestricted array of
 numbers, and asserts the property that the found element must be greater or
 equal every element in the array.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -207,7 +207,7 @@ All the properties are correctly proven safe. Feel free to change the
 properties and/or add restrictions on the array to see different results.
 For example, changing the code to
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -240,7 +240,7 @@ gives us:
     Transaction trace:
     Test.constructor()
     Test.max([0, 0, 0, 0, 0])
-      --> max.sol:14:4:
+      --> max.hyp:14:4:
        |
     14 |            assert(m > a[i]);
 
@@ -259,7 +259,7 @@ Let us place a robot at position (0, 0). The robot can only move diagonally, one
 and cannot move outside the grid. The robot's state machine can be represented by the smart contract
 below.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -310,7 +310,7 @@ We can also trick the SMTChecker into giving us a path to a certain position we
 think might be reachable.  We can add the property that (2, 4) is *not*
 reachable, by adding the following function.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     function reach_2_4() public view {
         assert(!(x == 2 && y == 4));
@@ -337,7 +337,7 @@ the SMTChecker tells us exactly *how* to reach (2, 4):
     Robot.moveRightUp()
     State: x = 2, y = 4
     Robot.reach_2_4()
-      --> r.sol:35:4:
+      --> r.hyp:35:4:
        |
     35 |            assert(!(x == 2 && y == 4));
        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -359,7 +359,7 @@ In some cases, it is possible to automatically infer properties over state
 variables that are still true even if the externally called code can do
 anything, including reenter the caller contract.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -418,7 +418,7 @@ that the assertion fails:
     Mutex.run()
         unknown.run() -- untrusted external call, synthesized as:
             Mutex.set(1) -- reentrant call
-      --> m.sol:32:3:
+      --> m.hyp:32:3:
        |
     32 | 		assert(xPre == x);
        | 		^^^^^^^^^^^^^^^^^
@@ -523,15 +523,15 @@ not analyzed as the most derived by the SMTChecker.
 
 The chosen contracts can be given via a comma-separated list (whitespace is not
 allowed) of <source>:<contract> pairs in the CLI:
-``--model-checker-contracts "<source1.sol:contract1>,<source2.sol:contract2>,<source2.sol:contract3>"``,
+``--model-checker-contracts "<source1.hyp:contract1>,<source2.hyp:contract2>,<source2.hyp:contract3>"``,
 and via the object ``settings.modelChecker.contracts`` in the :ref:`JSON input<compiler-api>`,
 which has the following form:
 
 .. code-block:: json
 
     "contracts": {
-        "source1.sol": ["contract1"],
-        "source2.sol": ["contract2", "contract3"]
+        "source1.hyp": ["contract1"],
+        "source2.hyp": ["contract2", "contract3"]
     }
 
 Trusted External Calls
@@ -541,7 +541,7 @@ By default, the SMTChecker does not assume that compile-time available code
 is the same as the runtime code for external calls. Take the following contracts
 as an example:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -580,7 +580,7 @@ caller expression.  Therefore, casting an ``address`` or a contract to
 different contract types will yield different storage values and can give
 unsound results if the assumptions are inconsistent, such as the example below:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -627,7 +627,7 @@ expression type.
 It is also helpful to cast the called contract's variable as the type of the
 most derived type in case of inheritance.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -688,7 +688,7 @@ storage for ``address`` variables, therefore if ``B.a`` had type ``address``
 the encoding would assume that its storage does not change in between
 transactions to ``B``.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -967,7 +967,7 @@ location is erased.
 If the type is nested, the knowledge removal also includes all the prefix base
 types.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;

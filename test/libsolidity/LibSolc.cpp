@@ -117,7 +117,7 @@ BOOST_AUTO_TEST_CASE(missing_callback)
 		"language": "Solidity",
 		"sources": {
 			"fileA": {
-				"content": "import \"missing.sol\"; contract A { }"
+				"content": "import \"missing.hyp\"; contract A { }"
 			}
 		}
 	}
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(missing_callback)
 	Json::Value result = compile(input);
 	BOOST_REQUIRE(result.isObject());
 
-	BOOST_CHECK(containsError(result, "ParserError", "Source \"missing.sol\" not found: File not supplied initially."));
+	BOOST_CHECK(containsError(result, "ParserError", "Source \"missing.hyp\" not found: File not supplied initially."));
 }
 
 BOOST_AUTO_TEST_CASE(with_callback)
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(with_callback)
 		"language": "Solidity",
 		"sources": {
 			"fileA": {
-				"content": "import \"found.sol\"; import \"notfound.sol\"; contract A { }"
+				"content": "import \"found.hyp\"; import \"notfound.hyp\"; contract A { }"
 			}
 		}
 	}
@@ -148,13 +148,13 @@ BOOST_AUTO_TEST_CASE(with_callback)
 			BOOST_REQUIRE(_context == nullptr);
 			// Caller frees the pointers.
 			BOOST_REQUIRE(std::string(_kind) == ReadCallback::kindString(ReadCallback::Kind::ReadFile));
-			if (std::string(_path) == "found.sol")
+			if (std::string(_path) == "found.hyp")
 			{
-				static std::string content{"import \"missing.sol\"; contract B {}"};
+				static std::string content{"import \"missing.hyp\"; contract B {}"};
 				*o_contents = stringToSolidity(content);
 				*o_error = nullptr;
 			}
-			else if (std::string(_path) == "missing.sol")
+			else if (std::string(_path) == "missing.hyp")
 			{
 				static std::string errorMsg{"Missing file."};
 				*o_error = stringToSolidity(errorMsg);
@@ -171,11 +171,11 @@ BOOST_AUTO_TEST_CASE(with_callback)
 	Json::Value result = compile(input, callback);
 	BOOST_REQUIRE(result.isObject());
 
-	// This ensures that "found.sol" was properly loaded which triggered the second import statement.
-	BOOST_CHECK(containsError(result, "ParserError", "Source \"missing.sol\" not found: Missing file."));
+	// This ensures that "found.hyp" was properly loaded which triggered the second import statement.
+	BOOST_CHECK(containsError(result, "ParserError", "Source \"missing.hyp\" not found: Missing file."));
 
-	// This should be placed due to the missing "notfound.sol" which sets both pointers to null.
-	BOOST_CHECK(containsError(result, "ParserError", "Source \"notfound.sol\" not found: Callback not supported."));
+	// This should be placed due to the missing "notfound.hyp" which sets both pointers to null.
+	BOOST_CHECK(containsError(result, "ParserError", "Source \"notfound.hyp\" not found: Callback not supported."));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -54,7 +54,7 @@ and any transfer of Ether hands over control to that contract (B).
 This makes it possible for B to call back into A before this interaction is completed.
 To give an example, the following code contains a bug (it is just a snippet and not a complete contract):
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -78,7 +78,7 @@ This would let it get multiple refunds and, basically, retrieve all the Ether in
 In particular, the following contract will allow an attacker to refund multiple times
 as it uses ``call`` which forwards all remaining gas by default:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.2 <0.9.0;
@@ -97,7 +97,7 @@ as it uses ``call`` which forwards all remaining gas by default:
 
 To avoid reentrancy, you can use the Checks-Effects-Interactions pattern as demonstrated below:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -211,7 +211,7 @@ Even if you have other protective measures in place, it is best to build your co
 that the proxy does not have any permissions (not even for itself).
 If needed, you can accomplish that using a second proxy:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.0;
@@ -240,7 +240,7 @@ tx.origin
 Never use ``tx.origin`` for authorization.
 Let's say you have a wallet contract like this:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -261,7 +261,7 @@ Let's say you have a wallet contract like this:
 
 Now someone tricks you into sending Ether to the address of this attack wallet:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -298,7 +298,7 @@ They resemble integers when the values are small, but cannot represent arbitrari
 The following code causes an overflow because the result of the addition is too large
 to be stored in the type ``uint8``:
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
   uint8 x = 255;
   uint8 y = 1;
@@ -334,7 +334,7 @@ The same happens, for example, if a ``mapping`` is used as the type of a member 
 that is the base type of a dynamic storage array.
 The ``mapping`` is also ignored in assignments of structs or arrays containing a ``mapping``.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.6.0 <0.9.0;
@@ -368,7 +368,7 @@ After deleting ``array``, calling ``allocate(5)`` allows us to access ``array[4]
 and calling ``readMap(4, 128)`` returns 256 even without another call to ``writeMap``.
 
 If your ``mapping`` information must be deleted, consider using a library similar to
-`iterable mapping <https://github.com/ethereum/dapp-bin/blob/master/library/iterable_mapping.sol>`_,
+`iterable mapping <https://github.com/ethereum/dapp-bin/blob/master/library/iterable_mapping.hyp>`_,
 allowing you to traverse the keys and delete their values in the appropriate ``mapping``.
 
 Minor Details

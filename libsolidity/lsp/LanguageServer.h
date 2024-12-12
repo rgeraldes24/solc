@@ -45,7 +45,7 @@ enum class FileLoadStrategy
 	/// that have been directly or indirectly imported.
 	DirectlyOpenedAndOnImported = 0,
 
-	/// Takes all Solidity (.sol) files within the project root into account.
+	/// Takes all Solidity (.hyp) files within the project root into account.
 	/// Symbolic links will be followed, even if they lead outside of the project directory
 	/// (`--allowed-paths` is currently ignored by the LSP).
 	///

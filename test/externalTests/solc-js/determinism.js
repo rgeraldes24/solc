@@ -7,7 +7,7 @@ tape('Deterministic Compilation', function (t) {
     const input = {};
     let prevBytecode = null;
     const testdir = 'test/DAO/';
-    const files = ['DAO.sol', 'Token.sol', 'TokenCreation.sol', 'ManagedAccount.sol'];
+    const files = ['DAO.hyp', 'Token.hyp', 'TokenCreation.hyp', 'ManagedAccount.hyp'];
     let i;
     for (i in files) {
       const file = files[i];
@@ -30,10 +30,10 @@ tape('Deterministic Compilation', function (t) {
       })));
       st.ok(output);
       st.ok(output.contracts);
-      st.ok(output.contracts['DAO.sol']);
-      st.ok(output.contracts['DAO.sol'].DAO);
-      st.ok(output.contracts['DAO.sol'].DAO.evm.bytecode.object);
-      const bytecode = output.contracts['DAO.sol'].DAO.evm.bytecode.object;
+      st.ok(output.contracts['DAO.hyp']);
+      st.ok(output.contracts['DAO.hyp'].DAO);
+      st.ok(output.contracts['DAO.hyp'].DAO.evm.bytecode.object);
+      const bytecode = output.contracts['DAO.hyp'].DAO.evm.bytecode.object;
       st.ok(bytecode.length > 0);
       if (prevBytecode !== null) {
         st.equal(prevBytecode, bytecode);

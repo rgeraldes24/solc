@@ -1,6 +1,6 @@
 A normal block with parameters.
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
     :language: Solidity
 
@@ -15,7 +15,7 @@ A normal block with parameters.
 .. warning::
     A Warning.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     uint constant x = 42;
 
@@ -28,7 +28,7 @@ Text.
 A block with blank lines between block parameters.
 Sphinx will treat the second one as a part of the code.
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     :language: Solidity
@@ -39,7 +39,7 @@ Sphinx will treat the second one as a part of the code.
 Block with parameters indented less than code.
 Sphinx does not complain about these.
 
-.. code-block:: solidity
+.. code-block:: hyperion
   :force:
   :linenos:
 

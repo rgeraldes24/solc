@@ -318,7 +318,7 @@ EOF
 ## RUN
 
 printTask "Testing passing files that are not found..."
-test_solc_behaviour "file_not_found.sol" "" "" "" 1 "" "Error: \"file_not_found.sol\" is not found." "" ""
+test_solc_behaviour "file_not_found.hyp" "" "" "" 1 "" "Error: \"file_not_found.hyp\" is not found." "" ""
 
 printTask "Testing passing files that are not files..."
 test_solc_behaviour "." "" "" "" 1 "" "Error: \".\" is not a valid file." "" ""

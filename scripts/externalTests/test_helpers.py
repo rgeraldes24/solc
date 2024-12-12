@@ -144,7 +144,7 @@ def replace_version_pragmas(test_dir: Path):
     Include all directories to also cover node dependencies.
     """
     print("Replacing fixed-version pragmas...")
-    for source in test_dir.glob("**/*.sol"):
+    for source in test_dir.glob("**/*.hyp"):
         content = source.read_text(encoding="utf-8")
         content = re.sub(r"pragma solidity [^;]+;", r"pragma solidity >=0.0;", content)
         with open(source, "w", encoding="utf-8") as f:

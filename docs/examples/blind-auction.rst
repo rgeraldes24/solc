@@ -22,7 +22,7 @@ raised, the previous highest bidder gets their Ether back.  After the end of
 the bidding period, the contract has to be called manually for the beneficiary
 to receive their Ether - contracts cannot activate themselves.
 
-.. code-block:: solidity
+.. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity ^0.8.4;
@@ -194,7 +194,7 @@ transfers): Bidders can confuse competition by placing several high or low
 invalid bids.
 
 
-.. code-block:: solidity
+.. code-block:: hyperion
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
