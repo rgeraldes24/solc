@@ -50,12 +50,12 @@ function buildHeader() {
 
   const homeLink = document.createElement("a");
   homeLink.classList.add("home-link");
-  homeLink.href = SOLIDITY_HOME_URL;
+  homeLink.href = HYPERION_HOME_URL;
   homeLink.ariaLabel = "Hyperion home";
   innerHeader.appendChild(homeLink);
 
   const logo = document.createElement("img");
-  logo.classList.add(SOLIDITY_LOGO_CLASS);
+  logo.classList.add(HYPERION_LOGO_CLASS);
   logo.src = getLogoSrc(isDarkMode);
   logo.alt = "Hyperion logo";
   homeLink.appendChild(logo);
@@ -226,7 +226,7 @@ const handleClick = (e) => {
   if (e.target.closest("a")) {
     const target = e.target.closest("a");
     const href = target.getAttribute("href");
-    if (href.includes(SOLIDITY_HOME_URL)) {
+    if (href.includes(HYPERION_HOME_URL)) {
       const url = new URL(href);
       const params = new URLSearchParams(url.search);
       params.set("color", localStorage.getItem(LS_COLOR_SCHEME));

@@ -30,7 +30,7 @@ using namespace hyperion::langutil;
 using namespace hyperion::util;
 using namespace std;
 
-optional<CompilerOutput> SolidityCompilationFramework::compileContract()
+optional<CompilerOutput> HyperionCompilationFramework::compileContract()
 {
 	m_compiler.setSources(m_compilerInput.sourceCode);
 	m_compiler.setLibraries(m_compilerInput.libraryAddresses);

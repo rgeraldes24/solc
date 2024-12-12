@@ -301,7 +301,7 @@ This means that:
 .. _IPFS: https://ipfs.io
 .. _Swarm: https://swarm-gateways.net/bzz:/swarm.eth
 .. _hypc-bin: https://github.com/ethereum/hypc-bin/
-.. _Solidity release page on github: https://github.com/ethereum/hyperion/releases
+.. _Hyperion release page on github: https://github.com/ethereum/hyperion/releases
 .. _sha3sum: https://github.com/maandree/sha3sum
 .. _keccak256() function from ethereumjs-util: https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/modules/_hash_.md#const-keccak256
 .. _WebAssembly builds: https://emscripten.org/docs/compiling/WebAssembly.html

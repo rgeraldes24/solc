@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/tools/ossfuzz/SolidityCustomMutatorInterface.h>
+#include <test/tools/ossfuzz/HyperionCustomMutatorInterface.h>
 #include <test/tools/ossfuzz/HyperionGenerator.h>
 
 #include <liblangutil/Exceptions.h>
@@ -41,11 +41,11 @@ extern "C" size_t LLVMFuzzerCustomMutator(
 	solAssert(_data, "libFuzzerInterface: libFuzzer supplied bad buffer");
 	if (_maxSize <= _size || _size == 0)
 		return LLVMFuzzerMutate(_data, _size, _maxSize);
-	return SolidityCustomMutatorInterface{_data, _size, _maxSize, _seed}.generate();
+	return HyperionCustomMutatorInterface{_data, _size, _maxSize, _seed}.generate();
 }
 }
 
-SolidityCustomMutatorInterface::SolidityCustomMutatorInterface(
+HyperionCustomMutatorInterface::HyperionCustomMutatorInterface(
 	uint8_t* _data,
 	size_t _size,
 	size_t _maxSize,
@@ -57,7 +57,7 @@ SolidityCustomMutatorInterface::SolidityCustomMutatorInterface(
 	generator(make_shared<HyperionGenerator>(_seed))
 {}
 
-size_t SolidityCustomMutatorInterface::generate()
+size_t HyperionCustomMutatorInterface::generate()
 {
 	string testCase = generator->generateTestProgram();
 	solAssert(

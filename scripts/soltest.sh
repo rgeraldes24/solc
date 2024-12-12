@@ -6,7 +6,7 @@ USE_DEBUGGER=0
 DEBUGGER="gdb --args"
 BOOST_OPTIONS=()
 SOLTEST_OPTIONS=()
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
 
 function usage
 {
@@ -24,8 +24,8 @@ Options:
 
 Important environment variables:
 
-SOLIDITY_BUILD_DIR: Sets directory where test/soltest should be found.
-           The default is \"${SOLIDITY_BUILD_DIR}\".
+HYPERION_BUILD_DIR: Sets directory where test/soltest should be found.
+           The default is \"${HYPERION_BUILD_DIR}\".
 "
 }
 
@@ -62,7 +62,7 @@ do
 	shift
 done
 
-SOLTEST_COMMAND=("${SOLIDITY_BUILD_DIR}/test/soltest" "${BOOST_OPTIONS[@]}" -- --testpath "${REPO_ROOT}/test" "${SOLTEST_OPTIONS[@]}")
+SOLTEST_COMMAND=("${HYPERION_BUILD_DIR}/test/soltest" "${BOOST_OPTIONS[@]}" -- --testpath "${REPO_ROOT}/test" "${SOLTEST_OPTIONS[@]}")
 
 if [ "$USE_DEBUGGER" -ne "0" ]; then
 	# shellcheck disable=SC2086

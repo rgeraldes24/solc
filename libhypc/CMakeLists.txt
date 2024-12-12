@@ -1,12 +1,12 @@
 if (EMSCRIPTEN)
 	CreateExportedFunctionsForEMSDK(
 		ExportedFunctions
-		solidity_license
-		solidity_version
-		solidity_compile
-		solidity_alloc
-		solidity_free
-		solidity_reset
+		hyperion_license
+		hyperion_version
+		hyperion_compile
+		hyperion_alloc
+		hyperion_free
+		hyperion_reset
 	)
 	# Specify which functions to export in soljson.js.
 	# Note that additional Emscripten-generated methods needed by hypc-js are

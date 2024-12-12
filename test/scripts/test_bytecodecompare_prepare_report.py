@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from textwrap import dedent
 
-from unittest_helpers import FIXTURE_DIR, LIBSOLIDITY_TEST_DIR, load_fixture, load_libhyperion_test_case
+from unittest_helpers import FIXTURE_DIR, LIBHYPERION_TEST_DIR, load_fixture, load_libhyperion_test_case
 
 # NOTE: This test file file only works with scripts/ added to PYTHONPATH so pylint can't find the imports
 # pragma pylint: disable=import-error
@@ -23,7 +23,7 @@ SMT_CONTRACT_WITH_CR_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_cr_new
 SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_mixed_newlines.hyp'
 SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_CODE = load_fixture(SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH)
 
-SYNTAX_SMOKE_TEST_SOL_PATH = LIBSOLIDITY_TEST_DIR / 'syntaxTests/smoke_test.hyp'
+SYNTAX_SMOKE_TEST_SOL_PATH = LIBHYPERION_TEST_DIR / 'syntaxTests/smoke_test.hyp'
 SYNTAX_SMOKE_TEST_SOL_CODE = load_libhyperion_test_case(SYNTAX_SMOKE_TEST_SOL_PATH)
 
 LIBRARY_INHERITED2_SOL_JSON_OUTPUT = load_fixture('library_inherited2_sol_json_output.json')

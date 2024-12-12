@@ -74,7 +74,7 @@ efficient code, for example:
     library VectorSum {
         // This function is less efficient because the optimizer currently fails to
         // remove the bounds checks in array access.
-        function sumSolidity(uint[] memory data) public pure returns (uint sum) {
+        function sumHyperion(uint[] memory data) public pure returns (uint sum) {
             for (uint i = 0; i < data.length; ++i)
                 sum += data[i];
         }

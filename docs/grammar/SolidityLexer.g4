@@ -1,4 +1,4 @@
-lexer grammar SolidityLexer;
+lexer grammar HyperionLexer;
 
 /**
  * Keywords reserved for future use in Hyperion.

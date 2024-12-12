@@ -29,7 +29,7 @@
 set -e
 
 REPO_ROOT="$(dirname "$0")/.."
-SOLIDITY_BUILD_DIR="${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}"
+HYPERION_BUILD_DIR="${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}"
 IFS=" " read -r -a SMT_FLAGS <<< "$SMT_FLAGS"
 
 # shellcheck source=scripts/common.sh
@@ -84,7 +84,7 @@ printTask "Testing Python scripts..."
 "$REPO_ROOT/test/pyscriptTests.py"
 
 printTask "Testing LSP..."
-"$REPO_ROOT/test/lsp.py" "${SOLIDITY_BUILD_DIR}/hypc/hypc"
+"$REPO_ROOT/test/lsp.py" "${HYPERION_BUILD_DIR}/hypc/hypc"
 
 printTask "Running commandline tests..."
 # Only run in parallel if this is run on CI infrastructure
@@ -131,7 +131,7 @@ do
             fi
 
             set +e
-            "${SOLIDITY_BUILD_DIR}"/test/soltest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --zvm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
+            "${HYPERION_BUILD_DIR}"/test/soltest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --zvm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
 
             if test "0" -ne "$?"; then
                 exit 1

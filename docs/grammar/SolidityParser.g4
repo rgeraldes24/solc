@@ -1,9 +1,9 @@
 /**
  * Hyperion is a statically typed, contract-oriented, high-level language for implementing smart contracts on the Ethereum platform.
  */
-parser grammar SolidityParser;
+parser grammar HyperionParser;
 
-options { tokenVocab=SolidityLexer; }
+options { tokenVocab=HyperionLexer; }
 
 /**
  * On top level, Hyperion allows pragmas, import directives, and

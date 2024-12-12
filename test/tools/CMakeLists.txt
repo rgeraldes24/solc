@@ -29,7 +29,7 @@ add_executable(isoltest
 	../libhyperion/SyntaxTest.cpp
 	../libhyperion/SemanticTest.cpp
 	../libhyperion/AnalysisFramework.cpp
-	../libhyperion/SolidityExecutionFramework.cpp
+	../libhyperion/HyperionExecutionFramework.cpp
 	../ExecutionFramework.cpp
 	../libhyperion/ABIJsonTest.cpp
 	../libhyperion/ASTJSONTest.cpp

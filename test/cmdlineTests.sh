@@ -31,8 +31,8 @@ set -eo pipefail
 ## GLOBAL VARIABLES
 
 REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
-export REPO_ROOT SOLIDITY_BUILD_DIR
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
+export REPO_ROOT HYPERION_BUILD_DIR
 
 # shellcheck source=scripts/common.sh
 source "${REPO_ROOT}/scripts/common.sh"
@@ -100,13 +100,13 @@ popd > /dev/null
 
 case "$OSTYPE" in
     msys)
-        HYPC="${SOLIDITY_BUILD_DIR}/hypc/Release/hypc.exe"
+        HYPC="${HYPERION_BUILD_DIR}/hypc/Release/hypc.exe"
 
         # prevents msys2 path translation for a remapping test
         export MSYS2_ARG_CONV_EXCL="="
         ;;
     *)
-        HYPC="${SOLIDITY_BUILD_DIR}/hypc/hypc"
+        HYPC="${HYPERION_BUILD_DIR}/hypc/hypc"
         ;;
 esac
 echo "Using hypc binary at ${HYPC}"

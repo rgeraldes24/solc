@@ -284,14 +284,14 @@ It is also possible to exclude files matching a specific pattern by prefixing it
 
 By default the script assumes that a ``hypc`` binary is available inside the ``build/`` subdirectory
 inside the working copy.
-If you build the compiler outside of the source tree, you can use the ``SOLIDITY_BUILD_DIR`` environment
+If you build the compiler outside of the source tree, you can use the ``HYPERION_BUILD_DIR`` environment
 variable to specify a different location for the build directory.
 
 Example:
 
 .. code-block:: bash
 
-    export SOLIDITY_BUILD_DIR=~/hyperion/build/
+    export HYPERION_BUILD_DIR=~/hyperion/build/
     test/cmdlineTests.sh "standard_*" "*_yul_*" --exclude "standard_yul_*"
 
 The commands above will run tests from directories starting with ``test/cmdlineTests/standard_`` and

@@ -175,7 +175,7 @@ Input Description
 .. code-block:: javascript
 
     {
-      // Required: Source code language. Currently supported are "Hyperion", "Yul" and "SolidityAST" (experimental).
+      // Required: Source code language. Currently supported are "Hyperion", "Yul" and "HyperionAST" (experimental).
       "language": "Hyperion",
       // Required
       "sources":
@@ -202,7 +202,7 @@ Input Description
             // If files are used, their directories should be added to the command-line via
             // `--allow-paths <path>`.
           ]
-          // If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
+          // If language is set to "HyperionAST", an AST needs to be supplied under the "ast" key.
           // Note that importing ASTs is experimental and in particular that:
           // - importing invalid ASTs can produce undefined results and
           // - no proper error reporting is available on invalid ASTs.

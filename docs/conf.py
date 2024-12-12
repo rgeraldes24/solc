@@ -17,7 +17,7 @@ import sys
 import os
 import re
 
-from pygments_lexer_solidity import SolidityLexer, YulLexer
+from pygments_lexer_hyperion import HyperionLexer, YulLexer
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -28,7 +28,7 @@ ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, os.path.join(ROOT_PATH, 'ext'))
 
 def setup(sphinx):
-    sphinx.add_lexer('Hyperion', SolidityLexer)
+    sphinx.add_lexer('Hyperion', HyperionLexer)
     sphinx.add_lexer('Yul', YulLexer)
 
     sphinx.add_css_file('css/fonts.css')
@@ -226,7 +226,7 @@ html_show_sphinx = False
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Soliditydoc'
+htmlhelp_basename = 'Hyperiondoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------

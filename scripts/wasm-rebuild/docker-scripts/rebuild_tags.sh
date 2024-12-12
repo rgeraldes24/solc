@@ -24,7 +24,7 @@ while (( "$#" )); do
   shift
 done
 
-SOLIDITY_REPO_URL="https://github.com/ethereum/hyperion"
+HYPERION_REPO_URL="https://github.com/ethereum/hyperion"
 HYPC_JS_REPO_URL="https://github.com/ethereum/hypc-js"
 HYPC_JS_BRANCH=wasmRebuildTests
 RELEASE_URL="https://binaries.soliditylang.org/bin"
@@ -186,7 +186,7 @@ echo "Check out hyperion repository..."
 if [ -d /root/project ]; then
   echo "Hyperion repo checkout already exists."
 else
-  git clone "${SOLIDITY_REPO_URL}" /root/project --quiet
+  git clone "${HYPERION_REPO_URL}" /root/project --quiet
 fi
 
 echo "Extract bytecode comparison scripts from v0.6.1..."

@@ -24,7 +24,7 @@
 set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "$0")/../../" && pwd)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
 
 output_dir=$(mktemp -d -t hypc-benchmark-XXXXXX)
 result_legacy_file="${output_dir}/benchmark-legacy.txt"
@@ -38,7 +38,7 @@ function cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
-hypc="${SOLIDITY_BUILD_DIR}/hypc/hypc"
+hypc="${HYPERION_BUILD_DIR}/hypc/hypc"
 benchmarks_dir="${REPO_ROOT}/test/benchmarks"
 benchmarks=("chains.hyp" "OptimizorClub.hyp" "verifier.hyp")
 time_bin_path=$(type -P time)

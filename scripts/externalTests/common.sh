@@ -451,17 +451,17 @@ function hardhat_hypc_build_subtask {
     [[ $binary_type == hypcjs ]] && local is_hypcjs=true
 
     if [[ $language == js ]]; then
-        echo "const {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} = require('hardhat/builtin-tasks/task-names');"
+        echo "const {TASK_COMPILE_HYPERION_GET_HYPC_BUILD} = require('hardhat/builtin-tasks/task-names');"
         echo "const assert = require('assert');"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args, hre, runSuper) => {"
+        echo "subtask(TASK_COMPILE_HYPERION_GET_HYPC_BUILD, async (args, hre, runSuper) => {"
     else
         [[ $language == ts ]] || assertFail
-        echo "import {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} from 'hardhat/builtin-tasks/task-names';"
+        echo "import {TASK_COMPILE_HYPERION_GET_HYPC_BUILD} from 'hardhat/builtin-tasks/task-names';"
         echo "import assert = require('assert');"
         echo "import {subtask} from 'hardhat/config';"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
+        echo "subtask(TASK_COMPILE_HYPERION_GET_HYPC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
     fi
 
     echo "    assert(args.hypcVersion == '${hypc_version}', 'Unexpected hypc version: ' + args.hypcVersion)"

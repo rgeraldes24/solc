@@ -14,7 +14,7 @@
 # 'report-<binary name>.txt'.
 #
 # Usage:
-#    <script name>.sh <PLATFORM> <BASE_REF> <TOP_REF> <HYPC_BIN_DIR> <SOLIDITY_DIR>
+#    <script name>.sh <PLATFORM> <BASE_REF> <TOP_REF> <HYPC_BIN_DIR> <HYPERION_DIR>
 #
 # PLATFORM: Platform name, corresponding the one of the top-level directories
 #     in hypc-bin.
@@ -22,7 +22,7 @@
 #     modified binaries.
 # HYPC_BIN_DIR: Directory containing a checkout of the ethereum/hypc-bin
 #    repository with full history. Must be an absolute path.
-# SOLIDITY_DIR: Directory containing a checkout of the ethereum/hyperion
+# HYPERION_DIR: Directory containing a checkout of the ethereum/hyperion
 #    repository with full history. Bytecode report will be generated using
 #    scripts from the currently checked out revision. Must be an absolute path.
 #

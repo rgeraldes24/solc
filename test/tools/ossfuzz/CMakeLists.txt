@@ -36,7 +36,7 @@ if (OSSFUZZ)
             ../fuzzer_common.cpp
             ../../TestCaseReader.cpp
             HyperionGenerator.cpp
-            SolidityCustomMutatorInterface.cpp
+            HyperionCustomMutatorInterface.cpp
     )
     target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc zvmasm)
     set_target_properties(hypc_mutator_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})

@@ -139,12 +139,12 @@ void FuzzerUtil::runCompiler(string const& _input, bool _quiet)
 {
 	if (!_quiet)
 		cout << "Input JSON: " << _input << endl;
-	string outputString(solidity_compile(_input.c_str(), nullptr, nullptr));
+	string outputString(hyperion_compile(_input.c_str(), nullptr, nullptr));
 	if (!_quiet)
 		cout << "Output JSON: " << outputString << endl;
 
 	// This should be safe given the above copies the output.
-	solidity_reset();
+	hyperion_reset();
 
 	Json::Value output;
 	if (!jsonParseStrict(outputString, output))

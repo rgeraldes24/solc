@@ -7,8 +7,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	READLINK=greadlink
 fi
 REPO_ROOT=$(${READLINK} -f "$(dirname "$0")"/..)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
-HYPC=${SOLIDITY_BUILD_DIR}/hypc/hypc
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
+HYPC=${HYPERION_BUILD_DIR}/hypc/hypc
 SPLITSOURCES=${REPO_ROOT}/scripts/splitSources.py
 
 FILETMP=$(mktemp -d -t "stop-after-parse-tests-XXXXXX")
