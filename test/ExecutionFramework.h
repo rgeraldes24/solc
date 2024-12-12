@@ -26,8 +26,8 @@
 #include <test/Common.h>
 #include <test/EVMHost.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
-#include <libsolidity/interface/DebugSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
+#include <libhyperion/interface/DebugSettings.h>
 
 #include <liblangutil/EVMVersion.h>
 

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <test/libsolidity/AnalysisFramework.h>
+#include <test/libhyperion/AnalysisFramework.h>
 #include <test/TestCase.h>
 #include <test/TestCaseReader.h>
 #include <liblangutil/Exceptions.h>

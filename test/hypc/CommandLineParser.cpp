@@ -24,12 +24,12 @@
 #include <test/hypc/Common.h>
 
 #include <test/Common.h>
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libsolutil/CommonData.h>
 #include <liblangutil/EVMVersion.h>
 #include <libsmtutil/SolverInterface.h>
-#include <libsolidity/interface/Version.h>
+#include <libhyperion/interface/Version.h>
 
 #include <map>
 #include <optional>

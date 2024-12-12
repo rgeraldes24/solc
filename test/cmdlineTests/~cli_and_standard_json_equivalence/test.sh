@@ -50,7 +50,7 @@ test_cli_and_standard_json_equivalence \
     '--asm' \
     '"optimizer": {"enabled": true}' \
     'evm.assembly' \
-    "test/libsolidity/semanticTests/various/erc20.hyp"
+    "test/libhyperion/semanticTests/various/erc20.hyp"
 
 printTask "    - --optimize-yul vs optimizer.details.yul: true (--asm output)"
 test_cli_and_standard_json_equivalence \
@@ -58,4 +58,4 @@ test_cli_and_standard_json_equivalence \
     '--asm' \
     '"optimizer": {"enabled": false, "details": {"yul": true}}' \
     'evm.assembly' \
-    "test/libsolidity/semanticTests/various/erc20.hyp"
+    "test/libhyperion/semanticTests/various/erc20.hyp"

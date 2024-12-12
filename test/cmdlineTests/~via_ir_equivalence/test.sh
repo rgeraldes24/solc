@@ -69,19 +69,19 @@ function test_via_ir_equivalence()
 
 externalContracts=(
     externalTests/hypc-js/DAO/TokenCreation.hyp
-    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathSD59x18.hyp
-    libsolidity/semanticTests/externalContracts/_prbmath/PRBMathUD60x18.hyp
-    libsolidity/semanticTests/externalContracts/_stringutils/stringutils.hyp
-    libsolidity/semanticTests/externalContracts/deposit_contract.hyp
-    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.hyp
-    libsolidity/semanticTests/externalContracts/snark.hyp
+    libhyperion/semanticTests/externalContracts/_prbmath/PRBMathSD59x18.hyp
+    libhyperion/semanticTests/externalContracts/_prbmath/PRBMathUD60x18.hyp
+    libhyperion/semanticTests/externalContracts/_stringutils/stringutils.hyp
+    libhyperion/semanticTests/externalContracts/deposit_contract.hyp
+    libhyperion/semanticTests/externalContracts/FixedFeeRegistrar.hyp
+    libhyperion/semanticTests/externalContracts/snark.hyp
 )
 
 requiresOptimizer=(
     externalTests/hypc-js/DAO/TokenCreation.hyp
-    libsolidity/semanticTests/externalContracts/deposit_contract.hyp
-    libsolidity/semanticTests/externalContracts/FixedFeeRegistrar.hyp
-    libsolidity/semanticTests/externalContracts/snark.hyp
+    libhyperion/semanticTests/externalContracts/deposit_contract.hyp
+    libhyperion/semanticTests/externalContracts/FixedFeeRegistrar.hyp
+    libhyperion/semanticTests/externalContracts/snark.hyp
 )
 
 for contractFile in "${externalContracts[@]}"

@@ -20,10 +20,10 @@
  */
 #pragma once
 
-#include <libsolidity/interface/CompilerStack.h>
-#include <libsolidity/interface/DebugSettings.h>
-#include <libsolidity/interface/FileReader.h>
-#include <libsolidity/interface/ImportRemapper.h>
+#include <libhyperion/interface/CompilerStack.h>
+#include <libhyperion/interface/DebugSettings.h>
+#include <libhyperion/interface/FileReader.h>
+#include <libhyperion/interface/ImportRemapper.h>
 
 #include <libyul/YulStack.h>
 

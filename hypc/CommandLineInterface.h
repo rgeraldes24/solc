@@ -26,11 +26,11 @@
 
 #include <libevmasm/AbstractAssemblyStack.h>
 #include <libevmasm/EVMAssemblyStack.h>
-#include <libsolidity/interface/CompilerStack.h>
-#include <libsolidity/interface/DebugSettings.h>
-#include <libsolidity/interface/FileReader.h>
-#include <libsolidity/interface/SMTSolverCommand.h>
-#include <libsolidity/interface/UniversalCallback.h>
+#include <libhyperion/interface/CompilerStack.h>
+#include <libhyperion/interface/DebugSettings.h>
+#include <libhyperion/interface/FileReader.h>
+#include <libhyperion/interface/SMTSolverCommand.h>
+#include <libhyperion/interface/UniversalCallback.h>
 #include <libyul/YulStack.h>
 
 #include <iostream>

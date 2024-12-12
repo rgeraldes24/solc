@@ -40,7 +40,7 @@
 
 #include <libsolutil/JSON.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <cassert>
 #include <memory>

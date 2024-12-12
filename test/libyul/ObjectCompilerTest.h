@@ -20,7 +20,7 @@
 
 #include <test/TestCase.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 namespace solidity::langutil
 {

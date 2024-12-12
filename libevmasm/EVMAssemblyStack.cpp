@@ -20,7 +20,7 @@
 
 #include <libsolutil/JSON.h>
 #include <liblangutil/Exceptions.h>
-#include <libsolidity/codegen/CompilerContext.h>
+#include <libhyperion/codegen/CompilerContext.h>
 
 #include <range/v3/view/enumerate.hpp>
 #include <range/v3/view/transform.hpp>

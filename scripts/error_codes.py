@@ -171,9 +171,9 @@ def print_ids_per_file(ids, id_to_file_names, top_dir):
 
 def examine_id_coverage(top_dir, source_id_to_file_names, new_ids_only=False):
     test_sub_dirs = [
-        path.join("test", "libsolidity", "natspecJSON"),
-        path.join("test", "libsolidity", "smtCheckerTests"),
-        path.join("test", "libsolidity", "syntaxTests"),
+        path.join("test", "libhyperion", "natspecJSON"),
+        path.join("test", "libhyperion", "smtCheckerTests"),
+        path.join("test", "libhyperion", "syntaxTests"),
         path.join("test", "libyul", "yulSyntaxTests")
     ]
     test_file_names = find_files(
@@ -286,7 +286,7 @@ def main(argv):
 
     source_file_names = find_files(
         cwd,
-        ["libevmasm", "liblangutil", "libhypc", "libsolidity", "libsolutil", "libyul", "hypc"],
+        ["libevmasm", "liblangutil", "libhypc", "libhyperion", "libsolutil", "libyul", "hypc"],
         [".h", ".cpp"]
     )
     source_id_to_file_names = find_ids_in_source_files(source_file_names)

@@ -23,7 +23,7 @@
 
 #include <test/Common.h>
 #include <test/FilesystemUtils.h>
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 
 #include <boost/test/unit_test.hpp>
 #include <boost/filesystem.hpp>

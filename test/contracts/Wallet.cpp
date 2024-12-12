@@ -36,7 +36,7 @@
 #pragma warning(pop)
 #endif
 
-#include <test/libsolidity/SolidityExecutionFramework.h>
+#include <test/libhyperion/SolidityExecutionFramework.h>
 
 using namespace solidity::test;
 using namespace solidity::util;

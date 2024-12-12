@@ -27,7 +27,7 @@
 
 #include <test/evmc/evmc.hpp>
 
-#include <test/libsolidity/util/SoltestTypes.h>
+#include <test/libhyperion/util/SoltestTypes.h>
 
 #include <libsolutil/CommonIO.h>
 

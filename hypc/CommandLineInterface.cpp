@@ -28,18 +28,18 @@
 #include "license.h"
 #include "solidity/BuildInfo.h"
 
-#include <libsolidity/interface/Version.h>
-#include <libsolidity/ast/ASTJsonExporter.h>
-#include <libsolidity/ast/ASTJsonImporter.h>
-#include <libsolidity/analysis/NameAndTypeResolver.h>
-#include <libsolidity/interface/CompilerStack.h>
-#include <libsolidity/interface/StandardCompiler.h>
-#include <libsolidity/interface/GasEstimator.h>
-#include <libsolidity/interface/DebugSettings.h>
-#include <libsolidity/interface/ImportRemapper.h>
-#include <libsolidity/interface/StorageLayout.h>
-#include <libsolidity/lsp/LanguageServer.h>
-#include <libsolidity/lsp/Transport.h>
+#include <libhyperion/interface/Version.h>
+#include <libhyperion/ast/ASTJsonExporter.h>
+#include <libhyperion/ast/ASTJsonImporter.h>
+#include <libhyperion/analysis/NameAndTypeResolver.h>
+#include <libhyperion/interface/CompilerStack.h>
+#include <libhyperion/interface/StandardCompiler.h>
+#include <libhyperion/interface/GasEstimator.h>
+#include <libhyperion/interface/DebugSettings.h>
+#include <libhyperion/interface/ImportRemapper.h>
+#include <libhyperion/interface/StorageLayout.h>
+#include <libhyperion/lsp/LanguageServer.h>
+#include <libhyperion/lsp/Transport.h>
 
 #include <libyul/YulStack.h>
 

@@ -21,7 +21,7 @@
 
 #include <test/Common.h>
 
-#include <test/libsolidity/ErrorCheck.h>
+#include <test/libhyperion/ErrorCheck.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/Scanner.h>
@@ -29,7 +29,7 @@
 #include <libyul/YulStack.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/replace.hpp>

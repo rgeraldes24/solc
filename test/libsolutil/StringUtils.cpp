@@ -23,7 +23,7 @@
 #include <libsolutil/FixedHash.h>
 #include <libsolutil/StringUtils.h>
 
-#include <libsolidity/ast/Types.h>  // for IntegerType
+#include <libhyperion/ast/Types.h>  // for IntegerType
 
 #include <test/Common.h>
 

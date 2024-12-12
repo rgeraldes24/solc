@@ -19,15 +19,15 @@
 #pragma once
 
 #include <test/TestCase.h>
-#include <test/libsolidity/ABIJsonTest.h>
-#include <test/libsolidity/ASTJSONTest.h>
-#include <test/libsolidity/ASTPropertyTest.h>
-#include <test/libsolidity/GasTest.h>
-#include <test/libsolidity/MemoryGuardTest.h>
-#include <test/libsolidity/NatspecJSONTest.h>
-#include <test/libsolidity/SyntaxTest.h>
-#include <test/libsolidity/SemanticTest.h>
-#include <test/libsolidity/SMTCheckerTest.h>
+#include <test/libhyperion/ABIJsonTest.h>
+#include <test/libhyperion/ASTJSONTest.h>
+#include <test/libhyperion/ASTPropertyTest.h>
+#include <test/libhyperion/GasTest.h>
+#include <test/libhyperion/MemoryGuardTest.h>
+#include <test/libhyperion/NatspecJSONTest.h>
+#include <test/libhyperion/SyntaxTest.h>
+#include <test/libhyperion/SemanticTest.h>
+#include <test/libhyperion/SMTCheckerTest.h>
 #include <test/libyul/ControlFlowGraphTest.h>
 #include <test/libyul/EVMCodeTransformTest.h>
 #include <test/libyul/YulOptimizerTest.h>
@@ -71,15 +71,15 @@ Testsuite const g_interactiveTestsuites[] = {
 	{"Function Side Effects",  "libyul",      "functionSideEffects",   false, false, &yul::test::FunctionSideEffects::create},
 	{"Yul Syntax",             "libyul",      "yulSyntaxTests",        false, false, &yul::test::SyntaxTest::create},
 	{"EVM Code Transform",     "libyul",      "evmCodeTransform",      false, false, &yul::test::EVMCodeTransformTest::create, {"nooptions"}},
-	{"Syntax",                 "libsolidity", "syntaxTests",           false, false, &SyntaxTest::create},
-	{"Semantic",               "libsolidity", "semanticTests",         false, true,  &SemanticTest::create},
-	{"JSON AST",               "libsolidity", "ASTJSON",               false, false, &ASTJSONTest::create},
-	{"JSON ABI",               "libsolidity", "ABIJson",               false, false, &ABIJsonTest::create},
-	{"JSON Natspec",           "libsolidity", "natspecJSON",           false, false, &NatspecJSONTest::create},
-	{"SMT Checker",            "libsolidity", "smtCheckerTests",       true,  false, &SMTCheckerTest::create},
-	{"Gas Estimates",          "libsolidity", "gasTests",              false, false, &GasTest::create},
-	{"Memory Guard",           "libsolidity", "memoryGuardTests",      false, false, &MemoryGuardTest::create},
-	{"AST Properties",         "libsolidity", "astPropertyTests",      false, false, &ASTPropertyTest::create},
+	{"Syntax",                 "libhyperion", "syntaxTests",           false, false, &SyntaxTest::create},
+	{"Semantic",               "libhyperion", "semanticTests",         false, true,  &SemanticTest::create},
+	{"JSON AST",               "libhyperion", "ASTJSON",               false, false, &ASTJSONTest::create},
+	{"JSON ABI",               "libhyperion", "ABIJson",               false, false, &ABIJsonTest::create},
+	{"JSON Natspec",           "libhyperion", "natspecJSON",           false, false, &NatspecJSONTest::create},
+	{"SMT Checker",            "libhyperion", "smtCheckerTests",       true,  false, &SMTCheckerTest::create},
+	{"Gas Estimates",          "libhyperion", "gasTests",              false, false, &GasTest::create},
+	{"Memory Guard",           "libhyperion", "memoryGuardTests",      false, false, &MemoryGuardTest::create},
+	{"AST Properties",         "libhyperion", "astPropertyTests",      false, false, &ASTPropertyTest::create},
 };
 
 }

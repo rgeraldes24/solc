@@ -26,7 +26,7 @@
 #include <test/libyul/SyntaxTest.h>
 #include <test/TestCaseReader.h>
 
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 
 #include <test/Common.h>
 

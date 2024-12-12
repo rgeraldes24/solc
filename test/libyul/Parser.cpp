@@ -21,7 +21,7 @@
 
 #include <test/Common.h>
 
-#include <test/libsolidity/ErrorCheck.h>
+#include <test/libhyperion/ErrorCheck.h>
 #include <test/libyul/Common.h>
 
 #include <libyul/AST.h>

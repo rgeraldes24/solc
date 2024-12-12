@@ -24,8 +24,8 @@
 #include <test/hypc/Common.h>
 
 #include <test/Common.h>
-#include <test/libsolidity/util/Common.h>
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/Common.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 #include <liblangutil/SemVerHandler.h>
 #include <test/FilesystemUtils.h>
 

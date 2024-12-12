@@ -20,7 +20,7 @@
 
 
 #include <libsmtutil/SolverInterface.h>
-#include <libsolidity/interface/ReadFile.h>
+#include <libhyperion/interface/ReadFile.h>
 #include <libsolutil/FixedHash.h>
 
 #include <map>

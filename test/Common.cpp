@@ -20,7 +20,7 @@
 #include <iostream>
 #include <test/Common.h>
 #include <test/EVMHost.h>
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libsolutil/Assertions.h>
 #include <libsolutil/StringUtils.h>
@@ -41,7 +41,7 @@ namespace
 {
 
 /// If non-empty returns the value of the env. variable ETH_TEST_PATH, otherwise
-/// it tries to find a path that contains the directories "libsolidity/syntaxTests"
+/// it tries to find a path that contains the directories "libhyperion/syntaxTests"
 /// and returns it if found.
 /// The routine searches in the current directory, and inside the "test" directory
 /// starting from the current directory and up to three levels up.
@@ -61,7 +61,7 @@ boost::filesystem::path testPath()
 	};
 	for (auto const& basePath: searchPath)
 	{
-		fs::path syntaxTestPath = basePath / "libsolidity" / "syntaxTests";
+		fs::path syntaxTestPath = basePath / "libhyperion" / "syntaxTests";
 		if (fs::exists(syntaxTestPath) && fs::is_directory(syntaxTestPath))
 			return basePath;
 	}
@@ -271,7 +271,7 @@ bool isValidSemanticTestPath(boost::filesystem::path const& _testPath)
 	for (auto const& element: _testPath)
 	{
 		testPathPrefix /= element;
-		if (boost::ends_with(canonical(testPathPrefix).generic_string(), "/test/libsolidity/semanticTests"))
+		if (boost::ends_with(canonical(testPathPrefix).generic_string(), "/test/libhyperion/semanticTests"))
 			insideSemanticTests = true;
 		if (insideSemanticTests && boost::starts_with(element.string(), "_"))
 			return false;

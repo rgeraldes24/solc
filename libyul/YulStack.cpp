@@ -34,7 +34,7 @@
 #include <libyul/optimiser/Suite.h>
 #include <libevmasm/Assembly.h>
 #include <liblangutil/Scanner.h>
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <boost/algorithm/string.hpp>
 

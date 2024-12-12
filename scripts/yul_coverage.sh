@@ -134,8 +134,8 @@ while IFS='' read -r line; do
 done < <(
   grep -riL -E \
     "^\/\/ (DocstringParsing|Syntax|Type|Parser|Declaration)Error|^==== Source:" \
-    "${ROOT_DIR}/test/libsolidity/syntaxTests" \
-    "${ROOT_DIR}/test/libsolidity/semanticTests"
+    "${ROOT_DIR}/test/libhyperion/syntaxTests" \
+    "${ROOT_DIR}/test/libhyperion/semanticTests"
 )
 
 for SOL_FILE in "${SOL_FILES[@]}"; do

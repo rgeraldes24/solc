@@ -62,7 +62,7 @@
 #include <libyul/AsmAnalysis.h>
 #include <libyul/CompilabilityChecker.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <random>
 

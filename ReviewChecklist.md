@@ -132,7 +132,7 @@ The following points are all covered by the coding style but come up so often th
     problems that only occur in code generation, optimizer or assembler.
     - [ ] If you have to do it, at least mark positive cases inside the file with a short comment.
         - This way, when the test is updated, it is easier to verify that these cases still do not trigger an error.
-- [ ] New syntax: **does it have an [`ASTJSON`](test/libsolidity/ASTJSON/) test?**
+- [ ] New syntax: **does it have an [`ASTJSON`](test/libhyperion/ASTJSON/) test?**
 - [ ] New CLI or StandardJSON option:
     - [ ] **Does it have a [command-line test](test/cmdlineTests/)?**
     - [ ] **Is the option listed for every input mode in [`CommandLineParser` tests](test/hypc/CommandLineParser.cpp)?**

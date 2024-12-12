@@ -852,7 +852,7 @@ class SolidityLSPTestSuite: # {{{
         colorama.init()
         args = create_cli_parser().parse_args()
         self.hypc_path = args.hypc_path
-        self.project_root_dir = os.path.realpath(args.project_root_dir) + "/test/libsolidity/lsp"
+        self.project_root_dir = os.path.realpath(args.project_root_dir) + "/test/libhyperion/lsp"
         self.project_root_uri = PurePath(self.project_root_dir).as_uri()
         self.print_assertions = args.print_assertions
         self.trace_io = args.trace_io
@@ -968,7 +968,7 @@ class SolidityLSPTestSuite: # {{{
         """
         Reads the file contents from disc for a given test case.
         The `test_case_name` will be the basename of the file
-        in the test path (test/libsolidity/lsp/{sub_dir}).
+        in the test path (test/libhyperion/lsp/{sub_dir}).
         """
         with open(self.get_test_file_path(test_case_name, sub_dir), mode="r", encoding="utf-8", newline='') as f:
             return f.read().replace("\r\n", "\n")

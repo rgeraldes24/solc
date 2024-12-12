@@ -60,74 +60,74 @@ set(liblangutil_sources
 )
 detect_stray_source_files("${liblangutil_sources}" "liblangutil/")
 
-set(libsolidity_sources
-    libsolidity/ABIDecoderTests.cpp
-    libsolidity/ABIEncoderTests.cpp
-    libsolidity/ABIJsonTest.cpp
-    libsolidity/ABIJsonTest.h
-    libsolidity/ABITestsCommon.h
-    libsolidity/AnalysisFramework.cpp
-    libsolidity/AnalysisFramework.h
-    libsolidity/Assembly.cpp
-    libsolidity/ASTJSONTest.cpp
-    libsolidity/ASTJSONTest.h
-    libsolidity/ErrorCheck.cpp
-    libsolidity/ErrorCheck.h
-    libsolidity/GasCosts.cpp
-    libsolidity/GasMeter.cpp
-    libsolidity/GasTest.cpp
-    libsolidity/GasTest.h
-    libsolidity/Imports.cpp
-    libsolidity/InlineAssembly.cpp
-    libsolidity/LibHypc.cpp
-    libsolidity/Metadata.cpp
-    libsolidity/MemoryGuardTest.cpp
-    libsolidity/MemoryGuardTest.h
-    libsolidity/NatspecJSONTest.cpp
-    libsolidity/NatspecJSONTest.h
-    libsolidity/SemanticTest.cpp
-    libsolidity/SemanticTest.h
-    libsolidity/SemVerMatcher.cpp
-    libsolidity/SMTCheckerTest.cpp
-    libsolidity/SMTCheckerTest.h
-    libsolidity/SolidityCompiler.cpp
-    libsolidity/SolidityEndToEndTest.cpp
-    libsolidity/SolidityExecutionFramework.cpp
-    libsolidity/SolidityExecutionFramework.h
-    libsolidity/SolidityExpressionCompiler.cpp
-    libsolidity/SolidityNameAndTypeResolution.cpp
-    libsolidity/SolidityOptimizer.cpp
-    libsolidity/SolidityParser.cpp
-    libsolidity/SolidityTypes.cpp
-    libsolidity/StandardCompiler.cpp
-    libsolidity/SyntaxTest.cpp
-    libsolidity/SyntaxTest.h
-    libsolidity/ViewPureChecker.cpp
-    libsolidity/analysis/FunctionCallGraph.cpp
-    libsolidity/interface/FileReader.cpp
-    libsolidity/ASTPropertyTest.h
-    libsolidity/ASTPropertyTest.cpp
+set(libhyperion_sources
+    libhyperion/ABIDecoderTests.cpp
+    libhyperion/ABIEncoderTests.cpp
+    libhyperion/ABIJsonTest.cpp
+    libhyperion/ABIJsonTest.h
+    libhyperion/ABITestsCommon.h
+    libhyperion/AnalysisFramework.cpp
+    libhyperion/AnalysisFramework.h
+    libhyperion/Assembly.cpp
+    libhyperion/ASTJSONTest.cpp
+    libhyperion/ASTJSONTest.h
+    libhyperion/ErrorCheck.cpp
+    libhyperion/ErrorCheck.h
+    libhyperion/GasCosts.cpp
+    libhyperion/GasMeter.cpp
+    libhyperion/GasTest.cpp
+    libhyperion/GasTest.h
+    libhyperion/Imports.cpp
+    libhyperion/InlineAssembly.cpp
+    libhyperion/LibHypc.cpp
+    libhyperion/Metadata.cpp
+    libhyperion/MemoryGuardTest.cpp
+    libhyperion/MemoryGuardTest.h
+    libhyperion/NatspecJSONTest.cpp
+    libhyperion/NatspecJSONTest.h
+    libhyperion/SemanticTest.cpp
+    libhyperion/SemanticTest.h
+    libhyperion/SemVerMatcher.cpp
+    libhyperion/SMTCheckerTest.cpp
+    libhyperion/SMTCheckerTest.h
+    libhyperion/SolidityCompiler.cpp
+    libhyperion/SolidityEndToEndTest.cpp
+    libhyperion/SolidityExecutionFramework.cpp
+    libhyperion/SolidityExecutionFramework.h
+    libhyperion/SolidityExpressionCompiler.cpp
+    libhyperion/SolidityNameAndTypeResolution.cpp
+    libhyperion/SolidityOptimizer.cpp
+    libhyperion/SolidityParser.cpp
+    libhyperion/SolidityTypes.cpp
+    libhyperion/StandardCompiler.cpp
+    libhyperion/SyntaxTest.cpp
+    libhyperion/SyntaxTest.h
+    libhyperion/ViewPureChecker.cpp
+    libhyperion/analysis/FunctionCallGraph.cpp
+    libhyperion/interface/FileReader.cpp
+    libhyperion/ASTPropertyTest.h
+    libhyperion/ASTPropertyTest.cpp
 )
-detect_stray_source_files("${libsolidity_sources}" "libsolidity/")
+detect_stray_source_files("${libhyperion_sources}" "libhyperion/")
 
-set(libsolidity_util_sources
-    libsolidity/util/BytesUtils.cpp
-    libsolidity/util/BytesUtilsTests.cpp
-    libsolidity/util/BytesUtils.h
-    libsolidity/util/Common.cpp
-    libsolidity/util/Common.h
-    libsolidity/util/ContractABIUtils.cpp
-    libsolidity/util/ContractABIUtils.h
-    libsolidity/util/SoltestErrors.h
-    libsolidity/util/SoltestTypes.h
-    libsolidity/util/TestFileParser.cpp
-    libsolidity/util/TestFileParser.h
-    libsolidity/util/TestFileParserTests.cpp
-    libsolidity/util/TestFunctionCall.cpp
-    libsolidity/util/TestFunctionCall.h
-    libsolidity/util/TestFunctionCallTests.cpp
+set(libhyperion_util_sources
+    libhyperion/util/BytesUtils.cpp
+    libhyperion/util/BytesUtilsTests.cpp
+    libhyperion/util/BytesUtils.h
+    libhyperion/util/Common.cpp
+    libhyperion/util/Common.h
+    libhyperion/util/ContractABIUtils.cpp
+    libhyperion/util/ContractABIUtils.h
+    libhyperion/util/SoltestErrors.h
+    libhyperion/util/SoltestTypes.h
+    libhyperion/util/TestFileParser.cpp
+    libhyperion/util/TestFileParser.h
+    libhyperion/util/TestFileParserTests.cpp
+    libhyperion/util/TestFunctionCall.cpp
+    libhyperion/util/TestFunctionCall.h
+    libhyperion/util/TestFunctionCallTests.cpp
 )
-detect_stray_source_files("${libsolidity_util_sources}" "libsolidity/util/")
+detect_stray_source_files("${libhyperion_util_sources}" "libhyperion/util/")
 
 set(libyul_sources
     libyul/Common.cpp
@@ -198,8 +198,8 @@ add_executable(soltest ${sources}
     ${liblangutil_sources}
     ${libevmasm_sources}
     ${libyul_sources}
-    ${libsolidity_sources}
-    ${libsolidity_util_sources}
+    ${libhyperion_sources}
+    ${libhyperion_util_sources}
     ${hypcli_sources}
     ${yul_phaser_sources}
 )

@@ -18,7 +18,7 @@
 
 #include <libsolutil/TemporaryDirectory.h>
 
-#include <libsolidity/util/SoltestErrors.h>
+#include <libhyperion/util/SoltestErrors.h>
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libsolutil/StringUtils.h>
 

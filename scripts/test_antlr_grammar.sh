@@ -111,8 +111,8 @@ do
 done < <(
   grep --include "*.hyp" -riL -E \
     "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental solidity;" \
-    "${ROOT_DIR}/test/libsolidity/syntaxTests" \
-    "${ROOT_DIR}/test/libsolidity/semanticTests" |
+    "${ROOT_DIR}/test/libhyperion/syntaxTests" \
+    "${ROOT_DIR}/test/libhyperion/semanticTests" |
       # Skipping the unicode tests as I couldn't adapt the lexical grammar to recursively counting RLO/LRO/PDF's.
       grep -v -E 'comments/.*_direction_override.*.hyp' |
       grep -v -E 'literals/.*_direction_override.*.hyp' |

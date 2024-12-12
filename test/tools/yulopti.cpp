@@ -25,7 +25,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
-#include <libsolidity/parsing/Parser.h>
+#include <libhyperion/parsing/Parser.h>
 #include <libyul/AST.h>
 #include <libyul/AsmParser.h>
 #include <libyul/AsmPrinter.h>
@@ -42,7 +42,7 @@
 
 #include <libsolutil/JSON.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 #include <liblangutil/CharStreamProvider.h>
 
 #include <boost/algorithm/string/predicate.hpp>

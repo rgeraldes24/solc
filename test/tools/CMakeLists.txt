@@ -18,23 +18,23 @@ add_executable(isoltest
 	../EVMHost.cpp
 	../TestCase.cpp
 	../TestCaseReader.cpp
-	../libsolidity/util/BytesUtils.cpp
-	../libsolidity/util/Common.cpp
-	../libsolidity/util/ContractABIUtils.cpp
-	../libsolidity/util/TestFileParser.cpp
-	../libsolidity/util/TestFunctionCall.cpp
-	../libsolidity/GasTest.cpp
-	../libsolidity/MemoryGuardTest.cpp
-	../libsolidity/NatspecJSONTest.cpp
-	../libsolidity/SyntaxTest.cpp
-	../libsolidity/SemanticTest.cpp
-	../libsolidity/AnalysisFramework.cpp
-	../libsolidity/SolidityExecutionFramework.cpp
+	../libhyperion/util/BytesUtils.cpp
+	../libhyperion/util/Common.cpp
+	../libhyperion/util/ContractABIUtils.cpp
+	../libhyperion/util/TestFileParser.cpp
+	../libhyperion/util/TestFunctionCall.cpp
+	../libhyperion/GasTest.cpp
+	../libhyperion/MemoryGuardTest.cpp
+	../libhyperion/NatspecJSONTest.cpp
+	../libhyperion/SyntaxTest.cpp
+	../libhyperion/SemanticTest.cpp
+	../libhyperion/AnalysisFramework.cpp
+	../libhyperion/SolidityExecutionFramework.cpp
 	../ExecutionFramework.cpp
-	../libsolidity/ABIJsonTest.cpp
-	../libsolidity/ASTJSONTest.cpp
-	../libsolidity/ASTPropertyTest.cpp
-	../libsolidity/SMTCheckerTest.cpp
+	../libhyperion/ABIJsonTest.cpp
+	../libhyperion/ASTJSONTest.cpp
+	../libhyperion/ASTPropertyTest.cpp
+	../libhyperion/SMTCheckerTest.cpp
 	../libyul/Common.cpp
 	../libyul/ControlFlowGraphTest.cpp
 	../libyul/ControlFlowSideEffectsTest.cpp

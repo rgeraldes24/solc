@@ -22,8 +22,8 @@
  */
 
 #include <libhypc/libhypc.h>
-#include <libsolidity/interface/StandardCompiler.h>
-#include <libsolidity/interface/Version.h>
+#include <libhyperion/interface/StandardCompiler.h>
+#include <libhyperion/interface/Version.h>
 #include <libyul/YulString.h>
 
 #include <cstdlib>

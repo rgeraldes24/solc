@@ -18,9 +18,9 @@
 
 #include <test/tools/fuzzer_common.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
-#include <libsolidity/interface/CompilerStack.h>
-#include <libsolidity/formal/ModelCheckerSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
+#include <libhyperion/interface/CompilerStack.h>
+#include <libhyperion/formal/ModelCheckerSettings.h>
 
 #include <libsolutil/JSON.h>
 

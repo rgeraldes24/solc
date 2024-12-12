@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 #include <test/hypc/Common.h>
-#include <test/libsolidity/util/Common.h>
+#include <test/libhyperion/util/Common.h>
 
 #include <hypc/CommandLineInterface.h>
 

@@ -19,7 +19,7 @@
 #include <test/libyul/YulOptimizerTest.h>
 #include <test/libyul/YulOptimizerTestCommon.h>
 
-#include <test/libsolidity/util/SoltestErrors.h>
+#include <test/libhyperion/util/SoltestErrors.h>
 #include <test/libyul/Common.h>
 #include <test/Common.h>
 

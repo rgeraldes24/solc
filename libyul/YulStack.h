@@ -29,7 +29,7 @@
 #include <libyul/Object.h>
 #include <libyul/ObjectParser.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <libevmasm/LinkerObject.h>
 

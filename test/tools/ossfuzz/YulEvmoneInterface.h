@@ -21,7 +21,7 @@
 
 #include <libyul/YulStack.h>
 
-#include <libsolidity/interface/OptimiserSettings.h>
+#include <libhyperion/interface/OptimiserSettings.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 

@@ -10,7 +10,7 @@
         {
             "component": "general",
             "formattedMessage": "UnimplementedFeatureError: Not yet implemented - FixedPointType.\n\n",
-            "message": "Unimplemented feature (/solidity/libsolidity/codegen/CompilerUtils.cpp:771):Not yet implemented - FixedPointType.",
+            "message": "Unimplemented feature (/solidity/libhyperion/codegen/CompilerUtils.cpp:771):Not yet implemented - FixedPointType.",
             "severity": "error",
             "type": "UnimplementedFeatureError"
         }

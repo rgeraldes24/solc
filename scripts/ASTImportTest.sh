@@ -103,9 +103,9 @@ do
     esac
 done
 
-SYNTAXTESTS_DIR="${REPO_ROOT}/test/libsolidity/syntaxTests"
-ASTJSONTESTS_DIR="${REPO_ROOT}/test/libsolidity/ASTJSON"
-SEMANTICTESTS_DIR="${REPO_ROOT}/test/libsolidity/semanticTests"
+SYNTAXTESTS_DIR="${REPO_ROOT}/test/libhyperion/syntaxTests"
+ASTJSONTESTS_DIR="${REPO_ROOT}/test/libhyperion/ASTJSON"
+SEMANTICTESTS_DIR="${REPO_ROOT}/test/libhyperion/semanticTests"
 
 FAILED=0
 UNCOMPILABLE=0

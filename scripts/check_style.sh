@@ -10,9 +10,9 @@ EXCLUDE_FILES=(
     "libsolutil/picosha2.h"
     "test/cmdlineTests/strict_asm_only_cr/input.yul"
     "test/libsolutil/UTF8.cpp"
-    "test/libsolidity/syntaxTests/license/license_cr_endings.hyp"
-    "test/libsolidity/syntaxTests/license/license_crlf_endings.hyp"
-    "test/libsolidity/syntaxTests/license/license_whitespace_trailing.hyp"
+    "test/libhyperion/syntaxTests/license/license_cr_endings.hyp"
+    "test/libhyperion/syntaxTests/license/license_crlf_endings.hyp"
+    "test/libhyperion/syntaxTests/license/license_whitespace_trailing.hyp"
     "test/scripts/fixtures/smt_contract_with_crlf_newlines.hyp"
     "test/scripts/fixtures/smt_contract_with_cr_newlines.hyp"
     "test/scripts/fixtures/smt_contract_with_mixed_newlines.hyp"
@@ -25,14 +25,14 @@ NAMESPACE_STD_FREE_FILES=(
     liblangutil/*
     libsmtutil/*
     libhypc/*
-    libsolidity/analysis/*
-    libsolidity/ast/*
-    libsolidity/codegen/ir/*
-    libsolidity/codegen/*
-    libsolidity/formal/*
-    libsolidity/interface/*
-    libsolidity/lsp/*
-    libsolidity/parsing/*
+    libhyperion/analysis/*
+    libhyperion/ast/*
+    libhyperion/codegen/ir/*
+    libhyperion/codegen/*
+    libhyperion/formal/*
+    libhyperion/interface/*
+    libhyperion/lsp/*
+    libhyperion/parsing/*
     libsolutil/*
     libyul/*
     libyul/backends/evm/*
@@ -42,10 +42,10 @@ NAMESPACE_STD_FREE_FILES=(
     test/libevmasm/*
     test/liblangutil/*
     test/libsolutil/*
-    test/libsolidity/*
-    test/libsolidity/analysis/*
-    test/libsolidity/interface/*
-    test/libsolidity/util/*
+    test/libhyperion/*
+    test/libhyperion/analysis/*
+    test/libhyperion/interface/*
+    test/libhyperion/util/*
 )
 
 (
@@ -53,7 +53,7 @@ REPO_ROOT="$(dirname "$0")"/..
 cd "$REPO_ROOT" || exit 1
 
 WHITESPACE=$(git grep -n -I -E "^.*[[:space:]]+$" |
-    grep -v "test/libsolidity/ASTJSON\|test/compilationTests/zeppelin/LICENSE\|${EXCLUDE_FILES_JOINED}" || true
+    grep -v "test/libhyperion/ASTJSON\|test/compilationTests/zeppelin/LICENSE\|${EXCLUDE_FILES_JOINED}" || true
 )
 
 if [[ "$WHITESPACE" != "" ]]

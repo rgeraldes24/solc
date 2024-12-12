@@ -137,7 +137,7 @@ by ``cmake`` during compiler configure stage.
 If the ``libz3`` library is not installed on your system, you should disable the
 SMT tests by exporting ``SMT_FLAGS=--no-smt`` before running ``./scripts/tests.sh`` or
 running ``./scripts/soltest.sh --no-smt``.
-These tests are ``libsolidity/smtCheckerTests`` and ``libsolidity/smtCheckerTestsJSON``.
+These tests are ``libhyperion/smtCheckerTests`` and ``libhyperion/smtCheckerTestsJSON``.
 
 .. note::
 
@@ -185,11 +185,11 @@ Writing and Running Syntax Tests
 
 Syntax tests check that the compiler generates the correct error messages for invalid code
 and properly accepts valid code.
-They are stored in individual files inside the ``tests/libsolidity/syntaxTests`` folder.
+They are stored in individual files inside the ``tests/libhyperion/syntaxTests`` folder.
 These files must contain annotations, stating the expected result(s) of the respective test.
 The test suite compiles and checks them against the given expectations.
 
-For example: ``./test/libsolidity/syntaxTests/double_stateVariable_declaration.hyp``
+For example: ``./test/libhyperion/syntaxTests/double_stateVariable_declaration.hyp``
 
 .. code-block:: hyperion
 
@@ -398,7 +398,7 @@ from the documentation or the other tests:
     mkdir /tmp/test_cases
     cd /tmp/test_cases
     # extract from tests:
-    path/to/solidity/scripts/isolate_tests.py path/to/solidity/test/libsolidity/SolidityEndToEndTest.cpp
+    path/to/solidity/scripts/isolate_tests.py path/to/solidity/test/libhyperion/SolidityEndToEndTest.cpp
     # extract from documentation:
     path/to/solidity/scripts/isolate_tests.py path/to/solidity/docs
 

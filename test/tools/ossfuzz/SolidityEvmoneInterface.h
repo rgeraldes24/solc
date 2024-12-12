@@ -20,7 +20,7 @@
 
 #include <test/EVMHost.h>
 
-#include <libsolidity/interface/CompilerStack.h>
+#include <libhyperion/interface/CompilerStack.h>
 
 #include <libyul/YulStack.h>
 

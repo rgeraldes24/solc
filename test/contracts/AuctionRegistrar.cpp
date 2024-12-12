@@ -21,7 +21,7 @@
  * Tests for a fixed fee registrar contract.
  */
 
-#include <test/libsolidity/SolidityExecutionFramework.h>
+#include <test/libhyperion/SolidityExecutionFramework.h>
 #include <test/contracts/ContractInterface.h>
 #include <test/EVMHost.h>
 
