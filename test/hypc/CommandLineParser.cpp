@@ -444,7 +444,7 @@ BOOST_AUTO_TEST_CASE(invalid_options_input_modes_combinations)
 			stringstream serr;
 			size_t separatorPosition = optionName.find("=");
 			string optionNameWithoutValue = optionName.substr(0, separatorPosition);
-			soltestAssert(!optionNameWithoutValue.empty());
+			hyptestAssert(!optionNameWithoutValue.empty());
 
 			vector<string> commandLine = {"hypc", optionName, "file", inputMode};
 

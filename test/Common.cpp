@@ -222,7 +222,7 @@ string CommonOptions::toString(vector<string> const& _selectedOptions) const
 		{"showMetadata", boolToString(showMetadata)}
 	};
 
-	soltestAssert(ranges::all_of(_selectedOptions, [&optionValueMap](string const& _option) { return optionValueMap.count(_option) > 0; }));
+	hyptestAssert(ranges::all_of(_selectedOptions, [&optionValueMap](string const& _option) { return optionValueMap.count(_option) > 0; }));
 
 	vector<string> optionsWithValues = _selectedOptions |
 		ranges::views::transform([&optionValueMap](string const& _option) { return _option + "=" + optionValueMap.at(_option); }) |

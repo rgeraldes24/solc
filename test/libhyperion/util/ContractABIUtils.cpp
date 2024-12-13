@@ -52,7 +52,7 @@ size_t arraySize(std::string const& _arrayType)
 	auto leftBrack = _arrayType.find("[");
 	auto rightBrack = _arrayType.rfind("]");
 
-	soltestAssert(
+	hyptestAssert(
 		leftBrack != std::string::npos &&
 		rightBrack != std::string::npos &&
 		rightBrack == _arrayType.size() - 1 &&

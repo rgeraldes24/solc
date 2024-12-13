@@ -205,8 +205,8 @@ BOOST_AUTO_TEST_CASE(cli_input)
 	boost::filesystem::path expectedRootPath = FileReader::normalizeCLIRootPathForVFS(tempDir1);
 	boost::filesystem::path expectedDir1 = expectedRootPath / tempDir1.path().relative_path();
 	boost::filesystem::path expectedDir2 = expectedRootPath / tempDir2.path().relative_path();
-	soltestAssert(expectedDir1.is_absolute() || expectedDir1.root_path() == "/", "");
-	soltestAssert(expectedDir2.is_absolute() || expectedDir2.root_path() == "/", "");
+	hyptestAssert(expectedDir1.is_absolute() || expectedDir1.root_path() == "/", "");
+	hyptestAssert(expectedDir2.is_absolute() || expectedDir2.root_path() == "/", "");
 
 	vector<ImportRemapper::Remapping> expectedRemappings = {
 		{"", "a", "b/c/d"},
@@ -250,7 +250,7 @@ BOOST_AUTO_TEST_CASE(cli_ignore_missing_some_files_exist)
 
 	boost::filesystem::path expectedRootPath = FileReader::normalizeCLIRootPathForVFS(tempDir1);
 	boost::filesystem::path expectedDir1 = expectedRootPath / tempDir1.path().relative_path();
-	soltestAssert(expectedDir1.is_absolute() || expectedDir1.root_path() == "/", "");
+	hyptestAssert(expectedDir1.is_absolute() || expectedDir1.root_path() == "/", "");
 
 	// NOTE: Allowed paths should not be added for skipped files.
 	map<string, string> expectedSources = {{(expectedDir1 / "input1.hyp").generic_string(), ""}};
@@ -426,8 +426,8 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_no_base_path)
 	TemporaryDirectory tempDirCurrent(TEST_CASE_NAME);
 	TemporaryDirectory tempDirOther(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDirCurrent);
-	soltestAssert(tempDirCurrent.path().is_absolute(), "");
-	soltestAssert(tempDirOther.path().is_absolute(), "");
+	hyptestAssert(tempDirCurrent.path().is_absolute(), "");
+	hyptestAssert(tempDirOther.path().is_absolute(), "");
 
 	// NOTE: On macOS the path usually contains symlinks which prevents base path from being stripped.
 	// Use canonical() to resolve symnlinks and get consistent results on all platforms.
@@ -435,7 +435,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_no_base_path)
 	boost::filesystem::path otherDirNoSymlinks = boost::filesystem::canonical(tempDirOther);
 
 	boost::filesystem::path expectedOtherDir = "/" / otherDirNoSymlinks.relative_path();
-	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
+	hyptestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",
@@ -484,8 +484,8 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_same_as_work_dir)
 	TemporaryDirectory tempDirCurrent(TEST_CASE_NAME);
 	TemporaryDirectory tempDirOther(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDirCurrent);
-	soltestAssert(tempDirCurrent.path().is_absolute(), "");
-	soltestAssert(tempDirOther.path().is_absolute(), "");
+	hyptestAssert(tempDirCurrent.path().is_absolute(), "");
+	hyptestAssert(tempDirOther.path().is_absolute(), "");
 
 	// NOTE: On macOS the path usually contains symlinks which prevents base path from being stripped.
 	// Use canonical() to resolve symnlinks and get consistent results on all platforms.
@@ -494,8 +494,8 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_same_as_work_dir)
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
 	boost::filesystem::path expectedOtherDir = "/" / otherDirNoSymlinks.relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
-	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",
@@ -547,9 +547,9 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_different_from_wor
 	TemporaryDirectory tempDirOther(TEST_CASE_NAME);
 	TemporaryDirectory tempDirBase(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDirCurrent);
-	soltestAssert(tempDirCurrent.path().is_absolute(), "");
-	soltestAssert(tempDirOther.path().is_absolute(), "");
-	soltestAssert(tempDirBase.path().is_absolute(), "");
+	hyptestAssert(tempDirCurrent.path().is_absolute(), "");
+	hyptestAssert(tempDirOther.path().is_absolute(), "");
+	hyptestAssert(tempDirBase.path().is_absolute(), "");
 
 	// NOTE: On macOS the path usually contains symlinks which prevents base path from being stripped.
 	// Use canonical() to resolve symnlinks and get consistent results on all platforms.
@@ -561,10 +561,10 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_base_path_different_from_wor
 	boost::filesystem::path expectedCurrentDir = "/" / currentDirNoSymlinks.relative_path();
 	boost::filesystem::path expectedOtherDir = "/" / otherDirNoSymlinks.relative_path();
 	boost::filesystem::path expectedBaseDir = "/" / baseDirNoSymlinks.relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
-	soltestAssert(expectedCurrentDir.is_absolute() || expectedCurrentDir.root_path() == "/", "");
-	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
-	soltestAssert(expectedBaseDir.is_absolute() || expectedBaseDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedCurrentDir.is_absolute() || expectedCurrentDir.root_path() == "/", "");
+	hyptestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
+	hyptestAssert(expectedBaseDir.is_absolute() || expectedBaseDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",
@@ -619,8 +619,8 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_relative_base_path)
 	TemporaryDirectory tempDirCurrent(TEST_CASE_NAME);
 	TemporaryDirectory tempDirOther(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDirCurrent);
-	soltestAssert(tempDirCurrent.path().is_absolute(), "");
-	soltestAssert(tempDirOther.path().is_absolute(), "");
+	hyptestAssert(tempDirCurrent.path().is_absolute(), "");
+	hyptestAssert(tempDirOther.path().is_absolute(), "");
 
 	// NOTE: On macOS the path usually contains symlinks which prevents base path from being stripped.
 	// Use canonical() to resolve symnlinks and get consistent results on all platforms.
@@ -629,8 +629,8 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_relative_base_path)
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
 	boost::filesystem::path expectedOtherDir = "/" / otherDirNoSymlinks.relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
-	soltestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedOtherDir.is_absolute() || expectedOtherDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",
@@ -687,15 +687,15 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_normalization_and_weird_name
 {
 	TemporaryDirectory tempDir({"x/y/z"}, TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir.path() / "x/y/z");
-	soltestAssert(tempDir.path().is_absolute(), "");
+	hyptestAssert(tempDir.path().is_absolute(), "");
 
 	string uncPath = "//" + tempDir.path().relative_path().generic_string();
-	soltestAssert(FileReader::isUNCPath(uncPath), "");
+	hyptestAssert(FileReader::isUNCPath(uncPath), "");
 
 	boost::filesystem::path tempDirNoSymlinks = boost::filesystem::canonical(tempDir);
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",
@@ -863,7 +863,7 @@ BOOST_AUTO_TEST_CASE(cli_paths_to_source_unit_names_symlinks)
 		return;
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	vector<string> commandLine = {
 		"hypc",

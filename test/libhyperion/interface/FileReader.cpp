@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_relative_path)
 	boost::filesystem::path expectedPrefix = boost::filesystem::current_path().parent_path().parent_path().parent_path();
 	// On Windows tempDir.path() normally contains the drive letter while the normalized path should not.
 	expectedPrefix = "/" / expectedPrefix.relative_path();
-	soltestAssert(expectedPrefix.is_absolute() || expectedPrefix.root_path() == "/", "");
+	hyptestAssert(expectedPrefix.is_absolute() || expectedPrefix.root_path() == "/", "");
 
 	for (SymlinkResolution resolveSymlinks: {SymlinkResolution::Enabled, SymlinkResolution::Disabled})
 	{
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_unc_path)
 
 	// On Windows tempDir.path() normally contains the drive letter while the normalized path should not.
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	for (SymlinkResolution resolveSymlinks: {SymlinkResolution::Enabled, SymlinkResolution::Disabled})
 	{
@@ -176,7 +176,7 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_root_name_only)
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::current_path().relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	// A root **path** consists of a directory name (typically / or \) and the root name (drive
 	// letter (C:), UNC host name (//host), etc.). Either can be empty. Root path as a whole may be
@@ -197,8 +197,8 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_root_name_only)
 
 #if defined(_WIN32)
 		boost::filesystem::path driveLetter = boost::filesystem::current_path().root_name();
-		soltestAssert(!driveLetter.empty(), "");
-		soltestAssert(driveLetter.is_relative(), "");
+		hyptestAssert(!driveLetter.empty(), "");
+		hyptestAssert(driveLetter.is_relative(), "");
 
 		BOOST_CHECK_EQUAL(FileReader::normalizeCLIPathForVFS(driveLetter, resolveSymlinks), expectedWorkDir);
 #endif
@@ -210,9 +210,9 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_stripping_root_name)
 	TemporaryDirectory tempDir(TEST_CASE_NAME);
 	TemporaryWorkingDirectory tempWorkDir(tempDir);
 
-	soltestAssert(boost::filesystem::current_path().is_absolute(), "");
+	hyptestAssert(boost::filesystem::current_path().is_absolute(), "");
 #if defined(_WIN32)
-	soltestAssert(!boost::filesystem::current_path().root_name().empty(), "");
+	hyptestAssert(!boost::filesystem::current_path().root_name().empty(), "");
 #endif
 
 	for (SymlinkResolution resolveSymlinks: {SymlinkResolution::Enabled, SymlinkResolution::Disabled})
@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_stripping_root_name)
 
 #if defined(_WIN32)
 		std::string root = workDir.root_path().string();
-		soltestAssert(root.length() == 3 && root[1] == ':' && root[2] == '\\', "");
+		hyptestAssert(root.length() == 3 && root[1] == ':' && root[2] == '\\', "");
 
 		for (auto convert: {boost::to_lower_copy<std::string>, boost::to_upper_copy<std::string>})
 		{
@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_path_separators)
 BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_should_not_resolve_symlinks_unless_requested)
 {
 	TemporaryDirectory tempDir({"abc/"}, TEST_CASE_NAME);
-	soltestAssert(tempDir.path().is_absolute(), "");
+	hyptestAssert(tempDir.path().is_absolute(), "");
 
 	if (!createSymlinkIfSupportedByFilesystem(tempDir.path() / "abc", tempDir.path() / "sym", true))
 		return;
@@ -343,17 +343,17 @@ BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_should_not_resolve_symlinks_unless_r
 BOOST_AUTO_TEST_CASE(normalizeCLIPathForVFS_should_resolve_symlinks_in_workdir_when_path_is_relative)
 {
 	TemporaryDirectory tempDir({"abc/"}, TEST_CASE_NAME);
-	soltestAssert(tempDir.path().is_absolute(), "");
+	hyptestAssert(tempDir.path().is_absolute(), "");
 
 	if (!createSymlinkIfSupportedByFilesystem(tempDir.path() / "abc", tempDir.path() / "sym", true))
 		return;
 
 	TemporaryWorkingDirectory tempWorkDir(tempDir.path() / "sym");
 	boost::filesystem::path expectedWorkDir = "/" / boost::filesystem::weakly_canonical(boost::filesystem::current_path()).relative_path();
-	soltestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
+	hyptestAssert(expectedWorkDir.is_absolute() || expectedWorkDir.root_path() == "/", "");
 
 	boost::filesystem::path expectedPrefix = "/" / tempDir.path().relative_path();
-	soltestAssert(expectedPrefix.is_absolute() || expectedPrefix.root_path() == "/", "");
+	hyptestAssert(expectedPrefix.is_absolute() || expectedPrefix.root_path() == "/", "");
 
 	for (SymlinkResolution resolveSymlinks: {SymlinkResolution::Enabled, SymlinkResolution::Disabled})
 	{

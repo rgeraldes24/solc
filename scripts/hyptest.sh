@@ -11,12 +11,12 @@ SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
 function usage
 {
 	echo 2>&1 "
-Usage: $0 [options] [soltest-options]
-Runs BOOST C++ unit test program, soltest.
+Usage: $0 [options] [hyptest-options]
+Runs BOOST C++ unit test program, hyptest.
 
 Options:
-  --debug                  soltest invocation prefaced with: \"$DEBUGGER\"
-  --debugger *dbg-cmd*     soltest prefaced with your own debugger command.
+  --debug                  hyptest invocation prefaced with: \"$DEBUGGER\"
+  --debugger *dbg-cmd*     hyptest prefaced with your own debugger command.
   --run_test | -t  *name*  filters test unit(s) to include or exclude from test.
                            This  option can be given several times.
   --boost-options *x*      Set BOOST option *x*.
@@ -24,7 +24,7 @@ Options:
 
 Important environment variables:
 
-SOLIDITY_BUILD_DIR: Sets directory where test/soltest should be found.
+SOLIDITY_BUILD_DIR: Sets directory where test/hyptest should be found.
            The default is \"${SOLIDITY_BUILD_DIR}\".
 "
 }
@@ -62,7 +62,7 @@ do
 	shift
 done
 
-SOLTEST_COMMAND=("${SOLIDITY_BUILD_DIR}/test/soltest" "${BOOST_OPTIONS[@]}" -- --testpath "${REPO_ROOT}/test" "${SOLTEST_OPTIONS[@]}")
+SOLTEST_COMMAND=("${SOLIDITY_BUILD_DIR}/test/hyptest" "${BOOST_OPTIONS[@]}" -- --testpath "${REPO_ROOT}/test" "${SOLTEST_OPTIONS[@]}")
 
 if [ "$USE_DEBUGGER" -ne "0" ]; then
 	# shellcheck disable=SC2086

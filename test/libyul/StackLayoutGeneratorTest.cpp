@@ -115,18 +115,18 @@ private:
 			std::visit(util::GenericVisitor{
 				[&](CFG::BasicBlock::Jump const& _jump)
 				{
-					soltestAssert(_jump.target == &_block, "Invalid control flow graph.");
+					hyptestAssert(_jump.target == &_block, "Invalid control flow graph.");
 				},
 				[&](CFG::BasicBlock::ConditionalJump const& _conditionalJump)
 				{
-					soltestAssert(
+					hyptestAssert(
 						_conditionalJump.zero == &_block || _conditionalJump.nonZero == &_block,
 						"Invalid control flow graph."
 					);
 				},
 				[&](auto const&)
 				{
-					soltestAssert(false, "Invalid control flow graph.");
+					hyptestAssert(false, "Invalid control flow graph.");
 				}
 			}, entry->exit);
 
@@ -151,7 +151,7 @@ private:
 				}
 			}, operation.operation);
 			m_stream << "\\l\\\n";
-			soltestAssert(operation.input.size() <= entryLayout.size(), "Invalid Stack Layout.");
+			hyptestAssert(operation.input.size() <= entryLayout.size(), "Invalid Stack Layout.");
 			for (size_t i = 0; i < operation.input.size(); ++i)
 				entryLayout.pop_back();
 			entryLayout += operation.output;

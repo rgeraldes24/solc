@@ -109,12 +109,12 @@ Running the Tests
 -----------------
 
 Solidity includes different types of tests, most of them bundled into the
-`Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_ application ``soltest``.
-Running ``build/test/soltest`` or its wrapper ``scripts/soltest.sh`` is sufficient for most changes.
+`Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_ application ``hyptest``.
+Running ``build/test/hyptest`` or its wrapper ``scripts/hyptest.sh`` is sufficient for most changes.
 
 The ``./scripts/tests.sh`` script executes most Solidity tests automatically,
 including those bundled into the `Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_
-application ``soltest`` (or its wrapper ``scripts/soltest.sh``), as well as command-line tests and
+application ``hyptest`` (or its wrapper ``scripts/hyptest.sh``), as well as command-line tests and
 compilation tests.
 
 The test system automatically tries to discover the location of
@@ -126,7 +126,7 @@ for the ``evmone`` shared object can be specified via the ``ETH_EVMONE`` environ
 
 ``evmone`` is needed mainly for running semantic and gas tests.
 If you do not have it installed, you can skip these tests by passing the ``--no-semantic-tests``
-flag to ``scripts/soltest.sh``.
+flag to ``scripts/hyptest.sh``.
 
 The ``evmone`` library should both end with the file name
 extension ``.so`` on Linux, ``.dll`` on Windows systems and ``.dylib`` on macOS.
@@ -136,23 +136,23 @@ by ``cmake`` during compiler configure stage.
 
 If the ``libz3`` library is not installed on your system, you should disable the
 SMT tests by exporting ``SMT_FLAGS=--no-smt`` before running ``./scripts/tests.sh`` or
-running ``./scripts/soltest.sh --no-smt``.
+running ``./scripts/hyptest.sh --no-smt``.
 These tests are ``libhyperion/smtCheckerTests`` and ``libhyperion/smtCheckerTestsJSON``.
 
 .. note::
 
-    To get a list of all unit tests run by Soltest, run ``./build/test/soltest --list_content=HRF``.
+    To get a list of all unit tests run by Soltest, run ``./build/test/hyptest --list_content=HRF``.
 
 For quicker results you can run a subset of, or specific tests.
 
 To run a subset of tests, you can use filters:
-``./scripts/soltest.sh -t TestSuite/TestName``,
+``./scripts/hyptest.sh -t TestSuite/TestName``,
 where ``TestName`` can be a wildcard ``*``.
 
 Or, for example, to run all the tests for the yul disambiguator:
-``./scripts/soltest.sh -t "yulOptimizerTests/disambiguator/*" --no-smt``.
+``./scripts/hyptest.sh -t "yulOptimizerTests/disambiguator/*" --no-smt``.
 
-``./build/test/soltest --help`` has extensive help on all of the options available.
+``./build/test/hyptest --help`` has extensive help on all of the options available.
 
 See especially:
 
@@ -163,8 +163,8 @@ See especially:
 .. note::
 
     Those working in a Windows environment wanting to run the above basic sets
-    without libz3. Using Git Bash, you use: ``./build/test/Release/soltest.exe -- --no-smt``.
-    If you are running this in plain Command Prompt, use ``.\build\test\Release\soltest.exe -- --no-smt``.
+    without libz3. Using Git Bash, you use: ``./build/test/Release/hyptest.exe -- --no-smt``.
+    If you are running this in plain Command Prompt, use ``.\build\test\Release\hyptest.exe -- --no-smt``.
 
 If you want to debug using GDB, make sure you build differently than the "usual".
 For example, you could run the following command in your ``build`` folder:
@@ -207,7 +207,7 @@ out the separator and the comments that follow it.
 
 In the above example, the state variable ``variable`` was declared twice, which is not allowed. This results in a ``DeclarationError`` stating that the identifier was already declared.
 
-The ``isoltest`` tool is used for these tests and you can find it under ``./build/test/tools/``. It is an interactive tool which allows
+The ``ihyptest`` tool is used for these tests and you can find it under ``./build/test/tools/``. It is an interactive tool which allows
 editing of failing contracts using your preferred text editor. Let's try to break this test by removing the second declaration of ``variable``:
 
 .. code-block:: hyperion
@@ -218,7 +218,7 @@ editing of failing contracts using your preferred text editor. Let's try to brea
     // ----
     // DeclarationError: (36-52): Identifier already declared.
 
-Running ``./build/test/tools/isoltest`` again results in a test failure:
+Running ``./build/test/tools/ihyptest`` again results in a test failure:
 
 .. code-block:: text
 
@@ -234,15 +234,15 @@ Running ``./build/test/tools/isoltest`` again results in a test failure:
             Success
 
 
-``isoltest`` prints the expected result next to the obtained result, and also
+``ihyptest`` prints the expected result next to the obtained result, and also
 provides a way to edit, update or skip the current contract file, or quit the application.
 
 It offers several options for failing tests:
 
-- ``edit``: ``isoltest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command-line (as ``isoltest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
+- ``edit``: ``ihyptest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command-line (as ``ihyptest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
 - ``update``: Updates the expectations for contract under test. This updates the annotations by removing unmet expectations and adding missing expectations. The test is then run again.
 - ``skip``: Skips the execution of this particular test.
-- ``quit``: Quits ``isoltest``.
+- ``quit``: Quits ``ihyptest``.
 
 All of these options apply to the current contract, except ``quit`` which stops the entire testing process.
 

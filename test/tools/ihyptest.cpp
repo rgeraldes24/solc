@@ -21,7 +21,7 @@
 
 #include <memory>
 #include <test/Common.h>
-#include <test/tools/IsolTestOptions.h>
+#include <test/tools/IhypTestOptions.h>
 #include <test/InteractiveTests.h>
 #include <test/ZVMHost.h>
 
@@ -49,7 +49,7 @@ namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
 using TestCreator = TestCase::TestCaseCreator;
-using TestOptions = hyperion::test::IsolTestOptions;
+using TestOptions = hyperion::test::IhypTestOptions;
 
 struct TestStats
 {
@@ -429,7 +429,7 @@ int main(int argc, char const *argv[])
 		setupTerminal();
 
 		{
-			auto options = std::make_unique<IsolTestOptions>();
+			auto options = std::make_unique<IhypTestOptions>();
 
 			bool shouldContinue = options->parse(argc, argv);
 			if (!shouldContinue)
@@ -439,7 +439,7 @@ int main(int argc, char const *argv[])
 			CommonOptions::setSingleton(std::move(options));
 		}
 
-		auto& options = dynamic_cast<IsolTestOptions const&>(CommonOptions::get());
+		auto& options = dynamic_cast<IhypTestOptions const&>(CommonOptions::get());
 
 		if (!hyperion::test::loadVMs(options))
 			return EXIT_FAILURE;

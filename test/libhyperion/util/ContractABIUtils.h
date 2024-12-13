@@ -29,13 +29,13 @@ using ABITypes = std::vector<ABIType>;
 
 /**
  * Utility class that aids conversions from contract ABI types stored in a
- * Json value to the internal ABIType representation of isoltest.
+ * Json value to the internal ABIType representation of ihyptest.
  */
 class ContractABIUtils
 {
 public:
 	/// Parses and translates Solidity's ABI types as Json string into
-	/// a list of internal type representations of isoltest.
+	/// a list of internal type representations of ihyptest.
 	/// Creates parameters from Contract ABI and is used to generate values for
 	/// auto-correction during interactive update routine.
 	static std::optional<ParameterList> parametersFromJsonOutputs(
@@ -77,7 +77,7 @@ public:
 
 private:
 	/// Parses and translates a single type and returns a list of
-	/// internal type representations of isoltest.
+	/// internal type representations of ihyptest.
 	/// Types defined by the ABI will translate to ABITypes
 	/// as follows:
 	/// `bool` -> [`Boolean`]

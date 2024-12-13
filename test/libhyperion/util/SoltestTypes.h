@@ -25,7 +25,7 @@ namespace hyperion::frontend::test
 {
 
 /**
- * All soltest tokens.
+ * All hyptest tokens.
  */
 #define SOLT_TOKEN_LIST(T, K)          \
 	T(Unknown, "unknown", 0)           \
@@ -64,7 +64,7 @@ namespace hyperion::frontend::test
 	K(Failure, "FAILURE", 0)           \
 	K(Gas, "gas", 0)                   \
 
-namespace soltest
+namespace hyptest
 {
 	enum class Token : unsigned int {
 	#define T(name, string, precedence) name,
@@ -135,7 +135,7 @@ struct ABIType
 
 /**
  * Helper that can hold format information retrieved
- * while scanning through a parameter list in soltest.
+ * while scanning through a parameter list in hyptest.
  */
 struct FormatInfo
 {

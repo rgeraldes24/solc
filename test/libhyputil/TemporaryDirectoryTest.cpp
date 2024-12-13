@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(TemporaryDirectory_should_delete_its_directory_even_if_not_
 			std::ofstream tmpFile((dirPath / "test-file.txt").string());
 			tmpFile << "Delete me!" << std::endl;
 		}
-		soltestAssert(boost::filesystem::is_regular_file(dirPath / "test-file.txt"), "");
+		hyptestAssert(boost::filesystem::is_regular_file(dirPath / "test-file.txt"), "");
 	}
 	BOOST_TEST(!boost::filesystem::exists(dirPath / "test-file.txt"));
 }
@@ -86,8 +86,8 @@ BOOST_AUTO_TEST_CASE(TemporaryWorkingDirectory_should_change_and_restore_working
 	{
 		{
 			TemporaryDirectory tempDir("temporary-directory-test");
-			soltestAssert(boost::filesystem::equivalent(boost::filesystem::current_path(), originalWorkingDirectory), "");
-			soltestAssert(!boost::filesystem::equivalent(tempDir.path(), originalWorkingDirectory), "");
+			hyptestAssert(boost::filesystem::equivalent(boost::filesystem::current_path(), originalWorkingDirectory), "");
+			hyptestAssert(!boost::filesystem::equivalent(tempDir.path(), originalWorkingDirectory), "");
 
 			TemporaryWorkingDirectory tempWorkDir(tempDir.path());
 

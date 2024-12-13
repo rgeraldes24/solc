@@ -40,14 +40,14 @@ using namespace hyperion::frontend::test;
 
 bytes BytesUtils::alignLeft(bytes _bytes)
 {
-	soltestAssert(_bytes.size() <= 32, "");
+	hyptestAssert(_bytes.size() <= 32, "");
 	size_t size = _bytes.size();
 	return std::move(_bytes) + bytes(32 - size, 0);
 }
 
 bytes BytesUtils::alignRight(bytes _bytes)
 {
-	soltestAssert(_bytes.size() <= 32, "");
+	hyptestAssert(_bytes.size() <= 32, "");
 	return bytes(32 - _bytes.size(), 0) + std::move(_bytes);
 }
 
@@ -147,7 +147,7 @@ std::string BytesUtils::formatUnsigned(bytes const& _bytes)
 {
 	std::stringstream os;
 
-	soltestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
+	hyptestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
 
 	return fromBigEndian<u256>(_bytes).str();
 }
@@ -156,7 +156,7 @@ std::string BytesUtils::formatSigned(bytes const& _bytes)
 {
 	std::stringstream os;
 
-	soltestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
+	hyptestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
 
 	if (*_bytes.begin() & 0x80)
 		os << u2s(fromBigEndian<u256>(_bytes));
@@ -183,7 +183,7 @@ std::string BytesUtils::formatBoolean(bytes const& _bytes)
 
 std::string BytesUtils::formatHex(bytes const& _bytes, bool _shorten)
 {
-	soltestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
+	hyptestAssert(!_bytes.empty() && _bytes.size() <= 32, "");
 	u256 value = fromBigEndian<u256>(_bytes);
 	std::string output = toCompactHexWithPrefix(value);
 
@@ -278,7 +278,7 @@ std::string BytesUtils::formatRawBytes(
 	}
 	else
 		parameters = _parameters;
-	soltestAssert(ContractABIUtils::encodingSize(parameters) >= _bytes.size());
+	hyptestAssert(ContractABIUtils::encodingSize(parameters) >= _bytes.size());
 
 	for (auto const& parameter: parameters)
 	{
@@ -402,7 +402,7 @@ std::string BytesUtils::formatBytesRange(
 	}
 	else
 		parameters = _parameters;
-	soltestAssert(ContractABIUtils::encodingSize(parameters) >= _bytes.size());
+	hyptestAssert(ContractABIUtils::encodingSize(parameters) >= _bytes.size());
 
 	for (auto const& parameter: parameters)
 	{

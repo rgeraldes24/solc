@@ -29,15 +29,15 @@ namespace hyperion::frontend::test
 struct InternalSoltestError: virtual util::Exception {};
 
 #if !BOOST_PP_VARIADICS_MSVC
-#define soltestAssert(...) BOOST_PP_OVERLOAD(soltestAssert_,__VA_ARGS__)(__VA_ARGS__)
+#define hyptestAssert(...) BOOST_PP_OVERLOAD(hyptestAssert_,__VA_ARGS__)(__VA_ARGS__)
 #else
-#define soltestAssert(...) BOOST_PP_CAT(BOOST_PP_OVERLOAD(soltestAssert_,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
+#define hyptestAssert(...) BOOST_PP_CAT(BOOST_PP_OVERLOAD(hyptestAssert_,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
 #endif
 
-#define soltestAssert_1(CONDITION) \
-	soltestAssert_2((CONDITION), "")
+#define hyptestAssert_1(CONDITION) \
+	hyptestAssert_2((CONDITION), "")
 
-#define soltestAssert_2(CONDITION, DESCRIPTION) \
+#define hyptestAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
 		::hyperion::frontend::test::InternalSoltestError, \
@@ -80,8 +80,8 @@ using FormatErrors = std::vector<FormatError>;
 /**
  * Utility class that collects notices, warnings and errors and is able
  * to format them for ANSI colorized output during the interactive update
- * process in isoltest.
- * Its purpose is to help users of isoltest to automatically
+ * process in ihyptest.
+ * Its purpose is to help users of ihyptest to automatically
  * update test files and always keep track of what is happening.
  */
 class ErrorReporter

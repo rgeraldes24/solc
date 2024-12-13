@@ -102,13 +102,13 @@ SemanticTest::SemanticTest(
 	m_testCaseWantsLegacyRun = util::contains(legacyRunTriggers, compileViaYul);
 
 	auto revertStrings = revertStringsFromString(m_reader.stringSetting("revertStrings", "default"));
-	soltestAssert(revertStrings, "Invalid revertStrings setting.");
+	hyptestAssert(revertStrings, "Invalid revertStrings setting.");
 	m_revertStrings = revertStrings.value();
 
 	m_allowNonExistingFunctions = m_reader.boolSetting("allowNonExistingFunctions", false);
 
 	parseExpectations(m_reader.stream());
-	soltestAssert(!m_tests.empty(), "No tests specified in " + _filename);
+	hyptestAssert(!m_tests.empty(), "No tests specified in " + _filename);
 
 	if (m_enforceGasCost)
 	{
@@ -121,14 +121,14 @@ std::map<std::string, Builtin> SemanticTest::makeBuiltins()
 {
 	return {
 		{
-			"isoltest_builtin_test",
+			"ihyptest_builtin_test",
 			[](FunctionCall const&) -> std::optional<bytes>
 			{
 				return toBigEndian(u256(0x1234));
 			}
 		},
 		{
-			"isoltest_side_effects_test",
+			"ihyptest_side_effects_test",
 			[](FunctionCall const& _call) -> std::optional<bytes>
 			{
 				if (_call.arguments.parameters.empty())
@@ -141,7 +141,7 @@ std::map<std::string, Builtin> SemanticTest::makeBuiltins()
 			"balance",
 			[this](FunctionCall const& _call) -> std::optional<bytes>
 			{
-				soltestAssert(_call.arguments.parameters.size() <= 1, "Account address expected.");
+				hyptestAssert(_call.arguments.parameters.size() <= 1, "Account address expected.");
 				h160 address;
 				if (_call.arguments.parameters.size() == 1)
 					address = h160(_call.arguments.parameters.at(0).rawString);
@@ -154,7 +154,7 @@ std::map<std::string, Builtin> SemanticTest::makeBuiltins()
 			"storageEmpty",
 			[this](FunctionCall const& _call) -> std::optional<bytes>
 			{
-				soltestAssert(_call.arguments.parameters.empty(), "No arguments expected.");
+				hyptestAssert(_call.arguments.parameters.empty(), "No arguments expected.");
 				return toBigEndian(u256(storageEmpty(m_contractAddress) ? 1 : 0));
 		 	}
 		},
@@ -162,7 +162,7 @@ std::map<std::string, Builtin> SemanticTest::makeBuiltins()
 			"account",
 			[this](FunctionCall const& _call) -> std::optional<bytes>
 			{
-				soltestAssert(_call.arguments.parameters.size() == 1, "Account number expected.");
+				hyptestAssert(_call.arguments.parameters.size() == 1, "Account number expected.");
 				size_t accountNumber = static_cast<size_t>(stoi(_call.arguments.parameters.at(0).rawString));
 				// Need to pad it to 32-bytes to workaround limitations in BytesUtils::formatHex.
 				return toBigEndian(h256(ExecutionFramework::setAccount(accountNumber).asBytes(), h256::AlignRight));
@@ -177,7 +177,7 @@ std::vector<SideEffectHook> SemanticTest::makeSideEffectHooks() const
 	return {
 		[](FunctionCall const& _call) -> std::vector<std::string>
 		{
-			if (_call.signature == "isoltest_side_effects_test")
+			if (_call.signature == "ihyptest_side_effects_test")
 			{
 				std::vector<std::string> result;
 				for (auto const& argument: _call.arguments.parameters)
@@ -251,7 +251,7 @@ std::vector<std::string> SemanticTest::eventSideEffectHook(FunctionCall const&) 
 			++index;
 		}
 
-		soltestAssert(log.data.size() % 32 == 0, "");
+		hyptestAssert(log.data.size() % 32 == 0, "");
 		for (size_t index = 0; index < log.data.size() / 32; ++index)
 		{
 			auto begin = log.data.begin() + static_cast<long>(index * 32);
@@ -366,18 +366,18 @@ TestCase::TestResult SemanticTest::runTest(
 	{
 		if (constructed)
 		{
-			soltestAssert(
+			hyptestAssert(
 				test.call().kind != FunctionCall::Kind::Library,
 				"Libraries have to be deployed before any other call."
 			);
-			soltestAssert(
+			hyptestAssert(
 				test.call().kind != FunctionCall::Kind::Constructor,
 				"Constructor has to be the first function call expect for library deployments."
 			);
 		}
 		else if (test.call().kind == FunctionCall::Kind::Library)
 		{
-			soltestAssert(
+			hyptestAssert(
 				deploy(test.call().signature, 0, {}, libraries) && m_transactionSuccessful,
 				"Failed to deploy library " + test.call().signature);
 			// For convenience, in semantic tests we assume that an unqualified name like `L` is equivalent to one
@@ -391,7 +391,7 @@ TestCase::TestResult SemanticTest::runTest(
 			if (test.call().kind == FunctionCall::Kind::Constructor)
 				deploy("", test.call().value.value, test.call().arguments.rawBytes(), libraries);
 			else
-				soltestAssert(deploy("", 0, bytes(), libraries), "Failed to deploy contract.");
+				hyptestAssert(deploy("", 0, bytes(), libraries), "Failed to deploy contract.");
 			constructed = true;
 		}
 
@@ -426,7 +426,7 @@ TestCase::TestResult SemanticTest::runTest(
 			}
 			else
 			{
-				soltestAssert(
+				hyptestAssert(
 					m_allowNonExistingFunctions ||
 					m_compiler.interfaceSymbols(m_compiler.lastContractName(m_sources.mainSourceFile))["methods"].isMember(test.call().signature),
 					"The function " + test.call().signature + " is not known to the compiler"
@@ -543,7 +543,7 @@ TestCase::TestResult SemanticTest::tryRunTestWithYulOptimizer(
 
 		if (m_requiresYulOptimizer != requiresYulOptimizer && result != TestResult::FatalError)
 		{
-			soltestAssert(result == TestResult::Success || result == TestResult::Failure);
+			hyptestAssert(result == TestResult::Success || result == TestResult::Failure);
 
 			AnsiColorized(_stream, _formatted, {BOLD, YELLOW})
 				<< _linePrefix << std::endl
@@ -569,7 +569,7 @@ bool SemanticTest::checkGasCostExpectation(TestFunctionCall& io_test, bool _comp
 	// or gas used less than threshold for enforcing feature
 	// or the test has used up all available gas (test will fail anyway)
 	// or setting is "ir" and it's not included in expectations
-	// or if the called function is an isoltest builtin e.g. `smokeTest` or `storageEmpty`
+	// or if the called function is an ihyptest builtin e.g. `smokeTest` or `storageEmpty`
 	if (
 		!m_enforceGasCost ||
 		m_gasUsed < m_enforceGasCostMinValue ||

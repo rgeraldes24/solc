@@ -23,7 +23,7 @@ namespace hyperion::frontend::test
 
 /**
  * Utility class that aids conversions from parsed strings to an
- * isoltest-internal, ABI-based bytes representation and vice-versa.
+ * ihyptest-internal, ABI-based bytes representation and vice-versa.
  */
 class BytesUtils
 {
@@ -66,33 +66,33 @@ public:
 	/// representation of the string literal. Throws if conversion fails.
 	static bytes convertString(std::string const& _literal);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// an unsigned value.
 	static std::string formatUnsigned(bytes const& _bytes);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// a signed value.
 	static std::string formatSigned(bytes const& _bytes);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// a boolean value.
 	static std::string formatBoolean(bytes const& _bytes);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// a hex value.
 	/// The _shorten flag is used to trim leading and trailing zeros.
 	static std::string formatHex(bytes const& _bytes, bool _shorten = false);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// a hexString value.
 	static std::string formatHexString(bytes const& _bytes);
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// string representation of a byte array which is assumed to hold
 	/// a string value.
 	static std::string formatString(bytes const& _bytes, size_t _cutOff);
@@ -102,7 +102,7 @@ public:
 		return formatString(_bytes, _bytes.size());
 	}
 
-	/// Converts \param _bytes to a soltest-compliant and human-readable
+	/// Converts \param _bytes to a hyptest-compliant and human-readable
 	/// decimal string representation of a byte array. Format of \param _bytes is binary.
 	static std::string formatFixedPoint(bytes const& _bytes, bool _signed, size_t _fractionalDigits);
 

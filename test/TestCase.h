@@ -30,7 +30,7 @@ namespace hyperion::frontend::test
 {
 
 /**
- * Common superclass of anything that can be run via isoltest.
+ * Common superclass of anything that can be run via ihyptest.
  */
 class TestCase
 {

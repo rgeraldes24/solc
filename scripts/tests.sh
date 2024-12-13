@@ -131,7 +131,7 @@ do
             fi
 
             set +e
-            "${SOLIDITY_BUILD_DIR}"/test/soltest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --evm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
+            "${SOLIDITY_BUILD_DIR}"/test/hyptest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --evm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
 
             if test "0" -ne "$?"; then
                 exit 1

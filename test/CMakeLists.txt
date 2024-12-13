@@ -1,5 +1,5 @@
 set(sources
-    soltest.cpp
+    hyptest.cpp
     Common.cpp
     Common.h
     CommonSyntaxTest.cpp
@@ -192,7 +192,7 @@ set(yul_phaser_sources
 )
 detect_stray_source_files("${yul_phaser_sources}" "yulPhaser/")
 
-add_executable(soltest ${sources}
+add_executable(hyptest ${sources}
     ${contracts_sources}
     ${libhyputil_sources}
     ${liblangutil_sources}
@@ -203,7 +203,7 @@ add_executable(soltest ${sources}
     ${hypcli_sources}
     ${yul_phaser_sources}
 )
-target_link_libraries(soltest PRIVATE hypcli libhypc yul solidity smtutil hyputil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
+target_link_libraries(hyptest PRIVATE hypcli libhypc yul solidity smtutil hyputil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
 
 
 # Special compilation flag for Visual Studio (version 2019 at least affected)
@@ -211,11 +211,11 @@ target_link_libraries(soltest PRIVATE hypcli libhypc yul solidity smtutil hyputi
 # We can remove this flag once we've extracted the tests.
 # TODO: Remove this option as soon as we have reduced the SLoC's in SolidityEndToEndTest.cpp
 if (MSVC)
-    target_compile_options(soltest PUBLIC "/bigobj")
+    target_compile_options(hyptest PUBLIC "/bigobj")
 endif()
 
 if (NOT Boost_USE_STATIC_LIBS)
-    target_compile_definitions(soltest PUBLIC -DBOOST_TEST_DYN_LINK)
+    target_compile_definitions(hyptest PUBLIC -DBOOST_TEST_DYN_LINK)
 endif()
 
 add_subdirectory(tools)

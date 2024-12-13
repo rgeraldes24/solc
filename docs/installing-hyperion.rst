@@ -489,7 +489,7 @@ or even easier on Linux and macOS, you can run:
 
 .. code-block:: bash
 
-    #note: this will install binaries hypc and soltest at usr/local/bin
+    #note: this will install binaries hypc and hyptest at usr/local/bin
     ./scripts/build.sh
 
 .. warning::

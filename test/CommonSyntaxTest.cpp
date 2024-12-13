@@ -161,7 +161,7 @@ void CommonSyntaxTest::printSource(ostream& _stream, string const& _linePrefix, 
 void CommonSyntaxTest::parseCustomExpectations(istream& _stream)
 {
 	string remainingExpectations = boost::trim_copy(readUntilEnd(_stream));
-	soltestAssert(
+	hyptestAssert(
 		remainingExpectations.empty(),
 		"Found custom expectations not supported by the test case:\n" + remainingExpectations
 	);

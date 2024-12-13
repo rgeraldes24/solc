@@ -15,11 +15,11 @@
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
-/** @file IsolTestOptions.cpp
+/** @file IhypTestOptions.cpp
 * @date 2019
 */
 
-#include <test/tools/IsolTestOptions.h>
+#include <test/tools/IhypTestOptions.h>
 
 #include <libhyputil/Assertions.h>
 
@@ -38,8 +38,8 @@ namespace hyperion::test
 namespace
 {
 
-auto const description = R"(isoltest, tool for interactively managing test contracts.
-Usage: isoltest [Options]
+auto const description = R"(ihyptest, tool for interactively managing test contracts.
+Usage: ihyptest [Options]
 Interactively validates test contracts.
 
 Allowed options)";
@@ -56,12 +56,12 @@ std::string editorPath()
 
 }
 
-IsolTestOptions::IsolTestOptions():
+IhypTestOptions::IhypTestOptions():
 	CommonOptions(description)
 {
 }
 
-void IsolTestOptions::addOptions()
+void IhypTestOptions::addOptions()
 {
 	CommonOptions::addOptions();
 	options.add_options()
@@ -72,7 +72,7 @@ void IsolTestOptions::addOptions()
 		("test,t", po::value<std::string>(&testFilter)->default_value("*/*"), "Filters which test units to include.");
 }
 
-bool IsolTestOptions::parse(int _argc, char const* const* _argv)
+bool IhypTestOptions::parse(int _argc, char const* const* _argv)
 {
 	bool const shouldContinue = CommonOptions::parse(_argc, _argv);
 
@@ -87,7 +87,7 @@ bool IsolTestOptions::parse(int _argc, char const* const* _argv)
 	return shouldContinue;
 }
 
-void IsolTestOptions::validate() const
+void IhypTestOptions::validate() const
 {
 	CommonOptions::validate();
 	static std::string filterString{"[a-zA-Z0-9_/*]*"};

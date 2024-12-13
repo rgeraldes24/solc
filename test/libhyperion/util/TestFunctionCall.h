@@ -37,7 +37,7 @@ namespace hyperion::frontend::test
 /**
  * Represents a function call and the result it returned. It stores the call
  * representation itself, the actual byte result (if any) and a string representation
- * used for the interactive update routine provided by isoltest. It also provides
+ * used for the interactive update routine provided by ihyptest. It also provides
  * functionality to compare the actual result with the expectations attached to the
  * call object, as well as a way to reset the result if executed multiple times.
  */
@@ -86,7 +86,7 @@ public:
 	}
 
 	/// Resets current results in case the function was called and the result
-	/// stored already (e.g. if test case was updated via isoltest).
+	/// stored already (e.g. if test case was updated via ihyptest).
 	void reset();
 
 	FunctionCall const& call() const { return m_call; }

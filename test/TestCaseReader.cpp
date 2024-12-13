@@ -158,7 +158,7 @@ pair<SourceMap, size_t> TestCaseReader::parseSourcesAndSettingsWithLineNumber(is
 				else
 					externalSourceName = externalSourceString;
 
-				soltestAssert(!externalSourceName.empty(), "");
+				hyptestAssert(!externalSourceName.empty(), "");
 				fs::path externalSourceTarget(externalSourceString);
 				fs::path testCaseParentDir = m_fileName.parent_path();
 				if (!externalSourceTarget.is_relative() || !externalSourceTarget.root_path().empty())

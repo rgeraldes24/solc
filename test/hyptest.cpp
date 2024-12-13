@@ -57,7 +57,7 @@ void removeTestSuite(std::string const& _name)
 {
 	master_test_suite_t& master = framework::master_test_suite();
 	auto id = master.get(_name);
-	soltestAssert(id != INV_TEST_UNIT_ID, "Removing non-existent test suite!");
+	hyptestAssert(id != INV_TEST_UNIT_ID, "Removing non-existent test suite!");
 	master.remove(id);
 }
 

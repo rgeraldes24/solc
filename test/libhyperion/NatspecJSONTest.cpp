@@ -49,7 +49,7 @@ std::unique_ptr<TestCase> NatspecJSONTest::create(Config const& _config)
 
 void NatspecJSONTest::parseCustomExpectations(std::istream& _stream)
 {
-	soltestAssert(m_expectedNatspecJSON.empty());
+	hyptestAssert(m_expectedNatspecJSON.empty());
 
 	// We expect a series of expectations in the following format:
 	//

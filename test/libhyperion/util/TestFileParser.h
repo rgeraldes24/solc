@@ -82,7 +82,7 @@ private:
 		/// Reads character stream and creates token.
 		void scanNextToken();
 
-		soltest::Token currentToken() { return m_currentToken; }
+		hyptest::Token currentToken() { return m_currentToken; }
 		std::string currentLiteral() { return m_currentLiteral; }
 
 		std::string scanComment();
@@ -121,11 +121,11 @@ private:
 		std::string::const_iterator m_char;
 
 		std::string m_currentLiteral;
-		soltest::Token m_currentToken = soltest::Token::Unknown;
+		hyptest::Token m_currentToken = hyptest::Token::Unknown;
 	};
 
-	bool accept(soltest::Token _token, bool const _expect = false);
-	bool expect(soltest::Token _token, bool const _advance = true);
+	bool accept(hyptest::Token _token, bool const _expect = false);
+	bool expect(hyptest::Token _token, bool const _advance = true);
 
 	/// Parses a function call signature in the form of `f(uint256, ...)` and
 	/// returns the signature and a flag that indicates if the function name was

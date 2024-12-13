@@ -15,7 +15,7 @@
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
-/** @file IsolTestOptions.h
+/** @file IhypTestOptions.h
  */
 
 #pragma once
@@ -27,7 +27,7 @@
 namespace hyperion::test
 {
 
-struct IsolTestOptions: CommonOptions
+struct IhypTestOptions: CommonOptions
 {
 	bool showHelp = false;
 	bool noColor = false;
@@ -35,7 +35,7 @@ struct IsolTestOptions: CommonOptions
 	std::string testFilter = std::string{};
 	std::string editor = std::string{};
 
-	explicit IsolTestOptions();
+	explicit IhypTestOptions();
 	void addOptions() override;
 	bool parse(int _argc, char const* const* _argv) override;
 	void validate() const override;

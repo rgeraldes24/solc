@@ -29,7 +29,7 @@ using namespace hyperion;
 using namespace hyperion::util;
 using namespace hyperion::frontend::test;
 
-using Token = soltest::Token;
+using Token = hyptest::Token;
 
 std::string TestFunctionCall::format(
 	ErrorReporter& _errorReporter,
@@ -77,7 +77,7 @@ std::string TestFunctionCall::format(
 				stream << comma << ws << m_call.value.value << ws << wei;
 				break;
 			default:
-				soltestAssert(false, "");
+				hyptestAssert(false, "");
 			}
 		}
 		if (!m_call.arguments.rawBytes().empty())

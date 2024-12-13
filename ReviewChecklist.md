@@ -32,11 +32,11 @@ It is also meant to serve as a final checklist for reviewers to go through befor
     - [ ] Avoid basing PRs from forks on branches other than `develop` or `breaking` because
         GitHub closes them when the base branch gets merged.
         Do this only for PRs created directly in the main repo.
-- [ ] **Does the PR update test expectations to match the modified code?** If not, your PR will not pass some of the `_soltest_`,  jobs in CI.
+- [ ] **Does the PR update test expectations to match the modified code?** If not, your PR will not pass some of the `_hyptest_`,  jobs in CI.
     In many cases the expectations can be updated automatically:
     - `cmdlineTests.sh --update` for command-line tests.
-    - `isoltest --enforce-gas-cost --accept-updates` for soltest-based tests.
-        - If your PR affects gas costs, an extra run of `isoltest --enforce-gas-cost --optimize --accept-updates` is needed to update gas expectations with optimizer enabled.
+    - `ihyptest --enforce-gas-cost --accept-updates` for hyptest-based tests.
+        - If your PR affects gas costs, an extra run of `ihyptest --enforce-gas-cost --optimize --accept-updates` is needed to update gas expectations with optimizer enabled.
     - Review updated files before committing them.
         **Are expectations correct and do updated tests still serve their purpose?**
 

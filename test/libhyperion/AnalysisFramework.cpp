@@ -65,7 +65,7 @@ bool AnalysisFramework::runFramework(StringMap _sources, PipelineStage _targetSt
 {
 	resetFramework();
 	m_targetStage = _targetStage;
-	soltestAssert(m_compiler);
+	hyptestAssert(m_compiler);
 
 	m_compiler->setSources(std::move(_sources));
 	setupCompiler(*m_compiler);
@@ -95,28 +95,28 @@ void AnalysisFramework::setupCompiler(CompilerStack& _compiler)
 
 void AnalysisFramework::executeCompilationPipeline()
 {
-	soltestAssert(m_compiler);
+	hyptestAssert(m_compiler);
 
 	// If you add a new stage, remember to handle it below.
-	soltestAssert(
+	hyptestAssert(
 		m_targetStage == PipelineStage::Parsing ||
 		m_targetStage == PipelineStage::Analysis ||
 		m_targetStage == PipelineStage::Compilation
 	);
 
 	bool parsingSuccessful = m_compiler->parse();
-	soltestAssert(parsingSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
+	hyptestAssert(parsingSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
 	if (!parsingSuccessful || stageSuccessful(m_targetStage))
 		return;
 
 	bool analysisSuccessful = m_compiler->analyze();
-	soltestAssert(analysisSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
+	hyptestAssert(analysisSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
 	if (!analysisSuccessful || stageSuccessful(m_targetStage))
 		return;
 
 	bool compilationSuccessful = m_compiler->compile();
-	soltestAssert(compilationSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
-	soltestAssert(stageSuccessful(m_targetStage) == compilationSuccessful);
+	hyptestAssert(compilationSuccessful || !filteredErrors(false /* _includeWarningsAndInfos */).empty());
+	hyptestAssert(stageSuccessful(m_targetStage) == compilationSuccessful);
 }
 
 ErrorList AnalysisFramework::filterErrors(ErrorList const& _errorList, bool _includeWarningsAndInfos) const

@@ -50,7 +50,7 @@ ASTPropertyTest::ASTPropertyTest(std::string const& _filename):
 
 	m_source = m_reader.source();
 	readExpectations();
-	soltestAssert(m_tests.size() > 0, "No tests specified in " + _filename);
+	hyptestAssert(m_tests.size() > 0, "No tests specified in " + _filename);
 }
 
 std::string ASTPropertyTest::formatExpectations(bool _obtainedResult)
@@ -58,7 +58,7 @@ std::string ASTPropertyTest::formatExpectations(bool _obtainedResult)
 	std::string expectations;
 	for (std::string const& testId: m_testOrder)
 	{
-		soltestAssert(m_tests.count(testId) > 0);
+		hyptestAssert(m_tests.count(testId) > 0);
 		expectations +=
 			testId +
 			": " +
@@ -77,20 +77,20 @@ std::vector<StringPair> ASTPropertyTest::readKeyValuePairs(std::string const& _i
 		if (line.empty())
 			continue;
 
-		soltestAssert(
+		hyptestAssert(
 			ranges::all_of(line, [](char c) { return isprint(c); }),
 			"Non-printable character(s) found in property test: " + line
 		);
 
 		auto colonPosition = line.find_first_of(':');
-		soltestAssert(colonPosition != std::string::npos, "Property test is missing a colon: " + line);
+		hyptestAssert(colonPosition != std::string::npos, "Property test is missing a colon: " + line);
 
 		StringPair pair{
 			boost::trim_copy(line.substr(0, colonPosition)),
 			boost::trim_copy(line.substr(colonPosition + 1))
 		};
-		soltestAssert(!std::get<0>(pair).empty() != false, "Empty key in property test: " + line);
-		soltestAssert(!std::get<1>(pair).empty() != false, "Empty value in property test: " + line);
+		hyptestAssert(!std::get<0>(pair).empty() != false, "Empty key in property test: " + line);
+		hyptestAssert(!std::get<1>(pair).empty() != false, "Empty value in property test: " + line);
 
 		result.push_back(pair);
 	}
@@ -101,7 +101,7 @@ void ASTPropertyTest::readExpectations()
 {
 	for (auto const& [testId, testExpectation]: readKeyValuePairs(m_reader.simpleExpectations()))
 	{
-		soltestAssert(m_tests.count(testId) == 0, "More than one expectation for test \"" + testId + "\"");
+		hyptestAssert(m_tests.count(testId) == 0, "More than one expectation for test \"" + testId + "\"");
 		m_tests.emplace(testId, Test{"", testExpectation, ""});
 		m_testOrder.push_back(testId);
 	}
@@ -132,7 +132,7 @@ void ASTPropertyTest::extractTestsFromAST(Json::Value const& _astJson)
 				std::string nodeDocstring = node["documentation"].isObject() ?
 					node["documentation"]["text"].asString() :
 					node["documentation"].asString();
-				soltestAssert(!nodeDocstring.empty());
+				hyptestAssert(!nodeDocstring.empty());
 
 				std::vector<StringPair> pairs = readKeyValuePairs(nodeDocstring);
 				if (pairs.empty())
@@ -140,23 +140,23 @@ void ASTPropertyTest::extractTestsFromAST(Json::Value const& _astJson)
 
 				for (auto const& [testId, testedProperty]: pairs)
 				{
-					soltestAssert(
+					hyptestAssert(
 						m_tests.count(testId) > 0,
 						"Test \"" + testId + "\" does not have a corresponding expected value."
 					);
-					soltestAssert(
+					hyptestAssert(
 						m_tests[testId].property.empty(),
 						"Test \"" + testId + "\" was already defined before."
 					);
 					m_tests[testId].property = testedProperty;
 
-					soltestAssert(node.isMember("nodeType"));
+					hyptestAssert(node.isMember("nodeType"));
 					std::optional<Json::Value> propertyNode = jsonValueByPath(node, testedProperty);
-					soltestAssert(
+					hyptestAssert(
 						propertyNode.has_value(),
 						node["nodeType"].asString() + " node does not have a property named \""s + testedProperty + "\""
 					);
-					soltestAssert(
+					hyptestAssert(
 						!propertyNode->isObject() && !propertyNode->isArray(),
 						"Property \"" + testedProperty + "\" is an object or an array."
 					);
@@ -171,7 +171,7 @@ void ASTPropertyTest::extractTestsFromAST(Json::Value const& _astJson)
 		m_tests,
 		[&](auto const& _testCase) { return _testCase.second.property.empty(); }
 	);
-	soltestAssert(
+	hyptestAssert(
 		firstTestWithoutProperty == ranges::end(m_tests),
 		"AST property not defined for test \"" + firstTestWithoutProperty->first + "\""
 	);
@@ -196,7 +196,7 @@ TestCase::TestResult ASTPropertyTest::run(std::ostream& _stream, std::string con
 		));
 
 	Json::Value astJson = ASTJsonExporter(compiler.state()).toJson(compiler.ast("A"));
-	soltestAssert(astJson);
+	hyptestAssert(astJson);
 
 	extractTestsFromAST(astJson);
 

@@ -48,7 +48,7 @@ std::ostream& operator<<(std::ostream& _output, RequiresYulOptimizer _requiresYu
 
 /**
  * Class that represents a semantic test (or end-to-end test) and allows running it as part of the
- * boost unit test environment or isoltest. It reads the Solidity source and an additional comment
+ * boost unit test environment or ihyptest. It reads the Solidity source and an additional comment
  * section from the given file. This comment section should define a set of functions to be called
  * and an expected result they return after being executed.
  */

@@ -41,7 +41,7 @@ using namespace hyperion::util;
 using namespace hyperion::frontend;
 using namespace hyperion::frontend::test;
 
-using Token = soltest::Token;
+using Token = hyptest::Token;
 
 char TestFileParser::Scanner::peek() const noexcept
 {
@@ -58,7 +58,7 @@ std::vector<hyperion::frontend::test::FunctionCall> TestFileParser::parseFunctio
 	std::vector<FunctionCall> calls;
 	if (!accept(Token::EOS))
 	{
-		soltestAssert(m_scanner.currentToken() == Token::Unknown, "");
+		hyptestAssert(m_scanner.currentToken() == Token::Unknown, "");
 		m_scanner.scanNextToken();
 
 		while (!accept(Token::EOS))
@@ -199,7 +199,7 @@ std::vector<std::string> TestFileParser::parseFunctionCallSideEffects()
 	{
 		std::string effect = m_scanner.currentLiteral();
 		result.emplace_back(effect);
-		soltestAssert(m_scanner.currentToken() == Token::Tilde, "");
+		hyptestAssert(m_scanner.currentToken() == Token::Tilde, "");
 		m_scanner.scanNextToken();
 		if (m_scanner.currentToken() == Token::Newline)
 			m_scanner.scanNextToken();
@@ -546,7 +546,7 @@ void TestFileParser::Scanner::readStream(std::istream& _stream)
 void TestFileParser::Scanner::scanNextToken()
 {
 	// Make code coverage happy.
-	soltestAssert(formatToken(Token::NUM_TOKENS).empty(), "");
+	hyptestAssert(formatToken(Token::NUM_TOKENS).empty(), "");
 
 	auto detectKeyword = [](std::string const& _literal = "") -> std::pair<Token, std::string> {
 		if (_literal == "true") return {Token::Boolean, "true"};

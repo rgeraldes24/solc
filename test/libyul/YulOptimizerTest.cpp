@@ -67,7 +67,7 @@ TestCase::TestResult YulOptimizerTest::run(ostream& _stream, string const& _line
 	if (!m_object)
 		return TestResult::FatalError;
 
-	soltestAssert(m_dialect, "Dialect not set.");
+	hyptestAssert(m_dialect, "Dialect not set.");
 
 	m_object->analysisInfo = m_analysisInfo;
 	YulOptimizerTestCommon tester(m_object, *m_dialect);
@@ -104,7 +104,7 @@ std::pair<std::shared_ptr<Object>, std::shared_ptr<AsmAnalysisInfo>> YulOptimize
 )
 {
 	ErrorList errors;
-	soltestAssert(m_dialect, "");
+	hyptestAssert(m_dialect, "");
 	shared_ptr<Object> object;
 	shared_ptr<AsmAnalysisInfo> analysisInfo;
 	std::tie(object, analysisInfo) = yul::test::parse(_source, *m_dialect, errors);

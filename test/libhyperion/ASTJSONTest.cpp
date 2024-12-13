@@ -62,7 +62,7 @@ std::string compilerStateToString(CompilerStack::State _state)
 		case CompilerStack::State::AnalysisSuccessful: return "AnalysisSuccessful";
 		case CompilerStack::State::CompilationSuccessful: return "CompilationSuccessful";
 	}
-	soltestAssert(false, "Unexpected value of state parameter");
+	hyptestAssert(false, "Unexpected value of state parameter");
 }
 
 CompilerStack::State stringToCompilerState(const std::string& _state)

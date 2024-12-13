@@ -74,9 +74,9 @@ ImportCheck checkImport(
 	vector<string> const& _cliOptions
 )
 {
-	soltestAssert(regex_match(_import, regex{R"(import '[^']*')"}), "");
+	hyptestAssert(regex_match(_import, regex{R"(import '[^']*')"}), "");
 	for (string const& option: _cliOptions)
-		soltestAssert(
+		hyptestAssert(
 			boost::starts_with(option, "--base-path") ||
 			boost::starts_with(option, "--include-path") ||
 			boost::starts_with(option, "--allow-paths") ||
@@ -168,7 +168,7 @@ protected:
 			return;
 
 		m_caseSensitiveFilesystem = boost::filesystem::create_directories(m_codeDir / "A/B/C");
-		soltestAssert(boost::filesystem::equivalent(m_codeDir / "a/b/c", m_codeDir / "A/B/C") != m_caseSensitiveFilesystem, "");
+		hyptestAssert(boost::filesystem::equivalent(m_codeDir / "a/b/c", m_codeDir / "A/B/C") != m_caseSensitiveFilesystem, "");
 	}
 
 	TemporaryDirectory m_tempDir;
@@ -265,7 +265,7 @@ BOOST_FIXTURE_TEST_CASE(allow_path_should_work_with_various_path_forms, AllowPat
 	BOOST_TEST(checkImport(import, {"--allow-paths=///"}));
 
 	// UNC paths should be treated differently from normal paths
-	soltestAssert(FileReader::isUNCPath("/" + m_portablePrefix), "");
+	hyptestAssert(FileReader::isUNCPath("/" + m_portablePrefix), "");
 	BOOST_TEST(checkImport(import, {"--allow-paths=//"}) == ImportCheck::PathDisallowed());
 	BOOST_TEST(checkImport(import, {"--allow-paths=/" + m_portablePrefix}) == ImportCheck::PathDisallowed());
 
@@ -344,7 +344,7 @@ BOOST_FIXTURE_TEST_CASE(allow_path_should_work_with_various_import_forms, AllowP
 	// Unfortunately can't test it on Windows without having an existing UNC path. On Linux we can
 	// at least rely on the fact that `//` works like `/`.
 	string uncImportPath = "/" + m_portablePrefix + "/a/b/c.hyp";
-	soltestAssert(FileReader::isUNCPath(uncImportPath), "");
+	hyptestAssert(FileReader::isUNCPath(uncImportPath), "");
 	BOOST_TEST(checkImport("import '" + uncImportPath + "'", {"--allow-paths", "../code/a/b/c.hyp"}) == ImportCheck::PathDisallowed());
 #endif
 }

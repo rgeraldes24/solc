@@ -10,9 +10,9 @@ target_link_libraries(hypfuzzer PRIVATE libhypc evmasm Boost::boost Boost::progr
 add_executable(yulopti yulopti.cpp)
 target_link_libraries(yulopti PRIVATE solidity Boost::boost Boost::program_options Boost::system)
 
-add_executable(isoltest
-	isoltest.cpp
-	IsolTestOptions.cpp
+add_executable(ihyptest
+	ihyptest.cpp
+	IhypTestOptions.cpp
 	../Common.cpp
 	../CommonSyntaxTest.cpp
 	../ZVMHost.cpp
@@ -48,5 +48,5 @@ add_executable(isoltest
 	../libyul/YulOptimizerTestCommon.cpp
 	../libyul/YulInterpreterTest.cpp
 )
-target_compile_definitions(isoltest PRIVATE ISOLTEST)
-target_link_libraries(isoltest PRIVATE zvmc libhypc solidity yulInterpreter evmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)
+target_compile_definitions(ihyptest PRIVATE ISOLTEST)
+target_link_libraries(ihyptest PRIVATE zvmc libhypc solidity yulInterpreter evmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)

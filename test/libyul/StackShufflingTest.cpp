@@ -34,7 +34,7 @@ bool StackShufflingTest::parse(string const& _source)
 
 	auto expectToken = [&](Token _token)
 	{
-		soltestAssert(
+		hyptestAssert(
 			scanner.next() == _token,
 			"Invalid token. Expected: \"" + TokenTraits::friendlyName(_token) + "\"."
         );
