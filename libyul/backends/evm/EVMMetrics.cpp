@@ -40,7 +40,7 @@ bigint GasMeter::costs(Expression const& _expression) const
 	return combineCosts(GasMeterVisitor::costs(_expression, m_dialect, m_isCreation));
 }
 
-bigint GasMeter::instructionCosts(evmasm::Instruction _instruction) const
+bigint GasMeter::instructionCosts(zvmasm::Instruction _instruction) const
 {
 	return combineCosts(GasMeterVisitor::instructionCosts(_instruction, m_dialect, m_isCreation));
 }
@@ -63,7 +63,7 @@ std::pair<bigint, bigint> GasMeterVisitor::costs(
 }
 
 std::pair<bigint, bigint> GasMeterVisitor::instructionCosts(
-	evmasm::Instruction _instruction,
+	zvmasm::Instruction _instruction,
 	EVMDialect const& _dialect,
 	bool _isCreation
 )
@@ -87,10 +87,10 @@ void GasMeterVisitor::operator()(FunctionCall const& _funCall)
 
 void GasMeterVisitor::operator()(Literal const& _lit)
 {
-	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::PUSH1);
+	m_runGas += zvmasm::GasMeter::runGas(zvmasm::Instruction::PUSH1);
 	m_dataGas +=
 		singleByteDataGas() +
-		evmasm::GasMeter::dataGas(
+		zvmasm::GasMeter::dataGas(
 			toCompactBigEndian(valueOfLiteral(_lit), 1),
 			m_isCreation
 		);
@@ -98,26 +98,26 @@ void GasMeterVisitor::operator()(Literal const& _lit)
 
 void GasMeterVisitor::operator()(Identifier const&)
 {
-	m_runGas += evmasm::GasMeter::runGas(evmasm::Instruction::DUP1);
+	m_runGas += zvmasm::GasMeter::runGas(zvmasm::Instruction::DUP1);
 	m_dataGas += singleByteDataGas();
 }
 
 bigint GasMeterVisitor::singleByteDataGas() const
 {
 	if (m_isCreation)
-		return evmasm::GasCosts::txDataNonZeroGas;
+		return zvmasm::GasCosts::txDataNonZeroGas;
 	else
-		return evmasm::GasCosts::createDataGas;
+		return zvmasm::GasCosts::createDataGas;
 }
 
-void GasMeterVisitor::instructionCostsInternal(evmasm::Instruction _instruction)
+void GasMeterVisitor::instructionCostsInternal(zvmasm::Instruction _instruction)
 {
-	if (_instruction == evmasm::Instruction::EXP)
-		m_runGas += evmasm::GasCosts::expGas + evmasm::GasCosts::expByteGas;
-	else if (_instruction == evmasm::Instruction::KECCAK256)
+	if (_instruction == zvmasm::Instruction::EXP)
+		m_runGas += zvmasm::GasCosts::expGas + zvmasm::GasCosts::expByteGas;
+	else if (_instruction == zvmasm::Instruction::KECCAK256)
 		// Assumes that Keccak-256 is computed on a single word (rounded up).
-		m_runGas += evmasm::GasCosts::keccak256Gas + evmasm::GasCosts::keccak256WordGas;
+		m_runGas += zvmasm::GasCosts::keccak256Gas + zvmasm::GasCosts::keccak256WordGas;
 	else
-		m_runGas += evmasm::GasMeter::runGas(_instruction);
+		m_runGas += zvmasm::GasMeter::runGas(_instruction);
 	m_dataGas += singleByteDataGas();
 }

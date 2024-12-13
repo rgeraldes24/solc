@@ -23,5 +23,5 @@
 #include <libzvmasm/Instruction.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;

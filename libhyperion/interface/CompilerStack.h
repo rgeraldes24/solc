@@ -63,7 +63,7 @@ class CharStream;
 }
 
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 class Assembly;
 class AssemblyItem;
@@ -92,7 +92,7 @@ class Analysis;
  * It holds state and can be used to either step through the compilation stages (and abort e.g.
  * before compilation to bytecode) or run the whole compilation in one call.
  */
-class CompilerStack: public langutil::CharStreamProvider, public evmasm::AbstractAssemblyStack
+class CompilerStack: public langutil::CharStreamProvider, public zvmasm::AbstractAssemblyStack
 {
 public:
 	/// Noncopyable.
@@ -275,16 +275,16 @@ public:
 	Json::Value const& yulIROptimizedAst(std::string const& _contractName) const;
 
 	/// @returns the assembled object for a contract.
-	virtual evmasm::LinkerObject const& object(std::string const& _contractName) const override;
+	virtual zvmasm::LinkerObject const& object(std::string const& _contractName) const override;
 
 	/// @returns the runtime object for the contract.
-	virtual evmasm::LinkerObject const& runtimeObject(std::string const& _contractName) const override;
+	virtual zvmasm::LinkerObject const& runtimeObject(std::string const& _contractName) const override;
 
 	/// @returns normal contract assembly items
-	evmasm::AssemblyItems const* assemblyItems(std::string const& _contractName) const;
+	zvmasm::AssemblyItems const* assemblyItems(std::string const& _contractName) const;
 
 	/// @returns runtime contract assembly items
-	evmasm::AssemblyItems const* runtimeAssemblyItems(std::string const& _contractName) const;
+	zvmasm::AssemblyItems const* runtimeAssemblyItems(std::string const& _contractName) const;
 
 	/// @returns an array containing all utility sources generated during compilation.
 	/// Format: [ { name: string, id: number, language: "Yul", contents: string }, ... ]
@@ -369,10 +369,10 @@ private:
 	{
 		ContractDefinition const* contract = nullptr;
 		std::shared_ptr<Compiler> compiler;
-		std::shared_ptr<evmasm::Assembly> evmAssembly;
-		std::shared_ptr<evmasm::Assembly> evmRuntimeAssembly;
-		evmasm::LinkerObject object; ///< Deployment object (includes the runtime sub-object).
-		evmasm::LinkerObject runtimeObject; ///< Runtime object.
+		std::shared_ptr<zvmasm::Assembly> evmAssembly;
+		std::shared_ptr<zvmasm::Assembly> evmRuntimeAssembly;
+		zvmasm::LinkerObject object; ///< Deployment object (includes the runtime sub-object).
+		zvmasm::LinkerObject runtimeObject; ///< Runtime object.
 		std::string yulIR; ///< Yul IR code.
 		std::string yulIROptimized; ///< Optimized Yul IR code.
 		Json::Value yulIRAst; ///< JSON AST of Yul IR code.
@@ -422,8 +422,8 @@ private:
 	/// This function should only be internally called by compileContract and generateEVMFromIR.
 	void assembleYul(
 		ContractDefinition const& _contract,
-		std::shared_ptr<evmasm::Assembly> _assembly,
-		std::shared_ptr<evmasm::Assembly> _runtimeAssembly
+		std::shared_ptr<zvmasm::Assembly> _assembly,
+		std::shared_ptr<zvmasm::Assembly> _runtimeAssembly
 	);
 
 	/// Compile a single contract.

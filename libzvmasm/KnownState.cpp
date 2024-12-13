@@ -29,7 +29,7 @@
 #include <functional>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 
 std::ostream& KnownState::stream(std::ostream& _out) const

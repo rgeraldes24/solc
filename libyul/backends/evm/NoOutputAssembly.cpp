@@ -34,24 +34,24 @@ using namespace hyperion::util;
 using namespace hyperion::langutil;
 
 
-void NoOutputAssembly::appendInstruction(evmasm::Instruction _instr)
+void NoOutputAssembly::appendInstruction(zvmasm::Instruction _instr)
 {
 	m_stackHeight += instructionInfo(_instr).ret - instructionInfo(_instr).args;
 }
 
 void NoOutputAssembly::appendConstant(u256 const&)
 {
-	appendInstruction(evmasm::pushInstruction(1));
+	appendInstruction(zvmasm::pushInstruction(1));
 }
 
 void NoOutputAssembly::appendLabel(LabelID)
 {
-	appendInstruction(evmasm::Instruction::JUMPDEST);
+	appendInstruction(zvmasm::Instruction::JUMPDEST);
 }
 
 void NoOutputAssembly::appendLabelReference(LabelID)
 {
-	appendInstruction(evmasm::pushInstruction(1));
+	appendInstruction(zvmasm::pushInstruction(1));
 }
 
 NoOutputAssembly::LabelID NoOutputAssembly::newLabelId()
@@ -76,7 +76,7 @@ void NoOutputAssembly::appendVerbatim(bytes, size_t _arguments, size_t _returnVa
 
 void NoOutputAssembly::appendJump(int _stackDiffAfter, JumpType)
 {
-	appendInstruction(evmasm::Instruction::JUMP);
+	appendInstruction(zvmasm::Instruction::JUMP);
 	m_stackHeight += _stackDiffAfter;
 }
 
@@ -89,12 +89,12 @@ void NoOutputAssembly::appendJumpTo(LabelID _labelId, int _stackDiffAfter, JumpT
 void NoOutputAssembly::appendJumpToIf(LabelID _labelId, JumpType)
 {
 	appendLabelReference(_labelId);
-	appendInstruction(evmasm::Instruction::JUMPI);
+	appendInstruction(zvmasm::Instruction::JUMPI);
 }
 
 void NoOutputAssembly::appendAssemblySize()
 {
-	appendInstruction(evmasm::Instruction::PUSH1);
+	appendInstruction(zvmasm::Instruction::PUSH1);
 }
 
 std::pair<std::shared_ptr<AbstractAssembly>, AbstractAssembly::SubID> NoOutputAssembly::createSubAssembly(bool, std::string)
@@ -105,12 +105,12 @@ std::pair<std::shared_ptr<AbstractAssembly>, AbstractAssembly::SubID> NoOutputAs
 
 void NoOutputAssembly::appendDataOffset(std::vector<AbstractAssembly::SubID> const&)
 {
-	appendInstruction(evmasm::Instruction::PUSH1);
+	appendInstruction(zvmasm::Instruction::PUSH1);
 }
 
 void NoOutputAssembly::appendDataSize(std::vector<AbstractAssembly::SubID> const&)
 {
-	appendInstruction(evmasm::Instruction::PUSH1);
+	appendInstruction(zvmasm::Instruction::PUSH1);
 }
 
 AbstractAssembly::SubID NoOutputAssembly::appendData(bytes const&)
@@ -139,7 +139,7 @@ NoOutputEVMDialect::NoOutputEVMDialect(EVMDialect const& _copyFrom):
 		{
 			for (size_t i: ranges::views::iota(0u, _call.arguments.size()))
 				if (!fun.second.literalArgument(i))
-					_assembly.appendInstruction(evmasm::Instruction::POP);
+					_assembly.appendInstruction(zvmasm::Instruction::POP);
 
 			for (size_t i = 0; i < returns; i++)
 				_assembly.appendConstant(u256(0));

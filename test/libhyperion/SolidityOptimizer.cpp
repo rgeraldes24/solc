@@ -36,7 +36,7 @@
 #include <limits>
 
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::test;
 
 namespace hyperion::frontend::test
@@ -108,7 +108,7 @@ public:
 		bytes realCode = bytecodeSansMetadata(_bytecode);
 		BOOST_REQUIRE_MESSAGE(!realCode.empty(), "Invalid or missing metadata in bytecode.");
 		size_t instructions = 0;
-		evmasm::eachInstruction(realCode, [&](Instruction _instr, u256 const&) {
+		zvmasm::eachInstruction(realCode, [&](Instruction _instr, u256 const&) {
 			if (!_which || *_which == _instr)
 				instructions++;
 		});

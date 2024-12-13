@@ -26,7 +26,7 @@
 #include <libzvmasm/AssemblyItem.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 std::vector<SemanticInformation::Operation> SemanticInformation::readWriteOperations(Instruction _instruction)
 {
@@ -168,7 +168,7 @@ bool SemanticInformation::breaksCSEAnalysisBlock(AssemblyItem const& _item, bool
 	case PushLibraryAddress:
 	case PushImmutable:
 		return false;
-	case evmasm::Operation:
+	case zvmasm::Operation:
 	{
 		if (isSwapInstruction(_item) || isDupInstruction(_item))
 			return false;
@@ -198,7 +198,7 @@ bool SemanticInformation::breaksCSEAnalysisBlock(AssemblyItem const& _item, bool
 
 bool SemanticInformation::isCommutativeOperation(AssemblyItem const& _item)
 {
-	if (_item.type() != evmasm::Operation)
+	if (_item.type() != zvmasm::Operation)
 		return false;
 	switch (_item.instruction())
 	{
@@ -216,16 +216,16 @@ bool SemanticInformation::isCommutativeOperation(AssemblyItem const& _item)
 
 bool SemanticInformation::isDupInstruction(AssemblyItem const& _item)
 {
-	if (_item.type() != evmasm::Operation)
+	if (_item.type() != zvmasm::Operation)
 		return false;
-	return evmasm::isDupInstruction(_item.instruction());
+	return zvmasm::isDupInstruction(_item.instruction());
 }
 
 bool SemanticInformation::isSwapInstruction(AssemblyItem const& _item)
 {
-	if (_item.type() != evmasm::Operation)
+	if (_item.type() != zvmasm::Operation)
 		return false;
-	return evmasm::isSwapInstruction(_item.instruction());
+	return zvmasm::isSwapInstruction(_item.instruction());
 }
 
 bool SemanticInformation::isJumpInstruction(AssemblyItem const& _item)
@@ -235,7 +235,7 @@ bool SemanticInformation::isJumpInstruction(AssemblyItem const& _item)
 
 bool SemanticInformation::altersControlFlow(AssemblyItem const& _item)
 {
-	if (_item.type() != evmasm::Operation)
+	if (_item.type() != zvmasm::Operation)
 		return false;
 	switch (_item.instruction())
 	{
@@ -283,7 +283,7 @@ bool SemanticInformation::isDeterministic(AssemblyItem const& _item)
 {
 	assertThrow(_item.type() != VerbatimBytecode, AssemblyException, "");
 
-	if (_item.type() != evmasm::Operation)
+	if (_item.type() != zvmasm::Operation)
 		return true;
 
 	switch (_item.instruction())

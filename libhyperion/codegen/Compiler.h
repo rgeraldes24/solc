@@ -51,13 +51,13 @@ public:
 		bytes const& _metadata
 	);
 	/// @returns Entire assembly.
-	evmasm::Assembly const& assembly() const { return m_context.assembly(); }
+	zvmasm::Assembly const& assembly() const { return m_context.assembly(); }
 	/// @returns Runtime assembly.
-	evmasm::Assembly const& runtimeAssembly() const { return m_context.assembly().sub(m_runtimeSub); }
+	zvmasm::Assembly const& runtimeAssembly() const { return m_context.assembly().sub(m_runtimeSub); }
 	/// @returns Entire assembly as a shared pointer to non-const.
-	std::shared_ptr<evmasm::Assembly> assemblyPtr() const { return m_context.assemblyPtr(); }
+	std::shared_ptr<zvmasm::Assembly> assemblyPtr() const { return m_context.assemblyPtr(); }
 	/// @returns Runtime assembly as a shared pointer.
-	std::shared_ptr<evmasm::Assembly> runtimeAssemblyPtr() const;
+	std::shared_ptr<zvmasm::Assembly> runtimeAssemblyPtr() const;
 
 	std::string generatedYulUtilityCode() const { return m_context.generatedYulUtilityCode(); }
 	std::string runtimeGeneratedYulUtilityCode() const { return m_runtimeContext.generatedYulUtilityCode(); }

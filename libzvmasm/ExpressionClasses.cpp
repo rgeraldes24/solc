@@ -35,7 +35,7 @@
 #include <tuple>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 
 bool ExpressionClasses::Expression::operator==(ExpressionClasses::Expression const& _other) const

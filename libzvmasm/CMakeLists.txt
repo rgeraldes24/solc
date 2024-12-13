@@ -42,5 +42,5 @@ set(sources
 	SimplificationRules.h
 )
 
-add_library(evmasm ${sources})
-target_link_libraries(evmasm PUBLIC hyputil fmt::fmt-header-only)
+add_library(zvmasm ${sources})
+target_link_libraries(zvmasm PUBLIC hyputil fmt::fmt-header-only)

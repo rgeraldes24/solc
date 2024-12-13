@@ -1583,7 +1583,7 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 			</isTransfer>
 		)");
 		templ("gas", m_context.newYulVariable());
-		templ("callStipend", toString(evmasm::GasCosts::callStipend));
+		templ("callStipend", toString(zvmasm::GasCosts::callStipend));
 		templ("address", address);
 		templ("value", value);
 		if (functionType->kind() == FunctionType::Kind::Transfer)

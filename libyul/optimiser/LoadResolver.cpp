@@ -38,7 +38,7 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::yul;
 
 void LoadResolver::run(OptimiserStepContext& _context, Block& _ast)

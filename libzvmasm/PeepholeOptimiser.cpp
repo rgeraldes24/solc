@@ -26,7 +26,7 @@
 #include <libzvmasm/SemanticInformation.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 // TODO: Extend this to use the tools from ExpressionClasses.cpp
 
@@ -508,7 +508,7 @@ size_t numberOfPops(AssemblyItems const& _items)
 bool PeepholeOptimiser::optimise()
 {
 	// Avoid referencing immutables too early by using approx. counting in bytesRequired()
-	auto const approx = evmasm::Precision::Approximate;
+	auto const approx = zvmasm::Precision::Approximate;
 	OptimiserState state {m_items, 0, back_inserter(m_optimisedItems)};
 	while (state.i < m_items.size())
 		applyMethods(
@@ -519,7 +519,7 @@ bool PeepholeOptimiser::optimise()
 		);
 	if (m_optimisedItems.size() < m_items.size() || (
 		m_optimisedItems.size() == m_items.size() && (
-			evmasm::bytesRequired(m_optimisedItems, 3, approx) < evmasm::bytesRequired(m_items, 3, approx) ||
+			zvmasm::bytesRequired(m_optimisedItems, 3, approx) < zvmasm::bytesRequired(m_items, 3, approx) ||
 			numberOfPops(m_optimisedItems) > numberOfPops(m_items)
 		)
 	))

@@ -203,7 +203,7 @@ add_executable(hyptest ${sources}
     ${hypcli_sources}
     ${yul_phaser_sources}
 )
-target_link_libraries(hyptest PRIVATE hypcli libhypc yul solidity smtutil hyputil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
+target_link_libraries(hyptest PRIVATE hypcli libhypc yul solidity smtutil hyputil phaser Boost::boost yulInterpreter zvmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
 
 
 # Special compilation flag for Visual Studio (version 2019 at least affected)

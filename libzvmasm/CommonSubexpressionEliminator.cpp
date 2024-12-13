@@ -31,7 +31,7 @@
 #include <range/v3/view/reverse.hpp>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 
 std::vector<AssemblyItem> CommonSubexpressionEliminator::getOptimizedItems()

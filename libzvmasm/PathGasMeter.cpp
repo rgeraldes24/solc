@@ -25,7 +25,7 @@
 #include <libzvmasm/SemanticInformation.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 PathGasMeter::PathGasMeter(AssemblyItems const& _items, langutil::ZVMVersion _evmVersion):
 	m_items(_items), m_evmVersion(_evmVersion)

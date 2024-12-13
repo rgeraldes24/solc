@@ -26,7 +26,7 @@
 #include <functional>
 #include <string>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 /// Iterate through EVM code and call a function on each instruction.

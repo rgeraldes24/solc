@@ -30,7 +30,7 @@
 #include <vector>
 #include <memory>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class KnownState;

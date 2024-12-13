@@ -41,7 +41,7 @@
 #include <map>
 #include <utility>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 using AssemblyPointer = std::shared_ptr<Assembly>;

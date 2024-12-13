@@ -40,7 +40,7 @@
 #include <memory>
 
 using namespace hyperion::langutil;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 namespace hyperion::frontend::test
 {
@@ -56,22 +56,22 @@ namespace
 		return input;
 	}
 
-	evmasm::KnownState createInitialState(AssemblyItems const& _input)
+	zvmasm::KnownState createInitialState(AssemblyItems const& _input)
 	{
-		evmasm::KnownState state;
+		zvmasm::KnownState state;
 		for (auto const& item: addDummyLocations(_input))
 			state.feedItem(item, true);
 		return state;
 	}
 
-	AssemblyItems CSE(AssemblyItems const& _input, evmasm::KnownState const& _state = evmasm::KnownState())
+	AssemblyItems CSE(AssemblyItems const& _input, zvmasm::KnownState const& _state = zvmasm::KnownState())
 	{
 		AssemblyItems input = addDummyLocations(_input);
 
 		bool usesMsize = ranges::any_of(_input, [](AssemblyItem const& _i) {
 			return _i == AssemblyItem{Instruction::MSIZE} || _i.type() == VerbatimBytecode;
 		});
-		evmasm::CommonSubexpressionEliminator cse(_state);
+		zvmasm::CommonSubexpressionEliminator cse(_state);
 		BOOST_REQUIRE(cse.feedItems(input.begin(), input.end(), usesMsize) == input.end());
 		AssemblyItems output = cse.getOptimizedItems();
 
@@ -85,7 +85,7 @@ namespace
 	void checkCSE(
 		AssemblyItems const& _input,
 		AssemblyItems const& _expectation,
-		KnownState const& _state = evmasm::KnownState()
+		KnownState const& _state = zvmasm::KnownState()
 	)
 	{
 		AssemblyItems output = CSE(_input, _state);
@@ -189,15 +189,15 @@ BOOST_AUTO_TEST_CASE(cse_assign_immutable_breaks)
 		Instruction::ORIGIN
 	});
 
-	evmasm::CommonSubexpressionEliminator cse{evmasm::KnownState()};
+	zvmasm::CommonSubexpressionEliminator cse{zvmasm::KnownState()};
 	// Make sure CSE breaks after AssignImmutable.
 	BOOST_REQUIRE(cse.feedItems(input.begin(), input.end(), false) == input.begin() + 2);
 }
 
 BOOST_AUTO_TEST_CASE(cse_intermediate_swap)
 {
-	evmasm::KnownState state;
-	evmasm::CommonSubexpressionEliminator cse(state);
+	zvmasm::KnownState state;
+	zvmasm::CommonSubexpressionEliminator cse(state);
 	AssemblyItems input{
 		Instruction::SWAP1, Instruction::POP, Instruction::ADD, u256(0), Instruction::SWAP1,
 		Instruction::SLOAD, Instruction::SWAP1, u256(100), Instruction::EXP, Instruction::SWAP1,
@@ -723,7 +723,7 @@ BOOST_AUTO_TEST_CASE(cse_keccak256_twice_same_content_noninterfering_store_in_be
 
 BOOST_AUTO_TEST_CASE(cse_with_initially_known_stack)
 {
-	evmasm::KnownState state = createInitialState(AssemblyItems{
+	zvmasm::KnownState state = createInitialState(AssemblyItems{
 		u256(0x12),
 		u256(0x20),
 		Instruction::ADD
@@ -736,7 +736,7 @@ BOOST_AUTO_TEST_CASE(cse_with_initially_known_stack)
 
 BOOST_AUTO_TEST_CASE(cse_equality_on_initially_known_stack)
 {
-	evmasm::KnownState state = createInitialState(AssemblyItems{Instruction::DUP1});
+	zvmasm::KnownState state = createInitialState(AssemblyItems{Instruction::DUP1});
 	AssemblyItems input{
 		Instruction::EQ
 	};
@@ -749,7 +749,7 @@ BOOST_AUTO_TEST_CASE(cse_access_previous_sequence)
 {
 	// Tests that the code generator detects whether it tries to access SLOAD instructions
 	// from a sequenced expression which is not in its scope.
-	evmasm::KnownState state = createInitialState(AssemblyItems{
+	zvmasm::KnownState state = createInitialState(AssemblyItems{
 		u256(0),
 		Instruction::SLOAD,
 		u256(1),

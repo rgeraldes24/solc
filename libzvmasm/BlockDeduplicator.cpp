@@ -31,7 +31,7 @@
 #include <set>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 
 bool BlockDeduplicator::deduplicate()

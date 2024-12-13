@@ -37,7 +37,7 @@
 #include <vector>
 #include <functional>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 template <class S> S divWorkaround(S const& _a, S const& _b)

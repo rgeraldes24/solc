@@ -40,7 +40,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 
 namespace hyperion::frontend::test
@@ -176,7 +176,7 @@ bytes compileFirstExpression(
 			BOOST_REQUIRE(object.immutableReferences.empty());
 			bytes instructions = object.bytecode;
 			// debug
-			// cout << evmasm::disassemble(instructions) << endl;
+			// cout << zvmasm::disassemble(instructions) << endl;
 			return instructions;
 		}
 	BOOST_FAIL("No contract found in source.");

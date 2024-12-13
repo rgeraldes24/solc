@@ -25,7 +25,7 @@
 #include <cstddef>
 #include <iterator>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 class AssemblyItem;
 using AssemblyItems = std::vector<AssemblyItem>;

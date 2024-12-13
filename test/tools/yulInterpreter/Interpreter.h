@@ -247,7 +247,7 @@ public:
 	std::vector<u256> values() const { return m_values; }
 
 protected:
-	void runExternalCall(evmasm::Instruction _instruction);
+	void runExternalCall(zvmasm::Instruction _instruction);
 	virtual std::unique_ptr<Interpreter> makeInterpreterCopy(std::map<YulString, u256> _variables = {}) const
 	{
 		return std::make_unique<Interpreter>(

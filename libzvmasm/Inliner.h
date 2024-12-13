@@ -31,7 +31,7 @@
 #include <set>
 #include <vector>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class Inliner

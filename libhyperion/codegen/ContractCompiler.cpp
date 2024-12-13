@@ -56,7 +56,7 @@
 #include <limits>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::frontend;
 using namespace hyperion::langutil;
 
@@ -176,7 +176,7 @@ size_t ContractCompiler::packIntoContractCreator(ContractDefinition const& _cont
 
 	// We jump to the deploy routine because we first have to append all missing functions,
 	// which can cause further functions to be added to the runtime context.
-	evmasm::AssemblyItem deployRoutine = m_context.appendJumpToNew();
+	zvmasm::AssemblyItem deployRoutine = m_context.appendJumpToNew();
 
 	// We have to include copies of functions in the construction time and runtime context
 	// because of absolute jumps.
@@ -323,9 +323,9 @@ void ContractCompiler::appendDelegatecallCheck()
 }
 
 void ContractCompiler::appendInternalSelector(
-	std::map<FixedHash<4>, evmasm::AssemblyItem const> const& _entryPoints,
+	std::map<FixedHash<4>, zvmasm::AssemblyItem const> const& _entryPoints,
 	std::vector<FixedHash<4>> const& _ids,
-	evmasm::AssemblyItem const& _notFoundTag,
+	zvmasm::AssemblyItem const& _notFoundTag,
 	size_t _runs
 )
 {
@@ -356,17 +356,17 @@ void ContractCompiler::appendInternalSelector(
 	bool split = false;
 	if (_ids.size() <= 4)
 		split = false;
-	else if (_runs > (17 * evmasm::GasCosts::createDataGas) / 6)
+	else if (_runs > (17 * zvmasm::GasCosts::createDataGas) / 6)
 		split = true;
 	else
-		split = (_runs * 6 * (_ids.size() - 4) > 17 * evmasm::GasCosts::createDataGas);
+		split = (_runs * 6 * (_ids.size() - 4) > 17 * zvmasm::GasCosts::createDataGas);
 
 	if (split)
 	{
 		size_t pivotIndex = _ids.size() / 2;
 		FixedHash<4> pivot{_ids.at(pivotIndex)};
 		m_context << dupInstruction(1) << u256(FixedHash<4>::Arith(pivot)) << Instruction::GT;
-		evmasm::AssemblyItem lessTag{m_context.appendConditionalJump()};
+		zvmasm::AssemblyItem lessTag{m_context.appendConditionalJump()};
 		// Here, we have funid >= pivot
 		std::vector<FixedHash<4>> larger{_ids.begin() + static_cast<ptrdiff_t>(pivotIndex), _ids.end()};
 		appendInternalSelector(_entryPoints, larger, _notFoundTag, _runs);
@@ -411,7 +411,7 @@ bool hasPayableFunctions(ContractDefinition const& _contract)
 void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contract)
 {
 	std::map<FixedHash<4>, FunctionTypePointer> interfaceFunctions = _contract.interfaceFunctions();
-	std::map<FixedHash<4>, evmasm::AssemblyItem const> callDataUnpackerEntryPoints;
+	std::map<FixedHash<4>, zvmasm::AssemblyItem const> callDataUnpackerEntryPoints;
 
 	if (_contract.isLibrary())
 	{
@@ -431,10 +431,10 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 		needToAddCallvalueCheck = false;
 	}
 
-	evmasm::AssemblyItem notFoundOrReceiveEther = m_context.newTag();
+	zvmasm::AssemblyItem notFoundOrReceiveEther = m_context.newTag();
 	// If there is neither a fallback nor a receive ether function, we only need one label to jump to, which
 	// always reverts.
-	evmasm::AssemblyItem notFound = (!fallback && !etherReceiver) ? notFoundOrReceiveEther : m_context.newTag();
+	zvmasm::AssemblyItem notFound = (!fallback && !etherReceiver) ? notFoundOrReceiveEther : m_context.newTag();
 
 	// directly jump to fallback or ether receiver if the data is too short to contain a function selector
 	// also guards against short data
@@ -528,7 +528,7 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 			appendCallValueCheck();
 
 		// Return tag is used to jump out of the function.
-		evmasm::AssemblyItem returnTag = m_context.pushNewTag();
+		zvmasm::AssemblyItem returnTag = m_context.pushNewTag();
 		if (!functionType->parameterTypes().empty())
 		{
 			// Parameter for calldataUnpacker
@@ -538,7 +538,7 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 		}
 		m_context.appendJumpTo(
 			m_context.functionEntryLabel(functionType->declaration()),
-			evmasm::AssemblyItem::JumpType::IntoFunction
+			zvmasm::AssemblyItem::JumpType::IntoFunction
 		);
 		m_context << returnTag;
 		// Return tag and input parameters get consumed.
@@ -699,7 +699,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 	{
 		solAssert(m_context.numberOfLocalVariables() == 0, "");
 		if (!_function.isFallback() && !_function.isReceive())
-			m_context.appendJump(evmasm::AssemblyItem::JumpType::OutOfFunction);
+			m_context.appendJump(zvmasm::AssemblyItem::JumpType::OutOfFunction);
 	}
 
 	return false;
@@ -971,14 +971,14 @@ bool ContractCompiler::visit(TryStatement const& _tryStatement)
 	int const returnSize = static_cast<int>(_tryStatement.externalCall().annotation().type->sizeOnStack());
 
 	// Stack: [ return values] <success flag>
-	evmasm::AssemblyItem successTag = m_context.appendConditionalJump();
+	zvmasm::AssemblyItem successTag = m_context.appendConditionalJump();
 
 	// Catch case.
 	m_context.adjustStackOffset(-returnSize);
 
 	handleCatch(_tryStatement.clauses());
 
-	evmasm::AssemblyItem endTag = m_context.appendJumpToNew();
+	zvmasm::AssemblyItem endTag = m_context.appendJumpToNew();
 
 	m_context << successTag;
 	m_context.adjustStackOffset(returnSize);
@@ -1025,9 +1025,9 @@ void ContractCompiler::handleCatch(std::vector<ASTPointer<TryCatchClause>> const
 
 	solAssert(_catchClauses.size() == 1ul + (error ? 1 : 0) + (panic ? 1 : 0) + (fallback ? 1 : 0), "");
 
-	evmasm::AssemblyItem endTag = m_context.newTag();
-	evmasm::AssemblyItem fallbackTag = m_context.newTag();
-	evmasm::AssemblyItem panicTag = m_context.newTag();
+	zvmasm::AssemblyItem endTag = m_context.newTag();
+	zvmasm::AssemblyItem fallbackTag = m_context.newTag();
+	zvmasm::AssemblyItem panicTag = m_context.newTag();
 	if (error || panic)
 		// Note that this function returns zero on failure, which is not a problem yet,
 		// but will be a problem once we allow user-defined errors.
@@ -1148,8 +1148,8 @@ bool ContractCompiler::visit(IfStatement const& _ifStatement)
 	CompilerContext::LocationSetter locationSetter(m_context, _ifStatement);
 	compileExpression(_ifStatement.condition());
 	m_context << Instruction::ISZERO;
-	evmasm::AssemblyItem falseTag = m_context.appendConditionalJump();
-	evmasm::AssemblyItem endTag = falseTag;
+	zvmasm::AssemblyItem falseTag = m_context.appendConditionalJump();
+	zvmasm::AssemblyItem endTag = falseTag;
 	_ifStatement.trueStatement().accept(*this);
 	if (_ifStatement.falseStatement())
 	{
@@ -1168,15 +1168,15 @@ bool ContractCompiler::visit(WhileStatement const& _whileStatement)
 	StackHeightChecker checker(m_context);
 	CompilerContext::LocationSetter locationSetter(m_context, _whileStatement);
 
-	evmasm::AssemblyItem loopStart = m_context.newTag();
-	evmasm::AssemblyItem loopEnd = m_context.newTag();
+	zvmasm::AssemblyItem loopStart = m_context.newTag();
+	zvmasm::AssemblyItem loopEnd = m_context.newTag();
 	m_breakTags.emplace_back(loopEnd, m_context.stackHeight());
 
 	m_context << loopStart;
 
 	if (_whileStatement.isDoWhile())
 	{
-		evmasm::AssemblyItem condition = m_context.newTag();
+		zvmasm::AssemblyItem condition = m_context.newTag();
 		m_continueTags.emplace_back(condition, m_context.stackHeight());
 
 		_whileStatement.body().accept(*this);
@@ -1210,9 +1210,9 @@ bool ContractCompiler::visit(ForStatement const& _forStatement)
 {
 	StackHeightChecker checker(m_context);
 	CompilerContext::LocationSetter locationSetter(m_context, _forStatement);
-	evmasm::AssemblyItem loopStart = m_context.newTag();
-	evmasm::AssemblyItem loopEnd = m_context.newTag();
-	evmasm::AssemblyItem loopNext = m_context.newTag();
+	zvmasm::AssemblyItem loopStart = m_context.newTag();
+	zvmasm::AssemblyItem loopEnd = m_context.newTag();
+	zvmasm::AssemblyItem loopNext = m_context.newTag();
 
 	storeStackHeight(&_forStatement);
 

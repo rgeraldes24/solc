@@ -27,7 +27,7 @@
 #include <libhyputil/Assertions.h>
 #include <liblangutil/ZVMVersion.h>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 /// Virtual machine bytecode instruction.

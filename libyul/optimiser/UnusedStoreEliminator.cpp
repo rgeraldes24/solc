@@ -143,7 +143,7 @@ void UnusedStoreEliminator::operator()(Leave const&)
 
 void UnusedStoreEliminator::visit(Statement const& _statement)
 {
-	using evmasm::Instruction;
+	using zvmasm::Instruction;
 
 	UnusedStoreBase::visit(_statement);
 
@@ -165,7 +165,7 @@ void UnusedStoreEliminator::visit(Statement const& _statement)
 	// We determine if this is a store instruction without additional side-effects
 	// both by querying a combination of semantic information and by listing the instructions.
 	// This way the assert below should be triggered on any change.
-	using evmasm::SemanticInformation;
+	using zvmasm::SemanticInformation;
 	bool isStorageWrite = (*instruction == Instruction::SSTORE);
 	bool isMemoryWrite =
 		*instruction == Instruction::EXTCODECOPY ||
@@ -220,7 +220,7 @@ std::vector<UnusedStoreEliminator::Operation> UnusedStoreEliminator::operationsF
 	FunctionCall const& _functionCall
 ) const
 {
-	using evmasm::Instruction;
+	using zvmasm::Instruction;
 
 	YulString functionName = _functionCall.functionName.name;
 	SideEffects sideEffects;
@@ -241,7 +241,7 @@ std::vector<UnusedStoreEliminator::Operation> UnusedStoreEliminator::operationsF
 		return result;
 	}
 
-	using evmasm::SemanticInformation;
+	using zvmasm::SemanticInformation;
 
 	return util::applyMap(
 		SemanticInformation::readWriteOperations(*instruction),

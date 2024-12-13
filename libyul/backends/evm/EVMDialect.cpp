@@ -48,19 +48,19 @@ namespace
 
 std::pair<YulString, BuiltinFunctionForEVM> createEVMFunction(
 	std::string const& _name,
-	evmasm::Instruction _instruction
+	zvmasm::Instruction _instruction
 )
 {
-	evmasm::InstructionInfo info = evmasm::instructionInfo(_instruction);
+	zvmasm::InstructionInfo info = zvmasm::instructionInfo(_instruction);
 	BuiltinFunctionForEVM f;
 	f.name = YulString{_name};
 	f.parameters.resize(static_cast<size_t>(info.args));
 	f.returns.resize(static_cast<size_t>(info.ret));
 	f.sideEffects = EVMDialect::sideEffectsOfInstruction(_instruction);
-	if (evmasm::SemanticInformation::terminatesControlFlow(_instruction))
+	if (zvmasm::SemanticInformation::terminatesControlFlow(_instruction))
 	{
 		f.controlFlowSideEffects.canContinue = false;
-		if (evmasm::SemanticInformation::reverts(_instruction))
+		if (zvmasm::SemanticInformation::reverts(_instruction))
 		{
 			f.controlFlowSideEffects.canTerminate = false;
 			f.controlFlowSideEffects.canRevert = true;
@@ -71,7 +71,7 @@ std::pair<YulString, BuiltinFunctionForEVM> createEVMFunction(
 			f.controlFlowSideEffects.canRevert = false;
 		}
 	}
-	f.isMSize = _instruction == evmasm::Instruction::MSIZE;
+	f.isMSize = _instruction == zvmasm::Instruction::MSIZE;
 	f.literalArguments.clear();
 	f.instruction = _instruction;
 	f.generateCode = [_instruction](
@@ -113,7 +113,7 @@ std::pair<YulString, BuiltinFunctionForEVM> createFunction(
 std::set<YulString> createReservedIdentifiers()
 {
 	std::set<YulString> reserved;
-	for (auto const& instr: evmasm::c_instructions)
+	for (auto const& instr: zvmasm::c_instructions)
 	{
 		std::string name = toLower(instr.first);
 		reserved.emplace(name);
@@ -132,18 +132,18 @@ std::set<YulString> createReservedIdentifiers()
 std::map<YulString, BuiltinFunctionForEVM> createBuiltins(bool _objectAccess)
 {
 	std::map<YulString, BuiltinFunctionForEVM> builtins;
-	for (auto const& instr: evmasm::c_instructions)
+	for (auto const& instr: zvmasm::c_instructions)
 	{
 		std::string name = toLower(instr.first);
 		auto const opcode = instr.second;
 
 		if (
-			!evmasm::isDupInstruction(opcode) &&
-			!evmasm::isSwapInstruction(opcode) &&
-			!evmasm::isPushInstruction(opcode) &&
-			opcode != evmasm::Instruction::JUMP &&
-			opcode != evmasm::Instruction::JUMPI &&
-			opcode != evmasm::Instruction::JUMPDEST
+			!zvmasm::isDupInstruction(opcode) &&
+			!zvmasm::isSwapInstruction(opcode) &&
+			!zvmasm::isPushInstruction(opcode) &&
+			opcode != zvmasm::Instruction::JUMP &&
+			opcode != zvmasm::Instruction::JUMPI &&
+			opcode != zvmasm::Instruction::JUMPDEST
 		)
 			builtins.emplace(createEVMFunction(name, opcode));
 	}
@@ -231,7 +231,7 @@ std::map<YulString, BuiltinFunctionForEVM> createBuiltins(bool _objectAccess)
 				AbstractAssembly& _assembly,
 				BuiltinContext&
 			) {
-				_assembly.appendInstruction(evmasm::Instruction::CODECOPY);
+				_assembly.appendInstruction(zvmasm::Instruction::CODECOPY);
 			}
 		));
 		builtins.emplace(createFunction(
@@ -327,22 +327,22 @@ EVMDialect const& EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion _
 	return *dialects[_version];
 }
 
-SideEffects EVMDialect::sideEffectsOfInstruction(evmasm::Instruction _instruction)
+SideEffects EVMDialect::sideEffectsOfInstruction(zvmasm::Instruction _instruction)
 {
-	auto translate = [](evmasm::SemanticInformation::Effect _e) -> SideEffects::Effect
+	auto translate = [](zvmasm::SemanticInformation::Effect _e) -> SideEffects::Effect
 	{
 		return static_cast<SideEffects::Effect>(_e);
 	};
 
 	return SideEffects{
-		evmasm::SemanticInformation::movable(_instruction),
-		evmasm::SemanticInformation::movableApartFromEffects(_instruction),
-		evmasm::SemanticInformation::canBeRemoved(_instruction),
-		evmasm::SemanticInformation::canBeRemovedIfNoMSize(_instruction),
+		zvmasm::SemanticInformation::movable(_instruction),
+		zvmasm::SemanticInformation::movableApartFromEffects(_instruction),
+		zvmasm::SemanticInformation::canBeRemoved(_instruction),
+		zvmasm::SemanticInformation::canBeRemovedIfNoMSize(_instruction),
 		true, // cannotLoop
-		translate(evmasm::SemanticInformation::otherState(_instruction)),
-		translate(evmasm::SemanticInformation::storage(_instruction)),
-		translate(evmasm::SemanticInformation::memory(_instruction)),
+		translate(zvmasm::SemanticInformation::otherState(_instruction)),
+		translate(zvmasm::SemanticInformation::storage(_instruction)),
+		translate(zvmasm::SemanticInformation::memory(_instruction)),
 	};
 }
 
@@ -440,11 +440,11 @@ EVMDialectTyped::EVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectA
 		// TODO this should use a Panic.
 		// A value larger than 1 causes an invalid instruction.
 		_assembly.appendConstant(2);
-		_assembly.appendInstruction(evmasm::Instruction::DUP2);
-		_assembly.appendInstruction(evmasm::Instruction::LT);
+		_assembly.appendInstruction(zvmasm::Instruction::DUP2);
+		_assembly.appendInstruction(zvmasm::Instruction::LT);
 		AbstractAssembly::LabelID inRange = _assembly.newLabelId();
 		_assembly.appendJumpToIf(inRange);
-		_assembly.appendInstruction(evmasm::Instruction::INVALID);
+		_assembly.appendInstruction(zvmasm::Instruction::INVALID);
 		_assembly.appendLabel(inRange);
 	}));
 	m_functions["u256_to_bool"_yulstring].parameters = {"u256"_yulstring};

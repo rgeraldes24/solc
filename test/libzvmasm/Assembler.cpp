@@ -35,7 +35,7 @@
 #include <tuple>
 
 using namespace hyperion::langutil;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace std::string_literals;
 
 namespace hyperion::frontend::test
@@ -43,7 +43,7 @@ namespace hyperion::frontend::test
 
 namespace
 {
-	void checkCompilation(evmasm::Assembly const& _assembly)
+	void checkCompilation(zvmasm::Assembly const& _assembly)
 	{
 		LinkerObject output = _assembly.assemble();
 		BOOST_CHECK(output.bytecode.size() > 0);
@@ -413,8 +413,8 @@ BOOST_AUTO_TEST_CASE(subobject_encode_decode)
 	subAsmPtr->appendSubroutine(subSubAsmPtr);
 
 	BOOST_CHECK(assembly.encodeSubPath({0}) == 0);
-	BOOST_REQUIRE_THROW(assembly.encodeSubPath({1}), hyperion::evmasm::AssemblyException);
-	BOOST_REQUIRE_THROW(assembly.decodeSubPath(1), hyperion::evmasm::AssemblyException);
+	BOOST_REQUIRE_THROW(assembly.encodeSubPath({1}), hyperion::zvmasm::AssemblyException);
+	BOOST_REQUIRE_THROW(assembly.decodeSubPath(1), hyperion::zvmasm::AssemblyException);
 
 	std::vector<size_t> subPath{0, 0};
 	BOOST_CHECK(assembly.decodeSubPath(assembly.encodeSubPath(subPath)) == subPath);

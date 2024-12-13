@@ -22,7 +22,7 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 GasMeter::GasConsumption& GasMeter::GasConsumption::operator+=(GasConsumption const& _other)
 {

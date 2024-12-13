@@ -80,7 +80,7 @@ bytes SolidityExecutionFramework::multiSourceCompileContract(
 		BOOST_ERROR("Compiling contract failed");
 	}
 	std::string contractName(_contractName.empty() ? m_compiler.lastContractName(_mainSourceName) : _contractName);
-	evmasm::LinkerObject obj = m_compiler.object(contractName);
+	zvmasm::LinkerObject obj = m_compiler.object(contractName);
 	BOOST_REQUIRE(obj.linkReferences.empty());
 	if (m_showMetadata)
 		std::cout << "metadata: " << m_compiler.metadata(contractName) << std::endl;

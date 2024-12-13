@@ -4,7 +4,7 @@
 Inline Assembly
 ###############
 
-.. index:: ! assembly, ! asm, ! evmasm
+.. index:: ! assembly, ! asm, ! zvmasm
 
 
 You can interleave Solidity statements with inline assembly in a language close

@@ -18,7 +18,7 @@
 /**
  * @author Lefteris Karapetsas <lefteris@ethdev.com>
  * @date 2015
- * Unit tests for Assembly Items from evmasm/Assembly.h
+ * Unit tests for Assembly Items from zvmasm/Assembly.h
  */
 
 #include <test/Common.h>
@@ -44,7 +44,7 @@
 #include <iostream>
 
 using namespace hyperion::langutil;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 namespace hyperion::frontend::test
 {
@@ -52,7 +52,7 @@ namespace hyperion::frontend::test
 namespace
 {
 
-evmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
+zvmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 {
 	ErrorList errors;
 	ErrorReporter errorReporter(errors);

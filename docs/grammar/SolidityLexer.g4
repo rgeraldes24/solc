@@ -262,7 +262,7 @@ LINE_COMMENT: '//' ~[\r\n]* -> channel(HIDDEN);
 mode AssemblyBlockMode;
 
 //@doc:inline
-AssemblyDialect: '"evmasm"';
+AssemblyDialect: '"zvmasm"';
 AssemblyLBrace: '{' -> popMode, pushMode(YulMode);
 
 AssemblyFlagString: '"' DoubleQuotedStringCharacter+ '"';

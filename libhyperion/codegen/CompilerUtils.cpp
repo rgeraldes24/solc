@@ -34,7 +34,7 @@
 #include <libhyputil/StackTooDeepString.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::frontend;
 using namespace hyperion::langutil;
 
@@ -1478,7 +1478,7 @@ void CompilerUtils::popStackSlots(size_t _amount)
 		m_context << Instruction::POP;
 }
 
-void CompilerUtils::popAndJump(unsigned _toHeight, evmasm::AssemblyItem const& _jumpTo)
+void CompilerUtils::popAndJump(unsigned _toHeight, zvmasm::AssemblyItem const& _jumpTo)
 {
 	solAssert(m_context.stackHeight() >= _toHeight);
 	unsigned amount = m_context.stackHeight() - _toHeight;
@@ -1511,7 +1511,7 @@ void CompilerUtils::copyContractCodeToMemory(ContractDefinition const& contract,
 		[&contract, _creation](CompilerContext& _context)
 		{
 			// copy the contract's code into memory
-			std::shared_ptr<evmasm::Assembly> assembly =
+			std::shared_ptr<zvmasm::Assembly> assembly =
 				_creation ?
 				_context.compiledContract(contract) :
 				_context.compiledContractRuntime(contract);

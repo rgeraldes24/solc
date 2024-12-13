@@ -38,7 +38,7 @@ using namespace hyperion::yul;
 using namespace hyperion::util;
 using namespace hyperion::langutil;
 
-EthAssemblyAdapter::EthAssemblyAdapter(evmasm::Assembly& _assembly):
+EthAssemblyAdapter::EthAssemblyAdapter(zvmasm::Assembly& _assembly):
 	m_assembly(_assembly)
 {
 }
@@ -58,7 +58,7 @@ void EthAssemblyAdapter::setStackHeight(int height)
 	m_assembly.setDeposit(height);
 }
 
-void EthAssemblyAdapter::appendInstruction(evmasm::Instruction _instruction)
+void EthAssemblyAdapter::appendInstruction(zvmasm::Instruction _instruction)
 {
 	m_assembly.append(_instruction);
 }
@@ -70,12 +70,12 @@ void EthAssemblyAdapter::appendConstant(u256 const& _constant)
 
 void EthAssemblyAdapter::appendLabel(LabelID _labelId)
 {
-	m_assembly.append(evmasm::AssemblyItem(evmasm::Tag, _labelId));
+	m_assembly.append(zvmasm::AssemblyItem(zvmasm::Tag, _labelId));
 }
 
 void EthAssemblyAdapter::appendLabelReference(LabelID _labelId)
 {
-	m_assembly.append(evmasm::AssemblyItem(evmasm::PushTag, _labelId));
+	m_assembly.append(zvmasm::AssemblyItem(zvmasm::PushTag, _labelId));
 }
 
 size_t EthAssemblyAdapter::newLabelId()
@@ -100,7 +100,7 @@ void EthAssemblyAdapter::appendVerbatim(bytes _data, size_t _arguments, size_t _
 
 void EthAssemblyAdapter::appendJump(int _stackDiffAfter, JumpType _jumpType)
 {
-	appendJumpInstruction(evmasm::Instruction::JUMP, _jumpType);
+	appendJumpInstruction(zvmasm::Instruction::JUMP, _jumpType);
 	m_assembly.adjustDeposit(_stackDiffAfter);
 }
 
@@ -113,7 +113,7 @@ void EthAssemblyAdapter::appendJumpTo(LabelID _labelId, int _stackDiffAfter, Jum
 void EthAssemblyAdapter::appendJumpToIf(LabelID _labelId, JumpType _jumpType)
 {
 	appendLabelReference(_labelId);
-	appendJumpInstruction(evmasm::Instruction::JUMPI, _jumpType);
+	appendJumpInstruction(zvmasm::Instruction::JUMPI, _jumpType);
 }
 
 void EthAssemblyAdapter::appendAssemblySize()
@@ -123,7 +123,7 @@ void EthAssemblyAdapter::appendAssemblySize()
 
 std::pair<std::shared_ptr<AbstractAssembly>, AbstractAssembly::SubID> EthAssemblyAdapter::createSubAssembly(bool _creation, std::string _name)
 {
-	std::shared_ptr<evmasm::Assembly> assembly{std::make_shared<evmasm::Assembly>(m_assembly.evmVersion(), _creation, std::move(_name))};
+	std::shared_ptr<zvmasm::Assembly> assembly{std::make_shared<zvmasm::Assembly>(m_assembly.evmVersion(), _creation, std::move(_name))};
 	auto sub = m_assembly.newSub(assembly);
 	return {std::make_shared<EthAssemblyAdapter>(*assembly), static_cast<size_t>(sub.data())};
 }
@@ -133,7 +133,7 @@ void EthAssemblyAdapter::appendDataOffset(std::vector<AbstractAssembly::SubID> c
 	if (auto it = m_dataHashBySubId.find(_subPath[0]); it != m_dataHashBySubId.end())
 	{
 		yulAssert(_subPath.size() == 1, "");
-		m_assembly << evmasm::AssemblyItem(evmasm::PushData, it->second);
+		m_assembly << zvmasm::AssemblyItem(zvmasm::PushData, it->second);
 		return;
 	}
 
@@ -154,7 +154,7 @@ void EthAssemblyAdapter::appendDataSize(std::vector<AbstractAssembly::SubID> con
 
 AbstractAssembly::SubID EthAssemblyAdapter::appendData(bytes const& _data)
 {
-	evmasm::AssemblyItem pushData = m_assembly.newData(_data);
+	zvmasm::AssemblyItem pushData = m_assembly.newData(_data);
 	SubID subID = m_nextDataCounter++;
 	m_dataHashBySubId[subID] = pushData.data();
 	return subID;
@@ -185,27 +185,27 @@ langutil::ZVMVersion EthAssemblyAdapter::evmVersion() const
 	return m_assembly.evmVersion();
 }
 
-EthAssemblyAdapter::LabelID EthAssemblyAdapter::assemblyTagToIdentifier(evmasm::AssemblyItem const& _tag)
+EthAssemblyAdapter::LabelID EthAssemblyAdapter::assemblyTagToIdentifier(zvmasm::AssemblyItem const& _tag)
 {
 	u256 id = _tag.data();
 	yulAssert(id <= std::numeric_limits<LabelID>::max(), "Tag id too large.");
 	return LabelID(id);
 }
 
-void EthAssemblyAdapter::appendJumpInstruction(evmasm::Instruction _instruction, JumpType _jumpType)
+void EthAssemblyAdapter::appendJumpInstruction(zvmasm::Instruction _instruction, JumpType _jumpType)
 {
-	yulAssert(_instruction == evmasm::Instruction::JUMP || _instruction == evmasm::Instruction::JUMPI, "");
-	evmasm::AssemblyItem jump(_instruction);
+	yulAssert(_instruction == zvmasm::Instruction::JUMP || _instruction == zvmasm::Instruction::JUMPI, "");
+	zvmasm::AssemblyItem jump(_instruction);
 	switch (_jumpType)
 	{
 	case JumpType::Ordinary:
-		yulAssert(jump.getJumpType() == evmasm::AssemblyItem::JumpType::Ordinary, "");
+		yulAssert(jump.getJumpType() == zvmasm::AssemblyItem::JumpType::Ordinary, "");
 		break;
 	case JumpType::IntoFunction:
-		jump.setJumpType(evmasm::AssemblyItem::JumpType::IntoFunction);
+		jump.setJumpType(zvmasm::AssemblyItem::JumpType::IntoFunction);
 		break;
 	case JumpType::OutOfFunction:
-		jump.setJumpType(evmasm::AssemblyItem::JumpType::OutOfFunction);
+		jump.setJumpType(zvmasm::AssemblyItem::JumpType::OutOfFunction);
 		break;
 	}
 	m_assembly.append(std::move(jump));

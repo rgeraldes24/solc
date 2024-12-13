@@ -365,7 +365,7 @@ Json::Value formatImmutableReferences(std::map<u256, std::pair<std::string, std:
 }
 
 Json::Value collectEVMObject(
-	evmasm::LinkerObject const& _object,
+	zvmasm::LinkerObject const& _object,
 	std::string const* _sourceMap,
 	Json::Value _generatedSources,
 	bool _runtimeObject,
@@ -376,7 +376,7 @@ Json::Value collectEVMObject(
 	if (_artifactRequested("object"))
 		output["object"] = _object.toHex();
 	if (_artifactRequested("opcodes"))
-		output["opcodes"] = evmasm::disassemble(_object.bytecode);
+		output["opcodes"] = zvmasm::disassemble(_object.bytecode);
 	if (_artifactRequested("sourceMap"))
 		output["sourceMap"] = _sourceMap ? *_sourceMap : "";
 	if (_artifactRequested("functionDebugData"))
@@ -1656,7 +1656,7 @@ std::string StandardCompiler::compile(std::string const& _input) noexcept
 }
 
 Json::Value StandardCompiler::formatFunctionDebugData(
-	std::map<std::string, evmasm::LinkerObject::FunctionDebugData> const& _debugInfo
+	std::map<std::string, zvmasm::LinkerObject::FunctionDebugData> const& _debugInfo
 )
 {
 	Json::Value ret(Json::objectValue);

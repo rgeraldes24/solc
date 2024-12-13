@@ -26,7 +26,7 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 void LinkerObject::append(LinkerObject const& _other)
 {

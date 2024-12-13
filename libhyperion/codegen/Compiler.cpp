@@ -54,7 +54,7 @@ void Compiler::compileContract(
 	solAssert(m_runtimeContext.appendYulUtilityFunctionsRan(), "appendYulUtilityFunctions() was not called.");
 }
 
-std::shared_ptr<evmasm::Assembly> Compiler::runtimeAssemblyPtr() const
+std::shared_ptr<zvmasm::Assembly> Compiler::runtimeAssemblyPtr() const
 {
 	solAssert(m_context.runtimeContext(), "");
 	return m_context.runtimeContext()->assemblyPtr();

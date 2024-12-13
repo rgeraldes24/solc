@@ -33,7 +33,7 @@
 #include <functional>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 
 SimplificationRule<Pattern> const* Rules::findFirstMatch(

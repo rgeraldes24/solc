@@ -1359,8 +1359,8 @@ ASTPointer<InlineAssembly> Parser::parseInlineAssembly(ASTPointer<ASTString> con
 	yul::Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(m_evmVersion);
 	if (m_scanner->currentToken() == Token::StringLiteral)
 	{
-		if (m_scanner->currentLiteral() != "evmasm")
-			fatalParserError(4531_error, "Only \"evmasm\" supported.");
+		if (m_scanner->currentLiteral() != "zvmasm")
+			fatalParserError(4531_error, "Only \"zvmasm\" supported.");
 		// This can be used in the future to set the dialect.
 		advance();
 	}

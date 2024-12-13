@@ -28,7 +28,7 @@ if (OSSFUZZ)
             ../fuzzer_common.cpp
             ../../TestCaseReader.cpp
     )
-    target_link_libraries(hypc_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(hypc_ossfuzz PRIVATE libhypc zvmasm)
     set_target_properties(hypc_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
 
     add_executable(hypc_mutator_ossfuzz
@@ -38,15 +38,15 @@ if (OSSFUZZ)
             SolidityGenerator.cpp
             SolidityCustomMutatorInterface.cpp
     )
-    target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc zvmasm)
     set_target_properties(hypc_mutator_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
 
     add_executable(const_opt_ossfuzz const_opt_ossfuzz.cpp ../fuzzer_common.cpp)
-    target_link_libraries(const_opt_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(const_opt_ossfuzz PRIVATE libhypc zvmasm)
     set_target_properties(const_opt_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
 
     add_executable(strictasm_diff_ossfuzz strictasm_diff_ossfuzz.cpp yulFuzzerCommon.cpp)
-    target_link_libraries(strictasm_diff_ossfuzz PRIVATE libhypc evmasm yulInterpreter)
+    target_link_libraries(strictasm_diff_ossfuzz PRIVATE libhypc zvmasm yulInterpreter)
     set_target_properties(strictasm_diff_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
 
     add_executable(strictasm_opt_ossfuzz strictasm_opt_ossfuzz.cpp)
@@ -204,24 +204,24 @@ else()
             hypc_ossfuzz.cpp
             ../fuzzer_common.cpp
             )
-    target_link_libraries(hypc_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(hypc_ossfuzz PRIVATE libhypc zvmasm)
 
     add_library(hypc_mutator_ossfuzz
             hypc_ossfuzz.cpp
             ../fuzzer_common.cpp
             )
-    target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc zvmasm)
 
     add_library(const_opt_ossfuzz
             const_opt_ossfuzz.cpp
             ../fuzzer_common.cpp)
-    target_link_libraries(const_opt_ossfuzz PRIVATE libhypc evmasm)
+    target_link_libraries(const_opt_ossfuzz PRIVATE libhypc zvmasm)
 
     add_library(strictasm_diff_ossfuzz
             strictasm_diff_ossfuzz.cpp
             yulFuzzerCommon.cpp
             )
-    target_link_libraries(strictasm_diff_ossfuzz PRIVATE libhypc evmasm yulInterpreter)
+    target_link_libraries(strictasm_diff_ossfuzz PRIVATE libhypc zvmasm yulInterpreter)
 
     add_library(strictasm_opt_ossfuzz
             strictasm_opt_ossfuzz.cpp

@@ -78,8 +78,8 @@ public:
 	using UnusedStoreBase::visit;
 	void visit(Statement const& _statement) override;
 
-	using Location = evmasm::SemanticInformation::Location;
-	using Effect = evmasm::SemanticInformation::Effect;
+	using Location = zvmasm::SemanticInformation::Location;
+	using Effect = zvmasm::SemanticInformation::Effect;
 	struct Operation
 	{
 		Location location;

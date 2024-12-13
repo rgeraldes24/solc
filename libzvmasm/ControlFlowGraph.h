@@ -32,7 +32,7 @@
 #include <memory>
 #include <limits>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class KnownState;

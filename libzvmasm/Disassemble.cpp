@@ -24,10 +24,10 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 
-void hyperion::evmasm::eachInstruction(
+void hyperion::zvmasm::eachInstruction(
 	bytes const& _mem,
 	std::function<void(Instruction,u256 const&)> const& _onInstruction
 )
@@ -56,7 +56,7 @@ void hyperion::evmasm::eachInstruction(
 	}
 }
 
-std::string hyperion::evmasm::disassemble(bytes const& _mem, std::string const& _delimiter)
+std::string hyperion::zvmasm::disassemble(bytes const& _mem, std::string const& _delimiter)
 {
 	std::stringstream ret;
 	eachInstruction(_mem, [&](Instruction _instr, u256 const& _data) {

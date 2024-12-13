@@ -25,7 +25,7 @@
 #include <libzvmasm/GasMeter.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 unsigned ConstantOptimisationMethod::optimiseConstants(
 	bool _isCreation,
@@ -102,7 +102,7 @@ bigint ConstantOptimisationMethod::dataGas(bytes const& _data) const
 
 size_t ConstantOptimisationMethod::bytesRequired(AssemblyItems const& _items)
 {
-	return evmasm::bytesRequired(_items, 3, Precision::Approximate); // assume 3 byte addresses
+	return zvmasm::bytesRequired(_items, 3, Precision::Approximate); // assume 3 byte addresses
 }
 
 void ConstantOptimisationMethod::replaceConstants(

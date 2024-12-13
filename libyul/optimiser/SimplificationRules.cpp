@@ -33,7 +33,7 @@
 #include <libhyputil/StringUtils.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::langutil;
 using namespace hyperion::yul;
 
@@ -71,10 +71,10 @@ SimplificationRules::Rule const* SimplificationRules::findFirstMatch(
 
 bool SimplificationRules::isInitialized() const
 {
-	return !m_rules[uint8_t(evmasm::Instruction::ADD)].empty();
+	return !m_rules[uint8_t(zvmasm::Instruction::ADD)].empty();
 }
 
-std::optional<std::pair<evmasm::Instruction, std::vector<Expression> const*>>
+std::optional<std::pair<zvmasm::Instruction, std::vector<Expression> const*>>
 	SimplificationRules::instructionAndArguments(Dialect const& _dialect, Expression const& _expr)
 {
 	if (std::holds_alternative<FunctionCall>(_expr))
@@ -121,7 +121,7 @@ SimplificationRules::SimplificationRules(std::optional<langutil::ZVMVersion> _ev
 	assertThrow(isInitialized(), OptimizerException, "Rule list not properly initialized.");
 }
 
-yul::Pattern::Pattern(evmasm::Instruction _instruction, std::initializer_list<Pattern> _arguments):
+yul::Pattern::Pattern(zvmasm::Instruction _instruction, std::initializer_list<Pattern> _arguments):
 	m_kind(PatternKind::Operation),
 	m_instruction(_instruction),
 	m_arguments(_arguments)
@@ -228,7 +228,7 @@ bool Pattern::matches(
 	return true;
 }
 
-evmasm::Instruction Pattern::instruction() const
+zvmasm::Instruction Pattern::instruction() const
 {
 	assertThrow(m_kind == PatternKind::Operation, OptimizerException, "");
 	return m_instruction;

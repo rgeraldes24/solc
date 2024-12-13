@@ -93,7 +93,7 @@ private:
 	/// @returns the ``// <identifier> -> name`` hint for library placeholders.
 	static std::string libraryPlaceholderHint(std::string const& _libraryName);
 	/// @returns the full object with library placeholder hints in hex.
-	static std::string objectWithLinkRefsHex(evmasm::LinkerObject const& _obj);
+	static std::string objectWithLinkRefsHex(zvmasm::LinkerObject const& _obj);
 
 	void assembleYul(yul::YulStack::Language _language, yul::YulStack::Machine _targetMachine);
 
@@ -151,8 +151,8 @@ private:
 	UniversalCallback m_universalCallback{&m_fileReader, m_solverCommand};
 	std::optional<std::string> m_standardJsonInput;
 	std::unique_ptr<frontend::CompilerStack> m_compiler;
-	std::unique_ptr<evmasm::EVMAssemblyStack> m_evmAssemblyStack;
-	evmasm::AbstractAssemblyStack* m_assemblyStack = nullptr;
+	std::unique_ptr<zvmasm::EVMAssemblyStack> m_evmAssemblyStack;
+	zvmasm::AbstractAssemblyStack* m_assemblyStack = nullptr;
 	CommandLineOptions m_options;
 };
 

@@ -25,7 +25,7 @@
 #include <libyul/AsmAnalysis.h>
 #include <liblangutil/ZVMVersion.h>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 class Assembly;
 }
@@ -42,7 +42,7 @@ public:
 	static void assemble(
 		Block const& _parsedData,
 		AsmAnalysisInfo& _analysisInfo,
-		evmasm::Assembly& _assembly,
+		zvmasm::Assembly& _assembly,
 		langutil::ZVMVersion _evmVersion,
 		ExternalIdentifierAccess::CodeGenerator _identifierAccess = {},
 		bool _useNamedLabelsForFunctions = false,

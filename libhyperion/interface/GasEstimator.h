@@ -41,7 +41,7 @@ class FunctionDefinition;
 struct GasEstimator
 {
 public:
-	using GasConsumption = evmasm::GasMeter::GasConsumption;
+	using GasConsumption = zvmasm::GasMeter::GasConsumption;
 	using ASTGasConsumption = std::map<ASTNode const*, GasConsumption>;
 	using ASTGasConsumptionSelfAccumulated =
 		std::map<ASTNode const*, std::array<GasConsumption, 2>>;
@@ -51,7 +51,7 @@ public:
 	/// @returns the estimated gas consumption by the (public or external) function with the
 	/// given signature. If no signature is given, estimates the maximum gas usage.
 	GasConsumption functionalEstimation(
-		evmasm::AssemblyItems const& _items,
+		zvmasm::AssemblyItems const& _items,
 		std::string const& _signature = ""
 	) const;
 
@@ -59,7 +59,7 @@ public:
 	/// offset into the list of assembly items.
 	/// @note this does not work correctly for recursive functions.
 	GasConsumption functionalEstimation(
-		evmasm::AssemblyItems const& _items,
+		zvmasm::AssemblyItems const& _items,
 		size_t const& _offset,
 		FunctionDefinition const& _function
 	) const;

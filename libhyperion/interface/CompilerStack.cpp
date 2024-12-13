@@ -795,7 +795,7 @@ std::string const CompilerStack::lastContractName(std::optional<std::string> con
 	return contractName;
 }
 
-evmasm::AssemblyItems const* CompilerStack::assemblyItems(std::string const& _contractName) const
+zvmasm::AssemblyItems const* CompilerStack::assemblyItems(std::string const& _contractName) const
 {
 	if (m_stackState != CompilationSuccessful)
 		solThrow(CompilerError, "Compilation was not successful.");
@@ -804,7 +804,7 @@ evmasm::AssemblyItems const* CompilerStack::assemblyItems(std::string const& _co
 	return currentContract.evmAssembly ? &currentContract.evmAssembly->items() : nullptr;
 }
 
-evmasm::AssemblyItems const* CompilerStack::runtimeAssemblyItems(std::string const& _contractName) const
+zvmasm::AssemblyItems const* CompilerStack::runtimeAssemblyItems(std::string const& _contractName) const
 {
 	if (m_stackState != CompilationSuccessful)
 		solThrow(CompilerError, "Compilation was not successful.");
@@ -864,7 +864,7 @@ std::string const* CompilerStack::sourceMapping(std::string const& _contractName
 	if (!c.sourceMapping)
 	{
 		if (auto items = assemblyItems(_contractName))
-			c.sourceMapping.emplace(evmasm::AssemblyItem::computeSourceMapping(*items, sourceIndices()));
+			c.sourceMapping.emplace(zvmasm::AssemblyItem::computeSourceMapping(*items, sourceIndices()));
 	}
 	return c.sourceMapping ? &*c.sourceMapping : nullptr;
 }
@@ -879,7 +879,7 @@ std::string const* CompilerStack::runtimeSourceMapping(std::string const& _contr
 	{
 		if (auto items = runtimeAssemblyItems(_contractName))
 			c.runtimeSourceMapping.emplace(
-				evmasm::AssemblyItem::computeSourceMapping(*items, sourceIndices())
+				zvmasm::AssemblyItem::computeSourceMapping(*items, sourceIndices())
 			);
 	}
 	return c.runtimeSourceMapping ? &*c.runtimeSourceMapping : nullptr;
@@ -941,7 +941,7 @@ Json::Value const& CompilerStack::yulIROptimizedAst(std::string const& _contract
 	return contract(_contractName).yulIROptimizedAst;
 }
 
-evmasm::LinkerObject const& CompilerStack::object(std::string const& _contractName) const
+zvmasm::LinkerObject const& CompilerStack::object(std::string const& _contractName) const
 {
 	if (m_stackState != CompilationSuccessful)
 		solThrow(CompilerError, "Compilation was not successful.");
@@ -949,7 +949,7 @@ evmasm::LinkerObject const& CompilerStack::object(std::string const& _contractNa
 	return contract(_contractName).object;
 }
 
-evmasm::LinkerObject const& CompilerStack::runtimeObject(std::string const& _contractName) const
+zvmasm::LinkerObject const& CompilerStack::runtimeObject(std::string const& _contractName) const
 {
 	if (m_stackState != CompilationSuccessful)
 		solThrow(CompilerError, "Compilation was not successful.");
@@ -1343,8 +1343,8 @@ bool onlySafeExperimentalFeaturesActivated(std::set<ExperimentalFeature> const& 
 
 void CompilerStack::assembleYul(
 	ContractDefinition const& _contract,
-	std::shared_ptr<evmasm::Assembly> _assembly,
-	std::shared_ptr<evmasm::Assembly> _runtimeAssembly
+	std::shared_ptr<zvmasm::Assembly> _assembly,
+	std::shared_ptr<zvmasm::Assembly> _runtimeAssembly
 )
 {
 	solAssert(m_stackState >= AnalysisSuccessful, "");
@@ -1358,7 +1358,7 @@ void CompilerStack::assembleYul(
 		// Assemble deployment (incl. runtime)  object.
 		compiledContract.object = compiledContract.evmAssembly->assemble();
 	}
-	catch (evmasm::AssemblyException const&)
+	catch (zvmasm::AssemblyException const&)
 	{
 		solAssert(false, "Assembly exception for bytecode");
 	}
@@ -1371,7 +1371,7 @@ void CompilerStack::assembleYul(
 		// Assemble runtime object.
 		compiledContract.runtimeObject = compiledContract.evmRuntimeAssembly->assemble();
 	}
-	catch (evmasm::AssemblyException const&)
+	catch (zvmasm::AssemblyException const&)
 	{
 		solAssert(false, "Assembly exception for deployed bytecode");
 	}
@@ -1441,7 +1441,7 @@ void CompilerStack::compileContract(
 		// Run optimiser and compile the contract.
 		compiler->compileContract(_contract, _otherCompilers, cborEncodedMetadata);
 	}
-	catch(evmasm::OptimizerException const&)
+	catch(zvmasm::OptimizerException const&)
 	{
 		solAssert(false, "Optimizer exception during compilation");
 	}
@@ -1857,10 +1857,10 @@ Json::Value CompilerStack::gasEstimates(std::string const& _contractName) const
 	GasEstimator gasEstimator(m_evmVersion);
 	Json::Value output(Json::objectValue);
 
-	if (evmasm::AssemblyItems const* items = assemblyItems(_contractName))
+	if (zvmasm::AssemblyItems const* items = assemblyItems(_contractName))
 	{
 		Gas executionGas = gasEstimator.functionalEstimation(*items);
-		Gas codeDepositGas{evmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false)};
+		Gas codeDepositGas{zvmasm::GasMeter::dataGas(runtimeObject(_contractName).bytecode, false)};
 
 		Json::Value creation(Json::objectValue);
 		creation["codeDepositCost"] = gasToJson(codeDepositGas);
@@ -1871,7 +1871,7 @@ Json::Value CompilerStack::gasEstimates(std::string const& _contractName) const
 		output["creation"] = creation;
 	}
 
-	if (evmasm::AssemblyItems const* items = runtimeAssemblyItems(_contractName))
+	if (zvmasm::AssemblyItems const* items = runtimeAssemblyItems(_contractName))
 	{
 		/// External functions
 		ContractDefinition const& contract = contractDefinition(_contractName);

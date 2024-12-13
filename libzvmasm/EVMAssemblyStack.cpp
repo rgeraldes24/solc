@@ -31,7 +31,7 @@ using namespace hyperion::util;
 using namespace hyperion::langutil;
 using namespace hyperion::frontend;
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 void EVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::string const& _source)
@@ -40,7 +40,7 @@ void EVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::stri
 	m_name = _sourceName;
 	Json::Value assemblyJson;
 	solRequire(jsonParseStrict(_source, assemblyJson), AssemblyImportException, "Could not parse JSON file.");
-	std::tie(m_evmAssembly, m_sourceList) = evmasm::Assembly::fromJSON(assemblyJson);
+	std::tie(m_evmAssembly, m_sourceList) = zvmasm::Assembly::fromJSON(assemblyJson);
 	solRequire(m_evmAssembly != nullptr, AssemblyImportException, "Could not create evm assembly object.");
 }
 
@@ -54,7 +54,7 @@ void EVMAssemblyStack::assemble()
 	m_sourceMapping = AssemblyItem::computeSourceMapping(m_evmAssembly->items(), sourceIndices());
 	if (m_evmAssembly->numSubs() > 0)
 	{
-		m_evmRuntimeAssembly = std::make_shared<evmasm::Assembly>(m_evmAssembly->sub(0));
+		m_evmRuntimeAssembly = std::make_shared<zvmasm::Assembly>(m_evmAssembly->sub(0));
 		solAssert(m_evmRuntimeAssembly && !m_evmRuntimeAssembly->isCreation());
 		m_runtimeSourceMapping = AssemblyItem::computeSourceMapping(m_evmRuntimeAssembly->items(), sourceIndices());
 		m_runtimeObject = m_evmRuntimeAssembly->assemble();
@@ -119,4 +119,4 @@ std::vector<std::string> EVMAssemblyStack::sourceNames() const
 	return m_sourceList;
 }
 
-} // namespace hyperion::evmasm
+} // namespace hyperion::zvmasm

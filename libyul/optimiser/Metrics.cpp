@@ -180,12 +180,12 @@ void CodeCost::visit(Expression const& _expression)
 	ASTWalker::visit(_expression);
 }
 
-void CodeCost::addInstructionCost(evmasm::Instruction _instruction)
+void CodeCost::addInstructionCost(zvmasm::Instruction _instruction)
 {
-	evmasm::Tier gasPriceTier = evmasm::instructionInfo(_instruction).gasPriceTier;
-	if (gasPriceTier < evmasm::Tier::VeryLow)
+	zvmasm::Tier gasPriceTier = zvmasm::instructionInfo(_instruction).gasPriceTier;
+	if (gasPriceTier < zvmasm::Tier::VeryLow)
 		m_cost -= 1;
-	else if (gasPriceTier < evmasm::Tier::High)
+	else if (gasPriceTier < zvmasm::Tier::High)
 		m_cost += 1;
 	else
 		m_cost += 49;

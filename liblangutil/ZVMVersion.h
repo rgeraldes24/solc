@@ -28,7 +28,7 @@
 #include <boost/operators.hpp>
 
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 /// Virtual machine bytecode instruction. Forward declared from libzvmasm/Instruction.h
 enum class Instruction: uint8_t;

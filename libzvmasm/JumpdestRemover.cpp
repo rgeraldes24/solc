@@ -28,7 +28,7 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 bool JumpdestRemover::optimise(std::set<size_t> const& _tagsReferencedFromOutside)
 {

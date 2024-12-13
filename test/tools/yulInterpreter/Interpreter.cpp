@@ -319,7 +319,7 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 			if (
 				!m_disableExternalCalls &&
 				fun->instruction &&
-				evmasm::isCallInstruction(*fun->instruction)
+				zvmasm::isCallInstruction(*fun->instruction)
 			)
 				runExternalCall(*fun->instruction);
 
@@ -409,7 +409,7 @@ void ExpressionEvaluator::incrementStep()
 	}
 }
 
-void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
+void ExpressionEvaluator::runExternalCall(zvmasm::Instruction _instruction)
 {
 	u256 memOutOffset = 0;
 	u256 memOutSize = 0;
@@ -419,7 +419,7 @@ void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
 
 	// Setup memOut* values
 	if (
-		_instruction == evmasm::Instruction::CALL
+		_instruction == zvmasm::Instruction::CALL
 	)
 	{
 		memOutOffset = values()[5];
@@ -429,8 +429,8 @@ void ExpressionEvaluator::runExternalCall(evmasm::Instruction _instruction)
 		memInSize = values()[4];
 	}
 	else if (
-		_instruction == evmasm::Instruction::DELEGATECALL ||
-		_instruction == evmasm::Instruction::STATICCALL
+		_instruction == zvmasm::Instruction::DELEGATECALL ||
+		_instruction == zvmasm::Instruction::STATICCALL
 	)
 	{
 		memOutOffset = values()[4];

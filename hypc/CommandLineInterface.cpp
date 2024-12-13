@@ -238,7 +238,7 @@ void CommandLineInterface::handleOpcode(std::string const& _contract)
 		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
 	);
 
-	std::string opcodes{evmasm::disassemble(m_assemblyStack->object(_contract).bytecode)};
+	std::string opcodes{zvmasm::disassemble(m_assemblyStack->object(_contract).bytecode)};
 
 	if (!m_options.output.dir.empty())
 		createFile(m_assemblyStack->filesystemFriendlyName(_contract) + ".opcode", opcodes);
@@ -794,12 +794,12 @@ void CommandLineInterface::assembleFromEVMAssemblyJSON()
 	solAssert(m_fileReader.sourceUnits().size() == 1);
 	auto&& [sourceUnitName, source] = *m_fileReader.sourceUnits().begin();
 
-	auto evmAssemblyStack = std::make_unique<evmasm::EVMAssemblyStack>(m_options.output.evmVersion);
+	auto evmAssemblyStack = std::make_unique<zvmasm::EVMAssemblyStack>(m_options.output.evmVersion);
 	try
 	{
 		evmAssemblyStack->parseAndAnalyze(sourceUnitName, source);
 	}
-	catch (evmasm::AssemblyImportException const& _exception)
+	catch (zvmasm::AssemblyImportException const& _exception)
 	{
 		solThrow(CommandLineExecutionError, "Assembly Import Error: "s + _exception.what());
 	}
@@ -977,7 +977,7 @@ void CommandLineInterface::handleCombinedJSON()
 			if (m_options.compiler.combinedJsonRequests->binaryRuntime)
 				contractData[g_strBinaryRuntime] = m_assemblyStack->runtimeObject(contractName).toHex();
 			if (m_options.compiler.combinedJsonRequests->opcodes)
-				contractData[g_strOpcodes] = evmasm::disassemble(m_assemblyStack->object(contractName).bytecode);
+				contractData[g_strOpcodes] = zvmasm::disassemble(m_assemblyStack->object(contractName).bytecode);
 			if (m_options.compiler.combinedJsonRequests->asm_)
 				contractData[g_strAsm] = m_assemblyStack->assemblyJSON(contractName);
 			if (m_options.compiler.combinedJsonRequests->srcMap)
@@ -1092,7 +1092,7 @@ void CommandLineInterface::link()
 		// be just the cropped or '_'-padded library name, but this changed to
 		// the cropped hex representation of the hash of the library name.
 		// We support both ways of linking here.
-		librariesReplacements["__" + evmasm::LinkerObject::libraryPlaceholder(name) + "__"] = library.second;
+		librariesReplacements["__" + zvmasm::LinkerObject::libraryPlaceholder(name) + "__"] = library.second;
 
 		std::string replacement = "__";
 		for (size_t i = 0; i < placeholderSize - 4; ++i)
@@ -1162,10 +1162,10 @@ void CommandLineInterface::writeLinkedFiles()
 
 std::string CommandLineInterface::libraryPlaceholderHint(std::string const& _libraryName)
 {
-	return "// " + evmasm::LinkerObject::libraryPlaceholder(_libraryName) + " -> " + _libraryName;
+	return "// " + zvmasm::LinkerObject::libraryPlaceholder(_libraryName) + " -> " + _libraryName;
 }
 
-std::string CommandLineInterface::objectWithLinkRefsHex(evmasm::LinkerObject const& _obj)
+std::string CommandLineInterface::objectWithLinkRefsHex(zvmasm::LinkerObject const& _obj)
 {
 	std::string out = _obj.toHex();
 	if (!_obj.linkReferences.empty())

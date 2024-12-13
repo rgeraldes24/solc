@@ -32,7 +32,7 @@
 #include <libzvmasm/KnownState.h>
 
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
 BlockId::BlockId(u256 const& _id):
 	m_id(unsigned(_id))

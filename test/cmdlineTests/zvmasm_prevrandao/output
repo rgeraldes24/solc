@@ -1,5 +1,5 @@
 
-======= evmasm_prevrandao/input.hyp:C =======
+======= zvmasm_prevrandao/input.hyp:C =======
 EVM assembly:
   sstore(0x00, prevrandao)
   stop

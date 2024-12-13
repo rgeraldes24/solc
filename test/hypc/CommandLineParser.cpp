@@ -461,15 +461,15 @@ BOOST_AUTO_TEST_CASE(optimizer_flags)
 	yulOnly.runYulOptimiser = true;
 	yulOnly.optimizeStackAllocation = true;
 
-	OptimiserSettings evmasmOnly = OptimiserSettings::standard();
-	evmasmOnly.runYulOptimiser = false;
+	OptimiserSettings zvmasmOnly = OptimiserSettings::standard();
+	zvmasmOnly.runYulOptimiser = false;
 
 	map<vector<string>, OptimiserSettings> settingsMap = {
 		{{}, OptimiserSettings::minimal()},
 		{{"--optimize"}, OptimiserSettings::standard()},
 		{{"--no-optimize-yul"}, OptimiserSettings::minimal()},
 		{{"--optimize-yul"}, yulOnly},
-		{{"--optimize", "--no-optimize-yul"}, evmasmOnly},
+		{{"--optimize", "--no-optimize-yul"}, zvmasmOnly},
 		{{"--optimize", "--optimize-yul"}, OptimiserSettings::standard()},
 	};
 

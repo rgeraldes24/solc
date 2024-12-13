@@ -228,11 +228,11 @@ YulStack::assembleWithDeployed(std::optional<std::string_view> _deployName) cons
 	yulAssert(m_charStream, "");
 
 	MachineAssemblyObject creationObject;
-	creationObject.bytecode = std::make_shared<evmasm::LinkerObject>(creationAssembly->assemble());
+	creationObject.bytecode = std::make_shared<zvmasm::LinkerObject>(creationAssembly->assemble());
 	yulAssert(creationObject.bytecode->immutableReferences.empty(), "Leftover immutables.");
 	creationObject.assembly = creationAssembly->assemblyString(m_debugInfoSelection);
 	creationObject.sourceMappings = std::make_unique<std::string>(
-		evmasm::AssemblyItem::computeSourceMapping(
+		zvmasm::AssemblyItem::computeSourceMapping(
 			creationAssembly->items(),
 			{{m_charStream->name(), 0}}
 		)
@@ -241,10 +241,10 @@ YulStack::assembleWithDeployed(std::optional<std::string_view> _deployName) cons
 	MachineAssemblyObject deployedObject;
 	if (deployedAssembly)
 	{
-		deployedObject.bytecode = std::make_shared<evmasm::LinkerObject>(deployedAssembly->assemble());
+		deployedObject.bytecode = std::make_shared<zvmasm::LinkerObject>(deployedAssembly->assemble());
 		deployedObject.assembly = deployedAssembly->assemblyString(m_debugInfoSelection);
 		deployedObject.sourceMappings = std::make_unique<std::string>(
-			evmasm::AssemblyItem::computeSourceMapping(
+			zvmasm::AssemblyItem::computeSourceMapping(
 				deployedAssembly->items(),
 				{{m_charStream->name(), 0}}
 			)
@@ -254,7 +254,7 @@ YulStack::assembleWithDeployed(std::optional<std::string_view> _deployName) cons
 	return {std::move(creationObject), std::move(deployedObject)};
 }
 
-std::pair<std::shared_ptr<evmasm::Assembly>, std::shared_ptr<evmasm::Assembly>>
+std::pair<std::shared_ptr<zvmasm::Assembly>, std::shared_ptr<zvmasm::Assembly>>
 YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) const
 {
 	yulAssert(m_analysisSuccessful, "");
@@ -262,7 +262,7 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 	yulAssert(m_parserResult->code, "");
 	yulAssert(m_parserResult->analysisInfo, "");
 
-	evmasm::Assembly assembly(m_evmVersion, true, {});
+	zvmasm::Assembly assembly(m_evmVersion, true, {});
 	EthAssemblyAdapter adapter(assembly);
 
 	// NOTE: We always need stack optimization when Yul optimizer is disabled (unless code contains
@@ -274,7 +274,7 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 	);
 	compileEVM(adapter, optimize);
 
-	assembly.optimise(evmasm::Assembly::OptimiserSettings::translateSettings(m_optimiserSettings, m_evmVersion));
+	assembly.optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(m_optimiserSettings, m_evmVersion));
 
 	std::optional<size_t> subIndex;
 
@@ -296,11 +296,11 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 
 	if (subIndex.has_value())
 	{
-		evmasm::Assembly& runtimeAssembly = assembly.sub(*subIndex);
-		return {std::make_shared<evmasm::Assembly>(assembly), std::make_shared<evmasm::Assembly>(runtimeAssembly)};
+		zvmasm::Assembly& runtimeAssembly = assembly.sub(*subIndex);
+		return {std::make_shared<zvmasm::Assembly>(assembly), std::make_shared<zvmasm::Assembly>(runtimeAssembly)};
 	}
 
-	return {std::make_shared<evmasm::Assembly>(assembly), {}};
+	return {std::make_shared<zvmasm::Assembly>(assembly), {}};
 }
 
 std::string YulStack::print(

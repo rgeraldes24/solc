@@ -38,7 +38,7 @@
 #include <memory>
 #include <string>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 class Assembly;
 }
@@ -55,7 +55,7 @@ class AbstractAssembly;
 
 struct MachineAssemblyObject
 {
-	std::shared_ptr<evmasm::LinkerObject> bytecode;
+	std::shared_ptr<zvmasm::LinkerObject> bytecode;
 	std::string assembly;
 	std::unique_ptr<std::string> sourceMappings;
 };
@@ -117,7 +117,7 @@ public:
 	/// Run the assembly step (should only be called after parseAndAnalyze).
 	/// Similar to @a assemblyWithDeployed, but returns EVM assembly objects.
 	/// Only available for EVM.
-	std::pair<std::shared_ptr<evmasm::Assembly>, std::shared_ptr<evmasm::Assembly>>
+	std::pair<std::shared_ptr<zvmasm::Assembly>, std::shared_ptr<zvmasm::Assembly>>
 	assembleEVMWithDeployed(
 		std::optional<std::string_view> _deployName = {}
 	) const;

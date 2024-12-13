@@ -36,7 +36,7 @@ using namespace hyperion::langutil;
 void CodeGenerator::assemble(
 	Block const& _parsedData,
 	AsmAnalysisInfo& _analysisInfo,
-	evmasm::Assembly& _assembly,
+	zvmasm::Assembly& _assembly,
 	langutil::ZVMVersion _evmVersion,
 	ExternalIdentifierAccess::CodeGenerator _identifierAccessCodeGen,
 	bool _useNamedLabelsForFunctions,

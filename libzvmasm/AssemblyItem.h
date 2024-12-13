@@ -32,7 +32,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 enum AssemblyItemType

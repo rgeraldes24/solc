@@ -31,7 +31,7 @@
 
 #include <vector>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class AssemblyItem;

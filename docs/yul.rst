@@ -4,7 +4,7 @@
 Yul
 ###
 
-.. index:: ! assembly, ! asm, ! evmasm, ! yul, julia, iulia
+.. index:: ! assembly, ! asm, ! zvmasm, ! yul, julia, iulia
 
 Yul (previously also called JULIA or IULIA) is an intermediate language that can be
 compiled to bytecode for different backends.

@@ -36,7 +36,7 @@
 #include <tuple>
 #include <utility>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class KnownState;

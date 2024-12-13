@@ -37,7 +37,7 @@ namespace hyperion::langutil
 struct SourceLocation;
 }
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class Pattern;

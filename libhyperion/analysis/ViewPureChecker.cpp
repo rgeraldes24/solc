@@ -111,11 +111,11 @@ public:
 	}
 
 private:
-	void checkInstruction(SourceLocation _location, evmasm::Instruction _instruction)
+	void checkInstruction(SourceLocation _location, zvmasm::Instruction _instruction)
 	{
-		if (evmasm::SemanticInformation::invalidInViewFunctions(_instruction))
+		if (zvmasm::SemanticInformation::invalidInViewFunctions(_instruction))
 			m_reportMutability(StateMutability::NonPayable, _location);
-		else if (evmasm::SemanticInformation::invalidInPureFunctions(_instruction))
+		else if (zvmasm::SemanticInformation::invalidInPureFunctions(_instruction))
 			m_reportMutability(StateMutability::View, _location);
 	}
 

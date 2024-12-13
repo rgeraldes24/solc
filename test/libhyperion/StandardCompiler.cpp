@@ -32,7 +32,7 @@
 #include <algorithm>
 #include <set>
 
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace std::string_literals;
 
 namespace hyperion::frontend::test

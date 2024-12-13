@@ -24,9 +24,9 @@
 
 using namespace hyperion;
 using namespace hyperion::util;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 
-std::map<std::string, Instruction> const hyperion::evmasm::c_instructions =
+std::map<std::string, Instruction> const hyperion::zvmasm::c_instructions =
 {
 	{ "STOP", Instruction::STOP },
 	{ "ADD", Instruction::ADD },
@@ -319,7 +319,7 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::INVALID,		{ "INVALID",		0, 0, 0, true, Tier::Zero } }
 };
 
-InstructionInfo hyperion::evmasm::instructionInfo(Instruction _inst)
+InstructionInfo hyperion::zvmasm::instructionInfo(Instruction _inst)
 {
 	try
 	{
@@ -331,7 +331,7 @@ InstructionInfo hyperion::evmasm::instructionInfo(Instruction _inst)
 	}
 }
 
-bool hyperion::evmasm::isValidInstruction(Instruction _inst)
+bool hyperion::zvmasm::isValidInstruction(Instruction _inst)
 {
 	return !!c_instructionInfo.count(_inst);
 }

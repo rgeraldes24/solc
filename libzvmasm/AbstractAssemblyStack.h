@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 class AbstractAssemblyStack
@@ -51,4 +51,4 @@ public:
 	virtual bool compilationSuccessful() const = 0;
 };
 
-} // namespace hyperion::evmasm
+} // namespace hyperion::zvmasm

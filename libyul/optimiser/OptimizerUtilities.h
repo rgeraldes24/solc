@@ -30,7 +30,7 @@
 
 #include <optional>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 enum class Instruction: uint8_t;
 }
@@ -48,7 +48,7 @@ void removeEmptyBlocks(Block& _block);
 bool isRestrictedIdentifier(Dialect const& _dialect, YulString const& _identifier);
 
 /// Helper function that returns the instruction, if the `_name` is a BuiltinFunction
-std::optional<evmasm::Instruction> toEVMInstruction(Dialect const& _dialect, YulString const& _name);
+std::optional<zvmasm::Instruction> toEVMInstruction(Dialect const& _dialect, YulString const& _name);
 
 /// Helper function that returns the EVM version from a dialect.
 /// It returns the default EVM version if dialect is not an EVMDialect.

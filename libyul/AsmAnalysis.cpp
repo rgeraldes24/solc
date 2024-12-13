@@ -669,13 +669,13 @@ bool AsmAnalyzer::validateInstructions(std::string const& _instructionIdentifier
 		return false;
 }
 
-bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocation const& _location)
+bool AsmAnalyzer::validateInstructions(zvmasm::Instruction _instr, SourceLocation const& _location)
 {
 	// These instructions are disabled in the dialect.
 	yulAssert(
-		_instr != evmasm::Instruction::JUMP &&
-		_instr != evmasm::Instruction::JUMPI &&
-		_instr != evmasm::Instruction::JUMPDEST,
+		_instr != zvmasm::Instruction::JUMP &&
+		_instr != zvmasm::Instruction::JUMPI &&
+		_instr != zvmasm::Instruction::JUMPDEST,
 	"");
 
 	// NOTE(rgeraldes24): unused for now
@@ -692,7 +692,7 @@ bool AsmAnalyzer::validateInstructions(evmasm::Instruction _instr, SourceLocatio
 	// 	);
 	// };
 
-	if (_instr == evmasm::Instruction::PC)
+	if (_instr == zvmasm::Instruction::PC)
 		m_errorReporter.error(
 			2450_error,
 			Error::Type::SyntaxError,

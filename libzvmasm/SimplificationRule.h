@@ -25,7 +25,7 @@
 #include <libhyputil/CommonData.h>
 #include <functional>
 
-namespace hyperion::evmasm
+namespace hyperion::zvmasm
 {
 
 /**

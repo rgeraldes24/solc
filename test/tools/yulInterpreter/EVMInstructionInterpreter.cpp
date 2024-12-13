@@ -36,7 +36,7 @@
 
 using namespace std;
 using namespace hyperion;
-using namespace hyperion::evmasm;
+using namespace hyperion::zvmasm;
 using namespace hyperion::yul;
 using namespace hyperion::yul::test;
 
@@ -91,12 +91,12 @@ void copyZeroExtended(
 using u512 = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<512, 256, boost::multiprecision::unsigned_magnitude, boost::multiprecision::unchecked, void>>;
 
 u256 EVMInstructionInterpreter::eval(
-	evmasm::Instruction _instruction,
+	zvmasm::Instruction _instruction,
 	vector<u256> const& _arguments
 )
 {
-	using namespace hyperion::evmasm;
-	using evmasm::Instruction;
+	using namespace hyperion::zvmasm;
+	using zvmasm::Instruction;
 
 	auto info = instructionInfo(_instruction);
 	yulAssert(static_cast<size_t>(info.args) == _arguments.size(), "");
@@ -539,13 +539,13 @@ void EVMInstructionInterpreter::writeMemoryWord(u256 const& _offset, u256 const&
 
 
 void EVMInstructionInterpreter::logTrace(
-	evmasm::Instruction _instruction,
+	zvmasm::Instruction _instruction,
 	std::vector<u256> const& _arguments,
 	bytes const& _data
 )
 {
 	logTrace(
-		evmasm::instructionInfo(_instruction).name,
+		zvmasm::instructionInfo(_instruction).name,
 		SemanticInformation::memory(_instruction) == SemanticInformation::Effect::Write,
 		_arguments,
 		_data

@@ -49,8 +49,8 @@ void ExpressionSimplifier::visit(Expression& _expression)
 		_expression = match->action().toExpression(debugDataOf(_expression), evmVersionFromDialect(m_dialect));
 
 	if (auto* functionCall = std::get_if<FunctionCall>(&_expression))
-		if (std::optional<evmasm::Instruction> instruction = toEVMInstruction(m_dialect, functionCall->functionName.name))
-			for (auto op: evmasm::SemanticInformation::readWriteOperations(*instruction))
+		if (std::optional<zvmasm::Instruction> instruction = toEVMInstruction(m_dialect, functionCall->functionName.name))
+			for (auto op: zvmasm::SemanticInformation::readWriteOperations(*instruction))
 				if (op.startParameter && op.lengthParameter)
 				{
 					Expression& startArgument = functionCall->arguments.at(*op.startParameter);

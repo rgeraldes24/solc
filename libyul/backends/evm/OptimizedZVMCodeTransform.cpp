@@ -259,7 +259,7 @@ void OptimizedZVMCodeTransform::createStackLayout(std::shared_ptr<DebugData cons
 			yulAssert(static_cast<int>(m_stack.size()) == m_assembly.stackHeight(), "");
 			yulAssert(_i > 0 && _i < m_stack.size(), "");
 			if (_i <= 16)
-				m_assembly.appendInstruction(evmasm::swapInstruction(_i));
+				m_assembly.appendInstruction(zvmasm::swapInstruction(_i));
 			else
 			{
 				int deficit = static_cast<int>(_i) - 16;
@@ -289,7 +289,7 @@ void OptimizedZVMCodeTransform::createStackLayout(std::shared_ptr<DebugData cons
 			{
 				if (*depth < 16)
 				{
-					m_assembly.appendInstruction(evmasm::dupInstruction(static_cast<unsigned>(*depth + 1)));
+					m_assembly.appendInstruction(zvmasm::dupInstruction(static_cast<unsigned>(*depth + 1)));
 					return;
 				}
 				else if (!canBeFreelyGenerated(_slot))
@@ -356,7 +356,7 @@ void OptimizedZVMCodeTransform::createStackLayout(std::shared_ptr<DebugData cons
 		// Pop callback.
 		[&]()
 		{
-			m_assembly.appendInstruction(evmasm::Instruction::POP);
+			m_assembly.appendInstruction(zvmasm::Instruction::POP);
 		}
 	);
 	yulAssert(m_assembly.stackHeight() == static_cast<int>(m_stack.size()), "");
@@ -411,7 +411,7 @@ void OptimizedZVMCodeTransform::operator()(CFG::BasicBlock const& _block)
 	std::visit(util::GenericVisitor{
 		[&](CFG::BasicBlock::MainExit const&)
 		{
-			m_assembly.appendInstruction(evmasm::Instruction::STOP);
+			m_assembly.appendInstruction(zvmasm::Instruction::STOP);
 		},
 		[&](CFG::BasicBlock::Jump const& _jump)
 		{

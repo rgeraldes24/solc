@@ -200,9 +200,9 @@ zvmc::Result ZVMHost::call(zvmc_message const& _message) noexcept
 	zvmc_message message = _message;
 	if (message.depth == 0)
 	{
-		message.gas -= message.kind == ZVMC_CREATE ? evmasm::GasCosts::txCreateGas : evmasm::GasCosts::txGas;
+		message.gas -= message.kind == ZVMC_CREATE ? zvmasm::GasCosts::txCreateGas : zvmasm::GasCosts::txGas;
 		for (size_t i = 0; i < message.input_size; ++i)
-			message.gas -= message.input_data[i] == 0 ? evmasm::GasCosts::txDataZeroGas : evmasm::GasCosts::txDataNonZeroGas;
+			message.gas -= message.input_data[i] == 0 ? zvmasm::GasCosts::txDataZeroGas : zvmasm::GasCosts::txDataNonZeroGas;
 		if (message.gas < 0)
 		{
 			zvmc::Result result;
@@ -304,7 +304,7 @@ zvmc::Result ZVMHost::call(zvmc_message const& _message) noexcept
 
 	if (message.kind == ZVMC_CREATE || message.kind == ZVMC_CREATE2)
 	{
-		result.gas_left -= static_cast<int64_t>(evmasm::GasCosts::createDataGas * result.output_size);
+		result.gas_left -= static_cast<int64_t>(zvmasm::GasCosts::createDataGas * result.output_size);
 		if (result.gas_left < 0)
 		{
 			result.gas_left = 0;
