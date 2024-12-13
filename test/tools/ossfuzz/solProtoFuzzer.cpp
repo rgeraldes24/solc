@@ -20,7 +20,7 @@
 #include <test/tools/ossfuzz/SolidityEvmoneInterface.h>
 #include <test/tools/ossfuzz/solProto.pb.h>
 
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <evmone/evmone.h>
 #include <src/libfuzzer/libfuzzer_macro.h>
@@ -65,7 +65,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 
 	// We target the default EVM which is the latest
 	langutil::EVMVersion version;
-	EVMHost hostContext(version, evmone);
+	ZVMHost hostContext(version, evmone);
 	string contractName = "C";
 	string libraryName = converter.libraryTest() ? converter.libraryName() : "";
 	string methodName = "test()";

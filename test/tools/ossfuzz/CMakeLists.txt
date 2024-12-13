@@ -116,7 +116,7 @@ if (OSSFUZZ)
             StackReuseCodegenFuzzer.cpp
             protoToYul.cpp
             yulProto.pb.cc
-            ../../EVMHost.cpp
+            ../../ZVMHost.cpp
             YulEvmoneInterface.cpp
     )
     target_include_directories(stack_reuse_codegen_ossfuzz PRIVATE /usr/include/libprotobuf-mutator)
@@ -139,7 +139,7 @@ if (OSSFUZZ)
     )
 
     add_executable(abiv2_proto_ossfuzz
-            ../../EVMHost.cpp
+            ../../ZVMHost.cpp
             abiV2ProtoFuzzer.cpp
             SolidityEvmoneInterface.cpp
             protoToAbiV2.cpp
@@ -161,7 +161,7 @@ if (OSSFUZZ)
     add_executable(abiv2_isabelle_ossfuzz
             AbiV2IsabelleFuzzer.cpp
             SolidityEvmoneInterface.cpp
-            ../../EVMHost.cpp
+            ../../ZVMHost.cpp
             protoToAbiV2.cpp
             abiV2Proto.pb.cc
     )
@@ -185,7 +185,7 @@ if (OSSFUZZ)
             SolidityEvmoneInterface.cpp
             protoToSol.cpp
             solProto.pb.cc
-            ../../EVMHost.cpp
+            ../../ZVMHost.cpp
     )
     target_include_directories(sol_proto_ossfuzz PRIVATE
             /usr/include/libprotobuf-mutator
@@ -250,7 +250,7 @@ else()
 #            protobuf.a
 #            FuzzingEngine.a)
 #    add_executable(abiv2_proto_ossfuzz
-#            ../../EVMHost.cpp
+#            ../../ZVMHost.cpp
 #            abiV2ProtoFuzzer.cpp
 #            abiV2FuzzerCommon.cpp
 #            protoToAbiV2.cpp

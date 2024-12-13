@@ -23,7 +23,7 @@
 #include <test/Common.h>
 #include <test/tools/IsolTestOptions.h>
 #include <test/InteractiveTests.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>

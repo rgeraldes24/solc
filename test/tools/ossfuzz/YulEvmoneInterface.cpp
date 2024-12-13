@@ -43,7 +43,7 @@ std::shared_ptr<yul::Object> YulAssembler::object()
 	return m_stack.parserResult();
 }
 
-evmc::Result YulEvmoneUtility::deployCode(bytes const& _input, EVMHost& _host)
+evmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
 {
 	// Zero initialize all message fields
 	evmc_message msg = {};

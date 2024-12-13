@@ -15,7 +15,7 @@ add_executable(isoltest
 	IsolTestOptions.cpp
 	../Common.cpp
 	../CommonSyntaxTest.cpp
-	../EVMHost.cpp
+	../ZVMHost.cpp
 	../TestCase.cpp
 	../TestCaseReader.cpp
 	../libhyperion/util/BytesUtils.cpp

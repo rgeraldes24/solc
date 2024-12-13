@@ -4,8 +4,8 @@ set(sources
     Common.h
     CommonSyntaxTest.cpp
     CommonSyntaxTest.h
-    EVMHost.cpp
-    EVMHost.h
+    ZVMHost.cpp
+    ZVMHost.h
     ExecutionFramework.cpp
     ExecutionFramework.h
     FilesystemUtils.cpp

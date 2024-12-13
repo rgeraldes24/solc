@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <libhyperion/interface/CompilerStack.h>
 
@@ -106,7 +106,7 @@ class EvmoneUtility
 {
 public:
 	EvmoneUtility(
-		solidity::test::EVMHost& _evmHost,
+		solidity::test::ZVMHost& _evmHost,
 		CompilerInput _compilerInput,
 		std::string const& _contractName,
 		std::string const& _libraryName,
@@ -160,7 +160,7 @@ private:
 	std::optional<CompilerOutput> compileContract();
 
 	/// EVM Host implementation
-	solidity::test::EVMHost& m_evmHost;
+	solidity::test::ZVMHost& m_evmHost;
 	/// Solidity compilation framework
 	SolidityCompilationFramework m_compilationFramework;
 	/// Contract name

@@ -18,7 +18,7 @@
 #include <test/tools/ossfuzz/yulProto.pb.h>
 #include <test/tools/ossfuzz/protoToYul.h>
 
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <test/tools/ossfuzz/YulEvmoneInterface.h>
 
@@ -84,7 +84,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// Do not fuzz the EVM Version field.
 	// See https://github.com/ethereum/solidity/issues/12590
 	langutil::EVMVersion version;
-	EVMHost hostContext(version, evmone);
+	ZVMHost hostContext(version, evmone);
 	hostContext.reset();
 
 	if (const char* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
@@ -149,7 +149,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 			(!noInvalidInSource && callResult.status_code == EVMC_INVALID_INSTRUCTION)),
 			"Unoptimised call failed."
 		);
-		unoptimizedState << EVMHostPrinter{hostContext, deployResult.create_address}.state();
+		unoptimizedState << ZVMHostPrinter{hostContext, deployResult.create_address}.state();
 	}
 
 	settings.runYulOptimiser = true;
@@ -195,7 +195,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		"Optimised call failed."
 	);
 	ostringstream optimizedState;
-	optimizedState << EVMHostPrinter{hostContext, deployResultOpt.create_address}.state();
+	optimizedState << ZVMHostPrinter{hostContext, deployResultOpt.create_address}.state();
 
 	if (unoptimizedState.str() != optimizedState.str())
 	{

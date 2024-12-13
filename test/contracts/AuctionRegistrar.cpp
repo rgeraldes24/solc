@@ -23,7 +23,7 @@
 
 #include <test/libhyperion/SolidityExecutionFramework.h>
 #include <test/contracts/ContractInterface.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <libhyputil/LazyInit.h>
 

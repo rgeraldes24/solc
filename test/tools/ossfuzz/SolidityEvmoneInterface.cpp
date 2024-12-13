@@ -144,7 +144,7 @@ evmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 			createResult.status_code == EVMC_SUCCESS,
 			"SolidityEvmoneInterface: Library deployment failed"
 		);
-		libraryAddressMap[m_libraryName] = EVMHost::convertFromEVMC(createResult.create_address);
+		libraryAddressMap[m_libraryName] = ZVMHost::convertFromEVMC(createResult.create_address);
 		m_compilationFramework.libraryAddresses(libraryAddressMap);
 	}
 

@@ -39,7 +39,7 @@
 
 #include <test/InteractiveTests.h>
 #include <test/Common.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>

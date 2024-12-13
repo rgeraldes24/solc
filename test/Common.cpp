@@ -19,11 +19,11 @@
 #include <stdexcept>
 #include <iostream>
 #include <test/Common.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libhyputil/Assertions.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
@@ -284,7 +284,7 @@ bool loadVMs(CommonOptions const& _options)
 	if (_options.disableSemanticTests)
 		return true;
 
-	bool evmSupported = solidity::test::EVMHost::checkVmPaths(_options.vmPaths);
+	bool evmSupported = solidity::test::ZVMHost::checkVmPaths(_options.vmPaths);
 	if (!_options.disableSemanticTests && !evmSupported)
 	{
 		std::cerr << "Unable to find " << solidity::test::evmoneFilename;

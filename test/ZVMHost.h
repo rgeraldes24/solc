@@ -42,7 +42,7 @@ struct EVMPrecompileOutput {
 	int64_t gas_used;
 };
 
-class EVMHost: public evmc::MockedHost
+class ZVMHost: public evmc::MockedHost
 {
 public:
 	// Verbatim features of MockedHost.
@@ -74,7 +74,7 @@ public:
 	/// @returns true, if an evmc vm supporting evm1 was loaded properly,
 	static bool checkVmPaths(std::vector<boost::filesystem::path> const& _vmPaths);
 
-	explicit EVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm);
+	explicit ZVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm);
 
 	/// Reset entire state (including accounts).
 	void reset();
@@ -128,11 +128,11 @@ private:
 	evmc_revision m_evmRevision;
 };
 
-class EVMHostPrinter
+class ZVMHostPrinter
 {
 public:
 	/// Constructs a host printer object for state at @param _address.
-	explicit EVMHostPrinter(EVMHost& _host, evmc::address _address):
+	explicit ZVMHostPrinter(ZVMHost& _host, evmc::address _address):
 		m_host(_host),
 		m_account(_address)
 	{}
@@ -147,7 +147,7 @@ private:
 	void balance();
 
 	std::ostringstream m_stateStream;
-	EVMHost& m_host;
+	ZVMHost& m_host;
 	evmc::address m_account;
 };
 

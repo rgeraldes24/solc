@@ -25,7 +25,7 @@
 #include <test/libhyperion/SolidityExecutionFramework.h>
 
 #include <test/Common.h>
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/EVMVersion.h>

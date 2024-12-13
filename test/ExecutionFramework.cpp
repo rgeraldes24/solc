@@ -23,7 +23,7 @@
 
 #include <test/ExecutionFramework.h>
 
-#include <test/EVMHost.h>
+#include <test/ZVMHost.h>
 
 #include <test/evmc/evmc.hpp>
 
@@ -68,10 +68,10 @@ void ExecutionFramework::selectVM(evmc_capabilities _cap)
 	m_evmcHost.reset();
 	for (auto const& path: m_vmPaths)
 	{
-		evmc::VM& vm = EVMHost::getVM(path.string());
+		evmc::VM& vm = ZVMHost::getVM(path.string());
 		if (vm.has_capability(_cap))
 		{
-			m_evmcHost = make_unique<EVMHost>(m_evmVersion, vm);
+			m_evmcHost = make_unique<ZVMHost>(m_evmVersion, vm);
 			break;
 		}
 	}
@@ -83,8 +83,8 @@ void ExecutionFramework::reset()
 {
 	m_evmcHost->reset();
 	for (size_t i = 0; i < 10; i++)
-		m_evmcHost->accounts[EVMHost::convertToEVMC(account(i))].balance =
-			EVMHost::convertToEVMC(u256(1) << 100);
+		m_evmcHost->accounts[ZVMHost::convertToEVMC(account(i))].balance =
+			ZVMHost::convertToEVMC(u256(1) << 100);
 }
 
 std::pair<bool, string> ExecutionFramework::compareAndCreateMessage(
@@ -128,12 +128,12 @@ u256 ExecutionFramework::gasPrice() const
 	// here and below we use "return u256{....}" instead of just "return {....}"
 	// to please MSVC and avoid unexpected
 	// warning C4927 : illegal conversion; more than one user - defined conversion has been implicitly applied
-	return u256{EVMHost::convertFromEVMC(m_evmcHost->tx_context.tx_gas_price)};
+	return u256{ZVMHost::convertFromEVMC(m_evmcHost->tx_context.tx_gas_price)};
 }
 
 u256 ExecutionFramework::blockHash(u256 const& _number) const
 {
-	return u256{EVMHost::convertFromEVMC(
+	return u256{ZVMHost::convertFromEVMC(
 		m_evmcHost->get_block_hash(static_cast<int64_t>(_number & numeric_limits<uint64_t>::max()))
 	)};
 }
@@ -160,8 +160,8 @@ void ExecutionFramework::sendMessage(bytes const& _data, bool _isCreation, u256 
 	evmc_message message{};
 	message.input_data = _data.data();
 	message.input_size = _data.size();
-	message.sender = EVMHost::convertToEVMC(m_sender);
-	message.value = EVMHost::convertToEVMC(_value);
+	message.sender = ZVMHost::convertToEVMC(m_sender);
+	message.value = ZVMHost::convertToEVMC(_value);
 
 	if (_isCreation)
 	{
@@ -172,7 +172,7 @@ void ExecutionFramework::sendMessage(bytes const& _data, bool _isCreation, u256 
 	else
 	{
 		message.kind = EVMC_CALL;
-		message.recipient = EVMHost::convertToEVMC(m_contractAddress);
+		message.recipient = ZVMHost::convertToEVMC(m_contractAddress);
 		message.code_address = message.recipient;
 	}
 
@@ -182,7 +182,7 @@ void ExecutionFramework::sendMessage(bytes const& _data, bool _isCreation, u256 
 
 	m_output = bytes(result.output_data, result.output_data + result.output_size);
 	if (_isCreation)
-		m_contractAddress = EVMHost::convertFromEVMC(result.create_address);
+		m_contractAddress = ZVMHost::convertFromEVMC(result.create_address);
 
 	unsigned const refundRatio = 5;
 	auto const totalGasUsed = InitialGas - result.gas_left;
@@ -213,10 +213,10 @@ void ExecutionFramework::sendEther(h160 const& _addr, u256 const& _amount)
 			cout << " value: " << _amount << endl;
 	}
 	evmc_message message{};
-	message.sender = EVMHost::convertToEVMC(m_sender);
-	message.value = EVMHost::convertToEVMC(_amount);
+	message.sender = ZVMHost::convertToEVMC(m_sender);
+	message.value = ZVMHost::convertToEVMC(_amount);
 	message.kind = EVMC_CALL;
-	message.recipient = EVMHost::convertToEVMC(_addr);
+	message.recipient = ZVMHost::convertToEVMC(_addr);
 	message.code_address = message.recipient;
 	message.gas = InitialGas.convert_to<int64_t>();
 
@@ -243,7 +243,7 @@ h160 ExecutionFramework::account(size_t _idx)
 
 bool ExecutionFramework::addressHasCode(h160 const& _addr) const
 {
-	return m_evmcHost->get_code_size(EVMHost::convertToEVMC(_addr)) != 0;
+	return m_evmcHost->get_code_size(ZVMHost::convertToEVMC(_addr)) != 0;
 }
 
 size_t ExecutionFramework::numLogs() const
@@ -258,12 +258,12 @@ size_t ExecutionFramework::numLogTopics(size_t _logIdx) const
 
 h256 ExecutionFramework::logTopic(size_t _logIdx, size_t _topicIdx) const
 {
-	return EVMHost::convertFromEVMC(m_evmcHost->recorded_logs.at(_logIdx).topics.at(_topicIdx));
+	return ZVMHost::convertFromEVMC(m_evmcHost->recorded_logs.at(_logIdx).topics.at(_topicIdx));
 }
 
 h160 ExecutionFramework::logAddress(size_t _logIdx) const
 {
-	return EVMHost::convertFromEVMC(m_evmcHost->recorded_logs.at(_logIdx).creator);
+	return ZVMHost::convertFromEVMC(m_evmcHost->recorded_logs.at(_logIdx).creator);
 }
 
 bytes ExecutionFramework::logData(size_t _logIdx) const
@@ -276,12 +276,12 @@ bytes ExecutionFramework::logData(size_t _logIdx) const
 
 u256 ExecutionFramework::balanceAt(h160 const& _addr) const
 {
-	return u256(EVMHost::convertFromEVMC(m_evmcHost->get_balance(EVMHost::convertToEVMC(_addr))));
+	return u256(ZVMHost::convertFromEVMC(m_evmcHost->get_balance(ZVMHost::convertToEVMC(_addr))));
 }
 
 bool ExecutionFramework::storageEmpty(h160 const& _addr) const
 {
-	const auto it = m_evmcHost->accounts.find(EVMHost::convertToEVMC(_addr));
+	const auto it = m_evmcHost->accounts.find(ZVMHost::convertToEVMC(_addr));
 	if (it != m_evmcHost->accounts.end())
 	{
 		for (auto const& entry: it->second.storage)
@@ -296,9 +296,9 @@ vector<solidity::frontend::test::LogRecord> ExecutionFramework::recordedLogs() c
 	vector<LogRecord> logs;
 	for (evmc::MockedHost::log_record const& logRecord: m_evmcHost->recorded_logs)
 		logs.emplace_back(
-			EVMHost::convertFromEVMC(logRecord.creator),
+			ZVMHost::convertFromEVMC(logRecord.creator),
 			bytes{logRecord.data.begin(), logRecord.data.end()},
-			logRecord.topics | ranges::views::transform([](evmc::bytes32 _bytes) { return EVMHost::convertFromEVMC(_bytes); }) | ranges::to<vector>
+			logRecord.topics | ranges::views::transform([](evmc::bytes32 _bytes) { return ZVMHost::convertFromEVMC(_bytes); }) | ranges::to<vector>
 		);
 	return logs;
 }
