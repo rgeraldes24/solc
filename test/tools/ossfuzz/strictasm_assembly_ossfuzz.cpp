@@ -20,10 +20,10 @@
 #include <libyul/backends/evm/ZVMCodeTransform.h>
 
 #include <liblangutil/DebugInfoSelection.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 using namespace std;
 
 // Prototype as we can't use the FuzzerInterface.h header.
@@ -38,9 +38,9 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 
 	string input(reinterpret_cast<char const*>(_data), _size);
 	YulStack stack(
-		langutil::EVMVersion(),
+		langutil::ZVMVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::minimal(),
+		hyperion::frontend::OptimiserSettings::minimal(),
 		langutil::DebugInfoSelection::All()
 	);
 

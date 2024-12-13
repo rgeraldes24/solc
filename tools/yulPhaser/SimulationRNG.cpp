@@ -29,8 +29,8 @@
 #include <limits>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::phaser;
 
 thread_local boost::random::mt19937 SimulationRNG::s_generator(SimulationRNG::generateSeed());
 

@@ -33,10 +33,10 @@
 #include <memory>
 #include <functional>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 EthAssemblyAdapter::EthAssemblyAdapter(evmasm::Assembly& _assembly):
 	m_assembly(_assembly)
@@ -180,7 +180,7 @@ void EthAssemblyAdapter::markAsInvalid()
 	m_assembly.markAsInvalid();
 }
 
-langutil::EVMVersion EthAssemblyAdapter::evmVersion() const
+langutil::ZVMVersion EthAssemblyAdapter::evmVersion() const
 {
 	return m_assembly.evmVersion();
 }

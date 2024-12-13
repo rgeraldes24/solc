@@ -23,14 +23,14 @@
 
 #include <libyul/backends/evm/AbstractAssembly.h>
 #include <libyul/AsmAnalysis.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 class Assembly;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Block;
 struct AsmAnalysisInfo;
@@ -43,7 +43,7 @@ public:
 		Block const& _parsedData,
 		AsmAnalysisInfo& _analysisInfo,
 		evmasm::Assembly& _assembly,
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		ExternalIdentifierAccess::CodeGenerator _identifierAccess = {},
 		bool _useNamedLabelsForFunctions = false,
 		bool _optimizeStackAllocation = false

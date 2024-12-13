@@ -42,16 +42,16 @@
 #include <string>
 #include <vector>
 
-using solidity::util::h256;
+using hyperion::util::h256;
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct ErrorId;
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class BMC: public SMTEncoder

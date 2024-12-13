@@ -31,7 +31,7 @@
 #include <set>
 #include <variant>
 
-namespace solidity::test::fuzzer::mutator
+namespace hyperion::test::fuzzer::mutator
 {
 /// Forward declarations
 class SolidityGenerator;

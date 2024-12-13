@@ -46,13 +46,13 @@
 #include <memory>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::phaser;
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 ostream& operator<<(ostream& _stream, Program const& _program);
@@ -69,7 +69,7 @@ Program::Program(Program const& program):
 variant<Program, ErrorList> Program::load(CharStream& _sourceCode)
 {
 	// ASSUMPTION: parseSource() rewinds the stream on its own
-	Dialect const& dialect = EVMDialect::strictAssemblyForEVMObjects(EVMVersion{});
+	Dialect const& dialect = EVMDialect::strictAssemblyForEVMObjects(ZVMVersion{});
 
 	variant<unique_ptr<Block>, ErrorList> astOrErrors = parseObject(dialect, _sourceCode);
 	if (holds_alternative<ErrorList>(astOrErrors))

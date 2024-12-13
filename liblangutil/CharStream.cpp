@@ -51,8 +51,8 @@
 #include <liblangutil/CharStream.h>
 #include <liblangutil/Exceptions.h>
 
-using namespace solidity;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::langutil;
 
 char CharStream::advanceAndGet(size_t _chars)
 {

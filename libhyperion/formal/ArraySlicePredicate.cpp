@@ -20,10 +20,10 @@
 
 #include <liblangutil/Exceptions.h>
 
-using namespace solidity;
-using namespace solidity::smtutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::smt;
 
 std::map<std::string, ArraySlicePredicate::SliceData> ArraySlicePredicate::m_slicePredicates;
 

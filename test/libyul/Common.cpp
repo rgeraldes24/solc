@@ -39,26 +39,26 @@
 #include <variant>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::langutil;
 
 namespace
 {
 Dialect const& defaultDialect(bool _yul)
 {
-	return _yul ? yul::Dialect::yulDeprecated() : yul::EVMDialect::strictAssemblyForEVM(solidity::test::CommonOptions::get().evmVersion());
+	return _yul ? yul::Dialect::yulDeprecated() : yul::EVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().evmVersion());
 }
 }
 
 pair<shared_ptr<Block>, shared_ptr<yul::AsmAnalysisInfo>> yul::test::parse(string const& _source, bool _yul)
 {
 	YulStack stack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		_yul ? YulStack::Language::Yul : YulStack::Language::StrictAssembly,
-		solidity::test::CommonOptions::get().optimize ?
-			solidity::frontend::OptimiserSettings::standard() :
-			solidity::frontend::OptimiserSettings::minimal(),
+		hyperion::test::CommonOptions::get().optimize ?
+			hyperion::frontend::OptimiserSettings::standard() :
+			hyperion::frontend::OptimiserSettings::minimal(),
 		DebugInfoSelection::All()
 	);
 	if (!stack.parseAndAnalyze("", _source) || !stack.errors().empty())
@@ -101,20 +101,20 @@ string yul::test::format(string const& _source, bool _yul)
 
 namespace
 {
-std::map<string const, yul::Dialect const& (*)(langutil::EVMVersion)> const validDialects = {
+std::map<string const, yul::Dialect const& (*)(langutil::ZVMVersion)> const validDialects = {
 	{
 		"evm",
-		[](langutil::EVMVersion _evmVersion) -> yul::Dialect const&
+		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
 		{ return yul::EVMDialect::strictAssemblyForEVMObjects(_evmVersion); }
 	},
 	{
 		"evmTyped",
-		[](langutil::EVMVersion _evmVersion) -> yul::Dialect const&
+		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
 		{ return yul::EVMDialectTyped::instance(_evmVersion); }
 	},
 	{
 		"yul",
-		[](langutil::EVMVersion) -> yul::Dialect const&
+		[](langutil::ZVMVersion) -> yul::Dialect const&
 		{ return yul::Dialect::yulDeprecated(); }
 	}
 };
@@ -128,7 +128,7 @@ vector<string> validDialectNames()
 }
 }
 
-yul::Dialect const& yul::test::dialect(std::string const& _name, langutil::EVMVersion _evmVersion)
+yul::Dialect const& yul::test::dialect(std::string const& _name, langutil::ZVMVersion _evmVersion)
 {
 	if (!validDialects.count(_name))
 		BOOST_THROW_EXCEPTION(runtime_error{

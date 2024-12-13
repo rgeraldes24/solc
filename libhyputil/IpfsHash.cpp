@@ -23,8 +23,8 @@
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Numeric.h>
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
 namespace
 {
@@ -152,7 +152,7 @@ bytes groupChunksBottomUp(Chunks _currentLevel)
 }
 }
 
-bytes solidity::util::ipfsHash(std::string _data)
+bytes hyperion::util::ipfsHash(std::string _data)
 {
 	size_t const maxChunkSize = 1024 * 256;
 	size_t chunkCount = _data.length() / maxChunkSize + (_data.length() % maxChunkSize > 0 ? 1 : 0);
@@ -196,7 +196,7 @@ bytes solidity::util::ipfsHash(std::string _data)
 	return groupChunksBottomUp(std::move(allChunks));
 }
 
-std::string solidity::util::ipfsHashBase58(std::string _data)
+std::string hyperion::util::ipfsHashBase58(std::string _data)
 {
 	return base58Encode(ipfsHash(std::move(_data)));
 }

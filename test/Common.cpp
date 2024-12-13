@@ -34,7 +34,7 @@ namespace po = boost::program_options;
 
 using namespace std;
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 namespace
@@ -104,7 +104,7 @@ void CommonOptions::addOptions()
 {
 	options.add_options()
 		("evm-version", po::value(&evmVersionString), "which EVM version to use")
-		("testpath", po::value<fs::path>(&this->testPath)->default_value(solidity::test::testPath()), "path to test files")
+		("testpath", po::value<fs::path>(&this->testPath)->default_value(hyperion::test::testPath()), "path to test files")
 		("vm", po::value<std::vector<fs::path>>(&vmPaths), "path to zvmc library, can be supplied multiple times.")
 		("batches", po::value<size_t>(&this->batches)->default_value(1), "set number of batches to split the tests into")
 		("selected-batch", po::value<size_t>(&this->selectedBatch)->default_value(0), "zero-based number of batch to execute")
@@ -144,7 +144,7 @@ void CommonOptions::validate() const
 	if (enforceGasTest)
 	{
 		assertThrow(
-			evmVersion() == langutil::EVMVersion{},
+			evmVersion() == langutil::ZVMVersion{},
 			ConfigException,
 			"Gas costs can only be enforced on latest evm version."
 		);
@@ -228,7 +228,7 @@ string CommonOptions::toString(vector<string> const& _selectedOptions) const
 		ranges::views::transform([&optionValueMap](string const& _option) { return _option + "=" + optionValueMap.at(_option); }) |
 		ranges::to<vector>();
 
-	return solidity::util::joinHumanReadable(optionsWithValues);
+	return hyperion::util::joinHumanReadable(optionsWithValues);
 }
 
 void CommonOptions::printSelectedOptions(ostream& _stream, string const& _linePrefix, vector<string> const& _selectedOptions) const
@@ -236,17 +236,17 @@ void CommonOptions::printSelectedOptions(ostream& _stream, string const& _linePr
 	_stream << _linePrefix << "Run Settings: " << toString(_selectedOptions) << endl;
 }
 
-langutil::EVMVersion CommonOptions::evmVersion() const
+langutil::ZVMVersion CommonOptions::evmVersion() const
 {
 	if (!evmVersionString.empty())
 	{
-		auto version = langutil::EVMVersion::fromString(evmVersionString);
+		auto version = langutil::ZVMVersion::fromString(evmVersionString);
 		if (!version)
 			BOOST_THROW_EXCEPTION(std::runtime_error("Invalid EVM version: " + evmVersionString));
 		return *version;
 	}
 	else
-		return langutil::EVMVersion();
+		return langutil::ZVMVersion();
 }
 
 CommonOptions const& CommonOptions::get()
@@ -284,13 +284,13 @@ bool loadVMs(CommonOptions const& _options)
 	if (_options.disableSemanticTests)
 		return true;
 
-	bool evmSupported = solidity::test::ZVMHost::checkVmPaths(_options.vmPaths);
+	bool evmSupported = hyperion::test::ZVMHost::checkVmPaths(_options.vmPaths);
 	if (!_options.disableSemanticTests && !evmSupported)
 	{
-		std::cerr << "Unable to find " << solidity::test::evmoneFilename;
+		std::cerr << "Unable to find " << hyperion::test::evmoneFilename;
 		std::cerr << ". Please disable semantics tests with --no-semantic-tests or provide a path using --vm <path>." << std::endl;
 		std::cerr << "You can download it at" << std::endl;
-		std::cerr << solidity::test::evmoneDownloadLink << std::endl;
+		std::cerr << hyperion::test::evmoneDownloadLink << std::endl;
 		return false;
 	}
 	return true;

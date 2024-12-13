@@ -41,7 +41,7 @@ namespace langutil
 struct SourceLocation;
 }
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class AssemblyItem;

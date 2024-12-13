@@ -20,14 +20,14 @@
 
 #include <test/TestCase.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 
 namespace test
 {
 
-class StackLayoutGeneratorTest: public solidity::frontend::test::TestCase
+class StackLayoutGeneratorTest: public hyperion::frontend::test::TestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

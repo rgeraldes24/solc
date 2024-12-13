@@ -35,7 +35,7 @@ static_assert(
 	"Unexpected jsoncpp version: " JSONCPP_VERSION_STRING ". Expecting 1.9.3."
 );
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 namespace
@@ -159,4 +159,4 @@ std::optional<Json::Value> jsonValueByPath(Json::Value const& _node, std::string
 	return jsonValueByPath(_node[memberName], _jsonPath.substr(memberName.size() + 1));
 }
 
-} // namespace solidity::util
+} // namespace hyperion::util

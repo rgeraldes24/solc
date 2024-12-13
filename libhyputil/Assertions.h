@@ -29,7 +29,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 #if defined(_MSC_VER)
@@ -85,7 +85,7 @@ inline std::string stringOrDefault(std::string _string, std::string _defaultStri
 		if (!(_condition)) \
 			solThrow( \
 				_exceptionType, \
-				::solidity::util::assertions::stringOrDefault((_description), (_defaultDescription)) \
+				::hyperion::util::assertions::stringOrDefault((_description), (_defaultDescription)) \
 			); \
 	} \
 	while (false)

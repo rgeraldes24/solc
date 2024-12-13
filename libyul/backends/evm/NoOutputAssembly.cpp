@@ -28,10 +28,10 @@
 
 #include <range/v3/view/iota.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 
 void NoOutputAssembly::appendInstruction(evmasm::Instruction _instr)

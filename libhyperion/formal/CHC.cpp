@@ -51,12 +51,12 @@
 #include <charconv>
 #include <queue>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::smtutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::smt;
 
 CHC::CHC(
 	EncodingContext& _context,
@@ -1328,7 +1328,7 @@ std::set<unsigned> CHC::transactionVerificationTargetsIds(ASTNode const* _txRoot
 		bool operator<(ASTNodeCompare _other) const { return operator()(node, _other.node); }
 		ASTNode const* node;
 	};
-	solidity::util::BreadthFirstSearch<ASTNodeCompare>{{{{}, _txRoot}}}.run([&](auto _node, auto&& _addChild) {
+	hyperion::util::BreadthFirstSearch<ASTNodeCompare>{{{{}, _txRoot}}}.run([&](auto _node, auto&& _addChild) {
 		verificationTargetsIds.insert(m_functionTargetIds[_node.node].begin(), m_functionTargetIds[_node.node].end());
 		for (ASTNode const* called: m_callGraph[_node.node])
 			_addChild({{}, called});
@@ -1517,7 +1517,7 @@ void CHC::defineExternalFunctionInterface(FunctionDefinition const& _function, C
 		// For mappings: way more complicated if the element type is a contract.
 		auto hasContractOrAddressSubType = [&](VariableDeclaration const* _var) -> bool {
 			bool foundContract = false;
-			solidity::util::BreadthFirstSearch<Type const*> bfs{{_var->type()}};
+			hyperion::util::BreadthFirstSearch<Type const*> bfs{{_var->type()}};
 			bfs.run([&](auto _type, auto&& _addChild) {
 				if (
 					_type->category() == Type::Category::Address ||
@@ -2276,7 +2276,7 @@ std::optional<std::string> CHC::generateCounterexample(CHCSolverInterface::CexGr
 						localState += outStr + "\n";
 
 					std::optional<unsigned> localErrorId;
-					solidity::util::BreadthFirstSearch<unsigned> bfs{{summaryId}};
+					hyperion::util::BreadthFirstSearch<unsigned> bfs{{summaryId}};
 					bfs.run([&](auto _nodeId, auto&& _addChild) {
 						auto const& children = _graph.edges.at(_nodeId);
 						if (

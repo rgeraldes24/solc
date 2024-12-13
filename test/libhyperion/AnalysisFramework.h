@@ -29,14 +29,14 @@
 #include <string>
 #include <memory>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 class Type;
 class FunctionType;
 using FunctionTypePointer = FunctionType const*;
 }
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 enum class PipelineStage {
@@ -125,7 +125,7 @@ public:
 	}
 
 	/// @returns reference to lazy-instantiated CompilerStack.
-	solidity::frontend::CompilerStack& compiler()
+	hyperion::frontend::CompilerStack& compiler()
 	{
 		if (!m_compiler)
 			m_compiler = createStack();
@@ -133,7 +133,7 @@ public:
 	}
 
 	/// @returns reference to lazy-instantiated CompilerStack.
-	solidity::frontend::CompilerStack const& compiler() const
+	hyperion::frontend::CompilerStack const& compiler() const
 	{
 		if (!m_compiler)
 			m_compiler = createStack();
@@ -157,7 +157,7 @@ protected:
 	std::vector<std::string> m_messagesToCut = {"Source file requires different compiler version (current compiler is"};
 
 private:
-	mutable std::unique_ptr<solidity::frontend::CompilerStack> m_compiler;
+	mutable std::unique_ptr<hyperion::frontend::CompilerStack> m_compiler;
 	PipelineStage m_targetStage = PipelineStage::Compilation;
 };
 

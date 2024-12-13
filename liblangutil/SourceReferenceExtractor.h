@@ -26,7 +26,7 @@
 #include <vector>
 #include <variant>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class CharStreamProvider;

@@ -26,7 +26,7 @@
 #include <sstream>
 
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 static_assert(std::is_same<h160, FixedHash<20>>());

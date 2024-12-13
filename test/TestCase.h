@@ -20,13 +20,13 @@
 
 #include <test/TestCaseReader.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <boost/filesystem.hpp>
 
 #include <string>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 /**
@@ -38,7 +38,7 @@ public:
 	struct Config
 	{
 		std::string filename;
-		langutil::EVMVersion evmVersion;
+		langutil::ZVMVersion evmVersion;
 		std::vector<boost::filesystem::path> vmPaths;
 		bool enforceGasCost = false;
 		u256 enforceGasCostMinValue;
@@ -109,10 +109,10 @@ protected:
 	bool m_shouldRun = true;
 };
 
-class EVMVersionRestrictedTestCase: public TestCase
+class ZVMVersionRestrictedTestCase: public TestCase
 {
 protected:
-	EVMVersionRestrictedTestCase(std::string const& _filename);
+	ZVMVersionRestrictedTestCase(std::string const& _filename);
 };
 
 }

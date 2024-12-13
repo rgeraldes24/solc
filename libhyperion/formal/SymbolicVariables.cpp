@@ -23,11 +23,11 @@
 
 #include <libhyputil/Algorithms.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::smtutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::smt;
 
 SymbolicVariable::SymbolicVariable(
 	frontend::Type const* _type,

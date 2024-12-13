@@ -31,7 +31,7 @@
 #include <memory>
 #include <optional>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 using Type = YulString;

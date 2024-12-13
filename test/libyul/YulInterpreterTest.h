@@ -20,16 +20,16 @@
 
 #include <test/TestCase.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 struct Block;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-class YulInterpreterTest: public solidity::frontend::test::EVMVersionRestrictedTestCase
+class YulInterpreterTest: public hyperion::frontend::test::ZVMVersionRestrictedTestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

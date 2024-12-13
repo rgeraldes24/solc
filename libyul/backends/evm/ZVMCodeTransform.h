@@ -30,12 +30,12 @@
 #include <optional>
 #include <stack>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct AsmAnalysisInfo;

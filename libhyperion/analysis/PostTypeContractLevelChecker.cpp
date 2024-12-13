@@ -26,9 +26,9 @@
 #include <libhyputil/FunctionSelector.h>
 #include <liblangutil/ErrorReporter.h>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool PostTypeContractLevelChecker::check(SourceUnit const& _sourceUnit)
 {

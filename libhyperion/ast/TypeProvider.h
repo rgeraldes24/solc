@@ -26,7 +26,7 @@
 #include <optional>
 #include <utility>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

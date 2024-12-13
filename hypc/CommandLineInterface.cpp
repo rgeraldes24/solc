@@ -26,7 +26,7 @@
 #include <hypc/Exceptions.h>
 
 #include "license.h"
-#include "solidity/BuildInfo.h"
+#include "hyperion/BuildInfo.h"
 
 #include <libhyperion/interface/Version.h>
 #include <libhyperion/ast/ASTJsonExporter.h>
@@ -82,9 +82,9 @@
 #endif
 
 using namespace std::string_literals;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 namespace
 {
@@ -96,7 +96,7 @@ std::set<frontend::InputMode> const CompilerInputModes{
 
 } // anonymous namespace
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 std::ostream& CommandLineInterface::sout(bool _markAsUsed)
@@ -775,7 +775,7 @@ void CommandLineInterface::processInput()
 void CommandLineInterface::printVersion()
 {
 	sout() << "hypc, the hyperion compiler commandline interface" << std::endl;
-	sout() << "Version: " << solidity::frontend::VersionString << std::endl;
+	sout() << "Version: " << hyperion::frontend::VersionString << std::endl;
 }
 
 void CommandLineInterface::printLicense()
@@ -834,7 +834,7 @@ void CommandLineInterface::compile()
 		m_compiler->setRemappings(m_options.input.remappings);
 		m_compiler->setLibraries(m_options.linker.libraries);
 		m_compiler->setViaIR(m_options.output.viaIR);
-		m_compiler->setEVMVersion(m_options.output.evmVersion);
+		m_compiler->setZVMVersion(m_options.output.evmVersion);
 		m_compiler->setRevertStringBehaviour(m_options.output.revertStrings);
 		if (m_options.output.debugInfoSelection.has_value())
 			m_compiler->selectDebugInfo(m_options.output.debugInfoSelection.value());

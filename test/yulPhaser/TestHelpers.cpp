@@ -23,10 +23,10 @@
 #include <regex>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::phaser;
-using namespace solidity::phaser::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::phaser;
+using namespace hyperion::phaser::test;
 
 function<Mutation> phaser::test::wholeChromosomeReplacement(Chromosome _newChromosome)
 {

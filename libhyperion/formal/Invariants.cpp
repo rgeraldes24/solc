@@ -26,11 +26,11 @@
 #include <boost/algorithm/string.hpp>
 
 using boost::algorithm::starts_with;
-using namespace solidity;
-using namespace solidity::smtutil;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend::smt;
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 std::map<Predicate const*, std::set<std::string>> collectInvariants(

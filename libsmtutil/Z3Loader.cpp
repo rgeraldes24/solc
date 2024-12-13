@@ -27,8 +27,8 @@
 #endif
 #include <dlfcn.h>
 
-using namespace solidity;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::smtutil;
 
 Z3Loader const& Z3Loader::get()
 {

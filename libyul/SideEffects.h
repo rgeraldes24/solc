@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <set>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

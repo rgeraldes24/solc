@@ -24,8 +24,8 @@
 
 #include <sstream>
 
-using namespace solidity::test::solprotofuzzer;
-using namespace solidity::util;
+using namespace hyperion::test::solprotofuzzer;
+using namespace hyperion::util;
 using namespace std;
 
 string ProtoConverter::protoToSolidity(Program const& _p)

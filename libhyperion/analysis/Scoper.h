@@ -21,7 +21,7 @@
 #include <libhyperion/ast/ASTForward.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

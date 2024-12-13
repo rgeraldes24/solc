@@ -21,19 +21,19 @@
 #include <test/CommonSyntaxTest.h>
 #include <libyul/Dialect.h>
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-using solidity::test::SyntaxTestError;
+using hyperion::test::SyntaxTestError;
 
-class SyntaxTest: public solidity::test::CommonSyntaxTest
+class SyntaxTest: public hyperion::test::CommonSyntaxTest
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)
 	{
 		return std::make_unique<SyntaxTest>(_config.filename, _config.evmVersion);
 	}
-	SyntaxTest(std::string const& _filename, langutil::EVMVersion _evmVersion);
+	SyntaxTest(std::string const& _filename, langutil::ZVMVersion _evmVersion);
 	~SyntaxTest() override {}
 protected:
 	void parseAndAnalyze() override;

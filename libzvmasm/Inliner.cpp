@@ -38,15 +38,15 @@
 #include <optional>
 #include <limits>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 
 namespace
 {
 /// @returns an estimation of the runtime gas cost of the AsssemblyItems in @a _itemRange.
 template<typename RangeType>
-u256 executionCost(RangeType const& _itemRange, langutil::EVMVersion _evmVersion)
+u256 executionCost(RangeType const& _itemRange, langutil::ZVMVersion _evmVersion)
 {
 	GasMeter gasMeter{std::make_shared<KnownState>(), _evmVersion};
 	auto gasConsumption = ranges::accumulate(_itemRange | ranges::views::transform(

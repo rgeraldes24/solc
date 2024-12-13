@@ -22,7 +22,7 @@
 
 #include <libyul/optimiser/Suite.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <boost/algorithm/string.hpp>
 
@@ -32,12 +32,12 @@
 
 #include <fmt/format.h>
 
-using namespace solidity::langutil;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
 
 namespace po = boost::program_options;
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 static std::string const g_strAllowPaths = "allow-paths";
@@ -46,7 +46,7 @@ static std::string const g_strIncludePath = "include-path";
 static std::string const g_strAssemble = "assemble";
 static std::string const g_strCombinedJson = "combined-json";
 static std::string const g_strEVM = "evm";
-static std::string const g_strEVMVersion = "evm-version";
+static std::string const g_strZVMVersion = "evm-version";
 static std::string const g_strViaIR = "via-ir";
 static std::string const g_strExperimentalViaIR = "experimental-via-ir";
 static std::string const g_strGas = "gas";
@@ -601,8 +601,8 @@ General Information)").c_str(),
 			"Overwrite existing files (used together with -o)."
 		)
 		(
-			g_strEVMVersion.c_str(),
-			po::value<std::string>()->value_name("version")->default_value(EVMVersion{}.name()),
+			g_strZVMVersion.c_str(),
+			po::value<std::string>()->value_name("version")->default_value(ZVMVersion{}.name()),
 			"Select desired EVM version: shanghai."
 		)
 	;
@@ -1182,12 +1182,12 @@ void CommandLineParser::processArgs()
 	if (m_options.input.mode == InputMode::Linker)
 		return;
 
-	if (m_args.count(g_strEVMVersion))
+	if (m_args.count(g_strZVMVersion))
 	{
-		std::string versionOptionStr = m_args[g_strEVMVersion].as<std::string>();
-		std::optional<langutil::EVMVersion> versionOption = langutil::EVMVersion::fromString(versionOptionStr);
+		std::string versionOptionStr = m_args[g_strZVMVersion].as<std::string>();
+		std::optional<langutil::ZVMVersion> versionOption = langutil::ZVMVersion::fromString(versionOptionStr);
 		if (!versionOption)
-			solThrow(CommandLineValidationError, "Invalid option for --" + g_strEVMVersion + ": " + versionOptionStr);
+			solThrow(CommandLineValidationError, "Invalid option for --" + g_strZVMVersion + ": " + versionOptionStr);
 		m_options.output.evmVersion = *versionOption;
 	}
 
@@ -1473,4 +1473,4 @@ std::string CommandLineParser::joinOptionNames(std::vector<std::string> const& _
 	);
 }
 
-} // namespace solidity::frontend
+} // namespace hyperion::frontend

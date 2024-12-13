@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 #include <libhyperion/lsp/HandlerBase.h>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class GotoDefinition: public HandlerBase

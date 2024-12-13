@@ -34,18 +34,18 @@
 #include <string>
 #include <utility>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::util::formatting;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::util::formatting;
+using namespace hyperion::frontend::test;
 using namespace boost::algorithm;
 using namespace boost::unit_test;
 using namespace std::string_literals;
 namespace fs = boost::filesystem;
 
-std::ostream& solidity::frontend::test::operator<<(std::ostream& _output, RequiresYulOptimizer _requiresYulOptimizer)
+std::ostream& hyperion::frontend::test::operator<<(std::ostream& _output, RequiresYulOptimizer _requiresYulOptimizer)
 {
 	switch (_requiresYulOptimizer)
 	{
@@ -58,13 +58,13 @@ std::ostream& solidity::frontend::test::operator<<(std::ostream& _output, Requir
 
 SemanticTest::SemanticTest(
 	std::string const& _filename,
-	langutil::EVMVersion _evmVersion,
+	langutil::ZVMVersion _evmVersion,
 	std::vector<boost::filesystem::path> const& _vmPaths,
 	bool _enforceGasCost,
 	u256 _enforceGasCostMinValue
 ):
 	SolidityExecutionFramework(_evmVersion, _vmPaths, false),
-	EVMVersionRestrictedTestCase(_filename),
+	ZVMVersionRestrictedTestCase(_filename),
 	m_sources(m_reader.sources()),
 	m_lineOffset(m_reader.lineNumber()),
 	m_builtins(makeBuiltins()),
@@ -87,7 +87,7 @@ SemanticTest::SemanticTest(
 	);
 
 	m_runWithABIEncoderV1Only = m_reader.boolSetting("ABIEncoderV1Only", false);
-	if (m_runWithABIEncoderV1Only && !solidity::test::CommonOptions::get().useABIEncoderV1)
+	if (m_runWithABIEncoderV1Only && !hyperion::test::CommonOptions::get().useABIEncoderV1)
 		m_shouldRun = false;
 
 	std::string compileViaYul = m_reader.stringSetting("compileViaYul", "also");
@@ -320,14 +320,14 @@ TestCase::TestResult SemanticTest::run(std::ostream& _stream, std::string const&
 
 	if (m_testCaseWantsYulRun && result == TestResult::Success)
 	{
-		if (solidity::test::CommonOptions::get().optimize)
+		if (hyperion::test::CommonOptions::get().optimize)
 			result = runTest(_stream, _linePrefix, _formatted, true /* _isYulRun */);
 		else
 			result = tryRunTestWithYulOptimizer(_stream, _linePrefix, _formatted);
 	}
 
 	if (result != TestResult::Success)
-		solidity::test::CommonOptions::get().printSelectedOptions(
+		hyperion::test::CommonOptions::get().printSelectedOptions(
 			_stream,
 			_linePrefix,
 			{"evmVersion", "optimize", "useABIEncoderV1", "batch"}
@@ -358,7 +358,7 @@ TestCase::TestResult SemanticTest::runTest(
 	for (TestFunctionCall& test: m_tests)
 		test.reset();
 
-	std::map<std::string, solidity::test::Address> libraries;
+	std::map<std::string, hyperion::test::Address> libraries;
 
 	bool constructed = false;
 
@@ -682,7 +682,7 @@ bool SemanticTest::deploy(
 	std::string const& _contractName,
 	u256 const& _value,
 	bytes const& _arguments,
-	std::map<std::string, solidity::test::Address> const& _libraries
+	std::map<std::string, hyperion::test::Address> const& _libraries
 )
 {
 	auto output = compileAndRunWithoutCheck(m_sources.sources, _value, _contractName, _arguments, _libraries, m_sources.mainSourceFile);

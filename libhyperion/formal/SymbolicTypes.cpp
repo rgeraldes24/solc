@@ -26,10 +26,10 @@
 #include <memory>
 #include <vector>
 
-using namespace solidity::util;
-using namespace solidity::smtutil;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 SortPointer smtSort(frontend::Type const& _type)

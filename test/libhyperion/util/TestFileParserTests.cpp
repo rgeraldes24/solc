@@ -30,10 +30,10 @@
 #include <test/libhyperion/util/SoltestErrors.h>
 #include <test/libhyperion/util/TestFileParser.h>
 
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 using fmt = ExecutionFramework;

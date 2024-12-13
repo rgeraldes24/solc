@@ -25,9 +25,9 @@
 #include <libzvmasm/Exceptions.h>
 #include <libhyputil/Common.h>
 #include <libhyputil/Assertions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 /// Virtual machine bytecode instruction.

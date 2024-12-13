@@ -187,4 +187,4 @@ add_library(yul
 	optimiser/VarNameCleaner.h
 )
 
-target_link_libraries(yul PUBLIC evmasm solutil langutil smtutil fmt::fmt-header-only)
+target_link_libraries(yul PUBLIC evmasm hyputil langutil smtutil fmt::fmt-header-only)

@@ -33,11 +33,11 @@
 #include <sstream>
 #include <vector>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
-std::string solidity::yul::reindent(std::string const& _code)
+std::string hyperion::yul::reindent(std::string const& _code)
 {
 	int constexpr indentationWidth = 4;
 
@@ -86,7 +86,7 @@ std::string solidity::yul::reindent(std::string const& _code)
 	return out.str();
 }
 
-u256 solidity::yul::valueOfNumberLiteral(Literal const& _literal)
+u256 hyperion::yul::valueOfNumberLiteral(Literal const& _literal)
 {
 	yulAssert(_literal.kind == LiteralKind::Number, "Expected number literal!");
 
@@ -103,7 +103,7 @@ u256 solidity::yul::valueOfNumberLiteral(Literal const& _literal)
 	return it->second;
 }
 
-u256 solidity::yul::valueOfStringLiteral(Literal const& _literal)
+u256 hyperion::yul::valueOfStringLiteral(Literal const& _literal)
 {
 	yulAssert(_literal.kind == LiteralKind::String, "Expected string literal!");
 	yulAssert(_literal.value.str().size() <= 32, "Literal string too long!");
@@ -123,7 +123,7 @@ u256 yul::valueOfBoolLiteral(Literal const& _literal)
 	yulAssert(false, "Unexpected bool literal value!");
 }
 
-u256 solidity::yul::valueOfLiteral(Literal const& _literal)
+u256 hyperion::yul::valueOfLiteral(Literal const& _literal)
 {
 	switch (_literal.kind)
 	{

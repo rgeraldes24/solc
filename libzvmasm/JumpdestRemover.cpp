@@ -26,9 +26,9 @@
 
 #include <limits>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
 
 bool JumpdestRemover::optimise(std::set<size_t> const& _tagsReferencedFromOutside)
 {

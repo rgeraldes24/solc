@@ -31,9 +31,9 @@
 #include <libhyputil/StringUtils.h>
 #include <libhyperion/ast/TypeProvider.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
 using namespace std::string_literals;
 
 std::string YulUtilFunctions::identityFunction()

@@ -40,8 +40,8 @@
 
 #include <range/v3/algorithm/all_of.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 /// Variable names for special constants that can never appear in actual Yul code.
 static std::string const zero{"@ 0"};

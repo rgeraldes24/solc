@@ -34,14 +34,14 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 
-static vector<EVMVersion> s_evmVersions = {
-	EVMVersion::shanghai()
+static vector<ZVMVersion> s_evmVersions = {
+	ZVMVersion::shanghai()
 };
 
 void FuzzerUtil::testCompilerJsonInterface(string const& _input, bool _optimize, bool _quiet)
@@ -86,7 +86,7 @@ void FuzzerUtil::testCompiler(
 )
 {
 	frontend::CompilerStack compiler;
-	EVMVersion evmVersion = s_evmVersions[_rand % s_evmVersions.size()];
+	ZVMVersion evmVersion = s_evmVersions[_rand % s_evmVersions.size()];
 	frontend::OptimiserSettings optimiserSettings;
 	if (_optimize)
 		optimiserSettings = frontend::OptimiserSettings::standard();
@@ -112,7 +112,7 @@ void FuzzerUtil::testCompiler(
 		});
 	}
 	compiler.setSources(_input);
-	compiler.setEVMVersion(evmVersion);
+	compiler.setZVMVersion(evmVersion);
 	compiler.setOptimiserSettings(optimiserSettings);
 	compiler.setViaIR(_compileViaYul);
 	try
@@ -187,7 +187,7 @@ void FuzzerUtil::testConstantOptimizer(string const& _input, bool _quiet)
 
 	for (bool isCreation: {false, true})
 	{
-		Assembly assembly{langutil::EVMVersion{}, isCreation, {}};
+		Assembly assembly{langutil::ZVMVersion{}, isCreation, {}};
 		for (u256 const& n: numbers)
 		{
 			if (!_quiet)
@@ -201,7 +201,7 @@ void FuzzerUtil::testConstantOptimizer(string const& _input, bool _quiet)
 			ConstantOptimisationMethod::optimiseConstants(
 				isCreation,
 				runs,
-				langutil::EVMVersion{},
+				langutil::ZVMVersion{},
 				tmp
 			);
 		}

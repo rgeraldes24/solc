@@ -24,10 +24,10 @@
 #include <libzvmasm/KnownState.h>
 #include <libzvmasm/SemanticInformation.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
-PathGasMeter::PathGasMeter(AssemblyItems const& _items, langutil::EVMVersion _evmVersion):
+PathGasMeter::PathGasMeter(AssemblyItems const& _items, langutil::ZVMVersion _evmVersion):
 	m_items(_items), m_evmVersion(_evmVersion)
 {
 	for (size_t i = 0; i < m_items.size(); ++i)

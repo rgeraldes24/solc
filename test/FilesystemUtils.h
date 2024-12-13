@@ -26,7 +26,7 @@
 #include <set>
 #include <string>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 /// Creates all the specified files and fills them with the specifiedcontent. Creates their parent

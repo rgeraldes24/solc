@@ -26,16 +26,16 @@
 #include <libyul/Dialect.h>
 #include <libyul/YulString.h>
 #include <libyul/optimiser/ASTWalker.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <optional>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 enum class Instruction: uint8_t;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /// Removes statements that are just empty blocks (non-recursive).
@@ -52,7 +52,7 @@ std::optional<evmasm::Instruction> toEVMInstruction(Dialect const& _dialect, Yul
 
 /// Helper function that returns the EVM version from a dialect.
 /// It returns the default EVM version if dialect is not an EVMDialect.
-langutil::EVMVersion const evmVersionFromDialect(Dialect const& _dialect);
+langutil::ZVMVersion const evmVersionFromDialect(Dialect const& _dialect);
 
 class StatementRemover: public ASTModifier
 {

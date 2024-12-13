@@ -30,7 +30,7 @@
 #include <optional>
 #include <ostream>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /**

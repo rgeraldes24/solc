@@ -21,7 +21,7 @@
 #include <libhyperion/ast/ASTVisitor.h>
 #include <liblangutil/ErrorReporter.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

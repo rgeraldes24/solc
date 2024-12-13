@@ -25,9 +25,9 @@
 
 #include <range/v3/view/reverse.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 void ASTWalker::operator()(FunctionCall const& _funCall)
 {

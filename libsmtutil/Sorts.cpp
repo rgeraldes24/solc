@@ -19,7 +19,7 @@
 
 #include <libsmtutil/Sorts.h>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 std::shared_ptr<Sort> const SortProvider::boolSort{std::make_shared<Sort>(Kind::Bool)};

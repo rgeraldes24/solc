@@ -23,7 +23,7 @@
 #include <string>
 #include <map>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class FileRepository

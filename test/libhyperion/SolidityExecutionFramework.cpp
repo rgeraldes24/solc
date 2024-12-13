@@ -34,11 +34,11 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity::langutil;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion::langutil;
+using namespace hyperion::test;
 
 bytes SolidityExecutionFramework::multiSourceCompileContract(
 	std::map<std::string, std::string> const& _sourceCode,
@@ -53,11 +53,11 @@ bytes SolidityExecutionFramework::multiSourceCompileContract(
 	m_compiler.reset();
 	m_compiler.setSources(withPreamble(
 		_sourceCode,
-		solidity::test::CommonOptions::get().useABIEncoderV1 // _addAbicoderV1Pragma
+		hyperion::test::CommonOptions::get().useABIEncoderV1 // _addAbicoderV1Pragma
 	));
 	m_compiler.setLibraries(_libraryAddresses);
 	m_compiler.setRevertStringBehaviour(m_revertStrings);
-	m_compiler.setEVMVersion(m_evmVersion);
+	m_compiler.setZVMVersion(m_evmVersion);
 	m_compiler.setOptimiserSettings(m_optimiserSettings);
 	m_compiler.enableEvmBytecodeGeneration(true);
 	m_compiler.setViaIR(m_compileViaYul);

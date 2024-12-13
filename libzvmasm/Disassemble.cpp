@@ -22,12 +22,12 @@
 #include <libhyputil/CommonIO.h>
 #include <functional>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
 
 
-void solidity::evmasm::eachInstruction(
+void hyperion::evmasm::eachInstruction(
 	bytes const& _mem,
 	std::function<void(Instruction,u256 const&)> const& _onInstruction
 )
@@ -56,7 +56,7 @@ void solidity::evmasm::eachInstruction(
 	}
 }
 
-std::string solidity::evmasm::disassemble(bytes const& _mem, std::string const& _delimiter)
+std::string hyperion::evmasm::disassemble(bytes const& _mem, std::string const& _delimiter)
 {
 	std::stringstream ret;
 	eachInstruction(_mem, [&](Instruction _instr, u256 const& _data) {

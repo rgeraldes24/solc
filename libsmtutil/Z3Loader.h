@@ -18,7 +18,7 @@
 
 #pragma once
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class Z3Loader

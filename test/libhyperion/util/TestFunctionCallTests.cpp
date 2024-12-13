@@ -25,10 +25,10 @@
 
 #include <test/libhyperion/util/TestFunctionCall.h>
 
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(TestFunctionCallTest)

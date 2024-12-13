@@ -31,13 +31,13 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
-using solidity::util::GenericVisitor;
-using solidity::util::contains_if;
-using solidity::util::joinHumanReadable;
+using hyperion::util::GenericVisitor;
+using hyperion::util::contains_if;
+using hyperion::util::joinHumanReadable;
 
 namespace
 {

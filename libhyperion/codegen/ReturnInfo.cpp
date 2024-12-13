@@ -21,8 +21,8 @@
 #include <libhyperion/ast/Types.h>
 #include <libhyperion/ast/AST.h>
 
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 ReturnInfo::ReturnInfo(FunctionType const& _functionType)
 {

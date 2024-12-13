@@ -22,7 +22,7 @@
 
 #include <json/json.h>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 using ABITypes = std::vector<ABIType>;

@@ -34,7 +34,7 @@
 #include <libzvmasm/Assembly.h>
 #include <libzvmasm/Instruction.h>
 #include <liblangutil/ErrorReporter.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libhyputil/Common.h>
 #include <libhyputil/ErrorCodes.h>
 
@@ -48,7 +48,7 @@
 #include <utility>
 #include <limits>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Compiler;
@@ -61,7 +61,7 @@ class CompilerContext
 {
 public:
 	explicit CompilerContext(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		RevertStrings _revertStrings,
 		CompilerContext* _runtimeContext = nullptr
 	):
@@ -77,7 +77,7 @@ public:
 			m_runtimeSub = size_t(m_asm->newSub(m_runtimeContext->m_asm).data());
 	}
 
-	langutil::EVMVersion const& evmVersion() const { return m_evmVersion; }
+	langutil::ZVMVersion const& evmVersion() const { return m_evmVersion; }
 
 	void setUseABICoderV2(bool _value) { m_useABICoderV2 = _value; }
 	bool useABICoderV2() const { return m_useABICoderV2; }
@@ -348,7 +348,7 @@ private:
 
 	evmasm::AssemblyPointer m_asm;
 	/// Version of the EVM to compile against.
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	RevertStrings const m_revertStrings;
 	bool m_useABICoderV2 = false;
 	/// Other already compiled contracts to be used in contract creation calls.

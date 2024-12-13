@@ -45,7 +45,7 @@
 #include <range/v3/view/map.hpp>
 
 using namespace std::string_literals;
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
 namespace
 {
@@ -53,7 +53,7 @@ namespace
 template<typename V, template<typename> typename C>
 void addIfSet(std::vector<std::pair<std::string, Json::Value>>& _attributes, std::string const& _name, C<V> const& _value)
 {
-	if constexpr (std::is_same_v<C<V>, solidity::util::SetOnce<V>>)
+	if constexpr (std::is_same_v<C<V>, hyperion::util::SetOnce<V>>)
 	{
 		if (!_value.set())
 			return;
@@ -69,7 +69,7 @@ void addIfSet(std::vector<std::pair<std::string, Json::Value>>& _attributes, std
 
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 ASTJsonExporter::ASTJsonExporter(CompilerStack::State _stackState, std::map<std::string, unsigned> _sourceIndices):
@@ -666,7 +666,7 @@ bool ASTJsonExporter::visit(InlineAssembly const& _node)
 	std::vector<std::pair<std::string, Json::Value>> attributes = {
 		std::make_pair("AST", Json::Value(yul::AsmJsonConverter(sourceIndexFromLocation(_node.location()))(_node.operations()))),
 		std::make_pair("externalReferences", std::move(externalReferencesJson)),
-		std::make_pair("evmVersion", dynamic_cast<solidity::yul::EVMDialect const&>(_node.dialect()).evmVersion().name())
+		std::make_pair("evmVersion", dynamic_cast<hyperion::yul::EVMDialect const&>(_node.dialect()).evmVersion().name())
 	};
 
 	if (_node.flags())

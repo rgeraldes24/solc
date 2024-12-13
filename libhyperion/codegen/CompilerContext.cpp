@@ -55,11 +55,11 @@
 #undef SOL_OUTPUT_ASM
 
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 void CompilerContext::addStateVariable(
 	VariableDeclaration const& _declaration,

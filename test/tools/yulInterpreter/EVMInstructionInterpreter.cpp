@@ -35,14 +35,14 @@
 #include <limits>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
-using solidity::util::h160;
-using solidity::util::h256;
-using solidity::util::keccak256;
+using hyperion::util::h160;
+using hyperion::util::h256;
+using hyperion::util::keccak256;
 
 namespace
 {
@@ -72,7 +72,7 @@ u256 readZeroExtended(bytes const& _data, u256 const& _offset)
 
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 /// Copy @a _size bytes of @a _source at offset @a _sourceOffset to
 /// @a _target at offset @a _targetOffset. Behaves as if @a _source would
@@ -95,7 +95,7 @@ u256 EVMInstructionInterpreter::eval(
 	vector<u256> const& _arguments
 )
 {
-	using namespace solidity::evmasm;
+	using namespace hyperion::evmasm;
 	using evmasm::Instruction;
 
 	auto info = instructionInfo(_instruction);

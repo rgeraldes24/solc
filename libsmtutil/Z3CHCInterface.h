@@ -28,7 +28,7 @@
 #include <tuple>
 #include <vector>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class Z3CHCInterface: public CHCSolverInterface

@@ -32,7 +32,7 @@
 
 #include <boost/algorithm/string.hpp>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 void EVMObjectCompiler::compile(
 	Object& _object,

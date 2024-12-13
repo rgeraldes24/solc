@@ -20,17 +20,17 @@
 #include <vector>
 #include <memory>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 class SourceUnit;
 }
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend::experimental
+namespace hyperion::frontend::experimental
 {
 
 class Analysis

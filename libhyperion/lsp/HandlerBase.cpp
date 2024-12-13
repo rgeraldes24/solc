@@ -26,9 +26,9 @@
 
 #include <fmt/format.h>
 
-using namespace solidity::langutil;
-using namespace solidity::lsp;
-using namespace solidity::util;
+using namespace hyperion::langutil;
+using namespace hyperion::lsp;
+using namespace hyperion::util;
 
 Json::Value HandlerBase::toRange(SourceLocation const& _location) const
 {

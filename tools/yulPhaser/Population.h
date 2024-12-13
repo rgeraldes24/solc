@@ -28,7 +28,7 @@
 #include <ostream>
 #include <vector>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 class PairSelection;

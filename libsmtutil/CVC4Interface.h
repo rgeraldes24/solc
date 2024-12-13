@@ -33,7 +33,7 @@
 #undef _GLIBCXX_PERMIT_BACKWARD_HASH
 #endif
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class CVC4Interface: public SolverInterface

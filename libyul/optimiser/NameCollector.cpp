@@ -23,9 +23,9 @@
 
 #include <libyul/AST.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 void NameCollector::operator()(VariableDeclaration const& _varDecl)
 {
@@ -138,7 +138,7 @@ void AssignmentsSinceContinue::operator()(FunctionDefinition const&)
 	yulAssert(false, "");
 }
 
-std::set<YulString> solidity::yul::assignedVariableNames(Block const& _code)
+std::set<YulString> hyperion::yul::assignedVariableNames(Block const& _code)
 {
 	std::set<YulString> names;
 	forEach<Assignment const>(_code, [&](Assignment const& _assignment) {
@@ -148,7 +148,7 @@ std::set<YulString> solidity::yul::assignedVariableNames(Block const& _code)
 	return names;
 }
 
-std::map<YulString, FunctionDefinition const*> solidity::yul::allFunctionDefinitions(Block const& _block)
+std::map<YulString, FunctionDefinition const*> hyperion::yul::allFunctionDefinitions(Block const& _block)
 {
 	std::map<YulString, FunctionDefinition const*> result;
 	forEach<FunctionDefinition const>(_block, [&](FunctionDefinition const& _function) {

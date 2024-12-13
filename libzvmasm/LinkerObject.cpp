@@ -24,9 +24,9 @@
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Keccak256.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
 
 void LinkerObject::append(LinkerObject const& _other)
 {
@@ -48,7 +48,7 @@ void LinkerObject::link(std::map<std::string, h160> const& _libraryAddresses)
 
 std::string LinkerObject::toHex() const
 {
-	std::string hex = solidity::util::toHex(bytecode);
+	std::string hex = hyperion::util::toHex(bytecode);
 	for (auto const& ref: linkReferences)
 	{
 		size_t pos = ref.first * 2;

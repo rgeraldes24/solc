@@ -25,7 +25,7 @@
 #include <set>
 #include <string>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 std::map<Predicate const*, std::set<std::string>> collectInvariants(

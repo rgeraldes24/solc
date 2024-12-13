@@ -29,7 +29,7 @@
 #include <libhyperion/codegen/CompilerContext.h>
 #include <libhyperion/codegen/CompilerContext.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Type; // forward

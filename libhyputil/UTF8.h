@@ -26,7 +26,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Validate an input for UTF8 encoding

@@ -33,12 +33,12 @@
 
 #include <map>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 class InterpreterTerminatedGeneric: public util::Exception

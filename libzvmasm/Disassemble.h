@@ -26,7 +26,7 @@
 #include <functional>
 #include <string>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 /// Iterate through EVM code and call a function on each instruction.

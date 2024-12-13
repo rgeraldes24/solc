@@ -42,10 +42,10 @@
 #include <optional>
 #include <string>
 
-using namespace solidity::langutil;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -60,9 +60,9 @@ std::optional<Error> parseAndReturnFirstError(
 )
 {
 	YulStack stack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		_language,
-		solidity::frontend::OptimiserSettings::none(),
+		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::None()
 	);
 	bool success = false;
@@ -129,7 +129,7 @@ Error expectError(
 void parsePrintCompare(std::string const& _source, bool _canWarn = false)
 {
 	YulStack stack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()
@@ -219,7 +219,7 @@ BOOST_AUTO_TEST_CASE(print_string_literal_unicode)
 	std::string source = "{ let x := \"\\u1bac\" }";
 	std::string parsed = "object \"object\" {\n    code { let x := \"\\xe1\\xae\\xac\" }\n}\n";
 	YulStack stack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		YulStack::Language::Assembly,
 		OptimiserSettings::none(),
 		DebugInfoSelection::None()

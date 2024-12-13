@@ -36,9 +36,9 @@
 #include <vector>
 
 using namespace std;
-using namespace solidity::frontend;
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
 #define TEST_CASE_NAME (boost::unit_test::framework::current_test_case().p_name)
 
@@ -209,7 +209,7 @@ struct print_log_value<ImportCheck>
 
 } // namespace boost::test_tools::tt_detail
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(CommandLineInterfaceAllowPathsTest)
@@ -568,4 +568,4 @@ BOOST_FIXTURE_TEST_CASE(allow_path_symlinks_outside_whitelisted_dir, AllowPathsF
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

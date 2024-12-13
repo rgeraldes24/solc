@@ -34,9 +34,9 @@
 
 #include <vector>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 using SourceLocation = langutil::SourceLocation;
@@ -45,7 +45,7 @@ SourceLocation const AsmJsonImporter::createSourceLocation(Json::Value const& _n
 {
 	yulAssert(member(_node, "src").isString(), "'src' must be a string");
 
-	return solidity::langutil::parseSourceLocation(_node["src"].asString(), m_sourceNames);
+	return hyperion::langutil::parseSourceLocation(_node["src"].asString(), m_sourceNames);
 }
 
 template <class T>

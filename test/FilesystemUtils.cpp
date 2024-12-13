@@ -23,10 +23,10 @@
 #include <fstream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::test;
 
-void solidity::test::createFilesWithParentDirs(set<boost::filesystem::path> const& _paths, string const& _content)
+void hyperion::test::createFilesWithParentDirs(set<boost::filesystem::path> const& _paths, string const& _content)
 {
 	for (boost::filesystem::path const& path: _paths)
 	{
@@ -42,7 +42,7 @@ void solidity::test::createFilesWithParentDirs(set<boost::filesystem::path> cons
 	}
 }
 
-void solidity::test::createFileWithContent(boost::filesystem::path const& _path, string const& _content)
+void hyperion::test::createFileWithContent(boost::filesystem::path const& _path, string const& _content)
 {
 	if (boost::filesystem::is_regular_file(_path))
 		BOOST_THROW_EXCEPTION(runtime_error("File already exists: \"" + _path.string() + "\".")); \
@@ -55,7 +55,7 @@ void solidity::test::createFileWithContent(boost::filesystem::path const& _path,
 	newFile << _content;
 }
 
-bool solidity::test::createSymlinkIfSupportedByFilesystem(
+bool hyperion::test::createSymlinkIfSupportedByFilesystem(
 	boost::filesystem::path _targetPath,
 	boost::filesystem::path const& _linkName,
 	bool _directorySymlink

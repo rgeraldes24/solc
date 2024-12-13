@@ -51,10 +51,10 @@
 #include <memory>
 #include <vector>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool TypeChecker::typeSupportedByOldABIEncoder(Type const& _type, bool _isLibraryCall)
 {

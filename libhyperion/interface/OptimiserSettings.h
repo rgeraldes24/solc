@@ -28,7 +28,7 @@
 #include <cstddef>
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 enum class OptimisationPreset

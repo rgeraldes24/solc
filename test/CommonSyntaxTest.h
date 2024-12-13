@@ -29,7 +29,7 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 struct SyntaxTestError
@@ -52,10 +52,10 @@ struct SyntaxTestError
 };
 
 
-class CommonSyntaxTest: public frontend::test::EVMVersionRestrictedTestCase
+class CommonSyntaxTest: public frontend::test::ZVMVersionRestrictedTestCase
 {
 public:
-	CommonSyntaxTest(std::string const& _filename, langutil::EVMVersion _evmVersion);
+	CommonSyntaxTest(std::string const& _filename, langutil::ZVMVersion _evmVersion);
 
 	TestResult run(std::ostream& _stream, std::string const& _linePrefix = "", bool _formatted = false) override;
 
@@ -98,7 +98,7 @@ protected:
 	frontend::test::SourceMap m_sources;
 	std::vector<SyntaxTestError> m_expectations;
 	std::vector<SyntaxTestError> m_errorList;
-	langutil::EVMVersion const m_evmVersion;
+	langutil::ZVMVersion const m_evmVersion;
 };
 
 }

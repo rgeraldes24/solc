@@ -23,7 +23,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /**

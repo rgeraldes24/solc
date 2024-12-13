@@ -23,9 +23,9 @@
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 namespace
 {

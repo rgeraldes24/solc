@@ -20,9 +20,9 @@
 
 #include <liblangutil/Exceptions.h>
 
-using namespace solidity;
+using namespace hyperion;
 
-bool solidity::fitsPrecisionBaseX(bigint const& _mantissa, double _log2OfBase, uint32_t _exp)
+bool hyperion::fitsPrecisionBaseX(bigint const& _mantissa, double _log2OfBase, uint32_t _exp)
 {
 	if (_mantissa == 0)
 		return true;

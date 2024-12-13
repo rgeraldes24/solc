@@ -37,9 +37,9 @@
 #include <regex>
 #include <string_view>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool DocStringTagParser::parseDocStrings(SourceUnit const& _sourceUnit)
 {

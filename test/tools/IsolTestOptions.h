@@ -20,11 +20,11 @@
 
 #pragma once
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <test/Common.h>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 struct IsolTestOptions: CommonOptions

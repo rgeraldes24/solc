@@ -25,8 +25,8 @@
 
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 bool SyntacticallyEqual::operator()(Expression const& _lhs, Expression const& _rhs)
 {

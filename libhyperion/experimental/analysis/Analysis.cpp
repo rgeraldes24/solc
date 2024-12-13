@@ -19,8 +19,8 @@
 
 #include <liblangutil/ErrorReporter.h>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend::experimental;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend::experimental;
 
 bool Analysis::check(std::vector<std::shared_ptr<SourceUnit const>> const&)
 {

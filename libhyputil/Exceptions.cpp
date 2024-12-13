@@ -18,7 +18,7 @@
 
 #include <libhyputil/Exceptions.h>
 
-using namespace solidity::util;
+using namespace hyperion::util;
 
 char const* Exception::what() const noexcept
 {

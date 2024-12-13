@@ -29,8 +29,8 @@
 #include <range/v3/view/zip.hpp>
 #include <range/v3/range/conversion.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 namespace
 {

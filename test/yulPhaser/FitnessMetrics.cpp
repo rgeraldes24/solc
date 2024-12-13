@@ -30,11 +30,11 @@
 #include <cmath>
 
 using namespace std;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 class DummyProgramBasedMetric: public ProgramBasedMetric

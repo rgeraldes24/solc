@@ -33,10 +33,10 @@
 #include <tuple>
 
 using namespace std::placeholders;
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 #define REQUIRE_LOG_DATA(DATA) do { \
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE(memory_array_one_dim)
 		}
 	)";
 
-	if (solidity::test::CommonOptions::get().useABIEncoderV1)
+	if (hyperion::test::CommonOptions::get().useABIEncoderV1)
 	{
 		compileAndRun(sourceCode);
 		callContractFunction("f()");

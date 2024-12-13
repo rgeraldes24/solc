@@ -22,7 +22,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Compute the "ipfs hash" of a file with the content @a _data.

@@ -41,10 +41,10 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 vector<string> const ChrOmOsoMeSteps{

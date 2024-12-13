@@ -36,7 +36,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 struct SMTSolverChoice

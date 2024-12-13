@@ -44,10 +44,10 @@
 #include <algorithm>
 #include <optional>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 using namespace std::string_literals;
 
 namespace
@@ -793,7 +793,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 	{
 		if (!settings["evmVersion"].isString())
 			return formatFatalError(Error::Type::JSONError, "evmVersion must be a string.");
-		std::optional<langutil::EVMVersion> version = langutil::EVMVersion::fromString(settings["evmVersion"].asString());
+		std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(settings["evmVersion"].asString());
 		if (!version)
 			return formatFatalError(Error::Type::JSONError, "Invalid EVM version requested.");
 		ret.evmVersion = *version;
@@ -1157,7 +1157,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 	for (auto const& smtLib2Response: _inputsAndSettings.smtLib2Responses)
 		compilerStack.addSMTLib2Response(smtLib2Response.first, smtLib2Response.second);
 	compilerStack.setViaIR(_inputsAndSettings.viaIR);
-	compilerStack.setEVMVersion(_inputsAndSettings.evmVersion);
+	compilerStack.setZVMVersion(_inputsAndSettings.evmVersion);
 	compilerStack.setRemappings(std::move(_inputsAndSettings.remappings));
 	compilerStack.setOptimiserSettings(std::move(_inputsAndSettings.optimiserSettings));
 	compilerStack.setRevertStringBehaviour(_inputsAndSettings.revertStrings);

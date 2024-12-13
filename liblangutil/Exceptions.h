@@ -39,7 +39,7 @@
 #include <variant>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
@@ -65,7 +65,7 @@ struct InvalidAstError: virtual util::Exception {};
 #define solAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::InternalCompilerError, \
+		::hyperion::langutil::InternalCompilerError, \
 		(DESCRIPTION), \
 		"Solidity assertion failed" \
 	)
@@ -84,7 +84,7 @@ struct InvalidAstError: virtual util::Exception {};
 #define solUnimplementedAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::UnimplementedFeatureError, \
+		::hyperion::langutil::UnimplementedFeatureError, \
 		(DESCRIPTION), \
 		"Unimplemented feature" \
 	)
@@ -108,7 +108,7 @@ struct InvalidAstError: virtual util::Exception {};
 #define astAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::langutil::InvalidAstError, \
+		::hyperion::langutil::InvalidAstError, \
 		(DESCRIPTION), \
 		"AST assertion failed" \
 	)

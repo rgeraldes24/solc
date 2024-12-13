@@ -26,8 +26,8 @@
 #include <libsmtutil/Z3Loader.h>
 #endif
 
-using namespace solidity::smtutil;
-using namespace solidity::util;
+using namespace hyperion::smtutil;
+using namespace hyperion::util;
 
 bool Z3Interface::available()
 {

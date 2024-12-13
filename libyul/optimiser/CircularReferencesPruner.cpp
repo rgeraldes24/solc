@@ -24,7 +24,7 @@
 
 #include <libhyputil/Algorithms.h>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 void CircularReferencesPruner::run(OptimiserStepContext& _context, Block& _ast)
 {

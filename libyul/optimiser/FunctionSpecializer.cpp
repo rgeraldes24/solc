@@ -32,8 +32,8 @@
 
 #include <variant>
 
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
 FunctionSpecializer::LiteralArguments FunctionSpecializer::specializableArguments(
 	FunctionCall const& _f

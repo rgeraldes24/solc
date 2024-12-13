@@ -31,9 +31,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(SemVerMatcher)

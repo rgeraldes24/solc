@@ -23,8 +23,8 @@
 #include <libhyputil/Visitor.h>
 #include <libyul/Dialect.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void VarDeclInitializer::operator()(Block& _block)
 {

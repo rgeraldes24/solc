@@ -72,8 +72,8 @@ using ArgType = typename FunctionTrait<decltype(F)>::template ArgType<N>;
 
 }
 
-using namespace solidity;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::smtutil;
 
 extern "C"
 {

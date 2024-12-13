@@ -31,7 +31,7 @@
 #include <string>
 #include <libhyperion/ast/AST.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 // Forward declarations

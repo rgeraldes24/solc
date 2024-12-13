@@ -27,7 +27,7 @@
 #include <map>
 #include <vector>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class CHCSolverInterface

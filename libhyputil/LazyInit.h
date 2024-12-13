@@ -26,7 +26,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 DEV_SIMPLE_EXCEPTION(BadLazyInitAccess);

@@ -30,7 +30,7 @@
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/algorithm/find_if.hpp>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 
 ControlFlowBuilder::ControlFlowBuilder(Block const& _ast)

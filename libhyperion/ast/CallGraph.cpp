@@ -18,7 +18,7 @@
 
 #include <libhyperion/ast/CallGraph.h>
 
-using namespace solidity::frontend;
+using namespace hyperion::frontend;
 
 bool CallGraph::CompareByID::operator()(Node const& _lhs, Node const& _rhs) const
 {

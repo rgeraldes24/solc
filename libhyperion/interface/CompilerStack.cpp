@@ -96,14 +96,14 @@
 #include <limits>
 #include <string>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::stdlib;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::stdlib;
+using namespace hyperion::yul;
 using namespace std::string_literals;
 
-using solidity::util::errinfo_comment;
+using hyperion::util::errinfo_comment;
 
 static int g_compilerStackCounts = 0;
 
@@ -227,7 +227,7 @@ void CompilerStack::setViaIR(bool _viaIR)
 	m_viaIR = _viaIR;
 }
 
-void CompilerStack::setEVMVersion(langutil::EVMVersion _version)
+void CompilerStack::setZVMVersion(langutil::ZVMVersion _version)
 {
 	if (m_stackState >= ParsedAndImported)
 		solThrow(CompilerError, "Must set EVM version before parsing.");
@@ -309,7 +309,7 @@ void CompilerStack::reset(bool _keepSettings)
 		m_importRemapper.clear();
 		m_libraries.clear();
 		m_viaIR = false;
-		m_evmVersion = langutil::EVMVersion();
+		m_evmVersion = langutil::ZVMVersion();
 		m_modelCheckerSettings = ModelCheckerSettings{};
 		m_generateIR = false;
 		m_revertStrings = RevertStrings::Default;

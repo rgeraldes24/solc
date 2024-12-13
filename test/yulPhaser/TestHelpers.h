@@ -67,7 +67,7 @@ struct print_log_value<std::tuple<T1, T2>>
 
 }
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 /**

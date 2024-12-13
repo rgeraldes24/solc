@@ -24,8 +24,8 @@
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/view/transform.hpp>
 
-using namespace solidity::frontend;
-using namespace solidity::util;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
 
 CallGraph FunctionCallGraphBuilder::buildCreationGraph(ContractDefinition const& _contract)
 {
@@ -292,7 +292,7 @@ void FunctionCallGraphBuilder::functionReferenced(CallableDeclaration const& _ca
 	enqueueCallable(_callable);
 }
 
-std::ostream& solidity::frontend::operator<<(std::ostream& _out, CallGraph::Node const& _node)
+std::ostream& hyperion::frontend::operator<<(std::ostream& _out, CallGraph::Node const& _node)
 {
 	if (std::holds_alternative<CallGraph::SpecialNode>(_node))
 		switch (std::get<CallGraph::SpecialNode>(_node))

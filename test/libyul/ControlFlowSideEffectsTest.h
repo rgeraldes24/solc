@@ -25,10 +25,10 @@
 #include <vector>
 #include <memory>
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-class ControlFlowSideEffectsTest: public solidity::frontend::test::TestCase
+class ControlFlowSideEffectsTest: public hyperion::frontend::test::TestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

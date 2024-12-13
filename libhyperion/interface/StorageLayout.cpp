@@ -20,8 +20,8 @@
 
 #include <libhyperion/ast/TypeProvider.h>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 Json::Value StorageLayout::generate(ContractDefinition const& _contractDef)
 {

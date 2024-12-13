@@ -19,7 +19,7 @@
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/Exceptions.h>
 
 #include <test/libyul/Common.h>
@@ -31,11 +31,11 @@
 #include <test/Common.h>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul::test;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend::test;
 
 void SyntaxTest::parseAndAnalyze()
 {
@@ -72,9 +72,9 @@ void SyntaxTest::parseAndAnalyze()
 
 }
 
-SyntaxTest::SyntaxTest(string const& _filename, langutil::EVMVersion _evmVersion):
+SyntaxTest::SyntaxTest(string const& _filename, langutil::ZVMVersion _evmVersion):
 	CommonSyntaxTest(_filename, _evmVersion)
 {
 	string dialectName = m_reader.stringSetting("dialect", "evmTyped");
-	m_dialect = &dialect(dialectName, solidity::test::CommonOptions::get().evmVersion());
+	m_dialect = &dialect(dialectName, hyperion::test::CommonOptions::get().evmVersion());
 }

@@ -28,18 +28,18 @@
 #include <memory>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::util::formatting;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::util::formatting;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace boost::unit_test;
 namespace fs = boost::filesystem;
 
 SyntaxTest::SyntaxTest(
 	std::string const& _filename,
-	langutil::EVMVersion _evmVersion,
+	langutil::ZVMVersion _evmVersion,
 	Error::Severity _minSeverity
 ):
 	CommonSyntaxTest(_filename, _evmVersion),
@@ -57,7 +57,7 @@ void SyntaxTest::setupCompiler(CompilerStack& _compiler)
 {
 	AnalysisFramework::setupCompiler(_compiler);
 
-	_compiler.setEVMVersion(m_evmVersion);
+	_compiler.setZVMVersion(m_evmVersion);
 	_compiler.setOptimiserSettings(
 		m_optimiseYul ?
 		OptimiserSettings::full() :

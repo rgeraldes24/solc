@@ -24,7 +24,7 @@
 #include <numeric>
 
 using namespace std;
-using namespace solidity::phaser;
+using namespace hyperion::phaser;
 
 vector<size_t> RangeSelection::materialise(size_t _poolSize) const
 {

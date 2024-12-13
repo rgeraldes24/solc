@@ -36,12 +36,12 @@
 #include <memory>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity::util::formatting;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion::util::formatting;
+using namespace hyperion::util;
 namespace fs = boost::filesystem;
 using namespace boost::unit_test;
 using namespace std::string_literals;
@@ -79,7 +79,7 @@ void replaceVersionWithTag(std::string& _input)
 {
 	boost::algorithm::replace_all(
 		_input,
-		"\"" + solidity::test::CommonOptions::get().evmVersion().name() + "\"",
+		"\"" + hyperion::test::CommonOptions::get().evmVersion().name() + "\"",
 		"%EVMVERSION%"
 	);
 }
@@ -89,7 +89,7 @@ void replaceTagWithVersion(std::string& _input)
 	boost::algorithm::replace_all(
 		_input,
 		"%EVMVERSION%",
-		"\"" + solidity::test::CommonOptions::get().evmVersion().name() + "\""
+		"\"" + hyperion::test::CommonOptions::get().evmVersion().name() + "\""
 	);
 }
 
@@ -182,7 +182,7 @@ void ASTJSONTest::validateTestConfiguration() const
 }
 
 ASTJSONTest::ASTJSONTest(std::string const& _filename):
-	EVMVersionRestrictedTestCase(_filename)
+	ZVMVersionRestrictedTestCase(_filename)
 {
 	if (!boost::algorithm::ends_with(_filename, ".hyp"))
 		BOOST_THROW_EXCEPTION(std::runtime_error("Invalid test contract file name: \"" + _filename + "\"."));
@@ -210,7 +210,7 @@ TestCase::TestResult ASTJSONTest::run(std::ostream& _stream, std::string const& 
 	{
 		c.reset();
 		c.setSources(sources);
-		c.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
+		c.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
 
 		if (!c.parseAndAnalyze(variant.stopAfter))
 		{

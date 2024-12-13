@@ -28,7 +28,7 @@
 
 using namespace std;
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 bytes onlyMetadata(bytes const& _bytecode)

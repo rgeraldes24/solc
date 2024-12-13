@@ -21,7 +21,7 @@
 #include <libsmtutil/SolverInterface.h>
 #include <z3++.h>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class Z3Interface: public SolverInterface

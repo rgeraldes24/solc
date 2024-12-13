@@ -18,7 +18,7 @@
 
 #pragma once
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ASTNode;

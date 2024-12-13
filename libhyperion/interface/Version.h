@@ -27,7 +27,7 @@
 #include <vector>
 #include <string>
 
-namespace solidity
+namespace hyperion
 {
 using bytes = std::vector<uint8_t>;
 

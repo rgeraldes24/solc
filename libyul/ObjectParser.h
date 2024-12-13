@@ -32,12 +32,12 @@
 
 #include <memory>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Scanner;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

@@ -22,8 +22,8 @@
 
 #include <libhyputil/Keccak256.h>
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
 namespace
 {
@@ -103,13 +103,13 @@ h256 chunkHash(bytesConstRef const _data, bool _forceHigherLevel = false)
 
 }
 
-h256 solidity::util::bzzr0Hash(std::string const& _input)
+h256 hyperion::util::bzzr0Hash(std::string const& _input)
 {
 	return swarmHashIntermediate(_input, 0, _input.size());
 }
 
 
-h256 solidity::util::bzzr1Hash(bytes const& _input)
+h256 hyperion::util::bzzr1Hash(bytes const& _input)
 {
 	if (_input.empty())
 		return h256{};

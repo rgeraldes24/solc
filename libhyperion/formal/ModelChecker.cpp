@@ -31,11 +31,11 @@
 #include <range/v3/algorithm/any_of.hpp>
 #include <range/v3/view.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::smtutil;
 
 ModelChecker::ModelChecker(
 	ErrorReporter& _errorReporter,
@@ -167,7 +167,7 @@ SMTSolverChoice ModelChecker::availableSolvers()
 	available.eld = !boost::process::search_path("eld").empty();
 #endif
 #ifdef HAVE_Z3
-	available.z3 = solidity::smtutil::Z3Interface::available();
+	available.z3 = hyperion::smtutil::Z3Interface::available();
 #endif
 #ifdef HAVE_CVC4
 	available.cvc4 = true;

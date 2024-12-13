@@ -23,7 +23,7 @@
 
 #include <liblangutil/Exceptions.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 struct CommandLineError: virtual util::Exception {};

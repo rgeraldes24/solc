@@ -30,9 +30,9 @@
 
 #include <libyul/optimiser/TypeInfo.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::langutil;
 
 namespace
 {

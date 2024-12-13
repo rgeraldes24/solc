@@ -30,14 +30,14 @@
 #include <variant>
 #include <optional>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct ErrorId;
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 class FunctionType;
 class ModifierType;

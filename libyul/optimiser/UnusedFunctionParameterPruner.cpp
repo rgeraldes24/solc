@@ -36,9 +36,9 @@
 #include <optional>
 #include <variant>
 
-using namespace solidity::util;
-using namespace solidity::yul;
-using namespace solidity::yul::unusedFunctionsCommon;
+using namespace hyperion::util;
+using namespace hyperion::yul;
+using namespace hyperion::yul::unusedFunctionsCommon;
 
 void UnusedFunctionParameterPruner::run(OptimiserStepContext& _context, Block& _ast)
 {

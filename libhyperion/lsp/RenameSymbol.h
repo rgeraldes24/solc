@@ -19,7 +19,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class RenameSymbol: public HandlerBase

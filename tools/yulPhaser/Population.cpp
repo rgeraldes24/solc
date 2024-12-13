@@ -29,12 +29,12 @@
 #include <numeric>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::phaser;
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 ostream& operator<<(ostream& _stream, Individual const& _individual);
@@ -149,7 +149,7 @@ tuple<Population, Population> Population::symmetricCrossoverWithRemainder(
 	};
 }
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 Population operator+(Population _a, Population _b)

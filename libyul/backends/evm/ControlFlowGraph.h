@@ -33,7 +33,7 @@
 #include <list>
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /// The following structs describe different kinds of stack slots.

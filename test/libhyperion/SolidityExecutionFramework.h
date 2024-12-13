@@ -32,21 +32,21 @@
 
 #include <libyul/YulStack.h>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
-class SolidityExecutionFramework: public solidity::test::ExecutionFramework
+class SolidityExecutionFramework: public hyperion::test::ExecutionFramework
 {
 
 public:
-	SolidityExecutionFramework(): m_showMetadata(solidity::test::CommonOptions::get().showMetadata) {}
+	SolidityExecutionFramework(): m_showMetadata(hyperion::test::CommonOptions::get().showMetadata) {}
 	explicit SolidityExecutionFramework(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		std::vector<boost::filesystem::path> const& _vmPaths,
 		bool _appendCBORMetadata = true
 	):
 		ExecutionFramework(_evmVersion, _vmPaths),
-		m_showMetadata(solidity::test::CommonOptions::get().showMetadata),
+		m_showMetadata(hyperion::test::CommonOptions::get().showMetadata),
 		m_appendCBORMetadata(_appendCBORMetadata)
 	{}
 
@@ -55,7 +55,7 @@ public:
 		u256 const& _value = 0,
 		std::string const& _contractName = "",
 		bytes const& _arguments = {},
-		std::map<std::string, solidity::test::Address> const& _libraryAddresses = {},
+		std::map<std::string, hyperion::test::Address> const& _libraryAddresses = {},
 		std::optional<std::string> const& _sourceName = std::nullopt
 	) override
 	{
@@ -67,18 +67,18 @@ public:
 	bytes compileContract(
 		std::string const& _sourceCode,
 		std::string const& _contractName = "",
-		std::map<std::string, solidity::test::Address> const& _libraryAddresses = {}
+		std::map<std::string, hyperion::test::Address> const& _libraryAddresses = {}
 	);
 
 	bytes multiSourceCompileContract(
 		std::map<std::string, std::string> const& _sources,
 		std::optional<std::string> const& _mainSourceName = std::nullopt,
 		std::string const& _contractName = "",
-		std::map<std::string, solidity::test::Address> const& _libraryAddresses = {}
+		std::map<std::string, hyperion::test::Address> const& _libraryAddresses = {}
 	);
 
 protected:
-	using CompilerStack = solidity::frontend::CompilerStack;
+	using CompilerStack = hyperion::frontend::CompilerStack;
 	CompilerStack m_compiler;
 	bool m_compileViaYul = false;
 	bool m_showMetadata = false;

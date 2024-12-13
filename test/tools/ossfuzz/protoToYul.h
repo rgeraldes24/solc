@@ -32,9 +32,9 @@
 #include <libhyputil/FixedHash.h>
 #include <libhyputil/Whiskers.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-namespace solidity::yul::test::yul_fuzzer
+namespace hyperion::yul::test::yul_fuzzer
 {
 class ProtoConverter
 {
@@ -65,7 +65,7 @@ public:
 	std::string programToString(Program const& _input);
 
 	/// Returns evm version
-	solidity::langutil::EVMVersion version()
+	hyperion::langutil::ZVMVersion version()
 	{
 		return m_evmVersion;
 	}
@@ -268,9 +268,9 @@ private:
 	/// dictionarySize is the total number of entries in the dictionary.
 	std::string dictionaryToken(util::HexPrefix _p = util::HexPrefix::Add);
 
-	/// Returns an EVMVersion object corresponding to the protobuf
+	/// Returns an ZVMVersion object corresponding to the protobuf
 	/// enum of type Program_Version
-	static solidity::langutil::EVMVersion evmVersionMapping(Program_Version const& _x);
+	static hyperion::langutil::ZVMVersion evmVersionMapping(Program_Version const& _x);
 
 	/// @returns name of Yul function with return type of @param _numReturns.
 	std::optional<std::string> functionExists(NumFunctionReturns _numReturns);
@@ -379,7 +379,7 @@ private:
 	/// block is enabled.
 	bool m_forInitScopeExtEnabled;
 	/// Object that holds the targeted evm version specified by protobuf input
-	solidity::langutil::EVMVersion m_evmVersion;
+	hyperion::langutil::ZVMVersion m_evmVersion;
 	/// Flag that, if set, stops the converter from generating state changing
 	/// opcodes.
 	bool m_filterStatefulInstructions;

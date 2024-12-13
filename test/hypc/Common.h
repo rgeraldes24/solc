@@ -26,11 +26,11 @@
 #include <string>
 #include <vector>
 
-BOOST_TEST_DONT_PRINT_LOG_VALUE(solidity::frontend::CommandLineOptions)
-BOOST_TEST_DONT_PRINT_LOG_VALUE(solidity::frontend::InputMode)
-BOOST_TEST_DONT_PRINT_LOG_VALUE(solidity::frontend::OptimiserSettings)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(hyperion::frontend::CommandLineOptions)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(hyperion::frontend::InputMode)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(hyperion::frontend::OptimiserSettings)
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 struct OptionsReaderAndMessages
@@ -67,4 +67,4 @@ OptionsReaderAndMessages runCLI(
 	std::string const& _standardInputContent = ""
 );
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

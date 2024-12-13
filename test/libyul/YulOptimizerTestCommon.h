@@ -26,14 +26,14 @@
 #include <set>
 #include <memory>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 	struct AsmAnalysisInfo;
 	struct Object;
 	struct Dialect;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 class YulOptimizerTestCommon
 {

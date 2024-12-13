@@ -24,7 +24,7 @@
 #include <map>
 #include <set>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 enum class ExperimentalFeature

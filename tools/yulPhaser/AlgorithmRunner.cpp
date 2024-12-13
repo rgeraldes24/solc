@@ -27,7 +27,7 @@
 #include <fstream>
 
 using namespace std;
-using namespace solidity::phaser;
+using namespace hyperion::phaser;
 
 void AlgorithmRunner::run(GeneticAlgorithm& _algorithm)
 {

@@ -31,10 +31,10 @@
 #include <memory>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::smtutil;
 
 CHCSmtLib2Interface::CHCSmtLib2Interface(
 	std::map<h256, std::string> const& _queryResponses,

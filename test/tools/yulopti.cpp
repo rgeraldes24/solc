@@ -65,11 +65,11 @@
 #include <variant>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::yul;
 
 namespace po = boost::program_options;
 
@@ -244,7 +244,7 @@ public:
 
 private:
 	shared_ptr<yul::Block> m_ast;
-	Dialect const& m_dialect{EVMDialect::strictAssemblyForEVMObjects(EVMVersion{})};
+	Dialect const& m_dialect{EVMDialect::strictAssemblyForEVMObjects(ZVMVersion{})};
 	unique_ptr<AsmAnalysisInfo> m_analysisInfo;
 	set<YulString> const m_reservedIdentifiers = {};
 	NameDispenser m_nameDispenser{m_dialect, m_reservedIdentifiers};
@@ -252,7 +252,7 @@ private:
 		m_dialect,
 		m_nameDispenser,
 		m_reservedIdentifiers,
-		solidity::frontend::OptimiserSettings::standard().expectedExecutionsPerDeployment
+		hyperion::frontend::OptimiserSettings::standard().expectedExecutionsPerDeployment
 	};
 };
 

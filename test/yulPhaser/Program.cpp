@@ -35,9 +35,9 @@
 #include <string>
 
 using namespace std;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 using namespace boost::unit_test::framework;
 
 namespace
@@ -54,7 +54,7 @@ namespace
 	}
 }
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 BOOST_AUTO_TEST_SUITE(Phaser, *boost::unit_test::label("nooptions"))

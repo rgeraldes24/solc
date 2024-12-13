@@ -31,9 +31,9 @@
 #include <limits>
 
 using namespace std::literals;
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
 static_assert(sizeof(size_t) <= 8, "size_t must be at most 64-bits wide");
 
@@ -296,7 +296,7 @@ std::string AssemblyItem::toAssemblyText(Assembly const& _assembly) const
 		text =
 			(type() == PushSub ? "dataOffset"s : "dataSize"s) +
 			"(" +
-			solidity::util::joinHumanReadable(subPathComponents, ".") +
+			hyperion::util::joinHumanReadable(subPathComponents, ".") +
 			")";
 		break;
 	}
@@ -336,7 +336,7 @@ std::string AssemblyItem::toAssemblyText(Assembly const& _assembly) const
 }
 
 // Note: This method is exclusively used for debugging.
-std::ostream& solidity::evmasm::operator<<(std::ostream& _out, AssemblyItem const& _item)
+std::ostream& hyperion::evmasm::operator<<(std::ostream& _out, AssemblyItem const& _item)
 {
 	switch (_item.type())
 	{

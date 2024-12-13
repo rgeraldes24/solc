@@ -23,7 +23,7 @@
 
 #include <functional>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 class ContractInterface

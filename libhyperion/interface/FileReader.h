@@ -25,7 +25,7 @@
 #include <map>
 #include <set>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /// FileReader - used for progressively loading source code.

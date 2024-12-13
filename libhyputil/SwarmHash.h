@@ -24,7 +24,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Compute the "swarm hash" of @a _input (OLD 0x1000-section version)

@@ -31,7 +31,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 /**

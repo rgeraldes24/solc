@@ -30,8 +30,8 @@
 #include <functional>
 #include <set>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 
 bool BlockDeduplicator::deduplicate()

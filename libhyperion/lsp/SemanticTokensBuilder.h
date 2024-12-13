@@ -21,13 +21,13 @@
 
 #include <fmt/format.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class CharStream;
 struct SourceLocation;
 }
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 // See: https://microsoft.github.io/language-server-protocol/specifications/specification-3-17/#semanticTokenTypes

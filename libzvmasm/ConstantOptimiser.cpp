@@ -24,13 +24,13 @@
 #include <libzvmasm/Assembly.h>
 #include <libzvmasm/GasMeter.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 unsigned ConstantOptimisationMethod::optimiseConstants(
 	bool _isCreation,
 	size_t _runs,
-	langutil::EVMVersion _evmVersion,
+	langutil::ZVMVersion _evmVersion,
 	Assembly& _assembly
 )
 {

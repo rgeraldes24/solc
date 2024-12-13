@@ -22,7 +22,7 @@
 #pragma once
 
 #include <liblangutil/Exceptions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libyul/ASTForward.h>
 #include <libyul/Dialect.h>
@@ -37,13 +37,13 @@
 #include <optional>
 #include <utility>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct AsmAnalysisInfo;
@@ -125,7 +125,7 @@ private:
 	std::set<Scope::Variable const*> m_activeVariables;
 	AsmAnalysisInfo& m_info;
 	langutil::ErrorReporter& m_errorReporter;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	Dialect const& m_dialect;
 	/// Names of data objects to be referenced by builtin functions with literal arguments.
 	std::set<YulString> m_dataNames;

@@ -43,10 +43,10 @@
 #include <string>
 #include <iostream>
 
-using namespace solidity::langutil;
-using namespace solidity::evmasm;
+using namespace hyperion::langutil;
+using namespace hyperion::evmasm;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -56,7 +56,7 @@ evmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 {
 	ErrorList errors;
 	ErrorReporter errorReporter(errors);
-	Parser parser(errorReporter, solidity::test::CommonOptions::get().evmVersion());
+	Parser parser(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
 	ASTPointer<SourceUnit> sourceUnit;
 	BOOST_REQUIRE_NO_THROW(sourceUnit = parser.parse(*_sourceCode));
 	BOOST_CHECK(!!sourceUnit);
@@ -64,8 +64,8 @@ evmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 	Scoper::assignScopes(*sourceUnit);
 	BOOST_REQUIRE(SyntaxChecker(errorReporter, false).checkSyntax(*sourceUnit));
 	GlobalContext globalContext;
-	NameAndTypeResolver resolver(globalContext, solidity::test::CommonOptions::get().evmVersion(), errorReporter);
-	DeclarationTypeChecker declarationTypeChecker(errorReporter, solidity::test::CommonOptions::get().evmVersion());
+	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
+	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
 	solAssert(!Error::containsErrors(errorReporter.errors()), "");
 	resolver.registerDeclarations(*sourceUnit);
 	BOOST_REQUIRE_NO_THROW(resolver.resolveNamesAndTypes(*sourceUnit));
@@ -77,7 +77,7 @@ evmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 		if (Error::containsErrors(errorReporter.errors()))
 			return AssemblyItems();
 	}
-	TypeChecker checker(solidity::test::CommonOptions::get().evmVersion(), errorReporter);
+	TypeChecker checker(hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
 	BOOST_REQUIRE_NO_THROW(checker.checkTypeRequirements(*sourceUnit));
 	if (Error::containsErrors(errorReporter.errors()))
 		return AssemblyItems();
@@ -85,9 +85,9 @@ evmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 		if (ContractDefinition* contract = dynamic_cast<ContractDefinition*>(node.get()))
 		{
 			Compiler compiler(
-				solidity::test::CommonOptions::get().evmVersion(),
+				hyperion::test::CommonOptions::get().evmVersion(),
 				RevertStrings::Default,
-				solidity::test::CommonOptions::get().optimize ? OptimiserSettings::standard() : OptimiserSettings::minimal()
+				hyperion::test::CommonOptions::get().optimize ? OptimiserSettings::standard() : OptimiserSettings::minimal()
 			);
 			compiler.compileContract(*contract, std::map<ContractDefinition const*, std::shared_ptr<Compiler const>>{}, bytes());
 
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(location_test)
 	auto codegenCharStream = std::make_shared<CharStream>("", "--CODEGEN--");
 
 	std::vector<SourceLocation> locations;
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		locations =
 			std::vector<SourceLocation>(31, SourceLocation{23, 103, sourceName}) +
 			std::vector<SourceLocation>(1, SourceLocation{41, 100, sourceName}) +
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_CASE(jump_type)
 		if (item.getJumpType() != AssemblyItem::JumpType::Ordinary)
 			jumpTypes += item.getJumpTypeAsString() + "\n";
 
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		BOOST_CHECK_EQUAL(jumpTypes, "[in]\n[out]\n[out]\n[in]\n[out]\n");
 	else
 		BOOST_CHECK_EQUAL(jumpTypes, "[in]\n[out]\n[in]\n[out]\n");

@@ -49,7 +49,7 @@
 #include <utility>
 #include <vector>
 
-namespace solidity
+namespace hyperion
 {
 
 // Binary data types.

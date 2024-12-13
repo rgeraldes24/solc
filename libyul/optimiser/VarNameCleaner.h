@@ -28,7 +28,7 @@
 #include <set>
 #include <string>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct Dialect;

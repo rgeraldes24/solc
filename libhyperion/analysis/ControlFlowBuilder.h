@@ -26,7 +26,7 @@
 #include <array>
 #include <memory>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

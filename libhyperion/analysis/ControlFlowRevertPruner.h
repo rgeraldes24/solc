@@ -23,7 +23,7 @@
 
 #include <libhyputil/Algorithms.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

@@ -24,17 +24,17 @@
 #include <range/v3/algorithm/all_of.hpp>
 #include <range/v3/span.hpp>
 
-using namespace solidity::test::fuzzer;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 using namespace std;
 
 optional<CompilerOutput> SolidityCompilationFramework::compileContract()
 {
 	m_compiler.setSources(m_compilerInput.sourceCode);
 	m_compiler.setLibraries(m_compilerInput.libraryAddresses);
-	m_compiler.setEVMVersion(m_compilerInput.evmVersion);
+	m_compiler.setZVMVersion(m_compilerInput.evmVersion);
 	m_compiler.setOptimiserSettings(m_compilerInput.optimiserSettings);
 	m_compiler.setViaIR(m_compilerInput.viaIR);
 	if (!m_compiler.compile())

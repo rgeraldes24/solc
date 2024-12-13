@@ -24,28 +24,28 @@
 #include <boost/test/unit_test.hpp>
 
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 BOOST_AUTO_TEST_SUITE(LEB128Test)
 
 BOOST_AUTO_TEST_CASE(encode_unsigned)
 {
-	bytes zero = solidity::util::lebEncode(0);
+	bytes zero = hyperion::util::lebEncode(0);
 	BOOST_REQUIRE(zero.size() == 1);
 	BOOST_REQUIRE(zero[0] == 0x00);
 
-	bytes one = solidity::util::lebEncode(1);
+	bytes one = hyperion::util::lebEncode(1);
 	BOOST_REQUIRE(one.size() == 1);
 	BOOST_REQUIRE(one[0] == 0x01);
 
-	bytes large = solidity::util::lebEncode(624485);
+	bytes large = hyperion::util::lebEncode(624485);
 	BOOST_REQUIRE(large.size() == 3);
 	BOOST_REQUIRE(large[0] == 0xE5);
 	BOOST_REQUIRE(large[1] == 0x8E);
 	BOOST_REQUIRE(large[2] == 0x26);
 
-	bytes larger = solidity::util::lebEncodeSigned(123456123456);
+	bytes larger = hyperion::util::lebEncodeSigned(123456123456);
 	BOOST_REQUIRE(larger.size() == 6);
 	BOOST_REQUIRE(larger[0] == 0xC0);
 	BOOST_REQUIRE(larger[1] == 0xE4);
@@ -57,35 +57,35 @@ BOOST_AUTO_TEST_CASE(encode_unsigned)
 
 BOOST_AUTO_TEST_CASE(encode_signed)
 {
-	bytes zero = solidity::util::lebEncodeSigned(0);
+	bytes zero = hyperion::util::lebEncodeSigned(0);
 	BOOST_REQUIRE(zero.size() == 1);
 	BOOST_REQUIRE(zero[0] == 0x00);
 
-	bytes one = solidity::util::lebEncodeSigned(1);
+	bytes one = hyperion::util::lebEncodeSigned(1);
 	BOOST_REQUIRE(one.size() == 1);
 	BOOST_REQUIRE(one[0] == 0x01);
 
-	bytes negative_one = solidity::util::lebEncodeSigned(-1);
+	bytes negative_one = hyperion::util::lebEncodeSigned(-1);
 	BOOST_REQUIRE(negative_one.size() == 1);
 	BOOST_REQUIRE(negative_one[0] == 0x7f);
 
-	bytes negative_two = solidity::util::lebEncodeSigned(-2);
+	bytes negative_two = hyperion::util::lebEncodeSigned(-2);
 	BOOST_REQUIRE(negative_two.size() == 1);
 	BOOST_REQUIRE(negative_two[0] == 0x7e);
 
-	bytes large = solidity::util::lebEncodeSigned(624485);
+	bytes large = hyperion::util::lebEncodeSigned(624485);
 	BOOST_REQUIRE(large.size() == 3);
 	BOOST_REQUIRE(large[0] == 0xE5);
 	BOOST_REQUIRE(large[1] == 0x8E);
 	BOOST_REQUIRE(large[2] == 0x26);
 
-	bytes negative_large = solidity::util::lebEncodeSigned(-123456);
+	bytes negative_large = hyperion::util::lebEncodeSigned(-123456);
 	BOOST_REQUIRE(negative_large.size() == 3);
 	BOOST_REQUIRE(negative_large[0] == 0xC0);
 	BOOST_REQUIRE(negative_large[1] == 0xBB);
 	BOOST_REQUIRE(negative_large[2] == 0x78);
 
-	bytes negative_larger = solidity::util::lebEncodeSigned(-123456123456);
+	bytes negative_larger = hyperion::util::lebEncodeSigned(-123456123456);
 	BOOST_REQUIRE(negative_larger.size() == 6);
 	BOOST_REQUIRE(negative_larger[0] == 0xC0);
 	BOOST_REQUIRE(negative_larger[1] == 0x9B);

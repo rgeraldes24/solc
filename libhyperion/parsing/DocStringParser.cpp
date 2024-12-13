@@ -28,9 +28,9 @@
 #include <range/v3/algorithm/find_if_not.hpp>
 #include <range/v3/view/subrange.hpp>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 namespace
 {

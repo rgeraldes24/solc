@@ -28,16 +28,16 @@
 
 #include <libhyputil/StackTooDeepString.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 void CodeGenerator::assemble(
 	Block const& _parsedData,
 	AsmAnalysisInfo& _analysisInfo,
 	evmasm::Assembly& _assembly,
-	langutil::EVMVersion _evmVersion,
+	langutil::ZVMVersion _evmVersion,
 	ExternalIdentifierAccess::CodeGenerator _identifierAccessCodeGen,
 	bool _useNamedLabelsForFunctions,
 	bool _optimizeStackAllocation

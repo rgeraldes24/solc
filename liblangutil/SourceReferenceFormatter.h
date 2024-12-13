@@ -30,7 +30,7 @@
 #include <sstream>
 #include <functional>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class CharStream;

@@ -25,7 +25,7 @@
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/ASTForward.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct OptimiserStepContext;

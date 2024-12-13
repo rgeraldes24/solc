@@ -29,8 +29,8 @@
 
 #include <range/v3/action/remove_if.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void UnusedStoreBase::operator()(If const& _if)
 {

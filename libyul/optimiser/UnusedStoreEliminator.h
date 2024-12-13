@@ -34,7 +34,7 @@
 #include <map>
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 struct AssignedValue;

@@ -25,10 +25,10 @@
 
 #include <algorithm>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::smt;
 
 std::set<VariableDeclaration const*> VariableUsage::touchedVariables(ASTNode const& _node, std::vector<CallableDeclaration const*> const& _outerCallstack)
 {

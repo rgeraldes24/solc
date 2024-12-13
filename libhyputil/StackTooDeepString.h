@@ -19,7 +19,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 	static std::string stackTooDeepString =
 		"Stack too deep. "

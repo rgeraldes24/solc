@@ -18,8 +18,8 @@
 
 #include <libhyperion/formal/SSAVariable.h>
 
-using namespace solidity::frontend;
-using namespace solidity::frontend::smt;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::smt;
 
 SSAVariable::SSAVariable()
 {

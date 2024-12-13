@@ -21,9 +21,9 @@
 
 #include <libyul/Scope.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 bool Scope::registerVariable(YulString _name, YulType const& _type)
 {

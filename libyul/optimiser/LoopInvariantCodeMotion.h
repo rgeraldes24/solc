@@ -21,7 +21,7 @@
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/OptimiserStep.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

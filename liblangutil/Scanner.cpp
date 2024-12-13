@@ -62,7 +62,7 @@
 #include <array>
 
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 std::string to_string(ScannerError _errorCode)
@@ -1045,4 +1045,4 @@ std::tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 	return token;
 }
 
-} // namespace solidity::langutil
+} // namespace hyperion::langutil

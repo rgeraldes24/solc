@@ -23,6 +23,6 @@
 
 #include <libhyperion/ast/ASTAnnotations.h>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 

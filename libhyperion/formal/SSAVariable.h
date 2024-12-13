@@ -20,7 +20,7 @@
 
 #include <memory>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 /**

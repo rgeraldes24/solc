@@ -27,9 +27,9 @@
 #include <string>
 #include <tuple>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_FIXTURE_TEST_SUITE(ViewPureChecker, AnalysisFramework)

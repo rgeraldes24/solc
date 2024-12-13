@@ -21,7 +21,7 @@
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/Dialect.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

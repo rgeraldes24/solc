@@ -25,7 +25,7 @@
 #include <libhyputil/CommonData.h>
 #include <functional>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 /**

@@ -24,7 +24,7 @@
 #include <utility>
 #include <variant>
 
-namespace solidity::test::solprotofuzzer
+namespace hyperion::test::solprotofuzzer
 {
 /// Random number generator that is seeded with a fuzzer
 /// supplied unsigned integer.

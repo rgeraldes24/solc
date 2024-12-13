@@ -30,8 +30,8 @@
 
 #include <boost/algorithm/string.hpp>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 Json::Value Natspec::userDocumentation(ContractDefinition const& _contractDef)
 {

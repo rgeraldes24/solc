@@ -22,7 +22,7 @@
 
 #include <sstream>
 
-using namespace solidity::frontend::test;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 // Prototype as we can't use the FuzzerInterface.h header.

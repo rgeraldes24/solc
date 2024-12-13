@@ -37,7 +37,7 @@
 #include <fcntl.h>
 #endif
 
-using namespace solidity::lsp;
+using namespace hyperion::lsp;
 
 // {{{ Transport
 std::optional<Json::Value> Transport::receive()
@@ -59,7 +59,7 @@ std::optional<Json::Value> Transport::receive()
 
 	Json::Value jsonMessage;
 	std::string jsonParsingErrors;
-	solidity::util::jsonParseStrict(data, jsonMessage, &jsonParsingErrors);
+	hyperion::util::jsonParseStrict(data, jsonMessage, &jsonParsingErrors);
 	if (!jsonParsingErrors.empty() || !jsonMessage || !jsonMessage.isObject())
 	{
 		error({}, ErrorCode::ParseError, "Could not parse RPC JSON payload. " + jsonParsingErrors);
@@ -134,7 +134,7 @@ void Transport::send(Json::Value _json, MessageID _id)
 		_json["id"] = _id;
 
 	// Trailing CRLF only for easier readability.
-	std::string const jsonString = solidity::util::jsonCompactPrint(_json);
+	std::string const jsonString = hyperion::util::jsonCompactPrint(_json);
 
 	writeBytes(fmt::format("Content-Length: {}\r\n\r\n", jsonString.size()));
 	writeBytes(jsonString);

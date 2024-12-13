@@ -39,14 +39,14 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 class CharStreamProvider;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class SMTEncoder: public ASTConstVisitor

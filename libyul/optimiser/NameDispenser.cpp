@@ -29,9 +29,9 @@
 
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 NameDispenser::NameDispenser(Dialect const& _dialect, Block const& _ast, std::set<YulString> _reservedNames):
 	NameDispenser(_dialect, NameCollector(_ast).names() + _reservedNames)

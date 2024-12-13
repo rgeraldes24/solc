@@ -25,12 +25,12 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 class CompilerStack;
 }
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 using StringPair = std::pair<std::string, std::string>;

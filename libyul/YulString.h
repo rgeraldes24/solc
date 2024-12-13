@@ -29,7 +29,7 @@
 #include <string>
 #include <functional>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /// Repository for YulStrings.
@@ -172,7 +172,7 @@ inline YulString operator "" _yulstring(char const* _string, std::size_t _size)
 namespace fmt
 {
 template <>
-struct formatter<solidity::yul::YulString>
+struct formatter<hyperion::yul::YulString>
 {
 	template <typename ParseContext>
 	constexpr auto parse(ParseContext& _context)
@@ -181,7 +181,7 @@ struct formatter<solidity::yul::YulString>
 	}
 
 	template <typename FormatContext>
-	auto format(solidity::yul::YulString _value, FormatContext& _context)
+	auto format(hyperion::yul::YulString _value, FormatContext& _context)
 	{
 		return format_to(_context.out(), "{}", _value.str());
 	}
@@ -190,9 +190,9 @@ struct formatter<solidity::yul::YulString>
 
 namespace std
 {
-template<> struct hash<solidity::yul::YulString>
+template<> struct hash<hyperion::yul::YulString>
 {
-	size_t operator()(solidity::yul::YulString const& x) const
+	size_t operator()(hyperion::yul::YulString const& x) const
 	{
 		return static_cast<size_t>(x.hash());
 	}

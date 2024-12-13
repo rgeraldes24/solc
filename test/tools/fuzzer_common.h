@@ -38,7 +38,7 @@ struct FuzzerUtil
 	/// adds the experimental SMTChecker pragma to each source file in the
 	/// source map.
 	static void testCompiler(
-		solidity::StringMap& _input,
+		hyperion::StringMap& _input,
 		bool _optimize,
 		unsigned _rand,
 		bool _forceSMT,
@@ -46,5 +46,5 @@ struct FuzzerUtil
 	);
 	/// Adds the experimental SMTChecker pragma to each source file in the
 	/// source map.
-	static void forceSMT(solidity::StringMap& _input);
+	static void forceSMT(hyperion::StringMap& _input);
 };

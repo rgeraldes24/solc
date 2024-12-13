@@ -21,19 +21,19 @@
 
 #pragma once
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <string>
 #include <vector>
 #include <memory>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 struct Block;
@@ -41,7 +41,7 @@ struct Object;
 struct Dialect;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 std::pair<std::shared_ptr<Block>, std::shared_ptr<AsmAnalysisInfo>>
@@ -53,6 +53,6 @@ parse(std::string const& _source, Dialect const& _dialect, langutil::ErrorList& 
 Block disambiguate(std::string const& _source, bool _yul = true);
 std::string format(std::string const& _source, bool _yul = true);
 
-solidity::yul::Dialect const& dialect(std::string const& _name, langutil::EVMVersion _evmVersion);
+hyperion::yul::Dialect const& dialect(std::string const& _name, langutil::ZVMVersion _evmVersion);
 
 }

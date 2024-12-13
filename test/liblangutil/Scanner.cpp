@@ -24,10 +24,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 using namespace std::string_literals;
 
-namespace solidity::langutil::test
+namespace hyperion::langutil::test
 {
 
 BOOST_AUTO_TEST_SUITE(ScannerTest)

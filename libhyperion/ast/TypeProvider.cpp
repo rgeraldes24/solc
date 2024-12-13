@@ -21,9 +21,9 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
 
 BoolType const TypeProvider::m_boolean{};
 InaccessibleDynamicType const TypeProvider::m_inaccessibleDynamic{};

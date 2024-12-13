@@ -36,10 +36,10 @@
 #include <libzvmasm/Instruction.h>
 #include <liblangutil/Exceptions.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType const& _sourceType) const
 {

@@ -42,24 +42,24 @@
 #include <limits>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::test;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::test;
+using namespace hyperion::frontend::test;
 
 ExecutionFramework::ExecutionFramework():
-	ExecutionFramework(solidity::test::CommonOptions::get().evmVersion(), solidity::test::CommonOptions::get().vmPaths)
+	ExecutionFramework(hyperion::test::CommonOptions::get().evmVersion(), hyperion::test::CommonOptions::get().vmPaths)
 {
 }
 
-ExecutionFramework::ExecutionFramework(langutil::EVMVersion _evmVersion, vector<boost::filesystem::path> const& _vmPaths):
+ExecutionFramework::ExecutionFramework(langutil::ZVMVersion _evmVersion, vector<boost::filesystem::path> const& _vmPaths):
 	m_evmVersion(_evmVersion),
-	m_optimiserSettings(solidity::frontend::OptimiserSettings::minimal()),
-	m_showMessages(solidity::test::CommonOptions::get().showMessages),
+	m_optimiserSettings(hyperion::frontend::OptimiserSettings::minimal()),
+	m_showMessages(hyperion::test::CommonOptions::get().showMessages),
 	m_vmPaths(_vmPaths)
 {
-	if (solidity::test::CommonOptions::get().optimize)
-		m_optimiserSettings = solidity::frontend::OptimiserSettings::standard();
+	if (hyperion::test::CommonOptions::get().optimize)
+		m_optimiserSettings = hyperion::frontend::OptimiserSettings::standard();
 	selectVM(zvmc_capabilities::ZVMC_CAPABILITY_EVM1);
 }
 
@@ -291,7 +291,7 @@ bool ExecutionFramework::storageEmpty(h160 const& _addr) const
 	return true;
 }
 
-vector<solidity::frontend::test::LogRecord> ExecutionFramework::recordedLogs() const
+vector<hyperion::frontend::test::LogRecord> ExecutionFramework::recordedLogs() const
 {
 	vector<LogRecord> logs;
 	for (zvmc::MockedHost::log_record const& logRecord: m_zvmcHost->recorded_logs)

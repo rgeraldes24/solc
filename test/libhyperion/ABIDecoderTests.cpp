@@ -29,9 +29,9 @@
 #include <test/libhyperion/ABITestsCommon.h>
 
 using namespace std::placeholders;
-using namespace solidity::test;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_FIXTURE_TEST_SUITE(ABIDecoderTest, SolidityExecutionFramework)

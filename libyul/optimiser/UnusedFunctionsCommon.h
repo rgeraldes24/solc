@@ -22,7 +22,7 @@
 
 #include <libyul/AST.h>
 
-namespace solidity::yul::unusedFunctionsCommon
+namespace hyperion::yul::unusedFunctionsCommon
 {
 
 /// Returns true if applying UnusedFunctionParameterPruner is not helpful or redundant because the

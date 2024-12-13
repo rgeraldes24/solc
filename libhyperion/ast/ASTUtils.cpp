@@ -22,7 +22,7 @@
 
 #include <libhyputil/Algorithms.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 ASTNode const* locateInnermostASTNode(int _offsetInFile, SourceUnit const& _sourceUnit)

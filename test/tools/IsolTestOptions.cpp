@@ -32,7 +32,7 @@
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 namespace
@@ -82,7 +82,7 @@ bool IsolTestOptions::parse(int _argc, char const* const* _argv)
 		return false;
 	}
 
-	enforceGasTest = enforceGasTest || (evmVersion() == langutil::EVMVersion{} && !useABIEncoderV1);
+	enforceGasTest = enforceGasTest || (evmVersion() == langutil::ZVMVersion{} && !useABIEncoderV1);
 
 	return shouldContinue;
 }

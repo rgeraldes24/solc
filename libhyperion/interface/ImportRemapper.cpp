@@ -19,7 +19,7 @@
 #include <libhyputil/CommonIO.h>
 #include <liblangutil/Exceptions.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 void ImportRemapper::setRemappings(std::vector<Remapping> _remappings)

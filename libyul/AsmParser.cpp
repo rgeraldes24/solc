@@ -37,10 +37,10 @@
 #include <algorithm>
 #include <regex>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
 
 namespace
 {

@@ -31,9 +31,9 @@
 
 #include <memory>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool PostTypeChecker::check(ASTNode const& _astRoot)
 {
@@ -436,13 +436,13 @@ struct ReservedErrorSelector: public PostTypeChecker::Checker
 	}
 };
 
-class YulLValueChecker : public solidity::yul::ASTWalker
+class YulLValueChecker : public hyperion::yul::ASTWalker
 {
 public:
 	YulLValueChecker(ASTString const& _identifierName): m_identifierName(_identifierName) {}
 	bool willBeWrittenTo() const { return m_willBeWrittenTo; }
-	using solidity::yul::ASTWalker::operator();
-	void operator()(solidity::yul::Assignment const& _assignment) override
+	using hyperion::yul::ASTWalker::operator();
+	void operator()(hyperion::yul::Assignment const& _assignment) override
 	{
 		if (m_willBeWrittenTo)
 			return;

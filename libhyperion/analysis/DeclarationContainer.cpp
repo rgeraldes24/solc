@@ -29,8 +29,8 @@
 #include <range/v3/view/filter.hpp>
 #include <range/v3/range/conversion.hpp>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 Declaration const* DeclarationContainer::conflictingDeclaration(
 	Declaration const& _declaration,

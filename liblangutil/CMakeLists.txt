@@ -7,8 +7,8 @@ set(sources
 	DebugInfoSelection.h
 	ErrorReporter.cpp
 	ErrorReporter.h
-	EVMVersion.h
-	EVMVersion.cpp
+	ZVMVersion.h
+	ZVMVersion.cpp
 	Exceptions.cpp
 	Exceptions.h
 	ParserBase.cpp
@@ -30,4 +30,4 @@ set(sources
 )
 
 add_library(langutil ${sources})
-target_link_libraries(langutil PUBLIC solutil fmt::fmt-header-only)
+target_link_libraries(langutil PUBLIC hyputil fmt::fmt-header-only)

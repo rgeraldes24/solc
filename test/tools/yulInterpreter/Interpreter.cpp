@@ -38,11 +38,11 @@
 #include <variant>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
-using solidity::util::h256;
+using hyperion::util::h256;
 
 void InterpreterState::dumpStorage(ostream& _out) const
 {

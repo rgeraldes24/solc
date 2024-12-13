@@ -28,12 +28,12 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/interface/GasEstimator.h>
 
-using namespace solidity::langutil;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion::langutil;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 class GasMeterTestFramework: public SolidityExecutionFramework
@@ -44,8 +44,8 @@ public:
 		m_compiler.reset();
 		m_compiler.setSources({{"", "pragma solidity >=0.0;\n"
 				"// SPDX-License-Identifier: GPL-3.0\n" + _sourceCode}});
-		m_compiler.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
-		m_compiler.setEVMVersion(m_evmVersion);
+		m_compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
+		m_compiler.setZVMVersion(m_evmVersion);
 		BOOST_REQUIRE_MESSAGE(m_compiler.compile(), "Compiling contract failed");
 	}
 
@@ -53,7 +53,7 @@ public:
 	{
 		compileAndRun(_sourceCode);
 		auto state = std::make_shared<KnownState>();
-		PathGasMeter meter(*m_compiler.assemblyItems(m_compiler.lastContractName()), solidity::test::CommonOptions::get().evmVersion());
+		PathGasMeter meter(*m_compiler.assemblyItems(m_compiler.lastContractName()), hyperion::test::CommonOptions::get().evmVersion());
 		GasMeter::GasConsumption gas = meter.estimateMax(0, state);
 		u256 bytecodeSize(m_compiler.runtimeObject(m_compiler.lastContractName()).bytecode.size());
 		// costs for deployment
@@ -63,7 +63,7 @@ public:
 
 		// Skip the tests when we use ABIEncoderV2.
 		// TODO: We should enable this again once the yul optimizer is activated.
-		if (solidity::test::CommonOptions::get().useABIEncoderV1)
+		if (hyperion::test::CommonOptions::get().useABIEncoderV1)
 		{
 			BOOST_REQUIRE(!gas.isInfinite);
 			BOOST_CHECK_LE(m_gasUsed, gas.value);
@@ -86,13 +86,13 @@ public:
 			gas = std::max(gas, gasForTransaction(hash.asBytes() + arguments, false));
 		}
 
-		gas += GasEstimator(solidity::test::CommonOptions::get().evmVersion()).functionalEstimation(
+		gas += GasEstimator(hyperion::test::CommonOptions::get().evmVersion()).functionalEstimation(
 			*m_compiler.runtimeAssemblyItems(m_compiler.lastContractName()),
 			_sig
 		);
 		// Skip the tests when we use ABIEncoderV2.
 		// TODO: We should enable this again once the yul optimizer is activated.
-		if (solidity::test::CommonOptions::get().useABIEncoderV1)
+		if (hyperion::test::CommonOptions::get().useABIEncoderV1)
 		{
 			BOOST_REQUIRE(!gas.isInfinite);
 			BOOST_CHECK_LE(m_gasUsed, gas.value);

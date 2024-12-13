@@ -23,8 +23,8 @@
 #include <libyul/optimiser/Suite.h>
 
 using namespace std;
-using namespace solidity::yul;
-using namespace solidity::phaser;
+using namespace hyperion::yul;
+using namespace hyperion::phaser;
 
 CacheStats& CacheStats::operator+=(CacheStats const& _other)
 {

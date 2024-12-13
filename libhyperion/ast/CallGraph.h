@@ -26,7 +26,7 @@
 #include <set>
 #include <variant>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

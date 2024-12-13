@@ -27,7 +27,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 void SourceUnit::accept(ASTVisitor& _visitor)

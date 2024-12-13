@@ -29,10 +29,10 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
-using solidity::test::SyntaxTestError;
+using hyperion::test::SyntaxTestError;
 
 class MemoryGuardTest: public AnalysisFramework, public TestCase
 {

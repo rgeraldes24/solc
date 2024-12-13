@@ -21,7 +21,7 @@
 
 #include <boost/filesystem.hpp>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /// SMTSolverCommand wraps an SMT solver called via its binary in the OS.

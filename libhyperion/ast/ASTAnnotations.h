@@ -35,14 +35,14 @@
 #include <set>
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 struct Identifier;
 struct Dialect;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Type;

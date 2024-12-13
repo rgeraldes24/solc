@@ -19,9 +19,9 @@
 
 #include <libyul/Exceptions.h>
 
-using namespace solidity;
-using namespace solidity::test::fuzzer;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::yul;
 
 bytes YulAssembler::assemble()
 {

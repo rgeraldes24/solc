@@ -24,7 +24,7 @@
 #include <libyul/ASTForward.h>
 #include <libyul/YulString.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class HasherBase

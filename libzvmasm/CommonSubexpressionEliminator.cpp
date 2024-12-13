@@ -30,9 +30,9 @@
 
 #include <range/v3/view/reverse.hpp>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
 std::vector<AssemblyItem> CommonSubexpressionEliminator::getOptimizedItems()
 {

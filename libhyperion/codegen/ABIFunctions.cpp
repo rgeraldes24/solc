@@ -30,9 +30,9 @@
 
 #include <boost/algorithm/string/join.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
 
 std::string ABIFunctions::tupleEncoder(
 	TypePointers const& _givenTypes,

@@ -31,7 +31,7 @@
 #include <utility>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 struct SemVerError: public util::Exception

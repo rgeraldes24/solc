@@ -34,7 +34,7 @@
 #include <limits>
 #include <json/json.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 struct AsmAnalysisInfo;

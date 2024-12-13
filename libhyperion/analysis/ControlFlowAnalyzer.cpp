@@ -26,8 +26,8 @@
 #include <functional>
 
 using namespace std::placeholders;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 
 bool ControlFlowAnalyzer::run()

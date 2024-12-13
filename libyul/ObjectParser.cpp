@@ -32,10 +32,10 @@
 
 #include <regex>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 std::shared_ptr<Object> ObjectParser::parse(std::shared_ptr<Scanner> const& _scanner, bool _reuseScanner)
 {

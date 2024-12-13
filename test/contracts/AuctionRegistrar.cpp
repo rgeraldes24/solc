@@ -32,11 +32,11 @@
 #include <string>
 #include <optional>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace

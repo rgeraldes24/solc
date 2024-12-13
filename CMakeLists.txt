@@ -24,7 +24,7 @@ zond_policy()
 set(PROJECT_VERSION "0.8.23")
 # OSX target needed in order to support std::visit
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14")
-project(solidity VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
+project(hyperion VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
 
 include(TestBigEndian)
 TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
@@ -92,7 +92,7 @@ You can also use -DUSE_Z3=OFF to build without Z3. In both cases use --no-smt wh
     if ("${Z3_VERSION_STRING}" VERSION_LESS ${MINIMUM_Z3_VERSION})
       message(
         FATAL_ERROR
-        "Solidity requires Z3 ${MINIMUM_Z3_VERSION} or newer. You can also use -DUSE_Z3=OFF to build without Z3."
+        "Hyperion requires Z3 ${MINIMUM_Z3_VERSION} or newer. You can also use -DUSE_Z3=OFF to build without Z3."
       )
     endif()
   endif()

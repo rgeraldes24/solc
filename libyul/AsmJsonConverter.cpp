@@ -26,7 +26,7 @@
 #include <libhyputil/CommonData.h>
 #include <libhyputil/UTF8.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 Json::Value AsmJsonConverter::operator()(Block const& _node) const

@@ -1315,7 +1315,7 @@ SSA transform.
 StackCompressor
 ^^^^^^^^^^^^^^^
 
-One problem that makes code generation for the Ethereum Virtual Machine
+One problem that makes code generation for the Zond Virtual Machine
 hard is the fact that there is a hard limit of 16 slots for reaching
 down the expression stack. This more or less translates to a limit
 of 16 local variables. The stack compressor takes Yul code and

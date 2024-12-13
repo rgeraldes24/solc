@@ -27,15 +27,15 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 class CompilerStack;
 }
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
-class ASTJSONTest: public EVMVersionRestrictedTestCase
+class ASTJSONTest: public ZVMVersionRestrictedTestCase
 {
 public:
 	struct TestVariant

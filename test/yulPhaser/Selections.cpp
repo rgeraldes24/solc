@@ -30,9 +30,9 @@
 #include <vector>
 
 using namespace std;
-using namespace solidity::util;
+using namespace hyperion::util;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 BOOST_AUTO_TEST_SUITE(Phaser, *boost::unit_test::label("nooptions"))

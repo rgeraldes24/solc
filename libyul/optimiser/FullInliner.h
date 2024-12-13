@@ -34,7 +34,7 @@
 #include <set>
 #include <utility>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class NameCollector;

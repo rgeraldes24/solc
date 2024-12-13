@@ -27,7 +27,7 @@
 #include <tuple>
 #include <vector>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /**

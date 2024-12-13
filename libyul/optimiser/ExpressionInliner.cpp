@@ -30,8 +30,8 @@
 
 #include <libyul/AST.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void ExpressionInliner::run(OptimiserStepContext& _context, Block& _ast)
 {

@@ -34,10 +34,10 @@
 #include <boost/algorithm/string/join.hpp>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
 namespace
 {

@@ -26,22 +26,22 @@
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Numeric.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <vector>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 enum class Instruction: uint8_t;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 class YulString;
 struct BuiltinFunctionForEVM;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 /// Copy @a _size bytes of @a _source at offset @a _sourceOffset to
@@ -76,7 +76,7 @@ struct InterpreterState;
 class EVMInstructionInterpreter
 {
 public:
-	explicit EVMInstructionInterpreter(langutil::EVMVersion _evmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
+	explicit EVMInstructionInterpreter(langutil::ZVMVersion _evmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
 		m_evmVersion(_evmVersion),
 		m_state(_state),
 		m_disableMemoryWriteInstructions(_disableMemWriteTrace)
@@ -144,7 +144,7 @@ private:
 		return m_disableMemoryWriteInstructions;
 	}
 
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	InterpreterState& m_state;
 	/// Flag to disable trace of instructions that write to memory.
 	bool m_disableMemoryWriteInstructions;
@@ -153,4 +153,4 @@ public:
 	static constexpr unsigned s_maxRangeSize = 0xffff;
 };
 
-} // solidity::yul::test
+} // hyperion::yul::test

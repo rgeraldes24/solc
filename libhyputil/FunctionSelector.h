@@ -23,7 +23,7 @@
 
 #include <string>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// @returns the ABI selector for a given function signature, as a FixedHash h32.

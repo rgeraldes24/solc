@@ -25,7 +25,7 @@
 
 #include <map>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 /**

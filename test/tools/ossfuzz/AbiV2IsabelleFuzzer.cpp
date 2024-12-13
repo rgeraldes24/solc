@@ -23,12 +23,12 @@
 #include <src/libfuzzer/libfuzzer_macro.h>
 #include <abicoder.hpp>
 
-using namespace solidity::frontend;
-using namespace solidity::test::fuzzer;
-using namespace solidity::test::abiv2fuzzer;
-using namespace solidity::test;
-using namespace solidity::util;
-using namespace solidity;
+using namespace hyperion::frontend;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::test::abiv2fuzzer;
+using namespace hyperion::test;
+using namespace hyperion::util;
+using namespace hyperion;
 using namespace std;
 
 static constexpr size_t abiCoderHeapSize = 1024 * 512;
@@ -56,7 +56,7 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 		solAssert(encodeStatus, "Isabelle abicoder fuzzer: Encoding failed");
 
 		// We target the default EVM which is the latest
-		langutil::EVMVersion version;
+		langutil::ZVMVersion version;
 		ZVMHost hostContext(version, evmone);
 		string contractName = "C";
 		StringMap source({{"test.hyp", contractSource}});

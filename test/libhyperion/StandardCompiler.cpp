@@ -32,10 +32,10 @@
 #include <algorithm>
 #include <set>
 
-using namespace solidity::evmasm;
+using namespace hyperion::evmasm;
 using namespace std::string_literals;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -382,7 +382,7 @@ BOOST_AUTO_TEST_CASE(basic_compilation)
 	BOOST_CHECK(contract["evm"]["bytecode"].isObject());
 	BOOST_CHECK(contract["evm"]["bytecode"]["object"].isString());
 	BOOST_CHECK_EQUAL(
-		solidity::test::bytecodeSansMetadata(contract["evm"]["bytecode"]["object"].asString()),
+		hyperion::test::bytecodeSansMetadata(contract["evm"]["bytecode"]["object"].asString()),
 		std::string("6080604052348015600e575f80fd5b5060") +
 		(VersionIsRelease ? "3e" : util::toHex(bytes{uint8_t(60 + VersionStringStrict.size())})) +
 		"80601a5f395ff3fe60806040525f80fdfe"
@@ -441,7 +441,7 @@ BOOST_AUTO_TEST_CASE(basic_compilation)
 		"{\"begin\":0,\"end\":14,\"name\":\"RETURN\",\"source\":0}]"
 	);
 	BOOST_CHECK(contract["metadata"].isString());
-	BOOST_CHECK(solidity::test::isValidMetadata(contract["metadata"].asString()));
+	BOOST_CHECK(hyperion::test::isValidMetadata(contract["metadata"].asString()));
 	BOOST_CHECK(result["sources"].isObject());
 	BOOST_CHECK(result["sources"]["fileA"].isObject());
 	BOOST_CHECK(result["sources"]["fileA"]["ast"].isObject());
@@ -1233,7 +1233,7 @@ BOOST_AUTO_TEST_CASE(metadata_without_compilation)
 	Json::Value contract = getContractResult(result, "fileA", "A");
 	BOOST_CHECK(contract.isObject());
 	BOOST_CHECK(contract["metadata"].isString());
-	BOOST_CHECK(solidity::test::isValidMetadata(contract["metadata"].asString()));
+	BOOST_CHECK(hyperion::test::isValidMetadata(contract["metadata"].asString()));
 }
 
 
@@ -1300,7 +1300,7 @@ BOOST_AUTO_TEST_CASE(common_pattern)
 	Json::Value contract = getContractResult(result, "fileA", "A");
 	BOOST_CHECK(contract.isObject());
 	BOOST_CHECK(contract["metadata"].isString());
-	BOOST_CHECK(solidity::test::isValidMetadata(contract["metadata"].asString()));
+	BOOST_CHECK(hyperion::test::isValidMetadata(contract["metadata"].asString()));
 	BOOST_CHECK(contract["evm"]["bytecode"].isObject());
 	BOOST_CHECK(contract["evm"]["bytecode"]["object"].isString());
 }
@@ -1356,7 +1356,7 @@ BOOST_AUTO_TEST_CASE(use_stack_optimization)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_CHECK(containsAtMostWarnings(result));
@@ -1408,7 +1408,7 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1449,7 +1449,7 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_colon_source)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1489,7 +1489,7 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_empty_source)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1533,7 +1533,7 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_multiple_sources)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1660,7 +1660,7 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1698,7 +1698,7 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract_yul)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	BOOST_REQUIRE(result["contracts"].isObject());
@@ -1747,7 +1747,7 @@ BOOST_AUTO_TEST_CASE(source_location_of_bare_block)
 	Json::Value parsedInput;
 	BOOST_REQUIRE(util::jsonParseStrict(input, parsedInput));
 
-	solidity::frontend::StandardCompiler compiler;
+	hyperion::frontend::StandardCompiler compiler;
 	Json::Value result = compiler.compile(parsedInput);
 
 	std::string sourceMap = result["contracts"]["A.hyp"]["A"]["evm"]["bytecode"]["sourceMap"].asString();

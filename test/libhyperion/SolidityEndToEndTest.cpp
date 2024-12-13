@@ -28,7 +28,7 @@
 #include <test/ZVMHost.h>
 
 #include <liblangutil/Exceptions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libzvmasm/Assembly.h>
 
@@ -47,10 +47,10 @@
 #include <tuple>
 
 using namespace std::placeholders;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::test;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::test;
+using namespace hyperion::langutil;
 
 #define ALSO_VIA_YUL(CODE)                                      \
 {                                                               \
@@ -78,7 +78,7 @@ using namespace solidity::langutil;
 }
 
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 struct SolidityEndToEndTestExecutionFramework: public SolidityExecutionFramework

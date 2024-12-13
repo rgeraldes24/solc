@@ -23,8 +23,8 @@
 
 #include <range/v3/view/reverse.hpp>
 
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 FunctionReferenceResolver::FunctionReferenceResolver(Block const& _ast)
 {

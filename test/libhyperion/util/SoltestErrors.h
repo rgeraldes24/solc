@@ -23,7 +23,7 @@
 #include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/facilities/overload.hpp>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 struct InternalSoltestError: virtual util::Exception {};
@@ -40,7 +40,7 @@ struct InternalSoltestError: virtual util::Exception {};
 #define soltestAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::frontend::test::InternalSoltestError, \
+		::hyperion::frontend::test::InternalSoltestError, \
 		(DESCRIPTION), \
 		"Soltest assertion failed" \
 	)

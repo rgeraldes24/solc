@@ -20,23 +20,23 @@
 
 #include <test/TestCase.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 struct Object;
 struct Dialect;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-class YulOptimizerTest: public solidity::frontend::test::EVMVersionRestrictedTestCase
+class YulOptimizerTest: public hyperion::frontend::test::ZVMVersionRestrictedTestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

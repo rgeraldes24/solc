@@ -27,7 +27,7 @@
 #include <vector>
 #include <tuple>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 bool searchErrorMessage(langutil::Error const& _err, std::string const& _substr);

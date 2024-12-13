@@ -31,9 +31,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -44,7 +44,7 @@ ASTPointer<ContractDefinition> parseText(std::string const& _source, ErrorList& 
 	auto charStream = CharStream(_source, "");
 	ASTPointer<SourceUnit> sourceUnit = Parser(
 		errorReporter,
-		solidity::test::CommonOptions::get().evmVersion()
+		hyperion::test::CommonOptions::get().evmVersion()
 	).parse(charStream);
 	if (!sourceUnit)
 		return ASTPointer<ContractDefinition>();

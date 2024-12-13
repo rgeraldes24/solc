@@ -27,9 +27,9 @@
 #include <set>
 #include <iostream>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 namespace
 {
@@ -39,7 +39,7 @@ std::string errorMessage(Error const& _e)
 }
 }
 
-bool solidity::frontend::test::searchErrorMessage(Error const& _err, std::string const& _substr)
+bool hyperion::frontend::test::searchErrorMessage(Error const& _err, std::string const& _substr)
 {
 	if (std::string const* errorMessage = _err.comment())
 	{
@@ -55,7 +55,7 @@ bool solidity::frontend::test::searchErrorMessage(Error const& _err, std::string
 	return _substr.empty();
 }
 
-std::string solidity::frontend::test::searchErrors(ErrorList const& _errors, std::vector<std::pair<Error::Type, std::string>> const& _expectations)
+std::string hyperion::frontend::test::searchErrors(ErrorList const& _errors, std::vector<std::pair<Error::Type, std::string>> const& _expectations)
 {
 	auto expectations = _expectations;
 	for (auto const& error: _errors)

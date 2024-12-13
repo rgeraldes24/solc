@@ -43,11 +43,11 @@
 #include <numeric>
 #include <utility>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 
 namespace
 {

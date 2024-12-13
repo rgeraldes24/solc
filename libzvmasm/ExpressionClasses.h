@@ -32,12 +32,12 @@
 #include <unordered_set>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 struct SourceLocation;
 }
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class Pattern;

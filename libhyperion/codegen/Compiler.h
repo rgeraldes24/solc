@@ -26,18 +26,18 @@
 #include <libhyperion/codegen/CompilerContext.h>
 #include <libhyperion/interface/OptimiserSettings.h>
 #include <libhyperion/interface/DebugSettings.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libzvmasm/Assembly.h>
 #include <functional>
 #include <ostream>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Compiler
 {
 public:
-	Compiler(langutil::EVMVersion _evmVersion, RevertStrings _revertStrings, OptimiserSettings _optimiserSettings):
+	Compiler(langutil::ZVMVersion _evmVersion, RevertStrings _revertStrings, OptimiserSettings _optimiserSettings):
 		m_optimiserSettings(std::move(_optimiserSettings)),
 		m_runtimeContext(_evmVersion, _revertStrings),
 		m_context(_evmVersion, _revertStrings, &m_runtimeContext)

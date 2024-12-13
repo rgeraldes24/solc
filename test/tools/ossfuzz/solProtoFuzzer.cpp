@@ -29,12 +29,12 @@
 
 static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
 
-using namespace solidity::test::fuzzer;
-using namespace solidity::test::solprotofuzzer;
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::test;
-using namespace solidity::util;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::test::solprotofuzzer;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::test;
+using namespace hyperion::util;
 using namespace std;
 
 DEFINE_PROTO_FUZZER(Program const& _input)
@@ -64,7 +64,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	}
 
 	// We target the default EVM which is the latest
-	langutil::EVMVersion version;
+	langutil::ZVMVersion version;
 	ZVMHost hostContext(version, evmone);
 	string contractName = "C";
 	string libraryName = converter.libraryTest() ? converter.libraryName() : "";

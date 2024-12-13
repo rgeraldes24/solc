@@ -21,8 +21,8 @@
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Visitor.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 using OptionalStatements = std::optional<std::vector<Statement>>;
 

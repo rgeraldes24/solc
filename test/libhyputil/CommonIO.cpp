@@ -31,11 +31,11 @@
 #include <fstream>
 #include <string>
 
-using namespace solidity::test;
+using namespace hyperion::test;
 
 #define TEST_CASE_NAME (boost::unit_test::framework::current_test_case().p_name)
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 BOOST_AUTO_TEST_SUITE(CommonIOTest)
@@ -100,4 +100,4 @@ BOOST_AUTO_TEST_CASE(readBytes_past_end)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::util::test
+} // namespace hyperion::util::test

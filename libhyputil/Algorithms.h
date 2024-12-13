@@ -22,7 +22,7 @@
 #include <list>
 #include <set>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /**

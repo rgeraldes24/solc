@@ -27,11 +27,11 @@
 
 #include <tuple>
 
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 void EVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::string const& _source)
@@ -119,4 +119,4 @@ std::vector<std::string> EVMAssemblyStack::sourceNames() const
 	return m_sourceList;
 }
 
-} // namespace solidity::evmasm
+} // namespace hyperion::evmasm

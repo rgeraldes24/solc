@@ -30,9 +30,9 @@
 #include <fmt/format.h>
 
 using namespace std::string_literals;
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 
 SemVerMatchExpressionParser::SemVerMatchExpressionParser(std::vector<Token> _tokens, std::vector<std::string> _literals):
 	m_tokens(std::move(_tokens)), m_literals(std::move(_literals))

@@ -21,7 +21,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/ASTVisitor.h>
 #include <liblangutil/ErrorReporter.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/SourceLocation.h>
 
 #include <map>
@@ -30,7 +30,7 @@
 #include <utility>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

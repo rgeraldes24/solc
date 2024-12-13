@@ -25,7 +25,7 @@
 #include <boost/test/unit_test.hpp>
 
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 class SolidityCompilerFixture: protected AnalysisFramework
@@ -58,8 +58,8 @@ BOOST_AUTO_TEST_CASE(does_not_include_creation_time_only_internal_functions)
 		"Contract compilation failed:\n" + formatErrors(filteredErrors(), true /* _colored */)
 	);
 
-	bytes const& creationBytecode = solidity::test::bytecodeSansMetadata(compiler().object("C").bytecode);
-	bytes const& runtimeBytecode = solidity::test::bytecodeSansMetadata(compiler().runtimeObject("C").bytecode);
+	bytes const& creationBytecode = hyperion::test::bytecodeSansMetadata(compiler().object("C").bytecode);
+	bytes const& runtimeBytecode = hyperion::test::bytecodeSansMetadata(compiler().runtimeObject("C").bytecode);
 	BOOST_CHECK(creationBytecode.size() >= 90);
 	BOOST_CHECK(creationBytecode.size() <= 120);
 	unsigned threshold = 9;

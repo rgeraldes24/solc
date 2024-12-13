@@ -26,7 +26,7 @@
 #include <functional>
 #include <tuple>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 using ChromosomePair = std::tuple<Chromosome, Chromosome>;

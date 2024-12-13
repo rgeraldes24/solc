@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libhyperion/ast/Types.h>
 #include <libhyperion/codegen/MultiUseYulFunctionCollector.h>
@@ -34,7 +34,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Type;
@@ -50,7 +50,7 @@ class YulUtilFunctions
 {
 public:
 	explicit YulUtilFunctions(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		RevertStrings _revertStrings,
 		MultiUseYulFunctionCollector& _functionCollector
 	):
@@ -603,7 +603,7 @@ private:
 	/// signature: (array, index)
 	std::string longByteArrayStorageIndexAccessNoCheckFunction();
 
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	RevertStrings m_revertStrings;
 	MultiUseYulFunctionCollector& m_functionCollector;
 };

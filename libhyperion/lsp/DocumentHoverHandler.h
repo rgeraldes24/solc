@@ -18,7 +18,7 @@
 #pragma once
 #include <libhyperion/lsp/HandlerBase.h>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class DocumentHoverHandler: public HandlerBase

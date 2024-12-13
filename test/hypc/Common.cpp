@@ -24,7 +24,7 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity::frontend;
+using namespace hyperion::frontend;
 
 vector<char const*> test::makeArgv(vector<string> const& _commandLine)
 {

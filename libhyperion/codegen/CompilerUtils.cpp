@@ -33,14 +33,14 @@
 #include <libhyputil/Whiskers.h>
 #include <libhyputil/StackTooDeepString.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
-using solidity::util::Whiskers;
-using solidity::util::h256;
-using solidity::toCompactHexWithPrefix;
+using hyperion::util::Whiskers;
+using hyperion::util::h256;
+using hyperion::toCompactHexWithPrefix;
 
 unsigned const CompilerUtils::dataStartOffset = 4;
 size_t const CompilerUtils::freeMemoryPointer = 64;

@@ -22,7 +22,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <set>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ControlFlowAnalyzer

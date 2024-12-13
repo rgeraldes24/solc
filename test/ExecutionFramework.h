@@ -29,7 +29,7 @@
 #include <libhyperion/interface/OptimiserSettings.h>
 #include <libhyperion/interface/DebugSettings.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libhyputil/FunctionSelector.h>
 #include <libhyputil/ErrorCodes.h>
@@ -39,12 +39,12 @@
 #include <boost/rational.hpp>
 #include <boost/test/unit_test.hpp>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 struct LogRecord;
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test
 
-namespace solidity::test
+namespace hyperion::test
 {
 using rational = boost::rational<bigint>;
 
@@ -56,7 +56,7 @@ class ExecutionFramework
 
 public:
 	ExecutionFramework();
-	ExecutionFramework(langutil::EVMVersion _evmVersion, std::vector<boost::filesystem::path> const& _vmPaths);
+	ExecutionFramework(langutil::ZVMVersion _evmVersion, std::vector<boost::filesystem::path> const& _vmPaths);
 	virtual ~ExecutionFramework() = default;
 
 	virtual bytes const& compileAndRunWithoutCheck(
@@ -291,9 +291,9 @@ protected:
 
 	std::vector<frontend::test::LogRecord> recordedLogs() const;
 
-	langutil::EVMVersion m_evmVersion;
-	solidity::frontend::RevertStrings m_revertStrings = solidity::frontend::RevertStrings::Default;
-	solidity::frontend::OptimiserSettings m_optimiserSettings = solidity::frontend::OptimiserSettings::minimal();
+	langutil::ZVMVersion m_evmVersion;
+	hyperion::frontend::RevertStrings m_revertStrings = hyperion::frontend::RevertStrings::Default;
+	hyperion::frontend::OptimiserSettings m_optimiserSettings = hyperion::frontend::OptimiserSettings::minimal();
 	bool m_showMessages = false;
 	std::unique_ptr<ZVMHost> m_zvmcHost;
 

@@ -25,8 +25,8 @@
 #include <libzvmasm/AssemblyItem.h>
 #include <libzvmasm/SemanticInformation.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 // TODO: Extend this to use the tools from ExpressionClasses.cpp
 

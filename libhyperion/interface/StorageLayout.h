@@ -26,7 +26,7 @@
 
 #include <json/json.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class StorageLayout

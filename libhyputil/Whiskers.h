@@ -30,7 +30,7 @@
 #include <map>
 #include <vector>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 DEV_SIMPLE_EXCEPTION(WhiskersError);

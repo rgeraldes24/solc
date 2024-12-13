@@ -30,13 +30,13 @@
 #include <libhyperion/interface/OptimiserSettings.h>
 
 #include <liblangutil/CharStreamProvider.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <json/json.h>
 
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class SourceUnit;
@@ -47,7 +47,7 @@ public:
 	using ExecutionContext = IRGenerationContext::ExecutionContext;
 
 	IRGenerator(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		RevertStrings _revertStrings,
 		std::map<std::string, unsigned> _sourceIndices,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
@@ -137,7 +137,7 @@ private:
 
 	std::string dispenseLocationComment(ASTNode const& _node);
 
-	langutil::EVMVersion const m_evmVersion;
+	langutil::ZVMVersion const m_evmVersion;
 
 	IRGenerationContext m_context;
 	YulUtilFunctions m_utils;

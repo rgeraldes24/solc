@@ -23,9 +23,9 @@
 #include <libyul/ControlFlowSideEffectsCollector.h>
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 void ConditionalUnsimplifier::run(OptimiserStepContext& _context, Block& _ast)
 {

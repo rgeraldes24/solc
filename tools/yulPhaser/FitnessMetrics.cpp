@@ -23,9 +23,9 @@
 #include <cmath>
 
 using namespace std;
-using namespace solidity::util;
-using namespace solidity::yul;
-using namespace solidity::phaser;
+using namespace hyperion::util;
+using namespace hyperion::yul;
+using namespace hyperion::phaser;
 
 Program const& ProgramBasedMetric::program() const
 {

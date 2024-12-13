@@ -26,7 +26,7 @@
 #include <optional>
 #include <set>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 struct OptimiserStepContext;

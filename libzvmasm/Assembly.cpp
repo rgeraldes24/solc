@@ -48,10 +48,10 @@
 #include <limits>
 #include <iterator>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 
 std::map<std::string, std::shared_ptr<std::string const>> Assembly::s_sharedSourceNames;
 
@@ -110,7 +110,7 @@ AssemblyItem Assembly::createAssemblyItemFromJSON(Json::Value const& _json, std:
 			fmt::format(
 				"Unknown member '{}'. Valid members are: {}.",
 				member,
-				solidity::util::joinHumanReadable(validMembers, ", ")
+				hyperion::util::joinHumanReadable(validMembers, ", ")
 			)
 		);
 	solRequire(isOfType<std::string>(_json["name"]), AssemblyImportException, "Member 'name' missing or not of type string.");
@@ -531,7 +531,7 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 			"Member 'sourceList' may only be present in the root JSON object."
 		);
 
-	auto result = std::make_shared<Assembly>(EVMVersion{}, _level == 0 /* _creation */, "" /* _name */);
+	auto result = std::make_shared<Assembly>(ZVMVersion{}, _level == 0 /* _creation */, "" /* _name */);
 	std::vector<std::string> parsedSourceList;
 	if (_json.isMember("sourceList"))
 	{
@@ -1162,7 +1162,7 @@ Assembly const* Assembly::subAssemblyById(size_t _subId) const
 	return currentAssembly;
 }
 
-Assembly::OptimiserSettings Assembly::OptimiserSettings::translateSettings(frontend::OptimiserSettings const& _settings, langutil::EVMVersion const& _evmVersion)
+Assembly::OptimiserSettings Assembly::OptimiserSettings::translateSettings(frontend::OptimiserSettings const& _settings, langutil::ZVMVersion const& _evmVersion)
 {
 	// Constructing it this way so that we notice changes in the fields.
 	evmasm::Assembly::OptimiserSettings asmSettings{false,  false, false, false, false, false, _evmVersion, 0};

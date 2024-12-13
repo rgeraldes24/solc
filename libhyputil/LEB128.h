@@ -20,7 +20,7 @@
 
 #include <libhyputil/Common.h>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 inline bytes lebEncode(uint64_t _n)

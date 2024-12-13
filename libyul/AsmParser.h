@@ -37,7 +37,7 @@
 #include <vector>
 #include <string_view>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class Parser: public langutil::ParserBase

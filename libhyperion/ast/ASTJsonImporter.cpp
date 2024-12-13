@@ -37,7 +37,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string.hpp>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 using SourceLocation = langutil::SourceLocation;
@@ -91,7 +91,7 @@ SourceLocation const ASTJsonImporter::createSourceLocation(Json::Value const& _n
 {
 	astAssert(member(_node, "src").isString(), "'src' must be a string");
 
-	return solidity::langutil::parseSourceLocation(_node["src"].asString(), m_sourceNames);
+	return hyperion::langutil::parseSourceLocation(_node["src"].asString(), m_sourceNames);
 }
 
 std::optional<std::vector<SourceLocation>> ASTJsonImporter::createSourceLocations(Json::Value const& _node) const
@@ -112,21 +112,21 @@ SourceLocation ASTJsonImporter::createNameSourceLocation(Json::Value const& _nod
 {
 	astAssert(member(_node, "nameLocation").isString(), "'nameLocation' must be a string");
 
-	return solidity::langutil::parseSourceLocation(_node["nameLocation"].asString(), m_sourceNames);
+	return hyperion::langutil::parseSourceLocation(_node["nameLocation"].asString(), m_sourceNames);
 }
 
 SourceLocation ASTJsonImporter::createKeyNameSourceLocation(Json::Value const& _node)
 {
 	astAssert(member(_node, "keyNameLocation").isString(), "'keyNameLocation' must be a string");
 
-	return solidity::langutil::parseSourceLocation(_node["keyNameLocation"].asString(), m_sourceNames);
+	return hyperion::langutil::parseSourceLocation(_node["keyNameLocation"].asString(), m_sourceNames);
 }
 
 SourceLocation ASTJsonImporter::createValueNameSourceLocation(Json::Value const& _node)
 {
 	astAssert(member(_node, "valueNameLocation").isString(), "'valueNameLocation' must be a string");
 
-	return solidity::langutil::parseSourceLocation(_node["valueNameLocation"].asString(), m_sourceNames);
+	return hyperion::langutil::parseSourceLocation(_node["valueNameLocation"].asString(), m_sourceNames);
 }
 
 template<class T>
@@ -712,7 +712,7 @@ ASTPointer<ArrayTypeName> ASTJsonImporter::createArrayTypeName(Json::Value const
 ASTPointer<InlineAssembly> ASTJsonImporter::createInlineAssembly(Json::Value const& _node)
 {
 	astAssert(_node["evmVersion"].isString(), "Expected evmVersion to be a string!");
-	auto evmVersion = langutil::EVMVersion::fromString(_node["evmVersion"].asString());
+	auto evmVersion = langutil::ZVMVersion::fromString(_node["evmVersion"].asString());
 	astAssert(evmVersion.has_value(), "Invalid EVM version!");
 	astAssert(m_evmVersion == evmVersion, "Imported tree evm version differs from configured evm version!");
 
@@ -993,7 +993,7 @@ ASTPointer<MemberAccess> ASTJsonImporter::createMemberAccess(Json::Value const& 
 {
 	SourceLocation memberLocation;
 	if (member(_node, "memberLocation").isString())
-		memberLocation = solidity::langutil::parseSourceLocation(_node["memberLocation"].asString(), m_sourceNames);
+		memberLocation = hyperion::langutil::parseSourceLocation(_node["memberLocation"].asString(), m_sourceNames);
 
 	return createASTNode<MemberAccess>(
 		_node,

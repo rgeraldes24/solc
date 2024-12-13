@@ -26,13 +26,13 @@
 #include <functional>
 #include <memory>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct TypedName;

@@ -27,7 +27,7 @@
 
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /// Possible lookups for function resolving

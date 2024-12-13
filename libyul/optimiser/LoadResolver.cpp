@@ -36,10 +36,10 @@
 
 #include <limits>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
+using namespace hyperion::yul;
 
 void LoadResolver::run(OptimiserStepContext& _context, Block& _ast)
 {

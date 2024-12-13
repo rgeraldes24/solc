@@ -28,12 +28,12 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::frontend;
+using namespace hyperion::frontend;
 
 // TODO: Fix Boost...
-BOOST_TEST_DONT_PRINT_LOG_VALUE(solidity::bytes)
+BOOST_TEST_DONT_PRINT_LOG_VALUE(hyperion::bytes)
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 BOOST_AUTO_TEST_SUITE(CommonData)

@@ -32,11 +32,11 @@
 
 #include "license.h"
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
-using solidity::frontend::ReadCallback;
-using solidity::frontend::StandardCompiler;
+using hyperion::frontend::ReadCallback;
+using hyperion::frontend::StandardCompiler;
 
 namespace
 {

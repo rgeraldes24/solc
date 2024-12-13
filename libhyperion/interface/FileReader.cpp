@@ -30,13 +30,13 @@
 
 #include <functional>
 
-using solidity::frontend::ReadCallback;
-using solidity::langutil::InternalCompilerError;
-using solidity::util::errinfo_comment;
-using solidity::util::readFileAsString;
-using solidity::util::joinHumanReadable;
+using hyperion::frontend::ReadCallback;
+using hyperion::langutil::InternalCompilerError;
+using hyperion::util::errinfo_comment;
+using hyperion::util::readFileAsString;
+using hyperion::util::joinHumanReadable;
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 FileReader::FileReader(

@@ -42,9 +42,9 @@
 #include <utility>
 #include <variant>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 CodeTransform::CodeTransform(
 	AbstractAssembly& _assembly,

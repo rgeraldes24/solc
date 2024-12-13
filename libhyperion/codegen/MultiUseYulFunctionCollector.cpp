@@ -26,9 +26,9 @@
 #include <libhyputil/Whiskers.h>
 #include <libhyputil/StringUtils.h>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
 
 std::string MultiUseYulFunctionCollector::requestedFunctions()
 {

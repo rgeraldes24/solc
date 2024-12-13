@@ -23,7 +23,7 @@
 #include <functional>
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ReadCallback

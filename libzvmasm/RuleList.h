@@ -32,12 +32,12 @@
 
 #include <libyul/Dialect.h>
 #include <libyul/backends/evm/EVMDialect.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <vector>
 #include <functional>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 template <class S> S divWorkaround(S const& _a, S const& _b)
@@ -798,7 +798,7 @@ std::vector<SimplificationRule<Pattern>> evmRuleList(
 /// arbitrary operations.
 template <class Pattern>
 std::vector<SimplificationRule<Pattern>> simplificationRuleList(
-	std::optional<langutil::EVMVersion> _evmVersion,
+	std::optional<langutil::ZVMVersion> _evmVersion,
 	Pattern A,
 	Pattern B,
 	Pattern C,

@@ -23,12 +23,12 @@
 
 #include <libhyperion/ast/ASTForward.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

@@ -30,7 +30,7 @@
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/Exceptions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
 #include <libhyputil/CommonIO.h>
@@ -44,11 +44,11 @@
 #include <iostream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
 namespace po = boost::program_options;
 
@@ -58,9 +58,9 @@ namespace
 pair<shared_ptr<Block>, shared_ptr<AsmAnalysisInfo>> parse(string const& _source)
 {
 	YulStack stack(
-		langutil::EVMVersion(),
+		langutil::ZVMVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::none(),
+		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::Default()
 	);
 	if (stack.parseAndAnalyze("--INPUT--", _source))
@@ -87,7 +87,7 @@ void interpret(string const& _source, bool _inspect, bool _disableExternalCalls)
 	state.maxTraceSize = 10000;
 	try
 	{
-		Dialect const& dialect(EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion{}));
+		Dialect const& dialect(EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion{}));
 
 		if (_inspect)
 			InspectedInterpreter::run(std::make_shared<Inspector>(_source, state), state, dialect, *ast, _disableExternalCalls, /*disableMemoryTracing=*/false);

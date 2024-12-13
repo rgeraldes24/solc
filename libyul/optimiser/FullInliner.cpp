@@ -41,8 +41,8 @@
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/view/zip.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void FullInliner::run(OptimiserStepContext& _context, Block& _ast)
 {

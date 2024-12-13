@@ -19,9 +19,9 @@
  * EVM versioning.
  */
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libzvmasm/Instruction.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;

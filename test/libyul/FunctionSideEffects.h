@@ -26,10 +26,10 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-class FunctionSideEffects: public solidity::frontend::test::TestCase
+class FunctionSideEffects: public hyperion::frontend::test::TestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

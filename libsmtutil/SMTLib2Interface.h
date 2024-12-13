@@ -31,7 +31,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class SMTLib2Interface: public SolverInterface

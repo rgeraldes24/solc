@@ -22,11 +22,11 @@
 #pragma once
 
 #include <libyul/optimiser/ASTWalker.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libhyputil/Numeric.h>
 #include <libzvmasm/Instruction.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct EVMDialect;

@@ -25,7 +25,7 @@
 #include <libhyputil/Common.h>
 #include <libhyputil/FixedHash.h>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 /**

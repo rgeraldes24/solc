@@ -24,7 +24,7 @@
 
 #include <libhyputil/Exceptions.h>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 struct AssemblyException: virtual util::Exception {};

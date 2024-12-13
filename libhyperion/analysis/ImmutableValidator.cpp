@@ -20,8 +20,8 @@
 
 #include <range/v3/view/reverse.hpp>
 
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 void ImmutableValidator::analyze()
 {

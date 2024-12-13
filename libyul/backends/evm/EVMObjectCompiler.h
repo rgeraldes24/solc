@@ -24,7 +24,7 @@
 #include <optional>
 #include <cstdint>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Object;
 class AbstractAssembly;

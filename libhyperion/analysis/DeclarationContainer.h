@@ -29,7 +29,7 @@
 
 #include <memory>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

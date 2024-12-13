@@ -14,7 +14,7 @@
 
 #pragma once
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 inline bool isDecimalDigit(char c)

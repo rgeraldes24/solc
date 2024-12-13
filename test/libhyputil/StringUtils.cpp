@@ -30,7 +30,7 @@
 #include <boost/test/unit_test.hpp>
 
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 BOOST_AUTO_TEST_SUITE(StringUtils, *boost::unit_test::label("nooptions"))

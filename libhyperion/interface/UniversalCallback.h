@@ -20,7 +20,7 @@
 #include <libhyperion/interface/FileReader.h>
 #include <libhyperion/interface/SMTSolverCommand.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /// UniversalCallback is used to wrap both FileReader and SMTSolverCommand

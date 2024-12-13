@@ -43,10 +43,10 @@
 #include <tuple>
 #include <vector>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 using namespace std::string_literals;
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /// AST node factory that also tracks the begin and end position of an AST node

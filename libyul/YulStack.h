@@ -24,7 +24,7 @@
 #include <liblangutil/CharStreamProvider.h>
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ErrorReporter.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libyul/Object.h>
 #include <libyul/ObjectParser.h>
@@ -38,17 +38,17 @@
 #include <memory>
 #include <string>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 class Assembly;
 }
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Scanner;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 class AbstractAssembly;
 
@@ -71,17 +71,17 @@ public:
 
 	YulStack():
 		YulStack(
-			langutil::EVMVersion{},
+			langutil::ZVMVersion{},
 			Language::Assembly,
-			solidity::frontend::OptimiserSettings::none(),
+			hyperion::frontend::OptimiserSettings::none(),
 			langutil::DebugInfoSelection::Default()
 		)
 	{}
 
 	YulStack(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		Language _language,
-		solidity::frontend::OptimiserSettings _optimiserSettings,
+		hyperion::frontend::OptimiserSettings _optimiserSettings,
 		langutil::DebugInfoSelection const& _debugInfoSelection
 	):
 		m_language(_language),
@@ -142,8 +142,8 @@ private:
 	void optimize(yul::Object& _object, bool _isCreation);
 
 	Language m_language = Language::Assembly;
-	langutil::EVMVersion m_evmVersion;
-	solidity::frontend::OptimiserSettings m_optimiserSettings;
+	langutil::ZVMVersion m_evmVersion;
+	hyperion::frontend::OptimiserSettings m_optimiserSettings;
 	langutil::DebugInfoSelection m_debugInfoSelection{};
 
 	std::unique_ptr<langutil::CharStream> m_charStream;

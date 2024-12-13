@@ -46,9 +46,9 @@
 #include <tuple>
 #include <vector>
 
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 using namespace std::string_literals;
 
 using EdgeMap = std::map<
@@ -245,7 +245,7 @@ struct print_log_value<std::map<std::string, std::set<std::string>>>
 
 } // namespace boost::test_tools::tt_detail
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(FunctionCallGraphTest)
@@ -2227,4 +2227,4 @@ BOOST_AUTO_TEST_CASE(function_selector_access)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

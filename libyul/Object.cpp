@@ -33,10 +33,10 @@
 
 #include <range/v3/view/transform.hpp>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
 std::string Data::toString(Dialect const*, DebugInfoSelection const&, CharStreamProvider const*) const
 {

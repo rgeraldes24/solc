@@ -27,8 +27,8 @@
 #include <fstream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::phaser;
 
 vector<string> phaser::readLinesFromFile(string const& _path)
 {

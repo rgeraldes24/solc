@@ -34,9 +34,9 @@
 #include <limits>
 #include <tuple>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
 bool ExpressionClasses::Expression::operator==(ExpressionClasses::Expression const& _other) const
 {

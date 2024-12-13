@@ -32,7 +32,7 @@
 #include <utility>
 #include <variant>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**
@@ -75,7 +75,7 @@ private:
 		CompilerStack::State stopAfter = CompilerStack::State::CompilationSuccessful;
 		std::map<std::string, std::string> sources;
 		std::map<util::h256, std::string> smtLib2Responses;
-		langutil::EVMVersion evmVersion;
+		langutil::ZVMVersion evmVersion;
 		std::vector<ImportRemapper::Remapping> remappings;
 		RevertStrings revertStrings = RevertStrings::Default;
 		OptimiserSettings optimiserSettings = OptimiserSettings::minimal();

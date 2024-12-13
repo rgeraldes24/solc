@@ -25,7 +25,7 @@
 #include <deque>
 #include <ostream>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

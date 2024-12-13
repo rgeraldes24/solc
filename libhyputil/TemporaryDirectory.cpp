@@ -26,8 +26,8 @@
 #include <regex>
 #include <iostream>
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
 namespace fs = boost::filesystem;
 

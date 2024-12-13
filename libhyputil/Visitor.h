@@ -21,7 +21,7 @@
 
 #pragma once
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /**

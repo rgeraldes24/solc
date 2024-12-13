@@ -45,10 +45,10 @@
 #include <functional>
 
 using namespace std::string_literals;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 namespace
 {
@@ -662,7 +662,7 @@ void AsmAnalyzer::expectType(YulString _expectedType, YulString _givenType, Sour
 
 bool AsmAnalyzer::validateInstructions(std::string const& _instructionIdentifier, langutil::SourceLocation const& _location)
 {
-	auto const builtin = EVMDialect::strictAssemblyForEVM(EVMVersion{}).builtin(YulString(_instructionIdentifier));
+	auto const builtin = EVMDialect::strictAssemblyForEVM(ZVMVersion{}).builtin(YulString(_instructionIdentifier));
 	if (builtin && builtin->instruction.has_value())
 		return validateInstructions(builtin->instruction.value(), _location);
 	else

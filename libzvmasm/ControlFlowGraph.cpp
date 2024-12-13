@@ -31,8 +31,8 @@
 #include <libzvmasm/SemanticInformation.h>
 #include <libzvmasm/KnownState.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 BlockId::BlockId(u256 const& _id):
 	m_id(unsigned(_id))

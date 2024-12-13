@@ -33,7 +33,7 @@
 #include <functional>
 #include <map>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class AssemblyItem;

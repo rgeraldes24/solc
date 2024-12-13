@@ -27,9 +27,9 @@
 #include <string>
 #include <vector>
 
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::lsp;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::lsp;
 
 void GotoDefinition::operator()(MessageID _id, Json::Value const& _args)
 {

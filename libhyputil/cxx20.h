@@ -19,7 +19,7 @@
 #include <map>
 
 // Contains polyfills of STL functions and algorithms that will become available in C++20.
-namespace solidity::cxx20
+namespace hyperion::cxx20
 {
 
 // Taken from https://en.cppreference.com/w/cpp/container/map/erase_if.

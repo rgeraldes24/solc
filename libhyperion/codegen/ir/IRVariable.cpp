@@ -20,9 +20,9 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyputil/StringUtils.h>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
 
 IRVariable::IRVariable(std::string _baseName, Type const& _type):
 	m_baseName(std::move(_baseName)), m_type(_type)

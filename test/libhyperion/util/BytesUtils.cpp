@@ -33,10 +33,10 @@
 #include <regex>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 
 bytes BytesUtils::alignLeft(bytes _bytes)
 {
@@ -253,7 +253,7 @@ std::string BytesUtils::formatFixedPoint(bytes const& _bytes, bool _signed, size
 
 std::string BytesUtils::formatRawBytes(
 	bytes const& _bytes,
-	solidity::frontend::test::ParameterList const& _parameters,
+	hyperion::frontend::test::ParameterList const& _parameters,
 	std::string _linePrefix
 )
 {
@@ -377,7 +377,7 @@ std::string BytesUtils::formatBytes(
 
 std::string BytesUtils::formatBytesRange(
 	bytes _bytes,
-	solidity::frontend::test::ParameterList const& _parameters,
+	hyperion::frontend::test::ParameterList const& _parameters,
 	bool _highlight
 )
 {

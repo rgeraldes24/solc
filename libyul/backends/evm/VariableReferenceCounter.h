@@ -23,7 +23,7 @@
 #include <libyul/optimiser/ASTWalker.h>
 #include <libyul/Scope.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 

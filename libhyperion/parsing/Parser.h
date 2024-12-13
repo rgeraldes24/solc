@@ -25,14 +25,14 @@
 
 #include <libhyperion/ast/AST.h>
 #include <liblangutil/ParserBase.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class CharStream;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Parser: public langutil::ParserBase
@@ -40,7 +40,7 @@ class Parser: public langutil::ParserBase
 public:
 	explicit Parser(
 		langutil::ErrorReporter& _errorReporter,
-		langutil::EVMVersion _evmVersion
+		langutil::ZVMVersion _evmVersion
 	):
 		ParserBase(_errorReporter),
 		m_evmVersion(_evmVersion)
@@ -228,7 +228,7 @@ private:
 
 	/// Flag that signifies whether '_' is parsed as a PlaceholderStatement or a regular identifier.
 	bool m_insideModifier = false;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	/// Counter for the next AST node ID
 	int64_t m_currentNodeID = 0;
 	/// Flag that indicates whether experimental mode is enabled in the current source unit

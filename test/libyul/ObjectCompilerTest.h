@@ -22,23 +22,23 @@
 
 #include <libhyperion/interface/OptimiserSettings.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class Scanner;
 class Error;
 using ErrorList = std::vector<std::shared_ptr<Error const>>;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct AsmAnalysisInfo;
 struct Block;
 }
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
-class ObjectCompilerTest: public solidity::frontend::test::TestCase
+class ObjectCompilerTest: public hyperion::frontend::test::TestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)

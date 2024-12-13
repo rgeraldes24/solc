@@ -29,12 +29,12 @@
 #include <libhyperion/ast/ASTForward.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ConstructorUsesAssembly;

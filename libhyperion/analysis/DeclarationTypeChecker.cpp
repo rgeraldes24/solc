@@ -29,8 +29,8 @@
 
 #include <range/v3/view/transform.hpp>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool DeclarationTypeChecker::visit(ElementaryTypeName const& _typeName)
 {

@@ -66,12 +66,12 @@
 
 #include <random>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
 using namespace std;
 
 YulOptimizerTestCommon::YulOptimizerTestCommon(

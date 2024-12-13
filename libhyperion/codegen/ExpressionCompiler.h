@@ -34,12 +34,12 @@
 #include <functional>
 #include <memory>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 class AssemblyItem; // forward
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 // forward declarations

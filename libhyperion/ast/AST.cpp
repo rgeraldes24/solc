@@ -39,8 +39,8 @@
 #include <functional>
 #include <utility>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 namespace
 {

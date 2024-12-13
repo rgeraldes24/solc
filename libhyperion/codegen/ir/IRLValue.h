@@ -24,7 +24,7 @@
 #include <libhyperion/codegen/ir/IRVariable.h>
 #include <variant>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Type;

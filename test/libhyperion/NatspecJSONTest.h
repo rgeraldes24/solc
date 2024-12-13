@@ -33,7 +33,7 @@
 #include <string_view>
 #include <tuple>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 enum class NatspecJSONKind
@@ -53,7 +53,7 @@ public:
 
 	static std::unique_ptr<TestCase> create(Config const& _config);
 
-	NatspecJSONTest(std::string const& _filename, langutil::EVMVersion _evmVersion):
+	NatspecJSONTest(std::string const& _filename, langutil::ZVMVersion _evmVersion):
 		SyntaxTest(
 			_filename,
 			_evmVersion,

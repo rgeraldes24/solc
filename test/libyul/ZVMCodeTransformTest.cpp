@@ -31,17 +31,17 @@
 
 #include <libhyputil/AnsiColorized.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 ZVMCodeTransformTest::ZVMCodeTransformTest(string const& _filename):
-	EVMVersionRestrictedTestCase(_filename)
+	ZVMVersionRestrictedTestCase(_filename)
 {
 	m_source = m_reader.source();
 	m_stackOpt = m_reader.boolSetting("stackOptimization", false);
@@ -50,11 +50,11 @@ ZVMCodeTransformTest::ZVMCodeTransformTest(string const& _filename):
 
 TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _linePrefix, bool const _formatted)
 {
-	solidity::frontend::OptimiserSettings settings = solidity::frontend::OptimiserSettings::none();
+	hyperion::frontend::OptimiserSettings settings = hyperion::frontend::OptimiserSettings::none();
 	settings.runYulOptimiser = false;
 	settings.optimizeStackAllocation = m_stackOpt;
 	YulStack stack(
-		EVMVersion{},
+		ZVMVersion{},
 		YulStack::Language::StrictAssembly,
 		settings,
 		DebugInfoSelection::All()
@@ -67,12 +67,12 @@ TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _
 		return TestResult::FatalError;
 	}
 
-	evmasm::Assembly assembly{solidity::test::CommonOptions::get().evmVersion(), false, {}};
+	evmasm::Assembly assembly{hyperion::test::CommonOptions::get().evmVersion(), false, {}};
 	EthAssemblyAdapter adapter(assembly);
 	EVMObjectCompiler::compile(
 		*stack.parserResult(),
 		adapter,
-		EVMDialect::strictAssemblyForEVMObjects(EVMVersion{}),
+		EVMDialect::strictAssemblyForEVMObjects(ZVMVersion{}),
 		m_stackOpt
 	);
 

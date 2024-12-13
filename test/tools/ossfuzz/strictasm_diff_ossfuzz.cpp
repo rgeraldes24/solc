@@ -24,7 +24,7 @@
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/Exceptions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libhyputil/CommonIO.h>
 #include <libhyputil/CommonData.h>
@@ -37,11 +37,11 @@
 #include <iostream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul::test::yul_fuzzer;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul::test::yul_fuzzer;
 
 // Prototype as we can't use the FuzzerInterface.h header.
 extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size);
@@ -61,9 +61,9 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 	YulStringRepository::reset();
 
 	YulStack stack(
-		langutil::EVMVersion(),
+		langutil::ZVMVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::full(),
+		hyperion::frontend::OptimiserSettings::full(),
 		DebugInfoSelection::All()
 	);
 	try
@@ -89,7 +89,7 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 	yulFuzzerUtil::TerminationReason termReason = yulFuzzerUtil::interpret(
 		os1,
 		stack.parserResult()->code,
-		EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion()),
+		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		/*disableMemoryTracing=*/true
 	);
 	if (yulFuzzerUtil::resourceLimitsExceeded(termReason))
@@ -99,7 +99,7 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 	termReason = yulFuzzerUtil::interpret(
 		os2,
 		stack.parserResult()->code,
-		EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion()),
+		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		/*disableMemoryTracing=*/true
 	);
 

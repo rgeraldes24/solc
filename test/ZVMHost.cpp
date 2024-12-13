@@ -32,9 +32,9 @@
 #include <libhyputil/picosha2.h>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::test;
 using namespace zvmc::literals;
 
 zvmc::VM& ZVMHost::getVM(string const& _path)
@@ -86,7 +86,7 @@ bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 	return evmVmFound;
 }
 
-ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, zvmc::VM& _vm):
+ZVMHost::ZVMHost(langutil::ZVMVersion _evmVersion, zvmc::VM& _vm):
 	m_vm(_vm),
 	m_evmVersion(_evmVersion)
 {
@@ -96,7 +96,7 @@ ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, zvmc::VM& _vm):
 		assertThrow(false, Exception, "");
 	}
 
-	if (_evmVersion == langutil::EVMVersion::shanghai())
+	if (_evmVersion == langutil::ZVMVersion::shanghai())
 		m_evmRevision = ZVMC_SHANGHAI;
 	else
 		assertThrow(false, Exception, "Unsupported EVM version");

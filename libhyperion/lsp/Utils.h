@@ -34,12 +34,12 @@
 #define lspDebug(message) do {} while (0)
 #endif
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class CharStreamProvider;
 }
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class FileRepository;

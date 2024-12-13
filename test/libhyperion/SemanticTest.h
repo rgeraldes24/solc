@@ -27,7 +27,7 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 struct AnnotatedEventSignature
@@ -52,7 +52,7 @@ std::ostream& operator<<(std::ostream& _output, RequiresYulOptimizer _requiresYu
  * section from the given file. This comment section should define a set of functions to be called
  * and an expected result they return after being executed.
  */
-class SemanticTest: public SolidityExecutionFramework, public EVMVersionRestrictedTestCase
+class SemanticTest: public SolidityExecutionFramework, public ZVMVersionRestrictedTestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _options)
@@ -68,7 +68,7 @@ public:
 
 	explicit SemanticTest(
 		std::string const& _filename,
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		std::vector<boost::filesystem::path> const& _vmPaths,
 		bool _enforceGasCost = false,
 		u256 _enforceGasCostMinValue = 100000
@@ -87,7 +87,7 @@ public:
 
 	/// Compiles and deploys currently held source.
 	/// Returns true if deployment was successful, false otherwise.
-	bool deploy(std::string const& _contractName, u256 const& _value, bytes const& _arguments, std::map<std::string, solidity::test::Address> const& _libraries = {});
+	bool deploy(std::string const& _contractName, u256 const& _value, bytes const& _arguments, std::map<std::string, hyperion::test::Address> const& _libraries = {});
 
 private:
 	TestResult runTest(

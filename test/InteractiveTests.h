@@ -41,7 +41,7 @@
 
 #include <boost/filesystem.hpp>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 /** Container for all information regarding a testsuite */

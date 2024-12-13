@@ -22,7 +22,7 @@
 
 #include <string>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 /// @returns @p _sourceCode prefixed with the version pragma and the SPDX license identifier.
@@ -34,4 +34,4 @@ StringMap withPreamble(StringMap _sources, bool _addAbicoderV1Pragma = false);
 
 std::string stripPreReleaseWarning(std::string const& _stderrContent);
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

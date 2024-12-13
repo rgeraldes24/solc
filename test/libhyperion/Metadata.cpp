@@ -30,7 +30,7 @@
 #include <boost/test/unit_test.hpp>
 
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -38,11 +38,11 @@ namespace
 
 std::map<std::string, std::string> requireParsedCBORMetadata(bytes const& _bytecode, CompilerStack::MetadataFormat _metadataFormat)
 {
-	bytes cborMetadata = solidity::test::onlyMetadata(_bytecode);
+	bytes cborMetadata = hyperion::test::onlyMetadata(_bytecode);
 	if (_metadataFormat != CompilerStack::MetadataFormat::NoMetadata)
 	{
 		BOOST_REQUIRE(!cborMetadata.empty());
-		std::optional<std::map<std::string, std::string>> tmp = solidity::test::parseCBORMetadata(cborMetadata);
+		std::optional<std::map<std::string, std::string>> tmp = hyperion::test::parseCBORMetadata(cborMetadata);
 		BOOST_REQUIRE(tmp);
 		return *tmp;
 	}
@@ -59,7 +59,7 @@ std::optional<std::string> compileAndCheckLicenseMetadata(std::string const& _co
 	std::string const& serialisedMetadata = compilerStack.metadata(_contractName);
 	Json::Value metadata;
 	BOOST_REQUIRE(util::jsonParseStrict(serialisedMetadata, metadata));
-	BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+	BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 	BOOST_CHECK_EQUAL(metadata["sources"].size(), 1);
 	BOOST_REQUIRE(metadata["sources"].isMember("A.hyp"));
@@ -101,13 +101,13 @@ BOOST_AUTO_TEST_CASE(metadata_stamp)
 			CompilerStack compilerStack;
 			compilerStack.setMetadataFormat(metadataFormat);
 			compilerStack.setSources({{"", sourceCode}});
-			compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-			compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+			compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+			compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 			compilerStack.setMetadataHash(metadataHash);
 			BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 			bytes const& bytecode = compilerStack.runtimeObject("test").bytecode;
 			std::string const& metadata = compilerStack.metadata("test");
-			BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+			BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 			auto const cborMetadata = requireParsedCBORMetadata(bytecode, metadataFormat);
 			if (metadataHash == CompilerStack::MetadataHash::None)
@@ -174,13 +174,13 @@ BOOST_AUTO_TEST_CASE(metadata_stamp_experimental)
 			CompilerStack compilerStack;
 			compilerStack.setMetadataFormat(metadataFormat);
 			compilerStack.setSources({{"", sourceCode}});
-			compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-			compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+			compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+			compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 			compilerStack.setMetadataHash(metadataHash);
 			BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 			bytes const& bytecode = compilerStack.runtimeObject("test").bytecode;
 			std::string const& metadata = compilerStack.metadata("test");
-			BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+			BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 			auto const cborMetadata = requireParsedCBORMetadata(bytecode, metadataFormat);
 			if (metadataHash == CompilerStack::MetadataHash::None)
@@ -244,14 +244,14 @@ BOOST_AUTO_TEST_CASE(metadata_relevant_sources)
 		{"A", sourceCodeA},
 		{"B", sourceCodeB},
 	});
-	compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-	compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+	compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+	compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 	BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 
 	std::string const& serialisedMetadata = compilerStack.metadata("A");
 	Json::Value metadata;
 	BOOST_REQUIRE(util::jsonParseStrict(serialisedMetadata, metadata));
-	BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+	BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 	BOOST_CHECK_EQUAL(metadata["sources"].size(), 1);
 	BOOST_CHECK(metadata["sources"].isMember("A"));
@@ -285,14 +285,14 @@ BOOST_AUTO_TEST_CASE(metadata_relevant_sources_imports)
 		{"B", sourceCodeB},
 		{"C", sourceCodeC}
 	});
-	compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-	compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+	compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+	compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 	BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 
 	std::string const& serialisedMetadata = compilerStack.metadata("C");
 	Json::Value metadata;
 	BOOST_REQUIRE(util::jsonParseStrict(serialisedMetadata, metadata));
-	BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+	BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 	BOOST_CHECK_EQUAL(metadata["sources"].size(), 3);
 	BOOST_CHECK(metadata["sources"].isMember("A"));
@@ -313,14 +313,14 @@ BOOST_AUTO_TEST_CASE(metadata_useLiteralContent)
 	{
 		CompilerStack compilerStack;
 		compilerStack.setSources({{"", _src}});
-		compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-		compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+		compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+		compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 		compilerStack.useMetadataLiteralSources(_literal);
 		BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 		std::string metadata_str = compilerStack.metadata("test");
 		Json::Value metadata;
 		BOOST_REQUIRE(util::jsonParseStrict(metadata_str, metadata));
-		BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+		BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 		BOOST_CHECK(metadata.isMember("settings"));
 		BOOST_CHECK(metadata["settings"].isMember("metadata"));
 		BOOST_CHECK(metadata["settings"]["metadata"].isMember("bytecodeHash"));
@@ -347,14 +347,14 @@ BOOST_AUTO_TEST_CASE(metadata_viair)
 	{
 		CompilerStack compilerStack;
 		compilerStack.setSources({{"", _src}});
-		compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-		compilerStack.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+		compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+		compilerStack.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 		compilerStack.setViaIR(_viaIR);
 		BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
 
 		Json::Value metadata;
 		BOOST_REQUIRE(util::jsonParseStrict(compilerStack.metadata("test"), metadata));
-		BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+		BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 		BOOST_CHECK(metadata.isMember("settings"));
 		if (_viaIR)
 		{
@@ -394,7 +394,7 @@ BOOST_AUTO_TEST_CASE(metadata_revert_strings)
 	std::string const& serialisedMetadata = compilerStack.metadata("A");
 	Json::Value metadata;
 	BOOST_REQUIRE(util::jsonParseStrict(serialisedMetadata, metadata));
-	BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+	BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 
 	BOOST_CHECK_EQUAL(metadata["settings"]["debug"]["revertStrings"], "strip");
 }
@@ -424,7 +424,7 @@ BOOST_AUTO_TEST_CASE(metadata_optimiser_sequence)
 		optimizerSettings.yulOptimiserCleanupSteps = _optimizerCleanupSequence;
 		CompilerStack compilerStack;
 		compilerStack.setSources({{"", sourceCode}});
-		compilerStack.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
+		compilerStack.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
 		compilerStack.setOptimiserSettings(optimizerSettings);
 
 		BOOST_REQUIRE_MESSAGE(compilerStack.compile(), "Compiling contract failed");
@@ -432,7 +432,7 @@ BOOST_AUTO_TEST_CASE(metadata_optimiser_sequence)
 		std::string const& serialisedMetadata = compilerStack.metadata("C");
 		Json::Value metadata;
 		BOOST_REQUIRE(util::jsonParseStrict(serialisedMetadata, metadata));
-		BOOST_CHECK(solidity::test::isValidMetadata(metadata));
+		BOOST_CHECK(hyperion::test::isValidMetadata(metadata));
 		BOOST_CHECK(metadata["settings"]["optimizer"].isMember("details"));
 		BOOST_CHECK(metadata["settings"]["optimizer"]["details"].isMember("yulDetails"));
 		BOOST_CHECK(metadata["settings"]["optimizer"]["details"]["yulDetails"].isMember("optimizerSteps"));

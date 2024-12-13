@@ -29,11 +29,11 @@
 
 #include <vector>
 
-using namespace solidity::frontend::test;
-using namespace solidity::util;
+using namespace hyperion::frontend::test;
+using namespace hyperion::util;
 using namespace std::string_literals;
 
-std::ostream& solidity::frontend::test::operator<<(std::ostream& _output, NatspecJSONKind _kind)
+std::ostream& hyperion::frontend::test::operator<<(std::ostream& _output, NatspecJSONKind _kind)
 {
 	switch (_kind) {
 	case NatspecJSONKind::Devdoc: _output << "devdoc"; break;

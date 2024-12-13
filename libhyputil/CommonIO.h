@@ -31,7 +31,7 @@
 #include <sstream>
 #include <string>
 
-namespace solidity
+namespace hyperion
 {
 
 inline std::ostream& operator<<(std::ostream& os, bytes const& _bytes)

@@ -28,7 +28,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::test;
+using namespace hyperion::test;
 
 namespace boost::test_tools::tt_detail
 {
@@ -54,7 +54,7 @@ struct print_log_value<std::nullopt_t>
 } // namespace boost::test_tools::tt_detail
 
 
-namespace solidity::langutil::test
+namespace hyperion::langutil::test
 {
 
 BOOST_AUTO_TEST_SUITE(CharStreamTest)
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(test_fail)
 	BOOST_CHECK('w' == source->setPosition(2));
 	BOOST_REQUIRE_THROW(
 		source->setPosition(200),
-		::solidity::langutil::InternalCompilerError
+		::hyperion::langutil::InternalCompilerError
 	);
 }
 

@@ -23,7 +23,7 @@
 #include <optional>
 #include <set>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 struct ModelCheckerContracts

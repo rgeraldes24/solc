@@ -26,8 +26,8 @@
 #include <libhyperion/codegen/ContractCompiler.h>
 #include <libzvmasm/Assembly.h>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 void Compiler::compileContract(
 	ContractDefinition const& _contract,

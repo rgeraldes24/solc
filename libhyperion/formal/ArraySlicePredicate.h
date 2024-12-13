@@ -24,7 +24,7 @@
 
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

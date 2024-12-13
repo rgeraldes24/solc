@@ -8,7 +8,7 @@ Inline Assembly
 
 
 You can interleave Solidity statements with inline assembly in a language close
-to the one of the Ethereum Virtual Machine. This gives you more fine-grained control,
+to the one of the Zond Virtual Machine. This gives you more fine-grained control,
 which is especially useful when you are enhancing the language by writing libraries.
 
 The language used for inline assembly in Solidity is called :ref:`Yul <yul>`
@@ -17,7 +17,7 @@ how the inline assembly code can interface with the surrounding Solidity code.
 
 
 .. warning::
-    Inline assembly is a way to access the Ethereum Virtual Machine
+    Inline assembly is a way to access the Zond Virtual Machine
     at a low level. This bypasses several important safety
     features and checks of Solidity. You should only use it for
     tasks that need it, and only if you are confident with using it.

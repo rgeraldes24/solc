@@ -24,7 +24,7 @@
 #include <optional>
 #include <utility>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 DEV_SIMPLE_EXCEPTION(BadSetOnceReassignment);

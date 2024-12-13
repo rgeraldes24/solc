@@ -30,7 +30,7 @@
 #include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/facilities/overload.hpp>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct YulException: virtual util::Exception {};
@@ -68,7 +68,7 @@ struct StackTooDeepError: virtual YulException
 #define yulAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::yul::YulAssertion, \
+		::hyperion::yul::YulAssertion, \
 		(DESCRIPTION), \
 		"Yul assertion failed" \
 	)

@@ -25,7 +25,7 @@
 #include <libhyputil/Numeric.h>
 #include <libyul/ASTForward.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 std::string reindent(std::string const& _code);

@@ -37,10 +37,10 @@
 #include <map>
 #include <memory>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 GasEstimator::GasConsumption GasEstimator::functionalEstimation(
 	AssemblyItems const& _items,

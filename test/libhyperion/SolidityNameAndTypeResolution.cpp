@@ -33,9 +33,9 @@
 
 #include <string>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_FIXTURE_TEST_SUITE(SolidityNameAndTypeResolution, AnalysisFramework)

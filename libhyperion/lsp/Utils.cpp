@@ -25,7 +25,7 @@
 #include <regex>
 #include <fstream>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 using namespace frontend;

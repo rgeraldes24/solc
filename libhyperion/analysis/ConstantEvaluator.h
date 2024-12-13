@@ -27,12 +27,12 @@
 
 #include <utility>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class TypeChecker;

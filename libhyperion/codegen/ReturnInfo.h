@@ -23,7 +23,7 @@
 
 #include <libhyperion/ast/Types.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

@@ -28,9 +28,9 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 namespace

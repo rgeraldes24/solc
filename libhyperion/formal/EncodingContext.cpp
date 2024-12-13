@@ -20,9 +20,9 @@
 
 #include <libhyperion/formal/SymbolicTypes.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend::smt;
 
 EncodingContext::EncodingContext():
 	m_state(*this)

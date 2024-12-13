@@ -28,10 +28,10 @@
 #include <libyul/backends/evm/EVMDialect.h>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend::test;
 
 namespace
 {
@@ -63,7 +63,7 @@ TestCase::TestResult ControlFlowSideEffectsTest::run(ostream& _stream, string co
 		BOOST_THROW_EXCEPTION(runtime_error("Parsing input failed."));
 
 	ControlFlowSideEffectsCollector sideEffects(
-		EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion()),
+		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		*obj.code
 	);
 	m_obtainedResult.clear();

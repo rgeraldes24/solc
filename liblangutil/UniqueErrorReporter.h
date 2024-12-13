@@ -21,7 +21,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/Exceptions.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 /*

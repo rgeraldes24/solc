@@ -20,17 +20,17 @@
 
 #include <libhyperion/ast/ASTVisitor.h>
 #include <libhyperion/ast/ASTAnnotations.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <list>
 #include <map>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**
@@ -41,7 +41,7 @@ class DeclarationTypeChecker: private ASTConstVisitor
 public:
 	DeclarationTypeChecker(
 		langutil::ErrorReporter& _errorReporter,
-		langutil::EVMVersion _evmVersion
+		langutil::ZVMVersion _evmVersion
 	):
 		m_errorReporter(_errorReporter),
 		m_evmVersion(_evmVersion)
@@ -65,7 +65,7 @@ private:
 	bool visit(InheritanceSpecifier const& _inheritanceSpecifier) override;
 
 	langutil::ErrorReporter& m_errorReporter;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	bool m_insideFunctionType = false;
 	bool m_recursiveStructSeen = false;
 	std::set<StructDefinition const*> m_currentStructsSeen;

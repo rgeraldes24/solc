@@ -29,14 +29,14 @@
 
 #include <iostream>
 
-using namespace solidity;
+using namespace hyperion;
 
 
 int main(int argc, char** argv)
 {
 	try
 	{
-		solidity::frontend::CommandLineInterface cli(std::cin, std::cout, std::cerr);
+		hyperion::frontend::CommandLineInterface cli(std::cin, std::cout, std::cerr);
 		return cli.run(argc, argv) ? 0 : 1;
 	}
 	catch (smtutil::SMTLogicError const& _exception)

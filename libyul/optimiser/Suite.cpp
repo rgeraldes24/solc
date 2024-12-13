@@ -86,8 +86,8 @@
 #include <fmt/format.h>
 #endif
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 #ifdef PROFILE_OPTIMIZER_STEPS
 using namespace std::chrono;
 #endif

@@ -29,12 +29,12 @@
 #include <vector>
 #include <utility>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
-using solidity::test::SyntaxTestError;
+using hyperion::test::SyntaxTestError;
 
-class SyntaxTest: public AnalysisFramework, public solidity::test::CommonSyntaxTest
+class SyntaxTest: public AnalysisFramework, public hyperion::test::CommonSyntaxTest
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)
@@ -43,7 +43,7 @@ public:
 	}
 	SyntaxTest(
 		std::string const& _filename,
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		langutil::Error::Severity _minSeverity = langutil::Error::Severity::Info
 	);
 

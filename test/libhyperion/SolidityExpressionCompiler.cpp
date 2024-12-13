@@ -40,10 +40,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -107,7 +107,7 @@ bytes compileFirstExpression(
 	{
 		ErrorList errors;
 		ErrorReporter errorReporter(errors);
-		sourceUnit = Parser(errorReporter, solidity::test::CommonOptions::get().evmVersion()).parse(stream);
+		sourceUnit = Parser(errorReporter, hyperion::test::CommonOptions::get().evmVersion()).parse(stream);
 		if (!sourceUnit)
 			return bytes();
 	}
@@ -127,13 +127,13 @@ bytes compileFirstExpression(
 	GlobalContext globalContext;
 	Scoper::assignScopes(*sourceUnit);
 	BOOST_REQUIRE(SyntaxChecker(errorReporter, false).checkSyntax(*sourceUnit));
-	NameAndTypeResolver resolver(globalContext, solidity::test::CommonOptions::get().evmVersion(), errorReporter);
+	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
 	resolver.registerDeclarations(*sourceUnit);
 	BOOST_REQUIRE_MESSAGE(resolver.resolveNamesAndTypes(*sourceUnit), "Resolving names failed");
-	DeclarationTypeChecker declarationTypeChecker(errorReporter, solidity::test::CommonOptions::get().evmVersion());
+	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
 	for (ASTPointer<ASTNode> const& node: sourceUnit->nodes())
 		BOOST_REQUIRE(declarationTypeChecker.check(*node));
-	TypeChecker typeChecker(solidity::test::CommonOptions::get().evmVersion(), errorReporter);
+	TypeChecker typeChecker(hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
 	BOOST_REQUIRE(typeChecker.checkTypeRequirements(*sourceUnit));
 	for (ASTPointer<ASTNode> const& node: sourceUnit->nodes())
 		if (ContractDefinition* contract = dynamic_cast<ContractDefinition*>(node.get()))
@@ -142,7 +142,7 @@ bytes compileFirstExpression(
 			BOOST_REQUIRE(extractor.expression() != nullptr);
 
 			CompilerContext context(
-				solidity::test::CommonOptions::get().evmVersion(),
+				hyperion::test::CommonOptions::get().evmVersion(),
 				RevertStrings::Default
 			);
 			context.resetVisitedNodes(contract);
@@ -158,7 +158,7 @@ bytes compileFirstExpression(
 
 			ExpressionCompiler(
 				context,
-				solidity::test::CommonOptions::get().optimize
+				hyperion::test::CommonOptions::get().optimize
 			).compile(*extractor.expression());
 
 			for (std::vector<std::string> const& function: _functions)
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(comparison)
 	bytes code = compileFirstExpression(sourceCode);
 
 	bytes expectation;
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		expectation = {
 			uint8_t(Instruction::PUSH2), 0x11, 0xaa,
 			uint8_t(Instruction::PUSH2), 0x10, 0xaa,
@@ -369,7 +369,7 @@ BOOST_AUTO_TEST_CASE(arithmetic)
 		};
 
 	bytes expectation;
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		expectation = bytes{
 			uint8_t(Instruction::PUSH1), 0x2,
 			uint8_t(Instruction::PUSH1), 0x3,
@@ -469,7 +469,7 @@ BOOST_AUTO_TEST_CASE(unary_operators)
 	bytes push0Bytes = bytes{uint8_t(Instruction::PUSH0)};
 
 	bytes expectation;
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		expectation = bytes{
 			uint8_t(Instruction::DUP1),
 		} +
@@ -564,7 +564,7 @@ BOOST_AUTO_TEST_CASE(assignment)
 
 	// Stack: a, b
 	bytes expectation;
-	if (solidity::test::CommonOptions::get().optimize)
+	if (hyperion::test::CommonOptions::get().optimize)
 		expectation = {
 			uint8_t(Instruction::DUP1),
 			uint8_t(Instruction::DUP3),

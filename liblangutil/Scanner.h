@@ -59,7 +59,7 @@
 #include <optional>
 #include <iosfwd>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class AstRawString;

@@ -28,10 +28,10 @@
 #include <stdexcept>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion::util;
 
 void TestCase::printSettings(ostream& _stream, const string& _linePrefix, const bool)
 {
@@ -97,10 +97,10 @@ TestCase::TestResult TestCase::checkResult(std::ostream& _stream, const std::str
 	return TestResult::Success;
 }
 
-EVMVersionRestrictedTestCase::EVMVersionRestrictedTestCase(string const& _filename):
+ZVMVersionRestrictedTestCase::ZVMVersionRestrictedTestCase(string const& _filename):
 	TestCase(_filename)
 {
-	string versionString = m_reader.stringSetting("EVMVersion", "any");
+	string versionString = m_reader.stringSetting("ZVMVersion", "any");
 	if (versionString == "any")
 		return;
 
@@ -116,11 +116,11 @@ EVMVersionRestrictedTestCase::EVMVersionRestrictedTestCase(string const& _filena
 			break;
 
 	versionString = versionString.substr(versionBegin);
-	std::optional<langutil::EVMVersion> version = langutil::EVMVersion::fromString(versionString);
+	std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(versionString);
 	if (!version)
 		BOOST_THROW_EXCEPTION(runtime_error{"Invalid EVM version: \"" + versionString + "\""});
 
-	langutil::EVMVersion evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	langutil::ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	bool comparisonResult;
 	if (comparator == ">")
 		comparisonResult = evmVersion > version;

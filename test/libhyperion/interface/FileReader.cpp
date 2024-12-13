@@ -30,12 +30,12 @@
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>
 
-using namespace solidity::util;
-using namespace solidity::test;
+using namespace hyperion::util;
+using namespace hyperion::test;
 
 #define TEST_CASE_NAME (boost::unit_test::framework::current_test_case().p_name)
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 using SymlinkResolution = FileReader::SymlinkResolution;
@@ -541,4 +541,4 @@ BOOST_AUTO_TEST_CASE(isUNCPath)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

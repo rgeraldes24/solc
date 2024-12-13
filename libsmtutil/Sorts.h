@@ -25,7 +25,7 @@
 #include <memory>
 #include <vector>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 enum class Kind

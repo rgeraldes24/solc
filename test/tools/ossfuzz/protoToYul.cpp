@@ -33,11 +33,11 @@
 #include <algorithm>
 
 using namespace std;
-using namespace solidity::yul::test::yul_fuzzer;
-using namespace solidity::yul::test;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity;
+using namespace hyperion::yul::test::yul_fuzzer;
+using namespace hyperion::yul::test;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion;
 
 string ProtoConverter::dictionaryToken(HexPrefix _p)
 {
@@ -92,12 +92,12 @@ string ProtoConverter::createAlphaNum(string const& _strBytes)
 	return tmp;
 }
 
-EVMVersion ProtoConverter::evmVersionMapping(Program_Version const& _ver)
+ZVMVersion ProtoConverter::evmVersionMapping(Program_Version const& _ver)
 {
 	switch (_ver)
 	{
 	case Program::SHANGHAI:
-		return EVMVersion::shanghai();
+		return ZVMVersion::shanghai();
 	}
 }
 

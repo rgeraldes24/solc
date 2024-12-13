@@ -26,7 +26,7 @@
 
 #include <libsmtutil/SMTLib2Interface.h>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 class CHCSmtLib2Interface: public CHCSolverInterface

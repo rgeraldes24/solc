@@ -25,12 +25,12 @@
 
 #include <libyul/backends/evm/AbstractAssembly.h>
 #include <libyul/ASTForward.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <map>
 #include <set>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class YulString;
@@ -67,7 +67,7 @@ struct BuiltinFunctionForEVM: public BuiltinFunction
 struct EVMDialect: public Dialect
 {
 	/// Constructor, should only be used internally. Use the factory functions below.
-	EVMDialect(langutil::EVMVersion _evmVersion, bool _objectAccess);
+	EVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess);
 
 	/// @returns the builtin function of the given name or a nullptr if it is not a builtin function.
 	BuiltinFunctionForEVM const* builtin(YulString _name) const override;
@@ -84,10 +84,10 @@ struct EVMDialect: public Dialect
 	BuiltinFunctionForEVM const* storageLoadFunction(YulString /*_type*/) const override { return builtin("sload"_yulstring); }
 	YulString hashFunction(YulString /*_type*/) const override { return "keccak256"_yulstring; }
 
-	static EVMDialect const& strictAssemblyForEVM(langutil::EVMVersion _version);
-	static EVMDialect const& strictAssemblyForEVMObjects(langutil::EVMVersion _version);
+	static EVMDialect const& strictAssemblyForEVM(langutil::ZVMVersion _version);
+	static EVMDialect const& strictAssemblyForEVMObjects(langutil::ZVMVersion _version);
 
-	langutil::EVMVersion evmVersion() const { return m_evmVersion; }
+	langutil::ZVMVersion evmVersion() const { return m_evmVersion; }
 
 	bool providesObjectAccess() const { return m_objectAccess; }
 
@@ -97,7 +97,7 @@ protected:
 	BuiltinFunctionForEVM const* verbatimFunction(size_t _arguments, size_t _returnVariables) const;
 
 	bool const m_objectAccess;
-	langutil::EVMVersion const m_evmVersion;
+	langutil::ZVMVersion const m_evmVersion;
 	std::map<YulString, BuiltinFunctionForEVM> m_functions;
 	std::map<std::pair<size_t, size_t>, std::shared_ptr<BuiltinFunctionForEVM const>> mutable m_verbatimFunctions;
 	std::set<YulString> m_reserved;
@@ -116,13 +116,13 @@ protected:
 struct EVMDialectTyped: public EVMDialect
 {
 	/// Constructor, should only be used internally. Use the factory function below.
-	EVMDialectTyped(langutil::EVMVersion _evmVersion, bool _objectAccess);
+	EVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess);
 
 	BuiltinFunctionForEVM const* discardFunction(YulString _type) const override;
 	BuiltinFunctionForEVM const* equalityFunction(YulString _type) const override;
 	BuiltinFunctionForEVM const* booleanNegationFunction() const override { return builtin("not"_yulstring); }
 
-	static EVMDialectTyped const& instance(langutil::EVMVersion _version);
+	static EVMDialectTyped const& instance(langutil::ZVMVersion _version);
 };
 
 }

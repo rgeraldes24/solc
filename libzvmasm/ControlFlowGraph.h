@@ -32,7 +32,7 @@
 #include <memory>
 #include <limits>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class KnownState;

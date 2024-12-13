@@ -26,7 +26,7 @@
 
 #include <string>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 /**

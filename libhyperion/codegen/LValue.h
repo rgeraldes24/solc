@@ -29,7 +29,7 @@
 #include <memory>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Declaration;

@@ -20,8 +20,8 @@
 
 #include <regex>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 std::string test::withPreamble(std::string const& _sourceCode, bool _addAbicoderV1Pragma)
 {

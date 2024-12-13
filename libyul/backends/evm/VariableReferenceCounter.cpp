@@ -24,7 +24,7 @@
 
 #include <libhyputil/Visitor.h>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 void VariableReferenceCounter::operator()(Identifier const& _identifier)
 {

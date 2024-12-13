@@ -26,8 +26,8 @@
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/trim.hpp>
 
-using namespace solidity;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::langutil;
 
 std::map<Error::Type, std::string> const Error::m_errorTypeNames = {
 	{Error::Type::IOError, "IOError"},

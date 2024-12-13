@@ -35,13 +35,13 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/UniqueErrorReporter.h>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ModelChecker
@@ -52,7 +52,7 @@ public:
 	ModelChecker(
 		langutil::ErrorReporter& _errorReporter,
 		langutil::CharStreamProvider const& _charStreamProvider,
-		std::map<solidity::util::h256, std::string> const& _smtlib2Responses,
+		std::map<hyperion::util::h256, std::string> const& _smtlib2Responses,
 		ModelCheckerSettings _settings = ModelCheckerSettings{},
 		ReadCallback::Callback const& _smtCallback = ReadCallback::Callback()
 	);

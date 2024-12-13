@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 // Some helper typedefs to make reading the signatures more self explaining.

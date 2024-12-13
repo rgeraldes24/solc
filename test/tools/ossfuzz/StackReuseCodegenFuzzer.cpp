@@ -32,7 +32,7 @@
 
 #include <libzvmasm/Instruction.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <evmone/evmone.h>
 
@@ -40,12 +40,12 @@
 
 #include <fstream>
 
-using namespace solidity;
-using namespace solidity::test;
-using namespace solidity::test::fuzzer;
-using namespace solidity::yul;
-using namespace solidity::yul::test::yul_fuzzer;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::test;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test::yul_fuzzer;
+using namespace hyperion::langutil;
 using namespace std;
 
 static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
@@ -83,7 +83,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	string yul_source = converter.programToString(_input);
 	// Do not fuzz the EVM Version field.
 	// See https://github.com/ethereum/solidity/issues/12590
-	langutil::EVMVersion version;
+	langutil::ZVMVersion version;
 	ZVMHost hostContext(version, evmone);
 	hostContext.reset();
 
@@ -95,7 +95,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 
 	YulStringRepository::reset();
 
-	solidity::frontend::OptimiserSettings settings = solidity::frontend::OptimiserSettings::full();
+	hyperion::frontend::OptimiserSettings settings = hyperion::frontend::OptimiserSettings::full();
 	settings.runYulOptimiser = false;
 	settings.optimizeStackAllocation = false;
 	bytes unoptimisedByteCode;
@@ -111,7 +111,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 			*yulObject
 		);
 	}
-	catch (solidity::yul::StackTooDeepError const&)
+	catch (hyperion::yul::StackTooDeepError const&)
 	{
 		unoptimizedStackTooDeep = true;
 	}
@@ -159,7 +159,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	{
 		optimisedByteCode = YulAssembler{version, nullopt, settings, yul_source}.assemble();
 	}
-	catch (solidity::yul::StackTooDeepError const&)
+	catch (hyperion::yul::StackTooDeepError const&)
 	{
 		if (!recursiveFunction)
 			throw;

@@ -46,14 +46,14 @@
 #include <utility>
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 // Forward-declaration to <yul/AST.h>
 struct Block;
 struct Dialect;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ASTVisitor;

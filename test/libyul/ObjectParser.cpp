@@ -44,10 +44,10 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 namespace
@@ -58,9 +58,9 @@ pair<bool, ErrorList> parse(string const& _source)
 	try
 	{
 		YulStack asmStack(
-			solidity::test::CommonOptions::get().evmVersion(),
+			hyperion::test::CommonOptions::get().evmVersion(),
 			YulStack::Language::StrictAssembly,
-			solidity::frontend::OptimiserSettings::none(),
+			hyperion::frontend::OptimiserSettings::none(),
 			DebugInfoSelection::All()
 		);
 		bool success = asmStack.parseAndAnalyze("source", _source);
@@ -119,7 +119,7 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(EVMVersion::shanghai());
+	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(ZVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");
 	auto object = objectParser.parse(make_shared<Scanner>(stream), false);
@@ -134,7 +134,7 @@ do \
 { \
 	Error err = expectError((text), false); \
 	BOOST_CHECK(err.type() == (Error::Type::typ)); \
-	BOOST_CHECK(::solidity::frontend::test::searchErrorMessage(err, (substring))); \
+	BOOST_CHECK(::hyperion::frontend::test::searchErrorMessage(err, (substring))); \
 } while(0)
 
 BOOST_AUTO_TEST_SUITE(YulObjectParser)
@@ -180,9 +180,9 @@ BOOST_AUTO_TEST_CASE(to_string)
 )";
 	expectation = boost::replace_all_copy(expectation, "\t", "    ");
 	YulStack asmStack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::none(),
+		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()
 	);
 	BOOST_REQUIRE(asmStack.parseAndAnalyze("source", code));

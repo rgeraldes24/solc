@@ -23,8 +23,8 @@
 #include <libyul/AST.h>
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void EquivalentFunctionCombiner::run(OptimiserStepContext&, Block& _ast)
 {

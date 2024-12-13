@@ -40,14 +40,14 @@
 
 #include <optional>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::yul;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::yul;
+using namespace hyperion::langutil;
 
 namespace
 {
-Dialect const& languageToDialect(YulStack::Language _language, EVMVersion _version)
+Dialect const& languageToDialect(YulStack::Language _language, ZVMVersion _version)
 {
 	switch (_language)
 	{

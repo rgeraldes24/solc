@@ -25,10 +25,10 @@
 #include <set>
 
 using namespace std;
-using namespace solidity::yul;
+using namespace hyperion::yul;
 using namespace boost::test_tools;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 BOOST_AUTO_TEST_SUITE(Phaser, *boost::unit_test::label("nooptions"))

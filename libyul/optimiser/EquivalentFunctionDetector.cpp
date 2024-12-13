@@ -25,8 +25,8 @@
 #include <libyul/AST.h>
 #include <libyul/optimiser/Metrics.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void EquivalentFunctionDetector::operator()(FunctionDefinition const& _fun)
 {

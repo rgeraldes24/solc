@@ -25,29 +25,29 @@
 
 #include <liblangutil/DebugInfoSelection.h>
 
-namespace solidity::test::fuzzer
+namespace hyperion::test::fuzzer
 {
 class YulAssembler
 {
 public:
 	YulAssembler(
-		langutil::EVMVersion _evmVersion,
-		solidity::frontend::OptimiserSettings _optSettings,
+		langutil::ZVMVersion _evmVersion,
+		hyperion::frontend::OptimiserSettings _optSettings,
 		std::string const& _yulSource
 	):
 		m_stack(
 			_evmVersion,
-			solidity::yul::YulStack::Language::StrictAssembly,
+			hyperion::yul::YulStack::Language::StrictAssembly,
 			_optSettings,
 			langutil::DebugInfoSelection::All()
 		),
 		m_yulProgram(_yulSource),
 		m_optimiseYul(_optSettings.runYulOptimiser)
 	{}
-	solidity::bytes assemble();
+	hyperion::bytes assemble();
 	std::shared_ptr<yul::Object> object();
 private:
-	solidity::yul::YulStack m_stack;
+	hyperion::yul::YulStack m_stack;
 	std::string m_yulProgram;
 	bool m_optimiseYul;
 };
@@ -55,7 +55,7 @@ private:
 struct YulEvmoneUtility
 {
 	/// @returns the result of deploying bytecode @param _input on @param _host.
-	static zvmc::Result deployCode(solidity::bytes const& _input, ZVMHost& _host);
+	static zvmc::Result deployCode(hyperion::bytes const& _input, ZVMHost& _host);
 	/// @returns call message to be sent to @param _address.
 	static zvmc_message callMessage(zvmc_address _address);
 	/// @returns true if call result indicates a serious error, false otherwise.

@@ -23,7 +23,7 @@
 #include <libyul/backends/evm/ControlFlowGraph.h>
 #include <libyul/ControlFlowSideEffects.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class ControlFlowGraphBuilder

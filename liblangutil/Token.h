@@ -46,7 +46,7 @@
 #include <string>
 #include <tuple>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 // TOKEN_LIST takes a list of 3 macros M, all of which satisfy the

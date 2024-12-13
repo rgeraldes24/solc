@@ -22,8 +22,8 @@
 
 #include <functional>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void ForLoopInitRewriter::operator()(Block& _block)
 {

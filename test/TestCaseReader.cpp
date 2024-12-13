@@ -24,7 +24,7 @@
 #include <boost/filesystem.hpp>
 
 using namespace std;
-using namespace solidity::frontend::test;
+using namespace hyperion::frontend::test;
 
 namespace fs = boost::filesystem;
 

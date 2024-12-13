@@ -27,13 +27,13 @@
 #include <map>
 #include <string>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class EVMAssemblyStack: public AbstractAssemblyStack
 {
 public:
-	explicit EVMAssemblyStack(langutil::EVMVersion _evmVersion): m_evmVersion(_evmVersion) {}
+	explicit EVMAssemblyStack(langutil::ZVMVersion _evmVersion): m_evmVersion(_evmVersion) {}
 
 	/// Runs parsing and analysis steps.
 	/// Multiple calls overwrite the previous state.
@@ -70,7 +70,7 @@ public:
 	}
 
 private:
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	std::string m_name;
 	std::shared_ptr<evmasm::Assembly> m_evmAssembly;
 	std::shared_ptr<evmasm::Assembly> m_evmRuntimeAssembly;
@@ -82,4 +82,4 @@ private:
 	std::string m_runtimeSourceMapping;
 };
 
-} // namespace solidity::evmasm
+} // namespace hyperion::evmasm

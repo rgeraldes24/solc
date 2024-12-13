@@ -23,12 +23,12 @@
 
 #include <fstream>
 
-using namespace solidity::frontend;
-using namespace solidity::test::fuzzer;
-using namespace solidity::test::abiv2fuzzer;
-using namespace solidity::test;
-using namespace solidity::util;
-using namespace solidity;
+using namespace hyperion::frontend;
+using namespace hyperion::test::fuzzer;
+using namespace hyperion::test::abiv2fuzzer;
+using namespace hyperion::test;
+using namespace hyperion::util;
+using namespace hyperion;
 using namespace std;
 
 static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
@@ -46,7 +46,7 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 	}
 
 	// We target the default EVM which is the latest
-	langutil::EVMVersion version;
+	langutil::ZVMVersion version;
 	ZVMHost hostContext(version, evmone);
 	string contractName = "C";
 	string methodName = "test()";
@@ -66,10 +66,10 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 	if (result.status_code == ZVMC_SUCCESS)
 		if (!EvmoneUtility::zeroWord(result.output_data, result.output_size))
 		{
-			solidity::bytes res;
+			hyperion::bytes res;
 			for (size_t i = 0; i < result.output_size; i++)
 				res.push_back(result.output_data[i]);
-			cout << solidity::util::toHex(res) << endl;
+			cout << hyperion::util::toHex(res) << endl;
 			solAssert(
 				false,
 				"Proto ABIv2 fuzzer: ABIv2 coding failure found"

@@ -18,7 +18,7 @@
 #include <test/tools/yulInterpreter/Interpreter.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-namespace solidity::yul::test::yul_fuzzer
+namespace hyperion::yul::test::yul_fuzzer
 {
 
 struct yulFuzzerUtil

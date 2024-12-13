@@ -29,7 +29,7 @@
 #include <optional>
 #include <vector>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class AssemblyItem;

@@ -28,13 +28,13 @@
 #include <functional>
 #include <limits>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 class Assembly;
 class AssemblyItem;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 class EthAssemblyAdapter: public AbstractAssembly
 {
@@ -67,7 +67,7 @@ public:
 
 	void markAsInvalid() override;
 
-	langutil::EVMVersion evmVersion() const override;
+	langutil::ZVMVersion evmVersion() const override;
 
 
 private:

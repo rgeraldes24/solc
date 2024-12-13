@@ -32,9 +32,9 @@
 #include <utility>
 #include <functional>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
 SimplificationRule<Pattern> const* Rules::findFirstMatch(
 	Expression const& _expr,

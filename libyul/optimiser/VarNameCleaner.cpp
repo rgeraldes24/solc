@@ -29,7 +29,7 @@
 #include <regex>
 #include <limits>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 VarNameCleaner::VarNameCleaner(
 	Block const& _ast,

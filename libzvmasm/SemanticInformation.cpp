@@ -25,8 +25,8 @@
 #include <libzvmasm/SemanticInformation.h>
 #include <libzvmasm/AssemblyItem.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::evmasm;
 
 std::vector<SemanticInformation::Operation> SemanticInformation::readWriteOperations(Instruction _instruction)
 {

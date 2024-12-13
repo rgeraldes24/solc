@@ -22,7 +22,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/Types.h>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 class EncodingContext;

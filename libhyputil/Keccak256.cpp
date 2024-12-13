@@ -25,7 +25,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 namespace

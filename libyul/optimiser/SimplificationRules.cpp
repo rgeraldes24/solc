@@ -32,10 +32,10 @@
 #include <libzvmasm/RuleList.h>
 #include <libhyputil/StringUtils.h>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
 
 SimplificationRules::Rule const* SimplificationRules::findFirstMatch(
 	Expression const& _expr,
@@ -47,9 +47,9 @@ SimplificationRules::Rule const* SimplificationRules::findFirstMatch(
 	if (!instruction)
 		return nullptr;
 
-	static std::map<std::optional<EVMVersion>, std::unique_ptr<SimplificationRules>> evmRules;
+	static std::map<std::optional<ZVMVersion>, std::unique_ptr<SimplificationRules>> evmRules;
 
-	std::optional<EVMVersion> version;
+	std::optional<ZVMVersion> version;
 	if (yul::EVMDialect const* evmDialect = dynamic_cast<yul::EVMDialect const*>(&_dialect))
 		version = evmDialect->evmVersion();
 
@@ -97,7 +97,7 @@ void SimplificationRules::addRule(Rule const& _rule)
 	m_rules[uint8_t(_rule.pattern.instruction())].push_back(_rule);
 }
 
-SimplificationRules::SimplificationRules(std::optional<langutil::EVMVersion> _evmVersion)
+SimplificationRules::SimplificationRules(std::optional<langutil::ZVMVersion> _evmVersion)
 {
 	// Multiple occurrences of one of these inside one rule must match the same equivalence class.
 	// Constants.
@@ -234,7 +234,7 @@ evmasm::Instruction Pattern::instruction() const
 	return m_instruction;
 }
 
-Expression Pattern::toExpression(std::shared_ptr<DebugData const> const& _debugData, langutil::EVMVersion _evmVersion) const
+Expression Pattern::toExpression(std::shared_ptr<DebugData const> const& _debugData, langutil::ZVMVersion _evmVersion) const
 {
 	if (matchGroup())
 		return ASTCopier().translate(matchGroupValue());

@@ -27,7 +27,7 @@
 #include <map>
 #include <type_traits>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 

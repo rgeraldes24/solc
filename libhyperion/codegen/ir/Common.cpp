@@ -24,12 +24,12 @@
 
 #include <libyul/AsmPrinter.h>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 YulArity YulArity::fromType(FunctionType const& _functionType)

@@ -28,7 +28,7 @@
 
 #include <functional>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class IRGenerationContext;

@@ -23,24 +23,24 @@
 
 #include <libhyperion/interface/Version.h>
 
-#include <solidity/BuildInfo.h>
+#include <hyperion/BuildInfo.h>
 
-char const* solidity::frontend::VersionNumber = ZOND_PROJECT_VERSION;
+char const* hyperion::frontend::VersionNumber = ZOND_PROJECT_VERSION;
 
-std::string const solidity::frontend::VersionString =
-	std::string(solidity::frontend::VersionNumber) +
+std::string const hyperion::frontend::VersionString =
+	std::string(hyperion::frontend::VersionNumber) +
 	(std::string(HYP_VERSION_PRERELEASE).empty() ? "" : "-" + std::string(HYP_VERSION_PRERELEASE)) +
 	(std::string(HYP_VERSION_BUILDINFO).empty() ? "" : "+" + std::string(HYP_VERSION_BUILDINFO));
 
-std::string const solidity::frontend::VersionStringStrict =
-	std::string(solidity::frontend::VersionNumber) +
+std::string const hyperion::frontend::VersionStringStrict =
+	std::string(hyperion::frontend::VersionNumber) +
 	(std::string(HYP_VERSION_PRERELEASE).empty() ? "" : "-" + std::string(HYP_VERSION_PRERELEASE)) +
 	(std::string(HYP_VERSION_COMMIT).empty() ? "" : "+" + std::string(HYP_VERSION_COMMIT));
 
-solidity::bytes const solidity::frontend::VersionCompactBytes = {
+hyperion::bytes const hyperion::frontend::VersionCompactBytes = {
 	ZOND_PROJECT_VERSION_MAJOR,
 	ZOND_PROJECT_VERSION_MINOR,
 	ZOND_PROJECT_VERSION_PATCH
 };
 
-bool const solidity::frontend::VersionIsRelease = std::string(HYP_VERSION_PRERELEASE).empty();
+bool const hyperion::frontend::VersionIsRelease = std::string(HYP_VERSION_PRERELEASE).empty();

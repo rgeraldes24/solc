@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		solidity::phaser::Phaser::main(argc, argv);
+		hyperion::phaser::Phaser::main(argc, argv);
 		return 0;
 	}
 	catch (boost::program_options::error const& exception)
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 		std::cerr << "ERROR: " << exception.what() << std::endl;
 		return 2;
 	}
-	catch (solidity::phaser::BadInput const& exception)
+	catch (hyperion::phaser::BadInput const& exception)
 	{
 		// Bad input data. Syntax errors in the input program, semantic errors in command-line
 		// parameters, etc.

@@ -29,7 +29,7 @@
 #include <string_view>
 #include <variant>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 using MessageID = Json::Value;

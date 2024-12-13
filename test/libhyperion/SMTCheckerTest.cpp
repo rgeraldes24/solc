@@ -21,12 +21,12 @@
 
 #include <range/v3/action/remove_if.hpp>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 
-SMTCheckerTest::SMTCheckerTest(std::string const& _filename): SyntaxTest(_filename, EVMVersion{})
+SMTCheckerTest::SMTCheckerTest(std::string const& _filename): SyntaxTest(_filename, ZVMVersion{})
 {
 	auto contract = m_reader.stringSetting("SMTContract", "");
 	if (!contract.empty())

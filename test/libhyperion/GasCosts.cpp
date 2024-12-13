@@ -20,19 +20,19 @@
  */
 
 #include <test/libhyperion/SolidityExecutionFramework.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libhyputil/IpfsHash.h>
 #include <libzvmasm/GasMeter.h>
 
 #include <cmath>
 
-using namespace solidity::langutil;
-using namespace solidity::langutil;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::test;
+using namespace hyperion::langutil;
+using namespace hyperion::langutil;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 #define CHECK_DEPLOY_GAS(_gasNoOpt, _gasOpt, _evmVersion) \

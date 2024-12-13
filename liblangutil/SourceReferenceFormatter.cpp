@@ -28,10 +28,10 @@
 #include <string_view>
 #include <variant>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::util::formatting;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::util::formatting;
 
 namespace
 {

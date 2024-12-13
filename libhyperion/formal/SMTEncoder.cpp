@@ -40,10 +40,10 @@
 #include <limits>
 #include <deque>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 using namespace std::string_literals;
 
 SMTEncoder::SMTEncoder(
@@ -2416,7 +2416,7 @@ bool SMTEncoder::sameTypeOrSubtype(Type const* _a, Type const* _b)
 {
 	bool foundSame = false;
 
-	solidity::util::BreadthFirstSearch<Type const*> bfs{{_a}};
+	hyperion::util::BreadthFirstSearch<Type const*> bfs{{_a}};
 	bfs.run([&](auto _type, auto&& _addChild) {
 		if (*typeWithoutPointer(_b) == *typeWithoutPointer(_type))
 		{

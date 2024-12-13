@@ -28,8 +28,8 @@
 
 #include <libhyputil/Visitor.h>
 
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 class TypeInfo::TypeCollector: public ASTWalker
 {

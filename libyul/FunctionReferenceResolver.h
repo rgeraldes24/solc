@@ -20,7 +20,7 @@
 
 #include <libyul/optimiser/ASTWalker.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

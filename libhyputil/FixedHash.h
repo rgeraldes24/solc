@@ -34,7 +34,7 @@
 #include <cstdint>
 #include <algorithm>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Fixed-size raw-byte array container type, with an API optimised for storing hashes.
@@ -114,7 +114,7 @@ public:
 
 	/// Explicitly construct, copying from a string.
 	explicit FixedHash(std::string const& _s, ConstructFromStringType _t = FromHex, ConstructFromHashType _ht = FailIfDifferent):
-		FixedHash(_t == FromHex ? fromHex(_s, WhenError::Throw) : solidity::util::asBytes(_s), _ht)
+		FixedHash(_t == FromHex ? fromHex(_s, WhenError::Throw) : hyperion::util::asBytes(_s), _ht)
 	{}
 
 	/// Convert to arithmetic type.

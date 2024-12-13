@@ -32,7 +32,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 enum AssemblyItemType

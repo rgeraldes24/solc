@@ -31,7 +31,7 @@
 #include <vector>
 #include <map>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class ExpressionCopier

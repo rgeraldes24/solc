@@ -38,7 +38,7 @@
 #include <liblangutil/CharStreamProvider.h>
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ErrorReporter.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/SourceLocation.h>
 
 #include <libzvmasm/AbstractAssemblyStack.h>
@@ -57,20 +57,20 @@
 #include <string>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class CharStream;
 }
 
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 class Assembly;
 class AssemblyItem;
 using AssemblyItems = std::vector<AssemblyItem>;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 // forward declarations
@@ -172,7 +172,7 @@ public:
 	/// Set the EVM version used before running compile.
 	/// When called without an argument it will revert to the default version.
 	/// Must be set before parsing.
-	void setEVMVersion(langutil::EVMVersion _version = langutil::EVMVersion{});
+	void setZVMVersion(langutil::ZVMVersion _version = langutil::ZVMVersion{});
 
 	/// Set model checker settings.
 	void setModelCheckerSettings(ModelCheckerSettings _settings);
@@ -494,7 +494,7 @@ private:
 	RevertStrings m_revertStrings = RevertStrings::Default;
 	State m_stopAfter = State::CompilationSuccessful;
 	bool m_viaIR = false;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	ModelCheckerSettings m_modelCheckerSettings;
 	std::map<std::string, std::set<std::string>> m_requestedContractNames;
 	bool m_generateEvmBytecode = true;

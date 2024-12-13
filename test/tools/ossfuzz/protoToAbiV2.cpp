@@ -58,8 +58,8 @@ BOOST_PP_REPEAT(32, USINGDECL, 0)
 	return stream.str();
 
 using namespace std;
-using namespace solidity::util;
-using namespace solidity::test::abiv2fuzzer;
+using namespace hyperion::util;
+using namespace hyperion::test::abiv2fuzzer;
 
 namespace
 {
@@ -67,7 +67,7 @@ template <typename V>
 static V integerValue(unsigned _counter)
 {
 	V value = V(
-		u256(solidity::util::keccak256(solidity::util::h256(_counter))) % u256(boost::math::tools::max_value<V>())
+		u256(hyperion::util::keccak256(hyperion::util::h256(_counter))) % u256(boost::math::tools::max_value<V>())
 	);
 	if (boost::multiprecision::is_signed_number<V>::value && value % 2 == 0)
 		return value * (-1);

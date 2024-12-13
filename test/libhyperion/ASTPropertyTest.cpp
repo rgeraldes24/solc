@@ -35,11 +35,11 @@
 
 #include <queue>
 
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion;
 using namespace std::string_literals;
 
 ASTPropertyTest::ASTPropertyTest(std::string const& _filename):
@@ -187,8 +187,8 @@ TestCase::TestResult ASTPropertyTest::run(std::ostream& _stream, std::string con
 		"A",
 		"pragma solidity >=0.0;\n// SPDX-License-Identifier: GPL-3.0\n" + m_source
 	}});
-	compiler.setEVMVersion(solidity::test::CommonOptions::get().evmVersion());
-	compiler.setOptimiserSettings(solidity::test::CommonOptions::get().optimize);
+	compiler.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+	compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 	if (!compiler.parseAndAnalyze())
 		BOOST_THROW_EXCEPTION(std::runtime_error(
 			"Parsing contract failed" +

@@ -29,12 +29,12 @@
 #include <optional>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class CharStreamProvider;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 enum class PredicateType

@@ -30,13 +30,13 @@
 #include <libzvmasm/ExpressionClasses.h>
 #include <libzvmasm/AssemblyItem.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <ostream>
 #include <tuple>
 #include <utility>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class KnownState;
@@ -129,7 +129,7 @@ public:
 	};
 
 	/// Constructs a new gas meter given the current state.
-	GasMeter(std::shared_ptr<KnownState>  _state, langutil::EVMVersion _evmVersion, u256  _largestMemoryAccess = 0):
+	GasMeter(std::shared_ptr<KnownState>  _state, langutil::ZVMVersion _evmVersion, u256  _largestMemoryAccess = 0):
 		m_state(std::move(_state)), m_evmVersion(_evmVersion), m_largestMemoryAccess(std::move(_largestMemoryAccess)) {}
 
 	/// @returns an upper bound on the gas consumed by the given instruction and updates
@@ -164,7 +164,7 @@ private:
 	GasConsumption memoryGas(int _stackPosOffset, int _stackPosSize);
 
 	std::shared_ptr<KnownState> m_state;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	/// Largest point where memory was accessed since the creation of this object.
 	u256 m_largestMemoryAccess;
 };

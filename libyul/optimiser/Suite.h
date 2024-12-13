@@ -25,14 +25,14 @@
 #include <libyul/YulString.h>
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/optimiser/NameDispenser.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <set>
 #include <string>
 #include <string_view>
 #include <memory>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct AsmAnalysisInfo;

@@ -30,7 +30,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class RenameSymbol;

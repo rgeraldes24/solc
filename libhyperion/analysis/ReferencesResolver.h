@@ -25,19 +25,19 @@
 
 #include <libhyperion/ast/ASTVisitor.h>
 #include <libhyperion/ast/ASTAnnotations.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libyul/optimiser/ASTWalker.h>
 
 #include <list>
 #include <map>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class NameAndTypeResolver;
@@ -52,7 +52,7 @@ public:
 	ReferencesResolver(
 		langutil::ErrorReporter& _errorReporter,
 		NameAndTypeResolver& _resolver,
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		bool _resolveInsideCode = false
 	):
 		m_errorReporter(_errorReporter),
@@ -97,7 +97,7 @@ private:
 
 	langutil::ErrorReporter& m_errorReporter;
 	NameAndTypeResolver& m_resolver;
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	/// Stack of return parameters.
 	std::vector<ParameterList const*> m_returnParameters;
 	bool const m_resolveInsideCode;

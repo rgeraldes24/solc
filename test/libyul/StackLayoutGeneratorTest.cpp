@@ -36,13 +36,13 @@
 #include <boost/process.hpp>
 #endif
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 StackLayoutGeneratorTest::StackLayoutGeneratorTest(string const& _filename):
@@ -50,7 +50,7 @@ StackLayoutGeneratorTest::StackLayoutGeneratorTest(string const& _filename):
 {
 	m_source = m_reader.source();
 	auto dialectName = m_reader.stringSetting("dialect", "evm");
-	m_dialect = &dialect(dialectName, solidity::test::CommonOptions::get().evmVersion());
+	m_dialect = &dialect(dialectName, hyperion::test::CommonOptions::get().evmVersion());
 	m_expectation = m_reader.simpleExpectations();
 }
 

@@ -29,7 +29,7 @@
 
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class NameDispenser;

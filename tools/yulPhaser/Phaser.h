@@ -35,21 +35,21 @@
 #include <ostream>
 #include <string>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class CharStream;
 
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct CodeWeights;
 
 }
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 class FitnessMetric;
@@ -86,16 +86,16 @@ enum class MetricAggregatorChoice
 	Minimum,
 };
 
-std::istream& operator>>(std::istream& _inputStream, solidity::phaser::PhaserMode& _phaserMode);
-std::ostream& operator<<(std::ostream& _outputStream, solidity::phaser::PhaserMode _phaserMode);
-std::istream& operator>>(std::istream& _inputStream, solidity::phaser::Algorithm& _algorithm);
-std::ostream& operator<<(std::ostream& _outputStream, solidity::phaser::Algorithm _algorithm);
-std::istream& operator>>(std::istream& _inputStream, solidity::phaser::MetricChoice& _metric);
-std::ostream& operator<<(std::ostream& _outputStream, solidity::phaser::MetricChoice _metric);
-std::istream& operator>>(std::istream& _inputStream, solidity::phaser::MetricAggregatorChoice& _aggregator);
-std::ostream& operator<<(std::ostream& _outputStream, solidity::phaser::MetricAggregatorChoice _aggregator);
-std::istream& operator>>(std::istream& _inputStream, solidity::phaser::CrossoverChoice& _crossover);
-std::ostream& operator<<(std::ostream& _outputStream, solidity::phaser::CrossoverChoice _crossover);
+std::istream& operator>>(std::istream& _inputStream, hyperion::phaser::PhaserMode& _phaserMode);
+std::ostream& operator<<(std::ostream& _outputStream, hyperion::phaser::PhaserMode _phaserMode);
+std::istream& operator>>(std::istream& _inputStream, hyperion::phaser::Algorithm& _algorithm);
+std::ostream& operator<<(std::ostream& _outputStream, hyperion::phaser::Algorithm _algorithm);
+std::istream& operator>>(std::istream& _inputStream, hyperion::phaser::MetricChoice& _metric);
+std::ostream& operator<<(std::ostream& _outputStream, hyperion::phaser::MetricChoice _metric);
+std::istream& operator>>(std::istream& _inputStream, hyperion::phaser::MetricAggregatorChoice& _aggregator);
+std::ostream& operator<<(std::ostream& _outputStream, hyperion::phaser::MetricAggregatorChoice _aggregator);
+std::istream& operator>>(std::istream& _inputStream, hyperion::phaser::CrossoverChoice& _crossover);
+std::ostream& operator<<(std::ostream& _outputStream, hyperion::phaser::CrossoverChoice _crossover);
 
 /**
  * Builds and validates instances of @a GeneticAlgorithm and its derived classes.

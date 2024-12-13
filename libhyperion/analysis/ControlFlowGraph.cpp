@@ -20,8 +20,8 @@
 
 #include <libhyperion/analysis/ControlFlowBuilder.h>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 bool CFG::constructFlow(ASTNode const& _astRoot)
 {

@@ -742,7 +742,7 @@ EVM Dialect
 
 The default dialect of Yul currently is the EVM dialect for the currently selected version of the EVM.
 The only type available in this dialect
-is ``u256``, the 256-bit native type of the Ethereum Virtual Machine.
+is ``u256``, the 256-bit native type of the Zond Virtual Machine.
 Since it is the default type of this dialect, it can be omitted.
 
 The following table lists all builtin functions

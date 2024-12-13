@@ -55,14 +55,14 @@
 #include <algorithm>
 #include <limits>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
-using solidity::util::FixedHash;
-using solidity::util::h256;
-using solidity::util::errinfo_comment;
+using hyperion::util::FixedHash;
+using hyperion::util::h256;
+using hyperion::util::errinfo_comment;
 
 namespace
 {

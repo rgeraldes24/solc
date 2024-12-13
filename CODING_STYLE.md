@@ -51,7 +51,7 @@ To set indentation and tab width settings uniformly, the repository contains an 
 ## 1. Namespaces
 
 1. No `using namespace` declarations in header files.
-2. `using namespace solidity;` and other project local namespaces is fine in cpp files, and generally encouraged.
+2. `using namespace hyperion;` and other project local namespaces is fine in cpp files, and generally encouraged.
 3. Avoid `using namespace` at file level for third party libraries, such as boost, ranges, etc.
 4. All symbols should be declared in a namespace except for final applications.
 5. Use anonymous namespaces for helpers whose scope is a cpp file only.

@@ -31,7 +31,7 @@
 #include <variant>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class CharStream;
@@ -39,7 +39,7 @@ class Scanner;
 
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct AsmAnalysisInfo;
@@ -48,7 +48,7 @@ struct CodeWeights;
 
 }
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /**

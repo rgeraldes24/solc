@@ -24,7 +24,7 @@
 
 #include <libhyputil/UTF8.h>
 
-namespace solidity::util
+namespace hyperion::util
 {
 namespace
 {

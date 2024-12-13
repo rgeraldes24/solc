@@ -28,7 +28,7 @@
 #include <libyul/YulStack.h>
 
 #include <liblangutil/DebugInfoSelection.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <libhyputil/JSON.h>
 
@@ -43,7 +43,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 enum class InputMode
@@ -182,7 +182,7 @@ struct CommandLineOptions
 	{
 		boost::filesystem::path dir;
 		bool overwriteFiles = false;
-		langutil::EVMVersion evmVersion;
+		langutil::ZVMVersion evmVersion;
 		bool viaIR = false;
 		RevertStrings revertStrings = RevertStrings::Default;
 		std::optional<langutil::DebugInfoSelection> debugInfoSelection;
@@ -295,4 +295,4 @@ private:
 	boost::program_options::variables_map m_args;
 };
 
-} // namespace solidity::frontend
+} // namespace hyperion::frontend

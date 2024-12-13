@@ -32,9 +32,9 @@
 
 using namespace std;
 using namespace boost::test_tools;
-using namespace solidity::util;
+using namespace hyperion::util;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 class ReadLinesFromFileFixture

@@ -29,8 +29,8 @@
 #include <iostream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
 namespace po = boost::program_options;
 

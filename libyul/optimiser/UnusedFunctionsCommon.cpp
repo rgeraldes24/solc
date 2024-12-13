@@ -22,10 +22,10 @@
 
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::yul;
-using namespace solidity::yul::unusedFunctionsCommon;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::yul;
+using namespace hyperion::yul::unusedFunctionsCommon;
 
 FunctionDefinition unusedFunctionsCommon::createLinkingFunction(
 	FunctionDefinition const& _original,

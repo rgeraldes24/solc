@@ -46,7 +46,7 @@
 
 #include <map>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 Token TokenTraits::AssignmentToBinaryOp(Token op)

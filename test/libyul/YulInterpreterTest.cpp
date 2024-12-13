@@ -37,17 +37,17 @@
 
 #include <fstream>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 YulInterpreterTest::YulInterpreterTest(string const& _filename):
-	EVMVersionRestrictedTestCase(_filename)
+	ZVMVersionRestrictedTestCase(_filename)
 {
 	m_source = m_reader.source();
 	m_expectation = m_reader.simpleExpectations();
@@ -67,9 +67,9 @@ TestCase::TestResult YulInterpreterTest::run(ostream& _stream, string const& _li
 bool YulInterpreterTest::parse(ostream& _stream, string const& _linePrefix, bool const _formatted)
 {
 	YulStack stack(
-		solidity::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().evmVersion(),
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::none(),
+		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()
 	);
 	if (stack.parseAndAnalyze("", m_source))
@@ -97,7 +97,7 @@ string YulInterpreterTest::interpret()
 	{
 		Interpreter::run(
 			state,
-			EVMDialect::strictAssemblyForEVMObjects(solidity::test::CommonOptions::get().evmVersion()),
+			EVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().evmVersion()),
 			*m_ast,
 			/*disableExternalCalls=*/ !m_simulateExternalCallsToSelf,
 			/*disableMemoryTracing=*/ false

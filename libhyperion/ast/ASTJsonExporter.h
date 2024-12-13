@@ -37,12 +37,12 @@
 #include <stack>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

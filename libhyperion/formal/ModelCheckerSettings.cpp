@@ -21,8 +21,8 @@
 #include <optional>
 #include <range/v3/view.hpp>
 
-using namespace solidity;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::frontend;
 
 std::map<std::string, InvariantType> const ModelCheckerInvariants::validInvariants{
 	{"contract", InvariantType::Contract},

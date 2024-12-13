@@ -29,8 +29,8 @@
 #include <vector>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::phaser;
 
 function<Mutation> phaser::geneRandomisation(double _chance)
 {

@@ -22,11 +22,11 @@
 
 #include <libzvmasm/Instruction.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
 
-std::map<std::string, Instruction> const solidity::evmasm::c_instructions =
+std::map<std::string, Instruction> const hyperion::evmasm::c_instructions =
 {
 	{ "STOP", Instruction::STOP },
 	{ "ADD", Instruction::ADD },
@@ -319,7 +319,7 @@ static std::map<Instruction, InstructionInfo> const c_instructionInfo =
 	{ Instruction::INVALID,		{ "INVALID",		0, 0, 0, true, Tier::Zero } }
 };
 
-InstructionInfo solidity::evmasm::instructionInfo(Instruction _inst)
+InstructionInfo hyperion::evmasm::instructionInfo(Instruction _inst)
 {
 	try
 	{
@@ -331,7 +331,7 @@ InstructionInfo solidity::evmasm::instructionInfo(Instruction _inst)
 	}
 }
 
-bool solidity::evmasm::isValidInstruction(Instruction _inst)
+bool hyperion::evmasm::isValidInstruction(Instruction _inst)
 {
 	return !!c_instructionInfo.count(_inst);
 }

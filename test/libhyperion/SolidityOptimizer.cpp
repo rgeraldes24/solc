@@ -35,11 +35,11 @@
 #include <memory>
 #include <limits>
 
-using namespace solidity::util;
-using namespace solidity::evmasm;
-using namespace solidity::test;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
+using namespace hyperion::test;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 class OptimizerTestFramework: public SolidityExecutionFramework

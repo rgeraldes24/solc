@@ -36,10 +36,10 @@
 #include <optional>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 
 using Token = soltest::Token;
 
@@ -53,7 +53,7 @@ char TestFileParser::Scanner::peek() const noexcept
 	return *next;
 }
 
-std::vector<solidity::frontend::test::FunctionCall> TestFileParser::parseFunctionCalls(size_t _lineOffset)
+std::vector<hyperion::frontend::test::FunctionCall> TestFileParser::parseFunctionCalls(size_t _lineOffset)
 {
 	std::vector<FunctionCall> calls;
 	if (!accept(Token::EOS))

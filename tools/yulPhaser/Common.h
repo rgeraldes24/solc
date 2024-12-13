@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /// Loads the whole file into memory, splits the content into lines, strips newlines and

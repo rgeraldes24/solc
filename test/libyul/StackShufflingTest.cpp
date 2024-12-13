@@ -21,10 +21,10 @@
 #include <libhyputil/AnsiColorized.h>
 #include <libyul/backends/evm/StackHelpers.h>
 
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 using namespace std;
 
 bool StackShufflingTest::parse(string const& _source)

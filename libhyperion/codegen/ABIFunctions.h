@@ -28,13 +28,13 @@
 
 #include <libhyperion/interface/DebugSettings.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <functional>
 #include <map>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class Type;
@@ -55,7 +55,7 @@ class ABIFunctions
 {
 public:
 	explicit ABIFunctions(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		RevertStrings _revertStrings,
 		MultiUseYulFunctionCollector& _functionCollector
 	):
@@ -277,7 +277,7 @@ private:
 	/// if m_revertStrings is debug.
 	std::string revertReasonIfDebugFunction(std::string const& _message = "");
 
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	RevertStrings const m_revertStrings;
 	MultiUseYulFunctionCollector& m_functionCollector;
 	YulUtilFunctions m_utils;

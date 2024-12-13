@@ -25,7 +25,7 @@
 #include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/facilities/overload.hpp>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 struct SMTLogicError: virtual util::Exception {};
@@ -43,7 +43,7 @@ struct SMTLogicError: virtual util::Exception {};
 #define smtAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::solidity::smtutil::SMTLogicError, \
+		::hyperion::smtutil::SMTLogicError, \
 		(DESCRIPTION), \
 		"SMT assertion failed" \
 	)

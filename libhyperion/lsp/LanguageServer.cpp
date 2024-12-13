@@ -49,9 +49,9 @@
 using namespace std::string_literals;
 using namespace std::placeholders;
 
-using namespace solidity::lsp;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::lsp;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 namespace fs = boost::filesystem;
 

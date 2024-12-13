@@ -26,11 +26,11 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::phaser;
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 ostream& operator<<(ostream& _stream, Chromosome const& _chromosome);

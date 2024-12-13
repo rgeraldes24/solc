@@ -34,13 +34,13 @@
 
 #include <fmt/format.h>
 
-using namespace solidity;
-using namespace solidity::lsp;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::lsp;
+using namespace hyperion::frontend;
 
-using solidity::util::readFileAsString;
-using solidity::util::joinHumanReadable;
-using solidity::util::Result;
+using hyperion::util::readFileAsString;
+using hyperion::util::joinHumanReadable;
+using hyperion::util::Result;
 
 FileRepository::FileRepository(boost::filesystem::path _basePath, std::vector<boost::filesystem::path> _includePaths):
 	m_basePath(std::move(_basePath)),

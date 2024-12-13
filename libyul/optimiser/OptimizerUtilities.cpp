@@ -31,10 +31,10 @@
 
 #include <range/v3/action/remove_if.hpp>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
 void yul::removeEmptyBlocks(Block& _block)
 {
@@ -57,11 +57,11 @@ std::optional<evmasm::Instruction> yul::toEVMInstruction(Dialect const& _dialect
 	return std::nullopt;
 }
 
-langutil::EVMVersion const yul::evmVersionFromDialect(Dialect const& _dialect)
+langutil::ZVMVersion const yul::evmVersionFromDialect(Dialect const& _dialect)
 {
 	if (auto const* dialect = dynamic_cast<EVMDialect const*>(&_dialect))
 		return dialect->evmVersion();
-	return langutil::EVMVersion();
+	return langutil::ZVMVersion();
 }
 
 void StatementRemover::operator()(Block& _block)

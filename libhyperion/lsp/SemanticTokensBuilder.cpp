@@ -23,10 +23,10 @@
 
 #include <fmt/format.h>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 namespace

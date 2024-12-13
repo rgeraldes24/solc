@@ -31,7 +31,7 @@
 #include <ostream>
 #include <map>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**

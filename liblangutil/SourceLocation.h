@@ -29,7 +29,7 @@
 #include <tuple>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 /**

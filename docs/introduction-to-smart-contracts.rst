@@ -322,13 +322,13 @@ likely it will be.
 .. index:: !evm, ! ethereum virtual machine
 
 ****************************
-The Ethereum Virtual Machine
+The Zond Virtual Machine
 ****************************
 
 Overview
 ========
 
-The Ethereum Virtual Machine or EVM is the runtime environment
+The Zond Virtual Machine or EVM is the runtime environment
 for smart contracts in Ethereum. It is not only sandboxed but
 actually completely isolated, which means that code running
 inside the EVM has no access to network, filesystem or other processes.
@@ -424,7 +424,7 @@ transaction senders cannot abuse the system by setting a low gas price.
 Storage, Memory and the Stack
 =============================
 
-The Ethereum Virtual Machine has three areas where it can store data:
+The Zond Virtual Machine has three areas where it can store data:
 storage, memory and the stack.
 
 Each account has a data area called **storage**, which is persistent between function calls

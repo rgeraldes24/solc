@@ -29,10 +29,10 @@
 #include <fstream>
 #include <stdexcept>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion;
 using namespace boost::unit_test;
 
 GasTest::GasTest(std::string const& _filename):
@@ -116,7 +116,7 @@ void GasTest::setupCompiler(CompilerStack& _compiler)
 
 	// Intentionally ignoring EVM version specified on the command line.
 	// Gas expectations are only valid for the default version.
-	_compiler.setEVMVersion(EVMVersion{});
+	_compiler.setZVMVersion(ZVMVersion{});
 }
 
 TestCase::TestResult GasTest::run(std::ostream& _stream, std::string const& _linePrefix, bool _formatted)

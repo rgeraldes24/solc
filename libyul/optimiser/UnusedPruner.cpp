@@ -30,8 +30,8 @@
 #include <libyul/Dialect.h>
 #include <libyul/SideEffects.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void UnusedPruner::run(OptimiserStepContext& _context, Block& _ast)
 {

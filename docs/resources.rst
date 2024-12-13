@@ -20,7 +20,7 @@ Integrated (Ethereum) Development Environments
 ==============================================
 
     * `Brownie <https://eth-brownie.readthedocs.io/en/stable/>`_
-        Python-based development and testing framework for smart contracts targeting the Ethereum Virtual Machine.
+        Python-based development and testing framework for smart contracts targeting the Zond Virtual Machine.
 
     * `Dapp <https://dapp.tools/>`_
         Tool for building, testing and deploying smart contracts from the command-line.

@@ -30,12 +30,12 @@
 #include <string>
 
 using boost::algorithm::starts_with;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::smtutil;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend::smt;
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 namespace

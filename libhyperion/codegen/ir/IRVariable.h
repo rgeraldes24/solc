@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class VariableDeclaration;

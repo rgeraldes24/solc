@@ -29,8 +29,8 @@
 
 #include <boost/algorithm/string.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
 namespace
 {
@@ -40,7 +40,7 @@ static char const* lowerHexChars = "0123456789abcdef";
 
 }
 
-std::string solidity::util::toHex(uint8_t _data, HexCase _case)
+std::string hyperion::util::toHex(uint8_t _data, HexCase _case)
 {
 	assertThrow(_case != HexCase::Mixed, BadHexCase, "Mixed case can only be used for byte arrays.");
 
@@ -52,7 +52,7 @@ std::string solidity::util::toHex(uint8_t _data, HexCase _case)
 	};
 }
 
-std::string solidity::util::toHex(bytes const& _data, HexPrefix _prefix, HexCase _case)
+std::string hyperion::util::toHex(bytes const& _data, HexPrefix _prefix, HexCase _case)
 {
 	std::string ret(_data.size() * 2 + (_prefix == HexPrefix::Add ? 2 : 0), 0);
 
@@ -80,7 +80,7 @@ std::string solidity::util::toHex(bytes const& _data, HexPrefix _prefix, HexCase
 	return ret;
 }
 
-int solidity::util::fromHex(char _i, WhenError _throw)
+int hyperion::util::fromHex(char _i, WhenError _throw)
 {
 	if (_i >= '0' && _i <= '9')
 		return _i - '0';
@@ -94,7 +94,7 @@ int solidity::util::fromHex(char _i, WhenError _throw)
 		return -1;
 }
 
-bytes solidity::util::fromHex(std::string const& _s, WhenError _throw)
+bytes hyperion::util::fromHex(std::string const& _s, WhenError _throw)
 {
 	if (_s.empty())
 		return {};
@@ -124,7 +124,7 @@ bytes solidity::util::fromHex(std::string const& _s, WhenError _throw)
 }
 
 
-bool solidity::util::passesAddressChecksum(std::string const& _str, bool _strict)
+bool hyperion::util::passesAddressChecksum(std::string const& _str, bool _strict)
 {
 	std::string s = _str.substr(0, 2) == "0x" ? _str : "0x" + _str;
 
@@ -137,10 +137,10 @@ bool solidity::util::passesAddressChecksum(std::string const& _str, bool _strict
 	))
 		return true;
 
-	return s == solidity::util::getChecksummedAddress(s);
+	return s == hyperion::util::getChecksummedAddress(s);
 }
 
-std::string solidity::util::getChecksummedAddress(std::string const& _addr)
+std::string hyperion::util::getChecksummedAddress(std::string const& _addr)
 {
 	std::string s = _addr.substr(0, 2) == "0x" ? _addr.substr(2) : _addr;
 	assertThrow(s.length() == 40, InvalidAddress, "");
@@ -161,7 +161,7 @@ std::string solidity::util::getChecksummedAddress(std::string const& _addr)
 	return ret;
 }
 
-bool solidity::util::isValidHex(std::string const& _string)
+bool hyperion::util::isValidHex(std::string const& _string)
 {
 	if (_string.substr(0, 2) != "0x")
 		return false;
@@ -170,7 +170,7 @@ bool solidity::util::isValidHex(std::string const& _string)
 	return true;
 }
 
-bool solidity::util::isValidDecimal(std::string const& _string)
+bool hyperion::util::isValidDecimal(std::string const& _string)
 {
 	if (_string.empty())
 		return false;
@@ -184,7 +184,7 @@ bool solidity::util::isValidDecimal(std::string const& _string)
 	return true;
 }
 
-std::string solidity::util::formatAsStringOrNumber(std::string const& _value)
+std::string hyperion::util::formatAsStringOrNumber(std::string const& _value)
 {
 	assertThrow(_value.length() <= 32, StringTooLong, "String to be formatted longer than 32 bytes.");
 
@@ -196,7 +196,7 @@ std::string solidity::util::formatAsStringOrNumber(std::string const& _value)
 }
 
 
-std::string solidity::util::escapeAndQuoteString(std::string const& _input)
+std::string hyperion::util::escapeAndQuoteString(std::string const& _input)
 {
 	std::string out;
 

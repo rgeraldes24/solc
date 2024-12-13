@@ -25,7 +25,7 @@
 
 #include <liblangutil/Token.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 namespace TokenTraits = langutil::TokenTraits;
 

@@ -23,7 +23,7 @@
 #include <range/v3/algorithm/remove.hpp>
 
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 namespace
@@ -76,7 +76,7 @@ void ControlFlowRevertPruner::findRevertStates()
 
 		FunctionFlow const& functionFlow = m_cfg.functionFlow(*item.function, item.contract);
 
-		solidity::util::BreadthFirstSearch<CFGNode*>{{functionFlow.entry}}.run(
+		hyperion::util::BreadthFirstSearch<CFGNode*>{{functionFlow.entry}}.run(
 			[&](CFGNode* _node, auto&& _addChild) {
 				if (_node == functionFlow.exit)
 					foundExit = true;
@@ -129,7 +129,7 @@ void ControlFlowRevertPruner::modifyFunctionFlows()
 	for (auto& item: m_functions)
 	{
 		FunctionFlow const& functionFlow = m_cfg.functionFlow(*item.first.function, item.first.contract);
-		solidity::util::BreadthFirstSearch<CFGNode*>{{functionFlow.entry}}.run(
+		hyperion::util::BreadthFirstSearch<CFGNode*>{{functionFlow.entry}}.run(
 			[&](CFGNode* _node, auto&& _addChild) {
 				auto const* resolvedFunction = _node->functionDefinition;
 				if (resolvedFunction && resolvedFunction->isImplemented())

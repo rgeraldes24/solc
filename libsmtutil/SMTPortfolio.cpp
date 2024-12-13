@@ -26,10 +26,10 @@
 #endif
 #include <libsmtutil/SMTLib2Interface.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::smtutil;
 
 SMTPortfolio::SMTPortfolio(
 	std::map<h256, std::string> _smtlib2Responses,

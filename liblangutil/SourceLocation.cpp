@@ -23,10 +23,10 @@
 
 #include <iostream>
 
-using namespace solidity;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::langutil;
 
-SourceLocation solidity::langutil::parseSourceLocation(std::string const& _input, std::vector<std::shared_ptr<std::string const>> const& _sourceNames)
+SourceLocation hyperion::langutil::parseSourceLocation(std::string const& _input, std::vector<std::shared_ptr<std::string const>> const& _sourceNames)
 {
 	// Expected input: "start:length:sourceindex"
 	enum SrcElem: size_t { Start, Length, Index };
@@ -52,7 +52,7 @@ SourceLocation solidity::langutil::parseSourceLocation(std::string const& _input
 	return result;
 }
 
-std::ostream& solidity::langutil::operator<<(std::ostream& _out, SourceLocation const& _location)
+std::ostream& hyperion::langutil::operator<<(std::ostream& _out, SourceLocation const& _location)
 {
 	if (!_location.isValid())
 		return _out << "NO_LOCATION_SPECIFIED";

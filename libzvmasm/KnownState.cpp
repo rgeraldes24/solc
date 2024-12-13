@@ -28,9 +28,9 @@
 
 #include <functional>
 
-using namespace solidity;
-using namespace solidity::evmasm;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::evmasm;
+using namespace hyperion::langutil;
 
 std::ostream& KnownState::stream(std::ostream& _out) const
 {
@@ -129,7 +129,7 @@ KnownState::StoreOperation KnownState::feedItem(AssemblyItem const& _item, bool 
 	else
 	{
 		Instruction instruction = _item.instruction();
-		// The latest EVMVersion is used here, since the InstructionInfo is assumed to be
+		// The latest ZVMVersion is used here, since the InstructionInfo is assumed to be
 		// the same across all EVM versions except for the instruction name.
 		InstructionInfo info = instructionInfo(instruction);
 		if (SemanticInformation::isDupInstruction(_item))

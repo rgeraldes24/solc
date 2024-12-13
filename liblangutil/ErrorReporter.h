@@ -33,7 +33,7 @@
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/filter.hpp>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class ErrorReporter

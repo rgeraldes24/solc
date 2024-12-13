@@ -28,12 +28,12 @@
 #include <memory>
 #include <stdexcept>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::util::formatting;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::util::formatting;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace yul;
 
 void MemoryGuardTest::setupCompiler(CompilerStack& _compiler)

@@ -22,9 +22,9 @@
 #pragma once
 
 #include <libyul/optimiser/ASTWalker.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct Dialect;

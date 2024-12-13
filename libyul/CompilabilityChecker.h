@@ -28,7 +28,7 @@
 #include <map>
 #include <memory>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

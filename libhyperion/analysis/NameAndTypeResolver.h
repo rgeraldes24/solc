@@ -29,17 +29,17 @@
 #include <libhyperion/ast/ASTAnnotations.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <list>
 #include <map>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**
@@ -58,7 +58,7 @@ public:
 	/// are filled during the lifetime of this object.
 	NameAndTypeResolver(
 		GlobalContext& _globalContext,
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		langutil::ErrorReporter& _errorReporter
 	);
 	/// Registers all declarations found in the AST node, usually a source unit.
@@ -128,7 +128,7 @@ private:
 	/// Aliases (for example `import "x" as y;`) create multiple pointers to the same scope.
 	std::map<ASTNode const*, std::shared_ptr<DeclarationContainer>> m_scopes;
 
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 	DeclarationContainer* m_currentScope = nullptr;
 	langutil::ErrorReporter& m_errorReporter;
 	GlobalContext& m_globalContext;

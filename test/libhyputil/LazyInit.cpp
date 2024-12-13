@@ -22,7 +22,7 @@
 
 #include <utility>
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 namespace

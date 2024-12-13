@@ -28,14 +28,14 @@
 #include <liblangutil/ErrorReporter.h>
 #include <memory>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 /**
  * Helper class that determines whether a contract's constructor uses inline assembly.
  */
-class solidity::frontend::ConstructorUsesAssembly
+class hyperion::frontend::ConstructorUsesAssembly
 {
 public:
 	/// @returns true if and only if the contract's or any of its bases' constructors

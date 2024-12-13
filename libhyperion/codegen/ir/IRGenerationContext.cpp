@@ -33,9 +33,9 @@
 #include <range/v3/view/map.hpp>
 #include <range/v3/algorithm/find.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
 
 std::string IRGenerationContext::enqueueFunctionForCodeGeneration(FunctionDefinition const& _function)
 {

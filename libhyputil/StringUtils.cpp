@@ -30,10 +30,10 @@
 #include <string>
 #include <vector>
 
-using namespace solidity;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::util;
 
-bool solidity::util::stringWithinDistance(std::string const& _str1, std::string const& _str2, size_t _maxDistance, size_t _lenThreshold)
+bool hyperion::util::stringWithinDistance(std::string const& _str1, std::string const& _str2, size_t _maxDistance, size_t _lenThreshold)
 {
 	if (_str1 == _str2)
 		return true;
@@ -50,7 +50,7 @@ bool solidity::util::stringWithinDistance(std::string const& _str1, std::string 
 	return distance <= _maxDistance && distance < n1 && distance < n2;
 }
 
-size_t solidity::util::stringDistance(std::string const& _str1, std::string const& _str2)
+size_t hyperion::util::stringDistance(std::string const& _str1, std::string const& _str2)
 {
 	size_t n1 = _str1.size();
 	size_t n2 = _str2.size();
@@ -90,7 +90,7 @@ size_t solidity::util::stringDistance(std::string const& _str1, std::string cons
 	return dp[(n1 % 3) + n2 * 3];
 }
 
-std::string solidity::util::quotedAlternativesList(std::vector<std::string> const& suggestions)
+std::string hyperion::util::quotedAlternativesList(std::vector<std::string> const& suggestions)
 {
 	std::vector<std::string> quotedSuggestions;
 
@@ -100,7 +100,7 @@ std::string solidity::util::quotedAlternativesList(std::vector<std::string> cons
 	return joinHumanReadable(quotedSuggestions, ", ", " or ");
 }
 
-std::string solidity::util::suffixedVariableNameList(std::string const& _baseName, size_t _startSuffix, size_t _endSuffix)
+std::string hyperion::util::suffixedVariableNameList(std::string const& _baseName, size_t _startSuffix, size_t _endSuffix)
 {
 	std::string result;
 	if (_startSuffix < _endSuffix)
@@ -153,7 +153,7 @@ std::optional<std::string> tryFormatPowerOfTwo(bigint const& _value)
 
 }
 
-std::string solidity::util::formatNumberReadable(bigint const& _value, bool _useTruncation)
+std::string hyperion::util::formatNumberReadable(bigint const& _value, bool _useTruncation)
 {
 	bool const isNegative = _value < 0;
 	bigint const absValue = isNegative ? (bigint(-1) * _value) : bigint(_value);
@@ -194,7 +194,7 @@ std::string solidity::util::formatNumberReadable(bigint const& _value, bool _use
 	return sign + str;
 }
 
-std::string solidity::util::prefixLines(
+std::string hyperion::util::prefixLines(
 	std::string const& _input,
 	std::string const& _prefix,
 	bool _trimPrefix
@@ -205,7 +205,7 @@ std::string solidity::util::prefixLines(
 	return output.str();
 }
 
-void solidity::util::printPrefixed(
+void hyperion::util::printPrefixed(
 	std::ostream& _output,
 	std::string const& _input,
 	std::string const& _prefix,

@@ -27,7 +27,7 @@
 #include <cstddef>
 #include <optional>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 enum class CrossoverChoice

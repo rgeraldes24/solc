@@ -30,9 +30,9 @@
 
 #include <vector>
 
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 
 DebugInfoSelection const DebugInfoSelection::All(bool _value) noexcept
 {

@@ -27,7 +27,7 @@
 #include <optional>
 #include <string>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 /// Returns only the CBOR metadata.

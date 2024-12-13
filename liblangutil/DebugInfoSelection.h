@@ -28,7 +28,7 @@
 #include <string_view>
 #include <vector>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 /**

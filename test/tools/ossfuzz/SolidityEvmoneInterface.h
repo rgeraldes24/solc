@@ -28,12 +28,12 @@
 
 #include <evmone/evmone.h>
 
-namespace solidity::test::fuzzer
+namespace hyperion::test::fuzzer
 {
 struct CompilerOutput
 {
 	/// EVM bytecode returned by compiler
-	solidity::bytes byteCode;
+	hyperion::bytes byteCode;
 	/// Method identifiers in a contract
 	Json::Value methodIdentifiersInContract;
 };
@@ -41,11 +41,11 @@ struct CompilerOutput
 struct CompilerInput
 {
 	CompilerInput(
-		langutil::EVMVersion _evmVersion,
+		langutil::ZVMVersion _evmVersion,
 		StringMap const& _sourceCode,
 		std::string const& _contractName,
 		frontend::OptimiserSettings _optimiserSettings,
-		std::map<std::string, solidity::util::h160> _libraryAddresses,
+		std::map<std::string, hyperion::util::h160> _libraryAddresses,
 		bool _debugFailure = false,
 		bool _viaIR = false
 	):
@@ -58,7 +58,7 @@ struct CompilerInput
 		viaIR(_viaIR)
 	{}
 	/// EVM target version
-	langutil::EVMVersion evmVersion;
+	langutil::ZVMVersion evmVersion;
 	/// Source code to be compiled
 	StringMap const& sourceCode;
 	/// Contract name without a colon prefix
@@ -66,7 +66,7 @@ struct CompilerInput
 	/// Optimiser setting to be used during compilation
 	frontend::OptimiserSettings optimiserSettings;
 	/// Information on which library is deployed where
-	std::map<std::string, solidity::util::h160> libraryAddresses;
+	std::map<std::string, hyperion::util::h160> libraryAddresses;
 	/// Flag used for debugging
 	bool debugFailure;
 	/// Flag to enable new code generator.
@@ -84,7 +84,7 @@ public:
 		m_compilerInput.contractName = _contractName;
 	}
 	/// Sets library addresses to @param _libraryAddresses.
-	void libraryAddresses(std::map<std::string, solidity::util::h160> _libraryAddresses)
+	void libraryAddresses(std::map<std::string, hyperion::util::h160> _libraryAddresses)
 	{
 		m_compilerInput.libraryAddresses = std::move(_libraryAddresses);
 	}
@@ -106,7 +106,7 @@ class EvmoneUtility
 {
 public:
 	EvmoneUtility(
-		solidity::test::ZVMHost& _evmHost,
+		hyperion::test::ZVMHost& _evmHost,
 		CompilerInput _compilerInput,
 		std::string const& _contractName,
 		std::string const& _libraryName,
@@ -160,7 +160,7 @@ private:
 	std::optional<CompilerOutput> compileContract();
 
 	/// EVM Host implementation
-	solidity::test::ZVMHost& m_evmHost;
+	hyperion::test::ZVMHost& m_evmHost;
 	/// Solidity compilation framework
 	SolidityCompilationFramework m_compilationFramework;
 	/// Contract name

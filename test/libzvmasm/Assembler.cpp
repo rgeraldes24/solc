@@ -34,11 +34,11 @@
 #include <string>
 #include <tuple>
 
-using namespace solidity::langutil;
-using namespace solidity::evmasm;
+using namespace hyperion::langutil;
+using namespace hyperion::evmasm;
 using namespace std::string_literals;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(all_assembly_items)
 		{ "sub.asm", 1 },
 		{ "verbatim.asm", 2 }
 	};
-	EVMVersion evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	Assembly _assembly{evmVersion, false, {}};
 	auto root_asm = std::make_shared<std::string>("root.asm");
 	_assembly.setSourceLocation({1, 3, root_asm});
@@ -217,7 +217,7 @@ BOOST_AUTO_TEST_CASE(all_assembly_items)
 
 BOOST_AUTO_TEST_CASE(immutables_and_its_source_maps)
 {
-	EVMVersion evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	// Tests for 1, 2, 3 number of immutables.
 	for (int numImmutables = 1; numImmutables <= 3; ++numImmutables)
 	{
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(immutable)
 		{ "root.asm", 0 },
 		{ "sub.asm", 1 }
 	};
-	EVMVersion evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	Assembly _assembly{evmVersion, true, {}};
 	auto root_asm = std::make_shared<std::string>("root.asm");
 	_assembly.setSourceLocation({1, 3, root_asm});
@@ -403,7 +403,7 @@ BOOST_AUTO_TEST_CASE(immutable)
 
 BOOST_AUTO_TEST_CASE(subobject_encode_decode)
 {
-	EVMVersion evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	Assembly assembly{evmVersion, true, {}};
 
 	std::shared_ptr<Assembly> subAsmPtr = std::make_shared<Assembly>(evmVersion, false, std::string{});
@@ -413,8 +413,8 @@ BOOST_AUTO_TEST_CASE(subobject_encode_decode)
 	subAsmPtr->appendSubroutine(subSubAsmPtr);
 
 	BOOST_CHECK(assembly.encodeSubPath({0}) == 0);
-	BOOST_REQUIRE_THROW(assembly.encodeSubPath({1}), solidity::evmasm::AssemblyException);
-	BOOST_REQUIRE_THROW(assembly.decodeSubPath(1), solidity::evmasm::AssemblyException);
+	BOOST_REQUIRE_THROW(assembly.encodeSubPath({1}), hyperion::evmasm::AssemblyException);
+	BOOST_REQUIRE_THROW(assembly.decodeSubPath(1), hyperion::evmasm::AssemblyException);
 
 	std::vector<size_t> subPath{0, 0};
 	BOOST_CHECK(assembly.decodeSubPath(assembly.encodeSubPath(subPath)) == subPath);

@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class AbstractAssemblyStack
@@ -51,4 +51,4 @@ public:
 	virtual bool compilationSuccessful() const = 0;
 };
 
-} // namespace solidity::evmasm
+} // namespace hyperion::evmasm

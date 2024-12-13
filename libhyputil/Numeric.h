@@ -41,7 +41,7 @@
 
 #include <limits>
 
-namespace solidity
+namespace hyperion
 {
 
 // Numeric types.

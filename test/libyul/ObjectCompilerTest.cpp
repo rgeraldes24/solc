@@ -36,13 +36,13 @@
 
 #include <fstream>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 ObjectCompilerTest::ObjectCompilerTest(string const& _filename):
@@ -65,7 +65,7 @@ ObjectCompilerTest::ObjectCompilerTest(string const& _filename):
 TestCase::TestResult ObjectCompilerTest::run(ostream& _stream, string const& _linePrefix, bool const _formatted)
 {
 	YulStack stack(
-		EVMVersion(),
+		ZVMVersion(),
 		YulStack::Language::StrictAssembly,
 		OptimiserSettings::preset(m_optimisationPreset),
 		DebugInfoSelection::All()

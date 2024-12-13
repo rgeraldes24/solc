@@ -19,7 +19,7 @@
 #pragma once
 
 #include <libhyputil/Exceptions.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/Exceptions.h>
 #include <libhyputil/Numeric.h>
 
@@ -28,7 +28,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/program_options.hpp>
 
-namespace solidity::test
+namespace hyperion::test
 {
 
 #ifdef _WIN32
@@ -63,7 +63,7 @@ struct CommonOptions
 	size_t batches = 1;
 	size_t selectedBatch = 0;
 
-	langutil::EVMVersion evmVersion() const;
+	langutil::ZVMVersion evmVersion() const;
 
 	virtual void addOptions();
 	// @returns true if the program should continue, false if it should exit immediately without

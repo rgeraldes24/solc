@@ -25,9 +25,9 @@
 #include <stdexcept>
 #include <string>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend::test;
 
 using Token = soltest::Token;
 
@@ -224,12 +224,12 @@ std::string TestFunctionCall::formatBytesParameters(
 	ErrorReporter& _errorReporter,
 	bytes const& _bytes,
 	std::string const& _signature,
-	solidity::frontend::test::ParameterList const& _parameters,
+	hyperion::frontend::test::ParameterList const& _parameters,
 	bool _highlight,
 	bool _failure
 ) const
 {
-	using ParameterList = solidity::frontend::test::ParameterList;
+	using ParameterList = hyperion::frontend::test::ParameterList;
 
 	std::stringstream os;
 
@@ -282,7 +282,7 @@ std::string TestFunctionCall::formatBytesParameters(
 
 std::string TestFunctionCall::formatFailure(
 	ErrorReporter& _errorReporter,
-	solidity::frontend::test::FunctionCall const& _call,
+	hyperion::frontend::test::FunctionCall const& _call,
 	bytes const& _output,
 	bool _renderResult,
 	bool _highlight
@@ -311,7 +311,7 @@ std::string TestFunctionCall::formatFailure(
 }
 
 std::string TestFunctionCall::formatRawParameters(
-	solidity::frontend::test::ParameterList const& _params,
+	hyperion::frontend::test::ParameterList const& _params,
 	std::string const& _linePrefix
 ) const
 {

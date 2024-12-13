@@ -27,7 +27,7 @@
 #include <memory>
 #include <string>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 class ErrorReporter;

@@ -36,8 +36,8 @@
 #include <range/v3/view/concat.hpp>
 #include <range/v3/view/take.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 namespace
 {

@@ -25,8 +25,8 @@
 #include <liblangutil/SourceLocation.h>
 #include <memory>
 
-using namespace solidity;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::langutil;
 
 ErrorReporter& ErrorReporter::operator=(ErrorReporter const& _errorReporter)
 {

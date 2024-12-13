@@ -26,7 +26,7 @@
 #include <map>
 #include <string>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 /**

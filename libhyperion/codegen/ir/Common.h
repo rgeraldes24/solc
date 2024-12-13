@@ -26,7 +26,7 @@
 #include <algorithm>
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class IRGenerationContext;
@@ -84,9 +84,9 @@ std::string dispenseLocationComment(ASTNode const& _node, IRGenerationContext& _
 // instead but such an operator would be a bit ambiguous (e.g. YulArity{2, 2} would be be greater than
 // YulArity{1, 10} in lexicographical order but the latter has greater total number of inputs and outputs).
 template<>
-struct std::less<solidity::frontend::YulArity>
+struct std::less<hyperion::frontend::YulArity>
 {
-	bool operator() (solidity::frontend::YulArity const& _lhs, solidity::frontend::YulArity const& _rhs) const
+	bool operator() (hyperion::frontend::YulArity const& _lhs, hyperion::frontend::YulArity const& _rhs) const
 	{
 		return _lhs.in < _rhs.in || (_lhs.in == _rhs.in && _lhs.out < _rhs.out);
 	}

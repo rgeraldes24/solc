@@ -38,10 +38,10 @@
 
 #include <test/libhyperion/SolidityExecutionFramework.h>
 
-using namespace solidity::test;
-using namespace solidity::util;
+using namespace hyperion::test;
+using namespace hyperion::util;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 static char const* walletCode = R"DELIMITER(
 //sol Wallet
@@ -466,7 +466,7 @@ BOOST_AUTO_TEST_CASE(creation)
 {
 	deployWallet(200);
 	BOOST_REQUIRE(callContractFunction("isOwner(address)", m_sender) == encodeArgs(true));
-	bool v2 = !solidity::test::CommonOptions::get().useABIEncoderV1;
+	bool v2 = !hyperion::test::CommonOptions::get().useABIEncoderV1;
 	BOOST_REQUIRE(callContractFunction("isOwner(address)", h256(~0)) == (v2 ? encodeArgs() : encodeArgs(false)));
 }
 

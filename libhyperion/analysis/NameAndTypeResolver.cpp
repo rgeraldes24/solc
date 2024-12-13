@@ -30,14 +30,14 @@
 #include <boost/algorithm/string.hpp>
 #include <unordered_set>
 
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 NameAndTypeResolver::NameAndTypeResolver(
 	GlobalContext& _globalContext,
-	langutil::EVMVersion _evmVersion,
+	langutil::ZVMVersion _evmVersion,
 	ErrorReporter& _errorReporter
 ):
 	m_evmVersion(_evmVersion),

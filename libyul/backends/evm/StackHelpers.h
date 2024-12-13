@@ -30,7 +30,7 @@
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/view/take.hpp>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 inline std::string stackSlotToString(StackSlot const& _slot)

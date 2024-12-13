@@ -26,9 +26,9 @@
 #include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/backends/evm/NoOutputAssembly.h>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 CompilabilityChecker::CompilabilityChecker(
 	Dialect const& _dialect,

@@ -18,8 +18,8 @@
 #include <libyul/optimiser/FunctionCallFinder.h>
 #include <libyul/AST.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 std::vector<FunctionCall*> FunctionCallFinder::run(Block& _block, YulString _functionName)
 {

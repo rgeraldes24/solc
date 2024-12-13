@@ -22,8 +22,8 @@
 #include <tools/yulPhaser/PairSelections.h>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::phaser;
 
 function<Crossover> phaser::buildCrossoverOperator(
 	CrossoverChoice _choice,
@@ -40,7 +40,7 @@ function<Crossover> phaser::buildCrossoverOperator(
 			assert(_uniformCrossoverSwapChance.has_value());
 			return uniformCrossover(_uniformCrossoverSwapChance.value());
 		default:
-			assertThrow(false, solidity::util::Exception, "Invalid CrossoverChoice value.");
+			assertThrow(false, hyperion::util::Exception, "Invalid CrossoverChoice value.");
 	};
 }
 
@@ -59,7 +59,7 @@ function<SymmetricCrossover> phaser::buildSymmetricCrossoverOperator(
 			assert(_uniformCrossoverSwapChance.has_value());
 			return symmetricUniformCrossover(_uniformCrossoverSwapChance.value());
 		default:
-			assertThrow(false, solidity::util::Exception, "Invalid CrossoverChoice value.");
+			assertThrow(false, hyperion::util::Exception, "Invalid CrossoverChoice value.");
 	};
 }
 

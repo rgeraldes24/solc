@@ -21,11 +21,11 @@
 
 #include <fmt/format.h>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
-using namespace solidity::lsp;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::lsp;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 namespace
 {

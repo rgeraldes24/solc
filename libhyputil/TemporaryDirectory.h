@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /**

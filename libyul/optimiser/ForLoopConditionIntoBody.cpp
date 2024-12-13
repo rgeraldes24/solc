@@ -22,8 +22,8 @@
 
 #include <libhyputil/CommonData.h>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void ForLoopConditionIntoBody::run(OptimiserStepContext& _context, Block& _ast)
 {

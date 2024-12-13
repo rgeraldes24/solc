@@ -39,9 +39,9 @@
 #include <regex>
 
 using namespace std::string_literals;
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::util;
 
 namespace
 {
@@ -278,7 +278,7 @@ std::regex const& verbatimPattern()
 }
 
 
-EVMDialect::EVMDialect(langutil::EVMVersion _evmVersion, bool _objectAccess):
+EVMDialect::EVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess):
 	m_objectAccess(_objectAccess),
 	m_evmVersion(_evmVersion),
 	m_functions(createBuiltins(_objectAccess)),
@@ -309,18 +309,18 @@ bool EVMDialect::reservedIdentifier(YulString _name) const
 	return m_reserved.count(_name) != 0;
 }
 
-EVMDialect const& EVMDialect::strictAssemblyForEVM(langutil::EVMVersion _version)
+EVMDialect const& EVMDialect::strictAssemblyForEVM(langutil::ZVMVersion _version)
 {
-	static std::map<langutil::EVMVersion, std::unique_ptr<EVMDialect const>> dialects;
+	static std::map<langutil::ZVMVersion, std::unique_ptr<EVMDialect const>> dialects;
 	static YulStringRepository::ResetCallback callback{[&] { dialects.clear(); }};
 	if (!dialects[_version])
 		dialects[_version] = std::make_unique<EVMDialect>(_version, false);
 	return *dialects[_version];
 }
 
-EVMDialect const& EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion _version)
+EVMDialect const& EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion _version)
 {
-	static std::map<langutil::EVMVersion, std::unique_ptr<EVMDialect const>> dialects;
+	static std::map<langutil::ZVMVersion, std::unique_ptr<EVMDialect const>> dialects;
 	static YulStringRepository::ResetCallback callback{[&] { dialects.clear(); }};
 	if (!dialects[_version])
 		dialects[_version] = std::make_unique<EVMDialect>(_version, true);
@@ -379,7 +379,7 @@ BuiltinFunctionForEVM const* EVMDialect::verbatimFunction(size_t _arguments, siz
 	return function.get();
 }
 
-EVMDialectTyped::EVMDialectTyped(langutil::EVMVersion _evmVersion, bool _objectAccess):
+EVMDialectTyped::EVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess):
 	EVMDialect(_evmVersion, _objectAccess)
 {
 	defaultType = "u256"_yulstring;
@@ -473,9 +473,9 @@ BuiltinFunctionForEVM const* EVMDialectTyped::equalityFunction(YulString _type) 
 	}
 }
 
-EVMDialectTyped const& EVMDialectTyped::instance(langutil::EVMVersion _version)
+EVMDialectTyped const& EVMDialectTyped::instance(langutil::ZVMVersion _version)
 {
-	static std::map<langutil::EVMVersion, std::unique_ptr<EVMDialectTyped const>> dialects;
+	static std::map<langutil::ZVMVersion, std::unique_ptr<EVMDialectTyped const>> dialects;
 	static YulStringRepository::ResetCallback callback{[&] { dialects.clear(); }};
 	if (!dialects[_version])
 		dialects[_version] = std::make_unique<EVMDialectTyped>(_version, true);

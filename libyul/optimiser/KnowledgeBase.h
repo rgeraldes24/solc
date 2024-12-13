@@ -30,7 +30,7 @@
 #include <map>
 #include <functional>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct Dialect;

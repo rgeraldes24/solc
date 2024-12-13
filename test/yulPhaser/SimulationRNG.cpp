@@ -26,7 +26,7 @@
 
 using namespace std;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 BOOST_AUTO_TEST_SUITE(Phaser, *boost::unit_test::label("nooptions"))

@@ -39,10 +39,10 @@
 #include <tuple>
 #include <memory>
 
-using namespace solidity::langutil;
-using namespace solidity::evmasm;
+using namespace hyperion::langutil;
+using namespace hyperion::evmasm;
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 namespace
@@ -1250,7 +1250,7 @@ BOOST_AUTO_TEST_CASE(jumpdest_removal_subassemblies)
 	settings.runDeduplicate = true;
 	settings.runCSE = true;
 	settings.runConstantOptimiser = true;
-	settings.evmVersion = solidity::test::CommonOptions::get().evmVersion();
+	settings.evmVersion = hyperion::test::CommonOptions::get().evmVersion();
 	settings.expectedExecutionsPerDeployment = OptimiserSettings{}.expectedExecutionsPerDeployment;
 
 	Assembly main{settings.evmVersion, false, {}};

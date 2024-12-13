@@ -21,8 +21,8 @@
 #include <libhyputil/Whiskers.h>
 #include <libhyputil/Visitor.h>
 
-using namespace solidity::test::fuzzer::mutator;
-using namespace solidity::util;
+using namespace hyperion::test::fuzzer::mutator;
+using namespace hyperion::util;
 using namespace std;
 
 GeneratorBase::GeneratorBase(std::shared_ptr<SolidityGenerator> _mutator)

@@ -27,7 +27,7 @@
 
 #pragma once
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 /**

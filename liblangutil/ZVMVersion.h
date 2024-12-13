@@ -28,29 +28,29 @@
 #include <boost/operators.hpp>
 
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 /// Virtual machine bytecode instruction. Forward declared from libzvmasm/Instruction.h
 enum class Instruction: uint8_t;
 }
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 /**
  * A version specifier of the EVM we want to compile to.
  * Defaults to the latest version deployed on Ethereum Mainnet at the time of compiler release.
  */
-class EVMVersion:
-	boost::less_than_comparable<EVMVersion>,
-	boost::equality_comparable<EVMVersion>
+class ZVMVersion:
+	boost::less_than_comparable<ZVMVersion>,
+	boost::equality_comparable<ZVMVersion>
 {
 public:
-	EVMVersion() = default;
+	ZVMVersion() = default;
 
-	static EVMVersion shanghai() { return {Version::Shanghai}; }
+	static ZVMVersion shanghai() { return {Version::Shanghai}; }
 
-	static std::optional<EVMVersion> fromString(std::string const& _version)
+	static std::optional<ZVMVersion> fromString(std::string const& _version)
 	{
 		for (auto const& v: {shanghai()})
 			if (_version == v.name())
@@ -58,8 +58,8 @@ public:
 		return std::nullopt;
 	}
 
-	bool operator==(EVMVersion const& _other) const { return m_version == _other.m_version; }
-	bool operator<(EVMVersion const& _other) const { return m_version < _other.m_version; }
+	bool operator==(ZVMVersion const& _other) const { return m_version == _other.m_version; }
+	bool operator<(ZVMVersion const& _other) const { return m_version < _other.m_version; }
 
 	std::string name() const
 	{
@@ -73,7 +73,7 @@ public:
 private:
 	enum class Version { Shanghai };
 
-	EVMVersion(Version _version): m_version(_version) {}
+	ZVMVersion(Version _version): m_version(_version) {}
 
 	Version m_version = Version::Shanghai;
 };

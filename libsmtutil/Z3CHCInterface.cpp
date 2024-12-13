@@ -23,8 +23,8 @@
 #include <set>
 #include <stack>
 
-using namespace solidity;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::smtutil;
 
 Z3CHCInterface::Z3CHCInterface(std::optional<unsigned> _queryTimeout):
 	CHCSolverInterface(_queryTimeout),

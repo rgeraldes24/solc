@@ -49,9 +49,9 @@
 
 #include <range/v3/view/transform.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
 using namespace std::string_literals;
 
 namespace

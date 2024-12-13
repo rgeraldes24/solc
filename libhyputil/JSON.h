@@ -29,7 +29,7 @@
 #include <string_view>
 #include <optional>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Removes members with null value recursively from (@a _json).
@@ -138,4 +138,4 @@ T getOrDefault(Json::Value const& _input, T _default = {})
 	return detail::helper<T>::getOrDefault(_input, _default);
 }
 
-} // namespace solidity::util
+} // namespace hyperion::util

@@ -25,8 +25,8 @@
 #include <liblangutil/Scanner.h>
 #include <liblangutil/ErrorReporter.h>
 
-using namespace solidity;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::langutil;
 
 SourceLocation ParserBase::currentLocation() const
 {

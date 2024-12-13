@@ -27,7 +27,7 @@
 #include <map>
 #include <string>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 /// @returns another smtutil::Expressions where every term in _from

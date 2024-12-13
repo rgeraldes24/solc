@@ -22,8 +22,8 @@
 
 #include <variant>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 void SSAReverser::run(OptimiserStepContext&, Block& _block)
 {

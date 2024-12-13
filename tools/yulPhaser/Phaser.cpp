@@ -38,11 +38,11 @@
 #include <iostream>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
-using namespace solidity::phaser;
+using namespace hyperion;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
+using namespace hyperion::phaser;
 
 namespace po = boost::program_options;
 
@@ -187,7 +187,7 @@ unique_ptr<GeneticAlgorithm> GeneticAlgorithmFactory::build(
 			});
 		}
 		default:
-			assertThrow(false, solidity::util::Exception, "Invalid Algorithm value.");
+			assertThrow(false, hyperion::util::Exception, "Invalid Algorithm value.");
 	}
 }
 
@@ -260,7 +260,7 @@ unique_ptr<FitnessMetric> FitnessMetricFactory::build(
 			break;
 		}
 		default:
-			assertThrow(false, solidity::util::Exception, "Invalid MetricChoice value.");
+			assertThrow(false, hyperion::util::Exception, "Invalid MetricChoice value.");
 	}
 
 	switch (_options.metricAggregator)
@@ -274,7 +274,7 @@ unique_ptr<FitnessMetric> FitnessMetricFactory::build(
 		case MetricAggregatorChoice::Minimum:
 			return make_unique<FitnessMetricMinimum>(std::move(metrics));
 		default:
-			assertThrow(false, solidity::util::Exception, "Invalid MetricAggregatorChoice value.");
+			assertThrow(false, hyperion::util::Exception, "Invalid MetricAggregatorChoice value.");
 	}
 
 	// FIXME: Workaround for spurious GCC 12.1 warning (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105794)

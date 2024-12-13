@@ -20,7 +20,7 @@
 
 #include <libsmtutil/SolverInterface.h>
 
-namespace solidity::smtutil
+namespace hyperion::smtutil
 {
 
 /// Signed division in SMTLIB2 rounds differently than EVM.

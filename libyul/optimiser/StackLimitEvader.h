@@ -24,7 +24,7 @@
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/backends/evm/StackLayoutGenerator.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct Object;

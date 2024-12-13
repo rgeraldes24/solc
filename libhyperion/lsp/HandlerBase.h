@@ -25,7 +25,7 @@
 
 #include <optional>
 
-namespace solidity::lsp
+namespace hyperion::lsp
 {
 
 class Transport;

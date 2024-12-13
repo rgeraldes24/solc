@@ -23,9 +23,9 @@
 
 #include <cvc4/util/bitvector.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
 
 CVC4Interface::CVC4Interface(std::optional<unsigned> _queryTimeout):
 	SolverInterface(_queryTimeout),

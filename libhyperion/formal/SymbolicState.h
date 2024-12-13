@@ -24,7 +24,7 @@
 #include <libsmtutil/Sorts.h>
 #include <libsmtutil/SolverInterface.h>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 class EncodingContext;

@@ -24,7 +24,7 @@
 
 #include <libsmtutil/Sorts.h>
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 /**

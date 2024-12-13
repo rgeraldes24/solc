@@ -38,13 +38,13 @@
 using namespace std;
 using namespace boost::unit_test::framework;
 using namespace boost::test_tools;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
 namespace fs = boost::filesystem;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 class CountingAlgorithm: public GeneticAlgorithm

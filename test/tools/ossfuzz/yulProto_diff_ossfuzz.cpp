@@ -31,24 +31,24 @@
 #include <libyul/Exceptions.h>
 
 #include <liblangutil/DebugInfoSelection.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
 #include <test/tools/ossfuzz/yulFuzzerCommon.h>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::yul::test::yul_fuzzer;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::yul::test::yul_fuzzer;
 
 DEFINE_PROTO_FUZZER(Program const& _input)
 {
 	ProtoConverter converter;
 	string yul_source = converter.programToString(_input);
-	EVMVersion version = converter.version();
+	ZVMVersion version = converter.version();
 
 	if (const char* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
 	{
@@ -64,7 +64,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	YulStack stack(
 		version,
 		YulStack::Language::StrictAssembly,
-		solidity::frontend::OptimiserSettings::full(),
+		hyperion::frontend::OptimiserSettings::full(),
 		DebugInfoSelection::All()
 	);
 
@@ -101,7 +101,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		EVMDialect::strictAssemblyForEVMObjects(version)
 	);
 	optimizerTest.setStep(optimizerTest.randomOptimiserStep(_input.step()));
-	shared_ptr<solidity::yul::Block> astBlock = optimizerTest.run();
+	shared_ptr<hyperion::yul::Block> astBlock = optimizerTest.run();
 	yulAssert(astBlock != nullptr, "Optimiser error.");
 	termReason = yulFuzzerUtil::interpret(
 		os2,

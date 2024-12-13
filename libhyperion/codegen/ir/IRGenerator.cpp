@@ -43,10 +43,10 @@
 #include <sstream>
 #include <variant>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::util;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
 using namespace std::string_literals;
 
 namespace

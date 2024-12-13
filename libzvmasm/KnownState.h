@@ -59,12 +59,12 @@
 #include <memory>
 #include <ostream>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 struct SourceLocation;
 }
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 
 class AssemblyItem;

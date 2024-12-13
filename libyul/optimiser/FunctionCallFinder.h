@@ -24,7 +24,7 @@
 
 #include <vector>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

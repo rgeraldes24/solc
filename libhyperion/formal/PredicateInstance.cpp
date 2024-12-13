@@ -21,10 +21,10 @@
 #include <libhyperion/formal/EncodingContext.h>
 #include <libhyperion/formal/SMTEncoder.h>
 
-using namespace solidity::util;
-using namespace solidity::smtutil;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 smtutil::Expression interfacePre(Predicate const& _pred, ContractDefinition const& _contract, EncodingContext& _context)
 {

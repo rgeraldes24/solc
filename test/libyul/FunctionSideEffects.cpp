@@ -33,13 +33,13 @@
 #include <boost/algorithm/string.hpp>
 
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::langutil;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
 using namespace std;
 
 namespace
@@ -89,7 +89,7 @@ TestCase::TestResult FunctionSideEffects::run(ostream& _stream, string const& _l
 		BOOST_THROW_EXCEPTION(runtime_error("Parsing input failed."));
 
 	map<YulString, SideEffects> functionSideEffects = SideEffectsPropagator::sideEffects(
-		EVMDialect::strictAssemblyForEVMObjects(langutil::EVMVersion()),
+		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		CallGraphGenerator::callGraph(*obj.code)
 	);
 

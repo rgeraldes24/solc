@@ -29,7 +29,7 @@
 #include <set>
 #include <optional>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class YulString;

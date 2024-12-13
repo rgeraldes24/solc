@@ -29,9 +29,9 @@
 
 #include <limits>
 
-using namespace solidity;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
+using namespace hyperion;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
 
 using TypedRational = ConstantEvaluator::TypedRational;
 

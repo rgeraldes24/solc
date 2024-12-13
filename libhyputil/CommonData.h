@@ -159,7 +159,7 @@ inline std::multiset<T...>& operator-=(std::multiset<T...>& _a, C const& _b)
 	return _a;
 }
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 /// Functional map.

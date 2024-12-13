@@ -27,7 +27,7 @@
 
 #include <regex>
 
-using namespace solidity::yul;
+using namespace hyperion::yul;
 
 NameSimplifier::NameSimplifier(OptimiserStepContext& _context, Block const& _ast):
 	m_context(_context)

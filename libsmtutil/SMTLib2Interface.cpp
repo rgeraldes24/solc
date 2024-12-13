@@ -33,10 +33,10 @@
 #include <string>
 #include <utility>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::frontend;
-using namespace solidity::smtutil;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::frontend;
+using namespace hyperion::smtutil;
 
 SMTLib2Interface::SMTLib2Interface(
 	std::map<h256, std::string> _queryResponses,

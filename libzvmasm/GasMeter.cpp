@@ -20,9 +20,9 @@
 
 #include <libzvmasm/KnownState.h>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::evmasm;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::evmasm;
 
 GasMeter::GasConsumption& GasMeter::GasConsumption::operator+=(GasConsumption const& _other)
 {

@@ -29,8 +29,8 @@
 
 #include <variant>
 
-using namespace solidity;
-using namespace solidity::yul;
+using namespace hyperion;
+using namespace hyperion::yul;
 
 KnowledgeBase::KnowledgeBase(std::map<YulString, AssignedValue> const& _ssaValues):
 	m_valuesAreSSA(true),

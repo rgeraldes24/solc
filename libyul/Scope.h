@@ -30,7 +30,7 @@
 #include <optional>
 #include <variant>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 struct Scope

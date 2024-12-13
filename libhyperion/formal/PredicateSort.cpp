@@ -21,10 +21,10 @@
 #include <libhyperion/formal/SMTEncoder.h>
 #include <libhyperion/formal/SymbolicTypes.h>
 
-using namespace solidity::util;
-using namespace solidity::smtutil;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
 
-namespace solidity::frontend::smt
+namespace hyperion::frontend::smt
 {
 
 SortPointer interfaceSort(ContractDefinition const& _contract, SymbolicState& _state)

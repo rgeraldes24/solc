@@ -27,7 +27,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-namespace solidity::langutil::test
+namespace hyperion::langutil::test
 {
 
 BOOST_AUTO_TEST_SUITE(SourceLocationTest)

@@ -26,13 +26,13 @@
 #include <memory>
 #include <optional>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 class ErrorReporter;
 struct SourceLocation;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ViewPureChecker: private ASTConstVisitor

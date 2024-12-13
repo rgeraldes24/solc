@@ -35,13 +35,13 @@
 #include <stdexcept>
 
 using namespace std;
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::util::formatting;
-using namespace solidity::langutil;
-using namespace solidity::frontend;
-using namespace solidity::frontend::test;
-using namespace solidity::test;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::util::formatting;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::frontend::test;
+using namespace hyperion::test;
 using namespace boost::unit_test;
 namespace fs = boost::filesystem;
 
@@ -64,8 +64,8 @@ int parseUnsignedInteger(string::iterator& _it, string::iterator _end)
 
 }
 
-CommonSyntaxTest::CommonSyntaxTest(string const& _filename, langutil::EVMVersion _evmVersion):
-	EVMVersionRestrictedTestCase(_filename),
+CommonSyntaxTest::CommonSyntaxTest(string const& _filename, langutil::ZVMVersion _evmVersion):
+	ZVMVersionRestrictedTestCase(_filename),
 	m_sources(m_reader.sources()),
 	m_expectations(parseExpectations(m_reader.stream())),
 	m_evmVersion(_evmVersion)

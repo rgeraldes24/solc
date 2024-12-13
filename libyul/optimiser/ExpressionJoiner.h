@@ -26,7 +26,7 @@
 
 #include <map>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 class NameCollector;

@@ -28,23 +28,23 @@
 #include <libhyputil/Common.h>
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Numeric.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 
 #include <functional>
 #include <memory>
 #include <optional>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 struct SourceLocation;
 }
 
-namespace solidity::evmasm
+namespace hyperion::evmasm
 {
 enum class Instruction: uint8_t;
 }
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Identifier;
 
@@ -119,7 +119,7 @@ public:
 	virtual void markAsInvalid() = 0;
 
 	/// @returns the EVM version the assembly targets.
-	virtual langutil::EVMVersion evmVersion() const = 0;
+	virtual langutil::ZVMVersion evmVersion() const = 0;
 };
 
 enum class IdentifierContext { LValue, RValue, VariableDeclaration, NonExternal };

@@ -22,9 +22,9 @@
 
 #include <libyul/backends/evm/ControlFlowGraph.h>
 
-using namespace solidity::frontend::test;
+using namespace hyperion::frontend::test;
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 class StackShufflingTest: public TestCase

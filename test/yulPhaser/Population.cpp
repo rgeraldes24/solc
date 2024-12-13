@@ -39,11 +39,11 @@
 #include <sstream>
 
 using namespace std;
-using namespace solidity::langutil;
-using namespace solidity::yul;
+using namespace hyperion::langutil;
+using namespace hyperion::yul;
 using namespace boost::unit_test::framework;
 
-namespace solidity::phaser::test
+namespace hyperion::phaser::test
 {
 
 class PopulationFixture

@@ -21,8 +21,8 @@
 #include <libyul/AST.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-using namespace solidity::langutil;
-using namespace solidity::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::frontend;
 
 ControlFlowBuilder::ControlFlowBuilder(CFG::NodeContainer& _nodeContainer, FunctionFlow const& _functionFlow, ContractDefinition const* _contract):
 	m_nodeContainer(_nodeContainer),

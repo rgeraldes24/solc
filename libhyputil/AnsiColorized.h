@@ -21,7 +21,7 @@
 #include <ostream>
 #include <vector>
 
-namespace solidity::util
+namespace hyperion::util
 {
 
 namespace formatting

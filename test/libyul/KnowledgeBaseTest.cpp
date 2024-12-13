@@ -34,9 +34,9 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
-using namespace solidity::langutil;
+using namespace hyperion::langutil;
 
-namespace solidity::yul::test
+namespace hyperion::yul::test
 {
 
 class KnowledgeBaseTest
@@ -61,7 +61,7 @@ protected:
 		return KnowledgeBase([this](YulString _var) { return util::valueOrNullptr(m_values, _var); });
 	}
 
-	EVMDialect m_dialect{EVMVersion{}, true};
+	EVMDialect m_dialect{ZVMVersion{}, true};
 	shared_ptr<Object> m_object;
 	SSAValueTracker m_ssaValues;
 	map<YulString, AssignedValue> m_values;

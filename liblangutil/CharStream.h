@@ -56,7 +56,7 @@
 #include <tuple>
 #include <utility>
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 
 struct SourceLocation;

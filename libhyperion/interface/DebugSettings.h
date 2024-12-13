@@ -25,7 +25,7 @@
 #include <string>
 #include <optional>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 enum class RevertStrings

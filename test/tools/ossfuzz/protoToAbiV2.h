@@ -131,7 +131,7 @@
  *	}
  */
 
-namespace solidity::test::abiv2fuzzer
+namespace hyperion::test::abiv2fuzzer
 {
 using RandomEngine = std::mt19937_64;
 using Distribution = std::uniform_int_distribution<unsigned>;

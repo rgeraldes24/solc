@@ -37,7 +37,7 @@
 #include <memory>
 #include <string>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class CommandLineInterface

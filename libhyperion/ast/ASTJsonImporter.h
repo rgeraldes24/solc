@@ -27,11 +27,11 @@
 #include <libhyperion/ast/AST.h>
 #include <json/json.h>
 #include <libhyperion/ast/ASTAnnotations.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/SourceLocation.h>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 /**
@@ -40,7 +40,7 @@ namespace solidity::frontend
 class ASTJsonImporter
 {
 public:
-	ASTJsonImporter(langutil::EVMVersion _evmVersion)
+	ASTJsonImporter(langutil::ZVMVersion _evmVersion)
 		:m_evmVersion(_evmVersion)
 	{}
 
@@ -164,7 +164,7 @@ private:
 	/// IDs already used by the nodes
 	std::set<int64_t> m_usedIDs;
 	/// Configured EVM version
-	langutil::EVMVersion m_evmVersion;
+	langutil::ZVMVersion m_evmVersion;
 };
 
 }

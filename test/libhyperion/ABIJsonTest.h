@@ -25,7 +25,7 @@
 
 #include <string>
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 

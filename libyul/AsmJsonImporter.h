@@ -29,7 +29,7 @@
 
 #include <utility>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

@@ -26,10 +26,10 @@
 
 #include <range/v3/view.hpp>
 
-using namespace solidity;
-using namespace solidity::util;
-using namespace solidity::smtutil;
-using namespace solidity::frontend::smt;
+using namespace hyperion;
+using namespace hyperion::util;
+using namespace hyperion::smtutil;
+using namespace hyperion::frontend::smt;
 
 BlockchainVariable::BlockchainVariable(
 	std::string _name,

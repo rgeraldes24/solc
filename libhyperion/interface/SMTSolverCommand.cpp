@@ -30,11 +30,11 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/process.hpp>
 
-using solidity::langutil::InternalCompilerError;
-using solidity::util::errinfo_comment;
+using hyperion::langutil::InternalCompilerError;
+using hyperion::util::errinfo_comment;
 
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 SMTSolverCommand::SMTSolverCommand(std::string _solverCmd) : m_solverCmd(_solverCmd) {}
@@ -46,7 +46,7 @@ ReadCallback::Result SMTSolverCommand::solve(std::string const& _kind, std::stri
 		if (_kind != ReadCallback::kindString(ReadCallback::Kind::SMTQuery))
 			solAssert(false, "SMTQuery callback used as callback kind " + _kind);
 
-		auto tempDir = solidity::util::TemporaryDirectory("smt");
+		auto tempDir = hyperion::util::TemporaryDirectory("smt");
 		util::h256 queryHash = util::keccak256(_query);
 		auto queryFileName = tempDir.path() / ("query_" + queryHash.hex() + ".smt2");
 

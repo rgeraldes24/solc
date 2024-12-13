@@ -20,7 +20,7 @@
 
 #include <libhyputil/Exceptions.h>
 
-namespace solidity::phaser
+namespace hyperion::phaser
 {
 
 struct BadInput: virtual util::Exception {};

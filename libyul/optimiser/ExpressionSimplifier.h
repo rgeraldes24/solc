@@ -25,7 +25,7 @@
 
 #include <libyul/optimiser/DataFlowAnalyzer.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 struct Dialect;
 struct OptimiserStepContext;

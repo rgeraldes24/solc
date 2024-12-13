@@ -43,7 +43,7 @@
 #include <string>
 #include <utility>
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class TypeProvider;
@@ -57,7 +57,7 @@ using BoolResult = util::Result<bool>;
 
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 inline rational makeRational(bigint const& _numerator, bigint const& _denominator)

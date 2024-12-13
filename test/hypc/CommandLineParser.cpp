@@ -27,7 +27,7 @@
 #include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libhyputil/CommonData.h>
-#include <liblangutil/EVMVersion.h>
+#include <liblangutil/ZVMVersion.h>
 #include <libsmtutil/SolverInterface.h>
 #include <libhyperion/interface/Version.h>
 
@@ -39,10 +39,10 @@
 #include <vector>
 
 using namespace std;
-using namespace solidity::frontend;
-using namespace solidity::langutil;
-using namespace solidity::util;
-using namespace solidity::yul;
+using namespace hyperion::frontend;
+using namespace hyperion::langutil;
+using namespace hyperion::util;
+using namespace hyperion::yul;
 
 namespace
 {
@@ -58,7 +58,7 @@ CommandLineOptions parseCommandLine(vector<string> const& _commandLine)
 
 } // namespace
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(CommandLineParserTest)
@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.dir = "/tmp/out";
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = EVMVersion::shanghai();
+		expectedOptions.output.evmVersion = ZVMVersion::shanghai();
 		expectedOptions.output.viaIR = true;
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.input.allowedDirectories = {"/tmp", "/home", "project", "../contracts", "c", "/usr/lib"};
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = EVMVersion::shanghai();
+		expectedOptions.output.evmVersion = ZVMVersion::shanghai();
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
 		expectedOptions.formatting.json = JsonFormat {JsonFormat::Pretty, 1};
@@ -610,4 +610,4 @@ BOOST_AUTO_TEST_CASE(invalid_optimizer_sequence_without_optimize)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

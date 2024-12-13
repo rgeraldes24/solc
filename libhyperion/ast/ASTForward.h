@@ -29,12 +29,12 @@
 
 // Forward-declare all AST node types and related enums.
 
-namespace solidity::langutil
+namespace hyperion::langutil
 {
 enum class Token : unsigned int;
 }
 
-namespace solidity::frontend
+namespace hyperion::frontend
 {
 
 class ASTNode;

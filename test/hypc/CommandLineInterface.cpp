@@ -43,10 +43,10 @@
 #include <vector>
 
 using namespace std;
-using namespace solidity::frontend;
-using namespace solidity::test;
-using namespace solidity::util;
-using namespace solidity::langutil;
+using namespace hyperion::frontend;
+using namespace hyperion::test;
+using namespace hyperion::util;
+using namespace hyperion::langutil;
 
 using PathSet = set<boost::filesystem::path>;
 
@@ -112,7 +112,7 @@ struct print_log_value<PathSet>
 
 } // namespace boost::test_tools::tt_detail
 
-namespace solidity::frontend::test
+namespace hyperion::frontend::test
 {
 
 BOOST_AUTO_TEST_SUITE(CommandLineInterfaceTest)
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(version)
 	OptionsReaderAndMessages result = runCLI({"hypc", "--version"}, "");
 
 	BOOST_TEST(result.success);
-	BOOST_TEST(boost::ends_with(result.stdoutContent, "Version: " + solidity::frontend::VersionString + "\n"));
+	BOOST_TEST(boost::ends_with(result.stdoutContent, "Version: " + hyperion::frontend::VersionString + "\n"));
 	BOOST_TEST(result.stderrContent == "");
 	BOOST_TEST(result.options.input.mode == InputMode::Version);
 }
@@ -1388,4 +1388,4 @@ BOOST_AUTO_TEST_CASE(cli_include_paths_ambiguous_import)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-} // namespace solidity::frontend::test
+} // namespace hyperion::frontend::test

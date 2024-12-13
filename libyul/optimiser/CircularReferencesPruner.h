@@ -28,7 +28,7 @@
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/optimiser/OptimiserStep.h>
 
-namespace solidity::yul
+namespace hyperion::yul
 {
 
 /**

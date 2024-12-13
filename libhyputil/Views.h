@@ -23,7 +23,7 @@
 #include <liblangutil/Exceptions.h>
 
 
-namespace solidity::util::views
+namespace hyperion::util::views
 {
 
 static constexpr auto dereference = ranges::views::transform([](auto&& x) -> decltype(auto) { return *x; });

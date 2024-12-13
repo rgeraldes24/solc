@@ -24,7 +24,7 @@
 #include <cmath>
 
 using namespace std;
-using namespace solidity::phaser;
+using namespace hyperion::phaser;
 
 vector<tuple<size_t, size_t>> RandomPairSelection::materialise(size_t _poolSize) const
 {

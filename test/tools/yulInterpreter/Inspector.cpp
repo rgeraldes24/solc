@@ -24,9 +24,9 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string.hpp>
 
-using namespace solidity;
-using namespace solidity::yul;
-using namespace solidity::yul::test;
+using namespace hyperion;
+using namespace hyperion::yul;
+using namespace hyperion::yul::test;
 
 using namespace std;
 

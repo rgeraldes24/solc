@@ -27,7 +27,7 @@
 
 using namespace boost::test_tools;
 
-namespace solidity::util::test
+namespace hyperion::util::test
 {
 
 BOOST_AUTO_TEST_SUITE(TemporaryDirectoryTest)

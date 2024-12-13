@@ -22,10 +22,10 @@
 #include <libyul/Dialect.h>
 #include <libyul/AST.h>
 
-using namespace solidity::yul;
-using namespace solidity::langutil;
+using namespace hyperion::yul;
+using namespace hyperion::langutil;
 
-Literal Dialect::zeroLiteralForType(solidity::yul::YulString _type) const
+Literal Dialect::zeroLiteralForType(hyperion::yul::YulString _type) const
 {
 	if (_type == boolType && _type != defaultType)
 		return {DebugData::create(), LiteralKind::Boolean, "false"_yulstring, _type};
