@@ -32,7 +32,7 @@ using namespace solidity;
 using namespace std;
 
 static constexpr size_t abiCoderHeapSize = 1024 * 512;
-static evmc::VM evmone = evmc::VM{evmc_create_evmone()};
+static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
 
 DEFINE_PROTO_FUZZER(Contract const& _contract)
 {
@@ -69,8 +69,8 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 			{}
 		);
 		auto result = evmoneUtil.compileDeployAndExecute(encodedData);
-		solAssert(result.status_code != EVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted.");
-		if (result.status_code == EVMC_SUCCESS)
+		solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted.");
+		if (result.status_code == ZVMC_SUCCESS)
 			solAssert(
 				EvmoneUtility::zeroWord(result.output_data, result.output_size),
 				"Proto ABIv2 fuzzer: ABIv2 coding failure found."

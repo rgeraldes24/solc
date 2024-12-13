@@ -43,10 +43,10 @@ std::shared_ptr<yul::Object> YulAssembler::object()
 	return m_stack.parserResult();
 }
 
-evmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
+zvmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
 {
 	// Zero initialize all message fields
-	evmc_message msg = {};
+	zvmc_message msg = {};
 	// Gas available (value of type int64_t) is set to its maximum value
 	msg.gas = std::numeric_limits<int64_t>::max();
 	solAssert(
@@ -71,33 +71,33 @@ evmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
 	} + _input;
 	msg.input_data = deployCode.data();
 	msg.input_size = deployCode.size();
-	msg.kind = EVMC_CREATE;
+	msg.kind = ZVMC_CREATE;
 	return _host.call(msg);
 }
 
-evmc_message YulEvmoneUtility::callMessage(evmc_address _address)
+zvmc_message YulEvmoneUtility::callMessage(zvmc_address _address)
 {
-	evmc_message call = {};
+	zvmc_message call = {};
 	call.gas = std::numeric_limits<int64_t>::max();
 	call.recipient = _address;
 	call.code_address = _address;
-	call.kind = EVMC_CALL;
+	call.kind = ZVMC_CALL;
 	return call;
 }
 
-bool YulEvmoneUtility::seriousCallError(evmc_status_code _code)
+bool YulEvmoneUtility::seriousCallError(zvmc_status_code _code)
 {
-	if (_code == EVMC_OUT_OF_GAS)
+	if (_code == ZVMC_OUT_OF_GAS)
 		return true;
-	else if (_code == EVMC_STACK_OVERFLOW)
+	else if (_code == ZVMC_STACK_OVERFLOW)
 		return true;
-	else if (_code == EVMC_STACK_UNDERFLOW)
+	else if (_code == ZVMC_STACK_UNDERFLOW)
 		return true;
-	else if (_code == EVMC_INTERNAL_ERROR)
+	else if (_code == ZVMC_INTERNAL_ERROR)
 		return true;
-	else if (_code == EVMC_UNDEFINED_INSTRUCTION)
+	else if (_code == ZVMC_UNDEFINED_INSTRUCTION)
 		return true;
-	else if (_code == EVMC_INVALID_MEMORY_ACCESS)
+	else if (_code == ZVMC_INVALID_MEMORY_ACCESS)
 		return true;
 	else
 		return false;

@@ -274,7 +274,7 @@ private:
 protected:
 	u256 const InitialGas = 100000000;
 
-	void selectVM(evmc_capabilities _cap = evmc_capabilities::EVMC_CAPABILITY_EVM1);
+	void selectVM(zvmc_capabilities _cap = zvmc_capabilities::ZVMC_CAPABILITY_EVM1);
 	void reset();
 
 	void sendMessage(bytes const& _data, bool _isCreation, u256 const& _value = 0);
@@ -295,7 +295,7 @@ protected:
 	solidity::frontend::RevertStrings m_revertStrings = solidity::frontend::RevertStrings::Default;
 	solidity::frontend::OptimiserSettings m_optimiserSettings = solidity::frontend::OptimiserSettings::minimal();
 	bool m_showMessages = false;
-	std::unique_ptr<ZVMHost> m_evmcHost;
+	std::unique_ptr<ZVMHost> m_zvmcHost;
 
 	std::vector<boost::filesystem::path> m_vmPaths;
 

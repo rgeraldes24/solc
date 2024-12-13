@@ -22,7 +22,7 @@
 
 #include <test/ZVMHost.h>
 
-#include <test/evmc/loader.h>
+#include <test/zvmc/loader.h>
 
 #include <libzvmasm/GasMeter.h>
 
@@ -35,27 +35,27 @@ using namespace std;
 using namespace solidity;
 using namespace solidity::util;
 using namespace solidity::test;
-using namespace evmc::literals;
+using namespace zvmc::literals;
 
-evmc::VM& ZVMHost::getVM(string const& _path)
+zvmc::VM& ZVMHost::getVM(string const& _path)
 {
-	static evmc::VM NullVM{nullptr};
-	static map<string, unique_ptr<evmc::VM>> vms;
+	static zvmc::VM NullVM{nullptr};
+	static map<string, unique_ptr<zvmc::VM>> vms;
 	if (vms.count(_path) == 0)
 	{
-		evmc_loader_error_code errorCode = {};
-		auto vm = evmc::VM{evmc_load_and_configure(_path.c_str(), &errorCode)};
-		if (vm && errorCode == EVMC_LOADER_SUCCESS)
+		zvmc_loader_error_code errorCode = {};
+		auto vm = zvmc::VM{zvmc_load_and_configure(_path.c_str(), &errorCode)};
+		if (vm && errorCode == ZVMC_LOADER_SUCCESS)
 		{
-			if (vm.get_capabilities() & (EVMC_CAPABILITY_EVM1))
-				vms[_path] = make_unique<evmc::VM>(evmc::VM(std::move(vm)));
+			if (vm.get_capabilities() & (ZVMC_CAPABILITY_EVM1))
+				vms[_path] = make_unique<zvmc::VM>(zvmc::VM(std::move(vm)));
 			else
 				cerr << "VM loaded does not support EVM1" << endl;
 		}
 		else
 		{
 			cerr << "Error loading VM from " << _path;
-			if (char const* errorMsg = evmc_last_error_msg())
+			if (char const* errorMsg = zvmc_last_error_msg())
 				cerr << ":" << endl << errorMsg;
 			cerr << endl;
 		}
@@ -72,21 +72,21 @@ bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 	bool evmVmFound = false;
 	for (auto const& path: _vmPaths)
 	{
-		evmc::VM& vm = ZVMHost::getVM(path.string());
+		zvmc::VM& vm = ZVMHost::getVM(path.string());
 		if (!vm)
 			continue;
 
-		if (vm.has_capability(EVMC_CAPABILITY_EVM1))
+		if (vm.has_capability(ZVMC_CAPABILITY_EVM1))
 		{
 			if (evmVmFound)
-				BOOST_THROW_EXCEPTION(runtime_error("Multiple evm1 evmc vms defined. Please only define one evm1 evmc vm."));
+				BOOST_THROW_EXCEPTION(runtime_error("Multiple evm1 zvmc vms defined. Please only define one evm1 zvmc vm."));
 			evmVmFound = true;
 		}
 	}
 	return evmVmFound;
 }
 
-ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
+ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, zvmc::VM& _vm):
 	m_vm(_vm),
 	m_evmVersion(_evmVersion)
 {
@@ -97,7 +97,7 @@ ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 	}
 
 	if (_evmVersion == langutil::EVMVersion::shanghai())
-		m_evmRevision = EVMC_SHANGHAI;
+		m_evmRevision = ZVMC_SHANGHAI;
 	else
 		assertThrow(false, Exception, "Unsupported EVM version");
 
@@ -106,12 +106,12 @@ ZVMHost::ZVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm):
 	tx_context.block_prev_randao = 0xa86c2e601b6c44eb4848f7d23d9df3113fbcac42041c49cbed5000cb4f118777_bytes32;
 	tx_context.block_gas_limit = 20000000;
 	tx_context.block_coinbase = 0x7878787878787878787878787878787878787878_address;
-	tx_context.tx_gas_price = evmc::uint256be{3000000000};
+	tx_context.tx_gas_price = zvmc::uint256be{3000000000};
 	tx_context.tx_origin = 0x9292929292929292929292929292929292929292_address;
 	// Mainnet according to EIP-155
-	tx_context.chain_id = evmc::uint256be{1};
+	tx_context.chain_id = zvmc::uint256be{1};
 	// The minimum value of basefee
-	tx_context.block_base_fee = evmc::bytes32{7};
+	tx_context.block_base_fee = zvmc::bytes32{7};
 
 	// Reserve space for recording calls.
 	if (!recorded_calls.capacity())
@@ -136,9 +136,9 @@ void ZVMHost::reset()
 	// roughly 22 days before the update went live.
 	for (unsigned precompiledAddress = 1; precompiledAddress <= 8; precompiledAddress++)
 	{
-		evmc::address address{precompiledAddress};
+		zvmc::address address{precompiledAddress};
 		// 1wei
-		accounts[address].balance = evmc::uint256be{1};
+		accounts[address].balance = zvmc::uint256be{1};
 		// Set according to EIP-1052.
 		accounts[address].codehash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470_bytes32;		
 	}
@@ -152,27 +152,27 @@ void ZVMHost::newTransactionFrame()
 	for (auto& [address, account]: accounts)
 		for (auto& [slot, value]: account.storage)
 		{
-			value.access_status = EVMC_ACCESS_COLD; // Clear EIP-2929 storage access indicator
+			value.access_status = ZVMC_ACCESS_COLD; // Clear EIP-2929 storage access indicator
 			value.original = value.current;			// Clear EIP-2200 dirty slot
 		}
 }
 
-void ZVMHost::transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recipient, u256 const& _value) noexcept
+void ZVMHost::transfer(zvmc::MockedAccount& _sender, zvmc::MockedAccount& _recipient, u256 const& _value) noexcept
 {
-	assertThrow(u256(convertFromEVMC(_sender.balance)) >= _value, Exception, "Insufficient balance for transfer");
-	_sender.balance = convertToEVMC(u256(convertFromEVMC(_sender.balance)) - _value);
-	_recipient.balance = convertToEVMC(u256(convertFromEVMC(_recipient.balance)) + _value);
+	assertThrow(u256(convertFromZVMC(_sender.balance)) >= _value, Exception, "Insufficient balance for transfer");
+	_sender.balance = convertToZVMC(u256(convertFromZVMC(_sender.balance)) - _value);
+	_recipient.balance = convertToZVMC(u256(convertFromZVMC(_recipient.balance)) + _value);
 }
 
-void ZVMHost::recordCalls(evmc_message const& _message) noexcept
+void ZVMHost::recordCalls(zvmc_message const& _message) noexcept
 {
 	if (recorded_calls.size() < max_recorded_calls)
 		recorded_calls.emplace_back(_message);
 }
 
 // NOTE: this is used for both internal and external calls.
-// External calls are triggered from ExecutionFramework and contain only EVMC_CREATE or EVMC_CALL.
-evmc::Result ZVMHost::call(evmc_message const& _message) noexcept
+// External calls are triggered from ExecutionFramework and contain only ZVMC_CREATE or ZVMC_CALL.
+zvmc::Result ZVMHost::call(zvmc_message const& _message) noexcept
 {
 	recordCalls(_message);
 	if (_message.recipient == 0x0000000000000000000000000000000000000001_address)
@@ -192,27 +192,27 @@ evmc::Result ZVMHost::call(evmc_message const& _message) noexcept
 
 	auto const stateBackup = accounts;
 
-	u256 value{convertFromEVMC(_message.value)};
+	u256 value{convertFromZVMC(_message.value)};
 	auto& sender = accounts[_message.sender];
 
-	evmc::bytes code;
+	zvmc::bytes code;
 
-	evmc_message message = _message;
+	zvmc_message message = _message;
 	if (message.depth == 0)
 	{
-		message.gas -= message.kind == EVMC_CREATE ? evmasm::GasCosts::txCreateGas : evmasm::GasCosts::txGas;
+		message.gas -= message.kind == ZVMC_CREATE ? evmasm::GasCosts::txCreateGas : evmasm::GasCosts::txGas;
 		for (size_t i = 0; i < message.input_size; ++i)
 			message.gas -= message.input_data[i] == 0 ? evmasm::GasCosts::txDataZeroGas : evmasm::GasCosts::txDataNonZeroGas;
 		if (message.gas < 0)
 		{
-			evmc::Result result;
-			result.status_code = EVMC_OUT_OF_GAS;
+			zvmc::Result result;
+			result.status_code = ZVMC_OUT_OF_GAS;
 			accounts = stateBackup;
 			return result;
 		}
 	}
 
-	if (message.kind == EVMC_CREATE)
+	if (message.kind == ZVMC_CREATE)
 	{
 		// TODO is the nonce incremented on failure, too?
 		// NOTE: nonce for creation from contracts starts at 1
@@ -242,12 +242,12 @@ evmc::Result ZVMHost::call(evmc_message const& _message) noexcept
 			encodedNonce
 		), h160::AlignRight);
 
-		message.recipient = convertToEVMC(createAddress);
+		message.recipient = convertToZVMC(createAddress);
 		assertThrow(accounts.count(message.recipient) == 0, Exception, "Account cannot exist");
 
-		code = evmc::bytes(message.input_data, message.input_data + message.input_size);
+		code = zvmc::bytes(message.input_data, message.input_data + message.input_size);
 	}
-	else if (message.kind == EVMC_CREATE2)
+	else if (message.kind == ZVMC_CREATE2)
 	{
 		h160 createAddress(keccak256(
 			bytes{0xff} +
@@ -256,31 +256,31 @@ evmc::Result ZVMHost::call(evmc_message const& _message) noexcept
 			keccak256(bytes(message.input_data, message.input_data + message.input_size)).asBytes()
 		), h160::AlignRight);
 
-		message.recipient = convertToEVMC(createAddress);
+		message.recipient = convertToZVMC(createAddress);
 		if (accounts.count(message.recipient) && (
 			accounts[message.recipient].nonce > 0 ||
 			!accounts[message.recipient].code.empty()
 		))
 		{
-			evmc::Result result;
-			result.status_code = EVMC_OUT_OF_GAS;
+			zvmc::Result result;
+			result.status_code = ZVMC_OUT_OF_GAS;
 			accounts = stateBackup;
 			return result;
 		}
 
-		code = evmc::bytes(message.input_data, message.input_data + message.input_size);
+		code = zvmc::bytes(message.input_data, message.input_data + message.input_size);
 	}
 	else
 		code = accounts[message.code_address].code;
 
 	auto& destination = accounts[message.recipient];
 
-	if (value != 0 && message.kind != EVMC_DELEGATECALL)
+	if (value != 0 && message.kind != ZVMC_DELEGATECALL)
 	{
-		if (value > convertFromEVMC(sender.balance))
+		if (value > convertFromZVMC(sender.balance))
 		{
-			evmc::Result result;
-			result.status_code = EVMC_INSUFFICIENT_BALANCE;
+			zvmc::Result result;
+			result.status_code = ZVMC_INSUFFICIENT_BALANCE;
 			accounts = stateBackup;
 			return result;
 		}
@@ -295,74 +295,74 @@ evmc::Result ZVMHost::call(evmc_message const& _message) noexcept
 	// EIP-3651 rule
 	access_account(tx_context.block_coinbase);
 
-	if (message.kind == EVMC_CREATE || message.kind == EVMC_CREATE2)
+	if (message.kind == ZVMC_CREATE || message.kind == ZVMC_CREATE2)
 	{
 		message.input_data = nullptr;
 		message.input_size = 0;
 	}
-	evmc::Result result = m_vm.execute(*this, m_evmRevision, message, code.data(), code.size());
+	zvmc::Result result = m_vm.execute(*this, m_evmRevision, message, code.data(), code.size());
 
-	if (message.kind == EVMC_CREATE || message.kind == EVMC_CREATE2)
+	if (message.kind == ZVMC_CREATE || message.kind == ZVMC_CREATE2)
 	{
 		result.gas_left -= static_cast<int64_t>(evmasm::GasCosts::createDataGas * result.output_size);
 		if (result.gas_left < 0)
 		{
 			result.gas_left = 0;
-			result.status_code = EVMC_OUT_OF_GAS;
+			result.status_code = ZVMC_OUT_OF_GAS;
 			// TODO clear some fields?
 		}
 		else
 		{
 			result.create_address = message.recipient;
-			destination.code = evmc::bytes(result.output_data, result.output_data + result.output_size);
-			destination.codehash = convertToEVMC(keccak256({result.output_data, result.output_size}));
+			destination.code = zvmc::bytes(result.output_data, result.output_data + result.output_size);
+			destination.codehash = convertToZVMC(keccak256({result.output_data, result.output_size}));
 		}
 	}
 
-	if (result.status_code != EVMC_SUCCESS)
+	if (result.status_code != ZVMC_SUCCESS)
 		accounts = stateBackup;
 
 	return result;
 }
 
-evmc::bytes32 ZVMHost::get_block_hash(int64_t _number) const noexcept
+zvmc::bytes32 ZVMHost::get_block_hash(int64_t _number) const noexcept
 {
-	return convertToEVMC(u256("0x3737373737373737373737373737373737373737373737373737373737373737") + _number);
+	return convertToZVMC(u256("0x3737373737373737373737373737373737373737373737373737373737373737") + _number);
 }
 
-h160 ZVMHost::convertFromEVMC(evmc::address const& _addr)
+h160 ZVMHost::convertFromZVMC(zvmc::address const& _addr)
 {
 	return h160(bytes(begin(_addr.bytes), end(_addr.bytes)));
 }
 
-evmc::address ZVMHost::convertToEVMC(h160 const& _addr)
+zvmc::address ZVMHost::convertToZVMC(h160 const& _addr)
 {
-	evmc::address a;
+	zvmc::address a;
 	for (unsigned i = 0; i < 20; ++i)
 		a.bytes[i] = _addr[i];
 	return a;
 }
 
-h256 ZVMHost::convertFromEVMC(evmc::bytes32 const& _data)
+h256 ZVMHost::convertFromZVMC(zvmc::bytes32 const& _data)
 {
 	return h256(bytes(begin(_data.bytes), end(_data.bytes)));
 }
 
-evmc::bytes32 ZVMHost::convertToEVMC(h256 const& _data)
+zvmc::bytes32 ZVMHost::convertToZVMC(h256 const& _data)
 {
-	evmc::bytes32 d;
+	zvmc::bytes32 d;
 	for (unsigned i = 0; i < 32; ++i)
 		d.bytes[i] = _data[i];
 	return d;
 }
 
-evmc::Result ZVMHost::precompileDepositRoot(evmc_message const& /*_message*/) noexcept
+zvmc::Result ZVMHost::precompileDepositRoot(zvmc_message const& /*_message*/) noexcept
 {
 	// TODO implement
 	return resultWithFailure();
 }
 
-evmc::Result ZVMHost::precompileSha256(evmc_message const& _message) noexcept
+zvmc::Result ZVMHost::precompileSha256(zvmc_message const& _message) noexcept
 {
 	// static data so that we do not need a release routine...
 	bytes static hash;
@@ -377,7 +377,7 @@ evmc::Result ZVMHost::precompileSha256(evmc_message const& _message) noexcept
 	return resultWithGas(_message.gas, gas_cost, hash);
 }
 
-evmc::Result ZVMHost::precompileIdentity(evmc_message const& _message) noexcept
+zvmc::Result ZVMHost::precompileIdentity(zvmc_message const& _message) noexcept
 {
 	// static data so that we do not need a release routine...
 	bytes static data;
@@ -389,13 +389,13 @@ evmc::Result ZVMHost::precompileIdentity(evmc_message const& _message) noexcept
 	return resultWithGas(_message.gas, gas_cost, data);
 }
 
-evmc::Result ZVMHost::precompileModExp(evmc_message const&) noexcept
+zvmc::Result ZVMHost::precompileModExp(zvmc_message const&) noexcept
 {
 	// TODO implement
 	return resultWithFailure();
 }
 
-evmc::Result ZVMHost::precompileALTBN128G1Add(evmc_message const& _message) noexcept
+zvmc::Result ZVMHost::precompileALTBN128G1Add(zvmc_message const& _message) noexcept
 {
 	// NOTE this is a partial implementation for some inputs.
 
@@ -661,7 +661,7 @@ evmc::Result ZVMHost::precompileALTBN128G1Add(evmc_message const& _message) noex
 	return precompileGeneric(_message, inputOutput);
 }
 
-evmc::Result ZVMHost::precompileALTBN128G1Mul(evmc_message const& _message) noexcept
+zvmc::Result ZVMHost::precompileALTBN128G1Mul(zvmc_message const& _message) noexcept
 {
 	// NOTE this is a partial implementation for some inputs.
 
@@ -749,7 +749,7 @@ evmc::Result ZVMHost::precompileALTBN128G1Mul(evmc_message const& _message) noex
 	return precompileGeneric(_message, inputOutput);
 }
 
-evmc::Result ZVMHost::precompileALTBN128PairingProduct(evmc_message const& _message) noexcept
+zvmc::Result ZVMHost::precompileALTBN128PairingProduct(zvmc_message const& _message) noexcept
 {
 	// Base + per pairing gas.
 	constexpr auto calc_cost = [](unsigned points) -> int64_t {
@@ -915,8 +915,8 @@ evmc::Result ZVMHost::precompileALTBN128PairingProduct(evmc_message const& _mess
 	return precompileGeneric(_message, inputOutput);
 }
 
-evmc::Result ZVMHost::precompileGeneric(
-	evmc_message const& _message,
+zvmc::Result ZVMHost::precompileGeneric(
+	zvmc_message const& _message,
 	map<bytes, EVMPrecompileOutput> const& _inOut) noexcept
 {
 	bytes input(_message.input_data, _message.input_data + _message.input_size);
@@ -929,28 +929,28 @@ evmc::Result ZVMHost::precompileGeneric(
 		return resultWithFailure();
 }
 
-evmc::Result ZVMHost::resultWithFailure() noexcept
+zvmc::Result ZVMHost::resultWithFailure() noexcept
 {
-	evmc::Result result;
-	result.status_code = EVMC_FAILURE;
+	zvmc::Result result;
+	result.status_code = ZVMC_FAILURE;
 	return result;
 }
 
-evmc::Result ZVMHost::resultWithGas(
+zvmc::Result ZVMHost::resultWithGas(
 	int64_t gas_limit,
 	int64_t gas_required,
 	bytes const& _data
 ) noexcept
 {
-	evmc::Result result;
+	zvmc::Result result;
 	if (gas_limit < gas_required)
 	{
-		result.status_code = EVMC_OUT_OF_GAS;
+		result.status_code = ZVMC_OUT_OF_GAS;
 		result.gas_left = 0;
 	}
 	else
 	{
-		result.status_code = EVMC_SUCCESS;
+		result.status_code = ZVMC_SUCCESS;
 		result.gas_left = gas_limit - gas_required;
 	}
 	result.output_data = _data.empty() ? nullptr : _data.data();
@@ -958,7 +958,7 @@ evmc::Result ZVMHost::resultWithGas(
 	return result;
 }
 
-StorageMap const& ZVMHost::get_address_storage(evmc::address const& _addr)
+StorageMap const& ZVMHost::get_address_storage(zvmc::address const& _addr)
 {
 	assertThrow(account_exists(_addr), Exception, "Account does not exist.");
 	return accounts[_addr].storage;
@@ -982,32 +982,32 @@ void ZVMHostPrinter::storage()
 	for (auto const& [slot, value]: m_host.get_address_storage(m_account))
 		if (m_host.get_storage(m_account, slot))
 			m_stateStream << "  "
-				<< m_host.convertFromEVMC(slot)
+				<< m_host.convertFromZVMC(slot)
 				<< ": "
-				<< m_host.convertFromEVMC(value.current)
+				<< m_host.convertFromZVMC(value.current)
 				<< endl;
 }
 
 void ZVMHostPrinter::balance()
 {
 	m_stateStream << "BALANCE "
-		<< m_host.convertFromEVMC(m_host.get_balance(m_account))
+		<< m_host.convertFromZVMC(m_host.get_balance(m_account))
 		<< endl;
 }
 
 void ZVMHostPrinter::callRecords()
 {
-	static auto constexpr callKind = [](evmc_call_kind _kind) -> string
+	static auto constexpr callKind = [](zvmc_call_kind _kind) -> string
 	{
 		switch (_kind)
 		{
-			case evmc_call_kind::EVMC_CALL:
+			case zvmc_call_kind::ZVMC_CALL:
 				return "CALL";
-			case evmc_call_kind::EVMC_DELEGATECALL:
+			case zvmc_call_kind::ZVMC_DELEGATECALL:
 				return "DELEGATECALL";
-			case evmc_call_kind::EVMC_CREATE:
+			case zvmc_call_kind::ZVMC_CREATE:
 				return "CREATE";
-			case evmc_call_kind::EVMC_CREATE2:
+			case zvmc_call_kind::ZVMC_CREATE2:
 				return "CREATE2";
 			default:
 				assertThrow(false, Exception, "Invalid call kind.");
@@ -1017,6 +1017,6 @@ void ZVMHostPrinter::callRecords()
 	for (auto const& record: m_host.recorded_calls)
 		m_stateStream << callKind(record.kind)
 			<< " VALUE "
-			<< m_host.convertFromEVMC(record.value)
+			<< m_host.convertFromZVMC(record.value)
 			<< endl;
 }

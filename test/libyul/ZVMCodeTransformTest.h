@@ -23,14 +23,14 @@
 namespace solidity::yul::test
 {
 
-class EVMCodeTransformTest: public solidity::frontend::test::EVMVersionRestrictedTestCase
+class ZVMCodeTransformTest: public solidity::frontend::test::EVMVersionRestrictedTestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)
 	{
-		return std::make_unique<EVMCodeTransformTest>(_config.filename);
+		return std::make_unique<ZVMCodeTransformTest>(_config.filename);
 	}
-	explicit EVMCodeTransformTest(std::string const& _filename);
+	explicit ZVMCodeTransformTest(std::string const& _filename);
 	TestResult run(std::ostream& _stream, std::string const& _linePrefix = "", bool const _formatted = false) override;
 private:
 	bool m_stackOpt = false;

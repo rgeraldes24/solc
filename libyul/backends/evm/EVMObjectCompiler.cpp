@@ -21,9 +21,9 @@
 
 #include <libyul/backends/evm/EVMObjectCompiler.h>
 
-#include <libyul/backends/evm/EVMCodeTransform.h>
+#include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/backends/evm/EVMDialect.h>
-#include <libyul/backends/evm/OptimizedEVMCodeTransform.h>
+#include <libyul/backends/evm/OptimizedZVMCodeTransform.h>
 
 #include <libyul/optimiser/FunctionCallFinder.h>
 
@@ -74,13 +74,13 @@ void EVMObjectCompiler::run(Object& _object, bool _optimize)
 	yulAssert(_object.code, "No code.");
 	if (_optimize)
 	{
-		auto stackErrors = OptimizedEVMCodeTransform::run(
+		auto stackErrors = OptimizedZVMCodeTransform::run(
 			m_assembly,
 			*_object.analysisInfo,
 			*_object.code,
 			m_dialect,
 			context,
-			OptimizedEVMCodeTransform::UseNamedLabels::ForFirstFunctionOfEachName
+			OptimizedZVMCodeTransform::UseNamedLabels::ForFirstFunctionOfEachName
 		);
 		if (!stackErrors.empty())
 		{

@@ -70,10 +70,10 @@ bool EvmoneUtility::zeroWord(uint8_t const* _result, size_t _length)
 			[](uint8_t _v) { return _v == 0; });
 }
 
-evmc_message EvmoneUtility::initializeMessage(bytes const& _input)
+zvmc_message EvmoneUtility::initializeMessage(bytes const& _input)
 {
 	// Zero initialize all message fields
-	evmc_message msg = {};
+	zvmc_message msg = {};
 	// Gas available (value of type int64_t) is set to its maximum
 	// value.
 	msg.gas = std::numeric_limits<int64_t>::max();
@@ -82,53 +82,53 @@ evmc_message EvmoneUtility::initializeMessage(bytes const& _input)
 	return msg;
 }
 
-evmc::Result EvmoneUtility::executeContract(
+zvmc::Result EvmoneUtility::executeContract(
 	bytes const& _functionHash,
-	evmc_address _deployedAddress
+	zvmc_address _deployedAddress
 )
 {
-	evmc_message message = initializeMessage(_functionHash);
+	zvmc_message message = initializeMessage(_functionHash);
 	message.recipient = _deployedAddress;
 	message.code_address = _deployedAddress;
-	message.kind = EVMC_CALL;
+	message.kind = ZVMC_CALL;
 	return m_evmHost.call(message);
 }
 
-evmc::Result EvmoneUtility::deployContract(bytes const& _code)
+zvmc::Result EvmoneUtility::deployContract(bytes const& _code)
 {
-	evmc_message message = initializeMessage(_code);
-	message.kind = EVMC_CREATE;
+	zvmc_message message = initializeMessage(_code);
+	message.kind = ZVMC_CREATE;
 	return m_evmHost.call(message);
 }
 
-evmc::Result EvmoneUtility::deployAndExecute(
+zvmc::Result EvmoneUtility::deployAndExecute(
 	bytes const& _byteCode,
 	string const& _hexEncodedInput
 )
 {
 	// Deploy contract and signal failure if deploy failed
-	evmc::Result createResult = deployContract(_byteCode);
+	zvmc::Result createResult = deployContract(_byteCode);
 	solAssert(
-		createResult.status_code == EVMC_SUCCESS,
+		createResult.status_code == ZVMC_SUCCESS,
 		"SolidityEvmoneInterface: Contract creation failed"
 	);
 
 	// Execute test function and signal failure if EVM reverted or
 	// did not return expected output on successful execution.
-	evmc::Result callResult = executeContract(
+	zvmc::Result callResult = executeContract(
 		util::fromHex(_hexEncodedInput),
 		createResult.create_address
 	);
 
-	// We don't care about EVM One failures other than EVMC_REVERT
+	// We don't care about EVM One failures other than ZVMC_REVERT
 	solAssert(
-		callResult.status_code != EVMC_REVERT,
+		callResult.status_code != ZVMC_REVERT,
 		"SolidityEvmoneInterface: EVM One reverted"
 	);
 	return callResult;
 }
 
-evmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
+zvmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 {
 	map<string, h160> libraryAddressMap;
 	// Stage 1: Compile and deploy library if present.
@@ -139,12 +139,12 @@ evmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 		solAssert(compilationOutput.has_value(), "Compiling library failed");
 		CompilerOutput cOutput = compilationOutput.value();
 		// Deploy contract and signal failure if deploy failed
-		evmc::Result createResult = deployContract(cOutput.byteCode);
+		zvmc::Result createResult = deployContract(cOutput.byteCode);
 		solAssert(
-			createResult.status_code == EVMC_SUCCESS,
+			createResult.status_code == ZVMC_SUCCESS,
 			"SolidityEvmoneInterface: Library deployment failed"
 		);
-		libraryAddressMap[m_libraryName] = ZVMHost::convertFromEVMC(createResult.create_address);
+		libraryAddressMap[m_libraryName] = ZVMHost::convertFromZVMC(createResult.create_address);
 		m_compilationFramework.libraryAddresses(libraryAddressMap);
 	}
 

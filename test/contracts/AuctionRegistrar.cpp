@@ -416,7 +416,7 @@ BOOST_AUTO_TEST_CASE(auction_simple)
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// "wait" until auction end
 
-	m_evmcHost->tx_context.block_timestamp += m_biddingTime + 10;
+	m_zvmcHost->tx_context.block_timestamp += m_biddingTime + 10;
 	// trigger auction again
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), m_sender);
@@ -428,7 +428,7 @@ BOOST_AUTO_TEST_CASE(auction_bidding)
 	std::string name = "x";
 
 	unsigned startTime = 0x776347e2;
-	m_evmcHost->tx_context.block_timestamp = startTime;
+	m_zvmcHost->tx_context.block_timestamp = startTime;
 
 	RegistrarInterface registrar(*this);
 	// initiate auction
@@ -436,19 +436,19 @@ BOOST_AUTO_TEST_CASE(auction_bidding)
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// overbid self
-	m_evmcHost->tx_context.block_timestamp = startTime + m_biddingTime - 10;
+	m_zvmcHost->tx_context.block_timestamp = startTime + m_biddingTime - 10;
 	registrar.setNextValue(12);
 	registrar.reserve(name);
 	// another bid by someone else
 	sendEther(account(1), 10 * ether);
 	m_sender = account(1);
-	m_evmcHost->tx_context.block_timestamp = startTime + 2 * m_biddingTime - 50;
+	m_zvmcHost->tx_context.block_timestamp = startTime + 2 * m_biddingTime - 50;
 	registrar.setNextValue(13);
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), h160());
 	// end auction by first bidder (which is not highest) trying to overbid again (too late)
 	m_sender = account(0);
-	m_evmcHost->tx_context.block_timestamp = startTime + 4 * m_biddingTime;
+	m_zvmcHost->tx_context.block_timestamp = startTime + 4 * m_biddingTime;
 	registrar.setNextValue(20);
 	registrar.reserve(name);
 	BOOST_CHECK_EQUAL(registrar.owner(name), account(1));

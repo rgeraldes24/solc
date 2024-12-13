@@ -137,8 +137,8 @@ set(libyul_sources
     libyul/ControlFlowGraphTest.h
     libyul/ControlFlowSideEffectsTest.cpp
     libyul/ControlFlowSideEffectsTest.h
-    libyul/EVMCodeTransformTest.cpp
-    libyul/EVMCodeTransformTest.h
+    libyul/ZVMCodeTransformTest.cpp
+    libyul/ZVMCodeTransformTest.h
     libyul/FunctionSideEffects.cpp
     libyul/FunctionSideEffects.h
     libyul/Inliner.cpp
@@ -203,7 +203,7 @@ add_executable(soltest ${sources}
     ${hypcli_sources}
     ${yul_phaser_sources}
 )
-target_link_libraries(soltest PRIVATE hypcli libhypc yul solidity smtutil solutil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework evmc)
+target_link_libraries(soltest PRIVATE hypcli libhypc yul solidity smtutil solutil phaser Boost::boost yulInterpreter evmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
 
 
 # Special compilation flag for Visual Studio (version 2019 at least affected)
@@ -219,4 +219,4 @@ if (NOT Boost_USE_STATIC_LIBS)
 endif()
 
 add_subdirectory(tools)
-add_subdirectory(evmc)
+add_subdirectory(zvmc)

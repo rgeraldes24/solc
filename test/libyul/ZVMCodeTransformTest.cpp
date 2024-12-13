@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/libyul/EVMCodeTransformTest.h>
+#include <test/libyul/ZVMCodeTransformTest.h>
 #include <test/libyul/Common.h>
 
 #include <test/Common.h>
@@ -40,7 +40,7 @@ using namespace solidity::frontend;
 using namespace solidity::frontend::test;
 using namespace std;
 
-EVMCodeTransformTest::EVMCodeTransformTest(string const& _filename):
+ZVMCodeTransformTest::ZVMCodeTransformTest(string const& _filename):
 	EVMVersionRestrictedTestCase(_filename)
 {
 	m_source = m_reader.source();
@@ -48,7 +48,7 @@ EVMCodeTransformTest::EVMCodeTransformTest(string const& _filename):
 	m_expectation = m_reader.simpleExpectations();
 }
 
-TestCase::TestResult EVMCodeTransformTest::run(ostream& _stream, string const& _linePrefix, bool const _formatted)
+TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _linePrefix, bool const _formatted)
 {
 	solidity::frontend::OptimiserSettings settings = solidity::frontend::OptimiserSettings::none();
 	settings.runYulOptimiser = false;

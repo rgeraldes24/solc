@@ -40,7 +40,7 @@ namespace solidity::yul
 struct AsmAnalysisInfo;
 struct StackLayout;
 
-class OptimizedEVMCodeTransform
+class OptimizedZVMCodeTransform
 {
 public:
 	/// Use named labels for functions 1) Yes and check that the names are unique
@@ -63,7 +63,7 @@ public:
 	/// Generate code for the assignment @a _assignment. Only public for using with std::visit.
 	void operator()(CFG::Assignment const& _assignment);
 private:
-	OptimizedEVMCodeTransform(
+	OptimizedZVMCodeTransform(
 		AbstractAssembly& _assembly,
 		BuiltinContext& _builtinContext,
 		UseNamedLabels _useNamedLabelsForFunctions,

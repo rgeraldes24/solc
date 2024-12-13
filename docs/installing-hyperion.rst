@@ -1,15 +1,15 @@
 .. index:: ! installing
 
-.. _installing-solidity:
+.. _installing-hyperion:
 
 ################################
-Installing the Solidity Compiler
+Installing the Hyperion Compiler
 ################################
 
 Versioning
 ==========
 
-Solidity versions follow `Semantic Versioning <https://semver.org>`_. In
+Hyperion versions follow `Semantic Versioning <https://semver.org>`_. In
 addition, patch-level releases with major release 0 (i.e. 0.x.y) will not
 contain breaking changes. That means code that compiles with version 0.x.y
 can be expected to compile with 0.x.z where z > y.
@@ -22,22 +22,22 @@ not guaranteed to be always working. Despite our best efforts, they might
 contain undocumented and/or broken changes that will not become a part of an
 actual release. They are not meant for production use.
 
-When deploying contracts, you should use the latest released version of Solidity. This
+When deploying contracts, you should use the latest released version of Hyperion. This
 is because breaking changes, as well as new features and bug fixes are introduced regularly.
 We currently use a 0.x version number `to indicate this fast pace of change <https://semver.org/#spec-item-4>`_.
 
 Remix
 =====
 
-*We recommend Remix for small contracts and for quickly learning Solidity.*
+*We recommend Remix for small contracts and for quickly learning Hyperion.*
 
 `Access Remix online <https://remix.ethereum.org/>`_, you do not need to install anything.
 If you want to use it without connection to the Internet, go to
 https://github.com/ethereum/remix-live/tree/gh-pages#readme and follow the instructions on that page.
 Remix is also a convenient option for testing nightly builds
-without installing multiple Solidity versions.
+without installing multiple Hyperion versions.
 
-Further options on this page detail installing command-line Solidity compiler software
+Further options on this page detail installing command-line Hyperion compiler software
 on your computer. Choose a command-line compiler if you are working on a larger contract
 or if you require more compilation options.
 

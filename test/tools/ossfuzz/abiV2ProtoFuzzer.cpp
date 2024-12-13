@@ -31,7 +31,7 @@ using namespace solidity::util;
 using namespace solidity;
 using namespace std;
 
-static evmc::VM evmone = evmc::VM{evmc_create_evmone()};
+static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
 
 DEFINE_PROTO_FUZZER(Contract const& _input)
 {
@@ -61,9 +61,9 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 	);
 	// Invoke test function
 	auto result = evmoneUtil.compileDeployAndExecute();
-	// We don't care about EVM One failures other than EVMC_REVERT
-	solAssert(result.status_code != EVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted");
-	if (result.status_code == EVMC_SUCCESS)
+	// We don't care about EVM One failures other than ZVMC_REVERT
+	solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted");
+	if (result.status_code == ZVMC_SUCCESS)
 		if (!EvmoneUtility::zeroWord(result.output_data, result.output_size))
 		{
 			solidity::bytes res;

@@ -22,9 +22,9 @@
 
 #pragma once
 
-#include <test/evmc/mocked_host.hpp>
-#include <test/evmc/evmc.hpp>
-#include <test/evmc/evmc.h>
+#include <test/zvmc/mocked_host.hpp>
+#include <test/zvmc/zvmc.hpp>
+#include <test/zvmc/zvmc.h>
 
 #include <liblangutil/EVMVersion.h>
 
@@ -35,14 +35,14 @@
 namespace solidity::test
 {
 using Address = util::h160;
-using StorageMap = std::map<evmc::bytes32, evmc::StorageValue>;
+using StorageMap = std::map<zvmc::bytes32, zvmc::StorageValue>;
 
 struct EVMPrecompileOutput {
 	bytes const output;
 	int64_t gas_used;
 };
 
-class ZVMHost: public evmc::MockedHost
+class ZVMHost: public zvmc::MockedHost
 {
 public:
 	// Verbatim features of MockedHost.
@@ -59,22 +59,22 @@ public:
 	using MockedHost::access_storage;
 
 	// Modified features of MockedHost.
-	evmc::Result call(evmc_message const& _message) noexcept final;
-	evmc::bytes32 get_block_hash(int64_t number) const noexcept final;
+	zvmc::Result call(zvmc_message const& _message) noexcept final;
+	zvmc::bytes32 get_block_hash(int64_t number) const noexcept final;
 
 	// Solidity testing specific features.
 
-	/// Tries to dynamically load an evmc vm supporting evm1 and caches the loaded VM.
+	/// Tries to dynamically load an zvmc vm supporting evm1 and caches the loaded VM.
 	/// @returns vmc::VM(nullptr) on failure.
-	static evmc::VM& getVM(std::string const& _path = {});
+	static zvmc::VM& getVM(std::string const& _path = {});
 
-	/// Tries to load all defined evmc vm shared libraries.
-	/// @param _vmPaths paths to multiple evmc shared libraries.
+	/// Tries to load all defined zvmc vm shared libraries.
+	/// @param _vmPaths paths to multiple zvmc shared libraries.
 	/// @throw Exception if multiple evm1 vms where loaded.
-	/// @returns true, if an evmc vm supporting evm1 was loaded properly,
+	/// @returns true, if an zvmc vm supporting evm1 was loaded properly,
 	static bool checkVmPaths(std::vector<boost::filesystem::path> const& _vmPaths);
 
-	explicit ZVMHost(langutil::EVMVersion _evmVersion, evmc::VM& _vm);
+	explicit ZVMHost(langutil::EVMVersion _evmVersion, zvmc::VM& _vm);
 
 	/// Reset entire state (including accounts).
 	void reset();
@@ -89,15 +89,15 @@ public:
 	}
 
 	/// @returns contents of storage at @param _addr.
-	StorageMap const& get_address_storage(evmc::address const& _addr);
+	StorageMap const& get_address_storage(zvmc::address const& _addr);
 
-	static Address convertFromEVMC(evmc::address const& _addr);
-	static evmc::address convertToEVMC(Address const& _addr);
-	static util::h256 convertFromEVMC(evmc::bytes32 const& _data);
-	static evmc::bytes32 convertToEVMC(util::h256 const& _data);
+	static Address convertFromZVMC(zvmc::address const& _addr);
+	static zvmc::address convertToZVMC(Address const& _addr);
+	static util::h256 convertFromZVMC(zvmc::bytes32 const& _data);
+	static zvmc::bytes32 convertToZVMC(util::h256 const& _data);
 private:
 	/// Transfer value between accounts. Checks for sufficient balance.
-	void transfer(evmc::MockedAccount& _sender, evmc::MockedAccount& _recipient, u256 const& _value) noexcept;
+	void transfer(zvmc::MockedAccount& _sender, zvmc::MockedAccount& _recipient, u256 const& _value) noexcept;
 
 	/// Start a new transaction frame.
 	/// This will apply storage status changes across all accounts,
@@ -105,34 +105,34 @@ private:
 	void newTransactionFrame();
 
 	/// Records calls made via @param _message.
-	void recordCalls(evmc_message const& _message) noexcept;
+	void recordCalls(zvmc_message const& _message) noexcept;
 
-	static evmc::Result precompileDepositRoot(evmc_message const& _message) noexcept;
-	static evmc::Result precompileSha256(evmc_message const& _message) noexcept;
-	static evmc::Result precompileIdentity(evmc_message const& _message) noexcept;
-	static evmc::Result precompileModExp(evmc_message const& _message) noexcept;
-	static evmc::Result precompileALTBN128G1Add(evmc_message const& _message) noexcept;
-	static evmc::Result precompileALTBN128G1Mul(evmc_message const& _message) noexcept;
-	static evmc::Result precompileALTBN128PairingProduct(evmc_message const& _message) noexcept;
-	static evmc::Result precompileGeneric(evmc_message const& _message, std::map<bytes, EVMPrecompileOutput> const& _inOut) noexcept;
+	static zvmc::Result precompileDepositRoot(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileSha256(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileIdentity(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileModExp(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileALTBN128G1Add(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileALTBN128G1Mul(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileALTBN128PairingProduct(zvmc_message const& _message) noexcept;
+	static zvmc::Result precompileGeneric(zvmc_message const& _message, std::map<bytes, EVMPrecompileOutput> const& _inOut) noexcept;
 	/// @returns a result object with gas usage and result data taken from @a _data.
 	/// The outcome will be a failure if the limit < required.
 	/// @note The return value is only valid as long as @a _data is alive!
-	static evmc::Result resultWithGas(int64_t gas_limit, int64_t gas_required, bytes const& _data) noexcept;
-	static evmc::Result resultWithFailure() noexcept;
+	static zvmc::Result resultWithGas(int64_t gas_limit, int64_t gas_required, bytes const& _data) noexcept;
+	static zvmc::Result resultWithFailure() noexcept;
 
-	evmc::VM& m_vm;
+	zvmc::VM& m_vm;
 	/// EVM version requested by the testing tool
 	langutil::EVMVersion m_evmVersion;
-	/// EVM version requested from EVMC (matches the above)
-	evmc_revision m_evmRevision;
+	/// EVM version requested from ZVMC (matches the above)
+	zvmc_revision m_evmRevision;
 };
 
 class ZVMHostPrinter
 {
 public:
 	/// Constructs a host printer object for state at @param _address.
-	explicit ZVMHostPrinter(ZVMHost& _host, evmc::address _address):
+	explicit ZVMHostPrinter(ZVMHost& _host, zvmc::address _address):
 		m_host(_host),
 		m_account(_address)
 	{}
@@ -148,7 +148,7 @@ private:
 
 	std::ostringstream m_stateStream;
 	ZVMHost& m_host;
-	evmc::address m_account;
+	zvmc::address m_account;
 };
 
 }

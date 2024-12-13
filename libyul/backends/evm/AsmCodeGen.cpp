@@ -22,7 +22,7 @@
 #include <libyul/backends/evm/AsmCodeGen.h>
 
 #include <libyul/backends/evm/EthAssemblyAdapter.h>
-#include <libyul/backends/evm/EVMCodeTransform.h>
+#include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/AST.h>
 #include <libyul/AsmAnalysisInfo.h>
 

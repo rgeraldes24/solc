@@ -23,7 +23,7 @@
 #include <liblangutil/Exceptions.h>
 #include <libhyputil/Numeric.h>
 
-#include <test/evmc/evmc.h>
+#include <test/zvmc/zvmc.h>
 
 #include <boost/filesystem/path.hpp>
 #include <boost/program_options.hpp>

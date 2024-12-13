@@ -10,7 +10,7 @@ if (EMSCRIPTEN)
 	)
 	# Specify which functions to export in soljson.js.
 	# Note that additional Emscripten-generated methods needed by hypc-js are
-	# defined to be exported in cmake/EthCompilerSettings.cmake.
+	# defined to be exported in cmake/ZondCompilerSettings.cmake.
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s EXPORTED_FUNCTIONS='${ExportedFunctions}'")
 	add_executable(soljson libhypc.cpp libhypc.h)
 	target_link_libraries(soljson PRIVATE solidity)

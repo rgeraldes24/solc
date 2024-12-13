@@ -331,13 +331,13 @@ Running the Fuzzer via AFL
 
 Fuzzing is a technique that runs programs on more or less random inputs to find exceptional execution
 states (segmentation faults, exceptions, etc). Modern fuzzers are clever and run a directed search
-inside the input. We have a specialized binary called ``solfuzzer`` which takes source code as input
+inside the input. We have a specialized binary called ``hypfuzzer`` which takes source code as input
 and fails whenever it encounters an internal compiler error, segmentation fault or similar, but
 does not fail if e.g., the code contains an error. This way, fuzzing tools can find internal problems in the compiler.
 
 We mainly use `AFL <https://lcamtuf.coredump.cx/afl/>`_ for fuzzing. You need to download and
 install the AFL packages from your repositories (afl, afl-clang) or build them manually.
-Next, build Solidity (or just the ``solfuzzer`` binary) with AFL as your compiler:
+Next, build Hyperion (or just the ``hypfuzzer`` binary) with AFL as your compiler:
 
 .. code-block:: bash
 
@@ -345,18 +345,18 @@ Next, build Solidity (or just the ``solfuzzer`` binary) with AFL as your compile
     # if needed
     make clean
     cmake .. -DCMAKE_C_COMPILER=path/to/afl-gcc -DCMAKE_CXX_COMPILER=path/to/afl-g++
-    make solfuzzer
+    make hypfuzzer
 
 At this stage, you should be able to see a message similar to the following:
 
 .. code-block:: text
 
-    Scanning dependencies of target solfuzzer
-    [ 98%] Building CXX object test/tools/CMakeFiles/solfuzzer.dir/fuzzer.cpp.o
+    Scanning dependencies of target hypfuzzer
+    [ 98%] Building CXX object test/tools/CMakeFiles/hypfuzzer.dir/fuzzer.cpp.o
     afl-cc 2.52b by <lcamtuf@google.com>
     afl-as 2.52b by <lcamtuf@google.com>
     [+] Instrumented 1949 locations (64-bit, non-hardened mode, ratio 100%).
-    [100%] Linking CXX executable solfuzzer
+    [100%] Linking CXX executable hypfuzzer
 
 If the instrumentation messages did not appear, try switching the cmake flags pointing to AFL's clang binaries:
 
@@ -365,7 +365,7 @@ If the instrumentation messages did not appear, try switching the cmake flags po
     # if previously failed
     make clean
     cmake .. -DCMAKE_C_COMPILER=path/to/afl-clang -DCMAKE_CXX_COMPILER=path/to/afl-clang++
-    make solfuzzer
+    make hypfuzzer
 
 Otherwise, upon execution the fuzzer halts with an error saying binary is not instrumented:
 
@@ -412,7 +412,7 @@ Now run the fuzzer (the ``-m`` extends the size of memory to 60 MB):
 
 .. code-block:: bash
 
-    afl-fuzz -m 60 -i /tmp/test_cases -o /tmp/fuzzer_reports -- /path/to/solfuzzer
+    afl-fuzz -m 60 -i /tmp/test_cases -o /tmp/fuzzer_reports -- /path/to/hypfuzzer
 
 The fuzzer creates source files that lead to failures in ``/tmp/fuzzer_reports``.
 Often it finds many similar source files that produce the same error. You can

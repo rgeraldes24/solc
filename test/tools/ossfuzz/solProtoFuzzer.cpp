@@ -27,7 +27,7 @@
 
 #include <fstream>
 
-static evmc::VM evmone = evmc::VM{evmc_create_evmone()};
+static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
 
 using namespace solidity::test::fuzzer;
 using namespace solidity::test::solprotofuzzer;
@@ -79,8 +79,8 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		methodName
 	);
 	auto minimalResult = evmoneUtil.compileDeployAndExecute();
-	solAssert(minimalResult.status_code != EVMC_REVERT, "Sol proto fuzzer: Evmone reverted.");
-	if (minimalResult.status_code == EVMC_SUCCESS)
+	solAssert(minimalResult.status_code != ZVMC_REVERT, "Sol proto fuzzer: Evmone reverted.");
+	if (minimalResult.status_code == ZVMC_SUCCESS)
 		solAssert(
 			EvmoneUtility::zeroWord(minimalResult.output_data, minimalResult.output_size),
 			"Proto hypc fuzzer: Output incorrect"

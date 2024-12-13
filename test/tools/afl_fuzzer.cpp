@@ -37,8 +37,8 @@ namespace po = boost::program_options;
 int main(int argc, char** argv)
 {
 	po::options_description options(
-		R"(solfuzzer, fuzz-testing binary for use with AFL.
-Usage: solfuzzer [Options] < input
+		R"(hypfuzzer, fuzz-testing binary for use with AFL.
+Usage: hypfuzzer [Options] < input
 Reads a single source from stdin, compiles it and signals a failure for internal errors.
 
 Allowed options)",

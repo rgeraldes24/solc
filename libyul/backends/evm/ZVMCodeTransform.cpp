@@ -19,7 +19,7 @@
  * Code generator for translating Yul / inline assembly to EVM.
  */
 
-#include <libyul/backends/evm/EVMCodeTransform.h>
+#include <libyul/backends/evm/ZVMCodeTransform.h>
 
 #include <libyul/optimiser/NameCollector.h>
 #include <libyul/AsmAnalysisInfo.h>

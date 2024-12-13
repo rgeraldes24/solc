@@ -24,7 +24,7 @@
 
 #include <libyul/Exceptions.h>
 
-#include <libyul/backends/evm/EVMCodeTransform.h>
+#include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
 #include <libyul/optimiser/CallGraphGenerator.h>
@@ -48,7 +48,7 @@ using namespace solidity::yul::test::yul_fuzzer;
 using namespace solidity::langutil;
 using namespace std;
 
-static evmc::VM evmone = evmc::VM{evmc_create_evmone()};
+static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
 
 namespace
 {
@@ -121,32 +121,32 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	bool noInvalidInSource = true;
 	if (!unoptimizedStackTooDeep)
 	{
-		evmc::Result deployResult = YulEvmoneUtility{}.deployCode(unoptimisedByteCode, hostContext);
-		if (deployResult.status_code != EVMC_SUCCESS)
+		zvmc::Result deployResult = YulEvmoneUtility{}.deployCode(unoptimisedByteCode, hostContext);
+		if (deployResult.status_code != ZVMC_SUCCESS)
 			return;
 		auto callMessage = YulEvmoneUtility{}.callMessage(deployResult.create_address);
-		evmc::Result callResult = hostContext.call(callMessage);
+		zvmc::Result callResult = hostContext.call(callMessage);
 		// If the fuzzer synthesized input does not contain the revert opcode which
 		// we lazily check by string find, the EVM call should not revert.
 		noRevertInSource = yul_source.find("revert") == string::npos;
 		noInvalidInSource = yul_source.find("invalid") == string::npos;
 		if (noInvalidInSource)
 			solAssert(
-				callResult.status_code != EVMC_INVALID_INSTRUCTION,
+				callResult.status_code != ZVMC_INVALID_INSTRUCTION,
 				"Invalid instruction."
 			);
 		if (noRevertInSource)
 			solAssert(
-				callResult.status_code != EVMC_REVERT,
+				callResult.status_code != ZVMC_REVERT,
 				"SolidityEvmoneInterface: EVM One reverted"
 			);
 		// Bail out on serious errors encountered during a call.
 		if (YulEvmoneUtility{}.seriousCallError(callResult.status_code))
 			return;
 		solAssert(
-			(callResult.status_code == EVMC_SUCCESS ||
-			(!noRevertInSource && callResult.status_code == EVMC_REVERT) ||
-			(!noInvalidInSource && callResult.status_code == EVMC_INVALID_INSTRUCTION)),
+			(callResult.status_code == ZVMC_SUCCESS ||
+			(!noRevertInSource && callResult.status_code == ZVMC_REVERT) ||
+			(!noInvalidInSource && callResult.status_code == ZVMC_INVALID_INSTRUCTION)),
 			"Unoptimised call failed."
 		);
 		unoptimizedState << ZVMHostPrinter{hostContext, deployResult.create_address}.state();
@@ -171,27 +171,27 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		return;
 	// Reset host before running optimised code.
 	hostContext.reset();
-	evmc::Result deployResultOpt = YulEvmoneUtility{}.deployCode(optimisedByteCode, hostContext);
+	zvmc::Result deployResultOpt = YulEvmoneUtility{}.deployCode(optimisedByteCode, hostContext);
 	solAssert(
-		deployResultOpt.status_code == EVMC_SUCCESS,
+		deployResultOpt.status_code == ZVMC_SUCCESS,
 		"Evmone: Optimized contract creation failed"
 	);
 	auto callMessageOpt = YulEvmoneUtility{}.callMessage(deployResultOpt.create_address);
-	evmc::Result callResultOpt = hostContext.call(callMessageOpt);
+	zvmc::Result callResultOpt = hostContext.call(callMessageOpt);
 	if (noRevertInSource)
 		solAssert(
-			callResultOpt.status_code != EVMC_REVERT,
+			callResultOpt.status_code != ZVMC_REVERT,
 			"SolidityEvmoneInterface: EVM One reverted"
 		);
 	if (noInvalidInSource)
 		solAssert(
-			callResultOpt.status_code != EVMC_INVALID_INSTRUCTION,
+			callResultOpt.status_code != ZVMC_INVALID_INSTRUCTION,
 			"Invalid instruction."
 		);
 	solAssert(
-		(callResultOpt.status_code == EVMC_SUCCESS ||
-		 (!noRevertInSource && callResultOpt.status_code == EVMC_REVERT) ||
-		 (!noInvalidInSource && callResultOpt.status_code == EVMC_INVALID_INSTRUCTION)),
+		(callResultOpt.status_code == ZVMC_SUCCESS ||
+		 (!noRevertInSource && callResultOpt.status_code == ZVMC_REVERT) ||
+		 (!noInvalidInSource && callResultOpt.status_code == ZVMC_INVALID_INSTRUCTION)),
 		"Optimised call failed."
 	);
 	ostringstream optimizedState;

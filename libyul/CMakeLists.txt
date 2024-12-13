@@ -47,8 +47,8 @@ add_library(yul
 	backends/evm/ControlFlowGraphBuilder.h
 	backends/evm/EthAssemblyAdapter.cpp
 	backends/evm/EthAssemblyAdapter.h
-	backends/evm/EVMCodeTransform.cpp
-	backends/evm/EVMCodeTransform.h
+	backends/evm/ZVMCodeTransform.cpp
+	backends/evm/ZVMCodeTransform.h
 	backends/evm/EVMDialect.cpp
 	backends/evm/EVMDialect.h
 	backends/evm/EVMObjectCompiler.cpp
@@ -57,8 +57,8 @@ add_library(yul
 	backends/evm/EVMMetrics.h
 	backends/evm/NoOutputAssembly.h
 	backends/evm/NoOutputAssembly.cpp
-	backends/evm/OptimizedEVMCodeTransform.cpp
-	backends/evm/OptimizedEVMCodeTransform.h
+	backends/evm/OptimizedZVMCodeTransform.cpp
+	backends/evm/OptimizedZVMCodeTransform.h
 	backends/evm/StackHelpers.h
 	backends/evm/StackLayoutGenerator.cpp
 	backends/evm/StackLayoutGenerator.h

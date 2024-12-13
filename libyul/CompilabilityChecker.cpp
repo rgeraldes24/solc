@@ -23,7 +23,7 @@
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
 
-#include <libyul/backends/evm/EVMCodeTransform.h>
+#include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/backends/evm/NoOutputAssembly.h>
 
 using namespace solidity;

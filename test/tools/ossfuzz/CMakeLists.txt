@@ -121,7 +121,7 @@ if (OSSFUZZ)
     )
     target_include_directories(stack_reuse_codegen_ossfuzz PRIVATE /usr/include/libprotobuf-mutator)
     target_link_libraries(stack_reuse_codegen_ossfuzz PRIVATE yul
-            evmc
+            zvmc
             evmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
@@ -149,7 +149,7 @@ if (OSSFUZZ)
             /usr/include/libprotobuf-mutator
     )
     target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
-            evmc
+            zvmc
             evmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
@@ -169,7 +169,7 @@ if (OSSFUZZ)
             /usr/include/libprotobuf-mutator
     )
     target_link_libraries(abiv2_isabelle_ossfuzz PRIVATE solidity
-            evmc
+            zvmc
             evmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
@@ -191,7 +191,7 @@ if (OSSFUZZ)
             /usr/include/libprotobuf-mutator
     )
     target_link_libraries(sol_proto_ossfuzz PRIVATE solidity libhypc
-            evmc
+            zvmc
             evmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
@@ -262,7 +262,7 @@ else()
 #            /src/evmone/include
 #    )
 #    target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
-#            evmone intx ethash keccak evmc-instructions evmc
+#            evmone intx ethash keccak zvmc-instructions zvmc
 #            protobuf-mutator-libfuzzer.a
 #            protobuf-mutator.a
 #            protobuf.a

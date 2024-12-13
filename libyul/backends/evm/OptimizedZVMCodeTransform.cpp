@@ -15,7 +15,7 @@
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
-#include <libyul/backends/evm/OptimizedEVMCodeTransform.h>
+#include <libyul/backends/evm/OptimizedZVMCodeTransform.h>
 
 #include <libyul/backends/evm/ControlFlowGraphBuilder.h>
 #include <libyul/backends/evm/StackHelpers.h>
@@ -39,7 +39,7 @@
 using namespace solidity;
 using namespace solidity::yul;
 
-std::vector<StackTooDeepError> OptimizedEVMCodeTransform::run(
+std::vector<StackTooDeepError> OptimizedZVMCodeTransform::run(
 	AbstractAssembly& _assembly,
 	AsmAnalysisInfo& _analysisInfo,
 	Block const& _block,
@@ -50,7 +50,7 @@ std::vector<StackTooDeepError> OptimizedEVMCodeTransform::run(
 {
 	std::unique_ptr<CFG> dfg = ControlFlowGraphBuilder::build(_analysisInfo, _dialect, _block);
 	StackLayout stackLayout = StackLayoutGenerator::run(*dfg);
-	OptimizedEVMCodeTransform optimizedCodeTransform(
+	OptimizedZVMCodeTransform optimizedCodeTransform(
 		_assembly,
 		_builtinContext,
 		_useNamedLabelsForFunctions,
@@ -65,7 +65,7 @@ std::vector<StackTooDeepError> OptimizedEVMCodeTransform::run(
 	return std::move(optimizedCodeTransform.m_stackErrors);
 }
 
-void OptimizedEVMCodeTransform::operator()(CFG::FunctionCall const& _call)
+void OptimizedZVMCodeTransform::operator()(CFG::FunctionCall const& _call)
 {
 	// Validate stack.
 	{
@@ -111,7 +111,7 @@ void OptimizedEVMCodeTransform::operator()(CFG::FunctionCall const& _call)
 	}
 }
 
-void OptimizedEVMCodeTransform::operator()(CFG::BuiltinCall const& _call)
+void OptimizedZVMCodeTransform::operator()(CFG::BuiltinCall const& _call)
 {
 	// Validate stack.
 	{
@@ -153,7 +153,7 @@ void OptimizedEVMCodeTransform::operator()(CFG::BuiltinCall const& _call)
 	}
 }
 
-void OptimizedEVMCodeTransform::operator()(CFG::Assignment const& _assignment)
+void OptimizedZVMCodeTransform::operator()(CFG::Assignment const& _assignment)
 {
 	yulAssert(m_assembly.stackHeight() == static_cast<int>(m_stack.size()), "");
 
@@ -172,7 +172,7 @@ void OptimizedEVMCodeTransform::operator()(CFG::Assignment const& _assignment)
 		currentSlot = varSlot;
 }
 
-OptimizedEVMCodeTransform::OptimizedEVMCodeTransform(
+OptimizedZVMCodeTransform::OptimizedZVMCodeTransform(
 	AbstractAssembly& _assembly,
 	BuiltinContext& _builtinContext,
 	UseNamedLabels _useNamedLabelsForFunctions,
@@ -207,19 +207,19 @@ OptimizedEVMCodeTransform::OptimizedEVMCodeTransform(
 {
 }
 
-void OptimizedEVMCodeTransform::assertLayoutCompatibility(Stack const& _currentStack, Stack const& _desiredStack)
+void OptimizedZVMCodeTransform::assertLayoutCompatibility(Stack const& _currentStack, Stack const& _desiredStack)
 {
 	yulAssert(_currentStack.size() == _desiredStack.size(), "");
 	for (auto&& [currentSlot, desiredSlot]: ranges::zip_view(_currentStack, _desiredStack))
 		yulAssert(std::holds_alternative<JunkSlot>(desiredSlot) || currentSlot == desiredSlot, "");
 }
 
-AbstractAssembly::LabelID OptimizedEVMCodeTransform::getFunctionLabel(Scope::Function const& _function)
+AbstractAssembly::LabelID OptimizedZVMCodeTransform::getFunctionLabel(Scope::Function const& _function)
 {
 	return m_functionLabels.at(&m_dfg.functionInfo.at(&_function));
 }
 
-void OptimizedEVMCodeTransform::validateSlot(StackSlot const& _slot, Expression const& _expression)
+void OptimizedZVMCodeTransform::validateSlot(StackSlot const& _slot, Expression const& _expression)
 {
 	std::visit(util::GenericVisitor{
 		[&](yul::Literal const& _literal) {
@@ -237,7 +237,7 @@ void OptimizedEVMCodeTransform::validateSlot(StackSlot const& _slot, Expression 
 	}, _expression);
 }
 
-void OptimizedEVMCodeTransform::createStackLayout(std::shared_ptr<DebugData const> _debugData, Stack _targetStack)
+void OptimizedZVMCodeTransform::createStackLayout(std::shared_ptr<DebugData const> _debugData, Stack _targetStack)
 {
 	static constexpr auto slotVariableName = [](StackSlot const& _slot) {
 		return std::visit(util::GenericVisitor{
@@ -362,7 +362,7 @@ void OptimizedEVMCodeTransform::createStackLayout(std::shared_ptr<DebugData cons
 	yulAssert(m_assembly.stackHeight() == static_cast<int>(m_stack.size()), "");
 }
 
-void OptimizedEVMCodeTransform::operator()(CFG::BasicBlock const& _block)
+void OptimizedZVMCodeTransform::operator()(CFG::BasicBlock const& _block)
 {
 	// Assert that this is the first visit of the block and mark as generated.
 	yulAssert(m_generated.insert(&_block).second, "");
@@ -512,7 +512,7 @@ void OptimizedEVMCodeTransform::operator()(CFG::BasicBlock const& _block)
 	m_assembly.setStackHeight(0);
 }
 
-void OptimizedEVMCodeTransform::operator()(CFG::FunctionInfo const& _functionInfo)
+void OptimizedZVMCodeTransform::operator()(CFG::FunctionInfo const& _functionInfo)
 {
 	yulAssert(!m_currentFunctionInfo, "");
 	ScopedSaveAndRestore currentFunctionInfoRestore(m_currentFunctionInfo, &_functionInfo);
