@@ -26,7 +26,7 @@
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
 
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/SemanticInformation.h>
 
 #include <libhyputil/CommonData.h>
 #include <libhyputil/Algorithms.h>

@@ -26,8 +26,8 @@
 
 #include <libyul/YulStack.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/Disassemble.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/Disassemble.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/SourceReferenceFormatter.h>

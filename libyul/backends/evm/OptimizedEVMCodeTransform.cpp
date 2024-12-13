@@ -23,7 +23,7 @@
 
 #include <libyul/Utilities.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <libhyputil/Visitor.h>
 #include <libhyputil/cxx20.h>

@@ -26,8 +26,8 @@
 #include <libyul/backends/evm/EVMDialect.h>
 #include <libyul/AST.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/SemanticInformation.h>
 
 #include <libhyputil/Keccak256.h>
 #include <libhyputil/Numeric.h>

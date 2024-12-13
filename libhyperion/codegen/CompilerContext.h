@@ -31,8 +31,8 @@
 #include <libhyperion/interface/DebugSettings.h>
 #include <libhyperion/interface/OptimiserSettings.h>
 
-#include <libevmasm/Assembly.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Assembly.h>
+#include <libzvmasm/Instruction.h>
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/EVMVersion.h>
 #include <libhyputil/Common.h>

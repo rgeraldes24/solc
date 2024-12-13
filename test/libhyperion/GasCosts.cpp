@@ -22,7 +22,7 @@
 #include <test/libhyperion/SolidityExecutionFramework.h>
 #include <liblangutil/EVMVersion.h>
 #include <libhyputil/IpfsHash.h>
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <cmath>
 

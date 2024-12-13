@@ -35,8 +35,8 @@
 
 #include <libhyputil/CommonData.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/SemanticInformation.h>
 
 #include <range/v3/algorithm/all_of.hpp>
 

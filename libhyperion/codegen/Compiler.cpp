@@ -24,7 +24,7 @@
 #include <libhyperion/codegen/Compiler.h>
 
 #include <libhyperion/codegen/ContractCompiler.h>
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 
 using namespace solidity;
 using namespace solidity::frontend;

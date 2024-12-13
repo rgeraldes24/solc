@@ -40,9 +40,9 @@
 #include <libyul/optimiser/ASTCopier.h>
 #include <libyul/YulString.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/Assembly.h>
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/Assembly.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <liblangutil/ErrorReporter.h>
 

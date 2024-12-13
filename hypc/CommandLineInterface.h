@@ -24,8 +24,8 @@
 
 #include <hypc/CommandLineParser.h>
 
-#include <libevmasm/AbstractAssemblyStack.h>
-#include <libevmasm/EVMAssemblyStack.h>
+#include <libzvmasm/AbstractAssemblyStack.h>
+#include <libzvmasm/EVMAssemblyStack.h>
 #include <libhyperion/interface/CompilerStack.h>
 #include <libhyperion/interface/DebugSettings.h>
 #include <libhyperion/interface/FileReader.h>

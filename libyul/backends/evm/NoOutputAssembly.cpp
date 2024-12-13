@@ -24,7 +24,7 @@
 #include <libyul/AST.h>
 #include <libyul/Exceptions.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <range/v3/view/iota.hpp>
 

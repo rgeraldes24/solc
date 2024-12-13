@@ -24,7 +24,7 @@
 #include <libyul/ASTForward.h>
 #include <libyul/optimiser/ASTWalker.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <libhyputil/FixedHash.h>
 #include <libhyputil/CommonData.h>

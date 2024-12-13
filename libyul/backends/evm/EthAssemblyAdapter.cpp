@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Adaptor between AbstractAssembly and libevmasm.
+ * Adaptor between AbstractAssembly and libzvmasm.
  */
 
 #include <libyul/backends/evm/EthAssemblyAdapter.h>
@@ -24,9 +24,9 @@
 #include <libyul/backends/evm/AbstractAssembly.h>
 #include <libyul/Exceptions.h>
 
-#include <libevmasm/Assembly.h>
-#include <libevmasm/AssemblyItem.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Assembly.h>
+#include <libzvmasm/AssemblyItem.h>
+#include <libzvmasm/Instruction.h>
 
 #include <liblangutil/SourceLocation.h>
 

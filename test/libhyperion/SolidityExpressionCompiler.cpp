@@ -35,7 +35,7 @@
 #include <libhyperion/ast/TypeProvider.h>
 #include <libhyperion/analysis/TypeChecker.h>
 #include <liblangutil/ErrorReporter.h>
-#include <libevmasm/LinkerObject.h>
+#include <libzvmasm/LinkerObject.h>
 #include <test/Common.h>
 
 #include <boost/test/unit_test.hpp>

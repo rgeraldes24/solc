@@ -30,7 +30,7 @@
 
 namespace solidity::evmasm
 {
-/// Virtual machine bytecode instruction. Forward declared from libevmasm/Instruction.h
+/// Virtual machine bytecode instruction. Forward declared from libzvmasm/Instruction.h
 enum class Instruction: uint8_t;
 }
 

@@ -32,7 +32,7 @@
 #include <libhyperion/ast/ASTUtils.h>
 #include <libhyperion/ast/TypeProvider.h>
 
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 #include <libhyputil/Common.h>
 #include <libhyputil/FunctionSelector.h>
 #include <libhyputil/Keccak256.h>

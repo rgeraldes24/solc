@@ -30,7 +30,7 @@
 #include <libhyperion/parsing/Token.h>
 
 #include <liblangutil/SourceLocation.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 #include <libhyputil/FixedHash.h>
 #include <libhyputil/LazyInit.h>
 #include <libhyputil/Visitor.h>

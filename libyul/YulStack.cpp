@@ -32,7 +32,7 @@
 #include <libyul/ObjectParser.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/Suite.h>
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 #include <liblangutil/Scanner.h>
 #include <libhyperion/interface/OptimiserSettings.h>
 

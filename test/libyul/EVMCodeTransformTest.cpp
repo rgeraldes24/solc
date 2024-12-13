@@ -25,7 +25,7 @@
 #include <libyul/backends/evm/EthAssemblyAdapter.h>
 #include <libyul/backends/evm/EVMObjectCompiler.h>
 
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 
 #include <liblangutil/SourceReferenceFormatter.h>
 

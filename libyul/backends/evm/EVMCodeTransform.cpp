@@ -30,7 +30,7 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <range/v3/view/reverse.hpp>
 

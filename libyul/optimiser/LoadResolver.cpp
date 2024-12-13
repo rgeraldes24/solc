@@ -31,7 +31,7 @@
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
 
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 #include <libhyputil/Keccak256.h>
 
 #include <limits>

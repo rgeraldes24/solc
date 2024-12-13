@@ -26,7 +26,7 @@
 #include <libyul/Exceptions.h>
 #include <libyul/Utilities.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <libhyputil/CommonData.h>
 

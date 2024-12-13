@@ -24,8 +24,8 @@
 #include <test/Metadata.h>
 #include <test/libhyperion/SolidityExecutionFramework.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/Disassemble.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/Disassemble.h>
 
 #include <boost/test/unit_test.hpp>
 

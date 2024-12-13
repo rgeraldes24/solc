@@ -33,7 +33,7 @@
 #include <liblangutil/Scanner.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/test/unit_test.hpp>

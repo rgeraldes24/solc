@@ -30,7 +30,7 @@
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/EVMVersion.h>
 
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 
 #include <libhyputil/Keccak256.h>
 #include <libhyputil/ErrorCodes.h>

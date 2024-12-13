@@ -29,7 +29,7 @@
 #include <libyul/optimiser/UnusedStoreBase.h>
 #include <libyul/optimiser/KnowledgeBase.h>
 
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/SemanticInformation.h>
 
 #include <map>
 #include <vector>

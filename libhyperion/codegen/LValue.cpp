@@ -26,7 +26,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/Types.h>
 #include <libhyperion/codegen/CompilerUtils.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <libhyputil/StackTooDeepString.h>
 

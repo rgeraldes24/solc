@@ -29,7 +29,7 @@
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/SyntacticalEquality.h>
 
-#include <libevmasm/RuleList.h>
+#include <libzvmasm/RuleList.h>
 #include <libhyputil/StringUtils.h>
 
 using namespace solidity;

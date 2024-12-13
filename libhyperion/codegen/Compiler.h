@@ -27,7 +27,7 @@
 #include <libhyperion/interface/OptimiserSettings.h>
 #include <libhyperion/interface/DebugSettings.h>
 #include <liblangutil/EVMVersion.h>
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 #include <functional>
 #include <ostream>
 

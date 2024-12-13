@@ -25,8 +25,8 @@
 
 #include <liblangutil/EVMVersion.h>
 
-#include <libevmasm/Assembly.h>
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/Assembly.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <array>
 #include <map>

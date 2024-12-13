@@ -24,7 +24,7 @@
 
 #include <test/evmc/loader.h>
 
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <libhyputil/Exceptions.h>
 #include <libhyputil/Assertions.h>

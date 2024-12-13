@@ -26,7 +26,7 @@
 #include <libhyperion/ast/ASTVisitor.h>
 #include <libhyperion/codegen/CompilerContext.h>
 #include <libhyperion/interface/DebugSettings.h>
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 #include <functional>
 #include <ostream>
 #include <map>

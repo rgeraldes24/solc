@@ -27,9 +27,9 @@
 #include <libhyperion/ast/ASTVisitor.h>
 #include <libhyperion/codegen/CompilerUtils.h>
 
-#include <libevmasm/ControlFlowGraph.h>
-#include <libevmasm/KnownState.h>
-#include <libevmasm/PathGasMeter.h>
+#include <libzvmasm/ControlFlowGraph.h>
+#include <libzvmasm/KnownState.h>
+#include <libzvmasm/PathGasMeter.h>
 #include <libhyputil/FunctionSelector.h>
 #include <libhyputil/Keccak256.h>
 

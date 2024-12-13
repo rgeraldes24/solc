@@ -49,7 +49,7 @@ namespace solidity::yul
 struct Identifier;
 
 ///
-/// Assembly class that abstracts both the libevmasm assembly and the new Yul assembly.
+/// Assembly class that abstracts both the libzvmasm assembly and the new Yul assembly.
 ///
 class AbstractAssembly
 {

@@ -24,8 +24,8 @@
 
 #include <libhyputil/JSON.h>
 
-#include <libevmasm/Assembly.h>
-#include <libevmasm/ConstantOptimiser.h>
+#include <libzvmasm/Assembly.h>
+#include <libzvmasm/ConstantOptimiser.h>
 
 #include <libhypc/libhypc.h>
 

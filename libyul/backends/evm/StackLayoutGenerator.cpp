@@ -23,7 +23,7 @@
 
 #include <libyul/backends/evm/StackHelpers.h>
 
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <libhyputil/Algorithms.h>
 #include <libhyputil/cxx20.h>

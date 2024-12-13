@@ -33,7 +33,7 @@
 #include <libhyputil/Whiskers.h>
 #include <libhyputil/StackTooDeepString.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 #include <liblangutil/Exceptions.h>
 
 using namespace solidity;

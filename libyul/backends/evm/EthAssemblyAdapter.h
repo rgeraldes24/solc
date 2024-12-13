@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Adaptor between AbstractAssembly and libevmasm.
+ * Adaptor between AbstractAssembly and libzvmasm.
  */
 
 #pragma once

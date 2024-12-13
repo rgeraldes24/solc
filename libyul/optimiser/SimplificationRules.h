@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <libevmasm/SimplificationRule.h>
+#include <libzvmasm/SimplificationRule.h>
 
 #include <libyul/ASTForward.h>
 #include <libyul/YulString.h>

@@ -35,7 +35,7 @@
 #include <libhyputil/StringUtils.h>
 #include <libhyputil/Visitor.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <boost/algorithm/string.hpp>
 

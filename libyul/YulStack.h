@@ -31,7 +31,7 @@
 
 #include <libhyperion/interface/OptimiserSettings.h>
 
-#include <libevmasm/LinkerObject.h>
+#include <libzvmasm/LinkerObject.h>
 
 #include <json/json.h>
 

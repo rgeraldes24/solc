@@ -30,7 +30,7 @@
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/CompilabilityChecker.h>
 
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 #include <liblangutil/EVMVersion.h>
 

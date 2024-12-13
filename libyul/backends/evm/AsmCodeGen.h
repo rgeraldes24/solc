@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Helper to compile Yul code using libevmasm.
+ * Helper to compile Yul code using libzvmasm.
  */
 
 #pragma once

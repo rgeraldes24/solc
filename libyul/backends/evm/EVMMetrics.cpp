@@ -26,8 +26,8 @@
 #include <libyul/Utilities.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <libhyputil/CommonData.h>
 

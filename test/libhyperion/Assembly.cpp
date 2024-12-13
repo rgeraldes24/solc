@@ -24,7 +24,7 @@
 #include <test/Common.h>
 
 #include <liblangutil/SourceLocation.h>
-#include <libevmasm/Assembly.h>
+#include <libzvmasm/Assembly.h>
 
 #include <liblangutil/CharStream.h>
 

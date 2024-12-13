@@ -20,7 +20,7 @@
  */
 
 #include <liblangutil/EVMVersion.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 
 using namespace solidity;
 using namespace solidity::evmasm;

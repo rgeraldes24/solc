@@ -21,8 +21,8 @@
 
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libevmasm/Instruction.h>
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/Instruction.h>
+#include <libzvmasm/SemanticInformation.h>
 #include <liblangutil/Exceptions.h>
 #include <libhyputil/StringUtils.h>
 #include <libyul/AST.h>

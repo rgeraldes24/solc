@@ -27,7 +27,7 @@
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
 
-#include <libevmasm/SemanticInformation.h>
+#include <libzvmasm/SemanticInformation.h>
 
 using namespace solidity;
 using namespace solidity::yul;

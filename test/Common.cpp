@@ -23,7 +23,7 @@
 #include <test/libhyperion/util/SoltestErrors.h>
 
 #include <libhyputil/Assertions.h>
-#include <libhyputil/StringUtils.h>
+#include <libsolutil/StringUtils.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>

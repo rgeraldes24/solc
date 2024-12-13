@@ -32,7 +32,7 @@
 #include <libhyperion/ast/TypeProvider.h>
 #include <libhyperion/ast/ASTUtils.h>
 
-#include <libevmasm/GasMeter.h>
+#include <libzvmasm/GasMeter.h>
 
 #include <libyul/AsmPrinter.h>
 #include <libyul/AST.h>

@@ -47,11 +47,11 @@ set(libhyputil_sources
 )
 detect_stray_source_files("${libhyputil_sources}" "libhyputil/")
 
-set(libevmasm_sources
-    libevmasm/Assembler.cpp
-    libevmasm/Optimiser.cpp
+set(libzvmasm_sources
+    libzvmasm/Assembler.cpp
+    libzvmasm/Optimiser.cpp
 )
-detect_stray_source_files("${libevmasm_sources}" "libevmasm/")
+detect_stray_source_files("${libzvmasm_sources}" "libzvmasm/")
 
 set(liblangutil_sources
     liblangutil/CharStream.cpp
@@ -196,7 +196,7 @@ add_executable(soltest ${sources}
     ${contracts_sources}
     ${libhyputil_sources}
     ${liblangutil_sources}
-    ${libevmasm_sources}
+    ${libzvmasm_sources}
     ${libyul_sources}
     ${libhyperion_sources}
     ${libhyperion_util_sources}

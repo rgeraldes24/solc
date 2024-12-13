@@ -22,9 +22,9 @@
  */
 
 #include <test/libhyperion/SolidityExecutionFramework.h>
-#include <libevmasm/GasMeter.h>
-#include <libevmasm/KnownState.h>
-#include <libevmasm/PathGasMeter.h>
+#include <libzvmasm/GasMeter.h>
+#include <libzvmasm/KnownState.h>
+#include <libzvmasm/PathGasMeter.h>
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/interface/GasEstimator.h>
 

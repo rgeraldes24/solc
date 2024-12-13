@@ -25,7 +25,7 @@
 
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libevmasm/LinkerObject.h>
+#include <libzvmasm/LinkerObject.h>
 
 #include <map>
 

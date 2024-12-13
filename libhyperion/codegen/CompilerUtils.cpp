@@ -29,7 +29,7 @@
 #include <libhyperion/codegen/ArrayUtils.h>
 #include <libhyperion/codegen/LValue.h>
 #include <libhyputil/FunctionSelector.h>
-#include <libevmasm/Instruction.h>
+#include <libzvmasm/Instruction.h>
 #include <libhyputil/Whiskers.h>
 #include <libhyputil/StackTooDeepString.h>
 
