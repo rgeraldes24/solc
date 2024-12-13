@@ -32,7 +32,7 @@
 
 #include <liblangutil/Scanner.h>
 
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/FunctionSelector.h>
 
 #include <boost/test/unit_test.hpp>
 

@@ -20,9 +20,9 @@
 #include <test/libhyperion/util/ContractABIUtils.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string.hpp>
 

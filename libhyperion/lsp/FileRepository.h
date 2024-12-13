@@ -18,7 +18,7 @@
 #pragma once
 
 #include <libhyperion/interface/FileReader.h>
-#include <libsolutil/Result.h>
+#include <libhyputil/Result.h>
 
 #include <string>
 #include <map>

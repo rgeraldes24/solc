@@ -22,8 +22,8 @@
 #include <test/EVMHost.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/Assertions.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/StringUtils.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>

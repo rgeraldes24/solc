@@ -27,8 +27,8 @@
 #include <libyul/Object.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/view/reverse.hpp>
 

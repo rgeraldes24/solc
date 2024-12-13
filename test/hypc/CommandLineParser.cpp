@@ -26,7 +26,7 @@
 #include <test/Common.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 #include <liblangutil/EVMVersion.h>
 #include <libsmtutil/SolverInterface.h>
 #include <libhyperion/interface/Version.h>

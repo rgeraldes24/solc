@@ -71,7 +71,7 @@
 
 #include <libyul/backends/evm/NoOutputAssembly.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <libyul/CompilabilityChecker.h>
 

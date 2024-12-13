@@ -26,7 +26,7 @@
 #include <libyul/optimiser/NameDispenser.h>
 #include <libyul/AST.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <libyul/optimiser/TypeInfo.h>
 

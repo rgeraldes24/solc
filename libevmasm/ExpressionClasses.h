@@ -26,7 +26,7 @@
 
 #include <libevmasm/AssemblyItem.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <memory>
 #include <unordered_set>

@@ -31,9 +31,9 @@
 
 #include <liblangutil/ErrorReporter.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/Visitor.h>
 
 #include <libevmasm/Instruction.h>
 

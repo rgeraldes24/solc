@@ -28,7 +28,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/ParserBase.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <memory>
 

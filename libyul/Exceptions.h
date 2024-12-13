@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include <libsolutil/Exceptions.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Exceptions.h>
+#include <libhyputil/Assertions.h>
 
 #include <libyul/YulString.h>
 

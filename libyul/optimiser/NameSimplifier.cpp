@@ -23,7 +23,7 @@
 #include <libyul/optimiser/NameDispenser.h>
 #include <libyul/optimiser/OptimizerUtilities.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <regex>
 

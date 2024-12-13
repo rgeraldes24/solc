@@ -20,8 +20,8 @@
 #include <libhyperion/lsp/Transport.h>
 #include <libhyperion/lsp/Utils.h>
 
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/CommonIO.h>
 
 #include <range/v3/algorithm/none_of.hpp>
 #include <range/v3/range/conversion.hpp>

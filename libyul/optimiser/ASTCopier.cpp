@@ -23,7 +23,7 @@
 
 #include <libyul/AST.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 using namespace solidity;
 using namespace solidity::yul;

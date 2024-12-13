@@ -18,7 +18,7 @@
 
 #include <libsmtutil/SMTLib2Interface.h>
 
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/predicate.hpp>

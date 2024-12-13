@@ -25,7 +25,7 @@
 #include <test/contracts/ContractInterface.h>
 #include <test/EVMHost.h>
 
-#include <libsolutil/LazyInit.h>
+#include <libhyputil/LazyInit.h>
 
 #include <boost/test/unit_test.hpp>
 

@@ -22,9 +22,9 @@
 #include <libyul/Dialect.h>
 #include <libyul/FunctionReferenceResolver.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Algorithms.h>
 
 #include <range/v3/view/map.hpp>
 #include <range/v3/view/reverse.hpp>

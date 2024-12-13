@@ -23,7 +23,7 @@
 #include <libhyperion/analysis/PostTypeContractLevelChecker.h>
 
 #include <libhyperion/ast/AST.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/FunctionSelector.h>
 #include <liblangutil/ErrorReporter.h>
 
 using namespace solidity;

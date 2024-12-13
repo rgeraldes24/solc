@@ -23,9 +23,9 @@
 #include <test/Common.h>
 #include <libhyperion/interface/CompilerStack.h>
 #include <libhyperion/interface/Version.h>
-#include <libsolutil/SwarmHash.h>
-#include <libsolutil/IpfsHash.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/SwarmHash.h>
+#include <libhyputil/IpfsHash.h>
+#include <libhyputil/JSON.h>
 
 #include <boost/test/unit_test.hpp>
 

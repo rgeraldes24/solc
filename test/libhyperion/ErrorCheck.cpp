@@ -21,7 +21,7 @@
  */
 
 #include <test/libhyperion/ErrorCheck.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <string>
 #include <set>

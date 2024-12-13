@@ -27,8 +27,8 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/Scanner.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/view/subrange.hpp>
 

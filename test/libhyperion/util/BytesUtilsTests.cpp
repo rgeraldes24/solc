@@ -20,7 +20,7 @@
 
 #include <test/libhyperion/util/BytesUtils.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 using namespace solidity::util;
 using namespace solidity::test;

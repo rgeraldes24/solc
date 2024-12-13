@@ -18,8 +18,8 @@
 #include <libyul/optimiser/StructuralSimplifier.h>
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Visitor.h>
 
 using namespace solidity;
 using namespace solidity::yul;

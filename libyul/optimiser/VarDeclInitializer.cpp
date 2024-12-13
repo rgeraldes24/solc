@@ -19,8 +19,8 @@
 #include <libyul/optimiser/VarDeclInitializer.h>
 #include <libyul/AST.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Visitor.h>
 #include <libyul/Dialect.h>
 
 using namespace solidity;

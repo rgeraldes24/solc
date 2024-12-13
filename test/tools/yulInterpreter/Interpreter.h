@@ -26,10 +26,10 @@
 
 #include <libevmasm/Instruction.h>
 
-#include <libsolutil/FixedHash.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/FixedHash.h>
+#include <libhyputil/CommonData.h>
 
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <map>
 

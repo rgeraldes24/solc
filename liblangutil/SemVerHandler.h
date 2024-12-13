@@ -24,7 +24,7 @@
 #pragma once
 
 #include <liblangutil/Token.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Assertions.h>
 #include <liblangutil/Exceptions.h>
 
 #include <string>

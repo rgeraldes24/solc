@@ -33,9 +33,9 @@
 #include <liblangutil/EVMVersion.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Exceptions.h>
 
 #include <boost/program_options.hpp>
 

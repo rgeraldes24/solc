@@ -25,7 +25,7 @@
 #include <libyul/Utilities.h>
 #include <libyul/optimiser/DataFlowAnalyzer.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <variant>
 

@@ -29,7 +29,7 @@
 
 #include <liblangutil/SourceLocation.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <tuple>
 #include <map>

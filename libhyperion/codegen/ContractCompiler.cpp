@@ -46,9 +46,9 @@
 
 #include <liblangutil/ErrorReporter.h>
 
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <range/v3/view/reverse.hpp>
 

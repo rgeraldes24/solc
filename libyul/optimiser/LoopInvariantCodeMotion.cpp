@@ -23,7 +23,7 @@
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/SSAValueTracker.h>
 #include <libyul/AST.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <utility>
 

@@ -19,8 +19,8 @@
 #include <test/libhyperion/GasTest.h>
 #include <test/libhyperion/util/Common.h>
 #include <test/Common.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/JSON.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>

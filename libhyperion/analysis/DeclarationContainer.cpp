@@ -24,7 +24,7 @@
 #include <libhyperion/analysis/DeclarationContainer.h>
 
 #include <libhyperion/ast/AST.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/view/filter.hpp>
 #include <range/v3/range/conversion.hpp>

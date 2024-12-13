@@ -22,7 +22,7 @@
 #pragma once
 
 #include <libevmasm/Instruction.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 #include <functional>
 
 namespace solidity::evmasm

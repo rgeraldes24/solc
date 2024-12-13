@@ -21,7 +21,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/analysis/ControlFlowGraph.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 namespace solidity::frontend
 {

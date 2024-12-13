@@ -30,7 +30,7 @@
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem/path.hpp>

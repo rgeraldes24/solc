@@ -31,9 +31,9 @@
 #include <liblangutil/SourceReferenceFormatter.h>
 #include <liblangutil/Scanner.h>
 
-#include <libsolutil/Assertions.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
 
 #include <iostream>
 

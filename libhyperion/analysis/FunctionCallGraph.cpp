@@ -18,7 +18,7 @@
 
 #include <libhyperion/analysis/FunctionCallGraph.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/reverse.hpp>

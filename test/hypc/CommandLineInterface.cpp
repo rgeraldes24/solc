@@ -29,8 +29,8 @@
 #include <liblangutil/SemVerHandler.h>
 #include <test/FilesystemUtils.h>
 
-#include <libsolutil/JSON.h>
-#include <libsolutil/TemporaryDirectory.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/TemporaryDirectory.h>
 
 #include <boost/algorithm/string.hpp>
 

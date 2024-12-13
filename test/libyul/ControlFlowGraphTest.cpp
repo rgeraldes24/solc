@@ -25,8 +25,8 @@
 #include <libyul/backends/evm/StackHelpers.h>
 #include <libyul/Object.h>
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/Visitor.h>
 
 #ifdef ISOLTEST
 #include <boost/process.hpp>

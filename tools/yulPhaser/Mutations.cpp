@@ -20,7 +20,7 @@
 
 #include <tools/yulPhaser/SimulationRNG.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <algorithm>
 #include <cassert>

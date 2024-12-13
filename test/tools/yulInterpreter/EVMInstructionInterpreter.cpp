@@ -29,8 +29,8 @@
 #include <libevmasm/Instruction.h>
 #include <libevmasm/SemanticInformation.h>
 
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/Numeric.h>
 
 #include <limits>
 

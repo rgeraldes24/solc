@@ -7,9 +7,9 @@ ERROR_LOG="$(mktemp -t check_style_XXXXXX.log)"
 EXCLUDE_FILES=(
     # The line below is left unquoted to allow the shell globbing path expansion
     test/cmdlineTests/*/{err,output}
-    "libsolutil/picosha2.h"
+    "libhyputil/picosha2.h"
     "test/cmdlineTests/strict_asm_only_cr/input.yul"
-    "test/libsolutil/UTF8.cpp"
+    "test/libhyputil/UTF8.cpp"
     "test/libhyperion/syntaxTests/license/license_cr_endings.hyp"
     "test/libhyperion/syntaxTests/license/license_crlf_endings.hyp"
     "test/libhyperion/syntaxTests/license/license_whitespace_trailing.hyp"
@@ -33,7 +33,7 @@ NAMESPACE_STD_FREE_FILES=(
     libhyperion/interface/*
     libhyperion/lsp/*
     libhyperion/parsing/*
-    libsolutil/*
+    libhyputil/*
     libyul/*
     libyul/backends/evm/*
     libyul/optimiser/*
@@ -41,7 +41,7 @@ NAMESPACE_STD_FREE_FILES=(
     test/contracts/*
     test/libevmasm/*
     test/liblangutil/*
-    test/libsolutil/*
+    test/libhyputil/*
     test/libhyperion/*
     test/libhyperion/analysis/*
     test/libhyperion/interface/*

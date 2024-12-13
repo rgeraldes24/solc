@@ -26,7 +26,7 @@
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
 
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Visitor.h>
 
 using namespace solidity::yul;
 using namespace solidity::util;

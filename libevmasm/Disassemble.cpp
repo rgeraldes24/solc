@@ -18,8 +18,8 @@
 
 #include <libevmasm/Disassemble.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/CommonIO.h>
 #include <functional>
 
 using namespace solidity;

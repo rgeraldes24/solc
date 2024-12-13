@@ -22,7 +22,7 @@
 #include <libhyperion/interface/CompilerStack.h>
 #include <libhyperion/formal/ModelCheckerSettings.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <libevmasm/Assembly.h>
 #include <libevmasm/ConstantOptimiser.h>

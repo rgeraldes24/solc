@@ -30,8 +30,8 @@
 #include <libevmasm/ControlFlowGraph.h>
 #include <libevmasm/KnownState.h>
 #include <libevmasm/PathGasMeter.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Keccak256.h>
 
 #include <functional>
 #include <map>

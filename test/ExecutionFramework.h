@@ -31,8 +31,8 @@
 
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/ErrorCodes.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/ErrorCodes.h>
 
 #include <functional>
 

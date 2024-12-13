@@ -24,7 +24,7 @@
 
 #include <liblangutil/Common.h>
 #include <liblangutil/SourceReferenceFormatter.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/throw_exception.hpp>

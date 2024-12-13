@@ -20,7 +20,7 @@
 
 #include <test/TestCase.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <string>
 #include <vector>

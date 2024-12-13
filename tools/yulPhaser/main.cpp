@@ -19,7 +19,7 @@
 #include <tools/yulPhaser/Exceptions.h>
 #include <tools/yulPhaser/Phaser.h>
 
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <iostream>
 

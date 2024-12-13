@@ -6,13 +6,13 @@ static std::string const otherLicenses{R"(Most of the code is licensed under GPL
 parts are as follows:
 
 libkeccak-tiny:
-  The file libsolutil/Keccak256.cpp incorporates libkeccak-tiny.
+  The file libhyputil/Keccak256.cpp incorporates libkeccak-tiny.
 
   A single-file implementation of SHA-3 and SHAKE implemented by David Leon Gil
   License: CC0, attribution kindly requested. Blame taken too, but not liability.
 
 picosha2:
-  The file libsolutil/picosha2.h is imported.
+  The file libhyputil/picosha2.h is imported.
 
   Copyright (C) 2017 okdshin
 

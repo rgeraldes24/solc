@@ -24,8 +24,8 @@
 
 #pragma once
 
-#include <libsolutil/Common.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Numeric.h>
 
 
 #include <cstddef>

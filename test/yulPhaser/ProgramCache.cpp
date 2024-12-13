@@ -23,7 +23,7 @@
 
 #include <liblangutil/CharStream.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <boost/test/unit_test.hpp>
 

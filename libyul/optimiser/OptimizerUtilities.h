@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 #include <libyul/ASTForward.h>
 #include <libyul/Dialect.h>
 #include <libyul/YulString.h>

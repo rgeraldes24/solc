@@ -76,11 +76,11 @@
 #include <liblangutil/SourceReferenceFormatter.h>
 
 
-#include <libsolutil/SwarmHash.h>
-#include <libsolutil/IpfsHash.h>
-#include <libsolutil/JSON.h>
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/SwarmHash.h>
+#include <libhyputil/IpfsHash.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/FunctionSelector.h>
 
 #include <json/json.h>
 

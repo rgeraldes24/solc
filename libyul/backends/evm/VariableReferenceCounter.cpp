@@ -22,7 +22,7 @@
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/AST.h>
 
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Visitor.h>
 
 using namespace solidity::yul;
 

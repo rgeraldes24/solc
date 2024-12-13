@@ -26,7 +26,7 @@
 #include <libevmasm/Instruction.h>
 #include <libevmasm/SimplificationRule.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <boost/multiprecision/detail/min_max.hpp>
 

@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 namespace solidity::evmasm
 {

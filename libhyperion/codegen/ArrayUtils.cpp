@@ -29,9 +29,9 @@
 #include <libhyperion/codegen/CompilerUtils.h>
 #include <libhyperion/codegen/LValue.h>
 
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <libevmasm/Instruction.h>
 #include <liblangutil/Exceptions.h>

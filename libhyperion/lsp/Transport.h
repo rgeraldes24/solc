@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 #pragma once
 
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <json/value.h>
 

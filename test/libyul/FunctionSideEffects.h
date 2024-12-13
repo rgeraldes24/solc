@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 #include <test/TestCase.h>
 
 #include <iosfwd>

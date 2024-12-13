@@ -18,8 +18,8 @@
 
 #include <libhyperion/formal/ExpressionFormatter.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/CommonData.h>
 
 #include <boost/algorithm/string.hpp>
 

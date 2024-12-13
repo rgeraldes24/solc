@@ -42,7 +42,7 @@
 
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/Token.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <map>
 

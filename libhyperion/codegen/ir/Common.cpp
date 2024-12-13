@@ -20,7 +20,7 @@
 #include <libhyperion/codegen/ir/Common.h>
 #include <libhyperion/codegen/ir/IRGenerationContext.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <libyul/AsmPrinter.h>
 

@@ -22,8 +22,8 @@
 
 #include <libhyperion/ast/Types.h>
 #include <libhyperion/ast/TypeProvider.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/CommonData.h>
 
 #include <liblangutil/Common.h>
 

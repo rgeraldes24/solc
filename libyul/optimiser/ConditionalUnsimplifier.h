@@ -20,7 +20,7 @@
 #include <libyul/optimiser/ASTWalker.h>
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/Dialect.h>
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 namespace solidity::yul
 {

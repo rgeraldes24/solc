@@ -33,10 +33,10 @@
 #include <libyul/YulStack.h>
 #include <libyul/Utilities.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/Whiskers.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/Whiskers.h>
 
 #include <json/json.h>
 

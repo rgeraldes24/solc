@@ -34,8 +34,8 @@
 
 #include <libsmtutil/CHCSmtLib2Interface.h>
 #include <liblangutil/CharStreamProvider.h>
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/StringUtils.h>
 
 #ifdef HAVE_Z3_DLOPEN
 #include <z3_version.h>

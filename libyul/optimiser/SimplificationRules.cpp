@@ -30,7 +30,7 @@
 #include <libyul/optimiser/SyntacticalEquality.h>
 
 #include <libevmasm/RuleList.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 using namespace solidity;
 using namespace solidity::evmasm;

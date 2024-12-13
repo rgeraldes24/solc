@@ -20,7 +20,7 @@
 
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/view/map.hpp>
 

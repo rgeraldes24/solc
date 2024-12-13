@@ -21,7 +21,7 @@
 #include <libyul/backends/evm/ControlFlowGraph.h>
 #include <libyul/Exceptions.h>
 
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/algorithm/all_of.hpp>
 #include <range/v3/algorithm/any_of.hpp>

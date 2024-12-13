@@ -20,7 +20,7 @@
 #include <test/Common.h>
 #include <test/libyul/Common.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <libyul/SideEffects.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
@@ -28,7 +28,7 @@
 #include <libyul/Object.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string.hpp>
 

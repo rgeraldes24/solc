@@ -32,8 +32,8 @@
 
 #include <libevmasm/Assembly.h>
 
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/ErrorCodes.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/ErrorCodes.h>
 
 #include <libyul/Exceptions.h>
 

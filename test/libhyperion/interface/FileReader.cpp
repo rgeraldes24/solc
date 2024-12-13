@@ -24,7 +24,7 @@
 #include <test/FilesystemUtils.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/TemporaryDirectory.h>
+#include <libhyputil/TemporaryDirectory.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>

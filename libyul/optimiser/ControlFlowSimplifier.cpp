@@ -22,8 +22,8 @@
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
 #include <libyul/Dialect.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/action/remove_if.hpp>
 

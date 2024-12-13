@@ -21,8 +21,8 @@
  */
 
 #include <libevmasm/LinkerObject.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Keccak256.h>
 
 using namespace solidity;
 using namespace solidity::util;

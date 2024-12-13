@@ -18,9 +18,9 @@
 
 #include <liblangutil/SourceReferenceFormatter.h>
 #include <libhyperion/ast/ASTJsonExporter.h>
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/JSON.h>
 
 #include <test/Common.h>
 #include <test/libhyperion/ASTJSONTest.h>

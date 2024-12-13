@@ -18,9 +18,9 @@
 #include <libhyperion/lsp/Transport.h>
 #include <libhyperion/lsp/Utils.h>
 
-#include <libsolutil/JSON.h>
-#include <libsolutil/Visitor.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/CommonIO.h>
 #include <liblangutil/Exceptions.h>
 
 #include <fmt/format.h>

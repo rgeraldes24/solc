@@ -28,7 +28,7 @@
 #include <libhyperion/codegen/CompilerUtils.h>
 #include <libevmasm/Instruction.h>
 
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/StackTooDeepString.h>
 
 using namespace solidity;
 using namespace solidity::evmasm;

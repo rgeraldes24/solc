@@ -23,7 +23,7 @@
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/CharStream.h>
 #include <liblangutil/CharStreamProvider.h>
-#include <libsolutil/UTF8.h>
+#include <libhyputil/UTF8.h>
 #include <iomanip>
 #include <string_view>
 #include <variant>

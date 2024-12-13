@@ -21,7 +21,7 @@
 #include <tools/yulPhaser/Mutations.h>
 #include <tools/yulPhaser/SimulationRNG.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 #include <libyul/optimiser/Suite.h>
 
 #include <boost/test/unit_test.hpp>

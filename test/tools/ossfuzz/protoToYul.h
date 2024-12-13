@@ -28,9 +28,9 @@
 
 #include <test/tools/ossfuzz/yulProto.pb.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/FixedHash.h>
-#include <libsolutil/Whiskers.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/FixedHash.h>
+#include <libhyputil/Whiskers.h>
 
 #include <liblangutil/EVMVersion.h>
 

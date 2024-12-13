@@ -30,8 +30,8 @@
 #include <liblangutil/SourceReferenceFormatter.h>
 #include <liblangutil/Scanner.h>
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/StringUtils.h>
 
 #include <fstream>
 

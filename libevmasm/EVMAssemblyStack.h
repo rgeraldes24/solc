@@ -22,7 +22,7 @@
 #include <libevmasm/Assembly.h>
 #include <libevmasm/LinkerObject.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <map>
 #include <string>

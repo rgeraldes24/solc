@@ -21,7 +21,7 @@
 
 #include <libsmtutil/SolverInterface.h>
 #include <libhyperion/interface/ReadFile.h>
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/FixedHash.h>
 
 #include <map>
 #include <vector>

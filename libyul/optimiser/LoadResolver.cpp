@@ -32,7 +32,7 @@
 #include <libyul/Utilities.h>
 
 #include <libevmasm/GasMeter.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 
 #include <limits>
 

@@ -18,9 +18,9 @@
 
 #include <libsmtutil/Z3Interface.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Exceptions.h>
 
 #ifdef HAVE_Z3_DLOPEN
 #include <libsmtutil/Z3Loader.h>

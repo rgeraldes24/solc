@@ -20,7 +20,7 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/Whiskers.h>
+#include <libhyputil/Whiskers.h>
 
 #include <sstream>
 

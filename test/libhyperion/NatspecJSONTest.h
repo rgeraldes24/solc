@@ -23,7 +23,7 @@
 
 #include <test/libhyperion/SyntaxTest.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <istream>
 #include <map>

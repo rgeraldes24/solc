@@ -27,7 +27,7 @@
 
 #include <libhyperion/ast/AST.h>
 
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 
 #include <boost/test/unit_test.hpp>
 

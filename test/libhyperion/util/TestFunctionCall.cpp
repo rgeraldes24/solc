@@ -17,7 +17,7 @@
 #include <test/libhyperion/util/BytesUtils.h>
 #include <test/libhyperion/util/ContractABIUtils.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <boost/algorithm/string.hpp>
 

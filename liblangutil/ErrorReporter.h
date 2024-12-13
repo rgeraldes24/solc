@@ -23,12 +23,12 @@
 
 #pragma once
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Exceptions.h>
 
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/SourceLocation.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/filter.hpp>

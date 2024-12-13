@@ -20,11 +20,11 @@
 
 #include <libevmasm/Assembly.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Numeric.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Numeric.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/FixedHash.h>
 #include <liblangutil/SourceLocation.h>
 
 #include <fstream>

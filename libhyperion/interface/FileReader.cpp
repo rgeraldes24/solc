@@ -19,9 +19,9 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Exceptions.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Exceptions.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <range/v3/view/transform.hpp>

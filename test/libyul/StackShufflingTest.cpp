@@ -18,7 +18,7 @@
 #include <test/libyul/StackShufflingTest.h>
 
 #include <liblangutil/Scanner.h>
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 #include <libyul/backends/evm/StackHelpers.h>
 
 using namespace solidity::util;

@@ -28,14 +28,14 @@
 
 #include <libhyperion/analysis/ConstantEvaluator.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/UTF8.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/UTF8.h>
+#include <libhyputil/Visitor.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/classification.hpp>

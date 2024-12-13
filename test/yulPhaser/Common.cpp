@@ -20,8 +20,8 @@
 
 #include <tools/yulPhaser/Common.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/TemporaryDirectory.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/TemporaryDirectory.h>
 
 #include <boost/test/unit_test.hpp>
 #include <boost/test/tools/output_test_stream.hpp>

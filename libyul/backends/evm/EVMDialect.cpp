@@ -24,7 +24,7 @@
 #include <libevmasm/Instruction.h>
 #include <libevmasm/SemanticInformation.h>
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 #include <libyul/AST.h>
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/AsmParser.h>

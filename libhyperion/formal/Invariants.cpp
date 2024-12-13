@@ -21,7 +21,7 @@
 #include <libhyperion/formal/ExpressionFormatter.h>
 #include <libhyperion/formal/SMTEncoder.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 #include <boost/algorithm/string.hpp>
 

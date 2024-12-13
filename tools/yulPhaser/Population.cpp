@@ -21,8 +21,8 @@
 #include <tools/yulPhaser/PairSelections.h>
 #include <tools/yulPhaser/Selections.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
 
 #include <algorithm>
 #include <cassert>

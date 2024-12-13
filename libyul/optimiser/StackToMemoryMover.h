@@ -25,8 +25,8 @@
 #include <libyul/ASTForward.h>
 
 #include <liblangutil/SourceLocation.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Numeric.h>
 
 #include <list>
 

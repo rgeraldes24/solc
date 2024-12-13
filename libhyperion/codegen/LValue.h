@@ -24,7 +24,7 @@
 #pragma once
 
 #include <libhyperion/codegen/ArrayUtils.h>
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 #include <liblangutil/SourceLocation.h>
 #include <memory>
 #include <vector>

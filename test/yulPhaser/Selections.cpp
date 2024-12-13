@@ -21,7 +21,7 @@
 #include <tools/yulPhaser/Selections.h>
 #include <tools/yulPhaser/SimulationRNG.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <boost/test/unit_test.hpp>
 

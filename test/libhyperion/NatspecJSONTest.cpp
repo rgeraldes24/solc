@@ -20,8 +20,8 @@
 
 #include <test/libhyperion/NatspecJSONTest.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 

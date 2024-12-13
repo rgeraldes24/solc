@@ -35,8 +35,8 @@
 #include <libevmasm/Instruction.h>
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/EVMVersion.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/ErrorCodes.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/ErrorCodes.h>
 
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/backends/evm/EVMDialect.h>

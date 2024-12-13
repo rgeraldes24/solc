@@ -25,7 +25,7 @@
 
 #include <libyul/AST.h>
 #include <libyul/YulString.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/algorithm/any_of.hpp>
 #include <range/v3/view/enumerate.hpp>

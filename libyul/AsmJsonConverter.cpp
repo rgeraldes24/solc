@@ -23,8 +23,8 @@
 #include <libyul/AsmJsonConverter.h>
 #include <libyul/AST.h>
 #include <libyul/Exceptions.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/UTF8.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/UTF8.h>
 
 namespace solidity::yul
 {

@@ -18,7 +18,7 @@
 
 #include <test/TestCaseReader.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>

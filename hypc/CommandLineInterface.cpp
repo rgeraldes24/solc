@@ -52,10 +52,10 @@
 
 #include <libsmtutil/Exceptions.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/JSON.h>
 
 #include <algorithm>
 #include <fstream>

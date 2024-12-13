@@ -23,9 +23,9 @@
 
 #pragma once
 
-#include <libsolutil/Exceptions.h>
-#include <libsolutil/Assertions.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/Exceptions.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/CommonData.h>
 #include <liblangutil/SourceLocation.h>
 
 #include <boost/preprocessor/cat.hpp>

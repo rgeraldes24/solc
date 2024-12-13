@@ -27,7 +27,7 @@
 #include <libyul/AST.h>
 
 #include <liblangutil/Token.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/action/remove_if.hpp>
 

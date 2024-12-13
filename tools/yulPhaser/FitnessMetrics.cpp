@@ -18,7 +18,7 @@
 
 #include <tools/yulPhaser/FitnessMetrics.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <cmath>
 

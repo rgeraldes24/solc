@@ -29,7 +29,7 @@
 
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 using namespace solidity;
 using namespace solidity::util;

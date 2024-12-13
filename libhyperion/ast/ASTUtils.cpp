@@ -20,7 +20,7 @@
 #include <libhyperion/ast/ASTUtils.h>
 #include <libhyperion/ast/ASTVisitor.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 namespace solidity::frontend
 {

@@ -14,10 +14,10 @@
 
 #pragma once
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/Assertions.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Exceptions.h>
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/empty.hpp>

@@ -33,9 +33,9 @@
 #include <liblangutil/SourceReferenceExtractor.h>
 #include <liblangutil/CharStream.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Visitor.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/JSON.h>
 
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/filesystem.hpp>

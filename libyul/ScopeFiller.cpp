@@ -28,7 +28,7 @@
 
 #include <liblangutil/ErrorReporter.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <memory>
 #include <functional>

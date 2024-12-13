@@ -18,8 +18,8 @@
 
 #include <libsmtutil/CVC4Interface.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Exceptions.h>
 
 #include <cvc4/util/bitvector.h>
 

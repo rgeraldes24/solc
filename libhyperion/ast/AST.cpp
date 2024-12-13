@@ -27,8 +27,8 @@
 #include <libhyperion/ast/ASTVisitor.h>
 #include <libhyperion/ast/AST_accept.h>
 #include <libhyperion/ast/TypeProvider.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Keccak256.h>
 
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/tail.hpp>

@@ -22,7 +22,7 @@
 
 #include <test/Common.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <libyul/YulStack.h>
 

@@ -133,7 +133,7 @@ if (NOT (${Z3_FOUND} OR ${CVC4_FOUND}))
   \nPlease install Z3 or CVC4 or remove the option disabling them (USE_Z3, USE_CVC4).")
 endif()
 
-add_subdirectory(libsolutil)
+add_subdirectory(libhyputil)
 add_subdirectory(liblangutil)
 add_subdirectory(libsmtutil)
 add_subdirectory(libevmasm)

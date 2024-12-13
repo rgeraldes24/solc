@@ -33,7 +33,7 @@
 
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <libevmasm/Instruction.h>
 #include <libevmasm/SemanticInformation.h>

@@ -25,9 +25,9 @@
 #include <libyul/Utilities.h>
 #include <libyul/ControlFlowSideEffectsCollector.h>
 
-#include <libsolutil/cxx20.h>
-#include <libsolutil/Visitor.h>
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/cxx20.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/Algorithms.h>
 
 #include <range/v3/action/push_back.hpp>
 #include <range/v3/action/erase.hpp>

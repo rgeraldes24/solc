@@ -18,7 +18,7 @@
 
 #include <libhyperion/analysis/ControlFlowRevertPruner.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 #include <range/v3/algorithm/remove.hpp>
 

@@ -25,8 +25,8 @@
 #include <libyul/optimiser/Metrics.h>
 #include <libyul/optimiser/StructuralSimplifier.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/JSON.h>
 #include <liblangutil/CharStream.h>
 
 #include <boost/test/unit_test.hpp>

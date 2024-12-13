@@ -22,8 +22,8 @@
 
 #include <libhyperion/interface/ReadFile.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/FixedHash.h>
 
 #include <cstdio>
 #include <map>

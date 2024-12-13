@@ -21,7 +21,7 @@
 
 #include <test/libhyperion/SolidityExecutionFramework.h>
 #include <liblangutil/EVMVersion.h>
-#include <libsolutil/IpfsHash.h>
+#include <libhyputil/IpfsHash.h>
 #include <libevmasm/GasMeter.h>
 
 #include <cmath>

@@ -16,7 +16,7 @@
 
 #include <test/libhyperion/util/SoltestTypes.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 namespace solidity::frontend::test
 {

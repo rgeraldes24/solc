@@ -38,7 +38,7 @@
 #include <libyul/optimiser/OptimiserStep.h>
 #include <libyul/optimiser/Suite.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <libhyperion/interface/OptimiserSettings.h>
 

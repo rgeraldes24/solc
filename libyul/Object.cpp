@@ -26,8 +26,8 @@
 #include <libyul/AST.h>
 #include <libyul/Exceptions.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string.hpp>
 

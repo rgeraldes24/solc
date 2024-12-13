@@ -33,11 +33,11 @@
 #include <libhyperion/ast/TypeProvider.h>
 
 #include <libevmasm/GasMeter.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <numeric>

@@ -20,7 +20,7 @@
 #include <test/libhyperion/AnalysisFramework.h>
 #include <test/TestCase.h>
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <iosfwd>
 #include <string>

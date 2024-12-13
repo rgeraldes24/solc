@@ -24,7 +24,7 @@
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/SourceReferenceExtractor.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <ostream>
 #include <sstream>

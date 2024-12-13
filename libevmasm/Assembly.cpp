@@ -34,8 +34,8 @@
 #include <liblangutil/CharStream.h>
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/JSON.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/StringUtils.h>
 
 #include <fmt/format.h>
 

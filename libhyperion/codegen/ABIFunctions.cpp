@@ -24,9 +24,9 @@
 #include <libhyperion/codegen/ABIFunctions.h>
 
 #include <libhyperion/codegen/CompilerUtils.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string/join.hpp>
 

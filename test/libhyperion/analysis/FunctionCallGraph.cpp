@@ -23,7 +23,7 @@
 #include <test/Common.h>
 #include <test/libhyperion/util/SoltestErrors.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/interface/CompilerStack.h>

@@ -21,7 +21,7 @@
  * Tests for a (comparatively) complex multisig wallet contract.
  */
 
-#include <libsolutil/LazyInit.h>
+#include <libhyputil/LazyInit.h>
 
 #include <string>
 #include <tuple>

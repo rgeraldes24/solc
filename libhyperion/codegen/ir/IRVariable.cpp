@@ -18,7 +18,7 @@
 #include <libhyperion/codegen/ir/Common.h>
 #include <libhyperion/codegen/ir/IRVariable.h>
 #include <libhyperion/ast/AST.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 using namespace solidity;
 using namespace solidity::frontend;

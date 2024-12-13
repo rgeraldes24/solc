@@ -20,7 +20,7 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string/trim.hpp>
 

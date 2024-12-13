@@ -23,10 +23,10 @@
  */
 
 #include <functional>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 #include <libevmasm/CommonSubexpressionEliminator.h>
 #include <libevmasm/AssemblyItem.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <range/v3/view/reverse.hpp>
 

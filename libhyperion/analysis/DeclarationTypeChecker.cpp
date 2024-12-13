@@ -24,8 +24,8 @@
 
 #include <liblangutil/ErrorReporter.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/view/transform.hpp>
 

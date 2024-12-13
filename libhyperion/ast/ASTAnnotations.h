@@ -27,7 +27,7 @@
 #include <libhyperion/ast/ASTEnums.h>
 #include <libhyperion/ast/ExperimentalFeatures.h>
 
-#include <libsolutil/SetOnce.h>
+#include <libhyputil/SetOnce.h>
 
 #include <map>
 #include <memory>

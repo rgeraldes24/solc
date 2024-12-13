@@ -21,7 +21,7 @@
 #include <libhyperion/formal/EncodingContext.h>
 #include <libhyperion/formal/SymbolicTypes.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 using namespace solidity;
 using namespace solidity::util;

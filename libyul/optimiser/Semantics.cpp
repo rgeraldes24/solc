@@ -28,8 +28,8 @@
 
 #include <libevmasm/SemanticInformation.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Algorithms.h>
 
 #include <limits>
 

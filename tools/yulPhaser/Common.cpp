@@ -20,7 +20,7 @@
 
 #include <tools/yulPhaser/Exceptions.h>
 
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Assertions.h>
 
 #include <cerrno>
 #include <cstring>

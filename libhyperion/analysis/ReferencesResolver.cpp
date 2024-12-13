@@ -33,8 +33,8 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/CommonData.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>

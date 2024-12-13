@@ -22,7 +22,7 @@
 #include <libyul/optimiser/OptimizerUtilities.h>
 #include <libyul/AST.h>
 
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 using namespace solidity::yul;
 

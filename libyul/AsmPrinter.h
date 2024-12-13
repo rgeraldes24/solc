@@ -26,7 +26,7 @@
 #include <libyul/ASTForward.h>
 #include <libyul/YulString.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <liblangutil/CharStreamProvider.h>
 #include <liblangutil/DebugInfoSelection.h>

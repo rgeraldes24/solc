@@ -28,7 +28,7 @@
 #include <liblangutil/Token.h>
 #include <liblangutil/Scanner.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <regex>
 

@@ -23,8 +23,8 @@
 #include <libhyperion/codegen/MultiUseYulFunctionCollector.h>
 
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StringUtils.h>
 
 using namespace solidity;
 using namespace solidity::frontend;

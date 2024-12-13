@@ -24,8 +24,8 @@
 
 #pragma once
 
-#include <libsolutil/Common.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Assertions.h>
 #include <libevmasm/ExpressionClasses.h>
 
 #include <vector>

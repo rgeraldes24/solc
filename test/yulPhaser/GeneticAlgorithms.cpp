@@ -22,7 +22,7 @@
 #include <tools/yulPhaser/GeneticAlgorithms.h>
 #include <tools/yulPhaser/Population.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <boost/test/unit_test.hpp>
 

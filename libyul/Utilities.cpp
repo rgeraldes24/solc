@@ -24,8 +24,8 @@
 #include <libyul/AST.h>
 #include <libyul/Exceptions.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/FixedHash.h>
 
 #include <boost/algorithm/string.hpp>
 

@@ -23,7 +23,7 @@
 #include <test/Common.h>
 
 #include <libevmasm/Assembly.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 #include <libevmasm/Disassemble.h>
 #include <libyul/Exceptions.h>
 

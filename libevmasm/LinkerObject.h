@@ -22,8 +22,8 @@
 
 #pragma once
 
-#include <libsolutil/Common.h>
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/FixedHash.h>
 
 namespace solidity::evmasm
 {

@@ -19,9 +19,9 @@
 #include <test/libhyperion/util/ContractABIUtils.h>
 
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/JSON.h>
 
 #include <json/json.h>
 

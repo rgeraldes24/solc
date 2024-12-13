@@ -28,7 +28,7 @@
 
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/FixedHash.h>
 
 #include <boost/filesystem.hpp>
 

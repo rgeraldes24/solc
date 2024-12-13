@@ -25,9 +25,9 @@
 #include <libevmasm/Instruction.h>
 #include <libevmasm/Exceptions.h>
 #include <liblangutil/SourceLocation.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/Numeric.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Numeric.h>
+#include <libhyputil/Assertions.h>
 #include <optional>
 #include <iostream>
 #include <sstream>

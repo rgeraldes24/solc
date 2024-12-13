@@ -25,8 +25,8 @@
 
 #include <libevmasm/Instruction.h>
 
-#include <libsolutil/Visitor.h>
-#include <libsolutil/cxx20.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/cxx20.h>
 
 #include <range/v3/view/drop.hpp>
 #include <range/v3/view/enumerate.hpp>

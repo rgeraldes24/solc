@@ -25,9 +25,9 @@
 
 #include <libyul/ASTForward.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Numeric.h>
 #include <liblangutil/EVMVersion.h>
 
 #include <functional>

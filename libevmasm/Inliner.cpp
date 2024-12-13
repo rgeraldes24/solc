@@ -27,7 +27,7 @@
 #include <libevmasm/KnownState.h>
 #include <libevmasm/SemanticInformation.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/numeric/accumulate.hpp>
 #include <range/v3/view/drop_last.hpp>

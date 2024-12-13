@@ -22,7 +22,7 @@
 #include <test/TestCase.h>
 #include <test/CommonSyntaxTest.h>
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <iosfwd>
 #include <string>

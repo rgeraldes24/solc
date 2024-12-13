@@ -18,8 +18,8 @@
 
 #include <test/tools/ossfuzz/SolidityGenerator.h>
 
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/Visitor.h>
 
 using namespace solidity::test::fuzzer::mutator;
 using namespace solidity::util;

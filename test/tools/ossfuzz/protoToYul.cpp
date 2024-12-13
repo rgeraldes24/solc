@@ -21,7 +21,7 @@
 
 #include <libyul/Exceptions.h>
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/algorithm/all_of.hpp>
 

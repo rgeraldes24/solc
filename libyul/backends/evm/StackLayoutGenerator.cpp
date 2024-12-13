@@ -25,9 +25,9 @@
 
 #include <libevmasm/GasMeter.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/cxx20.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/cxx20.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/algorithm/any_of.hpp>
 #include <range/v3/algorithm/find.hpp>

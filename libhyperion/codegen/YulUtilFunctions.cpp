@@ -25,10 +25,10 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/codegen/CompilerUtils.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StringUtils.h>
 #include <libhyperion/ast/TypeProvider.h>
 
 using namespace solidity;

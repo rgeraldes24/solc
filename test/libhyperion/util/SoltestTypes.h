@@ -14,8 +14,8 @@
 
 #pragma once
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/CommonData.h>
 
 #include <test/ExecutionFramework.h>
 

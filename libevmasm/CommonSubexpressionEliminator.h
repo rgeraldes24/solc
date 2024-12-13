@@ -30,8 +30,8 @@
 #include <tuple>
 #include <unordered_map>
 #include <vector>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Exceptions.h>
 #include <libevmasm/ExpressionClasses.h>
 #include <libevmasm/SemanticInformation.h>
 #include <libevmasm/KnownState.h>

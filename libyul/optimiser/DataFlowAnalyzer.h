@@ -29,8 +29,8 @@
 #include <libyul/AST.h> // Needed for m_zero below.
 #include <libyul/SideEffects.h>
 
-#include <libsolutil/Numeric.h>
-#include <libsolutil/Common.h>
+#include <libhyputil/Numeric.h>
+#include <libhyputil/Common.h>
 
 #include <map>
 #include <set>

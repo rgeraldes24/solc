@@ -14,7 +14,7 @@
 
 #include <test/libhyperion/SemanticTest.h>
 
-#include <libsolutil/Whiskers.h>
+#include <libhyputil/Whiskers.h>
 #include <libyul/Exceptions.h>
 #include <test/Common.h>
 #include <test/libhyperion/util/BytesUtils.h>

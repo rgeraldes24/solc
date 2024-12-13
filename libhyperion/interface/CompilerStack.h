@@ -44,9 +44,9 @@
 #include <libevmasm/AbstractAssemblyStack.h>
 #include <libevmasm/LinkerObject.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/FixedHash.h>
-#include <libsolutil/LazyInit.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/FixedHash.h>
+#include <libhyputil/LazyInit.h>
 
 #include <json/json.h>
 

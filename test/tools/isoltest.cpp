@@ -16,8 +16,8 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <memory>
 #include <test/Common.h>

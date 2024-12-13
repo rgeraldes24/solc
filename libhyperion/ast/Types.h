@@ -28,11 +28,11 @@
 #include <libhyperion/parsing/Token.h>
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/Numeric.h>
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/LazyInit.h>
-#include <libsolutil/Result.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Numeric.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/LazyInit.h>
+#include <libhyputil/Result.h>
 
 #include <boost/rational.hpp>
 

@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 #include <liblangutil/EVMVersion.h>
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Numeric.h>
 
 #include <test/evmc/evmc.h>
 

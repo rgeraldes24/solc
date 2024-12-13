@@ -31,9 +31,9 @@
 
 #include <liblangutil/SourceLocation.h>
 #include <libevmasm/Instruction.h>
-#include <libsolutil/FixedHash.h>
-#include <libsolutil/LazyInit.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/FixedHash.h>
+#include <libhyputil/LazyInit.h>
+#include <libhyputil/Visitor.h>
 
 #include <json/json.h>
 

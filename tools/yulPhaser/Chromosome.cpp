@@ -21,7 +21,7 @@
 #include <tools/yulPhaser/SimulationRNG.h>
 
 #include <libyul/optimiser/Suite.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <sstream>
 

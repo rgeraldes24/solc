@@ -29,7 +29,7 @@
 #include <libhyperion/interface/DebugSettings.h>
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/SourceLocation.h>
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <functional>
 #include <memory>

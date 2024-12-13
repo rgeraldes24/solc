@@ -41,11 +41,11 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/Visitor.h>
 
 #include <range/v3/view/transform.hpp>
 

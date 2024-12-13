@@ -27,7 +27,7 @@
 #include <liblangutil/CharStreamProvider.h>
 #include <liblangutil/DebugInfoSelection.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <memory>
 #include <set>

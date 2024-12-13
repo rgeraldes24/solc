@@ -23,8 +23,8 @@
 #pragma once
 
 #include <libevmasm/Exceptions.h>
-#include <libsolutil/Common.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Assertions.h>
 #include <liblangutil/EVMVersion.h>
 
 namespace solidity::evmasm

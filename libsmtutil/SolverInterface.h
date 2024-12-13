@@ -21,9 +21,9 @@
 #include <libsmtutil/Exceptions.h>
 #include <libsmtutil/Sorts.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/Numeric.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Numeric.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/algorithm/all_of.hpp>
 #include <range/v3/view.hpp>

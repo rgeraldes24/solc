@@ -36,7 +36,7 @@
 #include <libyul/optimiser/StructuralSimplifier.h>
 #include <libyul/optimiser/UnusedPruner.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <boost/test/unit_test.hpp>
 

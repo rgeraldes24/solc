@@ -2,11 +2,11 @@
 
 #include <test/tools/ossfuzz/abiV2Proto.pb.h>
 
-#include <libsolutil/FixedHash.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/StringUtils.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/Numeric.h>
+#include <libhyputil/FixedHash.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/StringUtils.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/Numeric.h>
 
 #include <liblangutil/Exceptions.h>
 

@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 #include <libevmasm/Assembly.h>
 #include <libevmasm/AssemblyItem.h>
 #include <liblangutil/EVMVersion.h>

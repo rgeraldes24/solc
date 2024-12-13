@@ -22,7 +22,7 @@
 
 #include <libhyperion/ast/ASTForward.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <optional>
 #include <vector>

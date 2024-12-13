@@ -24,7 +24,7 @@
 
 #include <libyul/YulStack.h>
 
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 
 #include <evmone/evmone.h>
 

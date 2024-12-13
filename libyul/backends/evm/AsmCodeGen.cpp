@@ -26,7 +26,7 @@
 #include <libyul/AST.h>
 #include <libyul/AsmAnalysisInfo.h>
 
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/StackTooDeepString.h>
 
 using namespace solidity;
 using namespace solidity::yul;

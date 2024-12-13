@@ -35,9 +35,9 @@
 
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libsolutil/JSON.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/CommonData.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 

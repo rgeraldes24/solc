@@ -28,7 +28,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/SemVerHandler.h>
 
-#include <libsolutil/UTF8.h>
+#include <libhyputil/UTF8.h>
 
 #include <string>
 

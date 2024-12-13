@@ -27,7 +27,7 @@
 #include <libyul/Exceptions.h>
 #include <libyul/Scope.h>
 
-#include <libsolutil/Numeric.h>
+#include <libhyputil/Numeric.h>
 
 #include <functional>
 #include <list>

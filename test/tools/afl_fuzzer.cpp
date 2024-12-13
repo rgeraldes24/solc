@@ -21,7 +21,7 @@
 
 #include <test/tools/fuzzer_common.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <boost/program_options.hpp>
 

@@ -2,7 +2,7 @@
 
 #include <test/tools/ossfuzz/yulProto.pb.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <src/libfuzzer/libfuzzer_macro.h>
 

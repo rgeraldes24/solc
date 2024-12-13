@@ -18,7 +18,7 @@
 
 #include <libsmtutil/Z3CHCInterface.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <set>
 #include <stack>

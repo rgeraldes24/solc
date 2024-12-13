@@ -21,7 +21,7 @@
 #include <libyul/Utilities.h>
 #include <libyul/optimiser/NameCollector.h>
 #include <libyul/ControlFlowSideEffectsCollector.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 using namespace solidity;
 using namespace solidity::yul;

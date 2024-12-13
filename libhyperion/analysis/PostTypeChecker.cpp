@@ -22,8 +22,8 @@
 #include <libhyperion/interface/Version.h>
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/SemVerHandler.h>
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/FunctionSelector.h>
 #include <libyul/optimiser/ASTWalker.h>
 #include <libyul/AST.h>
 

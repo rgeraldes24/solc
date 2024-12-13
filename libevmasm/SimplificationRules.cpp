@@ -27,7 +27,7 @@
 #include <libevmasm/ExpressionClasses.h>
 #include <libevmasm/Assembly.h>
 #include <libevmasm/RuleList.h>
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Assertions.h>
 
 #include <utility>
 #include <functional>

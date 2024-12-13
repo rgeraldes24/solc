@@ -18,7 +18,7 @@
 #include <libyul/optimiser/SSAReverser.h>
 #include <libyul/optimiser/Metrics.h>
 #include <libyul/AST.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <variant>
 

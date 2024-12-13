@@ -29,11 +29,11 @@
 #include <libyul/AST.h>
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libsolutil/JSON.h>
-#include <libsolutil/UTF8.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/Visitor.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/UTF8.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/Keccak256.h>
 
 #include <boost/algorithm/string/join.hpp>
 

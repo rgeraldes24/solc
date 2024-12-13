@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 
 #include <test/libhyperion/util/TestFileParser.h>
 

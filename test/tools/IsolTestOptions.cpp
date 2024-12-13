@@ -21,7 +21,7 @@
 
 #include <test/tools/IsolTestOptions.h>
 
-#include <libsolutil/Assertions.h>
+#include <libhyputil/Assertions.h>
 
 #include <boost/filesystem.hpp>
 

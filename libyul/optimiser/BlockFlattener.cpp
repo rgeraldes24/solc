@@ -19,7 +19,7 @@
 #include <libyul/optimiser/BlockFlattener.h>
 #include <libyul/AST.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <functional>
 

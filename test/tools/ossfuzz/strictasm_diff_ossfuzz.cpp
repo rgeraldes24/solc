@@ -26,9 +26,9 @@
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/CommonData.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/StringUtils.h>
 
 #include <test/tools/ossfuzz/yulFuzzerCommon.h>
 

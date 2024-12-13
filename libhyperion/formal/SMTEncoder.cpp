@@ -32,8 +32,8 @@
 
 #include <liblangutil/CharStreamProvider.h>
 
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/FunctionSelector.h>
 
 #include <range/v3/view.hpp>
 

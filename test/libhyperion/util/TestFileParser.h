@@ -15,7 +15,7 @@
 #pragma once
 
 #include <liblangutil/Exceptions.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 #include <test/libhyperion/util/SoltestTypes.h>
 
 #include <iosfwd>

@@ -22,8 +22,8 @@
 
 #include <string>
 #include <iostream>
-#include <libsolutil/Assertions.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/CommonData.h>
 #include <test/Metadata.h>
 
 using namespace std;

@@ -26,10 +26,10 @@
 
 #include <libevmasm/GasMeter.h>
 
-#include <libsolutil/Exceptions.h>
-#include <libsolutil/Assertions.h>
-#include <libsolutil/Keccak256.h>
-#include <libsolutil/picosha2.h>
+#include <libhyputil/Exceptions.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/Keccak256.h>
+#include <libhyputil/picosha2.h>
 
 using namespace std;
 using namespace solidity;

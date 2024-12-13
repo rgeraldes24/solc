@@ -22,7 +22,7 @@
 #include <libyul/AST.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 #include <stack>
 
 using namespace solidity;

@@ -25,8 +25,8 @@
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/Utilities.h>
 
-#include <libsolutil/Visitor.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/Visitor.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <liblangutil/Exceptions.h>
 

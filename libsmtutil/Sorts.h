@@ -20,7 +20,7 @@
 
 #include <libsmtutil/Exceptions.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <memory>
 #include <vector>

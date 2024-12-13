@@ -28,10 +28,10 @@
 #include <libhyperion/codegen/ABIFunctions.h>
 #include <libhyperion/codegen/ArrayUtils.h>
 #include <libhyperion/codegen/LValue.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/FunctionSelector.h>
 #include <libevmasm/Instruction.h>
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StackTooDeepString.h>
 
 using namespace solidity;
 using namespace solidity::evmasm;

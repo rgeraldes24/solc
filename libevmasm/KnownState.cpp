@@ -24,7 +24,7 @@
 
 #include <libevmasm/KnownState.h>
 #include <libevmasm/AssemblyItem.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Keccak256.h>
 
 #include <functional>
 

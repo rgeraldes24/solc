@@ -32,7 +32,7 @@
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/Common.h>
+#include <libhyputil/Common.h>
 
 #include <set>
 #include <string>

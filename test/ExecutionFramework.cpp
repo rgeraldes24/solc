@@ -29,7 +29,7 @@
 
 #include <test/libhyperion/util/SoltestTypes.h>
 
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 
 #include <liblangutil/Exceptions.h>
 

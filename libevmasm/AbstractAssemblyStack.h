@@ -20,8 +20,8 @@
 
 #include <libevmasm/LinkerObject.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/JSON.h>
 
 #include <string>
 #include <vector>

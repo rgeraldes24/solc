@@ -41,9 +41,9 @@
 #include <libyul/YulString.h>
 #include <libyul/Utilities.h>
 
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/FunctionSelector.h>
-#include <libsolutil/StackTooDeepString.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/FunctionSelector.h>
+#include <libhyputil/StackTooDeepString.h>
 
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/Scanner.h>

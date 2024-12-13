@@ -31,8 +31,8 @@
 #include <libyul/Exceptions.h>
 #include <libyul/Utilities.h>
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/cxx20.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/cxx20.h>
 
 #include <variant>
 

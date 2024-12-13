@@ -29,7 +29,7 @@
 #include <liblangutil/Exceptions.h>
 
 #include <json/json.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <algorithm>
 #include <optional>

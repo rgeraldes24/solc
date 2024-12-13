@@ -26,7 +26,7 @@
 #include <libhyperion/ast/TypeProvider.h>
 #include <libhyperion/analysis/TypeChecker.h>
 #include <liblangutil/ErrorReporter.h>
-#include <libsolutil/Visitor.h>
+#include <libhyputil/Visitor.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 

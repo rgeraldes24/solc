@@ -27,9 +27,9 @@
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/EVMVersion.h>
 
-#include <libsolutil/Common.h>
-#include <libsolutil/Assertions.h>
-#include <libsolutil/Keccak256.h>
+#include <libhyputil/Common.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/Keccak256.h>
 
 #include <libhyperion/interface/OptimiserSettings.h>
 

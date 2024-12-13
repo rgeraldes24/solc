@@ -19,7 +19,7 @@
 #include <libhyperion/analysis/ControlFlowAnalyzer.h>
 
 #include <liblangutil/SourceLocation.h>
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 
 #include <range/v3/algorithm/sort.hpp>
 

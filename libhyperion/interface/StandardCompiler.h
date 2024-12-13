@@ -24,7 +24,7 @@
 #pragma once
 
 #include <libhyperion/interface/CompilerStack.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 

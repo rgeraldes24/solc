@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 #include <libhyperion/interface/ImportRemapper.h>
-#include <libsolutil/CommonIO.h>
+#include <libhyputil/CommonIO.h>
 #include <liblangutil/Exceptions.h>
 
 namespace solidity::frontend

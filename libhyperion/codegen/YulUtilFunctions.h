@@ -28,7 +28,7 @@
 
 #include <libhyperion/interface/DebugSettings.h>
 
-#include <libsolutil/ErrorCodes.h>
+#include <libhyputil/ErrorCodes.h>
 
 #include <memory>
 #include <string>

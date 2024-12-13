@@ -19,8 +19,8 @@
 #include <test/Common.h>
 #include <test/TestCase.h>
 
-#include <libsolutil/AnsiColorized.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/AnsiColorized.h>
+#include <libhyputil/StringUtils.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 

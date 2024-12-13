@@ -23,8 +23,8 @@
 
 #include <liblangutil/CharStream.h>
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/TemporaryDirectory.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/TemporaryDirectory.h>
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>

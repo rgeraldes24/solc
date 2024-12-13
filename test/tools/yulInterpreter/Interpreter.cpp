@@ -30,7 +30,7 @@
 
 #include <liblangutil/Exceptions.h>
 
-#include <libsolutil/FixedHash.h>
+#include <libhyputil/FixedHash.h>
 
 #include <range/v3/view/reverse.hpp>
 

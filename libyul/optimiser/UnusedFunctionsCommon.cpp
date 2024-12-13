@@ -20,7 +20,7 @@
 
 #include <libyul/Dialect.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 using namespace solidity;
 using namespace solidity::util;

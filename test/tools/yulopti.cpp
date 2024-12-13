@@ -19,9 +19,9 @@
  * Interactive yul optimizer
  */
 
-#include <libsolutil/CommonIO.h>
-#include <libsolutil/Exceptions.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/CommonIO.h>
+#include <libhyputil/Exceptions.h>
+#include <libhyputil/StringUtils.h>
 #include <liblangutil/ErrorReporter.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
@@ -40,7 +40,7 @@
 
 #include <libyul/backends/evm/EVMDialect.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 
 #include <libhyperion/interface/OptimiserSettings.h>
 #include <liblangutil/CharStreamProvider.h>

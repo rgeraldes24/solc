@@ -30,7 +30,7 @@
 #include <liblangutil/ErrorReporter.h>
 #include <liblangutil/SourceReferenceFormatter.h>
 
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <boost/test/unit_test.hpp>
 #include <boost/algorithm/string.hpp>

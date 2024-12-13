@@ -18,7 +18,7 @@
 
 #include <libevmasm/EVMAssemblyStack.h>
 
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 #include <liblangutil/Exceptions.h>
 #include <libhyperion/codegen/CompilerContext.h>
 

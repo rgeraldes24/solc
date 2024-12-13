@@ -20,7 +20,7 @@
 
 #include <test/libyul/Common.h>
 #include <libhyperion/codegen/ir/Common.h>
-#include <libsolutil/Algorithms.h>
+#include <libhyputil/Algorithms.h>
 #include <libyul/Object.h>
 #include <libyul/backends/evm/EVMDialect.h>
 #include <libyul/optimiser/FunctionCallFinder.h>

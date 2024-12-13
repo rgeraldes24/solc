@@ -29,8 +29,8 @@
 #include <libyul/Exceptions.h>
 #include <libyul/Object.h>
 #include <libyul/Utilities.h>
-#include <libsolutil/Algorithms.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/Algorithms.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/concat.hpp>

@@ -20,8 +20,8 @@
  * Metadata processing helpers.
  */
 
-#include <libsolutil/CommonData.h>
-#include <libsolutil/JSON.h>
+#include <libhyputil/CommonData.h>
+#include <libhyputil/JSON.h>
 
 #include <map>
 #include <optional>

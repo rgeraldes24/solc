@@ -21,7 +21,7 @@
 
 #include <libyul/AST.h>
 
-#include <libsolutil/CommonData.h>
+#include <libhyputil/CommonData.h>
 
 #include <range/v3/algorithm/none_of.hpp>
 #include <range/v3/view/filter.hpp>

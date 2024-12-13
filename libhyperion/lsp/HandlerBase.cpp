@@ -15,7 +15,7 @@
 	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <libhyperion/lsp/HandlerBase.h>
 #include <libhyperion/lsp/LanguageServer.h>

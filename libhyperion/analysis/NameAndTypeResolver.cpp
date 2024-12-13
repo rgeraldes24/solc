@@ -26,7 +26,7 @@
 #include <libhyperion/analysis/TypeChecker.h>
 #include <libhyperion/ast/AST.h>
 #include <liblangutil/ErrorReporter.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/StringUtils.h>
 #include <boost/algorithm/string.hpp>
 #include <unordered_set>
 

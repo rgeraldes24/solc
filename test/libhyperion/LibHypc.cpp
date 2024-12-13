@@ -22,7 +22,7 @@
 
 #include <string>
 #include <boost/test/unit_test.hpp>
-#include <libsolutil/JSON.h>
+#include <libhyputil/JSON.h>
 #include <libhyperion/interface/ReadFile.h>
 #include <libhyperion/interface/Version.h>
 #include <libhypc/libhypc.h>

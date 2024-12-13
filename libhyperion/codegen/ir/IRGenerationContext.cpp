@@ -27,8 +27,8 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/TypeProvider.h>
 
-#include <libsolutil/Whiskers.h>
-#include <libsolutil/StringUtils.h>
+#include <libhyputil/Whiskers.h>
+#include <libhyputil/StringUtils.h>
 
 #include <range/v3/view/map.hpp>
 #include <range/v3/algorithm/find.hpp>

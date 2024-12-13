@@ -25,8 +25,8 @@
 #include <libhyperion/interface/OptimiserSettings.h>
 #include <libhyperion/interface/StandardCompiler.h>
 #include <libhyperion/interface/Version.h>
-#include <libsolutil/JSON.h>
-#include <libsolutil/CommonData.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/CommonData.h>
 #include <test/Metadata.h>
 
 #include <algorithm>

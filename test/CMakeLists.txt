@@ -27,25 +27,25 @@ set(contracts_sources
 )
 detect_stray_source_files("${contracts_sources}" "contracts/")
 
-set(libsolutil_sources
-    libsolutil/Checksum.cpp
-    libsolutil/CommonData.cpp
-    libsolutil/CommonIO.cpp
-    libsolutil/FixedHash.cpp
-    libsolutil/FunctionSelector.cpp
-    libsolutil/IpfsHash.cpp
-    libsolutil/IterateReplacing.cpp
-    libsolutil/JSON.cpp
-    libsolutil/Keccak256.cpp
-    libsolutil/LazyInit.cpp
-    libsolutil/LEB128.cpp
-    libsolutil/StringUtils.cpp
-    libsolutil/SwarmHash.cpp
-    libsolutil/TemporaryDirectoryTest.cpp
-    libsolutil/UTF8.cpp
-    libsolutil/Whiskers.cpp
+set(libhyputil_sources
+    libhyputil/Checksum.cpp
+    libhyputil/CommonData.cpp
+    libhyputil/CommonIO.cpp
+    libhyputil/FixedHash.cpp
+    libhyputil/FunctionSelector.cpp
+    libhyputil/IpfsHash.cpp
+    libhyputil/IterateReplacing.cpp
+    libhyputil/JSON.cpp
+    libhyputil/Keccak256.cpp
+    libhyputil/LazyInit.cpp
+    libhyputil/LEB128.cpp
+    libhyputil/StringUtils.cpp
+    libhyputil/SwarmHash.cpp
+    libhyputil/TemporaryDirectoryTest.cpp
+    libhyputil/UTF8.cpp
+    libhyputil/Whiskers.cpp
 )
-detect_stray_source_files("${libsolutil_sources}" "libsolutil/")
+detect_stray_source_files("${libhyputil_sources}" "libhyputil/")
 
 set(libevmasm_sources
     libevmasm/Assembler.cpp
@@ -194,7 +194,7 @@ detect_stray_source_files("${yul_phaser_sources}" "yulPhaser/")
 
 add_executable(soltest ${sources}
     ${contracts_sources}
-    ${libsolutil_sources}
+    ${libhyputil_sources}
     ${liblangutil_sources}
     ${libevmasm_sources}
     ${libyul_sources}

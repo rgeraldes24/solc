@@ -25,7 +25,7 @@
 #include <libhyperion/ast/AST.h>
 #include <libhyperion/ast/TypeProvider.h>
 #include <libhyperion/analysis/TypeChecker.h>
-#include <libsolutil/FunctionSelector.h>
+#include <libhyputil/FunctionSelector.h>
 #include <liblangutil/ErrorReporter.h>
 
 #include <fmt/format.h>

@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <libsolutil/Assertions.h>
-#include <libsolutil/Exceptions.h>
+#include <libhyputil/Assertions.h>
+#include <libhyputil/Exceptions.h>
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/empty.hpp>

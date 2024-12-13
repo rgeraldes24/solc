@@ -23,8 +23,8 @@
 #include <test/Common.h>
 
 #include <libhyperion/interface/CompilerStack.h>
-#include <libsolutil/JSON.h>
-#include <libsolutil/AnsiColorized.h>
+#include <libhyputil/JSON.h>
+#include <libhyputil/AnsiColorized.h>
 
 #include <fstream>
 
