@@ -45,7 +45,7 @@ static std::string const g_strBasePath = "base-path";
 static std::string const g_strIncludePath = "include-path";
 static std::string const g_strAssemble = "assemble";
 static std::string const g_strCombinedJson = "combined-json";
-static std::string const g_strZVM = "evm";
+static std::string const g_strZVM = "zvm";
 static std::string const g_strZVMVersion = "zvm-version";
 static std::string const g_strViaIR = "via-ir";
 static std::string const g_strExperimentalViaIR = "experimental-via-ir";
@@ -471,7 +471,7 @@ void CommandLineParser::parseOutputSelection()
 			CompilerOutputs::componentName(&CompilerOutputs::irOptimized),
 			CompilerOutputs::componentName(&CompilerOutputs::astCompactJson),
 		};
-		static std::set<std::string> const evmAssemblyJsonImportModeOutputs = {
+		static std::set<std::string> const zvmAssemblyJsonImportModeOutputs = {
 			CompilerOutputs::componentName(&CompilerOutputs::asm_),
 			CompilerOutputs::componentName(&CompilerOutputs::binary),
 			CompilerOutputs::componentName(&CompilerOutputs::binaryRuntime),
@@ -489,7 +489,7 @@ void CommandLineParser::parseOutputSelection()
 		case InputMode::CompilerWithASTImport:
 			return util::contains(compilerModeOutputs, _outputName);
 		case InputMode::ZVMAssemblerJSON:
-			return util::contains(evmAssemblyJsonImportModeOutputs, _outputName);
+			return util::contains(zvmAssemblyJsonImportModeOutputs, _outputName);
 		case InputMode::Assembler:
 			return util::contains(assemblerModeOutputs, _outputName);
 		case InputMode::StandardJson:

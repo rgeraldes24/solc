@@ -19,7 +19,7 @@
 
 #include <liblangutil/Scanner.h>
 #include <libhyputil/AnsiColorized.h>
-#include <libyul/backends/evm/StackHelpers.h>
+#include <libyul/backends/zvm/StackHelpers.h>
 
 using namespace hyperion::util;
 using namespace hyperion::langutil;

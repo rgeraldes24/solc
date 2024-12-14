@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/ZVMCodeTransform.h>
+#include <libyul/backends/zvm/ZVMCodeTransform.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ZVMVersion.h>

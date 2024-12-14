@@ -17,7 +17,7 @@
 #include <libyul/optimiser/StackToMemoryMover.h>
 #include <libyul/optimiser/NameCollector.h>
 #include <libyul/optimiser/NameDispenser.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libyul/AST.h>
 
@@ -107,9 +107,9 @@ m_memoryOffsetTracker(_memoryOffsetTracker),
 m_nameDispenser(_context.dispenser),
 m_functionReturnVariables(std::move(_functionReturnVariables))
 {
-	auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
+	auto const* zvmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	yulAssert(
-		evmDialect && evmDialect->providesObjectAccess(),
+		zvmDialect && zvmDialect->providesObjectAccess(),
 		"StackToMemoryMover can only be run on objects using the ZVMDialect with object access."
 	);
 }

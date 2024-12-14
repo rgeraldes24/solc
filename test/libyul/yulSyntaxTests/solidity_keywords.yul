@@ -105,5 +105,5 @@
   let var := 1
 }
 // ====
-// dialect: evm
+// dialect: zvm
 // ----

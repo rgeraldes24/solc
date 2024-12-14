@@ -34,7 +34,7 @@
 		},
 		"outputSelection": {
 			"*": {
-				"C": ["evm.bytecode.object", "evm.bytecode.linkReferences"]
+				"C": ["zvm.bytecode.object", "zvm.bytecode.linkReferences"]
 			}
 		}
 	}

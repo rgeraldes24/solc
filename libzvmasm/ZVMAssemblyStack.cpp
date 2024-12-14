@@ -36,28 +36,28 @@ namespace hyperion::zvmasm
 
 void ZVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::string const& _source)
 {
-	solAssert(!m_evmAssembly);
+	solAssert(!m_zvmAssembly);
 	m_name = _sourceName;
 	Json::Value assemblyJson;
 	solRequire(jsonParseStrict(_source, assemblyJson), AssemblyImportException, "Could not parse JSON file.");
-	std::tie(m_evmAssembly, m_sourceList) = zvmasm::Assembly::fromJSON(assemblyJson);
-	solRequire(m_evmAssembly != nullptr, AssemblyImportException, "Could not create evm assembly object.");
+	std::tie(m_zvmAssembly, m_sourceList) = zvmasm::Assembly::fromJSON(assemblyJson);
+	solRequire(m_zvmAssembly != nullptr, AssemblyImportException, "Could not create zvm assembly object.");
 }
 
 void ZVMAssemblyStack::assemble()
 {
-	solAssert(m_evmAssembly);
-	solAssert(m_evmAssembly->isCreation());
-	solAssert(!m_evmRuntimeAssembly);
+	solAssert(m_zvmAssembly);
+	solAssert(m_zvmAssembly->isCreation());
+	solAssert(!m_zvmRuntimeAssembly);
 
-	m_object = m_evmAssembly->assemble();
-	m_sourceMapping = AssemblyItem::computeSourceMapping(m_evmAssembly->items(), sourceIndices());
-	if (m_evmAssembly->numSubs() > 0)
+	m_object = m_zvmAssembly->assemble();
+	m_sourceMapping = AssemblyItem::computeSourceMapping(m_zvmAssembly->items(), sourceIndices());
+	if (m_zvmAssembly->numSubs() > 0)
 	{
-		m_evmRuntimeAssembly = std::make_shared<zvmasm::Assembly>(m_evmAssembly->sub(0));
-		solAssert(m_evmRuntimeAssembly && !m_evmRuntimeAssembly->isCreation());
-		m_runtimeSourceMapping = AssemblyItem::computeSourceMapping(m_evmRuntimeAssembly->items(), sourceIndices());
-		m_runtimeObject = m_evmRuntimeAssembly->assemble();
+		m_zvmRuntimeAssembly = std::make_shared<zvmasm::Assembly>(m_zvmAssembly->sub(0));
+		solAssert(m_zvmRuntimeAssembly && !m_zvmRuntimeAssembly->isCreation());
+		m_runtimeSourceMapping = AssemblyItem::computeSourceMapping(m_zvmRuntimeAssembly->items(), sourceIndices());
+		m_runtimeObject = m_zvmRuntimeAssembly->assemble();
 	}
 }
 
@@ -75,7 +75,7 @@ LinkerObject const& ZVMAssemblyStack::runtimeObject(std::string const& _contract
 
 std::map<std::string, unsigned> ZVMAssemblyStack::sourceIndices() const
 {
-	solAssert(m_evmAssembly);
+	solAssert(m_zvmAssembly);
 	return m_sourceList
 		| ranges::views::enumerate
 		| ranges::views::transform([](auto const& _source) { return std::make_pair(_source.second, _source.first); })
@@ -97,15 +97,15 @@ std::string const* ZVMAssemblyStack::runtimeSourceMapping(std::string const& _co
 Json::Value ZVMAssemblyStack::assemblyJSON(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
-	solAssert(m_evmAssembly);
-	return m_evmAssembly->assemblyJSON(sourceIndices());
+	solAssert(m_zvmAssembly);
+	return m_zvmAssembly->assemblyJSON(sourceIndices());
 }
 
 std::string ZVMAssemblyStack::assemblyString(std::string const& _contractName, StringMap const& _sourceCodes) const
 {
 	solAssert(_contractName == m_name);
-	solAssert(m_evmAssembly);
-	return m_evmAssembly->assemblyString(m_debugInfoSelection, _sourceCodes);
+	solAssert(m_zvmAssembly);
+	return m_zvmAssembly->assemblyString(m_debugInfoSelection, _sourceCodes);
 }
 
 std::string const ZVMAssemblyStack::filesystemFriendlyName(std::string const& _contractName) const

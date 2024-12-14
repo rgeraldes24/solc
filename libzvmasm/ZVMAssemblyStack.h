@@ -47,8 +47,8 @@ public:
 	virtual LinkerObject const& object(std::string const& _contractName) const override;
 	virtual LinkerObject const& runtimeObject(std::string const& _contractName) const override;
 
-	std::shared_ptr<zvmasm::Assembly> const& evmAssembly() const { return m_evmAssembly; }
-	std::shared_ptr<zvmasm::Assembly> const& evmRuntimeAssembly() const { return m_evmRuntimeAssembly; }
+	std::shared_ptr<zvmasm::Assembly> const& zvmAssembly() const { return m_zvmAssembly; }
+	std::shared_ptr<zvmasm::Assembly> const& zvmRuntimeAssembly() const { return m_zvmRuntimeAssembly; }
 
 	virtual std::string const* sourceMapping(std::string const& _contractName) const override;
 	virtual std::string const* runtimeSourceMapping(std::string const& _contractName) const override;
@@ -62,7 +62,7 @@ public:
 	virtual std::vector<std::string> sourceNames() const override;
 	std::map<std::string, unsigned> sourceIndices() const;
 
-	virtual bool compilationSuccessful() const override { return m_evmAssembly != nullptr; }
+	virtual bool compilationSuccessful() const override { return m_zvmAssembly != nullptr; }
 
 	void selectDebugInfo(langutil::DebugInfoSelection _debugInfoSelection)
 	{
@@ -72,8 +72,8 @@ public:
 private:
 	langutil::ZVMVersion m_zvmVersion;
 	std::string m_name;
-	std::shared_ptr<zvmasm::Assembly> m_evmAssembly;
-	std::shared_ptr<zvmasm::Assembly> m_evmRuntimeAssembly;
+	std::shared_ptr<zvmasm::Assembly> m_zvmAssembly;
+	std::shared_ptr<zvmasm::Assembly> m_zvmRuntimeAssembly;
 	zvmasm::LinkerObject m_object; ///< Deployment object (includes the runtime sub-object).
 	zvmasm::LinkerObject m_runtimeObject; ///< Runtime object.
 	std::vector<std::string> m_sourceList;

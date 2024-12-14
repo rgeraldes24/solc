@@ -27,7 +27,7 @@
 
 #include <libyul/AsmJsonConverter.h>
 #include <libyul/AST.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libhyputil/JSON.h>
 #include <libhyputil/UTF8.h>

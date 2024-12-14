@@ -20,7 +20,7 @@
 
 #include <test/TestCase.h>
 
-#include <libyul/backends/evm/ControlFlowGraph.h>
+#include <libyul/backends/zvm/ControlFlowGraph.h>
 
 using namespace hyperion::frontend::test;
 

@@ -270,12 +270,12 @@ BOOST_AUTO_TEST_CASE(via_ir_options)
 BOOST_AUTO_TEST_CASE(assembly_mode_options)
 {
 	static vector<tuple<vector<string>, YulStack::Machine, YulStack::Language>> const allowedCombinations = {
-		{{"--machine=evm", "--yul-dialect=evm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--yul-dialect=evm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--yul-dialect=evm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::Assembly},
-		{{"--machine=evm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::Yul},
-		{{"--machine=evm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=zvm", "--yul-dialect=zvm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=zvm", "--yul-dialect=zvm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=zvm", "--yul-dialect=zvm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=zvm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::Assembly},
+		{{"--machine=zvm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::Yul},
+		{{"--machine=zvm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
 		{{"--assemble"}, YulStack::Machine::ZVM, YulStack::Language::Assembly},
 		{{"--yul"}, YulStack::Machine::ZVM, YulStack::Language::Yul},
 		{{"--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},

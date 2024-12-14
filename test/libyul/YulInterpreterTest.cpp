@@ -22,7 +22,7 @@
 
 #include <test/Common.h>
 
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/YulStack.h>
 #include <libyul/AsmAnalysisInfo.h>
 

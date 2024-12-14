@@ -46,12 +46,12 @@ function gnosis_safe_test
     local settings_presets=(
         "${compile_only_presets[@]}"
         #ir-no-optimize            # Compilation fails with "YulException: Variable var_txHash is 1 too deep in the stack". No memoryguard was present.
-        #ir-optimize-evm-only      # Compilation fails with "YulException: Variable var_txHash is 1 too deep in the stack". No memoryguard was present.
+        #ir-optimize-zvm-only      # Compilation fails with "YulException: Variable var_txHash is 1 too deep in the stack". No memoryguard was present.
         # TODO: Uncomment the preset below when the issue: https://github.com/safe-global/safe-contracts/issues/544 is solved.
-        #ir-optimize-evm+yul       # Compilation fails with "YulException: Cannot swap Variable var_operation with Variable _1: too deep in the stack by 4 slots."
+        #ir-optimize-zvm+yul       # Compilation fails with "YulException: Cannot swap Variable var_operation with Variable _1: too deep in the stack by 4 slots."
         legacy-no-optimize
-        legacy-optimize-evm-only
-        legacy-optimize-evm+yul
+        legacy-optimize-zvm-only
+        legacy-optimize-zvm+yul
     )
 
     [[ $SELECTED_PRESETS != "" ]] || SELECTED_PRESETS=$(circleci_select_steps_multiarg "${settings_presets[@]}")

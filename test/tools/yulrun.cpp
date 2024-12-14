@@ -25,7 +25,7 @@
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/Dialect.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/YulStack.h>
 
 #include <liblangutil/DebugInfoSelection.h>

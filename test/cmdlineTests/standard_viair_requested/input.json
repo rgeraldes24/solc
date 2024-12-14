@@ -14,7 +14,7 @@
 		},
 		"outputSelection":
 		{
-			"*": { "*": ["ir", "evm.bytecode.object", "evm.bytecode.generatedSources", "evm.deployedBytecode.object"] }
+			"*": { "*": ["ir", "zvm.bytecode.object", "zvm.bytecode.generatedSources", "zvm.deployedBytecode.object"] }
 		},
 		"viaIR": true
 	}

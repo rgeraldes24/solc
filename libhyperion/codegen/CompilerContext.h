@@ -39,7 +39,7 @@
 #include <libhyputil/ErrorCodes.h>
 
 #include <libyul/AsmAnalysisInfo.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <functional>
 #include <ostream>

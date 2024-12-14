@@ -46,11 +46,11 @@ function elementfi_test
         # ElementFi's test suite is hard-coded for Mainnet forked via alchemy.io.
         # Locally we can only compile.
         ir-no-optimize
-        ir-optimize-evm-only
-        ir-optimize-evm+yul
+        ir-optimize-zvm-only
+        ir-optimize-zvm+yul
         legacy-no-optimize
-        legacy-optimize-evm-only
-        legacy-optimize-evm+yul
+        legacy-optimize-zvm-only
+        legacy-optimize-zvm+yul
     )
     local settings_presets=(
         "${compile_only_presets[@]}"

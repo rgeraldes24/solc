@@ -24,8 +24,8 @@
 
 #include <libyul/Exceptions.h>
 
-#include <libyul/backends/evm/ZVMCodeTransform.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMCodeTransform.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/CompilabilityChecker.h>

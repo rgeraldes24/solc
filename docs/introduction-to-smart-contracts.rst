@@ -317,9 +317,9 @@ likely it will be.
     If you want to schedule future calls of your contract, you can use
     a smart contract automation tool or an oracle service.
 
-.. _the-ethereum-virtual-machine:
+.. _the-zond-virtual-machine:
 
-.. index:: !evm, ! ethereum virtual machine
+.. index:: !zvm, ! zond virtual machine
 
 ****************************
 The Zond Virtual Machine

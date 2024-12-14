@@ -27,7 +27,7 @@
 #include <liblangutil/Scanner.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libhyperion/interface/OptimiserSettings.h>
 

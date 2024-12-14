@@ -1699,7 +1699,7 @@ BOOST_AUTO_TEST_CASE(array_copy_storage_abi)
 //	ABI_CHECK(callContractFunction("f()"), encodeArgs(5));
 //}
 
-BOOST_AUTO_TEST_CASE(evm_exceptions_in_constructor_out_of_baund)
+BOOST_AUTO_TEST_CASE(zvm_exceptions_in_constructor_out_of_baund)
 {
 	char const* sourceCode = R"(
 		contract A {

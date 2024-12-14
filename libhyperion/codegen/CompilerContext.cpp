@@ -33,9 +33,9 @@
 #include <libyul/AsmPrinter.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
-#include <libyul/backends/evm/AsmCodeGen.h>
-#include <libyul/backends/evm/ZVMDialect.h>
-#include <libyul/backends/evm/ZVMMetrics.h>
+#include <libyul/backends/zvm/AsmCodeGen.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMMetrics.h>
 #include <libyul/optimiser/Suite.h>
 #include <libyul/Object.h>
 #include <libyul/YulString.h>

@@ -146,7 +146,7 @@ void CommonOptions::validate() const
 		assertThrow(
 			zvmVersion() == langutil::ZVMVersion{},
 			ConfigException,
-			"Gas costs can only be enforced on latest evm version."
+			"Gas costs can only be enforced on latest zvm version."
 		);
 		assertThrow(
 			useABIEncoderV1 == false,
@@ -284,8 +284,8 @@ bool loadVMs(CommonOptions const& _options)
 	if (_options.disableSemanticTests)
 		return true;
 
-	bool evmSupported = hyperion::test::ZVMHost::checkVmPaths(_options.vmPaths);
-	if (!_options.disableSemanticTests && !evmSupported)
+	bool zvmSupported = hyperion::test::ZVMHost::checkVmPaths(_options.vmPaths);
+	if (!_options.disableSemanticTests && !zvmSupported)
 	{
 		std::cerr << "Unable to find " << hyperion::test::zvmoneFilename;
 		std::cerr << ". Please disable semantics tests with --no-semantic-tests or provide a path using --vm <path>." << std::endl;

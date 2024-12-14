@@ -28,8 +28,8 @@
 #include <libyul/Dialect.h>
 #include <libyul/Scope.h>
 
-#include <libyul/backends/evm/AbstractAssembly.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/AbstractAssembly.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <functional>
 #include <list>
@@ -69,8 +69,8 @@ public:
 		m_dialect(_dialect),
 		m_dataNames(std::move(_dataNames))
 	{
-		if (ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
-			m_zvmVersion = evmDialect->zvmVersion();
+		if (ZVMDialect const* zvmDialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
+			m_zvmVersion = zvmDialect->zvmVersion();
 	}
 
 	bool analyze(Block const& _block);

@@ -76,8 +76,8 @@ for (var optimize of [false, true])
                         for (var contractName in result['contracts'][outputName])
                         {
                             var contractData = result['contracts'][outputName][contractName];
-                            if (contractData.evm !== undefined && contractData.evm.bytecode !== undefined)
-                                console.log(filename + ':' + contractName + ' ' + contractData.evm.bytecode.object)
+                            if (contractData.zvm !== undefined && contractData.zvm.bytecode !== undefined)
+                                console.log(filename + ':' + contractName + ' ' + contractData.zvm.bytecode.object)
                             else
                                 console.log(filename + ':' + contractName + ' NO BYTECODE')
                             console.log(filename + ':' + contractName + ' ' + contractData.metadata)

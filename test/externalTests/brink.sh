@@ -46,11 +46,11 @@ function brink_test
 
     local compile_only_presets=(
         ir-no-optimize             # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
-        ir-optimize-evm-only       # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
-        ir-optimize-evm+yul        # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
-        legacy-optimize-evm+yul    # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
+        ir-optimize-zvm-only       # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
+        ir-optimize-zvm+yul        # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
+        legacy-optimize-zvm+yul    # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
         legacy-no-optimize         # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
-        legacy-optimize-evm-only   # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
+        legacy-optimize-zvm-only   # Lots of test failures. Tests depend on constants.js, which seems to be calculated specifically for 0.8.10.
     )
     local settings_presets=(
         "${compile_only_presets[@]}"

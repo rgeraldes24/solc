@@ -22,8 +22,8 @@
 
 #include <libyul/optimiser/LoadResolver.h>
 
-#include <libyul/backends/evm/ZVMDialect.h>
-#include <libyul/backends/evm/ZVMMetrics.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMMetrics.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/optimiser/OptimizerUtilities.h>

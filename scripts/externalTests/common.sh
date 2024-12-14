@@ -27,10 +27,10 @@ CURRENT_ZVM_VERSION=shanghai
 AVAILABLE_PRESETS=(
     legacy-no-optimize
     ir-no-optimize
-    legacy-optimize-evm-only
-    ir-optimize-evm-only
-    legacy-optimize-evm+yul
-    ir-optimize-evm+yul
+    legacy-optimize-zvm-only
+    ir-optimize-zvm-only
+    legacy-optimize-zvm+yul
+    ir-optimize-zvm+yul
 )
 
 function print_presets_or_exit
@@ -388,10 +388,10 @@ function settings_from_preset
         # NOTE: Remember to update `parallelism` of `t_ems_ext` job in CI config if you add/remove presets
         legacy-no-optimize)       echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
         ir-no-optimize)           echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
-        legacy-optimize-evm-only) echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        ir-optimize-evm-only)     echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        legacy-optimize-evm+yul)  echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
-        ir-optimize-evm+yul)      echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        legacy-optimize-zvm-only) echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        ir-optimize-zvm-only)     echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        legacy-optimize-zvm+yul)  echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        ir-optimize-zvm+yul)      echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
         *)
             fail "Unknown settings preset: '${preset}'."
             ;;
@@ -613,7 +613,7 @@ function bytecode_size_json_from_hardhat_artifacts
         # Note that one Hardhat artifact often represents multiple input files.
         jq '.output.contracts | to_entries[] | {
             "\(.key)": .value | to_entries[] | {
-                "\(.key)": (.value.evm.bytecode.object | length / 2)
+                "\(.key)": (.value.zvm.bytecode.object | length / 2)
             }
         }' "$artifact"
     done

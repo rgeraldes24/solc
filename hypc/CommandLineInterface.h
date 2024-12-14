@@ -151,7 +151,7 @@ private:
 	UniversalCallback m_universalCallback{&m_fileReader, m_solverCommand};
 	std::optional<std::string> m_standardJsonInput;
 	std::unique_ptr<frontend::CompilerStack> m_compiler;
-	std::unique_ptr<zvmasm::ZVMAssemblyStack> m_evmAssemblyStack;
+	std::unique_ptr<zvmasm::ZVMAssemblyStack> m_zvmAssemblyStack;
 	zvmasm::AbstractAssemblyStack* m_assemblyStack = nullptr;
 	CommandLineOptions m_options;
 };

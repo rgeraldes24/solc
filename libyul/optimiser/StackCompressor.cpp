@@ -27,9 +27,9 @@
 #include <libyul/optimiser/Metrics.h>
 #include <libyul/optimiser/Semantics.h>
 
-#include <libyul/backends/evm/ControlFlowGraphBuilder.h>
-#include <libyul/backends/evm/StackHelpers.h>
-#include <libyul/backends/evm/StackLayoutGenerator.h>
+#include <libyul/backends/zvm/ControlFlowGraphBuilder.h>
+#include <libyul/backends/zvm/StackHelpers.h>
+#include <libyul/backends/zvm/StackLayoutGenerator.h>
 
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
@@ -248,10 +248,10 @@ bool StackCompressor::run(
 		"Need to run the function grouper before the stack compressor."
 	);
 	bool usesOptimizedCodeGenerator = false;
-	if (auto evmDialect = dynamic_cast<ZVMDialect const*>(&_dialect))
+	if (auto zvmDialect = dynamic_cast<ZVMDialect const*>(&_dialect))
 		usesOptimizedCodeGenerator =
 			_optimizeStackAllocation &&
-			evmDialect->providesObjectAccess();
+			zvmDialect->providesObjectAccess();
 	bool allowMSizeOptimzation = !MSizeFinder::containsMSize(_dialect, *_object.code);
 	if (usesOptimizedCodeGenerator)
 	{

@@ -5,18 +5,6 @@
         {
             "C":
             {
-                "evm":
-                {
-                    "bytecode":
-                    {
-                        "generatedSources": [],
-                        "object": "<BYTECODE REMOVED>"
-                    },
-                    "deployedBytecode":
-                    {
-                        "object": "<BYTECODE REMOVED>"
-                    }
-                },
                 "ir": "
 /// @use-src 0:\"A\"
 object \"C_3\" {
@@ -77,11 +65,8 @@ object \"C_3\" {
 
 }
 
-"
-            },
-            "D":
-            {
-                "evm":
+",
+                "zvm":
                 {
                     "bytecode":
                     {
@@ -92,7 +77,10 @@ object \"C_3\" {
                     {
                         "object": "<BYTECODE REMOVED>"
                     }
-                },
+                }
+            },
+            "D":
+            {
                 "ir": "
 /// @use-src 0:\"A\"
 object \"D_16\" {
@@ -289,7 +277,19 @@ object \"D_16\" {
 
 }
 
-"
+",
+                "zvm":
+                {
+                    "bytecode":
+                    {
+                        "generatedSources": [],
+                        "object": "<BYTECODE REMOVED>"
+                    },
+                    "deployedBytecode":
+                    {
+                        "object": "<BYTECODE REMOVED>"
+                    }
+                }
             }
         }
     },

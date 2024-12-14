@@ -244,13 +244,13 @@ bool isArtifactRequested(Json::Value const& _outputSelection, std::string const&
 }
 
 /// @returns all artifact names of the ZVM object, either for creation or deploy time.
-std::vector<std::string> evmObjectComponents(std::string const& _objectKind)
+std::vector<std::string> zvmObjectComponents(std::string const& _objectKind)
 {
 	solAssert(_objectKind == "bytecode" || _objectKind == "deployedBytecode", "");
 	std::vector<std::string> components{"", ".object", ".opcodes", ".sourceMap", ".functionDebugData", ".generatedSources", ".linkReferences"};
 	if (_objectKind == "deployedBytecode")
 		components.push_back(".immutableReferences");
-	return util::applyMap(components, [&](auto const& _s) { return "evm." + _objectKind + _s; });
+	return util::applyMap(components, [&](auto const& _s) { return "zvm." + _objectKind + _s; });
 }
 
 /// @returns true if any binary was requested, i.e. we actually have to perform compilation.
@@ -259,12 +259,12 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 	if (!_outputSelection.isObject())
 		return false;
 
-	// This does not include "evm.methodIdentifiers" on purpose!
+	// This does not include "zvm.methodIdentifiers" on purpose!
 	static std::vector<std::string> const outputsThatRequireBinaries = std::vector<std::string>{
 		"*",
 		"ir", "irAst", "irOptimized", "irOptimizedAst",
-		"evm.gasEstimates", "evm.legacyAssembly", "evm.assembly"
-	} + evmObjectComponents("bytecode") + evmObjectComponents("deployedBytecode");
+		"zvm.gasEstimates", "zvm.legacyAssembly", "zvm.assembly"
+	} + zvmObjectComponents("bytecode") + zvmObjectComponents("deployedBytecode");
 
 	for (auto const& fileRequests: _outputSelection)
 		for (auto const& requests: fileRequests)
@@ -282,8 +282,8 @@ bool isZvmBytecodeRequested(Json::Value const& _outputSelection)
 
 	static std::vector<std::string> const outputsThatRequireZvmBinaries = std::vector<std::string>{
 		"*",
-		"evm.gasEstimates", "evm.legacyAssembly", "evm.assembly"
-	} + evmObjectComponents("bytecode") + evmObjectComponents("deployedBytecode");
+		"zvm.gasEstimates", "zvm.legacyAssembly", "zvm.assembly"
+	} + zvmObjectComponents("bytecode") + zvmObjectComponents("deployedBytecode");
 
 	for (auto const& fileRequests: _outputSelection)
 		for (auto const& requests: fileRequests)
@@ -1380,24 +1380,24 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			contractData["irOptimizedAst"] = compilerStack.yulIROptimizedAst(contractName);
 
 		// ZVM
-		Json::Value evmData(Json::objectValue);
-		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "evm.assembly", wildcardMatchesExperimental))
-			evmData["assembly"] = compilerStack.assemblyString(contractName, sourceList);
-		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "evm.legacyAssembly", wildcardMatchesExperimental))
-			evmData["legacyAssembly"] = compilerStack.assemblyJSON(contractName);
-		if (isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "evm.methodIdentifiers", wildcardMatchesExperimental))
-			evmData["methodIdentifiers"] = compilerStack.interfaceSymbols(contractName)["methods"];
-		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "evm.gasEstimates", wildcardMatchesExperimental))
-			evmData["gasEstimates"] = compilerStack.gasEstimates(contractName);
+		Json::Value zvmData(Json::objectValue);
+		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "zvm.assembly", wildcardMatchesExperimental))
+			zvmData["assembly"] = compilerStack.assemblyString(contractName, sourceList);
+		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "zvm.legacyAssembly", wildcardMatchesExperimental))
+			zvmData["legacyAssembly"] = compilerStack.assemblyJSON(contractName);
+		if (isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "zvm.methodIdentifiers", wildcardMatchesExperimental))
+			zvmData["methodIdentifiers"] = compilerStack.interfaceSymbols(contractName)["methods"];
+		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "zvm.gasEstimates", wildcardMatchesExperimental))
+			zvmData["gasEstimates"] = compilerStack.gasEstimates(contractName);
 
 		if (compilationSuccess && isArtifactRequested(
 			_inputsAndSettings.outputSelection,
 			file,
 			name,
-			evmObjectComponents("bytecode"),
+			zvmObjectComponents("bytecode"),
 			wildcardMatchesExperimental
 		))
-			evmData["bytecode"] = collectZVMObject(
+			zvmData["bytecode"] = collectZVMObject(
 				compilerStack.object(contractName),
 				compilerStack.sourceMapping(contractName),
 				compilerStack.generatedSources(contractName),
@@ -1406,7 +1406,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 					_inputsAndSettings.outputSelection,
 					file,
 					name,
-					"evm.bytecode." + _element,
+					"zvm.bytecode." + _element,
 					wildcardMatchesExperimental
 				); }
 			);
@@ -1415,10 +1415,10 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			_inputsAndSettings.outputSelection,
 			file,
 			name,
-			evmObjectComponents("deployedBytecode"),
+			zvmObjectComponents("deployedBytecode"),
 			wildcardMatchesExperimental
 		))
-			evmData["deployedBytecode"] = collectZVMObject(
+			zvmData["deployedBytecode"] = collectZVMObject(
 				compilerStack.runtimeObject(contractName),
 				compilerStack.runtimeSourceMapping(contractName),
 				compilerStack.generatedSources(contractName, true),
@@ -1427,13 +1427,13 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 					_inputsAndSettings.outputSelection,
 					file,
 					name,
-					"evm.deployedBytecode." + _element,
+					"zvm.deployedBytecode." + _element,
 					wildcardMatchesExperimental
 				); }
 			);
 
-		if (!evmData.empty())
-			contractData["evm"] = evmData;
+		if (!zvmData.empty())
+			contractData["zvm"] = zvmData;
 
 		if (!contractData.empty())
 		{
@@ -1559,13 +1559,13 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 			_inputsAndSettings.outputSelection,
 			sourceName,
 			contractName,
-			evmObjectComponents(kind),
+			zvmObjectComponents(kind),
 			wildcardMatchesExperimental
 		))
 		{
 			MachineAssemblyObject const& o = isDeployed ? deployedObject : object;
 			if (o.bytecode)
-				output["contracts"][sourceName][contractName]["evm"][kind] =
+				output["contracts"][sourceName][contractName]["zvm"][kind] =
 					collectZVMObject(
 						*o.bytecode,
 						o.sourceMappings.get(),
@@ -1575,7 +1575,7 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 							_inputsAndSettings.outputSelection,
 							sourceName,
 							contractName,
-							"evm." + kind + "." + _element,
+							"zvm." + kind + "." + _element,
 							wildcardMatchesExperimental
 						); }
 					);
@@ -1583,8 +1583,8 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 
 	if (isArtifactRequested(_inputsAndSettings.outputSelection, sourceName, contractName, "irOptimized", wildcardMatchesExperimental))
 		output["contracts"][sourceName][contractName]["irOptimized"] = stack.print();
-	if (isArtifactRequested(_inputsAndSettings.outputSelection, sourceName, contractName, "evm.assembly", wildcardMatchesExperimental))
-		output["contracts"][sourceName][contractName]["evm"]["assembly"] = object.assembly;
+	if (isArtifactRequested(_inputsAndSettings.outputSelection, sourceName, contractName, "zvm.assembly", wildcardMatchesExperimental))
+		output["contracts"][sourceName][contractName]["zvm"]["assembly"] = object.assembly;
 
 	return output;
 }

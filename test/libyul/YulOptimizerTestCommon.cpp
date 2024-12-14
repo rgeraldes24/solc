@@ -56,9 +56,9 @@
 #include <libyul/optimiser/StructuralSimplifier.h>
 #include <libyul/optimiser/StackCompressor.h>
 #include <libyul/optimiser/Suite.h>
-#include <libyul/backends/evm/ConstantOptimiser.h>
-#include <libyul/backends/evm/ZVMDialect.h>
-#include <libyul/backends/evm/ZVMMetrics.h>
+#include <libyul/backends/zvm/ConstantOptimiser.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMMetrics.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/CompilabilityChecker.h>
 

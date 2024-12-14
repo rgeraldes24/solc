@@ -69,7 +69,7 @@ zvmc::VM& ZVMHost::getVM(string const& _path)
 
 bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 {
-	bool evmVmFound = false;
+	bool zvmVmFound = false;
 	for (auto const& path: _vmPaths)
 	{
 		zvmc::VM& vm = ZVMHost::getVM(path.string());
@@ -78,12 +78,12 @@ bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 
 		if (vm.has_capability(ZVMC_CAPABILITY_ZOND1))
 		{
-			if (evmVmFound)
-				BOOST_THROW_EXCEPTION(runtime_error("Multiple evm1 zvmc vms defined. Please only define one evm1 zvmc vm."));
-			evmVmFound = true;
+			if (zvmVmFound)
+				BOOST_THROW_EXCEPTION(runtime_error("Multiple zvm1 zvmc vms defined. Please only define one zvm1 zvmc vm."));
+			zvmVmFound = true;
 		}
 	}
-	return evmVmFound;
+	return zvmVmFound;
 }
 
 ZVMHost::ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm):
@@ -97,7 +97,7 @@ ZVMHost::ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm):
 	}
 
 	if (_zvmVersion == langutil::ZVMVersion::shanghai())
-		m_evmRevision = ZVMC_SHANGHAI;
+		m_zvmRevision = ZVMC_SHANGHAI;
 	else
 		assertThrow(false, Exception, "Unsupported ZVM version");
 
@@ -300,7 +300,7 @@ zvmc::Result ZVMHost::call(zvmc_message const& _message) noexcept
 		message.input_data = nullptr;
 		message.input_size = 0;
 	}
-	zvmc::Result result = m_vm.execute(*this, m_evmRevision, message, code.data(), code.size());
+	zvmc::Result result = m_vm.execute(*this, m_zvmRevision, message, code.data(), code.size());
 
 	if (message.kind == ZVMC_CREATE || message.kind == ZVMC_CREATE2)
 	{

@@ -27,7 +27,7 @@
 #include <libyul/AsmJsonImporter.h>
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/Scanner.h>
@@ -714,7 +714,7 @@ ASTPointer<InlineAssembly> ASTJsonImporter::createInlineAssembly(Json::Value con
 	astAssert(_node["zvmVersion"].isString(), "Expected zvmVersion to be a string!");
 	auto zvmVersion = langutil::ZVMVersion::fromString(_node["zvmVersion"].asString());
 	astAssert(zvmVersion.has_value(), "Invalid ZVM version!");
-	astAssert(m_zvmVersion == zvmVersion, "Imported tree evm version differs from configured evm version!");
+	astAssert(m_zvmVersion == zvmVersion, "Imported tree zvm version differs from configured zvm version!");
 
 	yul::Dialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(zvmVersion.value());
 	ASTPointer<std::vector<ASTPointer<ASTString>>> flags;

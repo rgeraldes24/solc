@@ -106,13 +106,13 @@ class ZvmoneUtility
 {
 public:
 	ZvmoneUtility(
-		hyperion::test::ZVMHost& _evmHost,
+		hyperion::test::ZVMHost& _zvmHost,
 		CompilerInput _compilerInput,
 		std::string const& _contractName,
 		std::string const& _libraryName,
 		std::string const& _methodName
 	):
-		m_evmHost(_evmHost),
+		m_zvmHost(_zvmHost),
 		m_compilationFramework(_compilerInput),
 		m_contractName(_contractName),
 		m_libraryName(_libraryName),
@@ -160,7 +160,7 @@ private:
 	std::optional<CompilerOutput> compileContract();
 
 	/// ZVM Host implementation
-	hyperion::test::ZVMHost& m_evmHost;
+	hyperion::test::ZVMHost& m_zvmHost;
 	/// Solidity compilation framework
 	SolidityCompilationFramework m_compilationFramework;
 	/// Contract name

@@ -9,5 +9,5 @@
             ]
         }
     },
-    "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+    "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
 }

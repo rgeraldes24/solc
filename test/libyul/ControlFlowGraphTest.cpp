@@ -20,9 +20,9 @@
 #include <test/libyul/Common.h>
 #include <test/Common.h>
 
-#include <libyul/backends/evm/ControlFlowGraph.h>
-#include <libyul/backends/evm/ControlFlowGraphBuilder.h>
-#include <libyul/backends/evm/StackHelpers.h>
+#include <libyul/backends/zvm/ControlFlowGraph.h>
+#include <libyul/backends/zvm/ControlFlowGraphBuilder.h>
+#include <libyul/backends/zvm/StackHelpers.h>
 #include <libyul/Object.h>
 
 #include <libhyputil/AnsiColorized.h>
@@ -45,7 +45,7 @@ ControlFlowGraphTest::ControlFlowGraphTest(string const& _filename):
 	TestCase(_filename)
 {
 	m_source = m_reader.source();
-	auto dialectName = m_reader.stringSetting("dialect", "evm");
+	auto dialectName = m_reader.stringSetting("dialect", "zvm");
 	m_dialect = &dialect(dialectName, hyperion::test::CommonOptions::get().zvmVersion());
 	m_expectation = m_reader.simpleExpectations();
 }

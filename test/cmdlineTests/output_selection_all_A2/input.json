@@ -13,7 +13,7 @@
   "outputSelection": {
    "*": {
     "A2": [
-     "evm.bytecode.object"
+     "zvm.bytecode.object"
     ]
    }
   }

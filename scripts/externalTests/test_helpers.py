@@ -43,10 +43,10 @@ HYPC_SHORT_VERSION_REGEX = re.compile(r"^([0-9.]+).*\+|\-$")
 class SettingsPreset(Enum):
     LEGACY_NO_OPTIMIZE = 'legacy-no-optimize'
     IR_NO_OPTIMIZE = 'ir-no-optimize'
-    LEGACY_OPTIMIZE_ZVM_ONLY = 'legacy-optimize-evm-only'
-    IR_OPTIMIZE_ZVM_ONLY = 'ir-optimize-evm-only'
-    LEGACY_OPTIMIZE_ZVM_YUL = 'legacy-optimize-evm+yul'
-    IR_OPTIMIZE_ZVM_YUL = 'ir-optimize-evm+yul'
+    LEGACY_OPTIMIZE_ZVM_ONLY = 'legacy-optimize-zvm-only'
+    IR_OPTIMIZE_ZVM_ONLY = 'ir-optimize-zvm-only'
+    LEGACY_OPTIMIZE_ZVM_YUL = 'legacy-optimize-zvm+yul'
+    IR_OPTIMIZE_ZVM_YUL = 'ir-optimize-zvm+yul'
 
 
 def compiler_settings(zvm_version: str, via_ir: bool = False, optimizer: bool = False, yul: bool = False) -> dict:

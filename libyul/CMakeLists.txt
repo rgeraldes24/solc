@@ -37,33 +37,33 @@ add_library(yul
 	Utilities.cpp
 	Utilities.h
 	YulString.h
-	backends/evm/AbstractAssembly.h
-	backends/evm/AsmCodeGen.cpp
-	backends/evm/AsmCodeGen.h
-	backends/evm/ConstantOptimiser.cpp
-	backends/evm/ConstantOptimiser.h
-	backends/evm/ControlFlowGraph.h
-	backends/evm/ControlFlowGraphBuilder.cpp
-	backends/evm/ControlFlowGraphBuilder.h
-	backends/evm/ZondAssemblyAdapter.cpp
-	backends/evm/ZondAssemblyAdapter.h
-	backends/evm/ZVMCodeTransform.cpp
-	backends/evm/ZVMCodeTransform.h
-	backends/evm/ZVMDialect.cpp
-	backends/evm/ZVMDialect.h
-	backends/evm/ZVMObjectCompiler.cpp
-	backends/evm/ZVMObjectCompiler.h
-	backends/evm/ZVMMetrics.cpp
-	backends/evm/ZVMMetrics.h
-	backends/evm/NoOutputAssembly.h
-	backends/evm/NoOutputAssembly.cpp
-	backends/evm/OptimizedZVMCodeTransform.cpp
-	backends/evm/OptimizedZVMCodeTransform.h
-	backends/evm/StackHelpers.h
-	backends/evm/StackLayoutGenerator.cpp
-	backends/evm/StackLayoutGenerator.h
-	backends/evm/VariableReferenceCounter.h
-	backends/evm/VariableReferenceCounter.cpp
+	backends/zvm/AbstractAssembly.h
+	backends/zvm/AsmCodeGen.cpp
+	backends/zvm/AsmCodeGen.h
+	backends/zvm/ConstantOptimiser.cpp
+	backends/zvm/ConstantOptimiser.h
+	backends/zvm/ControlFlowGraph.h
+	backends/zvm/ControlFlowGraphBuilder.cpp
+	backends/zvm/ControlFlowGraphBuilder.h
+	backends/zvm/ZondAssemblyAdapter.cpp
+	backends/zvm/ZondAssemblyAdapter.h
+	backends/zvm/ZVMCodeTransform.cpp
+	backends/zvm/ZVMCodeTransform.h
+	backends/zvm/ZVMDialect.cpp
+	backends/zvm/ZVMDialect.h
+	backends/zvm/ZVMObjectCompiler.cpp
+	backends/zvm/ZVMObjectCompiler.h
+	backends/zvm/ZVMMetrics.cpp
+	backends/zvm/ZVMMetrics.h
+	backends/zvm/NoOutputAssembly.h
+	backends/zvm/NoOutputAssembly.cpp
+	backends/zvm/OptimizedZVMCodeTransform.cpp
+	backends/zvm/OptimizedZVMCodeTransform.h
+	backends/zvm/StackHelpers.h
+	backends/zvm/StackLayoutGenerator.cpp
+	backends/zvm/StackLayoutGenerator.h
+	backends/zvm/VariableReferenceCounter.h
+	backends/zvm/VariableReferenceCounter.cpp
 	optimiser/ASTCopier.cpp
 	optimiser/ASTCopier.h
 	optimiser/ASTWalker.cpp

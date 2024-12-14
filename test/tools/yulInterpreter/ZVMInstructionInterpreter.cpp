@@ -23,7 +23,7 @@
 
 #include <test/tools/yulInterpreter/Interpreter.h>
 
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/AST.h>
 
 #include <libzvmasm/Instruction.h>

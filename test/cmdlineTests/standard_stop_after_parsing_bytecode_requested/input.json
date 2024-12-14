@@ -6,7 +6,7 @@
 	"settings": {
 		"stopAfter": "parsing",
 		"outputSelection": {
-			"*": {"*": ["evm.bytecode.object"]}
+			"*": {"*": ["zvm.bytecode.object"]}
 		}
 	}
 }

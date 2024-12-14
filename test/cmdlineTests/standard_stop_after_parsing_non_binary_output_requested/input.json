@@ -12,7 +12,7 @@
 				"userdoc",
 				"metadata",
 				"storageLayout",
-				"evm.methodIdentifiers"
+				"zvm.methodIdentifiers"
 			]}
 		}
 	}

@@ -9,8 +9,8 @@
         "outputSelection": {
             "*": {
                 "A": [
-                    "evm.deployedBytecode.functionDebugData",
-                    "evm.bytecode.functionDebugData"
+                    "zvm.deployedBytecode.functionDebugData",
+                    "zvm.bytecode.functionDebugData"
                 ]
             }
         }

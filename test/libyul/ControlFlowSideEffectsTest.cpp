@@ -25,7 +25,7 @@
 #include <libyul/AST.h>
 #include <libyul/ControlFlowSideEffects.h>
 #include <libyul/ControlFlowSideEffectsCollector.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 using namespace std;
 using namespace hyperion;

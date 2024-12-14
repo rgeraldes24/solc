@@ -21,8 +21,8 @@
 #include <libyul/optimiser/NameDispenser.h>
 #include <libyul/optimiser/NameCollector.h>
 #include <libyul/optimiser/StackToMemoryMover.h>
-#include <libyul/backends/evm/ControlFlowGraphBuilder.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ControlFlowGraphBuilder.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AST.h>
 #include <libyul/CompilabilityChecker.h>
@@ -122,15 +122,15 @@ void StackLimitEvader::run(
 	Object& _object
 )
 {
-	auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
+	auto const* zvmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	yulAssert(
-		evmDialect && evmDialect->providesObjectAccess(),
+		zvmDialect && zvmDialect->providesObjectAccess(),
 		"StackLimitEvader can only be run on objects using the ZVMDialect with object access."
 	);
-	if (evmDialect)
+	if (zvmDialect)
 	{
-		yul::AsmAnalysisInfo analysisInfo = yul::AsmAnalyzer::analyzeStrictAssertCorrect(*evmDialect, _object);
-		std::unique_ptr<CFG> cfg = ControlFlowGraphBuilder::build(analysisInfo, *evmDialect, *_object.code);
+		yul::AsmAnalysisInfo analysisInfo = yul::AsmAnalyzer::analyzeStrictAssertCorrect(*zvmDialect, _object);
+		std::unique_ptr<CFG> cfg = ControlFlowGraphBuilder::build(analysisInfo, *zvmDialect, *_object.code);
 		run(_context, _object, StackLayoutGenerator::reportStackTooDeep(*cfg));
 	}
 	else
@@ -168,9 +168,9 @@ void StackLimitEvader::run(
 )
 {
 	yulAssert(_object.code, "");
-	auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
+	auto const* zvmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	yulAssert(
-		evmDialect && evmDialect->providesObjectAccess(),
+		zvmDialect && zvmDialect->providesObjectAccess(),
 		"StackLimitEvader can only be run on objects using the ZVMDialect with object access."
 	);
 

@@ -21,7 +21,7 @@
 		{
 			"A":
 			{
-				"test": ["evm.bytecode"]
+				"test": ["zvm.bytecode"]
 			}
 		}
 	}

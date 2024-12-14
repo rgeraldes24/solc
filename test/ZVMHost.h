@@ -64,14 +64,14 @@ public:
 
 	// Solidity testing specific features.
 
-	/// Tries to dynamically load an zvmc vm supporting evm1 and caches the loaded VM.
+	/// Tries to dynamically load an zvmc vm supporting zvm1 and caches the loaded VM.
 	/// @returns vmc::VM(nullptr) on failure.
 	static zvmc::VM& getVM(std::string const& _path = {});
 
 	/// Tries to load all defined zvmc vm shared libraries.
 	/// @param _vmPaths paths to multiple zvmc shared libraries.
-	/// @throw Exception if multiple evm1 vms where loaded.
-	/// @returns true, if an zvmc vm supporting evm1 was loaded properly,
+	/// @throw Exception if multiple zvm1 vms where loaded.
+	/// @returns true, if an zvmc vm supporting zvm1 was loaded properly,
 	static bool checkVmPaths(std::vector<boost::filesystem::path> const& _vmPaths);
 
 	explicit ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm);
@@ -125,7 +125,7 @@ private:
 	/// ZVM version requested by the testing tool
 	langutil::ZVMVersion m_zvmVersion;
 	/// ZVM version requested from ZVMC (matches the above)
-	zvmc_revision m_evmRevision;
+	zvmc_revision m_zvmRevision;
 };
 
 class ZVMHostPrinter

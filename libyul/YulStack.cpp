@@ -24,11 +24,11 @@
 
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
-#include <libyul/backends/evm/ZondAssemblyAdapter.h>
-#include <libyul/backends/evm/ZVMCodeTransform.h>
-#include <libyul/backends/evm/ZVMDialect.h>
-#include <libyul/backends/evm/ZVMObjectCompiler.h>
-#include <libyul/backends/evm/ZVMMetrics.h>
+#include <libyul/backends/zvm/ZondAssemblyAdapter.h>
+#include <libyul/backends/zvm/ZVMCodeTransform.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMObjectCompiler.h>
+#include <libyul/backends/zvm/ZVMMetrics.h>
 #include <libyul/ObjectParser.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/Suite.h>
@@ -163,8 +163,8 @@ void YulStack::optimize(Object& _object, bool _isCreation)
 
 	Dialect const& dialect = languageToDialect(m_language, m_zvmVersion);
 	std::unique_ptr<GasMeter> meter;
-	if (ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&dialect))
-		meter = std::make_unique<GasMeter>(*evmDialect, _isCreation, m_optimiserSettings.expectedExecutionsPerDeployment);
+	if (ZVMDialect const* zvmDialect = dynamic_cast<ZVMDialect const*>(&dialect))
+		meter = std::make_unique<GasMeter>(*zvmDialect, _isCreation, m_optimiserSettings.expectedExecutionsPerDeployment);
 
 	auto [optimizeStackAllocation, yulOptimiserSteps, yulOptimiserCleanupSteps] = [&]() -> std::tuple<bool, std::string, std::string>
 	{

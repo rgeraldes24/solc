@@ -801,7 +801,7 @@ zvmasm::AssemblyItems const* CompilerStack::assemblyItems(std::string const& _co
 		solThrow(CompilerError, "Compilation was not successful.");
 
 	Contract const& currentContract = contract(_contractName);
-	return currentContract.evmAssembly ? &currentContract.evmAssembly->items() : nullptr;
+	return currentContract.zvmAssembly ? &currentContract.zvmAssembly->items() : nullptr;
 }
 
 zvmasm::AssemblyItems const* CompilerStack::runtimeAssemblyItems(std::string const& _contractName) const
@@ -810,7 +810,7 @@ zvmasm::AssemblyItems const* CompilerStack::runtimeAssemblyItems(std::string con
 		solThrow(CompilerError, "Compilation was not successful.");
 
 	Contract const& currentContract = contract(_contractName);
-	return currentContract.evmRuntimeAssembly ? &currentContract.evmRuntimeAssembly->items() : nullptr;
+	return currentContract.zvmRuntimeAssembly ? &currentContract.zvmRuntimeAssembly->items() : nullptr;
 }
 
 Json::Value CompilerStack::generatedSources(std::string const& _contractName, bool _runtime) const
@@ -964,8 +964,8 @@ std::string CompilerStack::assemblyString(std::string const& _contractName, Stri
 		solThrow(CompilerError, "Compilation was not successful.");
 
 	Contract const& currentContract = contract(_contractName);
-	if (currentContract.evmAssembly)
-		return currentContract.evmAssembly->assemblyString(m_debugInfoSelection, _sourceCodes);
+	if (currentContract.zvmAssembly)
+		return currentContract.zvmAssembly->assemblyString(m_debugInfoSelection, _sourceCodes);
 	else
 		return std::string();
 }
@@ -977,8 +977,8 @@ Json::Value CompilerStack::assemblyJSON(std::string const& _contractName) const
 		solThrow(CompilerError, "Compilation was not successful.");
 
 	Contract const& currentContract = contract(_contractName);
-	if (currentContract.evmAssembly)
-		return currentContract.evmAssembly->assemblyJSON(sourceIndices());
+	if (currentContract.zvmAssembly)
+		return currentContract.zvmAssembly->assemblyJSON(sourceIndices());
 	else
 		return Json::Value();
 }
@@ -1351,12 +1351,12 @@ void CompilerStack::assembleYul(
 
 	Contract& compiledContract = m_contracts.at(_contract.fullyQualifiedName());
 
-	compiledContract.evmAssembly = _assembly;
-	solAssert(compiledContract.evmAssembly, "");
+	compiledContract.zvmAssembly = _assembly;
+	solAssert(compiledContract.zvmAssembly, "");
 	try
 	{
 		// Assemble deployment (incl. runtime)  object.
-		compiledContract.object = compiledContract.evmAssembly->assemble();
+		compiledContract.object = compiledContract.zvmAssembly->assemble();
 	}
 	catch (zvmasm::AssemblyException const&)
 	{
@@ -1364,12 +1364,12 @@ void CompilerStack::assembleYul(
 	}
 	solAssert(compiledContract.object.immutableReferences.empty(), "Leftover immutables.");
 
-	compiledContract.evmRuntimeAssembly = _runtimeAssembly;
-	solAssert(compiledContract.evmRuntimeAssembly, "");
+	compiledContract.zvmRuntimeAssembly = _runtimeAssembly;
+	solAssert(compiledContract.zvmRuntimeAssembly, "");
 	try
 	{
 		// Assemble runtime object.
-		compiledContract.runtimeObject = compiledContract.evmRuntimeAssembly->assemble();
+		compiledContract.runtimeObject = compiledContract.zvmRuntimeAssembly->assemble();
 	}
 	catch (zvmasm::AssemblyException const&)
 	{
@@ -1541,8 +1541,8 @@ void CompilerStack::generateZVMFromIR(ContractDefinition const& _contract)
 
 	std::string deployedName = IRNames::deployedObject(_contract);
 	solAssert(!deployedName.empty(), "");
-	tie(compiledContract.evmAssembly, compiledContract.evmRuntimeAssembly) = stack.assembleZVMWithDeployed(deployedName);
-	assembleYul(_contract, compiledContract.evmAssembly, compiledContract.evmRuntimeAssembly);
+	tie(compiledContract.zvmAssembly, compiledContract.zvmRuntimeAssembly) = stack.assembleZVMWithDeployed(deployedName);
+	assembleYul(_contract, compiledContract.zvmAssembly, compiledContract.zvmRuntimeAssembly);
 }
 
 CompilerStack::Contract const& CompilerStack::contract(std::string const& _contractName) const

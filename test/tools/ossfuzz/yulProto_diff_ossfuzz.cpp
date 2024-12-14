@@ -27,7 +27,7 @@
 #include <src/libfuzzer/libfuzzer_macro.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/Exceptions.h>
 
 #include <liblangutil/DebugInfoSelection.h>

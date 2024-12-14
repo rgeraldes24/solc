@@ -10,7 +10,7 @@
         {
             "component": "general",
             "formattedMessage": "CompilerError: Stack too deep when compiling inline assembly: Variable value0 is 1 slot(s) too deep inside the stack.\n\n",
-            "message": "Compiler error (/solidity/libyul/backends/evm/AsmCodeGen.cpp:248):Stack too deep when compiling inline assembly: Variable value0 is 1 slot(s) too deep inside the stack.",
+            "message": "Compiler error (/solidity/libyul/backends/zvm/AsmCodeGen.cpp:248):Stack too deep when compiling inline assembly: Variable value0 is 1 slot(s) too deep inside the stack.",
             "severity": "error",
             "type": "CompilerError"
         }

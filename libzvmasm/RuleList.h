@@ -31,7 +31,7 @@
 #include <boost/multiprecision/detail/min_max.hpp>
 
 #include <libyul/Dialect.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <liblangutil/ZVMVersion.h>
 
 #include <vector>
@@ -733,7 +733,7 @@ std::vector<SimplificationRule<Pattern>> simplificationRuleListPart8(
 }
 
 template<class Pattern>
-std::vector<SimplificationRule<Pattern>> evmRuleList(
+std::vector<SimplificationRule<Pattern>> zvmRuleList(
 	Pattern A,
 	Pattern,
 	Pattern,
@@ -828,7 +828,7 @@ std::vector<SimplificationRule<Pattern>> simplificationRuleList(
 	rules += simplificationRuleListPart8(A, B, C, W, X);
 
 	if (_zvmVersion.has_value())
-		rules += evmRuleList(A, B, C, W, X, Y, Z);
+		rules += zvmRuleList(A, B, C, W, X, Y, Z);
 
 	return rules;
 }

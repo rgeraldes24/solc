@@ -27,7 +27,7 @@
 #include <libyul/optimiser/SSAValueTracker.h>
 #include <libyul/optimiser/NameDispenser.h>
 #include <libyul/optimiser/CommonSubexpressionEliminator.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <liblangutil/ErrorReporter.h>
 

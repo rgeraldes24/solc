@@ -28,7 +28,7 @@
 #include <libyul/YulStack.h>
 #include <libyul/Exceptions.h>
 
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ZVMVersion.h>

@@ -23,7 +23,7 @@
 
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/optimiser/ASTCopier.h>
 #include <libyul/optimiser/DataFlowAnalyzer.h>
 #include <libyul/optimiser/Semantics.h>
@@ -47,16 +47,16 @@ SimplificationRules::Rule const* SimplificationRules::findFirstMatch(
 	if (!instruction)
 		return nullptr;
 
-	static std::map<std::optional<ZVMVersion>, std::unique_ptr<SimplificationRules>> evmRules;
+	static std::map<std::optional<ZVMVersion>, std::unique_ptr<SimplificationRules>> zvmRules;
 
 	std::optional<ZVMVersion> version;
-	if (yul::ZVMDialect const* evmDialect = dynamic_cast<yul::ZVMDialect const*>(&_dialect))
-		version = evmDialect->zvmVersion();
+	if (yul::ZVMDialect const* zvmDialect = dynamic_cast<yul::ZVMDialect const*>(&_dialect))
+		version = zvmDialect->zvmVersion();
 
-	if (!evmRules[version])
-		evmRules[version] = std::make_unique<SimplificationRules>(version);
+	if (!zvmRules[version])
+		zvmRules[version] = std::make_unique<SimplificationRules>(version);
 
-	SimplificationRules& rules = *evmRules[version];
+	SimplificationRules& rules = *zvmRules[version];
 	assertThrow(rules.isInitialized(), OptimizerException, "Rule list not properly initialized.");
 
 	for (auto const& rule: rules.m_rules[uint8_t(instruction->first)])

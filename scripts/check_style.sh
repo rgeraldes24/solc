@@ -35,7 +35,7 @@ NAMESPACE_STD_FREE_FILES=(
     libhyperion/parsing/*
     libhyputil/*
     libyul/*
-    libyul/backends/evm/*
+    libyul/backends/zvm/*
     libyul/optimiser/*
     hypc/*
     test/contracts/*

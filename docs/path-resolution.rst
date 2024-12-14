@@ -102,7 +102,7 @@ The initial content of the VFS depends on how you invoke the compiler:
                    "content": "contract Token {}"
                }
            },
-           "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+           "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
        }
 
    The ``sources`` dictionary becomes the initial content of the virtual filesystem and its keys
@@ -127,7 +127,7 @@ The initial content of the VFS depends on how you invoke the compiler:
                    ]
                }
            },
-           "settings": {"outputSelection": {"*": { "*": ["metadata", "evm.bytecode"]}}}
+           "settings": {"outputSelection": {"*": { "*": ["metadata", "zvm.bytecode"]}}}
        }
 
    If an import callback is available, the compiler will give it the strings specified in

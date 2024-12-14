@@ -19,7 +19,7 @@
 #include <libhyperion/analysis/ViewPureChecker.h>
 #include <libhyperion/ast/ExperimentalFeatures.h>
 #include <libyul/AST.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <liblangutil/ErrorReporter.h>
 #include <libzvmasm/SemanticInformation.h>
 

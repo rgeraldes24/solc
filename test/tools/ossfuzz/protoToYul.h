@@ -64,7 +64,7 @@ public:
 	ProtoConverter(ProtoConverter&&) = delete;
 	std::string programToString(Program const& _input);
 
-	/// Returns evm version
+	/// Returns zvm version
 	hyperion::langutil::ZVMVersion version()
 	{
 		return m_zvmVersion;
@@ -378,7 +378,7 @@ private:
 	/// Flag to track whether scope extension of variables defined in for-init
 	/// block is enabled.
 	bool m_forInitScopeExtEnabled;
-	/// Object that holds the targeted evm version specified by protobuf input
+	/// Object that holds the targeted zvm version specified by protobuf input
 	hyperion::langutil::ZVMVersion m_zvmVersion;
 	/// Flag that, if set, stops the converter from generating state changing
 	/// opcodes.

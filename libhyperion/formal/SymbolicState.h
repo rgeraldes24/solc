@@ -149,7 +149,7 @@ public:
 	smtutil::Expression txTypeConstraints() const;
 	smtutil::Expression txNonPayableConstraint() const;
 	smtutil::Expression blockhash(smtutil::Expression _blockNumber) const;
-	smtutil::Expression evmParisConstraints() const;
+	smtutil::Expression zvmParisConstraints() const;
 	//@}
 
 	/// Crypto functions.

@@ -186,7 +186,7 @@ void CommandLineInterface::handleZVMAssembly(std::string const& _contract)
 	if (!m_options.output.dir.empty())
 		createFile(
 			m_compiler->filesystemFriendlyName(_contract) +
-			(m_options.compiler.outputs.asmJson ? "_evm.json" : ".evm"),
+			(m_options.compiler.outputs.asmJson ? "_zvm.json" : ".zvm"),
 			assembly
 		);
 	else
@@ -789,15 +789,15 @@ void CommandLineInterface::assembleFromZVMAssemblyJSON()
 {
 	solAssert(m_options.input.mode == InputMode::ZVMAssemblerJSON);
 	solAssert(!m_assemblyStack);
-	solAssert(!m_evmAssemblyStack && !m_compiler);
+	solAssert(!m_zvmAssemblyStack && !m_compiler);
 
 	solAssert(m_fileReader.sourceUnits().size() == 1);
 	auto&& [sourceUnitName, source] = *m_fileReader.sourceUnits().begin();
 
-	auto evmAssemblyStack = std::make_unique<zvmasm::ZVMAssemblyStack>(m_options.output.zvmVersion);
+	auto zvmAssemblyStack = std::make_unique<zvmasm::ZVMAssemblyStack>(m_options.output.zvmVersion);
 	try
 	{
-		evmAssemblyStack->parseAndAnalyze(sourceUnitName, source);
+		zvmAssemblyStack->parseAndAnalyze(sourceUnitName, source);
 	}
 	catch (zvmasm::AssemblyImportException const& _exception)
 	{
@@ -805,18 +805,18 @@ void CommandLineInterface::assembleFromZVMAssemblyJSON()
 	}
 
 	if (m_options.output.debugInfoSelection.has_value())
-		evmAssemblyStack->selectDebugInfo(m_options.output.debugInfoSelection.value());
-	evmAssemblyStack->assemble();
+		zvmAssemblyStack->selectDebugInfo(m_options.output.debugInfoSelection.value());
+	zvmAssemblyStack->assemble();
 
-	m_evmAssemblyStack = std::move(evmAssemblyStack);
-	m_assemblyStack = m_evmAssemblyStack.get();
+	m_zvmAssemblyStack = std::move(zvmAssemblyStack);
+	m_assemblyStack = m_zvmAssemblyStack.get();
 }
 
 void CommandLineInterface::compile()
 {
 	solAssert(CompilerInputModes.count(m_options.input.mode) == 1);
 	solAssert(!m_assemblyStack);
-	solAssert(!m_evmAssemblyStack && !m_compiler);
+	solAssert(!m_zvmAssemblyStack && !m_compiler);
 
 	m_compiler = std::make_unique<CompilerStack>(m_universalCallback.callback());
 	m_assemblyStack = m_compiler.get();

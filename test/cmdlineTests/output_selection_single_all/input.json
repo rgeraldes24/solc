@@ -13,7 +13,7 @@
   "outputSelection": {
    "a.hyp": {
     "*": [
-     "evm.bytecode.object"
+     "zvm.bytecode.object"
     ]
    }
   }

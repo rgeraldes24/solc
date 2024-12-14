@@ -28,7 +28,7 @@
 #include <libyul/AsmPrinter.h>
 #include <libyul/YulStack.h>
 #include <libyul/AST.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ErrorReporter.h>
@@ -103,12 +103,12 @@ namespace
 {
 std::map<string const, yul::Dialect const& (*)(langutil::ZVMVersion)> const validDialects = {
 	{
-		"evm",
+		"zvm",
 		[](langutil::ZVMVersion _zvmVersion) -> yul::Dialect const&
 		{ return yul::ZVMDialect::strictAssemblyForZVMObjects(_zvmVersion); }
 	},
 	{
-		"evmTyped",
+		"zvmTyped",
 		[](langutil::ZVMVersion _zvmVersion) -> yul::Dialect const&
 		{ return yul::ZVMDialectTyped::instance(_zvmVersion); }
 	},

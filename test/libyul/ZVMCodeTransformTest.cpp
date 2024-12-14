@@ -22,8 +22,8 @@
 #include <test/Common.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/ZondAssemblyAdapter.h>
-#include <libyul/backends/evm/ZVMObjectCompiler.h>
+#include <libyul/backends/zvm/ZondAssemblyAdapter.h>
+#include <libyul/backends/zvm/ZVMObjectCompiler.h>
 
 #include <libzvmasm/Assembly.h>
 

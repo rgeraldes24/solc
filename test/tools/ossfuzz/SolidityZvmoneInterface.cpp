@@ -91,14 +91,14 @@ zvmc::Result ZvmoneUtility::executeContract(
 	message.recipient = _deployedAddress;
 	message.code_address = _deployedAddress;
 	message.kind = ZVMC_CALL;
-	return m_evmHost.call(message);
+	return m_zvmHost.call(message);
 }
 
 zvmc::Result ZvmoneUtility::deployContract(bytes const& _code)
 {
 	zvmc_message message = initializeMessage(_code);
 	message.kind = ZVMC_CREATE;
-	return m_evmHost.call(message);
+	return m_zvmHost.call(message);
 }
 
 zvmc::Result ZvmoneUtility::deployAndExecute(

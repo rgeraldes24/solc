@@ -21,7 +21,7 @@
 #include <test/Common.h>
 
 #include <test/libyul/Common.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libyul/CompilabilityChecker.h>
 

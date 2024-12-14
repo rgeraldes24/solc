@@ -21,7 +21,7 @@
 
 #include <libyul/optimiser/OptimizerUtilities.h>
 
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 
 #include <libyul/Dialect.h>
 #include <libyul/AST.h>

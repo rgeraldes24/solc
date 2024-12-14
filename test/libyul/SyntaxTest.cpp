@@ -75,6 +75,6 @@ void SyntaxTest::parseAndAnalyze()
 SyntaxTest::SyntaxTest(string const& _filename, langutil::ZVMVersion _zvmVersion):
 	CommonSyntaxTest(_filename, _zvmVersion)
 {
-	string dialectName = m_reader.stringSetting("dialect", "evmTyped");
+	string dialectName = m_reader.stringSetting("dialect", "zvmTyped");
 	m_dialect = &dialect(dialectName, hyperion::test::CommonOptions::get().zvmVersion());
 }

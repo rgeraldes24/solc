@@ -29,7 +29,7 @@
 #include <libyul/AST.h>
 #include <libyul/ObjectParser.h>
 #include <libyul/YulString.h>
-#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/zvm/ZVMDialect.h>
 #include <libyul/optimiser/Disambiguator.h>
 #include <libyul/optimiser/ForLoopInitRewriter.h>
 #include <libyul/optimiser/FunctionGrouper.h>
