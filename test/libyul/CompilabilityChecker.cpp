@@ -39,7 +39,7 @@ string check(string const& _input)
 	Object obj;
 	std::tie(obj.code, obj.analysisInfo) = yul::test::parse(_input, false);
 	BOOST_REQUIRE(obj.code);
-	auto functions = CompilabilityChecker(ZVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().zvmVersion()), obj, true).stackDeficit;
+	auto functions = CompilabilityChecker(ZVMDialect::strictAssemblyForZVM(hyperion::test::CommonOptions::get().zvmVersion()), obj, true).stackDeficit;
 	string out;
 	for (auto const& function: functions)
 		out += function.first.str() + ": " + to_string(function.second) + " ";

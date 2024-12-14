@@ -69,7 +69,7 @@ Program::Program(Program const& program):
 variant<Program, ErrorList> Program::load(CharStream& _sourceCode)
 {
 	// ASSUMPTION: parseSource() rewinds the stream on its own
-	Dialect const& dialect = ZVMDialect::strictAssemblyForEVMObjects(ZVMVersion{});
+	Dialect const& dialect = ZVMDialect::strictAssemblyForZVMObjects(ZVMVersion{});
 
 	variant<unique_ptr<Block>, ErrorList> astOrErrors = parseObject(dialect, _sourceCode);
 	if (holds_alternative<ErrorList>(astOrErrors))

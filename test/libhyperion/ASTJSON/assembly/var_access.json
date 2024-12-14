@@ -111,7 +111,7 @@
                     }
                   ]
                 },
-                "zvmVersion": %EVMVERSION%,
+                "zvmVersion": %ZVMVERSION%,
                 "externalReferences":
                 [
                   {

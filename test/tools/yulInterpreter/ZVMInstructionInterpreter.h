@@ -38,7 +38,7 @@ enum class Instruction: uint8_t;
 namespace hyperion::yul
 {
 class YulString;
-struct BuiltinFunctionForEVM;
+struct BuiltinFunctionForZVM;
 }
 
 namespace hyperion::yul::test
@@ -85,7 +85,7 @@ public:
 	u256 eval(zvmasm::Instruction _instruction, std::vector<u256> const& _arguments);
 	/// Evaluate builtin function
 	u256 evalBuiltin(
-		BuiltinFunctionForEVM const& _fun,
+		BuiltinFunctionForZVM const& _fun,
 		std::vector<Expression> const& _arguments,
 		std::vector<u256> const& _evaluatedArguments
 	);

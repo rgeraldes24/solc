@@ -119,7 +119,7 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	Dialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(ZVMVersion::shanghai());
+	Dialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(ZVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");
 	auto object = objectParser.parse(make_shared<Scanner>(stream), false);

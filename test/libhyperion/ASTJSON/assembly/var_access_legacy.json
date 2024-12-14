@@ -130,7 +130,7 @@
                 {
                   "attributes":
                   {
-                    "zvmVersion": %EVMVERSION%,
+                    "zvmVersion": %ZVMVERSION%,
                     "externalReferences":
                     [
                       {

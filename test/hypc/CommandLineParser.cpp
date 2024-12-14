@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		};
 		expectedOptions.metadata.hash = CompilerStack::MetadataHash::Bzzr1;
 		expectedOptions.metadata.literalSources = true;
-		expectedOptions.optimizer.optimizeEvmasm = true;
+		expectedOptions.optimizer.optimizeZvmasm = true;
 		expectedOptions.optimizer.optimizeYul = true;
 		expectedOptions.optimizer.expectedExecutionsPerDeployment = 1000;
 		expectedOptions.optimizer.yulSteps = "agf";
@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.compiler.outputs.astCompactJson = true;
 		if (expectedLanguage == YulStack::Language::StrictAssembly)
 		{
-			expectedOptions.optimizer.optimizeEvmasm = true;
+			expectedOptions.optimizer.optimizeZvmasm = true;
 			expectedOptions.optimizer.optimizeYul = true;
 			expectedOptions.optimizer.yulSteps = "agf";
 			expectedOptions.optimizer.expectedExecutionsPerDeployment = 1000;

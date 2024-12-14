@@ -171,7 +171,7 @@ void CommandLineInterface::handleEVMAssembly(std::string const& _contract)
 	solAssert(m_assemblyStack);
 	solAssert(
 		CompilerInputModes.count(m_options.input.mode) == 1 ||
-		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
+		m_options.input.mode == frontend::InputMode::ZVMAssemblerJSON
 	);
 
 	if (!m_options.compiler.outputs.asm_ && !m_options.compiler.outputs.asmJson)
@@ -198,7 +198,7 @@ void CommandLineInterface::handleBinary(std::string const& _contract)
 	solAssert(m_assemblyStack);
 	solAssert(
 		CompilerInputModes.count(m_options.input.mode) == 1 ||
-		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
+		m_options.input.mode == frontend::InputMode::ZVMAssemblerJSON
 	);
 
 	std::string binary;
@@ -235,7 +235,7 @@ void CommandLineInterface::handleOpcode(std::string const& _contract)
 	solAssert(m_assemblyStack);
 	solAssert(
 		CompilerInputModes.count(m_options.input.mode) == 1 ||
-		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
+		m_options.input.mode == frontend::InputMode::ZVMAssemblerJSON
 	);
 
 	std::string opcodes{zvmasm::disassemble(m_assemblyStack->object(_contract).bytecode)};
@@ -339,7 +339,7 @@ void CommandLineInterface::handleBytecode(std::string const& _contract)
 {
 	solAssert(
 		CompilerInputModes.count(m_options.input.mode) == 1 ||
-		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
+		m_options.input.mode == frontend::InputMode::ZVMAssemblerJSON
 	);
 
 	if (m_options.compiler.outputs.opcodes)
@@ -763,7 +763,7 @@ void CommandLineInterface::processInput()
 		compile();
 		outputCompilationResults();
 		break;
-	case InputMode::EVMAssemblerJSON:
+	case InputMode::ZVMAssemblerJSON:
 		assembleFromEVMAssemblyJSON();
 		handleCombinedJSON();
 		handleBytecode(m_assemblyStack->contractNames().front());
@@ -787,7 +787,7 @@ void CommandLineInterface::printLicense()
 
 void CommandLineInterface::assembleFromEVMAssemblyJSON()
 {
-	solAssert(m_options.input.mode == InputMode::EVMAssemblerJSON);
+	solAssert(m_options.input.mode == InputMode::ZVMAssemblerJSON);
 	solAssert(!m_assemblyStack);
 	solAssert(!m_evmAssemblyStack && !m_compiler);
 
@@ -845,7 +845,7 @@ void CommandLineInterface::compile()
 			m_options.compiler.outputs.irAstJson ||
 			m_options.compiler.outputs.irOptimizedAstJson
 		);
-		m_compiler->enableEvmBytecodeGeneration(
+		m_compiler->enableZvmBytecodeGeneration(
 			m_options.compiler.estimateGas ||
 			m_options.compiler.outputs.asm_ ||
 			m_options.compiler.outputs.asmJson ||
@@ -931,7 +931,7 @@ void CommandLineInterface::handleCombinedJSON()
 	solAssert(m_assemblyStack);
 	solAssert(
 		CompilerInputModes.count(m_options.input.mode) == 1 ||
-		m_options.input.mode == frontend::InputMode::EVMAssemblerJSON
+		m_options.input.mode == frontend::InputMode::ZVMAssemblerJSON
 	);
 
 	if (!m_options.compiler.combinedJsonRequests.has_value())

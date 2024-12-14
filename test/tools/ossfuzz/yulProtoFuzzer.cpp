@@ -81,7 +81,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// Optimize
 	YulOptimizerTestCommon optimizerTest(
 		stack.parserResult(),
-		ZVMDialect::strictAssemblyForEVMObjects(version)
+		ZVMDialect::strictAssemblyForZVMObjects(version)
 	);
 	optimizerTest.setStep(optimizerTest.randomOptimiserStep(_input.step()));
 	shared_ptr<hyperion::yul::Block> astBlock = optimizerTest.run();

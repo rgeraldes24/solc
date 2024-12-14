@@ -107,7 +107,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		unoptimisedByteCode = assembler.assemble();
 		auto yulObject = assembler.object();
 		recursiveFunction = recursiveFunctionExists(
-			ZVMDialect::strictAssemblyForEVMObjects(version),
+			ZVMDialect::strictAssemblyForZVMObjects(version),
 			*yulObject
 		);
 	}

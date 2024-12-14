@@ -58,7 +58,7 @@ TestCase::TestResult MemoryGuardTest::run(std::ostream& _stream, std::string con
 		ErrorList errors;
 		auto [object, analysisInfo] = yul::test::parse(
 			compiler().yulIR(contractName),
-			ZVMDialect::strictAssemblyForEVMObjects({}),
+			ZVMDialect::strictAssemblyForZVMObjects({}),
 			errors
 		);
 

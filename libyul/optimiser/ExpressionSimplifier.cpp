@@ -49,7 +49,7 @@ void ExpressionSimplifier::visit(Expression& _expression)
 		_expression = match->action().toExpression(debugDataOf(_expression), zvmVersionFromDialect(m_dialect));
 
 	if (auto* functionCall = std::get_if<FunctionCall>(&_expression))
-		if (std::optional<zvmasm::Instruction> instruction = toEVMInstruction(m_dialect, functionCall->functionName.name))
+		if (std::optional<zvmasm::Instruction> instruction = toZVMInstruction(m_dialect, functionCall->functionName.name))
 			for (auto op: zvmasm::SemanticInformation::readWriteOperations(*instruction))
 				if (op.startParameter && op.lengthParameter)
 				{

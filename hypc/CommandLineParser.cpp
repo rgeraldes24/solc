@@ -52,7 +52,7 @@ static std::string const g_strExperimentalViaIR = "experimental-via-ir";
 static std::string const g_strGas = "gas";
 static std::string const g_strHelp = "help";
 static std::string const g_strImportAst = "import-ast";
-static std::string const g_strImportEvmAssemblerJson = "import-asm-json";
+static std::string const g_strImportZvmAssemblerJson = "import-asm-json";
 static std::string const g_strInputFile = "input-file";
 static std::string const g_strYul = "yul";
 static std::string const g_strYulDialect = "yul-dialect";
@@ -144,7 +144,7 @@ static std::map<InputMode, std::string> const g_inputModeName = {
 	{InputMode::StandardJson, "standard JSON"},
 	{InputMode::Linker, "linker"},
 	{InputMode::LanguageServer, "language server (LSP)"},
-	{InputMode::EVMAssemblerJSON, "EVM assembler (JSON format)"},
+	{InputMode::ZVMAssemblerJSON, "EVM assembler (JSON format)"},
 };
 
 void CommandLineParser::checkMutuallyExclusive(std::vector<std::string> const& _optionNames)
@@ -250,7 +250,7 @@ bool CommandLineOptions::operator==(CommandLineOptions const& _other) const noex
 		metadata.format == _other.metadata.format &&
 		metadata.hash == _other.metadata.hash &&
 		metadata.literalSources == _other.metadata.literalSources &&
-		optimizer.optimizeEvmasm == _other.optimizer.optimizeEvmasm &&
+		optimizer.optimizeZvmasm == _other.optimizer.optimizeZvmasm &&
 		optimizer.optimizeYul == _other.optimizer.optimizeYul &&
 		optimizer.expectedExecutionsPerDeployment == _other.optimizer.expectedExecutionsPerDeployment &&
 		optimizer.yulSteps == _other.optimizer.yulSteps &&
@@ -262,7 +262,7 @@ OptimiserSettings CommandLineOptions::optimiserSettings() const
 {
 	OptimiserSettings settings;
 
-	if (optimizer.optimizeEvmasm)
+	if (optimizer.optimizeZvmasm)
 		settings = OptimiserSettings::standard();
 	else
 		settings = OptimiserSettings::minimal();
@@ -488,7 +488,7 @@ void CommandLineParser::parseOutputSelection()
 		case InputMode::Compiler:
 		case InputMode::CompilerWithASTImport:
 			return util::contains(compilerModeOutputs, _outputName);
-		case InputMode::EVMAssemblerJSON:
+		case InputMode::ZVMAssemblerJSON:
 			return util::contains(evmAssemblyJsonImportModeOutputs, _outputName);
 		case InputMode::Assembler:
 			return util::contains(assemblerModeOutputs, _outputName);
@@ -666,7 +666,7 @@ General Information)").c_str(),
 			"--" + g_strCombinedJson + " " + CombinedJsonRequests::componentName(&CombinedJsonRequests::ast)).c_str()
 		)
 		(
-			g_strImportEvmAssemblerJson.c_str(),
+			g_strImportZvmAssemblerJson.c_str(),
 			"Import EVM assembly from JSON. Assumes input is in the format used by --asm-json."
 		)
 		(
@@ -945,7 +945,7 @@ void CommandLineParser::processArgs()
 		g_strYul,
 		g_strImportAst,
 		g_strLSP,
-		g_strImportEvmAssemblerJson,
+		g_strImportZvmAssemblerJson,
 	});
 
 	if (m_args.count(g_strHelp) > 0)
@@ -964,8 +964,8 @@ void CommandLineParser::processArgs()
 		m_options.input.mode = InputMode::Linker;
 	else if (m_args.count(g_strImportAst) > 0)
 		m_options.input.mode = InputMode::CompilerWithASTImport;
-	else if (m_args.count(g_strImportEvmAssemblerJson) > 0)
-		m_options.input.mode = InputMode::EVMAssemblerJSON;
+	else if (m_args.count(g_strImportZvmAssemblerJson) > 0)
+		m_options.input.mode = InputMode::ZVMAssemblerJSON;
 	else
 		m_options.input.mode = InputMode::Compiler;
 
@@ -1025,10 +1025,10 @@ void CommandLineParser::processArgs()
 		if (option != CompilerOutputs::componentName(&CompilerOutputs::astCompactJson))
 			checkMutuallyExclusive({g_strStopAfter, option});
 
-	if (m_options.input.mode == InputMode::EVMAssemblerJSON)
+	if (m_options.input.mode == InputMode::ZVMAssemblerJSON)
 	{
-		static std::set<std::string> const supportedByEvmAsmJsonImport{
-			g_strImportEvmAssemblerJson,
+		static std::set<std::string> const supportedByZvmAsmJsonImport{
+			g_strImportZvmAssemblerJson,
 			CompilerOutputs::componentName(&CompilerOutputs::asm_),
 			CompilerOutputs::componentName(&CompilerOutputs::binary),
 			CompilerOutputs::componentName(&CompilerOutputs::binaryRuntime),
@@ -1043,13 +1043,13 @@ void CommandLineParser::processArgs()
 		};
 
 		for (auto const& [optionName, optionValue]: m_args)
-			if (!optionValue.defaulted() && !supportedByEvmAsmJsonImport.count(optionName))
+			if (!optionValue.defaulted() && !supportedByZvmAsmJsonImport.count(optionName))
 				solThrow(
 					CommandLineValidationError,
 					fmt::format(
 						"Option --{} is not supported with --{}.",
 						optionName,
-						g_strImportEvmAssemblerJson
+						g_strImportZvmAssemblerJson
 					)
 				);
 	}
@@ -1057,7 +1057,7 @@ void CommandLineParser::processArgs()
 	if (
 		m_options.input.mode != InputMode::Compiler &&
 		m_options.input.mode != InputMode::CompilerWithASTImport &&
-		m_options.input.mode != InputMode::EVMAssemblerJSON &&
+		m_options.input.mode != InputMode::ZVMAssemblerJSON &&
 		m_options.input.mode != InputMode::Assembler
 	)
 	{
@@ -1197,7 +1197,7 @@ void CommandLineParser::processArgs()
 			"Options --" + g_strOptimizeYul + " and --" + g_strNoOptimizeYul + " cannot be used together."
 		);
 
-	m_options.optimizer.optimizeEvmasm = (m_args.count(g_strOptimize) > 0);
+	m_options.optimizer.optimizeZvmasm = (m_args.count(g_strOptimize) > 0);
 	m_options.optimizer.optimizeYul = (
 		(m_args.count(g_strOptimize) > 0 && m_args.count(g_strNoOptimizeYul) == 0) ||
 		m_args.count(g_strOptimizeYul) > 0
@@ -1265,7 +1265,7 @@ void CommandLineParser::processArgs()
 				solThrow(CommandLineValidationError, "Invalid option for --" + g_strYulDialect + ": " + dialect);
 		}
 		if (
-				(m_options.optimizer.optimizeEvmasm || m_options.optimizer.optimizeYul) &&
+				(m_options.optimizer.optimizeZvmasm || m_options.optimizer.optimizeYul) &&
 				m_options.assembly.inputLanguage != Input::StrictAssembly
 			)
 			solThrow(
@@ -1409,7 +1409,7 @@ void CommandLineParser::processArgs()
 	solAssert(
 		m_options.input.mode == InputMode::Compiler ||
 		m_options.input.mode == InputMode::CompilerWithASTImport ||
-		m_options.input.mode == InputMode::EVMAssemblerJSON
+		m_options.input.mode == InputMode::ZVMAssemblerJSON
 	);
 }
 
@@ -1427,7 +1427,7 @@ void CommandLineParser::parseCombinedJsonOption()
 	for (auto&& [componentName, component]: CombinedJsonRequests::componentMap())
 		m_options.compiler.combinedJsonRequests.value().*component = (requests.count(componentName) > 0);
 
-	if (m_options.input.mode == InputMode::EVMAssemblerJSON && m_options.compiler.combinedJsonRequests.has_value())
+	if (m_options.input.mode == InputMode::ZVMAssemblerJSON && m_options.compiler.combinedJsonRequests.has_value())
 	{
 		static bool CombinedJsonRequests::* invalidOptions[]{
 			&CombinedJsonRequests::abi,

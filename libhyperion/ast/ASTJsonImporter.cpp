@@ -716,7 +716,7 @@ ASTPointer<InlineAssembly> ASTJsonImporter::createInlineAssembly(Json::Value con
 	astAssert(zvmVersion.has_value(), "Invalid EVM version!");
 	astAssert(m_zvmVersion == zvmVersion, "Imported tree evm version differs from configured evm version!");
 
-	yul::Dialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(zvmVersion.value());
+	yul::Dialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(zvmVersion.value());
 	ASTPointer<std::vector<ASTPointer<ASTString>>> flags;
 	if (_node.isMember("flags"))
 	{

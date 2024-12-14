@@ -66,7 +66,7 @@ public:
 	void operator()(yul::FunctionCall const& _funCall)
 	{
 		if (yul::ZVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&m_dialect))
-			if (yul::BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
+			if (yul::BuiltinFunctionForZVM const* fun = dialect->builtin(_funCall.functionName.name))
 				if (fun->instruction)
 					checkInstruction(nativeLocationOf(_funCall), *fun->instruction);
 

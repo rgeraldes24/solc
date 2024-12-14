@@ -53,7 +53,7 @@ Dialect const& languageToDialect(YulStack::Language _language, ZVMVersion _versi
 	{
 	case YulStack::Language::Assembly:
 	case YulStack::Language::StrictAssembly:
-		return ZVMDialect::strictAssemblyForEVMObjects(_version);
+		return ZVMDialect::strictAssemblyForZVMObjects(_version);
 	case YulStack::Language::Yul:
 		return ZVMDialectTyped::instance(_version);
 	}
@@ -137,7 +137,7 @@ void YulStack::compileEVM(AbstractAssembly& _assembly, bool _optimize) const
 	{
 		case Language::Assembly:
 		case Language::StrictAssembly:
-			dialect = &ZVMDialect::strictAssemblyForEVMObjects(m_zvmVersion);
+			dialect = &ZVMDialect::strictAssemblyForZVMObjects(m_zvmVersion);
 			break;
 		case Language::Yul:
 			dialect = &ZVMDialectTyped::instance(m_zvmVersion);

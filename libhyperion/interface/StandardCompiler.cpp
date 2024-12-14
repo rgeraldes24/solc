@@ -275,19 +275,19 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 }
 
 /// @returns true if EVM bytecode was requested, i.e. we have to run the old code generator.
-bool isEvmBytecodeRequested(Json::Value const& _outputSelection)
+bool isZvmBytecodeRequested(Json::Value const& _outputSelection)
 {
 	if (!_outputSelection.isObject())
 		return false;
 
-	static std::vector<std::string> const outputsThatRequireEvmBinaries = std::vector<std::string>{
+	static std::vector<std::string> const outputsThatRequireZvmBinaries = std::vector<std::string>{
 		"*",
 		"evm.gasEstimates", "evm.legacyAssembly", "evm.assembly"
 	} + evmObjectComponents("bytecode") + evmObjectComponents("deployedBytecode");
 
 	for (auto const& fileRequests: _outputSelection)
 		for (auto const& requests: fileRequests)
-			for (auto const& output: outputsThatRequireEvmBinaries)
+			for (auto const& output: outputsThatRequireZvmBinaries)
 				if (isArtifactRequested(requests, output, false))
 					return true;
 	return false;
@@ -364,7 +364,7 @@ Json::Value formatImmutableReferences(std::map<u256, std::pair<std::string, std:
 	return ret;
 }
 
-Json::Value collectEVMObject(
+Json::Value collectZVMObject(
 	zvmasm::LinkerObject const& _object,
 	std::string const* _sourceMap,
 	Json::Value _generatedSources,
@@ -1170,7 +1170,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 	compilerStack.setRequestedContractNames(requestedContractNames(_inputsAndSettings.outputSelection));
 	compilerStack.setModelCheckerSettings(_inputsAndSettings.modelCheckerSettings);
 
-	compilerStack.enableEvmBytecodeGeneration(isEvmBytecodeRequested(_inputsAndSettings.outputSelection));
+	compilerStack.enableZvmBytecodeGeneration(isZvmBytecodeRequested(_inputsAndSettings.outputSelection));
 	compilerStack.enableIRGeneration(isIRRequested(_inputsAndSettings.outputSelection));
 
 	Json::Value errors = std::move(_inputsAndSettings.errors);
@@ -1397,7 +1397,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			evmObjectComponents("bytecode"),
 			wildcardMatchesExperimental
 		))
-			evmData["bytecode"] = collectEVMObject(
+			evmData["bytecode"] = collectZVMObject(
 				compilerStack.object(contractName),
 				compilerStack.sourceMapping(contractName),
 				compilerStack.generatedSources(contractName),
@@ -1418,7 +1418,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 			evmObjectComponents("deployedBytecode"),
 			wildcardMatchesExperimental
 		))
-			evmData["deployedBytecode"] = collectEVMObject(
+			evmData["deployedBytecode"] = collectZVMObject(
 				compilerStack.runtimeObject(contractName),
 				compilerStack.runtimeSourceMapping(contractName),
 				compilerStack.generatedSources(contractName, true),
@@ -1566,7 +1566,7 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 			MachineAssemblyObject const& o = isDeployed ? deployedObject : object;
 			if (o.bytecode)
 				output["contracts"][sourceName][contractName]["evm"][kind] =
-					collectEVMObject(
+					collectZVMObject(
 						*o.bytecode,
 						o.sourceMappings.get(),
 						Json::arrayValue,

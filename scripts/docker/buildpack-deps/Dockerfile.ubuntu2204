@@ -45,7 +45,7 @@ RUN set -ex; \
 
 FROM base AS libraries
 
-# EVMONE
+# ZVMONE
 RUN set -ex; \
 	cd /usr/src; \
 	git clone --branch="v0.10.0" --recurse-submodules https://github.com/ethereum/zvmone.git; \

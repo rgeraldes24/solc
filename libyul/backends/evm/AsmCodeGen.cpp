@@ -49,7 +49,7 @@ void CodeGenerator::assemble(
 		assemblyAdapter,
 		_analysisInfo,
 		_parsedData,
-		ZVMDialect::strictAssemblyForEVM(_zvmVersion),
+		ZVMDialect::strictAssemblyForZVM(_zvmVersion),
 		builtinContext,
 		_optimizeStackAllocation,
 		_identifierAccessCodeGen,

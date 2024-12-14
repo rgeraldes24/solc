@@ -310,7 +310,7 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 
 	if (ZVMDialect const* dialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
 	{
-		if (BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
+		if (BuiltinFunctionForZVM const* fun = dialect->builtin(_funCall.functionName.name))
 		{
 			ZVMInstructionInterpreter interpreter(dialect->zvmVersion(), m_state, m_disableMemoryTrace);
 

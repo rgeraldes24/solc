@@ -49,10 +49,10 @@ bool yul::isRestrictedIdentifier(Dialect const& _dialect, YulString const& _iden
 	return _identifier.empty() || TokenTraits::isYulKeyword(_identifier.str()) || _dialect.reservedIdentifier(_identifier);
 }
 
-std::optional<zvmasm::Instruction> yul::toEVMInstruction(Dialect const& _dialect, YulString const& _name)
+std::optional<zvmasm::Instruction> yul::toZVMInstruction(Dialect const& _dialect, YulString const& _name)
 {
 	if (auto const* dialect = dynamic_cast<ZVMDialect const*>(&_dialect))
-		if (BuiltinFunctionForEVM const* builtin = dialect->builtin(_name))
+		if (BuiltinFunctionForZVM const* builtin = dialect->builtin(_name))
 			return builtin->instruction;
 	return std::nullopt;
 }

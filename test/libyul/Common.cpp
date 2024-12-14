@@ -47,7 +47,7 @@ namespace
 {
 Dialect const& defaultDialect(bool _yul)
 {
-	return _yul ? yul::Dialect::yulDeprecated() : yul::ZVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().zvmVersion());
+	return _yul ? yul::Dialect::yulDeprecated() : yul::ZVMDialect::strictAssemblyForZVM(hyperion::test::CommonOptions::get().zvmVersion());
 }
 }
 
@@ -105,7 +105,7 @@ std::map<string const, yul::Dialect const& (*)(langutil::ZVMVersion)> const vali
 	{
 		"evm",
 		[](langutil::ZVMVersion _zvmVersion) -> yul::Dialect const&
-		{ return yul::ZVMDialect::strictAssemblyForEVMObjects(_zvmVersion); }
+		{ return yul::ZVMDialect::strictAssemblyForZVMObjects(_zvmVersion); }
 	},
 	{
 		"evmTyped",

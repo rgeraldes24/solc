@@ -57,7 +57,7 @@ enum class InputMode
 	Linker,
 	Assembler,
 	LanguageServer,
-	EVMAssemblerJSON
+	ZVMAssemblerJSON
 };
 
 struct CompilerOutputs
@@ -223,7 +223,7 @@ struct CommandLineOptions
 
 	struct
 	{
-		bool optimizeEvmasm = false;
+		bool optimizeZvmasm = false;
 		bool optimizeYul = false;
 		std::optional<unsigned> expectedExecutionsPerDeployment;
 		std::optional<std::string> yulSteps;

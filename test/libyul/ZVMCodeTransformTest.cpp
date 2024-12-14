@@ -72,7 +72,7 @@ TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _
 	ZVMObjectCompiler::compile(
 		*stack.parserResult(),
 		adapter,
-		ZVMDialect::strictAssemblyForEVMObjects(ZVMVersion{}),
+		ZVMDialect::strictAssemblyForZVMObjects(ZVMVersion{}),
 		m_stackOpt
 	);
 

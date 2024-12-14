@@ -662,7 +662,7 @@ void AsmAnalyzer::expectType(YulString _expectedType, YulString _givenType, Sour
 
 bool AsmAnalyzer::validateInstructions(std::string const& _instructionIdentifier, langutil::SourceLocation const& _location)
 {
-	auto const builtin = ZVMDialect::strictAssemblyForEVM(ZVMVersion{}).builtin(YulString(_instructionIdentifier));
+	auto const builtin = ZVMDialect::strictAssemblyForZVM(ZVMVersion{}).builtin(YulString(_instructionIdentifier));
 	if (builtin && builtin->instruction.has_value())
 		return validateInstructions(builtin->instruction.value(), _location);
 	else

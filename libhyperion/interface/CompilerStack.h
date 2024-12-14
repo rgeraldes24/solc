@@ -187,7 +187,7 @@ public:
 	}
 
 	/// Enable EVM Bytecode generation. This is enabled by default.
-	void enableEvmBytecodeGeneration(bool _enable = true) { m_generateEvmBytecode = _enable; }
+	void enableZvmBytecodeGeneration(bool _enable = true) { m_generateZvmBytecode = _enable; }
 
 	/// Enable generation of Yul IR code.
 	void enableIRGeneration(bool _enable = true) { m_generateIR = _enable; }
@@ -497,7 +497,7 @@ private:
 	langutil::ZVMVersion m_zvmVersion;
 	ModelCheckerSettings m_modelCheckerSettings;
 	std::map<std::string, std::set<std::string>> m_requestedContractNames;
-	bool m_generateEvmBytecode = true;
+	bool m_generateZvmBytecode = true;
 	bool m_generateIR = false;
 	std::map<std::string, util::h160> m_libraries;
 	ImportRemapper m_importRemapper;

@@ -46,13 +46,13 @@ using namespace hyperion::util;
 namespace
 {
 
-std::pair<YulString, BuiltinFunctionForEVM> createEVMFunction(
+std::pair<YulString, BuiltinFunctionForZVM> createEVMFunction(
 	std::string const& _name,
 	zvmasm::Instruction _instruction
 )
 {
 	zvmasm::InstructionInfo info = zvmasm::instructionInfo(_instruction);
-	BuiltinFunctionForEVM f;
+	BuiltinFunctionForZVM f;
 	f.name = YulString{_name};
 	f.parameters.resize(static_cast<size_t>(info.args));
 	f.returns.resize(static_cast<size_t>(info.ret));
@@ -86,7 +86,7 @@ std::pair<YulString, BuiltinFunctionForEVM> createEVMFunction(
 	return {name, std::move(f)};
 }
 
-std::pair<YulString, BuiltinFunctionForEVM> createFunction(
+std::pair<YulString, BuiltinFunctionForZVM> createFunction(
 	std::string _name,
 	size_t _params,
 	size_t _returns,
@@ -98,7 +98,7 @@ std::pair<YulString, BuiltinFunctionForEVM> createFunction(
 	yulAssert(_literalArguments.size() == _params || _literalArguments.empty(), "");
 
 	YulString name{std::move(_name)};
-	BuiltinFunctionForEVM f;
+	BuiltinFunctionForZVM f;
 	f.name = name;
 	f.parameters.resize(_params);
 	f.returns.resize(_returns);
@@ -129,9 +129,9 @@ std::set<YulString> createReservedIdentifiers()
 	return reserved;
 }
 
-std::map<YulString, BuiltinFunctionForEVM> createBuiltins(bool _objectAccess)
+std::map<YulString, BuiltinFunctionForZVM> createBuiltins(bool _objectAccess)
 {
-	std::map<YulString, BuiltinFunctionForEVM> builtins;
+	std::map<YulString, BuiltinFunctionForZVM> builtins;
 	for (auto const& instr: zvmasm::c_instructions)
 	{
 		std::string name = toLower(instr.first);
@@ -286,7 +286,7 @@ ZVMDialect::ZVMDialect(langutil::ZVMVersion _zvmVersion, bool _objectAccess):
 {
 }
 
-BuiltinFunctionForEVM const* ZVMDialect::builtin(YulString _name) const
+BuiltinFunctionForZVM const* ZVMDialect::builtin(YulString _name) const
 {
 	if (m_objectAccess)
 	{
@@ -309,7 +309,7 @@ bool ZVMDialect::reservedIdentifier(YulString _name) const
 	return m_reserved.count(_name) != 0;
 }
 
-ZVMDialect const& ZVMDialect::strictAssemblyForEVM(langutil::ZVMVersion _version)
+ZVMDialect const& ZVMDialect::strictAssemblyForZVM(langutil::ZVMVersion _version)
 {
 	static std::map<langutil::ZVMVersion, std::unique_ptr<ZVMDialect const>> dialects;
 	static YulStringRepository::ResetCallback callback{[&] { dialects.clear(); }};
@@ -318,7 +318,7 @@ ZVMDialect const& ZVMDialect::strictAssemblyForEVM(langutil::ZVMVersion _version
 	return *dialects[_version];
 }
 
-ZVMDialect const& ZVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion _version)
+ZVMDialect const& ZVMDialect::strictAssemblyForZVMObjects(langutil::ZVMVersion _version)
 {
 	static std::map<langutil::ZVMVersion, std::unique_ptr<ZVMDialect const>> dialects;
 	static YulStringRepository::ResetCallback callback{[&] { dialects.clear(); }};
@@ -346,13 +346,13 @@ SideEffects ZVMDialect::sideEffectsOfInstruction(zvmasm::Instruction _instructio
 	};
 }
 
-BuiltinFunctionForEVM const* ZVMDialect::verbatimFunction(size_t _arguments, size_t _returnVariables) const
+BuiltinFunctionForZVM const* ZVMDialect::verbatimFunction(size_t _arguments, size_t _returnVariables) const
 {
 	std::pair<size_t, size_t> key{_arguments, _returnVariables};
-	std::shared_ptr<BuiltinFunctionForEVM const>& function = m_verbatimFunctions[key];
+	std::shared_ptr<BuiltinFunctionForZVM const>& function = m_verbatimFunctions[key];
 	if (!function)
 	{
-		BuiltinFunctionForEVM builtinFunction = createFunction(
+		BuiltinFunctionForZVM builtinFunction = createFunction(
 			"verbatim_" + std::to_string(_arguments) + "i_" + std::to_string(_returnVariables) + "o",
 			1 + _arguments,
 			_returnVariables,
@@ -374,7 +374,7 @@ BuiltinFunctionForEVM const* ZVMDialect::verbatimFunction(size_t _arguments, siz
 			}
 		).second;
 		builtinFunction.isMSize = true;
-		function = std::make_shared<BuiltinFunctionForEVM const>(std::move(builtinFunction));
+		function = std::make_shared<BuiltinFunctionForZVM const>(std::move(builtinFunction));
 	}
 	return function.get();
 }
@@ -451,7 +451,7 @@ ZVMDialectTyped::ZVMDialectTyped(langutil::ZVMVersion _zvmVersion, bool _objectA
 	m_functions["u256_to_bool"_yulstring].returns = {"bool"_yulstring};
 }
 
-BuiltinFunctionForEVM const* ZVMDialectTyped::discardFunction(YulString _type) const
+BuiltinFunctionForZVM const* ZVMDialectTyped::discardFunction(YulString _type) const
 {
 	if (_type == "bool"_yulstring)
 		return builtin("popbool"_yulstring);
@@ -462,7 +462,7 @@ BuiltinFunctionForEVM const* ZVMDialectTyped::discardFunction(YulString _type) c
 	}
 }
 
-BuiltinFunctionForEVM const* ZVMDialectTyped::equalityFunction(YulString _type) const
+BuiltinFunctionForZVM const* ZVMDialectTyped::equalityFunction(YulString _type) const
 {
 	if (_type == "bool"_yulstring)
 		return nullptr;

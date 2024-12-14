@@ -97,7 +97,7 @@ string YulInterpreterTest::interpret()
 	{
 		Interpreter::run(
 			state,
-			ZVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().zvmVersion()),
+			ZVMDialect::strictAssemblyForZVMObjects(hyperion::test::CommonOptions::get().zvmVersion()),
 			*m_ast,
 			/*disableExternalCalls=*/ !m_simulateExternalCallsToSelf,
 			/*disableMemoryTracing=*/ false

@@ -153,7 +153,7 @@ void UnusedStoreEliminator::visit(Statement const& _statement)
 
 	FunctionCall const* funCall = std::get_if<FunctionCall>(&exprStatement->expression);
 	yulAssert(funCall);
-	std::optional<Instruction> instruction = toEVMInstruction(m_dialect, funCall->functionName.name);
+	std::optional<Instruction> instruction = toZVMInstruction(m_dialect, funCall->functionName.name);
 	if (!instruction)
 		return;
 
@@ -198,7 +198,7 @@ void UnusedStoreEliminator::visit(Statement const& _statement)
 				if (
 					m_knowledgeBase.knownToBeZero(*startOffset) &&
 					lengthCall &&
-					toEVMInstruction(m_dialect, lengthCall->functionName.name) == Instruction::RETURNDATASIZE
+					toZVMInstruction(m_dialect, lengthCall->functionName.name) == Instruction::RETURNDATASIZE
 				)
 					allowReturndatacopyToBeRemoved = true;
 			}
@@ -229,7 +229,7 @@ std::vector<UnusedStoreEliminator::Operation> UnusedStoreEliminator::operationsF
 	else
 		sideEffects = m_functionSideEffects.at(functionName);
 
-	std::optional<Instruction> instruction = toEVMInstruction(m_dialect, functionName);
+	std::optional<Instruction> instruction = toZVMInstruction(m_dialect, functionName);
 	if (!instruction)
 	{
 		std::vector<Operation> result;

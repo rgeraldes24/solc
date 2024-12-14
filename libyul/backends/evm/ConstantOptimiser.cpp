@@ -74,7 +74,7 @@ struct MiniEVMInterpreter
 
 	u256 operator()(FunctionCall const& _funCall)
 	{
-		BuiltinFunctionForEVM const* fun = m_dialect.builtin(_funCall.functionName.name);
+		BuiltinFunctionForZVM const* fun = m_dialect.builtin(_funCall.functionName.name);
 		yulAssert(fun, "Expected builtin function.");
 		yulAssert(fun->instruction, "Expected EVM instruction.");
 		return eval(*fun->instruction, _funCall.arguments);

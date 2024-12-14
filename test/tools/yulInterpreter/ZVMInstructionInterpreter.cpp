@@ -450,7 +450,7 @@ u256 ZVMInstructionInterpreter::eval(
 }
 
 u256 ZVMInstructionInterpreter::evalBuiltin(
-	BuiltinFunctionForEVM const& _fun,
+	BuiltinFunctionForZVM const& _fun,
 	vector<Expression> const& _arguments,
 	vector<u256> const& _evaluatedArguments
 )

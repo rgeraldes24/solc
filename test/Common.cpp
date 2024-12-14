@@ -191,7 +191,7 @@ bool CommonOptions::parse(int argc, char const* const* argv)
 
 	if (vmPaths.empty())
 	{
-		if (auto envPath = getenv("ETH_EVMONE"))
+		if (auto envPath = getenv("ETH_ZVMONE"))
 			vmPaths.emplace_back(envPath);
 		else if (auto repoPath = findInDefaultPath(zvmoneFilename))
 			vmPaths.emplace_back(*repoPath);

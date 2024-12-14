@@ -89,7 +89,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	yulFuzzerUtil::TerminationReason termReason = yulFuzzerUtil::interpret(
 		os1,
 		stack.parserResult()->code,
-		ZVMDialect::strictAssemblyForEVMObjects(version),
+		ZVMDialect::strictAssemblyForZVMObjects(version),
 		/*disableMemoryTracing=*/true
 	);
 
@@ -98,7 +98,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 
 	YulOptimizerTestCommon optimizerTest(
 		stack.parserResult(),
-		ZVMDialect::strictAssemblyForEVMObjects(version)
+		ZVMDialect::strictAssemblyForZVMObjects(version)
 	);
 	optimizerTest.setStep(optimizerTest.randomOptimiserStep(_input.step()));
 	shared_ptr<hyperion::yul::Block> astBlock = optimizerTest.run();
@@ -106,7 +106,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	termReason = yulFuzzerUtil::interpret(
 		os2,
 		astBlock,
-		ZVMDialect::strictAssemblyForEVMObjects(version),
+		ZVMDialect::strictAssemblyForZVMObjects(version),
 		true
 	);
 	if (yulFuzzerUtil::resourceLimitsExceeded(termReason))

@@ -63,7 +63,7 @@ TestCase::TestResult ControlFlowSideEffectsTest::run(ostream& _stream, string co
 		BOOST_THROW_EXCEPTION(runtime_error("Parsing input failed."));
 
 	ControlFlowSideEffectsCollector sideEffects(
-		ZVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
+		ZVMDialect::strictAssemblyForZVMObjects(langutil::ZVMVersion()),
 		*obj.code
 	);
 	m_obtainedResult.clear();

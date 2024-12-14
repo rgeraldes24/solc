@@ -48,7 +48,7 @@ struct BuiltinContext
 	std::map<YulString, AbstractAssembly::SubID> subIDs;
 };
 
-struct BuiltinFunctionForEVM: public BuiltinFunction
+struct BuiltinFunctionForZVM: public BuiltinFunction
 {
 	std::optional<zvmasm::Instruction> instruction;
 	/// Function to generate code for the given function call and append it to the abstract
@@ -70,22 +70,22 @@ struct ZVMDialect: public Dialect
 	ZVMDialect(langutil::ZVMVersion _zvmVersion, bool _objectAccess);
 
 	/// @returns the builtin function of the given name or a nullptr if it is not a builtin function.
-	BuiltinFunctionForEVM const* builtin(YulString _name) const override;
+	BuiltinFunctionForZVM const* builtin(YulString _name) const override;
 
 	/// @returns true if the identifier is reserved. This includes the builtins too.
 	bool reservedIdentifier(YulString _name) const override;
 
-	BuiltinFunctionForEVM const* discardFunction(YulString /*_type*/) const override { return builtin("pop"_yulstring); }
-	BuiltinFunctionForEVM const* equalityFunction(YulString /*_type*/) const override { return builtin("eq"_yulstring); }
-	BuiltinFunctionForEVM const* booleanNegationFunction() const override { return builtin("iszero"_yulstring); }
-	BuiltinFunctionForEVM const* memoryStoreFunction(YulString /*_type*/) const override { return builtin("mstore"_yulstring); }
-	BuiltinFunctionForEVM const* memoryLoadFunction(YulString /*_type*/) const override { return builtin("mload"_yulstring); }
-	BuiltinFunctionForEVM const* storageStoreFunction(YulString /*_type*/) const override { return builtin("sstore"_yulstring); }
-	BuiltinFunctionForEVM const* storageLoadFunction(YulString /*_type*/) const override { return builtin("sload"_yulstring); }
+	BuiltinFunctionForZVM const* discardFunction(YulString /*_type*/) const override { return builtin("pop"_yulstring); }
+	BuiltinFunctionForZVM const* equalityFunction(YulString /*_type*/) const override { return builtin("eq"_yulstring); }
+	BuiltinFunctionForZVM const* booleanNegationFunction() const override { return builtin("iszero"_yulstring); }
+	BuiltinFunctionForZVM const* memoryStoreFunction(YulString /*_type*/) const override { return builtin("mstore"_yulstring); }
+	BuiltinFunctionForZVM const* memoryLoadFunction(YulString /*_type*/) const override { return builtin("mload"_yulstring); }
+	BuiltinFunctionForZVM const* storageStoreFunction(YulString /*_type*/) const override { return builtin("sstore"_yulstring); }
+	BuiltinFunctionForZVM const* storageLoadFunction(YulString /*_type*/) const override { return builtin("sload"_yulstring); }
 	YulString hashFunction(YulString /*_type*/) const override { return "keccak256"_yulstring; }
 
-	static ZVMDialect const& strictAssemblyForEVM(langutil::ZVMVersion _version);
-	static ZVMDialect const& strictAssemblyForEVMObjects(langutil::ZVMVersion _version);
+	static ZVMDialect const& strictAssemblyForZVM(langutil::ZVMVersion _version);
+	static ZVMDialect const& strictAssemblyForZVMObjects(langutil::ZVMVersion _version);
 
 	langutil::ZVMVersion zvmVersion() const { return m_zvmVersion; }
 
@@ -94,12 +94,12 @@ struct ZVMDialect: public Dialect
 	static SideEffects sideEffectsOfInstruction(zvmasm::Instruction _instruction);
 
 protected:
-	BuiltinFunctionForEVM const* verbatimFunction(size_t _arguments, size_t _returnVariables) const;
+	BuiltinFunctionForZVM const* verbatimFunction(size_t _arguments, size_t _returnVariables) const;
 
 	bool const m_objectAccess;
 	langutil::ZVMVersion const m_zvmVersion;
-	std::map<YulString, BuiltinFunctionForEVM> m_functions;
-	std::map<std::pair<size_t, size_t>, std::shared_ptr<BuiltinFunctionForEVM const>> mutable m_verbatimFunctions;
+	std::map<YulString, BuiltinFunctionForZVM> m_functions;
+	std::map<std::pair<size_t, size_t>, std::shared_ptr<BuiltinFunctionForZVM const>> mutable m_verbatimFunctions;
 	std::set<YulString> m_reserved;
 };
 
@@ -118,9 +118,9 @@ struct ZVMDialectTyped: public ZVMDialect
 	/// Constructor, should only be used internally. Use the factory function below.
 	ZVMDialectTyped(langutil::ZVMVersion _zvmVersion, bool _objectAccess);
 
-	BuiltinFunctionForEVM const* discardFunction(YulString _type) const override;
-	BuiltinFunctionForEVM const* equalityFunction(YulString _type) const override;
-	BuiltinFunctionForEVM const* booleanNegationFunction() const override { return builtin("not"_yulstring); }
+	BuiltinFunctionForZVM const* discardFunction(YulString _type) const override;
+	BuiltinFunctionForZVM const* equalityFunction(YulString _type) const override;
+	BuiltinFunctionForZVM const* booleanNegationFunction() const override { return builtin("not"_yulstring); }
 
 	static ZVMDialectTyped const& instance(langutil::ZVMVersion _version);
 };

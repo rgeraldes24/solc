@@ -714,7 +714,7 @@ bool CompilerStack::compile(State _stopAfter)
 					{
 						if (m_viaIR || m_generateIR)
 							generateIR(*contract);
-						if (m_generateEvmBytecode)
+						if (m_generateZvmBytecode)
 						{
 							if (m_viaIR)
 								generateEVMFromIR(*contract);
@@ -841,7 +841,7 @@ Json::Value CompilerStack::generatedSources(std::string const& _contractName, bo
 				ErrorList errors;
 				ErrorReporter errorReporter(errors);
 				CharStream charStream(source, sourceName);
-				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(m_zvmVersion);
+				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(m_zvmVersion);
 				std::shared_ptr<yul::Block> parserResult = yul::Parser{errorReporter, dialect}.parse(charStream);
 				solAssert(parserResult, "");
 				sources[0]["ast"] = yul::AsmJsonConverter{sourceIndex}(*parserResult);

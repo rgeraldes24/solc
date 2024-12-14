@@ -90,7 +90,7 @@ RUN set -ex; \
 	ninja install/strip; \
 	rm -rf /usr/src/libprotobuf-mutator
 
-# EVMONE
+# ZVMONE
 RUN set -ex; \
 	cd /usr/src; \
 	git clone --branch="v0.10.0" --recurse-submodules https://github.com/ethereum/zvmone.git; \
