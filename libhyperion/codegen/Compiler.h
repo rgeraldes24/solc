@@ -37,10 +37,10 @@ namespace hyperion::frontend
 class Compiler
 {
 public:
-	Compiler(langutil::ZVMVersion _evmVersion, RevertStrings _revertStrings, OptimiserSettings _optimiserSettings):
+	Compiler(langutil::ZVMVersion _zvmVersion, RevertStrings _revertStrings, OptimiserSettings _optimiserSettings):
 		m_optimiserSettings(std::move(_optimiserSettings)),
-		m_runtimeContext(_evmVersion, _revertStrings),
-		m_context(_evmVersion, _revertStrings, &m_runtimeContext)
+		m_runtimeContext(_zvmVersion, _revertStrings),
+		m_context(_zvmVersion, _revertStrings, &m_runtimeContext)
 	{ }
 
 	/// Compiles a contract.

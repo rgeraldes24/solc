@@ -40,7 +40,7 @@ using namespace hyperion::frontend;
 using namespace hyperion::langutil;
 using namespace hyperion::util;
 
-static vector<ZVMVersion> s_evmVersions = {
+static vector<ZVMVersion> s_zvmVersions = {
 	ZVMVersion::shanghai()
 };
 
@@ -58,7 +58,7 @@ void FuzzerUtil::testCompilerJsonInterface(string const& _input, bool _optimize,
 	config["settings"]["optimizer"] = Json::objectValue;
 	config["settings"]["optimizer"]["enabled"] = _optimize;
 	config["settings"]["optimizer"]["runs"] = static_cast<int>(OptimiserSettings{}.expectedExecutionsPerDeployment);
-	config["settings"]["evmVersion"] = "shanghai";
+	config["settings"]["zvmVersion"] = "shanghai";
 
 	// Enable all SourceUnit-level outputs.
 	config["settings"]["outputSelection"]["*"][""][0] = "*";
@@ -86,7 +86,7 @@ void FuzzerUtil::testCompiler(
 )
 {
 	frontend::CompilerStack compiler;
-	ZVMVersion evmVersion = s_evmVersions[_rand % s_evmVersions.size()];
+	ZVMVersion zvmVersion = s_zvmVersions[_rand % s_zvmVersions.size()];
 	frontend::OptimiserSettings optimiserSettings;
 	if (_optimize)
 		optimiserSettings = frontend::OptimiserSettings::standard();
@@ -112,7 +112,7 @@ void FuzzerUtil::testCompiler(
 		});
 	}
 	compiler.setSources(_input);
-	compiler.setZVMVersion(evmVersion);
+	compiler.setZVMVersion(zvmVersion);
 	compiler.setOptimiserSettings(optimiserSettings);
 	compiler.setViaIR(_compileViaYul);
 	try

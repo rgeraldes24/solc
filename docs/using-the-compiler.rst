@@ -128,7 +128,7 @@ On the command-line, you can select the EVM version as follows:
 
   hypc --evm-version <VERSION> contract.hyp
 
-In the :ref:`standard JSON interface <compiler-api>`, use the ``"evmVersion"``
+In the :ref:`standard JSON interface <compiler-api>`, use the ``"zvmVersion"``
 key in the ``"settings"`` field:
 
 .. code-block:: javascript
@@ -137,7 +137,7 @@ key in the ``"settings"`` field:
       "sources": {/* ... */},
       "settings": {
         "optimizer": {/* ... */},
-        "evmVersion": "<VERSION>"
+        "zvmVersion": "<VERSION>"
       }
     }
 
@@ -291,7 +291,7 @@ Input Description
         },
         // Version of the EVM to compile for.
         // Affects type checking and code generation. Can be shanghai (default)
-        "evmVersion": "shanghai",
+        "zvmVersion": "shanghai",
         // Optional: Change compilation pipeline to go through the Yul intermediate representation.
         // This is false by default.
         "viaIR": true,

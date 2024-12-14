@@ -56,7 +56,7 @@ zvmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 {
 	ErrorList errors;
 	ErrorReporter errorReporter(errors);
-	Parser parser(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
+	Parser parser(errorReporter, hyperion::test::CommonOptions::get().zvmVersion());
 	ASTPointer<SourceUnit> sourceUnit;
 	BOOST_REQUIRE_NO_THROW(sourceUnit = parser.parse(*_sourceCode));
 	BOOST_CHECK(!!sourceUnit);
@@ -64,8 +64,8 @@ zvmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 	Scoper::assignScopes(*sourceUnit);
 	BOOST_REQUIRE(SyntaxChecker(errorReporter, false).checkSyntax(*sourceUnit));
 	GlobalContext globalContext;
-	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
-	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
+	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().zvmVersion(), errorReporter);
+	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().zvmVersion());
 	solAssert(!Error::containsErrors(errorReporter.errors()), "");
 	resolver.registerDeclarations(*sourceUnit);
 	BOOST_REQUIRE_NO_THROW(resolver.resolveNamesAndTypes(*sourceUnit));
@@ -77,7 +77,7 @@ zvmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 		if (Error::containsErrors(errorReporter.errors()))
 			return AssemblyItems();
 	}
-	TypeChecker checker(hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
+	TypeChecker checker(hyperion::test::CommonOptions::get().zvmVersion(), errorReporter);
 	BOOST_REQUIRE_NO_THROW(checker.checkTypeRequirements(*sourceUnit));
 	if (Error::containsErrors(errorReporter.errors()))
 		return AssemblyItems();
@@ -85,7 +85,7 @@ zvmasm::AssemblyItems compileContract(std::shared_ptr<CharStream> _sourceCode)
 		if (ContractDefinition* contract = dynamic_cast<ContractDefinition*>(node.get()))
 		{
 			Compiler compiler(
-				hyperion::test::CommonOptions::get().evmVersion(),
+				hyperion::test::CommonOptions::get().zvmVersion(),
 				RevertStrings::Default,
 				hyperion::test::CommonOptions::get().optimize ? OptimiserSettings::standard() : OptimiserSettings::minimal()
 			);

@@ -231,7 +231,7 @@ void CompilerStack::setZVMVersion(langutil::ZVMVersion _version)
 {
 	if (m_stackState >= ParsedAndImported)
 		solThrow(CompilerError, "Must set EVM version before parsing.");
-	m_evmVersion = _version;
+	m_zvmVersion = _version;
 }
 
 void CompilerStack::setModelCheckerSettings(ModelCheckerSettings _settings)
@@ -309,7 +309,7 @@ void CompilerStack::reset(bool _keepSettings)
 		m_importRemapper.clear();
 		m_libraries.clear();
 		m_viaIR = false;
-		m_evmVersion = langutil::ZVMVersion();
+		m_zvmVersion = langutil::ZVMVersion();
 		m_modelCheckerSettings = ModelCheckerSettings{};
 		m_generateIR = false;
 		m_revertStrings = RevertStrings::Default;
@@ -347,7 +347,7 @@ bool CompilerStack::parse()
 	if (SemVerVersion{std::string(VersionString)}.isPrerelease())
 		m_errorReporter.warning(3805_error, "This is a pre-release compiler version, please do not use it in production.");
 
-	Parser parser{m_errorReporter, m_evmVersion};
+	Parser parser{m_errorReporter, m_zvmVersion};
 
 	std::vector<std::string> sourcesToParse;
 	for (auto const& s: m_sources)
@@ -409,7 +409,7 @@ void CompilerStack::importASTs(std::map<std::string, Json::Value> const& _source
 {
 	if (m_stackState != Empty)
 		solThrow(CompilerError, "Must call importASTs only before the SourcesSet state.");
-	std::map<std::string, ASTPointer<SourceUnit>> reconstructedSources = ASTJsonImporter(m_evmVersion).jsonToSourceUnit(_sources);
+	std::map<std::string, ASTPointer<SourceUnit>> reconstructedSources = ASTJsonImporter(m_zvmVersion).jsonToSourceUnit(_sources);
 	for (auto& src: reconstructedSources)
 	{
 		std::string const& path = src.first;
@@ -453,7 +453,7 @@ bool CompilerStack::analyze()
 
 		m_globalContext = std::make_shared<GlobalContext>();
 		// We need to keep the same resolver during the whole process.
-		NameAndTypeResolver resolver(*m_globalContext, m_evmVersion, m_errorReporter);
+		NameAndTypeResolver resolver(*m_globalContext, m_zvmVersion, m_errorReporter);
 		for (Source const* source: m_sourceOrder)
 			if (source->ast && !resolver.registerDeclarations(*source->ast))
 				return false;
@@ -504,7 +504,7 @@ bool CompilerStack::analyzeLegacy(bool _noErrorsSoFar)
 {
 	bool noErrors = _noErrorsSoFar;
 
-	DeclarationTypeChecker declarationTypeChecker(m_errorReporter, m_evmVersion);
+	DeclarationTypeChecker declarationTypeChecker(m_errorReporter, m_zvmVersion);
 	for (Source const* source: m_sourceOrder)
 		if (source->ast && !declarationTypeChecker.check(*source->ast))
 			return false;
@@ -532,7 +532,7 @@ bool CompilerStack::analyzeLegacy(bool _noErrorsSoFar)
 	//
 	// Note: this does not resolve overloaded functions. In order to do that, types of arguments are needed,
 	// which is only done one step later.
-	TypeChecker typeChecker(m_evmVersion, m_errorReporter);
+	TypeChecker typeChecker(m_zvmVersion, m_errorReporter);
 	for (Source const* source: m_sourceOrder)
 		if (source->ast && !typeChecker.checkTypeRequirements(*source->ast))
 			noErrors = false;
@@ -841,7 +841,7 @@ Json::Value CompilerStack::generatedSources(std::string const& _contractName, bo
 				ErrorList errors;
 				ErrorReporter errorReporter(errors);
 				CharStream charStream(source, sourceName);
-				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(m_evmVersion);
+				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(m_zvmVersion);
 				std::shared_ptr<yul::Block> parserResult = yul::Parser{errorReporter, dialect}.parse(charStream);
 				solAssert(parserResult, "");
 				sources[0]["ast"] = yul::AsmJsonConverter{sourceIndex}(*parserResult);
@@ -1430,7 +1430,7 @@ void CompilerStack::compileContract(
 
 	Contract& compiledContract = m_contracts.at(_contract.fullyQualifiedName());
 
-	std::shared_ptr<Compiler> compiler = std::make_shared<Compiler>(m_evmVersion, m_revertStrings, m_optimiserSettings);
+	std::shared_ptr<Compiler> compiler = std::make_shared<Compiler>(m_zvmVersion, m_revertStrings, m_optimiserSettings);
 	compiledContract.compiler = compiler;
 
 	solAssert(!m_viaIR, "");
@@ -1482,7 +1482,7 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 		otherYulSources.emplace(pair.second.contract, pair.second.yulIR);
 
 	IRGenerator generator(
-		m_evmVersion,
+		m_zvmVersion,
 		m_revertStrings,
 		sourceIndices(),
 		m_debugInfoSelection,
@@ -1496,7 +1496,7 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 	);
 
 	yul::YulStack stack(
-		m_evmVersion,
+		m_zvmVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1529,7 +1529,7 @@ void CompilerStack::generateEVMFromIR(ContractDefinition const& _contract)
 
 	// Re-parse the Yul IR in EVM dialect
 	yul::YulStack stack(
-		m_evmVersion,
+		m_zvmVersion,
 		yul::YulStack::Language::StrictAssembly,
 		m_optimiserSettings,
 		m_debugInfoSelection
@@ -1692,7 +1692,7 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 
 	if (_forIR)
 		meta["settings"]["viaIR"] = _forIR;
-	meta["settings"]["evmVersion"] = m_evmVersion.name();
+	meta["settings"]["zvmVersion"] = m_zvmVersion.name();
 	meta["settings"]["compilationTarget"][_contract.contract->sourceUnitName()] =
 		*_contract.contract->annotation().canonicalName;
 
@@ -1854,7 +1854,7 @@ Json::Value CompilerStack::gasEstimates(std::string const& _contractName) const
 		return Json::Value();
 
 	using Gas = GasEstimator::GasConsumption;
-	GasEstimator gasEstimator(m_evmVersion);
+	GasEstimator gasEstimator(m_zvmVersion);
 	Json::Value output(Json::objectValue);
 
 	if (zvmasm::AssemblyItems const* items = assemblyItems(_contractName))

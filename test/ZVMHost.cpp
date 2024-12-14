@@ -86,9 +86,9 @@ bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 	return evmVmFound;
 }
 
-ZVMHost::ZVMHost(langutil::ZVMVersion _evmVersion, zvmc::VM& _vm):
+ZVMHost::ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm):
 	m_vm(_vm),
-	m_evmVersion(_evmVersion)
+	m_zvmVersion(_zvmVersion)
 {
 	if (!m_vm)
 	{
@@ -96,7 +96,7 @@ ZVMHost::ZVMHost(langutil::ZVMVersion _evmVersion, zvmc::VM& _vm):
 		assertThrow(false, Exception, "");
 	}
 
-	if (_evmVersion == langutil::ZVMVersion::shanghai())
+	if (_zvmVersion == langutil::ZVMVersion::shanghai())
 		m_evmRevision = ZVMC_SHANGHAI;
 	else
 		assertThrow(false, Exception, "Unsupported EVM version");

@@ -52,7 +52,7 @@ class SettingsPreset(Enum):
 def compiler_settings(evm_version: str, via_ir: bool = False, optimizer: bool = False, yul: bool = False) -> dict:
     return {
         "optimizer": {"enabled": optimizer, "details": {"yul": yul}},
-        "evmVersion": evm_version,
+        "zvmVersion": evm_version,
         "viaIR": via_ir,
     }
 

@@ -312,7 +312,7 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 	{
 		if (BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
 		{
-			ZVMInstructionInterpreter interpreter(dialect->evmVersion(), m_state, m_disableMemoryTrace);
+			ZVMInstructionInterpreter interpreter(dialect->zvmVersion(), m_state, m_disableMemoryTrace);
 
 			u256 const value = interpreter.evalBuiltin(*fun, _funCall.arguments, values());
 

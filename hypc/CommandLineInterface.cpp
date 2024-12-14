@@ -794,7 +794,7 @@ void CommandLineInterface::assembleFromEVMAssemblyJSON()
 	solAssert(m_fileReader.sourceUnits().size() == 1);
 	auto&& [sourceUnitName, source] = *m_fileReader.sourceUnits().begin();
 
-	auto evmAssemblyStack = std::make_unique<zvmasm::ZVMAssemblyStack>(m_options.output.evmVersion);
+	auto evmAssemblyStack = std::make_unique<zvmasm::ZVMAssemblyStack>(m_options.output.zvmVersion);
 	try
 	{
 		evmAssemblyStack->parseAndAnalyze(sourceUnitName, source);
@@ -834,7 +834,7 @@ void CommandLineInterface::compile()
 		m_compiler->setRemappings(m_options.input.remappings);
 		m_compiler->setLibraries(m_options.linker.libraries);
 		m_compiler->setViaIR(m_options.output.viaIR);
-		m_compiler->setZVMVersion(m_options.output.evmVersion);
+		m_compiler->setZVMVersion(m_options.output.zvmVersion);
 		m_compiler->setRevertStringBehaviour(m_options.output.revertStrings);
 		if (m_options.output.debugInfoSelection.has_value())
 			m_compiler->selectDebugInfo(m_options.output.debugInfoSelection.value());
@@ -1186,7 +1186,7 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 	for (auto const& src: m_fileReader.sourceUnits())
 	{
 		auto& stack = yulStacks[src.first] = yul::YulStack(
-			m_options.output.evmVersion,
+			m_options.output.zvmVersion,
 			_language,
 			m_options.optimiserSettings(),
 			m_options.output.debugInfoSelection.has_value() ?

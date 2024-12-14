@@ -953,7 +953,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 		*code,
 		*analysisInfo,
 		*m_context.assemblyPtr(),
-		m_context.evmVersion(),
+		m_context.zvmVersion(),
 		identifierAccessCodeGen,
 		false,
 		m_optimiserSettings.optimizeStackAllocation

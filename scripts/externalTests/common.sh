@@ -386,12 +386,12 @@ function settings_from_preset
 
     case "$preset" in
         # NOTE: Remember to update `parallelism` of `t_ems_ext` job in CI config if you add/remove presets
-        legacy-no-optimize)       echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
-        ir-no-optimize)           echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
-        legacy-optimize-evm-only) echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        ir-optimize-evm-only)     echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        legacy-optimize-evm+yul)  echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
-        ir-optimize-evm+yul)      echo "{${extra_settings}evmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        legacy-no-optimize)       echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
+        ir-no-optimize)           echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
+        legacy-optimize-evm-only) echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        ir-optimize-evm-only)     echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        legacy-optimize-evm+yul)  echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        ir-optimize-evm+yul)      echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
         *)
             fail "Unknown settings preset: '${preset}'."
             ;;

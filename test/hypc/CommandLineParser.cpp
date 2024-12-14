@@ -178,7 +178,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.dir = "/tmp/out";
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = ZVMVersion::shanghai();
+		expectedOptions.output.zvmVersion = ZVMVersion::shanghai();
 		expectedOptions.output.viaIR = true;
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.input.allowedDirectories = {"/tmp", "/home", "project", "../contracts", "c", "/usr/lib"};
 		expectedOptions.input.ignoreMissingFiles = true;
 		expectedOptions.output.overwriteFiles = true;
-		expectedOptions.output.evmVersion = ZVMVersion::shanghai();
+		expectedOptions.output.zvmVersion = ZVMVersion::shanghai();
 		expectedOptions.output.revertStrings = RevertStrings::Strip;
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
 		expectedOptions.formatting.json = JsonFormat {JsonFormat::Pretty, 1};

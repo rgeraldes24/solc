@@ -55,14 +55,14 @@ class ABIFunctions
 {
 public:
 	explicit ABIFunctions(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		RevertStrings _revertStrings,
 		MultiUseYulFunctionCollector& _functionCollector
 	):
-		m_evmVersion(_evmVersion),
+		m_zvmVersion(_zvmVersion),
 		m_revertStrings(_revertStrings),
 		m_functionCollector(_functionCollector),
-		m_utils(_evmVersion, m_revertStrings, m_functionCollector)
+		m_utils(_zvmVersion, m_revertStrings, m_functionCollector)
 	{}
 
 	/// @returns name of an assembly function to ABI-encode values of @a _givenTypes
@@ -277,7 +277,7 @@ private:
 	/// if m_revertStrings is debug.
 	std::string revertReasonIfDebugFunction(std::string const& _message = "");
 
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	RevertStrings const m_revertStrings;
 	MultiUseYulFunctionCollector& m_functionCollector;
 	YulUtilFunctions m_utils;

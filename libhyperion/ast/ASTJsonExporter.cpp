@@ -666,7 +666,7 @@ bool ASTJsonExporter::visit(InlineAssembly const& _node)
 	std::vector<std::pair<std::string, Json::Value>> attributes = {
 		std::make_pair("AST", Json::Value(yul::AsmJsonConverter(sourceIndexFromLocation(_node.location()))(_node.operations()))),
 		std::make_pair("externalReferences", std::move(externalReferencesJson)),
-		std::make_pair("evmVersion", dynamic_cast<hyperion::yul::ZVMDialect const&>(_node.dialect()).evmVersion().name())
+		std::make_pair("zvmVersion", dynamic_cast<hyperion::yul::ZVMDialect const&>(_node.dialect()).zvmVersion().name())
 	};
 
 	if (_node.flags())

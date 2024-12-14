@@ -428,7 +428,7 @@
         "severity": "low",
         "conditions": {
             "optimizer": true,
-            "evmVersion": ">=constantinople"
+            "zvmVersion": ">=constantinople"
         }
     },
     {

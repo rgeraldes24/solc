@@ -67,7 +67,7 @@ TestCase::TestResult YulInterpreterTest::run(ostream& _stream, string const& _li
 bool YulInterpreterTest::parse(ostream& _stream, string const& _linePrefix, bool const _formatted)
 {
 	YulStack stack(
-		hyperion::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().zvmVersion(),
 		YulStack::Language::StrictAssembly,
 		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()
@@ -97,7 +97,7 @@ string YulInterpreterTest::interpret()
 	{
 		Interpreter::run(
 			state,
-			ZVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().evmVersion()),
+			ZVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().zvmVersion()),
 			*m_ast,
 			/*disableExternalCalls=*/ !m_simulateExternalCallsToSelf,
 			/*disableMemoryTracing=*/ false

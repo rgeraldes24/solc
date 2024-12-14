@@ -52,12 +52,12 @@ public:
 	ReferencesResolver(
 		langutil::ErrorReporter& _errorReporter,
 		NameAndTypeResolver& _resolver,
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		bool _resolveInsideCode = false
 	):
 		m_errorReporter(_errorReporter),
 		m_resolver(_resolver),
-		m_evmVersion(_evmVersion),
+		m_zvmVersion(_zvmVersion),
 		m_resolveInsideCode(_resolveInsideCode)
 	{}
 
@@ -97,7 +97,7 @@ private:
 
 	langutil::ErrorReporter& m_errorReporter;
 	NameAndTypeResolver& m_resolver;
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	/// Stack of return parameters.
 	std::vector<ParameterList const*> m_returnParameters;
 	bool const m_resolveInsideCode;

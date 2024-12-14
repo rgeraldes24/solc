@@ -1028,13 +1028,13 @@ BOOST_AUTO_TEST_CASE(evm_version)
 		)";
 	};
 	Json::Value result;
-	result = compile(inputForVersion("\"evmVersion\": \"shanghai\","));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"shanghai\"") != std::string::npos);
+	result = compile(inputForVersion("\"zvmVersion\": \"shanghai\","));
+	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"zvmVersion\":\"shanghai\"") != std::string::npos);
 	// test default
 	result = compile(inputForVersion(""));
-	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"evmVersion\":\"shanghai\"") != std::string::npos);
+	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"zvmVersion\":\"shanghai\"") != std::string::npos);
 	// test invalid
-	result = compile(inputForVersion("\"evmVersion\": \"invalid\","));
+	result = compile(inputForVersion("\"zvmVersion\": \"invalid\","));
 	BOOST_CHECK(result["errors"][0]["message"].asString() == "Invalid EVM version requested.");
 }
 

@@ -49,7 +49,7 @@ CompilabilityChecker::CompilabilityChecker(
 			builtinContext.subIDs[_object.name] = 1;
 		for (auto const& subNode: _object.subObjects)
 			builtinContext.subIDs[subNode->name] = 1;
-		NoOutputAssembly assembly{evmDialect->evmVersion()};
+		NoOutputAssembly assembly{evmDialect->zvmVersion()};
 		CodeTransform transform(
 			assembly,
 			analysisInfo,

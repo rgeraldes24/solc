@@ -79,7 +79,7 @@ void replaceVersionWithTag(std::string& _input)
 {
 	boost::algorithm::replace_all(
 		_input,
-		"\"" + hyperion::test::CommonOptions::get().evmVersion().name() + "\"",
+		"\"" + hyperion::test::CommonOptions::get().zvmVersion().name() + "\"",
 		"%EVMVERSION%"
 	);
 }
@@ -89,7 +89,7 @@ void replaceTagWithVersion(std::string& _input)
 	boost::algorithm::replace_all(
 		_input,
 		"%EVMVERSION%",
-		"\"" + hyperion::test::CommonOptions::get().evmVersion().name() + "\""
+		"\"" + hyperion::test::CommonOptions::get().zvmVersion().name() + "\""
 	);
 }
 
@@ -210,7 +210,7 @@ TestCase::TestResult ASTJSONTest::run(std::ostream& _stream, std::string const& 
 	{
 		c.reset();
 		c.setSources(sources);
-		c.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+		c.setZVMVersion(hyperion::test::CommonOptions::get().zvmVersion());
 
 		if (!c.parseAndAnalyze(variant.stopAfter))
 		{

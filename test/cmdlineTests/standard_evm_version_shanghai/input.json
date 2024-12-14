@@ -4,6 +4,6 @@
 		"input.hyp": {"content": "// SPDX-License-Identifier: GPL-3.0\npragma solidity *;"}
 	},
 	"settings": {
-		"evmVersion": "shanghai"
+		"zvmVersion": "shanghai"
 	}
 }

@@ -10,7 +10,7 @@
 	"settings":
 	{
 		"optimizer": 1,
-		"evmVersion": "shanghai",
+		"zvmVersion": "shanghai",
 		"metadata": {
 			"useLiteralContent": true
 		}

@@ -57,7 +57,7 @@ bytes SolidityExecutionFramework::multiSourceCompileContract(
 	));
 	m_compiler.setLibraries(_libraryAddresses);
 	m_compiler.setRevertStringBehaviour(m_revertStrings);
-	m_compiler.setZVMVersion(m_evmVersion);
+	m_compiler.setZVMVersion(m_zvmVersion);
 	m_compiler.setOptimiserSettings(m_optimiserSettings);
 	m_compiler.enableEvmBytecodeGeneration(true);
 	m_compiler.setViaIR(m_compileViaYul);

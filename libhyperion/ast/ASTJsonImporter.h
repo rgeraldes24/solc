@@ -40,8 +40,8 @@ namespace hyperion::frontend
 class ASTJsonImporter
 {
 public:
-	ASTJsonImporter(langutil::ZVMVersion _evmVersion)
-		:m_evmVersion(_evmVersion)
+	ASTJsonImporter(langutil::ZVMVersion _zvmVersion)
+		:m_zvmVersion(_zvmVersion)
 	{}
 
 	/// Converts the AST from JSON-format to ASTPointer
@@ -164,7 +164,7 @@ private:
 	/// IDs already used by the nodes
 	std::set<int64_t> m_usedIDs;
 	/// Configured EVM version
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 };
 
 }

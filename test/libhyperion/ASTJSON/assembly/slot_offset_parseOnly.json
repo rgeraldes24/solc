@@ -163,7 +163,7 @@
                     }
                   ]
                 },
-                "evmVersion": %EVMVERSION%,
+                "zvmVersion": %EVMVERSION%,
                 "externalReferences": [],
                 "id": 9,
                 "nodeType": "InlineAssembly",

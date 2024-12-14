@@ -123,7 +123,7 @@ void ZondAssemblyAdapter::appendAssemblySize()
 
 std::pair<std::shared_ptr<AbstractAssembly>, AbstractAssembly::SubID> ZondAssemblyAdapter::createSubAssembly(bool _creation, std::string _name)
 {
-	std::shared_ptr<zvmasm::Assembly> assembly{std::make_shared<zvmasm::Assembly>(m_assembly.evmVersion(), _creation, std::move(_name))};
+	std::shared_ptr<zvmasm::Assembly> assembly{std::make_shared<zvmasm::Assembly>(m_assembly.zvmVersion(), _creation, std::move(_name))};
 	auto sub = m_assembly.newSub(assembly);
 	return {std::make_shared<ZondAssemblyAdapter>(*assembly), static_cast<size_t>(sub.data())};
 }
@@ -180,9 +180,9 @@ void ZondAssemblyAdapter::markAsInvalid()
 	m_assembly.markAsInvalid();
 }
 
-langutil::ZVMVersion ZondAssemblyAdapter::evmVersion() const
+langutil::ZVMVersion ZondAssemblyAdapter::zvmVersion() const
 {
-	return m_assembly.evmVersion();
+	return m_assembly.zvmVersion();
 }
 
 ZondAssemblyAdapter::LabelID ZondAssemblyAdapter::assemblyTagToIdentifier(zvmasm::AssemblyItem const& _tag)

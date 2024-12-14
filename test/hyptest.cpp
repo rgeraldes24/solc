@@ -142,7 +142,7 @@ int registerTests(
 	fs::path fullpath = _basepath / _path;
 	TestCase::Config config{
 		fullpath.string(),
-		hyperion::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().zvmVersion(),
 		hyperion::test::CommonOptions::get().vmPaths,
 		hyperion::test::CommonOptions::get().enforceGasTest,
 		hyperion::test::CommonOptions::get().enforceGasTestMinValue,

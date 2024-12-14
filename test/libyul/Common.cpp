@@ -47,14 +47,14 @@ namespace
 {
 Dialect const& defaultDialect(bool _yul)
 {
-	return _yul ? yul::Dialect::yulDeprecated() : yul::ZVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().evmVersion());
+	return _yul ? yul::Dialect::yulDeprecated() : yul::ZVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().zvmVersion());
 }
 }
 
 pair<shared_ptr<Block>, shared_ptr<yul::AsmAnalysisInfo>> yul::test::parse(string const& _source, bool _yul)
 {
 	YulStack stack(
-		hyperion::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().zvmVersion(),
 		_yul ? YulStack::Language::Yul : YulStack::Language::StrictAssembly,
 		hyperion::test::CommonOptions::get().optimize ?
 			hyperion::frontend::OptimiserSettings::standard() :
@@ -104,13 +104,13 @@ namespace
 std::map<string const, yul::Dialect const& (*)(langutil::ZVMVersion)> const validDialects = {
 	{
 		"evm",
-		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
-		{ return yul::ZVMDialect::strictAssemblyForEVMObjects(_evmVersion); }
+		[](langutil::ZVMVersion _zvmVersion) -> yul::Dialect const&
+		{ return yul::ZVMDialect::strictAssemblyForEVMObjects(_zvmVersion); }
 	},
 	{
 		"evmTyped",
-		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
-		{ return yul::ZVMDialectTyped::instance(_evmVersion); }
+		[](langutil::ZVMVersion _zvmVersion) -> yul::Dialect const&
+		{ return yul::ZVMDialectTyped::instance(_zvmVersion); }
 	},
 	{
 		"yul",
@@ -128,7 +128,7 @@ vector<string> validDialectNames()
 }
 }
 
-yul::Dialect const& yul::test::dialect(std::string const& _name, langutil::ZVMVersion _evmVersion)
+yul::Dialect const& yul::test::dialect(std::string const& _name, langutil::ZVMVersion _zvmVersion)
 {
 	if (!validDialects.count(_name))
 		BOOST_THROW_EXCEPTION(runtime_error{
@@ -139,5 +139,5 @@ yul::Dialect const& yul::test::dialect(std::string const& _name, langutil::ZVMVe
 			"."
 		});
 
-	return validDialects.at(_name)(_evmVersion);
+	return validDialects.at(_name)(_zvmVersion);
 }

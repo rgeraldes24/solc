@@ -187,7 +187,7 @@ TestCase::TestResult ASTPropertyTest::run(std::ostream& _stream, std::string con
 		"A",
 		"pragma solidity >=0.0;\n// SPDX-License-Identifier: GPL-3.0\n" + m_source
 	}});
-	compiler.setZVMVersion(hyperion::test::CommonOptions::get().evmVersion());
+	compiler.setZVMVersion(hyperion::test::CommonOptions::get().zvmVersion());
 	compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 	if (!compiler.parseAndAnalyze())
 		BOOST_THROW_EXCEPTION(std::runtime_error(

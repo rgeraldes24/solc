@@ -58,12 +58,12 @@ std::ostream& hyperion::frontend::test::operator<<(std::ostream& _output, Requir
 
 SemanticTest::SemanticTest(
 	std::string const& _filename,
-	langutil::ZVMVersion _evmVersion,
+	langutil::ZVMVersion _zvmVersion,
 	std::vector<boost::filesystem::path> const& _vmPaths,
 	bool _enforceGasCost,
 	u256 _enforceGasCostMinValue
 ):
-	SolidityExecutionFramework(_evmVersion, _vmPaths, false),
+	SolidityExecutionFramework(_zvmVersion, _vmPaths, false),
 	ZVMVersionRestrictedTestCase(_filename),
 	m_sources(m_reader.sources()),
 	m_lineOffset(m_reader.lineNumber()),
@@ -330,7 +330,7 @@ TestCase::TestResult SemanticTest::run(std::ostream& _stream, std::string const&
 		hyperion::test::CommonOptions::get().printSelectedOptions(
 			_stream,
 			_linePrefix,
-			{"evmVersion", "optimize", "useABIEncoderV1", "batch"}
+			{"zvmVersion", "optimize", "useABIEncoderV1", "batch"}
 		);
 
 	return result;

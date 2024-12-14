@@ -92,7 +92,7 @@ string ProtoConverter::createAlphaNum(string const& _strBytes)
 	return tmp;
 }
 
-ZVMVersion ProtoConverter::evmVersionMapping(Program_Version const& _ver)
+ZVMVersion ProtoConverter::zvmVersionMapping(Program_Version const& _ver)
 {
 	switch (_ver)
 	{
@@ -1849,7 +1849,7 @@ void ProtoConverter::visit(Program const& _x)
 	m_inputSize = static_cast<unsigned>(_x.ByteSizeLong());
 
 	// Record EVM Version
-	m_evmVersion = evmVersionMapping(_x.ver());
+	m_zvmVersion = zvmVersionMapping(_x.ver());
 
 	// Program is either a Yul object or a block of
 	// statements.

@@ -30,7 +30,7 @@ using namespace hyperion::zvmasm;
 unsigned ConstantOptimisationMethod::optimiseConstants(
 	bool _isCreation,
 	size_t _runs,
-	langutil::ZVMVersion _evmVersion,
+	langutil::ZVMVersion _zvmVersion,
 	Assembly& _assembly
 )
 {
@@ -52,7 +52,7 @@ unsigned ConstantOptimisationMethod::optimiseConstants(
 		params.multiplicity = it.second;
 		params.isCreation = _isCreation;
 		params.runs = _runs;
-		params.evmVersion = _evmVersion;
+		params.zvmVersion = _zvmVersion;
 		LiteralMethod lit(params, item.data());
 		bigint literalGas = lit.gasNeeded();
 		CodeCopyMethod copy(params, item.data());

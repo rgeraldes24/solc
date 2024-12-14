@@ -278,9 +278,9 @@ std::regex const& verbatimPattern()
 }
 
 
-ZVMDialect::ZVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess):
+ZVMDialect::ZVMDialect(langutil::ZVMVersion _zvmVersion, bool _objectAccess):
 	m_objectAccess(_objectAccess),
-	m_evmVersion(_evmVersion),
+	m_zvmVersion(_zvmVersion),
 	m_functions(createBuiltins(_objectAccess)),
 	m_reserved(createReservedIdentifiers())
 {
@@ -379,8 +379,8 @@ BuiltinFunctionForEVM const* ZVMDialect::verbatimFunction(size_t _arguments, siz
 	return function.get();
 }
 
-ZVMDialectTyped::ZVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess):
-	ZVMDialect(_evmVersion, _objectAccess)
+ZVMDialectTyped::ZVMDialectTyped(langutil::ZVMVersion _zvmVersion, bool _objectAccess):
+	ZVMDialect(_zvmVersion, _objectAccess)
 {
 	defaultType = "u256"_yulstring;
 	boolType = "bool"_yulstring;

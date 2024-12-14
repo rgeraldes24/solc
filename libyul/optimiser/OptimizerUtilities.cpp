@@ -57,10 +57,10 @@ std::optional<zvmasm::Instruction> yul::toEVMInstruction(Dialect const& _dialect
 	return std::nullopt;
 }
 
-langutil::ZVMVersion const yul::evmVersionFromDialect(Dialect const& _dialect)
+langutil::ZVMVersion const yul::zvmVersionFromDialect(Dialect const& _dialect)
 {
 	if (auto const* dialect = dynamic_cast<ZVMDialect const*>(&_dialect))
-		return dialect->evmVersion();
+		return dialect->zvmVersion();
 	return langutil::ZVMVersion();
 }
 

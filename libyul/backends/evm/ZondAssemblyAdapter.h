@@ -67,7 +67,7 @@ public:
 
 	void markAsInvalid() override;
 
-	langutil::ZVMVersion evmVersion() const override;
+	langutil::ZVMVersion zvmVersion() const override;
 
 
 private:

@@ -74,7 +74,7 @@ public:
 	/// @returns true, if an zvmc vm supporting evm1 was loaded properly,
 	static bool checkVmPaths(std::vector<boost::filesystem::path> const& _vmPaths);
 
-	explicit ZVMHost(langutil::ZVMVersion _evmVersion, zvmc::VM& _vm);
+	explicit ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm);
 
 	/// Reset entire state (including accounts).
 	void reset();
@@ -123,7 +123,7 @@ private:
 
 	zvmc::VM& m_vm;
 	/// EVM version requested by the testing tool
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	/// EVM version requested from ZVMC (matches the above)
 	zvmc_revision m_evmRevision;
 };

@@ -46,7 +46,7 @@ void ExpressionSimplifier::visit(Expression& _expression)
 		m_dialect,
 		[this](YulString _var) { return variableValue(_var); }
 	))
-		_expression = match->action().toExpression(debugDataOf(_expression), evmVersionFromDialect(m_dialect));
+		_expression = match->action().toExpression(debugDataOf(_expression), zvmVersionFromDialect(m_dialect));
 
 	if (auto* functionCall = std::get_if<FunctionCall>(&_expression))
 		if (std::optional<zvmasm::Instruction> instruction = toEVMInstruction(m_dialect, functionCall->functionName.name))

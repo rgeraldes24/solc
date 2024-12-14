@@ -232,7 +232,7 @@ bool CommandLineOptions::operator==(CommandLineOptions const& _other) const noex
 		input.noImportCallback == _other.input.noImportCallback &&
 		output.dir == _other.output.dir &&
 		output.overwriteFiles == _other.output.overwriteFiles &&
-		output.evmVersion == _other.output.evmVersion &&
+		output.zvmVersion == _other.output.zvmVersion &&
 		output.viaIR == _other.output.viaIR &&
 		output.revertStrings == _other.output.revertStrings &&
 		output.debugInfoSelection == _other.output.debugInfoSelection &&
@@ -1188,7 +1188,7 @@ void CommandLineParser::processArgs()
 		std::optional<langutil::ZVMVersion> versionOption = langutil::ZVMVersion::fromString(versionOptionStr);
 		if (!versionOption)
 			solThrow(CommandLineValidationError, "Invalid option for --" + g_strZVMVersion + ": " + versionOptionStr);
-		m_options.output.evmVersion = *versionOption;
+		m_options.output.zvmVersion = *versionOption;
 	}
 
 	if (m_args.count(g_strNoOptimizeYul) > 0 && m_args.count(g_strOptimizeYul) > 0)

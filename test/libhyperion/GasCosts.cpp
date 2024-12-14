@@ -35,7 +35,7 @@ using namespace hyperion::test;
 namespace hyperion::frontend::test
 {
 
-#define CHECK_DEPLOY_GAS(_gasNoOpt, _gasOpt, _evmVersion) \
+#define CHECK_DEPLOY_GAS(_gasNoOpt, _gasOpt, _zvmVersion) \
 	do \
 	{ \
 		u256 metaCost = GasMeter::dataGas(m_compiler.cborMetadata(m_compiler.lastContractName()), true); \
@@ -98,16 +98,16 @@ BOOST_AUTO_TEST_CASE(string_storage)
 	{
 		if (CommonOptions::get().optimize)
 		{
-			CHECK_DEPLOY_GAS(0, 97071, evmVersion);
+			CHECK_DEPLOY_GAS(0, 97071, zvmVersion);
 		}
 		else
 		{
-			CHECK_DEPLOY_GAS(121493, 110969, evmVersion);
+			CHECK_DEPLOY_GAS(121493, 110969, zvmVersion);
 		}
 	}
 	// TODO(now.youtrack.cloud/issue/TS-14): Gas used: 102421 - expected: 114077
 	// else
-		// CHECK_DEPLOY_GAS(114077, 95835, evmVersion);
+		// CHECK_DEPLOY_GAS(114077, 95835, zvmVersion);
 
 	callContractFunction("f()");
 	if (!CommonOptions::get().useABIEncoderV1)

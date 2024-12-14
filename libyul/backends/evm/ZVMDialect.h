@@ -67,7 +67,7 @@ struct BuiltinFunctionForEVM: public BuiltinFunction
 struct ZVMDialect: public Dialect
 {
 	/// Constructor, should only be used internally. Use the factory functions below.
-	ZVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess);
+	ZVMDialect(langutil::ZVMVersion _zvmVersion, bool _objectAccess);
 
 	/// @returns the builtin function of the given name or a nullptr if it is not a builtin function.
 	BuiltinFunctionForEVM const* builtin(YulString _name) const override;
@@ -87,7 +87,7 @@ struct ZVMDialect: public Dialect
 	static ZVMDialect const& strictAssemblyForEVM(langutil::ZVMVersion _version);
 	static ZVMDialect const& strictAssemblyForEVMObjects(langutil::ZVMVersion _version);
 
-	langutil::ZVMVersion evmVersion() const { return m_evmVersion; }
+	langutil::ZVMVersion zvmVersion() const { return m_zvmVersion; }
 
 	bool providesObjectAccess() const { return m_objectAccess; }
 
@@ -97,7 +97,7 @@ protected:
 	BuiltinFunctionForEVM const* verbatimFunction(size_t _arguments, size_t _returnVariables) const;
 
 	bool const m_objectAccess;
-	langutil::ZVMVersion const m_evmVersion;
+	langutil::ZVMVersion const m_zvmVersion;
 	std::map<YulString, BuiltinFunctionForEVM> m_functions;
 	std::map<std::pair<size_t, size_t>, std::shared_ptr<BuiltinFunctionForEVM const>> mutable m_verbatimFunctions;
 	std::set<YulString> m_reserved;
@@ -116,7 +116,7 @@ protected:
 struct ZVMDialectTyped: public ZVMDialect
 {
 	/// Constructor, should only be used internally. Use the factory function below.
-	ZVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess);
+	ZVMDialectTyped(langutil::ZVMVersion _zvmVersion, bool _objectAccess);
 
 	BuiltinFunctionForEVM const* discardFunction(YulString _type) const override;
 	BuiltinFunctionForEVM const* equalityFunction(YulString _type) const override;

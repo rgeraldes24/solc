@@ -58,7 +58,7 @@ public:
 	/// are filled during the lifetime of this object.
 	NameAndTypeResolver(
 		GlobalContext& _globalContext,
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		langutil::ErrorReporter& _errorReporter
 	);
 	/// Registers all declarations found in the AST node, usually a source unit.
@@ -128,7 +128,7 @@ private:
 	/// Aliases (for example `import "x" as y;`) create multiple pointers to the same scope.
 	std::map<ASTNode const*, std::shared_ptr<DeclarationContainer>> m_scopes;
 
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	DeclarationContainer* m_currentScope = nullptr;
 	langutil::ErrorReporter& m_errorReporter;
 	GlobalContext& m_globalContext;

@@ -133,7 +133,7 @@ explanatory purposes.
           "myDirectory/myFile.hyp": "MyContract"
         },
         // Required for Solidity.
-        "evmVersion": "shanghai",
+        "zvmVersion": "shanghai",
         // Required for Solidity: Addresses for libraries used.
         "libraries": {
           "MyLib": "0x123123..."

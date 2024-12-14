@@ -77,7 +77,7 @@ bool YulStack::parseAndAnalyze(std::string const& _sourceName, std::string const
 	m_analysisSuccessful = false;
 	m_charStream = std::make_unique<CharStream>(_source, _sourceName);
 	std::shared_ptr<Scanner> scanner = std::make_shared<Scanner>(*m_charStream);
-	m_parserResult = ObjectParser(m_errorReporter, languageToDialect(m_language, m_evmVersion)).parse(scanner, false);
+	m_parserResult = ObjectParser(m_errorReporter, languageToDialect(m_language, m_zvmVersion)).parse(scanner, false);
 	if (!m_errorReporter.errors().empty())
 		return false;
 	yulAssert(m_parserResult, "");
@@ -93,7 +93,7 @@ void YulStack::optimize()
 
 	if (
 		!m_optimiserSettings.runYulOptimiser &&
-		yul::MSizeFinder::containsMSize(languageToDialect(m_language, m_evmVersion), *m_parserResult)
+		yul::MSizeFinder::containsMSize(languageToDialect(m_language, m_zvmVersion), *m_parserResult)
 	)
 		return;
 
@@ -118,7 +118,7 @@ bool YulStack::analyzeParsed(Object& _object)
 	AsmAnalyzer analyzer(
 		*_object.analysisInfo,
 		m_errorReporter,
-		languageToDialect(m_language, m_evmVersion),
+		languageToDialect(m_language, m_zvmVersion),
 		{},
 		_object.qualifiedDataNames()
 	);
@@ -137,10 +137,10 @@ void YulStack::compileEVM(AbstractAssembly& _assembly, bool _optimize) const
 	{
 		case Language::Assembly:
 		case Language::StrictAssembly:
-			dialect = &ZVMDialect::strictAssemblyForEVMObjects(m_evmVersion);
+			dialect = &ZVMDialect::strictAssemblyForEVMObjects(m_zvmVersion);
 			break;
 		case Language::Yul:
-			dialect = &ZVMDialectTyped::instance(m_evmVersion);
+			dialect = &ZVMDialectTyped::instance(m_zvmVersion);
 			break;
 		default:
 			yulAssert(false, "Invalid language.");
@@ -161,7 +161,7 @@ void YulStack::optimize(Object& _object, bool _isCreation)
 			optimize(*subObject, isCreation);
 		}
 
-	Dialect const& dialect = languageToDialect(m_language, m_evmVersion);
+	Dialect const& dialect = languageToDialect(m_language, m_zvmVersion);
 	std::unique_ptr<GasMeter> meter;
 	if (ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&dialect))
 		meter = std::make_unique<GasMeter>(*evmDialect, _isCreation, m_optimiserSettings.expectedExecutionsPerDeployment);
@@ -262,7 +262,7 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 	yulAssert(m_parserResult->code, "");
 	yulAssert(m_parserResult->analysisInfo, "");
 
-	zvmasm::Assembly assembly(m_evmVersion, true, {});
+	zvmasm::Assembly assembly(m_zvmVersion, true, {});
 	ZondAssemblyAdapter adapter(assembly);
 
 	// NOTE: We always need stack optimization when Yul optimizer is disabled (unless code contains
@@ -270,11 +270,11 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 	// it with the minimal steps required to avoid "stack too deep".
 	bool optimize = m_optimiserSettings.optimizeStackAllocation || (
 		!m_optimiserSettings.runYulOptimiser &&
-		!yul::MSizeFinder::containsMSize(languageToDialect(m_language, m_evmVersion), *m_parserResult)
+		!yul::MSizeFinder::containsMSize(languageToDialect(m_language, m_zvmVersion), *m_parserResult)
 	);
 	compileEVM(adapter, optimize);
 
-	assembly.optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(m_optimiserSettings, m_evmVersion));
+	assembly.optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(m_optimiserSettings, m_zvmVersion));
 
 	std::optional<size_t> subIndex;
 
@@ -309,7 +309,7 @@ std::string YulStack::print(
 {
 	yulAssert(m_parserResult, "");
 	yulAssert(m_parserResult->code, "");
-	return m_parserResult->toString(&languageToDialect(m_language, m_evmVersion), m_debugInfoSelection, _soliditySourceProvider) + "\n";
+	return m_parserResult->toString(&languageToDialect(m_language, m_zvmVersion), m_debugInfoSelection, _soliditySourceProvider) + "\n";
 }
 
 Json::Value YulStack::astJson() const

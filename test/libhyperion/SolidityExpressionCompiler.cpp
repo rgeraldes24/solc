@@ -107,7 +107,7 @@ bytes compileFirstExpression(
 	{
 		ErrorList errors;
 		ErrorReporter errorReporter(errors);
-		sourceUnit = Parser(errorReporter, hyperion::test::CommonOptions::get().evmVersion()).parse(stream);
+		sourceUnit = Parser(errorReporter, hyperion::test::CommonOptions::get().zvmVersion()).parse(stream);
 		if (!sourceUnit)
 			return bytes();
 	}
@@ -127,13 +127,13 @@ bytes compileFirstExpression(
 	GlobalContext globalContext;
 	Scoper::assignScopes(*sourceUnit);
 	BOOST_REQUIRE(SyntaxChecker(errorReporter, false).checkSyntax(*sourceUnit));
-	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
+	NameAndTypeResolver resolver(globalContext, hyperion::test::CommonOptions::get().zvmVersion(), errorReporter);
 	resolver.registerDeclarations(*sourceUnit);
 	BOOST_REQUIRE_MESSAGE(resolver.resolveNamesAndTypes(*sourceUnit), "Resolving names failed");
-	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().evmVersion());
+	DeclarationTypeChecker declarationTypeChecker(errorReporter, hyperion::test::CommonOptions::get().zvmVersion());
 	for (ASTPointer<ASTNode> const& node: sourceUnit->nodes())
 		BOOST_REQUIRE(declarationTypeChecker.check(*node));
-	TypeChecker typeChecker(hyperion::test::CommonOptions::get().evmVersion(), errorReporter);
+	TypeChecker typeChecker(hyperion::test::CommonOptions::get().zvmVersion(), errorReporter);
 	BOOST_REQUIRE(typeChecker.checkTypeRequirements(*sourceUnit));
 	for (ASTPointer<ASTNode> const& node: sourceUnit->nodes())
 		if (ContractDefinition* contract = dynamic_cast<ContractDefinition*>(node.get()))
@@ -142,7 +142,7 @@ bytes compileFirstExpression(
 			BOOST_REQUIRE(extractor.expression() != nullptr);
 
 			CompilerContext context(
-				hyperion::test::CommonOptions::get().evmVersion(),
+				hyperion::test::CommonOptions::get().zvmVersion(),
 				RevertStrings::Default
 			);
 			context.resetVisitedNodes(contract);

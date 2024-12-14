@@ -56,7 +56,7 @@ class ExecutionFramework
 
 public:
 	ExecutionFramework();
-	ExecutionFramework(langutil::ZVMVersion _evmVersion, std::vector<boost::filesystem::path> const& _vmPaths);
+	ExecutionFramework(langutil::ZVMVersion _zvmVersion, std::vector<boost::filesystem::path> const& _vmPaths);
 	virtual ~ExecutionFramework() = default;
 
 	virtual bytes const& compileAndRunWithoutCheck(
@@ -291,7 +291,7 @@ protected:
 
 	std::vector<frontend::test::LogRecord> recordedLogs() const;
 
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	hyperion::frontend::RevertStrings m_revertStrings = hyperion::frontend::RevertStrings::Default;
 	hyperion::frontend::OptimiserSettings m_optimiserSettings = hyperion::frontend::OptimiserSettings::minimal();
 	bool m_showMessages = false;

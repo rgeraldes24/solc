@@ -45,7 +45,7 @@ public:
 		m_compiler.setSources({{"", "pragma solidity >=0.0;\n"
 				"// SPDX-License-Identifier: GPL-3.0\n" + _sourceCode}});
 		m_compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
-		m_compiler.setZVMVersion(m_evmVersion);
+		m_compiler.setZVMVersion(m_zvmVersion);
 		BOOST_REQUIRE_MESSAGE(m_compiler.compile(), "Compiling contract failed");
 	}
 
@@ -53,7 +53,7 @@ public:
 	{
 		compileAndRun(_sourceCode);
 		auto state = std::make_shared<KnownState>();
-		PathGasMeter meter(*m_compiler.assemblyItems(m_compiler.lastContractName()), hyperion::test::CommonOptions::get().evmVersion());
+		PathGasMeter meter(*m_compiler.assemblyItems(m_compiler.lastContractName()), hyperion::test::CommonOptions::get().zvmVersion());
 		GasMeter::GasConsumption gas = meter.estimateMax(0, state);
 		u256 bytecodeSize(m_compiler.runtimeObject(m_compiler.lastContractName()).bytecode.size());
 		// costs for deployment
@@ -86,7 +86,7 @@ public:
 			gas = std::max(gas, gasForTransaction(hash.asBytes() + arguments, false));
 		}
 
-		gas += GasEstimator(hyperion::test::CommonOptions::get().evmVersion()).functionalEstimation(
+		gas += GasEstimator(hyperion::test::CommonOptions::get().zvmVersion()).functionalEstimation(
 			*m_compiler.runtimeAssemblyItems(m_compiler.lastContractName()),
 			_sig
 		);

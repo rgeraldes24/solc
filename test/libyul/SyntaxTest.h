@@ -31,9 +31,9 @@ class SyntaxTest: public hyperion::test::CommonSyntaxTest
 public:
 	static std::unique_ptr<TestCase> create(Config const& _config)
 	{
-		return std::make_unique<SyntaxTest>(_config.filename, _config.evmVersion);
+		return std::make_unique<SyntaxTest>(_config.filename, _config.zvmVersion);
 	}
-	SyntaxTest(std::string const& _filename, langutil::ZVMVersion _evmVersion);
+	SyntaxTest(std::string const& _filename, langutil::ZVMVersion _zvmVersion);
 	~SyntaxTest() override {}
 protected:
 	void parseAndAnalyze() override;

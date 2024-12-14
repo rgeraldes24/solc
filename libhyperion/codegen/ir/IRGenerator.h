@@ -47,23 +47,23 @@ public:
 	using ExecutionContext = IRGenerationContext::ExecutionContext;
 
 	IRGenerator(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		RevertStrings _revertStrings,
 		std::map<std::string, unsigned> _sourceIndices,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
 		langutil::CharStreamProvider const* _soliditySourceProvider,
 		OptimiserSettings& _optimiserSettings
 	):
-		m_evmVersion(_evmVersion),
+		m_zvmVersion(_zvmVersion),
 		m_context(
-			_evmVersion,
+			_zvmVersion,
 			ExecutionContext::Creation,
 			_revertStrings,
 			std::move(_sourceIndices),
 			_debugInfoSelection,
 			_soliditySourceProvider
 		),
-		m_utils(_evmVersion, m_context.revertStrings(), m_context.functionCollector()),
+		m_utils(_zvmVersion, m_context.revertStrings(), m_context.functionCollector()),
 		m_optimiserSettings(_optimiserSettings)
 	{}
 
@@ -137,7 +137,7 @@ private:
 
 	std::string dispenseLocationComment(ASTNode const& _node);
 
-	langutil::ZVMVersion const m_evmVersion;
+	langutil::ZVMVersion const m_zvmVersion;
 
 	IRGenerationContext m_context;
 	YulUtilFunctions m_utils;

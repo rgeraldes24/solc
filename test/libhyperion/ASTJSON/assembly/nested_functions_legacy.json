@@ -106,7 +106,7 @@
                 {
                   "attributes":
                   {
-                    "evmVersion": %EVMVERSION%,
+                    "zvmVersion": %EVMVERSION%,
                     "externalReferences":
                     [
                       null

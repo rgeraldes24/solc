@@ -687,7 +687,7 @@ bool AsmAnalyzer::validateInstructions(zvmasm::Instruction _instr, SourceLocatio
 	// 			"The \"{instruction}\" instruction is {kind} VMs (you are currently compiling for \"{version}\").",
 	// 			fmt::arg("instruction", boost::to_lower_copy(instructionInfo(_instr).name)),
 	// 			fmt::arg("kind", vmKindMessage),
-	// 			fmt::arg("version", m_evmVersion.name())
+	// 			fmt::arg("version", m_zvmVersion.name())
 	// 		)
 	// 	);
 	// };

@@ -41,11 +41,11 @@ class SolidityExecutionFramework: public hyperion::test::ExecutionFramework
 public:
 	SolidityExecutionFramework(): m_showMetadata(hyperion::test::CommonOptions::get().showMetadata) {}
 	explicit SolidityExecutionFramework(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		std::vector<boost::filesystem::path> const& _vmPaths,
 		bool _appendCBORMetadata = true
 	):
-		ExecutionFramework(_evmVersion, _vmPaths),
+		ExecutionFramework(_zvmVersion, _vmPaths),
 		m_showMetadata(hyperion::test::CommonOptions::get().showMetadata),
 		m_appendCBORMetadata(_appendCBORMetadata)
 	{}

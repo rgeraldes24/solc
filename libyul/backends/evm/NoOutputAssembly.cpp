@@ -130,7 +130,7 @@ void NoOutputAssembly::appendImmutableAssignment(std::string const&)
 }
 
 NoOutputZVMDialect::NoOutputZVMDialect(ZVMDialect const& _copyFrom):
-	ZVMDialect(_copyFrom.evmVersion(), _copyFrom.providesObjectAccess())
+	ZVMDialect(_copyFrom.zvmVersion(), _copyFrom.providesObjectAccess())
 {
 	for (auto& fun: m_functions)
 	{

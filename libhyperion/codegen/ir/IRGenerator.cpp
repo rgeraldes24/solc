@@ -727,7 +727,7 @@ std::string IRGenerator::generateExternalFunction(ContractDefinition const& _con
 		unsigned paramVars = std::make_shared<TupleType>(_functionType.parameterTypes())->sizeOnStack();
 		unsigned retVars = std::make_shared<TupleType>(_functionType.returnParameterTypes())->sizeOnStack();
 
-		ABIFunctions abiFunctions(m_evmVersion, m_context.revertStrings(), m_context.functionCollector());
+		ABIFunctions abiFunctions(m_zvmVersion, m_context.revertStrings(), m_context.functionCollector());
 		t("abiDecode", abiFunctions.tupleDecoder(_functionType.parameterTypes()));
 		t("params",  suffixedVariableNameList("param_", 0, paramVars));
 		t("retParams",  suffixedVariableNameList("ret_", 0, retVars));
@@ -1091,7 +1091,7 @@ void IRGenerator::resetContext(ContractDefinition const& _contract, ExecutionCon
 		"Reset internal dispatch map without consuming it."
 	);
 	IRGenerationContext newContext(
-		m_evmVersion,
+		m_zvmVersion,
 		_context,
 		m_context.revertStrings(),
 		m_context.sourceIndices(),

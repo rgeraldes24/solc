@@ -119,7 +119,7 @@ public:
 	virtual void markAsInvalid() = 0;
 
 	/// @returns the EVM version the assembly targets.
-	virtual langutil::ZVMVersion evmVersion() const = 0;
+	virtual langutil::ZVMVersion zvmVersion() const = 0;
 };
 
 enum class IdentifierContext { LValue, RValue, VariableDeclaration, NonExternal };

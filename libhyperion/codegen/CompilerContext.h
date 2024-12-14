@@ -61,23 +61,23 @@ class CompilerContext
 {
 public:
 	explicit CompilerContext(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		RevertStrings _revertStrings,
 		CompilerContext* _runtimeContext = nullptr
 	):
-		m_asm(std::make_shared<zvmasm::Assembly>(_evmVersion, _runtimeContext != nullptr, std::string{})),
-		m_evmVersion(_evmVersion),
+		m_asm(std::make_shared<zvmasm::Assembly>(_zvmVersion, _runtimeContext != nullptr, std::string{})),
+		m_zvmVersion(_zvmVersion),
 		m_revertStrings(_revertStrings),
 		m_reservedMemory{0},
 		m_runtimeContext(_runtimeContext),
-		m_abiFunctions(m_evmVersion, m_revertStrings, m_yulFunctionCollector),
-		m_yulUtilFunctions(m_evmVersion, m_revertStrings, m_yulFunctionCollector)
+		m_abiFunctions(m_zvmVersion, m_revertStrings, m_yulFunctionCollector),
+		m_yulUtilFunctions(m_zvmVersion, m_revertStrings, m_yulFunctionCollector)
 	{
 		if (m_runtimeContext)
 			m_runtimeSub = size_t(m_asm->newSub(m_runtimeContext->m_asm).data());
 	}
 
-	langutil::ZVMVersion const& evmVersion() const { return m_evmVersion; }
+	langutil::ZVMVersion const& zvmVersion() const { return m_zvmVersion; }
 
 	void setUseABICoderV2(bool _value) { m_useABICoderV2 = _value; }
 	bool useABICoderV2() const { return m_useABICoderV2; }
@@ -283,7 +283,7 @@ public:
 	void appendToAuxiliaryData(bytes const& _data) { m_asm->appendToAuxiliaryData(_data); }
 
 	/// Run optimisation step.
-	void optimise(OptimiserSettings const& _settings) { m_asm->optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(_settings, m_evmVersion)); }
+	void optimise(OptimiserSettings const& _settings) { m_asm->optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(_settings, m_zvmVersion)); }
 
 	/// @returns the runtime context if in creation mode and runtime context is set, nullptr otherwise.
 	CompilerContext* runtimeContext() const { return m_runtimeContext; }
@@ -348,7 +348,7 @@ private:
 
 	zvmasm::AssemblyPointer m_asm;
 	/// Version of the EVM to compile against.
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	RevertStrings const m_revertStrings;
 	bool m_useABICoderV2 = false;
 	/// Other already compiled contracts to be used in contract creation calls.

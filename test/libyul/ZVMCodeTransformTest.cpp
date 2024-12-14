@@ -67,7 +67,7 @@ TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _
 		return TestResult::FatalError;
 	}
 
-	zvmasm::Assembly assembly{hyperion::test::CommonOptions::get().evmVersion(), false, {}};
+	zvmasm::Assembly assembly{hyperion::test::CommonOptions::get().zvmVersion(), false, {}};
 	ZondAssemblyAdapter adapter(assembly);
 	ZVMObjectCompiler::compile(
 		*stack.parserResult(),

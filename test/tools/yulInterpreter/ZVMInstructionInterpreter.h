@@ -76,8 +76,8 @@ struct InterpreterState;
 class ZVMInstructionInterpreter
 {
 public:
-	explicit ZVMInstructionInterpreter(langutil::ZVMVersion _evmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
-		m_evmVersion(_evmVersion),
+	explicit ZVMInstructionInterpreter(langutil::ZVMVersion _zvmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
+		m_zvmVersion(_zvmVersion),
 		m_state(_state),
 		m_disableMemoryWriteInstructions(_disableMemWriteTrace)
 	{}
@@ -144,7 +144,7 @@ private:
 		return m_disableMemoryWriteInstructions;
 	}
 
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	InterpreterState& m_state;
 	/// Flag to disable trace of instructions that write to memory.
 	bool m_disableMemoryWriteInstructions;

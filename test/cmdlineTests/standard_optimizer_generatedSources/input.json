@@ -6,7 +6,7 @@
   }
  },
  "settings": {
-  "evmVersion": "shanghai",
+  "zvmVersion": "shanghai",
   "optimizer": { "enabled": true },
   "outputSelection": {
    "*": {

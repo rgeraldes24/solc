@@ -63,7 +63,7 @@ struct CommonOptions
 	size_t batches = 1;
 	size_t selectedBatch = 0;
 
-	langutil::ZVMVersion evmVersion() const;
+	langutil::ZVMVersion zvmVersion() const;
 
 	virtual void addOptions();
 	// @returns true if the program should continue, false if it should exit immediately without
@@ -74,7 +74,7 @@ struct CommonOptions
 	virtual void validate() const;
 
 	/// @returns string with a key=value list of the options separated by comma
-	/// Ex.: "evmVersion=shanghai, optimize=true, useABIEncoderV1=false"
+	/// Ex.: "zvmVersion=shanghai, optimize=true, useABIEncoderV1=false"
 	virtual std::string toString(std::vector<std::string> const& _selectedOptions) const;
 	/// Helper to print the value of settings used
 	virtual void printSelectedOptions(std::ostream& _stream, std::string const& _linePrefix, std::vector<std::string> const& _selectedOptions) const;
@@ -89,7 +89,7 @@ protected:
 	boost::program_options::options_description options;
 
 private:
-	std::string evmVersionString;
+	std::string zvmVersionString;
 	static std::unique_ptr<CommonOptions const> m_singleton;
 };
 

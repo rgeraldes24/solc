@@ -50,7 +50,7 @@ public:
 	static unsigned optimiseConstants(
 		bool _isCreation,
 		size_t _runs,
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		Assembly& _assembly
 	);
 
@@ -62,7 +62,7 @@ protected:
 		bool isCreation; ///< Whether this is called during contract creation or runtime.
 		size_t runs; ///< Estimated number of calls per opcode oven the lifetime of the contract.
 		size_t multiplicity; ///< Number of times the constant appears in the code.
-		langutil::ZVMVersion evmVersion; ///< Version of the EVM
+		langutil::ZVMVersion zvmVersion; ///< Version of the EVM
 	};
 
 	explicit ConstantOptimisationMethod(Params const& _params, u256 const& _value):

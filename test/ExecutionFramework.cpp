@@ -48,12 +48,12 @@ using namespace hyperion::test;
 using namespace hyperion::frontend::test;
 
 ExecutionFramework::ExecutionFramework():
-	ExecutionFramework(hyperion::test::CommonOptions::get().evmVersion(), hyperion::test::CommonOptions::get().vmPaths)
+	ExecutionFramework(hyperion::test::CommonOptions::get().zvmVersion(), hyperion::test::CommonOptions::get().vmPaths)
 {
 }
 
-ExecutionFramework::ExecutionFramework(langutil::ZVMVersion _evmVersion, vector<boost::filesystem::path> const& _vmPaths):
-	m_evmVersion(_evmVersion),
+ExecutionFramework::ExecutionFramework(langutil::ZVMVersion _zvmVersion, vector<boost::filesystem::path> const& _vmPaths):
+	m_zvmVersion(_zvmVersion),
 	m_optimiserSettings(hyperion::frontend::OptimiserSettings::minimal()),
 	m_showMessages(hyperion::test::CommonOptions::get().showMessages),
 	m_vmPaths(_vmPaths)
@@ -71,7 +71,7 @@ void ExecutionFramework::selectVM(zvmc_capabilities _cap)
 		zvmc::VM& vm = ZVMHost::getVM(path.string());
 		if (vm.has_capability(_cap))
 		{
-			m_zvmcHost = make_unique<ZVMHost>(m_evmVersion, vm);
+			m_zvmcHost = make_unique<ZVMHost>(m_zvmVersion, vm);
 			break;
 		}
 	}

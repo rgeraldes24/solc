@@ -38,7 +38,7 @@ public:
 	struct Config
 	{
 		std::string filename;
-		langutil::ZVMVersion evmVersion;
+		langutil::ZVMVersion zvmVersion;
 		std::vector<boost::filesystem::path> vmPaths;
 		bool enforceGasCost = false;
 		u256 enforceGasCostMinValue;

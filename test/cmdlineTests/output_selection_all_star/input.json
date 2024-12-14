@@ -9,7 +9,7 @@
   }
  },
  "settings": {
-  "evmVersion": "shanghai",
+  "zvmVersion": "shanghai",
   "outputSelection": {
    "*": {
     "*": [

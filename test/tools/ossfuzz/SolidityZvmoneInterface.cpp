@@ -34,7 +34,7 @@ optional<CompilerOutput> SolidityCompilationFramework::compileContract()
 {
 	m_compiler.setSources(m_compilerInput.sourceCode);
 	m_compiler.setLibraries(m_compilerInput.libraryAddresses);
-	m_compiler.setZVMVersion(m_compilerInput.evmVersion);
+	m_compiler.setZVMVersion(m_compilerInput.zvmVersion);
 	m_compiler.setOptimiserSettings(m_compilerInput.optimiserSettings);
 	m_compiler.setViaIR(m_compilerInput.viaIR);
 	if (!m_compiler.compile())

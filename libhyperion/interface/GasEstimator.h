@@ -46,7 +46,7 @@ public:
 	using ASTGasConsumptionSelfAccumulated =
 		std::map<ASTNode const*, std::array<GasConsumption, 2>>;
 
-	explicit GasEstimator(langutil::ZVMVersion _evmVersion): m_evmVersion(_evmVersion) {}
+	explicit GasEstimator(langutil::ZVMVersion _zvmVersion): m_zvmVersion(_zvmVersion) {}
 
 	/// @returns the estimated gas consumption by the (public or external) function with the
 	/// given signature. If no signature is given, estimates the maximum gas usage.
@@ -67,7 +67,7 @@ public:
 private:
 	/// @returns the set of AST nodes which are the finest nodes at their location.
 	static std::set<ASTNode const*> finestNodesAtLocation(std::vector<ASTNode const*> const& _roots);
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 };
 
 }

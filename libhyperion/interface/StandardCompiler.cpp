@@ -422,7 +422,7 @@ std::optional<Json::Value> checkAuxiliaryInputKeys(Json::Value const& _input)
 
 std::optional<Json::Value> checkSettingsKeys(Json::Value const& _input)
 {
-	static std::set<std::string> keys{"debug", "evmVersion", "libraries", "metadata", "modelChecker", "optimizer", "outputSelection", "remappings", "stopAfter", "viaIR"};
+	static std::set<std::string> keys{"debug", "zvmVersion", "libraries", "metadata", "modelChecker", "optimizer", "outputSelection", "remappings", "stopAfter", "viaIR"};
 	return checkKeys(_input, keys, "settings");
 }
 
@@ -789,14 +789,14 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 		ret.viaIR = settings["viaIR"].asBool();
 	}
 
-	if (settings.isMember("evmVersion"))
+	if (settings.isMember("zvmVersion"))
 	{
-		if (!settings["evmVersion"].isString())
-			return formatFatalError(Error::Type::JSONError, "evmVersion must be a string.");
-		std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(settings["evmVersion"].asString());
+		if (!settings["zvmVersion"].isString())
+			return formatFatalError(Error::Type::JSONError, "zvmVersion must be a string.");
+		std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(settings["zvmVersion"].asString());
 		if (!version)
 			return formatFatalError(Error::Type::JSONError, "Invalid EVM version requested.");
-		ret.evmVersion = *version;
+		ret.zvmVersion = *version;
 	}
 
 	if (settings.isMember("debug"))
@@ -1157,7 +1157,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 	for (auto const& smtLib2Response: _inputsAndSettings.smtLib2Responses)
 		compilerStack.addSMTLib2Response(smtLib2Response.first, smtLib2Response.second);
 	compilerStack.setViaIR(_inputsAndSettings.viaIR);
-	compilerStack.setZVMVersion(_inputsAndSettings.evmVersion);
+	compilerStack.setZVMVersion(_inputsAndSettings.zvmVersion);
 	compilerStack.setRemappings(std::move(_inputsAndSettings.remappings));
 	compilerStack.setOptimiserSettings(std::move(_inputsAndSettings.optimiserSettings));
 	compilerStack.setRevertStringBehaviour(_inputsAndSettings.revertStrings);
@@ -1492,7 +1492,7 @@ Json::Value StandardCompiler::compileYul(InputsAndSettings _inputsAndSettings)
 	}
 
 	YulStack stack(
-		_inputsAndSettings.evmVersion,
+		_inputsAndSettings.zvmVersion,
 		YulStack::Language::StrictAssembly,
 		_inputsAndSettings.optimiserSettings,
 		_inputsAndSettings.debugInfoSelection.has_value() ?

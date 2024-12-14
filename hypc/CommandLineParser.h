@@ -182,7 +182,7 @@ struct CommandLineOptions
 	{
 		boost::filesystem::path dir;
 		bool overwriteFiles = false;
-		langutil::ZVMVersion evmVersion;
+		langutil::ZVMVersion zvmVersion;
 		bool viaIR = false;
 		RevertStrings revertStrings = RevertStrings::Default;
 		std::optional<langutil::DebugInfoSelection> debugInfoSelection;

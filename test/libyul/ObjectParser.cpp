@@ -58,7 +58,7 @@ pair<bool, ErrorList> parse(string const& _source)
 	try
 	{
 		YulStack asmStack(
-			hyperion::test::CommonOptions::get().evmVersion(),
+			hyperion::test::CommonOptions::get().zvmVersion(),
 			YulStack::Language::StrictAssembly,
 			hyperion::frontend::OptimiserSettings::none(),
 			DebugInfoSelection::All()
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(to_string)
 )";
 	expectation = boost::replace_all_copy(expectation, "\t", "    ");
 	YulStack asmStack(
-		hyperion::test::CommonOptions::get().evmVersion(),
+		hyperion::test::CommonOptions::get().zvmVersion(),
 		YulStack::Language::StrictAssembly,
 		hyperion::frontend::OptimiserSettings::none(),
 		DebugInfoSelection::All()

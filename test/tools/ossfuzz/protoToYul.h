@@ -67,7 +67,7 @@ public:
 	/// Returns evm version
 	hyperion::langutil::ZVMVersion version()
 	{
-		return m_evmVersion;
+		return m_zvmVersion;
 	}
 private:
 	void visit(BinaryOp const&);
@@ -270,7 +270,7 @@ private:
 
 	/// Returns an ZVMVersion object corresponding to the protobuf
 	/// enum of type Program_Version
-	static hyperion::langutil::ZVMVersion evmVersionMapping(Program_Version const& _x);
+	static hyperion::langutil::ZVMVersion zvmVersionMapping(Program_Version const& _x);
 
 	/// @returns name of Yul function with return type of @param _numReturns.
 	std::optional<std::string> functionExists(NumFunctionReturns _numReturns);
@@ -379,7 +379,7 @@ private:
 	/// block is enabled.
 	bool m_forInitScopeExtEnabled;
 	/// Object that holds the targeted evm version specified by protobuf input
-	hyperion::langutil::ZVMVersion m_evmVersion;
+	hyperion::langutil::ZVMVersion m_zvmVersion;
 	/// Flag that, if set, stops the converter from generating state changing
 	/// opcodes.
 	bool m_filterStatefulInstructions;

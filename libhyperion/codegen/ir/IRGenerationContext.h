@@ -56,14 +56,14 @@ public:
 	enum class ExecutionContext { Creation, Deployed };
 
 	IRGenerationContext(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		ExecutionContext _executionContext,
 		RevertStrings _revertStrings,
 		std::map<std::string, unsigned> _sourceIndices,
 		langutil::DebugInfoSelection const& _debugInfoSelection,
 		langutil::CharStreamProvider const* _soliditySourceProvider
 	):
-		m_evmVersion(_evmVersion),
+		m_zvmVersion(_zvmVersion),
 		m_executionContext(_executionContext),
 		m_revertStrings(_revertStrings),
 		m_sourceIndices(std::move(_sourceIndices)),
@@ -132,7 +132,7 @@ public:
 	/// @returns a new copy of the utility function generator (but using the same function set).
 	YulUtilFunctions utils();
 
-	langutil::ZVMVersion evmVersion() const { return m_evmVersion; }
+	langutil::ZVMVersion zvmVersion() const { return m_zvmVersion; }
 	ExecutionContext executionContext() const { return m_executionContext; }
 
 	void setArithmetic(Arithmetic _value) { m_arithmetic = _value; }
@@ -157,7 +157,7 @@ public:
 	langutil::CharStreamProvider const* soliditySourceProvider() const { return m_soliditySourceProvider; }
 
 private:
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	ExecutionContext m_executionContext;
 	RevertStrings m_revertStrings;
 	std::map<std::string, unsigned> m_sourceIndices;

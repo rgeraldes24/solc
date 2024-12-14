@@ -79,13 +79,13 @@ public:
 	{}
 
 	YulStack(
-		langutil::ZVMVersion _evmVersion,
+		langutil::ZVMVersion _zvmVersion,
 		Language _language,
 		hyperion::frontend::OptimiserSettings _optimiserSettings,
 		langutil::DebugInfoSelection const& _debugInfoSelection
 	):
 		m_language(_language),
-		m_evmVersion(_evmVersion),
+		m_zvmVersion(_zvmVersion),
 		m_optimiserSettings(std::move(_optimiserSettings)),
 		m_debugInfoSelection(_debugInfoSelection),
 		m_errorReporter(m_errors)
@@ -142,7 +142,7 @@ private:
 	void optimize(yul::Object& _object, bool _isCreation);
 
 	Language m_language = Language::Assembly;
-	langutil::ZVMVersion m_evmVersion;
+	langutil::ZVMVersion m_zvmVersion;
 	hyperion::frontend::OptimiserSettings m_optimiserSettings;
 	langutil::DebugInfoSelection m_debugInfoSelection{};
 

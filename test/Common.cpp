@@ -103,7 +103,7 @@ CommonOptions::CommonOptions(std::string _caption):
 void CommonOptions::addOptions()
 {
 	options.add_options()
-		("evm-version", po::value(&evmVersionString), "which EVM version to use")
+		("evm-version", po::value(&zvmVersionString), "which EVM version to use")
 		("testpath", po::value<fs::path>(&this->testPath)->default_value(hyperion::test::testPath()), "path to test files")
 		("vm", po::value<std::vector<fs::path>>(&vmPaths), "path to zvmc library, can be supplied multiple times.")
 		("batches", po::value<size_t>(&this->batches)->default_value(1), "set number of batches to split the tests into")
@@ -144,7 +144,7 @@ void CommonOptions::validate() const
 	if (enforceGasTest)
 	{
 		assertThrow(
-			evmVersion() == langutil::ZVMVersion{},
+			zvmVersion() == langutil::ZVMVersion{},
 			ConfigException,
 			"Gas costs can only be enforced on latest evm version."
 		);
@@ -210,7 +210,7 @@ string CommonOptions::toString(vector<string> const& _selectedOptions) const
 	auto boolToString = [](bool _value) -> string { return _value ? "true" : "false"; };
 	// Using std::map to avoid if-else/switch-case block
 	map<string, string> optionValueMap = {
-		{"evmVersion", evmVersion().name()},
+		{"zvmVersion", zvmVersion().name()},
 		{"optimize", boolToString(optimize)},
 		{"useABIEncoderV1", boolToString(useABIEncoderV1)},
 		{"batch", to_string(selectedBatch + 1) + "/" + to_string(batches)},
@@ -236,13 +236,13 @@ void CommonOptions::printSelectedOptions(ostream& _stream, string const& _linePr
 	_stream << _linePrefix << "Run Settings: " << toString(_selectedOptions) << endl;
 }
 
-langutil::ZVMVersion CommonOptions::evmVersion() const
+langutil::ZVMVersion CommonOptions::zvmVersion() const
 {
-	if (!evmVersionString.empty())
+	if (!zvmVersionString.empty())
 	{
-		auto version = langutil::ZVMVersion::fromString(evmVersionString);
+		auto version = langutil::ZVMVersion::fromString(zvmVersionString);
 		if (!version)
-			BOOST_THROW_EXCEPTION(std::runtime_error("Invalid EVM version: " + evmVersionString));
+			BOOST_THROW_EXCEPTION(std::runtime_error("Invalid EVM version: " + zvmVersionString));
 		return *version;
 	}
 	else

@@ -44,7 +44,7 @@ std::ostream& hyperion::frontend::test::operator<<(std::ostream& _output, Natspe
 
 std::unique_ptr<TestCase> NatspecJSONTest::create(Config const& _config)
 {
-	return std::make_unique<NatspecJSONTest>(_config.filename, _config.evmVersion);
+	return std::make_unique<NatspecJSONTest>(_config.filename, _config.zvmVersion);
 }
 
 void NatspecJSONTest::parseCustomExpectations(std::istream& _stream)

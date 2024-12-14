@@ -1250,11 +1250,11 @@ BOOST_AUTO_TEST_CASE(jumpdest_removal_subassemblies)
 	settings.runDeduplicate = true;
 	settings.runCSE = true;
 	settings.runConstantOptimiser = true;
-	settings.evmVersion = hyperion::test::CommonOptions::get().evmVersion();
+	settings.zvmVersion = hyperion::test::CommonOptions::get().zvmVersion();
 	settings.expectedExecutionsPerDeployment = OptimiserSettings{}.expectedExecutionsPerDeployment;
 
-	Assembly main{settings.evmVersion, false, {}};
-	AssemblyPointer sub = std::make_shared<Assembly>(settings.evmVersion, true, std::string{});
+	Assembly main{settings.zvmVersion, false, {}};
+	AssemblyPointer sub = std::make_shared<Assembly>(settings.zvmVersion, true, std::string{});
 
 	sub->append(u256(1));
 	auto t1 = sub->newTag();

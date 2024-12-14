@@ -120,20 +120,20 @@ ZVMVersionRestrictedTestCase::ZVMVersionRestrictedTestCase(string const& _filena
 	if (!version)
 		BOOST_THROW_EXCEPTION(runtime_error{"Invalid EVM version: \"" + versionString + "\""});
 
-	langutil::ZVMVersion evmVersion = hyperion::test::CommonOptions::get().evmVersion();
+	langutil::ZVMVersion zvmVersion = hyperion::test::CommonOptions::get().zvmVersion();
 	bool comparisonResult;
 	if (comparator == ">")
-		comparisonResult = evmVersion > version;
+		comparisonResult = zvmVersion > version;
 	else if (comparator == ">=")
-		comparisonResult = evmVersion >= version;
+		comparisonResult = zvmVersion >= version;
 	else if (comparator == "<")
-		comparisonResult = evmVersion < version;
+		comparisonResult = zvmVersion < version;
 	else if (comparator == "<=")
-		comparisonResult = evmVersion <= version;
+		comparisonResult = zvmVersion <= version;
 	else if (comparator == "=")
-		comparisonResult = evmVersion == version;
+		comparisonResult = zvmVersion == version;
 	else if (comparator == "!")
-		comparisonResult = !(evmVersion == version);
+		comparisonResult = !(zvmVersion == version);
 	else
 		BOOST_THROW_EXCEPTION(runtime_error{"Invalid EVM comparator: \"" + comparator + "\""});
 

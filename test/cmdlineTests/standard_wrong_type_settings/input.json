@@ -14,7 +14,7 @@
 				"enabled": true,
 				"runs": 200
 			},
-			"evmVersion": "shanghai",
+			"zvmVersion": "shanghai",
 			"metadata": {
 				"useLiteralContent": true
 			}
