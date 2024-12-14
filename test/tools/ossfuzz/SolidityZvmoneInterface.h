@@ -26,7 +26,7 @@
 
 #include <libhyputil/Keccak256.h>
 
-#include <evmone/evmone.h>
+#include <zvmone/zvmone.h>
 
 namespace hyperion::test::fuzzer
 {
@@ -102,10 +102,10 @@ private:
 	CompilerInput m_compilerInput;
 };
 
-class EvmoneUtility
+class ZvmoneUtility
 {
 public:
-	EvmoneUtility(
+	ZvmoneUtility(
 		hyperion::test::ZVMHost& _evmHost,
 		CompilerInput _compilerInput,
 		std::string const& _contractName,

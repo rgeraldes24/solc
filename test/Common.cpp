@@ -193,10 +193,10 @@ bool CommonOptions::parse(int argc, char const* const* argv)
 	{
 		if (auto envPath = getenv("ETH_EVMONE"))
 			vmPaths.emplace_back(envPath);
-		else if (auto repoPath = findInDefaultPath(evmoneFilename))
+		else if (auto repoPath = findInDefaultPath(zvmoneFilename))
 			vmPaths.emplace_back(*repoPath);
 		else
-			vmPaths.emplace_back(evmoneFilename);
+			vmPaths.emplace_back(zvmoneFilename);
 	}
 
 	return true;
@@ -287,10 +287,10 @@ bool loadVMs(CommonOptions const& _options)
 	bool evmSupported = hyperion::test::ZVMHost::checkVmPaths(_options.vmPaths);
 	if (!_options.disableSemanticTests && !evmSupported)
 	{
-		std::cerr << "Unable to find " << hyperion::test::evmoneFilename;
+		std::cerr << "Unable to find " << hyperion::test::zvmoneFilename;
 		std::cerr << ". Please disable semantics tests with --no-semantic-tests or provide a path using --vm <path>." << std::endl;
 		std::cerr << "You can download it at" << std::endl;
-		std::cerr << hyperion::test::evmoneDownloadLink << std::endl;
+		std::cerr << hyperion::test::zvmoneDownloadLink << std::endl;
 		return false;
 	}
 	return true;

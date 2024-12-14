@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/tools/ossfuzz/SolidityEvmoneInterface.h>
+#include <test/tools/ossfuzz/SolidityZvmoneInterface.h>
 #include <test/tools/ossfuzz/protoToAbiV2.h>
 
 #include <src/libfuzzer/libfuzzer_macro.h>
@@ -31,7 +31,7 @@ using namespace hyperion::util;
 using namespace hyperion;
 using namespace std;
 
-static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
+static zvmc::VM zvmone = zvmc::VM{zvmc_create_zvmone()};
 
 DEFINE_PROTO_FUZZER(Contract const& _input)
 {
@@ -47,12 +47,12 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 
 	// We target the default EVM which is the latest
 	langutil::ZVMVersion version;
-	ZVMHost hostContext(version, evmone);
+	ZVMHost hostContext(version, zvmone);
 	string contractName = "C";
 	string methodName = "test()";
 	StringMap source({{"test.hyp", contract_source}});
 	CompilerInput cInput(version, source, contractName, OptimiserSettings::minimal(), {});
-	EvmoneUtility evmoneUtil(
+	ZvmoneUtility zvmoneUtil(
 		hostContext,
 		cInput,
 		contractName,
@@ -60,11 +60,11 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 		methodName
 	);
 	// Invoke test function
-	auto result = evmoneUtil.compileDeployAndExecute();
+	auto result = zvmoneUtil.compileDeployAndExecute();
 	// We don't care about EVM One failures other than ZVMC_REVERT
 	solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted");
 	if (result.status_code == ZVMC_SUCCESS)
-		if (!EvmoneUtility::zeroWord(result.output_data, result.output_size))
+		if (!ZvmoneUtility::zeroWord(result.output_data, result.output_size))
 		{
 			hyperion::bytes res;
 			for (size_t i = 0; i < result.output_size; i++)

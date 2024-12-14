@@ -92,7 +92,7 @@ ZVMHost::ZVMHost(langutil::ZVMVersion _evmVersion, zvmc::VM& _vm):
 {
 	if (!m_vm)
 	{
-		cerr << "Unable to find evmone library" << endl;
+		cerr << "Unable to find zvmone library" << endl;
 		assertThrow(false, Exception, "");
 	}
 

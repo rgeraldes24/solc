@@ -15,7 +15,7 @@
     along with solidity.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <test/tools/ossfuzz/YulEvmoneInterface.h>
+#include <test/tools/ossfuzz/YulZvmoneInterface.h>
 
 #include <libyul/Exceptions.h>
 
@@ -43,7 +43,7 @@ std::shared_ptr<yul::Object> YulAssembler::object()
 	return m_stack.parserResult();
 }
 
-zvmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
+zvmc::Result YulZvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
 {
 	// Zero initialize all message fields
 	zvmc_message msg = {};
@@ -75,7 +75,7 @@ zvmc::Result YulEvmoneUtility::deployCode(bytes const& _input, ZVMHost& _host)
 	return _host.call(msg);
 }
 
-zvmc_message YulEvmoneUtility::callMessage(zvmc_address _address)
+zvmc_message YulZvmoneUtility::callMessage(zvmc_address _address)
 {
 	zvmc_message call = {};
 	call.gas = std::numeric_limits<int64_t>::max();
@@ -85,7 +85,7 @@ zvmc_message YulEvmoneUtility::callMessage(zvmc_address _address)
 	return call;
 }
 
-bool YulEvmoneUtility::seriousCallError(zvmc_status_code _code)
+bool YulZvmoneUtility::seriousCallError(zvmc_status_code _code)
 {
 	if (_code == ZVMC_OUT_OF_GAS)
 		return true;

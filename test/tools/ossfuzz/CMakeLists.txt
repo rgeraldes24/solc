@@ -117,12 +117,12 @@ if (OSSFUZZ)
             protoToYul.cpp
             yulProto.pb.cc
             ../../ZVMHost.cpp
-            YulEvmoneInterface.cpp
+            YulZvmoneInterface.cpp
     )
     target_include_directories(stack_reuse_codegen_ossfuzz PRIVATE /usr/include/libprotobuf-mutator)
     target_link_libraries(stack_reuse_codegen_ossfuzz PRIVATE yul
             zvmc
-            evmone-standalone
+            zvmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
             protobuf.a
@@ -141,7 +141,7 @@ if (OSSFUZZ)
     add_executable(abiv2_proto_ossfuzz
             ../../ZVMHost.cpp
             abiV2ProtoFuzzer.cpp
-            SolidityEvmoneInterface.cpp
+            SolidityZvmoneInterface.cpp
             protoToAbiV2.cpp
             abiV2Proto.pb.cc
     )
@@ -150,7 +150,7 @@ if (OSSFUZZ)
     )
     target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
             zvmc
-            evmone-standalone
+            zvmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
             protobuf.a
@@ -160,7 +160,7 @@ if (OSSFUZZ)
 
     add_executable(abiv2_isabelle_ossfuzz
             AbiV2IsabelleFuzzer.cpp
-            SolidityEvmoneInterface.cpp
+            SolidityZvmoneInterface.cpp
             ../../ZVMHost.cpp
             protoToAbiV2.cpp
             abiV2Proto.pb.cc
@@ -170,7 +170,7 @@ if (OSSFUZZ)
     )
     target_link_libraries(abiv2_isabelle_ossfuzz PRIVATE solidity
             zvmc
-            evmone-standalone
+            zvmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
             protobuf.a
@@ -182,7 +182,7 @@ if (OSSFUZZ)
 
     add_executable(sol_proto_ossfuzz
             solProtoFuzzer.cpp
-            SolidityEvmoneInterface.cpp
+            SolidityZvmoneInterface.cpp
             protoToSol.cpp
             solProto.pb.cc
             ../../ZVMHost.cpp
@@ -192,7 +192,7 @@ if (OSSFUZZ)
     )
     target_link_libraries(sol_proto_ossfuzz PRIVATE solidity libhypc
             zvmc
-            evmone-standalone
+            zvmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
             protobuf.a
@@ -259,10 +259,10 @@ else()
 #    target_include_directories(abiv2_proto_ossfuzz PRIVATE
 #            /src/LPM/external.protobuf/include
 #            /src/libprotobuf-mutator
-#            /src/evmone/include
+#            /src/zvmone/include
 #    )
 #    target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
-#            evmone intx ethash keccak zvmc-instructions zvmc
+#            zvmone intx ethash keccak zvmc-instructions zvmc
 #            protobuf-mutator-libfuzzer.a
 #            protobuf-mutator.a
 #            protobuf.a

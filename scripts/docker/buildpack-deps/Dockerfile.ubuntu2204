@@ -48,14 +48,14 @@ FROM base AS libraries
 # EVMONE
 RUN set -ex; \
 	cd /usr/src; \
-	git clone --branch="v0.10.0" --recurse-submodules https://github.com/ethereum/evmone.git; \
-	cd evmone; \
+	git clone --branch="v0.10.0" --recurse-submodules https://github.com/ethereum/zvmone.git; \
+	cd zvmone; \
 	mkdir build; \
 	cd build; \
 	cmake -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX="/usr" ..; \
 	ninja; \
 	ninja install/strip; \
-	rm -rf /usr/src/evmone
+	rm -rf /usr/src/zvmone
 
 FROM base
 COPY --from=libraries /usr/lib /usr/lib

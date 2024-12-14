@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/tools/ossfuzz/SolidityEvmoneInterface.h>
+#include <test/tools/ossfuzz/SolidityZvmoneInterface.h>
 
 #include <test/tools/ossfuzz/protoToAbiV2.h>
 
@@ -32,7 +32,7 @@ using namespace hyperion;
 using namespace std;
 
 static constexpr size_t abiCoderHeapSize = 1024 * 512;
-static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
+static zvmc::VM zvmone = zvmc::VM{zvmc_create_zvmone()};
 
 DEFINE_PROTO_FUZZER(Contract const& _contract)
 {
@@ -57,22 +57,22 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 
 		// We target the default EVM which is the latest
 		langutil::ZVMVersion version;
-		ZVMHost hostContext(version, evmone);
+		ZVMHost hostContext(version, zvmone);
 		string contractName = "C";
 		StringMap source({{"test.hyp", contractSource}});
 		CompilerInput cInput(version, source, contractName, OptimiserSettings::minimal(), {});
-		EvmoneUtility evmoneUtil(
+		ZvmoneUtility zvmoneUtil(
 			hostContext,
 			cInput,
 			contractName,
 			{},
 			{}
 		);
-		auto result = evmoneUtil.compileDeployAndExecute(encodedData);
+		auto result = zvmoneUtil.compileDeployAndExecute(encodedData);
 		solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted.");
 		if (result.status_code == ZVMC_SUCCESS)
 			solAssert(
-				EvmoneUtility::zeroWord(result.output_data, result.output_size),
+				ZvmoneUtility::zeroWord(result.output_data, result.output_size),
 				"Proto ABIv2 fuzzer: ABIv2 coding failure found."
 			);
 	}

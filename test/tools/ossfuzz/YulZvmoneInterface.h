@@ -52,7 +52,7 @@ private:
 	bool m_optimiseYul;
 };
 
-struct YulEvmoneUtility
+struct YulZvmoneUtility
 {
 	/// @returns the result of deploying bytecode @param _input on @param _host.
 	static zvmc::Result deployCode(hyperion::bytes const& _input, ZVMHost& _host);

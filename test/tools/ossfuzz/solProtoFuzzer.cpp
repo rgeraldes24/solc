@@ -17,17 +17,17 @@
 // SPDX-License-Identifier: GPL-3.0
 
 #include <test/tools/ossfuzz/protoToSol.h>
-#include <test/tools/ossfuzz/SolidityEvmoneInterface.h>
+#include <test/tools/ossfuzz/SolidityZvmoneInterface.h>
 #include <test/tools/ossfuzz/solProto.pb.h>
 
 #include <test/ZVMHost.h>
 
-#include <evmone/evmone.h>
+#include <zvmone/zvmone.h>
 #include <src/libfuzzer/libfuzzer_macro.h>
 
 #include <fstream>
 
-static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
+static zvmc::VM zvmone = zvmc::VM{zvmc_create_zvmone()};
 
 using namespace hyperion::test::fuzzer;
 using namespace hyperion::test::solprotofuzzer;
@@ -65,24 +65,24 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 
 	// We target the default EVM which is the latest
 	langutil::ZVMVersion version;
-	ZVMHost hostContext(version, evmone);
+	ZVMHost hostContext(version, zvmone);
 	string contractName = "C";
 	string libraryName = converter.libraryTest() ? converter.libraryName() : "";
 	string methodName = "test()";
 	StringMap source({{"test.hyp", sol_source}});
 	CompilerInput cInput(version, source, contractName, OptimiserSettings::minimal(), {});
-	EvmoneUtility evmoneUtil(
+	ZvmoneUtility zvmoneUtil(
 		hostContext,
 		cInput,
 		contractName,
 		libraryName,
 		methodName
 	);
-	auto minimalResult = evmoneUtil.compileDeployAndExecute();
-	solAssert(minimalResult.status_code != ZVMC_REVERT, "Sol proto fuzzer: Evmone reverted.");
+	auto minimalResult = zvmoneUtil.compileDeployAndExecute();
+	solAssert(minimalResult.status_code != ZVMC_REVERT, "Sol proto fuzzer: Zvmone reverted.");
 	if (minimalResult.status_code == ZVMC_SUCCESS)
 		solAssert(
-			EvmoneUtility::zeroWord(minimalResult.output_data, minimalResult.output_size),
+			ZvmoneUtility::zeroWord(minimalResult.output_data, minimalResult.output_size),
 			"Proto hypc fuzzer: Output incorrect"
 		);
 }

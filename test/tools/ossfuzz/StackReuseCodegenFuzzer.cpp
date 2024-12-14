@@ -20,7 +20,7 @@
 
 #include <test/ZVMHost.h>
 
-#include <test/tools/ossfuzz/YulEvmoneInterface.h>
+#include <test/tools/ossfuzz/YulZvmoneInterface.h>
 
 #include <libyul/Exceptions.h>
 
@@ -34,7 +34,7 @@
 
 #include <liblangutil/ZVMVersion.h>
 
-#include <evmone/evmone.h>
+#include <zvmone/zvmone.h>
 
 #include <src/libfuzzer/libfuzzer_macro.h>
 
@@ -48,7 +48,7 @@ using namespace hyperion::yul::test::yul_fuzzer;
 using namespace hyperion::langutil;
 using namespace std;
 
-static zvmc::VM evmone = zvmc::VM{zvmc_create_evmone()};
+static zvmc::VM zvmone = zvmc::VM{zvmc_create_zvmone()};
 
 namespace
 {
@@ -84,7 +84,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// Do not fuzz the EVM Version field.
 	// See https://github.com/ethereum/solidity/issues/12590
 	langutil::ZVMVersion version;
-	ZVMHost hostContext(version, evmone);
+	ZVMHost hostContext(version, zvmone);
 	hostContext.reset();
 
 	if (const char* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
@@ -121,10 +121,10 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	bool noInvalidInSource = true;
 	if (!unoptimizedStackTooDeep)
 	{
-		zvmc::Result deployResult = YulEvmoneUtility{}.deployCode(unoptimisedByteCode, hostContext);
+		zvmc::Result deployResult = YulZvmoneUtility{}.deployCode(unoptimisedByteCode, hostContext);
 		if (deployResult.status_code != ZVMC_SUCCESS)
 			return;
-		auto callMessage = YulEvmoneUtility{}.callMessage(deployResult.create_address);
+		auto callMessage = YulZvmoneUtility{}.callMessage(deployResult.create_address);
 		zvmc::Result callResult = hostContext.call(callMessage);
 		// If the fuzzer synthesized input does not contain the revert opcode which
 		// we lazily check by string find, the EVM call should not revert.
@@ -138,10 +138,10 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		if (noRevertInSource)
 			solAssert(
 				callResult.status_code != ZVMC_REVERT,
-				"SolidityEvmoneInterface: EVM One reverted"
+				"SolidityZvmoneInterface: EVM One reverted"
 			);
 		// Bail out on serious errors encountered during a call.
-		if (YulEvmoneUtility{}.seriousCallError(callResult.status_code))
+		if (YulZvmoneUtility{}.seriousCallError(callResult.status_code))
 			return;
 		solAssert(
 			(callResult.status_code == ZVMC_SUCCESS ||
@@ -171,17 +171,17 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		return;
 	// Reset host before running optimised code.
 	hostContext.reset();
-	zvmc::Result deployResultOpt = YulEvmoneUtility{}.deployCode(optimisedByteCode, hostContext);
+	zvmc::Result deployResultOpt = YulZvmoneUtility{}.deployCode(optimisedByteCode, hostContext);
 	solAssert(
 		deployResultOpt.status_code == ZVMC_SUCCESS,
-		"Evmone: Optimized contract creation failed"
+		"Zvmone: Optimized contract creation failed"
 	);
-	auto callMessageOpt = YulEvmoneUtility{}.callMessage(deployResultOpt.create_address);
+	auto callMessageOpt = YulZvmoneUtility{}.callMessage(deployResultOpt.create_address);
 	zvmc::Result callResultOpt = hostContext.call(callMessageOpt);
 	if (noRevertInSource)
 		solAssert(
 			callResultOpt.status_code != ZVMC_REVERT,
-			"SolidityEvmoneInterface: EVM One reverted"
+			"SolidityZvmoneInterface: EVM One reverted"
 		);
 	if (noInvalidInSource)
 		solAssert(

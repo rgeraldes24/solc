@@ -92,7 +92,7 @@ Prerequisites
 -------------
 
 For running all compiler tests you may want to optionally install a few
-dependencies (`evmone <https://github.com/ethereum/evmone/releases>`_,
+dependencies (`zvmone <https://github.com/ethereum/zvmone/releases>`_,
 `libz3 <https://github.com/Z3Prover/z3>`_).
 
 On macOS systems, some of the testing scripts expect GNU coreutils to be installed.
@@ -118,17 +118,17 @@ application ``hyptest`` (or its wrapper ``scripts/hyptest.sh``), as well as comm
 compilation tests.
 
 The test system automatically tries to discover the location of
-the `evmone <https://github.com/ethereum/evmone/releases>`_ for running the semantic tests.
+the `zvmone <https://github.com/ethereum/zvmone/releases>`_ for running the semantic tests.
 
-The ``evmone`` library must be located in the ``deps`` or ``deps/lib`` directory relative to the
+The ``zvmone`` library must be located in the ``deps`` or ``deps/lib`` directory relative to the
 current working directory, to its parent or its parent's parent. Alternatively, an explicit location
-for the ``evmone`` shared object can be specified via the ``ETH_EVMONE`` environment variable.
+for the ``zvmone`` shared object can be specified via the ``ETH_EVMONE`` environment variable.
 
-``evmone`` is needed mainly for running semantic and gas tests.
+``zvmone`` is needed mainly for running semantic and gas tests.
 If you do not have it installed, you can skip these tests by passing the ``--no-semantic-tests``
 flag to ``scripts/hyptest.sh``.
 
-The ``evmone`` library should both end with the file name
+The ``zvmone`` library should both end with the file name
 extension ``.so`` on Linux, ``.dll`` on Windows systems and ``.dylib`` on macOS.
 
 For running SMT tests, the ``libz3`` library must be installed and locatable

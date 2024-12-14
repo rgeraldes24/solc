@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/tools/ossfuzz/SolidityEvmoneInterface.h>
+#include <test/tools/ossfuzz/SolidityZvmoneInterface.h>
 
 #include <liblangutil/Exceptions.h>
 #include <liblangutil/SourceReferenceFormatter.h>
@@ -62,7 +62,7 @@ optional<CompilerOutput> SolidityCompilationFramework::compileContract()
 	}
 }
 
-bool EvmoneUtility::zeroWord(uint8_t const* _result, size_t _length)
+bool ZvmoneUtility::zeroWord(uint8_t const* _result, size_t _length)
 {
 	return _length == 32 &&
 		ranges::all_of(
@@ -70,7 +70,7 @@ bool EvmoneUtility::zeroWord(uint8_t const* _result, size_t _length)
 			[](uint8_t _v) { return _v == 0; });
 }
 
-zvmc_message EvmoneUtility::initializeMessage(bytes const& _input)
+zvmc_message ZvmoneUtility::initializeMessage(bytes const& _input)
 {
 	// Zero initialize all message fields
 	zvmc_message msg = {};
@@ -82,7 +82,7 @@ zvmc_message EvmoneUtility::initializeMessage(bytes const& _input)
 	return msg;
 }
 
-zvmc::Result EvmoneUtility::executeContract(
+zvmc::Result ZvmoneUtility::executeContract(
 	bytes const& _functionHash,
 	zvmc_address _deployedAddress
 )
@@ -94,14 +94,14 @@ zvmc::Result EvmoneUtility::executeContract(
 	return m_evmHost.call(message);
 }
 
-zvmc::Result EvmoneUtility::deployContract(bytes const& _code)
+zvmc::Result ZvmoneUtility::deployContract(bytes const& _code)
 {
 	zvmc_message message = initializeMessage(_code);
 	message.kind = ZVMC_CREATE;
 	return m_evmHost.call(message);
 }
 
-zvmc::Result EvmoneUtility::deployAndExecute(
+zvmc::Result ZvmoneUtility::deployAndExecute(
 	bytes const& _byteCode,
 	string const& _hexEncodedInput
 )
@@ -110,7 +110,7 @@ zvmc::Result EvmoneUtility::deployAndExecute(
 	zvmc::Result createResult = deployContract(_byteCode);
 	solAssert(
 		createResult.status_code == ZVMC_SUCCESS,
-		"SolidityEvmoneInterface: Contract creation failed"
+		"SolidityZvmoneInterface: Contract creation failed"
 	);
 
 	// Execute test function and signal failure if EVM reverted or
@@ -123,12 +123,12 @@ zvmc::Result EvmoneUtility::deployAndExecute(
 	// We don't care about EVM One failures other than ZVMC_REVERT
 	solAssert(
 		callResult.status_code != ZVMC_REVERT,
-		"SolidityEvmoneInterface: EVM One reverted"
+		"SolidityZvmoneInterface: EVM One reverted"
 	);
 	return callResult;
 }
 
-zvmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
+zvmc::Result ZvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 {
 	map<string, h160> libraryAddressMap;
 	// Stage 1: Compile and deploy library if present.
@@ -142,7 +142,7 @@ zvmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 		zvmc::Result createResult = deployContract(cOutput.byteCode);
 		solAssert(
 			createResult.status_code == ZVMC_SUCCESS,
-			"SolidityEvmoneInterface: Library deployment failed"
+			"SolidityZvmoneInterface: Library deployment failed"
 		);
 		libraryAddressMap[m_libraryName] = ZVMHost::convertFromZVMC(createResult.create_address);
 		m_compilationFramework.libraryAddresses(libraryAddressMap);
@@ -155,7 +155,7 @@ zvmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 	solAssert(cOutput.has_value(), "Compiling contract failed");
 	solAssert(
 		!cOutput->byteCode.empty() && !cOutput->methodIdentifiersInContract.empty(),
-		"SolidityEvmoneInterface: Invalid compilation output."
+		"SolidityZvmoneInterface: Invalid compilation output."
 	);
 
 	string methodName;
@@ -175,7 +175,7 @@ zvmc::Result EvmoneUtility::compileDeployAndExecute(string _fuzzIsabelle)
 	);
 }
 
-optional<CompilerOutput> EvmoneUtility::compileContract()
+optional<CompilerOutput> ZvmoneUtility::compileContract()
 {
 	try
 	{
