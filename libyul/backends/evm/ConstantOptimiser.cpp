@@ -22,7 +22,7 @@
 #include <libyul/backends/evm/ConstantOptimiser.h>
 
 #include <libyul/optimiser/ASTCopier.h>
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
 
@@ -40,7 +40,7 @@ namespace
 {
 struct MiniEVMInterpreter
 {
-	explicit MiniEVMInterpreter(EVMDialect const& _dialect): m_dialect(_dialect) {}
+	explicit MiniEVMInterpreter(ZVMDialect const& _dialect): m_dialect(_dialect) {}
 
 	u256 eval(Expression const& _expr)
 	{
@@ -85,7 +85,7 @@ struct MiniEVMInterpreter
 	}
 	u256 operator()(Identifier const&) { yulAssert(false, ""); }
 
-	EVMDialect const& m_dialect;
+	ZVMDialect const& m_dialect;
 };
 }
 

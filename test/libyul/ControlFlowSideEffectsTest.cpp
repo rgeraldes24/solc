@@ -25,7 +25,7 @@
 #include <libyul/AST.h>
 #include <libyul/ControlFlowSideEffects.h>
 #include <libyul/ControlFlowSideEffectsCollector.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 using namespace std;
 using namespace hyperion;
@@ -63,7 +63,7 @@ TestCase::TestResult ControlFlowSideEffectsTest::run(ostream& _stream, string co
 		BOOST_THROW_EXCEPTION(runtime_error("Parsing input failed."));
 
 	ControlFlowSideEffectsCollector sideEffects(
-		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
+		ZVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		*obj.code
 	);
 	m_obtainedResult.clear();

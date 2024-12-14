@@ -31,7 +31,7 @@
 #include <libyul/ControlFlowSideEffectsCollector.h>
 #include <libyul/AST.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libhyputil/CommonData.h>
 
@@ -78,7 +78,7 @@ void UnusedStoreEliminator::run(OptimiserStepContext& _context, Block& _ast)
 	};
 	rse(_ast);
 
-	auto evmDialect = dynamic_cast<EVMDialect const*>(&_context.dialect);
+	auto evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	if (evmDialect && evmDialect->providesObjectAccess())
 		rse.clearActive(Location::Memory);
 	else

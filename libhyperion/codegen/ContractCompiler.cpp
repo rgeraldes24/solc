@@ -33,8 +33,8 @@
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AST.h>
 #include <libyul/backends/evm/AsmCodeGen.h>
-#include <libyul/backends/evm/EVMMetrics.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/optimiser/Suite.h>
 #include <libyul/Object.h>
 #include <libyul/optimiser/ASTCopier.h>
@@ -936,7 +936,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 		_inlineAssembly.annotation().externalReferences.empty()
 	)
 	{
-		yul::EVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&_inlineAssembly.dialect());
+		yul::ZVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&_inlineAssembly.dialect());
 		solAssert(dialect, "");
 
 		// Create a modifiable copy of the code and analysis

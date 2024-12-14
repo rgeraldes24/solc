@@ -28,7 +28,7 @@ namespace hyperion::yul
 {
 
 struct Dialect;
-struct EVMDialect;
+struct ZVMDialect;
 
 /**
  * Weights to be assigned to specific yul statements and expressions by a metric.

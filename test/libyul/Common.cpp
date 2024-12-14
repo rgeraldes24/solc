@@ -28,7 +28,7 @@
 #include <libyul/AsmPrinter.h>
 #include <libyul/YulStack.h>
 #include <libyul/AST.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ErrorReporter.h>
@@ -47,7 +47,7 @@ namespace
 {
 Dialect const& defaultDialect(bool _yul)
 {
-	return _yul ? yul::Dialect::yulDeprecated() : yul::EVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().evmVersion());
+	return _yul ? yul::Dialect::yulDeprecated() : yul::ZVMDialect::strictAssemblyForEVM(hyperion::test::CommonOptions::get().evmVersion());
 }
 }
 
@@ -105,12 +105,12 @@ std::map<string const, yul::Dialect const& (*)(langutil::ZVMVersion)> const vali
 	{
 		"evm",
 		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
-		{ return yul::EVMDialect::strictAssemblyForEVMObjects(_evmVersion); }
+		{ return yul::ZVMDialect::strictAssemblyForEVMObjects(_evmVersion); }
 	},
 	{
 		"evmTyped",
 		[](langutil::ZVMVersion _evmVersion) -> yul::Dialect const&
-		{ return yul::EVMDialectTyped::instance(_evmVersion); }
+		{ return yul::ZVMDialectTyped::instance(_evmVersion); }
 	},
 	{
 		"yul",

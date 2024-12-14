@@ -31,7 +31,7 @@
 #include <boost/multiprecision/detail/min_max.hpp>
 
 #include <libyul/Dialect.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <liblangutil/ZVMVersion.h>
 
 #include <vector>

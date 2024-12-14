@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <libzvmasm/EVMAssemblyStack.h>
+#include <libzvmasm/ZVMAssemblyStack.h>
 
 #include <libhyputil/JSON.h>
 #include <liblangutil/Exceptions.h>
@@ -34,7 +34,7 @@ using namespace hyperion::frontend;
 namespace hyperion::zvmasm
 {
 
-void EVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::string const& _source)
+void ZVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::string const& _source)
 {
 	solAssert(!m_evmAssembly);
 	m_name = _sourceName;
@@ -44,7 +44,7 @@ void EVMAssemblyStack::parseAndAnalyze(std::string const& _sourceName, std::stri
 	solRequire(m_evmAssembly != nullptr, AssemblyImportException, "Could not create evm assembly object.");
 }
 
-void EVMAssemblyStack::assemble()
+void ZVMAssemblyStack::assemble()
 {
 	solAssert(m_evmAssembly);
 	solAssert(m_evmAssembly->isCreation());
@@ -61,19 +61,19 @@ void EVMAssemblyStack::assemble()
 	}
 }
 
-LinkerObject const& EVMAssemblyStack::object(std::string const& _contractName) const
+LinkerObject const& ZVMAssemblyStack::object(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	return m_object;
 }
 
-LinkerObject const& EVMAssemblyStack::runtimeObject(std::string const& _contractName) const
+LinkerObject const& ZVMAssemblyStack::runtimeObject(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	return m_runtimeObject;
 }
 
-std::map<std::string, unsigned> EVMAssemblyStack::sourceIndices() const
+std::map<std::string, unsigned> ZVMAssemblyStack::sourceIndices() const
 {
 	solAssert(m_evmAssembly);
 	return m_sourceList
@@ -82,39 +82,39 @@ std::map<std::string, unsigned> EVMAssemblyStack::sourceIndices() const
 		| ranges::to<std::map<std::string, unsigned>>;
 }
 
-std::string const* EVMAssemblyStack::sourceMapping(std::string const& _contractName) const
+std::string const* ZVMAssemblyStack::sourceMapping(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	return &m_sourceMapping;
 }
 
-std::string const* EVMAssemblyStack::runtimeSourceMapping(std::string const& _contractName) const
+std::string const* ZVMAssemblyStack::runtimeSourceMapping(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	return &m_runtimeSourceMapping;
 }
 
-Json::Value EVMAssemblyStack::assemblyJSON(std::string const& _contractName) const
+Json::Value ZVMAssemblyStack::assemblyJSON(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	solAssert(m_evmAssembly);
 	return m_evmAssembly->assemblyJSON(sourceIndices());
 }
 
-std::string EVMAssemblyStack::assemblyString(std::string const& _contractName, StringMap const& _sourceCodes) const
+std::string ZVMAssemblyStack::assemblyString(std::string const& _contractName, StringMap const& _sourceCodes) const
 {
 	solAssert(_contractName == m_name);
 	solAssert(m_evmAssembly);
 	return m_evmAssembly->assemblyString(m_debugInfoSelection, _sourceCodes);
 }
 
-std::string const EVMAssemblyStack::filesystemFriendlyName(std::string const& _contractName) const
+std::string const ZVMAssemblyStack::filesystemFriendlyName(std::string const& _contractName) const
 {
 	solAssert(_contractName == m_name);
 	return m_name;
 }
 
-std::vector<std::string> EVMAssemblyStack::sourceNames() const
+std::vector<std::string> ZVMAssemblyStack::sourceNames() const
 {
 	return m_sourceList;
 }

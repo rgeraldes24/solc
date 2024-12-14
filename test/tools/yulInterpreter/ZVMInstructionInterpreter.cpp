@@ -19,11 +19,11 @@
  * Yul interpreter module that evaluates EVM instructions.
  */
 
-#include <test/tools/yulInterpreter/EVMInstructionInterpreter.h>
+#include <test/tools/yulInterpreter/ZVMInstructionInterpreter.h>
 
 #include <test/tools/yulInterpreter/Interpreter.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/AST.h>
 
 #include <libzvmasm/Instruction.h>
@@ -90,7 +90,7 @@ void copyZeroExtended(
 
 using u512 = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<512, 256, boost::multiprecision::unsigned_magnitude, boost::multiprecision::unchecked, void>>;
 
-u256 EVMInstructionInterpreter::eval(
+u256 ZVMInstructionInterpreter::eval(
 	zvmasm::Instruction _instruction,
 	vector<u256> const& _arguments
 )
@@ -449,7 +449,7 @@ u256 EVMInstructionInterpreter::eval(
 	return 0;
 }
 
-u256 EVMInstructionInterpreter::evalBuiltin(
+u256 ZVMInstructionInterpreter::evalBuiltin(
 	BuiltinFunctionForEVM const& _fun,
 	vector<Expression> const& _arguments,
 	vector<u256> const& _evaluatedArguments
@@ -499,7 +499,7 @@ u256 EVMInstructionInterpreter::evalBuiltin(
 }
 
 
-bool EVMInstructionInterpreter::accessMemory(u256 const& _offset, u256 const& _size)
+bool ZVMInstructionInterpreter::accessMemory(u256 const& _offset, u256 const& _size)
 {
 	if (_size == 0)
 		return true;
@@ -517,7 +517,7 @@ bool EVMInstructionInterpreter::accessMemory(u256 const& _offset, u256 const& _s
 	return false;
 }
 
-bytes EVMInstructionInterpreter::readMemory(u256 const& _offset, u256 const& _size)
+bytes ZVMInstructionInterpreter::readMemory(u256 const& _offset, u256 const& _size)
 {
 	yulAssert(_size <= s_maxRangeSize, "Too large read.");
 	bytes data(size_t(_size), uint8_t(0));
@@ -526,19 +526,19 @@ bytes EVMInstructionInterpreter::readMemory(u256 const& _offset, u256 const& _si
 	return data;
 }
 
-u256 EVMInstructionInterpreter::readMemoryWord(u256 const& _offset)
+u256 ZVMInstructionInterpreter::readMemoryWord(u256 const& _offset)
 {
 	return u256(h256(m_state.readMemory(_offset, 32)));
 }
 
-void EVMInstructionInterpreter::writeMemoryWord(u256 const& _offset, u256 const& _value)
+void ZVMInstructionInterpreter::writeMemoryWord(u256 const& _offset, u256 const& _value)
 {
 	for (size_t i = 0; i < 32; i++)
 		m_state.memory[_offset + i] = uint8_t((_value >> (8 * (31 - i))) & 0xff);
 }
 
 
-void EVMInstructionInterpreter::logTrace(
+void ZVMInstructionInterpreter::logTrace(
 	zvmasm::Instruction _instruction,
 	std::vector<u256> const& _arguments,
 	bytes const& _data
@@ -552,7 +552,7 @@ void EVMInstructionInterpreter::logTrace(
 	);
 }
 
-void EVMInstructionInterpreter::logTrace(
+void ZVMInstructionInterpreter::logTrace(
 	std::string const& _pseudoInstruction,
 	bool _writesToMemory,
 	std::vector<u256> const& _arguments,
@@ -581,7 +581,7 @@ void EVMInstructionInterpreter::logTrace(
 	}
 }
 
-std::pair<bool, size_t> EVMInstructionInterpreter::isInputMemoryPtrModified(
+std::pair<bool, size_t> ZVMInstructionInterpreter::isInputMemoryPtrModified(
 	std::string const& _pseudoInstruction,
 	std::vector<u256> const& _arguments
 )

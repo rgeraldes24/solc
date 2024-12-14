@@ -22,7 +22,7 @@
 #pragma once
 
 #include <libyul/AST.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/backends/evm/ControlFlowGraph.h>
 #include <libyul/Exceptions.h>
 #include <libyul/Scope.h>
@@ -51,7 +51,7 @@ public:
 		AbstractAssembly& _assembly,
 		AsmAnalysisInfo& _analysisInfo,
 		Block const& _block,
-		EVMDialect const& _dialect,
+		ZVMDialect const& _dialect,
 		BuiltinContext& _builtinContext,
 		UseNamedLabels _useNamedLabelsForFunctions
 	);

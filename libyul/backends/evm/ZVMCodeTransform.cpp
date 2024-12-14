@@ -51,7 +51,7 @@ CodeTransform::CodeTransform(
 	AsmAnalysisInfo& _analysisInfo,
 	Block const& _block,
 	bool _allowStackOpt,
-	EVMDialect const& _dialect,
+	ZVMDialect const& _dialect,
 	BuiltinContext& _builtinContext,
 	ExternalIdentifierAccess::CodeGenerator _identifierAccessCodeGen,
 	UseNamedLabels _useNamedLabelsForFunctions,

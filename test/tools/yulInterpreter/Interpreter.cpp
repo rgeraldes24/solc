@@ -21,12 +21,12 @@
 
 #include <test/tools/yulInterpreter/Interpreter.h>
 
-#include <test/tools/yulInterpreter/EVMInstructionInterpreter.h>
+#include <test/tools/yulInterpreter/ZVMInstructionInterpreter.h>
 
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
 #include <libyul/Utilities.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <liblangutil/Exceptions.h>
 
@@ -308,11 +308,11 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 			literalArguments = &builtin->literalArguments;
 	evaluateArgs(_funCall.arguments, literalArguments);
 
-	if (EVMDialect const* dialect = dynamic_cast<EVMDialect const*>(&m_dialect))
+	if (ZVMDialect const* dialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
 	{
 		if (BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
 		{
-			EVMInstructionInterpreter interpreter(dialect->evmVersion(), m_state, m_disableMemoryTrace);
+			ZVMInstructionInterpreter interpreter(dialect->evmVersion(), m_state, m_disableMemoryTrace);
 
 			u256 const value = interpreter.evalBuiltin(*fun, _funCall.arguments, values());
 

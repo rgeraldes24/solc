@@ -22,7 +22,7 @@
 #include <libyul/optimiser/NameCollector.h>
 #include <libyul/optimiser/StackToMemoryMover.h>
 #include <libyul/backends/evm/ControlFlowGraphBuilder.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AST.h>
 #include <libyul/CompilabilityChecker.h>
@@ -122,10 +122,10 @@ void StackLimitEvader::run(
 	Object& _object
 )
 {
-	auto const* evmDialect = dynamic_cast<EVMDialect const*>(&_context.dialect);
+	auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	yulAssert(
 		evmDialect && evmDialect->providesObjectAccess(),
-		"StackLimitEvader can only be run on objects using the EVMDialect with object access."
+		"StackLimitEvader can only be run on objects using the ZVMDialect with object access."
 	);
 	if (evmDialect)
 	{
@@ -168,10 +168,10 @@ void StackLimitEvader::run(
 )
 {
 	yulAssert(_object.code, "");
-	auto const* evmDialect = dynamic_cast<EVMDialect const*>(&_context.dialect);
+	auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_context.dialect);
 	yulAssert(
 		evmDialect && evmDialect->providesObjectAccess(),
-		"StackLimitEvader can only be run on objects using the EVMDialect with object access."
+		"StackLimitEvader can only be run on objects using the ZVMDialect with object access."
 	);
 
 	std::vector<FunctionCall*> memoryGuardCalls = FunctionCallFinder::run(

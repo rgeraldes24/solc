@@ -19,7 +19,7 @@
 #include <libhyperion/analysis/ViewPureChecker.h>
 #include <libhyperion/ast/ExperimentalFeatures.h>
 #include <libyul/AST.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <liblangutil/ErrorReporter.h>
 #include <libzvmasm/SemanticInformation.h>
 
@@ -65,7 +65,7 @@ public:
 	}
 	void operator()(yul::FunctionCall const& _funCall)
 	{
-		if (yul::EVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&m_dialect))
+		if (yul::ZVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&m_dialect))
 			if (yul::BuiltinFunctionForEVM const* fun = dialect->builtin(_funCall.functionName.name))
 				if (fun->instruction)
 					checkInstruction(nativeLocationOf(_funCall), *fun->instruction);

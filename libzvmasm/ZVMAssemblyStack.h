@@ -30,10 +30,10 @@
 namespace hyperion::zvmasm
 {
 
-class EVMAssemblyStack: public AbstractAssemblyStack
+class ZVMAssemblyStack: public AbstractAssemblyStack
 {
 public:
-	explicit EVMAssemblyStack(langutil::ZVMVersion _evmVersion): m_evmVersion(_evmVersion) {}
+	explicit ZVMAssemblyStack(langutil::ZVMVersion _evmVersion): m_evmVersion(_evmVersion) {}
 
 	/// Runs parsing and analysis steps.
 	/// Multiple calls overwrite the previous state.

@@ -27,7 +27,7 @@
 #include <liblangutil/Scanner.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libhyperion/interface/OptimiserSettings.h>
 
@@ -119,7 +119,7 @@ tuple<optional<SourceNameMap>, ErrorList> tryGetSourceLocationMapping(string _so
 
 	ErrorList errors;
 	ErrorReporter reporter(errors);
-	Dialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(ZVMVersion::shanghai());
+	Dialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(ZVMVersion::shanghai());
 	ObjectParser objectParser{reporter, dialect};
 	CharStream stream(std::move(source), "");
 	auto object = objectParser.parse(make_shared<Scanner>(stream), false);

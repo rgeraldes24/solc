@@ -36,9 +36,9 @@ CompilabilityChecker::CompilabilityChecker(
 	bool _optimizeStackAllocation
 )
 {
-	if (auto const* evmDialect = dynamic_cast<EVMDialect const*>(&_dialect))
+	if (auto const* evmDialect = dynamic_cast<ZVMDialect const*>(&_dialect))
 	{
-		NoOutputEVMDialect noOutputDialect(*evmDialect);
+		NoOutputZVMDialect noOutputDialect(*evmDialect);
 
 		yul::AsmAnalysisInfo analysisInfo =
 			yul::AsmAnalyzer::analyzeStrictAssertCorrect(noOutputDialect, _object);

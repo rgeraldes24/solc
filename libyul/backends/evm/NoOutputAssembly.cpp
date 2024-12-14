@@ -129,8 +129,8 @@ void NoOutputAssembly::appendImmutableAssignment(std::string const&)
 	yulAssert(false, "setimmutable not implemented.");
 }
 
-NoOutputEVMDialect::NoOutputEVMDialect(EVMDialect const& _copyFrom):
-	EVMDialect(_copyFrom.evmVersion(), _copyFrom.providesObjectAccess())
+NoOutputZVMDialect::NoOutputZVMDialect(ZVMDialect const& _copyFrom):
+	ZVMDialect(_copyFrom.evmVersion(), _copyFrom.providesObjectAccess())
 {
 	for (auto& fun: m_functions)
 	{

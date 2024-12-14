@@ -26,7 +26,7 @@
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/Object.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libhyputil/StringUtils.h>
 
@@ -89,7 +89,7 @@ TestCase::TestResult FunctionSideEffects::run(ostream& _stream, string const& _l
 		BOOST_THROW_EXCEPTION(runtime_error("Parsing input failed."));
 
 	map<YulString, SideEffects> functionSideEffects = SideEffectsPropagator::sideEffects(
-		EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
+		ZVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion()),
 		CallGraphGenerator::callGraph(*obj.code)
 	);
 

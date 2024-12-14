@@ -64,10 +64,10 @@ struct BuiltinFunctionForEVM: public BuiltinFunction
  * The main difference is that the builtin functions take an AbstractAssembly for the
  * code generation.
  */
-struct EVMDialect: public Dialect
+struct ZVMDialect: public Dialect
 {
 	/// Constructor, should only be used internally. Use the factory functions below.
-	EVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess);
+	ZVMDialect(langutil::ZVMVersion _evmVersion, bool _objectAccess);
 
 	/// @returns the builtin function of the given name or a nullptr if it is not a builtin function.
 	BuiltinFunctionForEVM const* builtin(YulString _name) const override;
@@ -84,8 +84,8 @@ struct EVMDialect: public Dialect
 	BuiltinFunctionForEVM const* storageLoadFunction(YulString /*_type*/) const override { return builtin("sload"_yulstring); }
 	YulString hashFunction(YulString /*_type*/) const override { return "keccak256"_yulstring; }
 
-	static EVMDialect const& strictAssemblyForEVM(langutil::ZVMVersion _version);
-	static EVMDialect const& strictAssemblyForEVMObjects(langutil::ZVMVersion _version);
+	static ZVMDialect const& strictAssemblyForEVM(langutil::ZVMVersion _version);
+	static ZVMDialect const& strictAssemblyForEVMObjects(langutil::ZVMVersion _version);
 
 	langutil::ZVMVersion evmVersion() const { return m_evmVersion; }
 
@@ -105,7 +105,7 @@ protected:
 
 /**
  * EVM dialect with types u256 (default) and bool.
- * Difference to EVMDialect:
+ * Difference to ZVMDialect:
  *  - All comparison functions return type bool
  *  - bitwise operations are called bitor, bitand, bitxor and bitnot
  *  - and, or, xor take bool and return bool
@@ -113,16 +113,16 @@ protected:
  *  - there are conversion functions bool_to_u256 and u256_to_bool.
  *  - there is popbool
  */
-struct EVMDialectTyped: public EVMDialect
+struct ZVMDialectTyped: public ZVMDialect
 {
 	/// Constructor, should only be used internally. Use the factory function below.
-	EVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess);
+	ZVMDialectTyped(langutil::ZVMVersion _evmVersion, bool _objectAccess);
 
 	BuiltinFunctionForEVM const* discardFunction(YulString _type) const override;
 	BuiltinFunctionForEVM const* equalityFunction(YulString _type) const override;
 	BuiltinFunctionForEVM const* booleanNegationFunction() const override { return builtin("not"_yulstring); }
 
-	static EVMDialectTyped const& instance(langutil::ZVMVersion _version);
+	static ZVMDialectTyped const& instance(langutil::ZVMVersion _version);
 };
 
 }

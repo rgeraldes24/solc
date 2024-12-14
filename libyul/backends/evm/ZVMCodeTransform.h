@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/backends/evm/VariableReferenceCounter.h>
 #include <libyul/optimiser/ASTWalker.h>
 #include <libyul/AST.h>
@@ -78,7 +78,7 @@ public:
 		AbstractAssembly& _assembly,
 		AsmAnalysisInfo& _analysisInfo,
 		Block const& _block,
-		EVMDialect const& _dialect,
+		ZVMDialect const& _dialect,
 		BuiltinContext& _builtinContext,
 		bool _allowStackOpt = false,
 		ExternalIdentifierAccess::CodeGenerator const& _identifierAccessCodeGen = {},
@@ -109,7 +109,7 @@ protected:
 		AsmAnalysisInfo& _analysisInfo,
 		Block const& _block,
 		bool _allowStackOpt,
-		EVMDialect const& _dialect,
+		ZVMDialect const& _dialect,
 		BuiltinContext& _builtinContext,
 		ExternalIdentifierAccess::CodeGenerator _identifierAccessCodeGen,
 		UseNamedLabels _useNamedLabelsForFunctions,
@@ -194,7 +194,7 @@ private:
 	AbstractAssembly& m_assembly;
 	AsmAnalysisInfo& m_info;
 	Scope* m_scope = nullptr;
-	EVMDialect const& m_dialect;
+	ZVMDialect const& m_dialect;
 	BuiltinContext& m_builtinContext;
 	bool const m_allowStackOpt = true;
 	UseNamedLabels const m_useNamedLabelsForFunctions = UseNamedLabels::Never;

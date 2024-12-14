@@ -25,7 +25,7 @@
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/Dialect.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/YulStack.h>
 
 #include <liblangutil/DebugInfoSelection.h>
@@ -87,7 +87,7 @@ void interpret(string const& _source, bool _inspect, bool _disableExternalCalls)
 	state.maxTraceSize = 10000;
 	try
 	{
-		Dialect const& dialect(EVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion{}));
+		Dialect const& dialect(ZVMDialect::strictAssemblyForEVMObjects(langutil::ZVMVersion{}));
 
 		if (_inspect)
 			InspectedInterpreter::run(std::make_shared<Inspector>(_source, state), state, dialect, *ast, _disableExternalCalls, /*disableMemoryTracing=*/false);

@@ -25,7 +25,7 @@
 #include <libyul/Exceptions.h>
 
 #include <libyul/backends/evm/ZVMCodeTransform.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/CompilabilityChecker.h>
@@ -107,7 +107,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		unoptimisedByteCode = assembler.assemble();
 		auto yulObject = assembler.object();
 		recursiveFunction = recursiveFunctionExists(
-			EVMDialect::strictAssemblyForEVMObjects(version),
+			ZVMDialect::strictAssemblyForEVMObjects(version),
 			*yulObject
 		);
 	}

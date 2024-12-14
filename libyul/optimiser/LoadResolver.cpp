@@ -22,8 +22,8 @@
 
 #include <libyul/optimiser/LoadResolver.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
 #include <libyul/optimiser/OptimizerUtilities.h>
@@ -114,7 +114,7 @@ void LoadResolver::tryEvaluateKeccak(
 
 	// The costs are only correct for hashes of 32 bytes or 1 word (when rounded up).
 	GasMeter gasMeter{
-		dynamic_cast<EVMDialect const&>(m_dialect),
+		dynamic_cast<ZVMDialect const&>(m_dialect),
 		!m_expectedExecutionsPerDeployment,
 		m_expectedExecutionsPerDeployment ? *m_expectedExecutionsPerDeployment : 1
 	};

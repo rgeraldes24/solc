@@ -19,12 +19,12 @@
 * Module providing metrics for the EVM optimizer.
 */
 
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 
 #include <libyul/AST.h>
 #include <libyul/Exceptions.h>
 #include <libyul/Utilities.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libzvmasm/Instruction.h>
 #include <libzvmasm/GasMeter.h>
@@ -53,7 +53,7 @@ bigint GasMeter::combineCosts(std::pair<bigint, bigint> _costs) const
 
 std::pair<bigint, bigint> GasMeterVisitor::costs(
 	Expression const& _expression,
-	EVMDialect const& _dialect,
+	ZVMDialect const& _dialect,
 	bool _isCreation
 )
 {
@@ -64,7 +64,7 @@ std::pair<bigint, bigint> GasMeterVisitor::costs(
 
 std::pair<bigint, bigint> GasMeterVisitor::instructionCosts(
 	zvmasm::Instruction _instruction,
-	EVMDialect const& _dialect,
+	ZVMDialect const& _dialect,
 	bool _isCreation
 )
 {

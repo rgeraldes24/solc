@@ -23,7 +23,7 @@
 
 #include <libyul/backends/evm/AbstractAssembly.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libzvmasm/LinkerObject.h>
 
@@ -88,9 +88,9 @@ private:
 /**
  * EVM dialect that does not generate any code.
  */
-struct NoOutputEVMDialect: public EVMDialect
+struct NoOutputZVMDialect: public ZVMDialect
 {
-	explicit NoOutputEVMDialect(EVMDialect const& _copyFrom);
+	explicit NoOutputZVMDialect(ZVMDialect const& _copyFrom);
 };
 
 

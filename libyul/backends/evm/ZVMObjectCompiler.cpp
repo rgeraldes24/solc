@@ -19,10 +19,10 @@
  * Compiler that transforms Yul Objects to EVM bytecode objects.
  */
 
-#include <libyul/backends/evm/EVMObjectCompiler.h>
+#include <libyul/backends/evm/ZVMObjectCompiler.h>
 
 #include <libyul/backends/evm/ZVMCodeTransform.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/backends/evm/OptimizedZVMCodeTransform.h>
 
 #include <libyul/optimiser/FunctionCallFinder.h>
@@ -34,18 +34,18 @@
 
 using namespace hyperion::yul;
 
-void EVMObjectCompiler::compile(
+void ZVMObjectCompiler::compile(
 	Object& _object,
 	AbstractAssembly& _assembly,
-	EVMDialect const& _dialect,
+	ZVMDialect const& _dialect,
 	bool _optimize
 )
 {
-	EVMObjectCompiler compiler(_assembly, _dialect);
+	ZVMObjectCompiler compiler(_assembly, _dialect);
 	compiler.run(_object, _optimize);
 }
 
-void EVMObjectCompiler::run(Object& _object, bool _optimize)
+void ZVMObjectCompiler::run(Object& _object, bool _optimize)
 {
 	BuiltinContext context;
 	context.currentObject = &_object;

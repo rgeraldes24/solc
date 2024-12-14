@@ -28,7 +28,7 @@
 #include <libyul/YulStack.h>
 #include <libyul/Exceptions.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <liblangutil/DebugInfoSelection.h>
 #include <liblangutil/ZVMVersion.h>
@@ -81,7 +81,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// Optimize
 	YulOptimizerTestCommon optimizerTest(
 		stack.parserResult(),
-		EVMDialect::strictAssemblyForEVMObjects(version)
+		ZVMDialect::strictAssemblyForEVMObjects(version)
 	);
 	optimizerTest.setStep(optimizerTest.randomOptimiserStep(_input.step()));
 	shared_ptr<hyperion::yul::Block> astBlock = optimizerTest.run();

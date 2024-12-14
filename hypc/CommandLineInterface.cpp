@@ -794,7 +794,7 @@ void CommandLineInterface::assembleFromEVMAssemblyJSON()
 	solAssert(m_fileReader.sourceUnits().size() == 1);
 	auto&& [sourceUnitName, source] = *m_fileReader.sourceUnits().begin();
 
-	auto evmAssemblyStack = std::make_unique<zvmasm::EVMAssemblyStack>(m_options.output.evmVersion);
+	auto evmAssemblyStack = std::make_unique<zvmasm::ZVMAssemblyStack>(m_options.output.evmVersion);
 	try
 	{
 		evmAssemblyStack->parseAndAnalyze(sourceUnitName, source);

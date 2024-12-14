@@ -24,11 +24,11 @@
 
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
-#include <libyul/backends/evm/EthAssemblyAdapter.h>
+#include <libyul/backends/evm/ZondAssemblyAdapter.h>
 #include <libyul/backends/evm/ZVMCodeTransform.h>
-#include <libyul/backends/evm/EVMDialect.h>
-#include <libyul/backends/evm/EVMObjectCompiler.h>
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/evm/ZVMObjectCompiler.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 #include <libyul/ObjectParser.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/Suite.h>
@@ -53,9 +53,9 @@ Dialect const& languageToDialect(YulStack::Language _language, ZVMVersion _versi
 	{
 	case YulStack::Language::Assembly:
 	case YulStack::Language::StrictAssembly:
-		return EVMDialect::strictAssemblyForEVMObjects(_version);
+		return ZVMDialect::strictAssemblyForEVMObjects(_version);
 	case YulStack::Language::Yul:
-		return EVMDialectTyped::instance(_version);
+		return ZVMDialectTyped::instance(_version);
 	}
 	yulAssert(false, "");
 	return Dialect::yulDeprecated();
@@ -132,22 +132,22 @@ bool YulStack::analyzeParsed(Object& _object)
 
 void YulStack::compileEVM(AbstractAssembly& _assembly, bool _optimize) const
 {
-	EVMDialect const* dialect = nullptr;
+	ZVMDialect const* dialect = nullptr;
 	switch (m_language)
 	{
 		case Language::Assembly:
 		case Language::StrictAssembly:
-			dialect = &EVMDialect::strictAssemblyForEVMObjects(m_evmVersion);
+			dialect = &ZVMDialect::strictAssemblyForEVMObjects(m_evmVersion);
 			break;
 		case Language::Yul:
-			dialect = &EVMDialectTyped::instance(m_evmVersion);
+			dialect = &ZVMDialectTyped::instance(m_evmVersion);
 			break;
 		default:
 			yulAssert(false, "Invalid language.");
 			break;
 	}
 
-	EVMObjectCompiler::compile(*m_parserResult, _assembly, *dialect, _optimize);
+	ZVMObjectCompiler::compile(*m_parserResult, _assembly, *dialect, _optimize);
 }
 
 void YulStack::optimize(Object& _object, bool _isCreation)
@@ -163,7 +163,7 @@ void YulStack::optimize(Object& _object, bool _isCreation)
 
 	Dialect const& dialect = languageToDialect(m_language, m_evmVersion);
 	std::unique_ptr<GasMeter> meter;
-	if (EVMDialect const* evmDialect = dynamic_cast<EVMDialect const*>(&dialect))
+	if (ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&dialect))
 		meter = std::make_unique<GasMeter>(*evmDialect, _isCreation, m_optimiserSettings.expectedExecutionsPerDeployment);
 
 	auto [optimizeStackAllocation, yulOptimiserSteps, yulOptimiserCleanupSteps] = [&]() -> std::tuple<bool, std::string, std::string>
@@ -263,7 +263,7 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 	yulAssert(m_parserResult->analysisInfo, "");
 
 	zvmasm::Assembly assembly(m_evmVersion, true, {});
-	EthAssemblyAdapter adapter(assembly);
+	ZondAssemblyAdapter adapter(assembly);
 
 	// NOTE: We always need stack optimization when Yul optimizer is disabled (unless code contains
 	// msize). It being disabled just means that we don't use the full step sequence. We still run

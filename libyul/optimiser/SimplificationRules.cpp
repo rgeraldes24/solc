@@ -23,7 +23,7 @@
 
 #include <libyul/AST.h>
 #include <libyul/Utilities.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/optimiser/ASTCopier.h>
 #include <libyul/optimiser/DataFlowAnalyzer.h>
 #include <libyul/optimiser/Semantics.h>
@@ -50,7 +50,7 @@ SimplificationRules::Rule const* SimplificationRules::findFirstMatch(
 	static std::map<std::optional<ZVMVersion>, std::unique_ptr<SimplificationRules>> evmRules;
 
 	std::optional<ZVMVersion> version;
-	if (yul::EVMDialect const* evmDialect = dynamic_cast<yul::EVMDialect const*>(&_dialect))
+	if (yul::ZVMDialect const* evmDialect = dynamic_cast<yul::ZVMDialect const*>(&_dialect))
 		version = evmDialect->evmVersion();
 
 	if (!evmRules[version])
@@ -78,7 +78,7 @@ std::optional<std::pair<zvmasm::Instruction, std::vector<Expression> const*>>
 	SimplificationRules::instructionAndArguments(Dialect const& _dialect, Expression const& _expr)
 {
 	if (std::holds_alternative<FunctionCall>(_expr))
-		if (auto const* dialect = dynamic_cast<EVMDialect const*>(&_dialect))
+		if (auto const* dialect = dynamic_cast<ZVMDialect const*>(&_dialect))
 			if (auto const* builtin = dialect->builtin(std::get<FunctionCall>(_expr).functionName.name))
 				if (builtin->instruction)
 					return std::make_pair(*builtin->instruction, &std::get<FunctionCall>(_expr).arguments);

@@ -45,16 +45,16 @@ add_library(yul
 	backends/evm/ControlFlowGraph.h
 	backends/evm/ControlFlowGraphBuilder.cpp
 	backends/evm/ControlFlowGraphBuilder.h
-	backends/evm/EthAssemblyAdapter.cpp
-	backends/evm/EthAssemblyAdapter.h
+	backends/evm/ZondAssemblyAdapter.cpp
+	backends/evm/ZondAssemblyAdapter.h
 	backends/evm/ZVMCodeTransform.cpp
 	backends/evm/ZVMCodeTransform.h
-	backends/evm/EVMDialect.cpp
-	backends/evm/EVMDialect.h
-	backends/evm/EVMObjectCompiler.cpp
-	backends/evm/EVMObjectCompiler.h
-	backends/evm/EVMMetrics.cpp
-	backends/evm/EVMMetrics.h
+	backends/evm/ZVMDialect.cpp
+	backends/evm/ZVMDialect.h
+	backends/evm/ZVMObjectCompiler.cpp
+	backends/evm/ZVMObjectCompiler.h
+	backends/evm/ZVMMetrics.cpp
+	backends/evm/ZVMMetrics.h
 	backends/evm/NoOutputAssembly.h
 	backends/evm/NoOutputAssembly.cpp
 	backends/evm/OptimizedZVMCodeTransform.cpp

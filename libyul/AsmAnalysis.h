@@ -29,7 +29,7 @@
 #include <libyul/Scope.h>
 
 #include <libyul/backends/evm/AbstractAssembly.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <functional>
 #include <list>
@@ -69,7 +69,7 @@ public:
 		m_dialect(_dialect),
 		m_dataNames(std::move(_dataNames))
 	{
-		if (EVMDialect const* evmDialect = dynamic_cast<EVMDialect const*>(&m_dialect))
+		if (ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&m_dialect))
 			m_evmVersion = evmDialect->evmVersion();
 	}
 

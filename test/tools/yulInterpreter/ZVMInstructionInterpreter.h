@@ -73,10 +73,10 @@ struct InterpreterState;
  * The main focus is that the generated execution trace is the same for equivalent executions
  * and likely to be different for non-equivalent executions.
  */
-class EVMInstructionInterpreter
+class ZVMInstructionInterpreter
 {
 public:
-	explicit EVMInstructionInterpreter(langutil::ZVMVersion _evmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
+	explicit ZVMInstructionInterpreter(langutil::ZVMVersion _evmVersion, InterpreterState& _state, bool _disableMemWriteTrace):
 		m_evmVersion(_evmVersion),
 		m_state(_state),
 		m_disableMemoryWriteInstructions(_disableMemWriteTrace)

@@ -841,7 +841,7 @@ Json::Value CompilerStack::generatedSources(std::string const& _contractName, bo
 				ErrorList errors;
 				ErrorReporter errorReporter(errors);
 				CharStream charStream(source, sourceName);
-				yul::EVMDialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(m_evmVersion);
+				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(m_evmVersion);
 				std::shared_ptr<yul::Block> parserResult = yul::Parser{errorReporter, dialect}.parse(charStream);
 				solAssert(parserResult, "");
 				sources[0]["ast"] = yul::AsmJsonConverter{sourceIndex}(*parserResult);

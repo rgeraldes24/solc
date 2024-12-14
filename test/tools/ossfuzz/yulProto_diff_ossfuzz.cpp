@@ -27,7 +27,7 @@
 #include <src/libfuzzer/libfuzzer_macro.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/Exceptions.h>
 
 #include <liblangutil/DebugInfoSelection.h>
@@ -89,7 +89,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	yulFuzzerUtil::TerminationReason termReason = yulFuzzerUtil::interpret(
 		os1,
 		stack.parserResult()->code,
-		EVMDialect::strictAssemblyForEVMObjects(version),
+		ZVMDialect::strictAssemblyForEVMObjects(version),
 		/*disableMemoryTracing=*/true
 	);
 
@@ -98,7 +98,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 
 	YulOptimizerTestCommon optimizerTest(
 		stack.parserResult(),
-		EVMDialect::strictAssemblyForEVMObjects(version)
+		ZVMDialect::strictAssemblyForEVMObjects(version)
 	);
 	optimizerTest.setStep(optimizerTest.randomOptimiserStep(_input.step()));
 	shared_ptr<hyperion::yul::Block> astBlock = optimizerTest.run();
@@ -106,7 +106,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	termReason = yulFuzzerUtil::interpret(
 		os2,
 		astBlock,
-		EVMDialect::strictAssemblyForEVMObjects(version),
+		ZVMDialect::strictAssemblyForEVMObjects(version),
 		true
 	);
 	if (yulFuzzerUtil::resourceLimitsExceeded(termReason))

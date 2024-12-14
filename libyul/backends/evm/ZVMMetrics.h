@@ -29,7 +29,7 @@
 namespace hyperion::yul
 {
 
-struct EVMDialect;
+struct ZVMDialect;
 
 /**
  * Gas meter for expressions only involving literals, identifiers and
@@ -43,7 +43,7 @@ struct EVMDialect;
 class GasMeter
 {
 public:
-	GasMeter(EVMDialect const& _dialect, bool _isCreation, bigint _runs):
+	GasMeter(ZVMDialect const& _dialect, bool _isCreation, bigint _runs):
 		m_dialect(_dialect),
 		m_isCreation{_isCreation},
 		m_runs(_isCreation? 1 : _runs)
@@ -58,7 +58,7 @@ public:
 private:
 	bigint combineCosts(std::pair<bigint, bigint> _costs) const;
 
-	EVMDialect const& m_dialect;
+	ZVMDialect const& m_dialect;
 	bool m_isCreation = false;
 	bigint m_runs;
 };
@@ -68,18 +68,18 @@ class GasMeterVisitor: public ASTWalker
 public:
 	static std::pair<bigint, bigint> costs(
 		Expression const& _expression,
-		EVMDialect const& _dialect,
+		ZVMDialect const& _dialect,
 		bool _isCreation
 	);
 
 	static std::pair<bigint, bigint> instructionCosts(
 		zvmasm::Instruction _instruction,
-		EVMDialect const& _dialect,
+		ZVMDialect const& _dialect,
 		bool _isCreation = false
 	);
 
 public:
-	GasMeterVisitor(EVMDialect const& _dialect, bool _isCreation):
+	GasMeterVisitor(ZVMDialect const& _dialect, bool _isCreation):
 		m_dialect(_dialect),
 		m_isCreation{_isCreation}
 	{}
@@ -95,7 +95,7 @@ private:
 	/// Does not work particularly exact for anything apart from arithmetic.
 	void instructionCostsInternal(zvmasm::Instruction _instruction);
 
-	EVMDialect const& m_dialect;
+	ZVMDialect const& m_dialect;
 	bool m_isCreation = false;
 	bigint m_runGas = 0;
 	bigint m_dataGas = 0;

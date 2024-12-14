@@ -34,8 +34,8 @@
 #include <libyul/AsmAnalysis.h>
 #include <libyul/AsmAnalysisInfo.h>
 #include <libyul/backends/evm/AsmCodeGen.h>
-#include <libyul/backends/evm/EVMDialect.h>
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 #include <libyul/optimiser/Suite.h>
 #include <libyul/Object.h>
 #include <libyul/YulString.h>
@@ -436,7 +436,7 @@ void CompilerContext::appendInlineAssembly(
 	ErrorList errors;
 	ErrorReporter errorReporter(errors);
 	langutil::CharStream charStream(_assembly, _sourceName);
-	yul::EVMDialect const& dialect = yul::EVMDialect::strictAssemblyForEVM(m_evmVersion);
+	yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForEVM(m_evmVersion);
 	std::optional<langutil::SourceLocation> locationOverride;
 	if (!_system)
 		locationOverride = m_asm->currentSourceLocation();
@@ -532,7 +532,7 @@ void CompilerContext::appendInlineAssembly(
 }
 
 
-void CompilerContext::optimizeYul(yul::Object& _object, yul::EVMDialect const& _dialect, OptimiserSettings const& _optimiserSettings, std::set<yul::YulString> const& _externalIdentifiers)
+void CompilerContext::optimizeYul(yul::Object& _object, yul::ZVMDialect const& _dialect, OptimiserSettings const& _optimiserSettings, std::set<yul::YulString> const& _externalIdentifiers)
 {
 #ifdef SOL_OUTPUT_ASM
 	cout << yul::AsmPrinter(*dialect)(*_object.code) << endl;

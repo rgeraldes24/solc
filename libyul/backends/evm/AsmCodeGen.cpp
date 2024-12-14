@@ -21,7 +21,7 @@
 
 #include <libyul/backends/evm/AsmCodeGen.h>
 
-#include <libyul/backends/evm/EthAssemblyAdapter.h>
+#include <libyul/backends/evm/ZondAssemblyAdapter.h>
 #include <libyul/backends/evm/ZVMCodeTransform.h>
 #include <libyul/AST.h>
 #include <libyul/AsmAnalysisInfo.h>
@@ -43,13 +43,13 @@ void CodeGenerator::assemble(
 	bool _optimizeStackAllocation
 )
 {
-	EthAssemblyAdapter assemblyAdapter(_assembly);
+	ZondAssemblyAdapter assemblyAdapter(_assembly);
 	BuiltinContext builtinContext;
 	CodeTransform transform(
 		assemblyAdapter,
 		_analysisInfo,
 		_parsedData,
-		EVMDialect::strictAssemblyForEVM(_evmVersion),
+		ZVMDialect::strictAssemblyForEVM(_evmVersion),
 		builtinContext,
 		_optimizeStackAllocation,
 		_identifierAccessCodeGen,

@@ -57,8 +57,8 @@
 #include <libyul/optimiser/StackCompressor.h>
 #include <libyul/optimiser/Suite.h>
 #include <libyul/backends/evm/ConstantOptimiser.h>
-#include <libyul/backends/evm/EVMDialect.h>
-#include <libyul/backends/evm/EVMMetrics.h>
+#include <libyul/backends/evm/ZVMDialect.h>
+#include <libyul/backends/evm/ZVMMetrics.h>
 #include <libyul/AsmAnalysis.h>
 #include <libyul/CompilabilityChecker.h>
 
@@ -99,8 +99,8 @@ YulOptimizerTestCommon::YulOptimizerTestCommon(
 			BlockFlattener::run(*m_context, *m_ast);
 		}},
 		{"constantOptimiser", [&]() {
-			GasMeter meter(dynamic_cast<EVMDialect const&>(*m_dialect), false, 200);
-			ConstantOptimiser{dynamic_cast<EVMDialect const&>(*m_dialect), meter}(*m_ast);
+			GasMeter meter(dynamic_cast<ZVMDialect const&>(*m_dialect), false, 200);
+			ConstantOptimiser{dynamic_cast<ZVMDialect const&>(*m_dialect), meter}(*m_ast);
 		}},
 		{"varDeclInitializer", [&]() { VarDeclInitializer::run(*m_context, *m_ast); }},
 		{"varNameCleaner", [&]() {
@@ -325,7 +325,7 @@ YulOptimizerTestCommon::YulOptimizerTestCommon(
 			BlockFlattener::run(*m_context, *m_ast);
 		}},
 		{"fullSuite", [&]() {
-			GasMeter meter(dynamic_cast<EVMDialect const&>(*m_dialect), false, 200);
+			GasMeter meter(dynamic_cast<ZVMDialect const&>(*m_dialect), false, 200);
 			OptimiserSuite::run(
 				*m_dialect,
 				&meter,

@@ -43,7 +43,7 @@ std::vector<StackTooDeepError> OptimizedZVMCodeTransform::run(
 	AbstractAssembly& _assembly,
 	AsmAnalysisInfo& _analysisInfo,
 	Block const& _block,
-	EVMDialect const& _dialect,
+	ZVMDialect const& _dialect,
 	BuiltinContext& _builtinContext,
 	UseNamedLabels _useNamedLabelsForFunctions
 )

@@ -22,7 +22,7 @@
 #include <libhyperion/codegen/ir/Common.h>
 #include <libhyputil/Algorithms.h>
 #include <libyul/Object.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/optimiser/FunctionCallFinder.h>
 #include <fstream>
 #include <memory>
@@ -58,7 +58,7 @@ TestCase::TestResult MemoryGuardTest::run(std::ostream& _stream, std::string con
 		ErrorList errors;
 		auto [object, analysisInfo] = yul::test::parse(
 			compiler().yulIR(contractName),
-			EVMDialect::strictAssemblyForEVMObjects({}),
+			ZVMDialect::strictAssemblyForEVMObjects({}),
 			errors
 		);
 

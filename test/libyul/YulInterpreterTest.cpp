@@ -22,7 +22,7 @@
 
 #include <test/Common.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/YulStack.h>
 #include <libyul/AsmAnalysisInfo.h>
 
@@ -97,7 +97,7 @@ string YulInterpreterTest::interpret()
 	{
 		Interpreter::run(
 			state,
-			EVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().evmVersion()),
+			ZVMDialect::strictAssemblyForEVMObjects(hyperion::test::CommonOptions::get().evmVersion()),
 			*m_ast,
 			/*disableExternalCalls=*/ !m_simulateExternalCallsToSelf,
 			/*disableMemoryTracing=*/ false

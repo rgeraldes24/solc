@@ -4,8 +4,8 @@ set(sources
 	Assembly.h
 	AssemblyItem.cpp
 	AssemblyItem.h
-	EVMAssemblyStack.cpp
-	EVMAssemblyStack.h
+	ZVMAssemblyStack.cpp
+	ZVMAssemblyStack.h
 	BlockDeduplicator.cpp
 	BlockDeduplicator.h
 	CommonSubexpressionEliminator.cpp

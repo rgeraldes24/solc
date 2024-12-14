@@ -21,7 +21,7 @@
 
 #include <libyul/optimiser/OptimizerUtilities.h>
 
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 
 #include <libyul/Dialect.h>
 #include <libyul/AST.h>
@@ -51,7 +51,7 @@ bool yul::isRestrictedIdentifier(Dialect const& _dialect, YulString const& _iden
 
 std::optional<zvmasm::Instruction> yul::toEVMInstruction(Dialect const& _dialect, YulString const& _name)
 {
-	if (auto const* dialect = dynamic_cast<EVMDialect const*>(&_dialect))
+	if (auto const* dialect = dynamic_cast<ZVMDialect const*>(&_dialect))
 		if (BuiltinFunctionForEVM const* builtin = dialect->builtin(_name))
 			return builtin->instruction;
 	return std::nullopt;
@@ -59,7 +59,7 @@ std::optional<zvmasm::Instruction> yul::toEVMInstruction(Dialect const& _dialect
 
 langutil::ZVMVersion const yul::evmVersionFromDialect(Dialect const& _dialect)
 {
-	if (auto const* dialect = dynamic_cast<EVMDialect const*>(&_dialect))
+	if (auto const* dialect = dynamic_cast<ZVMDialect const*>(&_dialect))
 		return dialect->evmVersion();
 	return langutil::ZVMVersion();
 }

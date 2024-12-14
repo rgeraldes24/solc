@@ -22,8 +22,8 @@
 #include <test/Common.h>
 
 #include <libyul/YulStack.h>
-#include <libyul/backends/evm/EthAssemblyAdapter.h>
-#include <libyul/backends/evm/EVMObjectCompiler.h>
+#include <libyul/backends/evm/ZondAssemblyAdapter.h>
+#include <libyul/backends/evm/ZVMObjectCompiler.h>
 
 #include <libzvmasm/Assembly.h>
 
@@ -68,11 +68,11 @@ TestCase::TestResult ZVMCodeTransformTest::run(ostream& _stream, string const& _
 	}
 
 	zvmasm::Assembly assembly{hyperion::test::CommonOptions::get().evmVersion(), false, {}};
-	EthAssemblyAdapter adapter(assembly);
-	EVMObjectCompiler::compile(
+	ZondAssemblyAdapter adapter(assembly);
+	ZVMObjectCompiler::compile(
 		*stack.parserResult(),
 		adapter,
-		EVMDialect::strictAssemblyForEVMObjects(ZVMVersion{}),
+		ZVMDialect::strictAssemblyForEVMObjects(ZVMVersion{}),
 		m_stackOpt
 	);
 

@@ -36,10 +36,10 @@ class AssemblyItem;
 
 namespace hyperion::yul
 {
-class EthAssemblyAdapter: public AbstractAssembly
+class ZondAssemblyAdapter: public AbstractAssembly
 {
 public:
-	explicit EthAssemblyAdapter(zvmasm::Assembly& _assembly);
+	explicit ZondAssemblyAdapter(zvmasm::Assembly& _assembly);
 	void setSourceLocation(langutil::SourceLocation const& _location) override;
 	int stackHeight() const override;
 	void setStackHeight(int height) override;

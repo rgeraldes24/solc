@@ -29,7 +29,7 @@
 #include <libyul/optimiser/SSAValueTracker.h>
 #include <libyul/optimiser/Semantics.h>
 #include <libyul/optimiser/CallGraphGenerator.h>
-#include <libyul/backends/evm/EVMDialect.h>
+#include <libyul/backends/evm/ZVMDialect.h>
 #include <libyul/Exceptions.h>
 #include <libyul/AST.h>
 #include <libyul/Dialect.h>
@@ -206,7 +206,7 @@ bool FullInliner::shallInline(FunctionCall const& _funCall, YulString _callSite)
 	bool aggressiveInlining = true;
 
 	if (
-		EVMDialect const* evmDialect = dynamic_cast<EVMDialect const*>(&m_dialect);
+		ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&m_dialect);
 		!evmDialect || !evmDialect->providesObjectAccess()
 	)
 		// No aggressive inlining with the old code transform.

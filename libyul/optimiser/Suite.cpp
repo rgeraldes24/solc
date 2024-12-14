@@ -142,7 +142,7 @@ void OptimiserSuite::run(
 	std::set<YulString> const& _externallyUsedIdentifiers
 )
 {
-	EVMDialect const* evmDialect = dynamic_cast<EVMDialect const*>(&_dialect);
+	ZVMDialect const* evmDialect = dynamic_cast<ZVMDialect const*>(&_dialect);
 	bool usesOptimizedCodeGenerator =
 		_optimizeStackAllocation &&
 		evmDialect &&

@@ -25,7 +25,7 @@
 #include <hypc/CommandLineParser.h>
 
 #include <libzvmasm/AbstractAssemblyStack.h>
-#include <libzvmasm/EVMAssemblyStack.h>
+#include <libzvmasm/ZVMAssemblyStack.h>
 #include <libhyperion/interface/CompilerStack.h>
 #include <libhyperion/interface/DebugSettings.h>
 #include <libhyperion/interface/FileReader.h>
@@ -151,7 +151,7 @@ private:
 	UniversalCallback m_universalCallback{&m_fileReader, m_solverCommand};
 	std::optional<std::string> m_standardJsonInput;
 	std::unique_ptr<frontend::CompilerStack> m_compiler;
-	std::unique_ptr<zvmasm::EVMAssemblyStack> m_evmAssemblyStack;
+	std::unique_ptr<zvmasm::ZVMAssemblyStack> m_evmAssemblyStack;
 	zvmasm::AbstractAssemblyStack* m_assemblyStack = nullptr;
 	CommandLineOptions m_options;
 };

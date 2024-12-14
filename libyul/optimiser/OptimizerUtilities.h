@@ -51,7 +51,7 @@ bool isRestrictedIdentifier(Dialect const& _dialect, YulString const& _identifie
 std::optional<zvmasm::Instruction> toEVMInstruction(Dialect const& _dialect, YulString const& _name);
 
 /// Helper function that returns the EVM version from a dialect.
-/// It returns the default EVM version if dialect is not an EVMDialect.
+/// It returns the default EVM version if dialect is not an ZVMDialect.
 langutil::ZVMVersion const evmVersionFromDialect(Dialect const& _dialect);
 
 class StatementRemover: public ASTModifier

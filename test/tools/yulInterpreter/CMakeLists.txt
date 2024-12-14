@@ -1,6 +1,6 @@
 set(sources
-	EVMInstructionInterpreter.h
-	EVMInstructionInterpreter.cpp
+	ZVMInstructionInterpreter.h
+	ZVMInstructionInterpreter.cpp
 	Interpreter.h
 	Interpreter.cpp
 	Inspector.h
