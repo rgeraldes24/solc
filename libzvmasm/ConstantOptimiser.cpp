@@ -244,7 +244,7 @@ AssemblyItems ComputeMethod::findRepresentation(u256 const& _value)
 
 bool ComputeMethod::checkRepresentation(u256 const& _value, AssemblyItems const& _routine) const
 {
-	// This is a tiny EVM that can only evaluate some instructions.
+	// This is a tiny ZVM that can only evaluate some instructions.
 	std::vector<u256> stack;
 	for (AssemblyItem const& item: _routine)
 	{

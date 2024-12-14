@@ -204,7 +204,7 @@ public:
 		return bytes();
 	}
 	/// @returns error returndata corresponding to the Panic(uint256) error code,
-	/// if REVERT is supported by the current EVM version and the empty string otherwise.
+	/// if REVERT is supported by the current ZVM version and the empty string otherwise.
 	bytes panicData(util::PanicCode _code);
 
 	//@todo might be extended in the future

@@ -51,7 +51,7 @@ class TestConfig:
     ref: str
     compile_only_presets: List[SettingsPreset] = field(default_factory=list)
     settings_presets: List[SettingsPreset] = field(default_factory=lambda: list(SettingsPreset))
-    evm_version: str = field(default=CURRENT_ZVM_VERSION)
+    zvm_version: str = field(default=CURRENT_ZVM_VERSION)
 
     def selected_presets(self) -> Set[SettingsPreset]:
         return set(self.compile_only_presets + self.settings_presets)
@@ -150,12 +150,12 @@ def run_test(runner: BaseRunner):
     runner.configure()
     for preset in runner.presets:
         print("Running compile function...")
-        settings = settings_from_preset(preset, runner.config.evm_version)
+        settings = settings_from_preset(preset, runner.config.zvm_version)
         print(dedent(f"""\
             -------------------------------------
             Settings preset: {preset.value}
             Settings: {settings}
-            EVM version: {runner.config.evm_version}
+            ZVM version: {runner.config.zvm_version}
             Compiler version: {get_hypc_short_version(hypc_version)}
             Compiler version (full): {hypc_version}
             -------------------------------------

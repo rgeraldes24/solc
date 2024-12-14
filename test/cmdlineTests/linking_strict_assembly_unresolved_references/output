@@ -1,5 +1,5 @@
 
-======= linking_strict_assembly_unresolved_references/input.yul (EVM) =======
+======= linking_strict_assembly_unresolved_references/input.yul (ZVM) =======
 
 Pretty printed source:
 object "a" {

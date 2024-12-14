@@ -18,7 +18,7 @@
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
- * Solidity AST to EVM bytecode compiler.
+ * Solidity AST to ZVM bytecode compiler.
  */
 
 #pragma once

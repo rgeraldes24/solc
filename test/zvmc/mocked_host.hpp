@@ -174,7 +174,7 @@ public:
 
         // Get the reference to the storage entry value.
         // This will create the account in case it was not present.
-        // This is convenient for unit testing and standalone EVM execution to preserve the
+        // This is convenient for unit testing and standalone ZVM execution to preserve the
         // storage values after the execution terminates.
         auto& s = accounts[addr].storage[key];
 

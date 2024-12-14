@@ -86,7 +86,7 @@ private:
 
 
 /**
- * EVM dialect that does not generate any code.
+ * ZVM dialect that does not generate any code.
  */
 struct NoOutputZVMDialect: public ZVMDialect
 {

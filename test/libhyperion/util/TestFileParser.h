@@ -41,7 +41,7 @@ namespace hyperion::frontend::test
  * // g(), 1 wei                # (Optional) Wei to be sent with the call #
  * // -> 2, 3
  * // h(uint256), 1 ether: 42
- * // -> FAILURE                # If REVERT or other EVM failure was detected #
+ * // -> FAILURE                # If REVERT or other ZVM failure was detected #
  * // ()                        # Call fallback function #
  * // (), 1 ether               # Call receive ether function #
  * // EMPTY_STORAGE             # Check that storage is empty

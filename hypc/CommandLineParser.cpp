@@ -46,7 +46,7 @@ static std::string const g_strIncludePath = "include-path";
 static std::string const g_strAssemble = "assemble";
 static std::string const g_strCombinedJson = "combined-json";
 static std::string const g_strZVM = "evm";
-static std::string const g_strZVMVersion = "evm-version";
+static std::string const g_strZVMVersion = "zvm-version";
 static std::string const g_strViaIR = "via-ir";
 static std::string const g_strExperimentalViaIR = "experimental-via-ir";
 static std::string const g_strGas = "gas";
@@ -144,7 +144,7 @@ static std::map<InputMode, std::string> const g_inputModeName = {
 	{InputMode::StandardJson, "standard JSON"},
 	{InputMode::Linker, "linker"},
 	{InputMode::LanguageServer, "language server (LSP)"},
-	{InputMode::ZVMAssemblerJSON, "EVM assembler (JSON format)"},
+	{InputMode::ZVMAssemblerJSON, "ZVM assembler (JSON format)"},
 };
 
 void CommandLineParser::checkMutuallyExclusive(std::vector<std::string> const& _optionNames)
@@ -524,7 +524,7 @@ void CommandLineParser::parseOutputSelection()
 			joinOptionNames(unsupportedOutputs) + "."
 		);
 
-	// TODO: restrict EOF version to correct EVM version.
+	// TODO: restrict EOF version to correct ZVM version.
 }
 
 po::options_description CommandLineParser::optionsDescription()
@@ -603,7 +603,7 @@ General Information)").c_str(),
 		(
 			g_strZVMVersion.c_str(),
 			po::value<std::string>()->value_name("version")->default_value(ZVMVersion{}.name()),
-			"Select desired EVM version: shanghai."
+			"Select desired ZVM version: shanghai."
 		)
 	;
 	outputOptions.add_options()
@@ -623,7 +623,7 @@ General Information)").c_str(),
 		(
 			g_strDebugInfo.c_str(),
 			po::value<std::string>()->default_value(util::toString(DebugInfoSelection::Default())),
-			("Debug info components to be included in the produced EVM assembly and Yul code. "
+			("Debug info components to be included in the produced ZVM assembly and Yul code. "
 			"Value can be all, none or a comma-separated list containing one or more of the "
 			"following components: " + util::joinHumanReadable(DebugInfoSelection::componentMap() | ranges::views::keys) + ".").c_str()
 		)
@@ -667,7 +667,7 @@ General Information)").c_str(),
 		)
 		(
 			g_strImportZvmAssemblerJson.c_str(),
-			"Import EVM assembly from JSON. Assumes input is in the format used by --asm-json."
+			"Import ZVM assembly from JSON. Assumes input is in the format used by --asm-json."
 		)
 		(
 			g_strLSP.c_str(),
@@ -733,8 +733,8 @@ General Information)").c_str(),
 	po::options_description outputComponents("Output Components");
 	outputComponents.add_options()
 		(CompilerOutputs::componentName(&CompilerOutputs::astCompactJson).c_str(), "AST of all source files in a compact JSON format.")
-		(CompilerOutputs::componentName(&CompilerOutputs::asm_).c_str(), "EVM assembly of the contracts.")
-		(CompilerOutputs::componentName(&CompilerOutputs::asmJson).c_str(), "EVM assembly of the contracts in JSON format.")
+		(CompilerOutputs::componentName(&CompilerOutputs::asm_).c_str(), "ZVM assembly of the contracts.")
+		(CompilerOutputs::componentName(&CompilerOutputs::asmJson).c_str(), "ZVM assembly of the contracts in JSON format.")
 		(CompilerOutputs::componentName(&CompilerOutputs::opcodes).c_str(), "Opcodes of the contracts.")
 		(CompilerOutputs::componentName(&CompilerOutputs::binary).c_str(), "Binary of the contracts in hex.")
 		(CompilerOutputs::componentName(&CompilerOutputs::binaryRuntime).c_str(), "Binary of the runtime part of the contracts in hex.")
@@ -799,13 +799,13 @@ General Information)").c_str(),
 		)
 		(
 			g_strOptimizeYul.c_str(),
-			("Enable Yul optimizer (independently of the EVM assembly optimizer). "
+			("Enable Yul optimizer (independently of the ZVM assembly optimizer). "
 			"The general --" + g_strOptimize + " option automatically enables this unless --" +
 			g_strNoOptimizeYul + " is specified.").c_str()
 		)
 		(
 			g_strNoOptimizeYul.c_str(),
-			"Disable Yul optimizer (independently of the EVM assembly optimizer)."
+			"Disable Yul optimizer (independently of the ZVM assembly optimizer)."
 		)
 		(
 			g_strYulOptimizations.c_str(),
@@ -1252,7 +1252,7 @@ void CommandLineParser::processArgs()
 		{
 			std::string machine = m_args[g_strMachine].as<std::string>();
 			if (machine == g_strZVM)
-				m_options.assembly.targetMachine = Machine::EVM;
+				m_options.assembly.targetMachine = Machine::ZVM;
 			else
 				solThrow(CommandLineValidationError, "Invalid option for --" + g_strMachine + ": " + machine);
 		}
@@ -1448,7 +1448,7 @@ void CommandLineParser::parseCombinedJsonOption()
 				solThrow(
 					CommandLineValidationError,
 					fmt::format(
-						"The --{} {} output is not available in EVM assembly import mode.",
+						"The --{} {} output is not available in ZVM assembly import mode.",
 						g_strCombinedJson,
 						CombinedJsonRequests::componentName(invalidOption)
 					)

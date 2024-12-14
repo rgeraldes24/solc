@@ -1,6 +1,6 @@
 
 ======= debug_info_in_yul_and_evm_asm_print_none/input.hyp:C =======
-EVM assembly:
+ZVM assembly:
   mstore(0x40, 0x80)
   callvalue
   dup1

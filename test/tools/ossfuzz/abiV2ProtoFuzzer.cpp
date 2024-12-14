@@ -45,7 +45,7 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 		of << contract_source;
 	}
 
-	// We target the default EVM which is the latest
+	// We target the default ZVM which is the latest
 	langutil::ZVMVersion version;
 	ZVMHost hostContext(version, zvmone);
 	string contractName = "C";
@@ -61,8 +61,8 @@ DEFINE_PROTO_FUZZER(Contract const& _input)
 	);
 	// Invoke test function
 	auto result = zvmoneUtil.compileDeployAndExecute();
-	// We don't care about EVM One failures other than ZVMC_REVERT
-	solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: EVM One reverted");
+	// We don't care about ZVM One failures other than ZVMC_REVERT
+	solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: ZVM One reverted");
 	if (result.status_code == ZVMC_SUCCESS)
 		if (!ZvmoneUtility::zeroWord(result.output_data, result.output_size))
 		{

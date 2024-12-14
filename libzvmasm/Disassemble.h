@@ -29,10 +29,10 @@
 namespace hyperion::zvmasm
 {
 
-/// Iterate through EVM code and call a function on each instruction.
+/// Iterate through ZVM code and call a function on each instruction.
 void eachInstruction(bytes const& _mem, std::function<void(Instruction, u256 const&)> const& _onInstruction);
 
-/// Convert from EVM code to simple EVM assembly language.
+/// Convert from ZVM code to simple ZVM assembly language.
 std::string disassemble(bytes const& _mem, std::string const& _delimiter = " ");
 
 }

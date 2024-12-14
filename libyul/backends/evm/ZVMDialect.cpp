@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Yul dialects for EVM.
+ * Yul dialects for ZVM.
  */
 
 #include <libyul/backends/evm/ZVMDialect.h>

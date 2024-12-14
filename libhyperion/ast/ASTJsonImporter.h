@@ -163,7 +163,7 @@ private:
 	std::map<std::string, ASTPointer<SourceUnit>> m_sourceUnits;
 	/// IDs already used by the nodes
 	std::set<int64_t> m_usedIDs;
-	/// Configured EVM version
+	/// Configured ZVM version
 	langutil::ZVMVersion m_zvmVersion;
 };
 

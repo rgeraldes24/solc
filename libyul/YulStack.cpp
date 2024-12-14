@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Full assembly stack that can support EVM-assembly and Yul as input and EVM, EVM1.5
+ * Full assembly stack that can support ZVM-assembly and Yul as input and ZVM, ZVM1.5
  */
 
 
@@ -213,7 +213,7 @@ MachineAssemblyObject YulStack::assemble(Machine _machine) const
 
 	switch (_machine)
 	{
-	case Machine::EVM:
+	case Machine::ZVM:
 		return assembleWithDeployed().first;
 	}
 	// unreachable

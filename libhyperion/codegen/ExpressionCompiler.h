@@ -19,7 +19,7 @@
  * @author Christian <c@ethdev.com>
  * @author Gav Wood <g@ethdev.com>
  * @date 2014
- * Solidity AST to EVM bytecode compiler for expressions.
+ * Solidity AST to ZVM bytecode compiler for expressions.
  */
 
 #pragma once
@@ -51,7 +51,7 @@ class ArrayType;
 
 /**
  * Compiler for expressions, i.e. converts an AST tree whose root is an Expression into a stream
- * of EVM instructions. It needs a compiler context that is the same for the whole compilation
+ * of ZVM instructions. It needs a compiler context that is the same for the whole compilation
  * unit.
  */
 class ExpressionCompiler: private ASTConstVisitor

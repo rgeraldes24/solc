@@ -236,7 +236,7 @@ void ProtoConverter::visit(Expression const& _x)
 	case Expression::kUnopdata:
 		// Filter datasize and dataoffset because these instructions may return
 		// a value that is a function of optimisation. Therefore, when run on
-		// an EVM client, the execution traces for unoptimised vs optimised
+		// an ZVM client, the execution traces for unoptimised vs optimised
 		// programs may differ. This ends up as a false-positive bug report.
 		if (m_isObject && !m_filterStatefulInstructions)
 			visit(_x.unopdata());
@@ -553,7 +553,7 @@ void ProtoConverter::visit(UnaryOp const& _x)
 {
 	UnaryOp_UOp op = _x.op();
 
-	// The following instructions may lead to change of EVM state and are hence
+	// The following instructions may lead to change of ZVM state and are hence
 	// excluded to avoid false positives.
 	if (
 		m_filterStatefulInstructions &&
@@ -634,7 +634,7 @@ void ProtoConverter::visit(TernaryOp const& _x)
 void ProtoConverter::visit(NullaryOp const& _x)
 {
 	auto op = _x.op();
-	// The following instructions may lead to a change in EVM state and are
+	// The following instructions may lead to a change in ZVM state and are
 	// excluded to avoid false positive reports.
 	if (
 		m_filterStatefulInstructions &&
@@ -1848,7 +1848,7 @@ void ProtoConverter::visit(Program const& _x)
 	// Initialize input size
 	m_inputSize = static_cast<unsigned>(_x.ByteSizeLong());
 
-	// Record EVM Version
+	// Record ZVM Version
 	m_zvmVersion = zvmVersionMapping(_x.ver());
 
 	// Program is either a Yul object or a block of

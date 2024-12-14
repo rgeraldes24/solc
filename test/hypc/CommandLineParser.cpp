@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 			"--ignore-missing",
 			"--output-dir=/tmp/out",
 			"--overwrite",
-			"--evm-version=shanghai",
+			"--zvm-version=shanghai",
 			"--via-ir",
 			"--experimental-via-ir",
 			"--revert-strings=strip",
@@ -270,15 +270,15 @@ BOOST_AUTO_TEST_CASE(via_ir_options)
 BOOST_AUTO_TEST_CASE(assembly_mode_options)
 {
 	static vector<tuple<vector<string>, YulStack::Machine, YulStack::Language>> const allowedCombinations = {
-		{{"--machine=evm", "--yul-dialect=evm", "--assemble"}, YulStack::Machine::EVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--yul-dialect=evm", "--yul"}, YulStack::Machine::EVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--yul-dialect=evm", "--strict-assembly"}, YulStack::Machine::EVM, YulStack::Language::StrictAssembly},
-		{{"--machine=evm", "--assemble"}, YulStack::Machine::EVM, YulStack::Language::Assembly},
-		{{"--machine=evm", "--yul"}, YulStack::Machine::EVM, YulStack::Language::Yul},
-		{{"--machine=evm", "--strict-assembly"}, YulStack::Machine::EVM, YulStack::Language::StrictAssembly},
-		{{"--assemble"}, YulStack::Machine::EVM, YulStack::Language::Assembly},
-		{{"--yul"}, YulStack::Machine::EVM, YulStack::Language::Yul},
-		{{"--strict-assembly"}, YulStack::Machine::EVM, YulStack::Language::StrictAssembly},
+		{{"--machine=evm", "--yul-dialect=evm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=evm", "--yul-dialect=evm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=evm", "--yul-dialect=evm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--machine=evm", "--assemble"}, YulStack::Machine::ZVM, YulStack::Language::Assembly},
+		{{"--machine=evm", "--yul"}, YulStack::Machine::ZVM, YulStack::Language::Yul},
+		{{"--machine=evm", "--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
+		{{"--assemble"}, YulStack::Machine::ZVM, YulStack::Language::Assembly},
+		{{"--yul"}, YulStack::Machine::ZVM, YulStack::Language::Yul},
+		{{"--strict-assembly"}, YulStack::Machine::ZVM, YulStack::Language::StrictAssembly},
 	};
 
 	for (auto const& [assemblyOptions, expectedMachine, expectedLanguage]: allowedCombinations)
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 			"--allow-paths=/tmp,/home,project,../contracts",
 			"--ignore-missing",
 			"--overwrite",
-			"--evm-version=shanghai",
+			"--zvm-version=shanghai",
 			"--revert-strings=strip",      // Accepted but has no effect in assembly mode
 			"--debug-info=location",
 			"--pretty-json",
@@ -381,7 +381,7 @@ BOOST_AUTO_TEST_CASE(standard_json_mode_options)
 		"--ignore-missing",
 		"--output-dir=/tmp/out",           // Accepted but has no effect in Standard JSON mode
 		"--overwrite",                     // Accepted but has no effect in Standard JSON mode
-		"--evm-version=shanghai",    // Ignored in Standard JSON mode
+		"--zvm-version=shanghai",    // Ignored in Standard JSON mode
 		"--revert-strings=strip",          // Accepted but has no effect in Standard JSON mode
 		"--pretty-json",
 		"--json-indent=1",

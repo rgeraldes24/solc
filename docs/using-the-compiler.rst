@@ -107,7 +107,7 @@ If ``hypc`` is called with the option ``--link``, all input files are interprete
     the likelihood of a collision between libraries, since only the first 36 characters
     of the fully qualified library name could be used.
 
-.. _evm-version:
+.. _zvm-version:
 .. index:: ! EVM version, compile target
 
 Setting the EVM Version to Target
@@ -126,7 +126,7 @@ On the command-line, you can select the EVM version as follows:
 
 .. code-block:: shell
 
-  hypc --evm-version <VERSION> contract.hyp
+  hypc --zvm-version <VERSION> contract.hyp
 
 In the :ref:`standard JSON interface <compiler-api>`, use the ``"zvmVersion"``
 key in the ``"settings"`` field:

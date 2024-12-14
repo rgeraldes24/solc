@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * EVM versioning.
+ * ZVM versioning.
  */
 
 #include <liblangutil/ZVMVersion.h>

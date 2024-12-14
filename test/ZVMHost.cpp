@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * EVM execution host, i.e. component that implements a simulated Ethereum blockchain
+ * ZVM execution host, i.e. component that implements a simulated Ethereum blockchain
  * for testing purposes.
  */
 
@@ -50,7 +50,7 @@ zvmc::VM& ZVMHost::getVM(string const& _path)
 			if (vm.get_capabilities() & (ZVMC_CAPABILITY_ZOND1))
 				vms[_path] = make_unique<zvmc::VM>(zvmc::VM(std::move(vm)));
 			else
-				cerr << "VM loaded does not support EVM1" << endl;
+				cerr << "VM loaded does not support ZVM1" << endl;
 		}
 		else
 		{
@@ -99,7 +99,7 @@ ZVMHost::ZVMHost(langutil::ZVMVersion _zvmVersion, zvmc::VM& _vm):
 	if (_zvmVersion == langutil::ZVMVersion::shanghai())
 		m_evmRevision = ZVMC_SHANGHAI;
 	else
-		assertThrow(false, Exception, "Unsupported EVM version");
+		assertThrow(false, Exception, "Unsupported ZVM version");
 
 	
 	// This is the value from the merge block.

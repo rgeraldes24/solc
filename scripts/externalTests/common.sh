@@ -198,7 +198,7 @@ function force_truffle_compiler_settings
     local binary_type="$2"
     local hypc_path="$3"
     local preset="$4"
-    local evm_version="${5:-"$CURRENT_ZVM_VERSION"}"
+    local zvm_version="${5:-"$CURRENT_ZVM_VERSION"}"
     local extra_settings="$6"
     local extra_optimizer_settings="$7"
 
@@ -212,14 +212,14 @@ function force_truffle_compiler_settings
     echo "Binary type: $binary_type"
     echo "Compiler path: $hypc_path"
     echo "Settings preset: ${preset}"
-    echo "Settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
-    echo "EVM version: $evm_version"
+    echo "Settings: $(settings_from_preset "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")"
+    echo "ZVM version: $zvm_version"
     echo "Compiler version: ${HYPCVERSION_SHORT}"
     echo "Compiler version (full): ${HYPCVERSION}"
     echo "-------------------------------------"
 
     local compiler_settings gas_reporter_settings
-    compiler_settings=$(truffle_compiler_settings "$hypc_path" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
+    compiler_settings=$(truffle_compiler_settings "$hypc_path" "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")
     gas_reporter_settings=$(eth_gas_reporter_settings "$preset")
 
     {
@@ -308,7 +308,7 @@ function force_hardhat_compiler_settings
     local config_file="$1"
     local preset="$2"
     local config_var_name="$3"
-    local evm_version="${4:-"$CURRENT_ZVM_VERSION"}"
+    local zvm_version="${4:-"$CURRENT_ZVM_VERSION"}"
     local extra_settings="$5"
     local extra_optimizer_settings="$6"
 
@@ -316,14 +316,14 @@ function force_hardhat_compiler_settings
     echo "-------------------------------------"
     echo "Config file: ${config_file}"
     echo "Settings preset: ${preset}"
-    echo "Settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
-    echo "EVM version: ${evm_version}"
+    echo "Settings: $(settings_from_preset "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")"
+    echo "ZVM version: ${zvm_version}"
     echo "Compiler version: ${HYPCVERSION_SHORT}"
     echo "Compiler version (full): ${HYPCVERSION}"
     echo "-------------------------------------"
 
     local compiler_settings gas_reporter_settings
-    compiler_settings=$(hardhat_compiler_settings "$HYPCVERSION_SHORT" "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")
+    compiler_settings=$(hardhat_compiler_settings "$HYPCVERSION_SHORT" "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")
     gas_reporter_settings=$(eth_gas_reporter_settings "$preset")
     if [[ $config_file == *\.js ]]; then
         [[ $config_var_name == "" ]] || assertFail
@@ -375,7 +375,7 @@ function hardhat_clean
 function settings_from_preset
 {
     local preset="$1"
-    local evm_version="$2"
+    local zvm_version="$2"
     local extra_settings="$3"
     local extra_optimizer_settings="$4"
 
@@ -386,12 +386,12 @@ function settings_from_preset
 
     case "$preset" in
         # NOTE: Remember to update `parallelism` of `t_ems_ext` job in CI config if you add/remove presets
-        legacy-no-optimize)       echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
-        ir-no-optimize)           echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
-        legacy-optimize-evm-only) echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        ir-optimize-evm-only)     echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
-        legacy-optimize-evm+yul)  echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
-        ir-optimize-evm+yul)      echo "{${extra_settings}zvmVersion: '${evm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        legacy-no-optimize)       echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
+        ir-no-optimize)           echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: false}}" ;;
+        legacy-optimize-evm-only) echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        ir-optimize-evm-only)     echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: false}}}" ;;
+        legacy-optimize-evm+yul)  echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: false, optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
+        ir-optimize-evm+yul)      echo "{${extra_settings}zvmVersion: '${zvm_version}', viaIR: true,  optimizer: {${extra_optimizer_settings}enabled: true, details: {yul: true}}}" ;;
         *)
             fail "Unknown settings preset: '${preset}'."
             ;;
@@ -427,14 +427,14 @@ function truffle_compiler_settings
 {
     local hypc_path="$1"
     local preset="$2"
-    local evm_version="$3"
+    local zvm_version="$3"
     local extra_settings="$4"
     local extra_optimizer_settings="$5"
 
     echo "{"
     echo "    hypc: {"
     echo "        version: \"${hypc_path}\","
-    echo "        settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
+    echo "        settings: $(settings_from_preset "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "    }"
     echo "}"
 }
@@ -478,13 +478,13 @@ function hardhat_hypc_build_subtask {
 function hardhat_compiler_settings {
     local hypc_version="$1"
     local preset="$2"
-    local evm_version="$3"
+    local zvm_version="$3"
     local extra_settings="$4"
     local extra_optimizer_settings="$5"
 
     echo "{"
     echo "    version: '${hypc_version}',"
-    echo "    settings: $(settings_from_preset "$preset" "$evm_version" "$extra_settings" "$extra_optimizer_settings")"
+    echo "    settings: $(settings_from_preset "$preset" "$zvm_version" "$extra_settings" "$extra_optimizer_settings")"
     echo "}"
 }
 

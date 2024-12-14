@@ -32,7 +32,7 @@ namespace hyperion::test::fuzzer
 {
 struct CompilerOutput
 {
-	/// EVM bytecode returned by compiler
+	/// ZVM bytecode returned by compiler
 	hyperion::bytes byteCode;
 	/// Method identifiers in a contract
 	Json::Value methodIdentifiersInContract;
@@ -57,7 +57,7 @@ struct CompilerInput
 		debugFailure(_debugFailure),
 		viaIR(_viaIR)
 	{}
-	/// EVM target version
+	/// ZVM target version
 	langutil::ZVMVersion zvmVersion;
 	/// Source code to be compiled
 	StringMap const& sourceCode;
@@ -93,7 +93,7 @@ public:
 	{
 		return m_compiler.interfaceSymbols(_contractName)["methods"];
 	}
-	/// @returns Compilation output comprising EVM bytecode and list of
+	/// @returns Compilation output comprising ZVM bytecode and list of
 	/// method identifiers in contract if compilation is successful,
 	/// null value otherwise.
 	std::optional<CompilerOutput> compileContract();
@@ -118,7 +118,7 @@ public:
 		m_libraryName(_libraryName),
 		m_methodName(_methodName)
 	{}
-	/// @returns the result returned by the EVM host on compiling, deploying,
+	/// @returns the result returned by the ZVM host on compiling, deploying,
 	/// and executing test configuration.
 	/// @param _isabelleData contains encoding data to be passed to the
 	/// isabelle test entry point.
@@ -144,8 +144,8 @@ private:
 	);
 	/// @returns the result of deployment of @param _code on @param _hostContext.
 	zvmc::Result deployContract(bytes const& _code);
-	/// Deploys and executes EVM byte code in @param _byteCode on
-	/// EVM Host referenced by @param _hostContext. Input passed
+	/// Deploys and executes ZVM byte code in @param _byteCode on
+	/// ZVM Host referenced by @param _hostContext. Input passed
 	/// to execution context is @param _hexEncodedInput.
 	/// @returns result returning by @param _hostContext.
 	zvmc::Result deployAndExecute(
@@ -159,7 +159,7 @@ private:
 	/// identifiers for methods in @param _contractName.
 	std::optional<CompilerOutput> compileContract();
 
-	/// EVM Host implementation
+	/// ZVM Host implementation
 	hyperion::test::ZVMHost& m_evmHost;
 	/// Solidity compilation framework
 	SolidityCompilationFramework m_compilationFramework;

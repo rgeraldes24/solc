@@ -126,7 +126,7 @@ private:
 
 	frontend::CompilerStack m_compilerStack;
 
-	/// User-supplied custom configuration settings (such as EVM version).
+	/// User-supplied custom configuration settings (such as ZVM version).
 	Json::Value m_settingsObject;
 };
 

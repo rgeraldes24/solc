@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Yul interpreter module that evaluates EVM instructions.
+ * Yul interpreter module that evaluates ZVM instructions.
  */
 
 #include <test/tools/yulInterpreter/ZVMInstructionInterpreter.h>

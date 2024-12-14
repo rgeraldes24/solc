@@ -49,7 +49,7 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const* _data, size_t _size)
 
 	try
 	{
-		MachineAssemblyObject obj = stack.assemble(YulStack::Machine::EVM);
+		MachineAssemblyObject obj = stack.assemble(YulStack::Machine::ZVM);
 		solAssert(obj.bytecode, "");
 	}
 	catch (StackTooDeepError const&)

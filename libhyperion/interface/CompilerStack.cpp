@@ -230,7 +230,7 @@ void CompilerStack::setViaIR(bool _viaIR)
 void CompilerStack::setZVMVersion(langutil::ZVMVersion _version)
 {
 	if (m_stackState >= ParsedAndImported)
-		solThrow(CompilerError, "Must set EVM version before parsing.");
+		solThrow(CompilerError, "Must set ZVM version before parsing.");
 	m_zvmVersion = _version;
 }
 
@@ -717,7 +717,7 @@ bool CompilerStack::compile(State _stopAfter)
 						if (m_generateZvmBytecode)
 						{
 							if (m_viaIR)
-								generateEVMFromIR(*contract);
+								generateZVMFromIR(*contract);
 							else
 							{
 								if (m_experimentalAnalysis)
@@ -1515,7 +1515,7 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 	compiledContract.yulIROptimizedAst = stack.astJson();
 }
 
-void CompilerStack::generateEVMFromIR(ContractDefinition const& _contract)
+void CompilerStack::generateZVMFromIR(ContractDefinition const& _contract)
 {
 	solAssert(m_stackState >= AnalysisSuccessful, "");
 
@@ -1527,7 +1527,7 @@ void CompilerStack::generateEVMFromIR(ContractDefinition const& _contract)
 	if (!compiledContract.object.bytecode.empty())
 		return;
 
-	// Re-parse the Yul IR in EVM dialect
+	// Re-parse the Yul IR in ZVM dialect
 	yul::YulStack stack(
 		m_zvmVersion,
 		yul::YulStack::Language::StrictAssembly,

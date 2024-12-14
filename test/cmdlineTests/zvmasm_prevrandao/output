@@ -1,6 +1,6 @@
 
 ======= zvmasm_prevrandao/input.hyp:C =======
-EVM assembly:
+ZVM assembly:
   sstore(0x00, prevrandao)
   stop
 stop

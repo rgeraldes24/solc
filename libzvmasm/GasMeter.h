@@ -140,7 +140,7 @@ public:
 	u256 const& largestMemoryAccess() const { return m_largestMemoryAccess; }
 
 	/// @returns gas costs for simple instructions with constant gas costs (that do not
-	/// change with EVM versions)
+	/// change with ZVM versions)
 	static unsigned runGas(Instruction _instruction);
 
 	/// @returns the gas cost of the supplied data, depending whether it is in creation code, or not.

@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Code generator for translating Yul / inline assembly to EVM.
+ * Code generator for translating Yul / inline assembly to ZVM.
  */
 
 #include <libyul/backends/evm/ZVMCodeTransform.h>

@@ -243,7 +243,7 @@ bool isArtifactRequested(Json::Value const& _outputSelection, std::string const&
 	return false;
 }
 
-/// @returns all artifact names of the EVM object, either for creation or deploy time.
+/// @returns all artifact names of the ZVM object, either for creation or deploy time.
 std::vector<std::string> evmObjectComponents(std::string const& _objectKind)
 {
 	solAssert(_objectKind == "bytecode" || _objectKind == "deployedBytecode", "");
@@ -274,7 +274,7 @@ bool isBinaryRequested(Json::Value const& _outputSelection)
 	return false;
 }
 
-/// @returns true if EVM bytecode was requested, i.e. we have to run the old code generator.
+/// @returns true if ZVM bytecode was requested, i.e. we have to run the old code generator.
 bool isZvmBytecodeRequested(Json::Value const& _outputSelection)
 {
 	if (!_outputSelection.isObject())
@@ -795,7 +795,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 			return formatFatalError(Error::Type::JSONError, "zvmVersion must be a string.");
 		std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(settings["zvmVersion"].asString());
 		if (!version)
-			return formatFatalError(Error::Type::JSONError, "Invalid EVM version requested.");
+			return formatFatalError(Error::Type::JSONError, "Invalid ZVM version requested.");
 		ret.zvmVersion = *version;
 	}
 
@@ -1379,7 +1379,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "irOptimizedAst", wildcardMatchesExperimental))
 			contractData["irOptimizedAst"] = compilerStack.yulIROptimizedAst(contractName);
 
-		// EVM
+		// ZVM
 		Json::Value evmData(Json::objectValue);
 		if (compilationSuccess && isArtifactRequested(_inputsAndSettings.outputSelection, file, name, "evm.assembly", wildcardMatchesExperimental))
 			evmData["assembly"] = compilerStack.assemblyString(contractName, sourceList);

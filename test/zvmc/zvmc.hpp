@@ -67,7 +67,7 @@ struct address : zvmc_address
     inline constexpr operator bytes_view() const noexcept { return {bytes, sizeof(bytes)}; }
 };
 
-/// The fixed size array of 32 bytes for storing 256-bit EVM values.
+/// The fixed size array of 32 bytes for storing 256-bit ZVM values.
 ///
 /// This type wraps C ::zvmc_bytes32 to make sure objects of this type are always initialized.
 struct bytes32 : zvmc_bytes32

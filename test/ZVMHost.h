@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * EVM execution host, i.e. component that implements a simulated Ethereum blockchain
+ * ZVM execution host, i.e. component that implements a simulated Ethereum blockchain
  * for testing purposes.
  */
 
@@ -122,9 +122,9 @@ private:
 	static zvmc::Result resultWithFailure() noexcept;
 
 	zvmc::VM& m_vm;
-	/// EVM version requested by the testing tool
+	/// ZVM version requested by the testing tool
 	langutil::ZVMVersion m_zvmVersion;
-	/// EVM version requested from ZVMC (matches the above)
+	/// ZVM version requested from ZVMC (matches the above)
 	zvmc_revision m_evmRevision;
 };
 

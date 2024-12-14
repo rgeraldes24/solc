@@ -1,5 +1,5 @@
 
-======= strict_asm_debug_info_print_all/input.yul (EVM) =======
+======= strict_asm_debug_info_print_all/input.yul (ZVM) =======
 
 Pretty printed source:
 /// @use-src 0:"input.hyp"

@@ -33,7 +33,7 @@ namespace hyperion::frontend
 /// Possible lookups for function resolving
 enum class VirtualLookup { Static, Virtual, Super };
 
-// How a function can mutate the EVM state.
+// How a function can mutate the ZVM state.
 enum class StateMutability { Pure, View, NonPayable, Payable };
 
 /// Visibility ordered from restricted to unrestricted.

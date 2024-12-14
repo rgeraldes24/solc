@@ -204,7 +204,7 @@ public:
 	CompilerContext& appendRevert(std::string const& _message = "");
 	/// Appends a conditional REVERT-call, either forwarding the RETURNDATA or providing the
 	/// empty string. Consumes the condition.
-	/// If the current EVM version does not support RETURNDATA, uses REVERT but does not forward
+	/// If the current ZVM version does not support RETURNDATA, uses REVERT but does not forward
 	/// the data.
 	/// @param _message is an optional revert message used in debug mode
 	CompilerContext& appendConditionalRevert(bool _forwardReturnData = false, std::string const& _message = "");
@@ -255,7 +255,7 @@ public:
 	CompilerContext& operator<<(u256 const& _value) { m_asm->append(_value); return *this; }
 	CompilerContext& operator<<(bytes const& _data) { m_asm->append(_data); return *this; }
 
-	/// Appends inline assembly (strict-EVM dialect for the current version).
+	/// Appends inline assembly (strict-ZVM dialect for the current version).
 	/// @param _assembly the assembly text, should be a block.
 	/// @param _localVariables assigns stack positions to variables with the last one being the stack top
 	/// @param _externallyUsedFunctions a set of function names that are not to be renamed or removed.
@@ -347,7 +347,7 @@ private:
 	} m_functionCompilationQueue;
 
 	zvmasm::AssemblyPointer m_asm;
-	/// Version of the EVM to compile against.
+	/// Version of the ZVM to compile against.
 	langutil::ZVMVersion m_zvmVersion;
 	RevertStrings const m_revertStrings;
 	bool m_useABICoderV2 = false;

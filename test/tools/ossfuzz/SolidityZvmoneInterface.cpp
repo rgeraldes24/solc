@@ -113,17 +113,17 @@ zvmc::Result ZvmoneUtility::deployAndExecute(
 		"SolidityZvmoneInterface: Contract creation failed"
 	);
 
-	// Execute test function and signal failure if EVM reverted or
+	// Execute test function and signal failure if ZVM reverted or
 	// did not return expected output on successful execution.
 	zvmc::Result callResult = executeContract(
 		util::fromHex(_hexEncodedInput),
 		createResult.create_address
 	);
 
-	// We don't care about EVM One failures other than ZVMC_REVERT
+	// We don't care about ZVM One failures other than ZVMC_REVERT
 	solAssert(
 		callResult.status_code != ZVMC_REVERT,
-		"SolidityZvmoneInterface: EVM One reverted"
+		"SolidityZvmoneInterface: ZVM One reverted"
 	);
 	return callResult;
 }

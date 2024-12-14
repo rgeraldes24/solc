@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Full assembly stack that can support EVM-assembly and Yul as input and EVM.
+ * Full assembly stack that can support ZVM-assembly and Yul as input and ZVM.
  */
 
 #pragma once
@@ -61,13 +61,13 @@ struct MachineAssemblyObject
 };
 
 /*
- * Full assembly stack that can support EVM-assembly and Yul as input and EVM as output.
+ * Full assembly stack that can support ZVM-assembly and Yul as input and ZVM as output.
  */
 class YulStack: public langutil::CharStreamProvider
 {
 public:
 	enum class Language { Yul, Assembly, StrictAssembly };
-	enum class Machine { EVM };
+	enum class Machine { ZVM };
 
 	YulStack():
 		YulStack(
@@ -108,15 +108,15 @@ public:
 	/// Run the assembly step (should only be called after parseAndAnalyze).
 	/// In addition to the value returned by @a assemble, returns
 	/// a second object that is the runtime code.
-	/// Only available for EVM.
+	/// Only available for ZVM.
 	std::pair<MachineAssemblyObject, MachineAssemblyObject>
 	assembleWithDeployed(
 		std::optional<std::string_view> _deployName = {}
 	) const;
 
 	/// Run the assembly step (should only be called after parseAndAnalyze).
-	/// Similar to @a assemblyWithDeployed, but returns EVM assembly objects.
-	/// Only available for EVM.
+	/// Similar to @a assemblyWithDeployed, but returns ZVM assembly objects.
+	/// Only available for ZVM.
 	std::pair<std::shared_ptr<zvmasm::Assembly>, std::shared_ptr<zvmasm::Assembly>>
 	assembleZVMWithDeployed(
 		std::optional<std::string_view> _deployName = {}

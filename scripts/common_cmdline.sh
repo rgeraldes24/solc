@@ -151,7 +151,7 @@ function stripCLIDecorations
         -e '/^Opcodes:$/d' \
         -e '/^IR:$/d' \
         -e '/^Optimized IR:$/d' \
-        -e '/^EVM assembly:$/d' \
+        -e '/^ZVM assembly:$/d' \
         -e '/^JSON AST (compact format):$/d' \
         -e '/^Function signatures:$/d' \
         -e '/^Contract Storage Layout:$/d' \
@@ -159,7 +159,7 @@ function stripCLIDecorations
         -e '/^User Documentation$/d' \
         -e '/^Contract JSON ABI$/d' \
         -e '/^Metadata:$/d' \
-        -e '/^EVM$/d' \
+        -e '/^ZVM$/d' \
         -e '/^Pretty printed source:$/d' \
         -e '/^Text representation:$/d' \
         -e '/^Binary representation:$/d'

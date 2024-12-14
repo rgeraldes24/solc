@@ -190,7 +190,7 @@ void CommandLineInterface::handleZVMAssembly(std::string const& _contract)
 			assembly
 		);
 	else
-		sout() << "EVM assembly:" << std::endl << assembly << std::endl;
+		sout() << "ZVM assembly:" << std::endl << assembly << std::endl;
 }
 
 void CommandLineInterface::handleBinary(std::string const& _contract)
@@ -1222,8 +1222,8 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 
 	for (auto const& src: m_fileReader.sourceUnits())
 	{
-		solAssert(_targetMachine == yul::YulStack::Machine::EVM);
-		std::string machine = "EVM";
+		solAssert(_targetMachine == yul::YulStack::Machine::ZVM);
+		std::string machine = "ZVM";
 		sout() << std::endl << "======= " << src.first << " (" << machine << ") =======" << std::endl;
 
 		yul::YulStack& stack = yulStacks[src.first];
@@ -1253,7 +1253,7 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 			sout() << "AST:" << std::endl << std::endl;
 			sout() << util::jsonPrint(stack.astJson(), m_options.formatting.json) << std::endl;
 		}
-		solAssert(_targetMachine == yul::YulStack::Machine::EVM, "");
+		solAssert(_targetMachine == yul::YulStack::Machine::ZVM, "");
 		if (m_options.compiler.outputs.asm_)
 		{
 			sout() << std::endl << "Text representation:" << std::endl;

@@ -101,13 +101,13 @@ else
 fi
 
 
-EVM_VERSIONS="shanghai"
+ZVM_VERSIONS="shanghai"
 
 # And then run the Solidity unit-tests in the matrix combination of optimizer / no optimizer
 # and shanghai VM
 for optimize in "" "--optimize"
 do
-    for vm in $EVM_VERSIONS
+    for vm in $ZVM_VERSIONS
     do
         FORCE_ABIV1_RUNS="no yes"
         for abiv1 in $FORCE_ABIV1_RUNS
@@ -117,7 +117,7 @@ do
             then
                 force_abiv1_flag=(--abiencoderv1)
             fi
-            printTask "--> Running tests using $optimize --evm-version $vm ${force_abiv1_flag[*]}..."
+            printTask "--> Running tests using $optimize --zvm-version $vm ${force_abiv1_flag[*]}..."
 
             log=()
             if [ -n "$log_directory" ]
@@ -131,7 +131,7 @@ do
             fi
 
             set +e
-            "${SOLIDITY_BUILD_DIR}"/test/hyptest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --evm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
+            "${SOLIDITY_BUILD_DIR}"/test/hyptest --show-progress "${log[@]}" -- --testpath "$REPO_ROOT"/test "$optimize" --zvm-version "$vm" "${SMT_FLAGS[@]}" "${force_abiv1_flag[@]}"
 
             if test "0" -ne "$?"; then
                 exit 1

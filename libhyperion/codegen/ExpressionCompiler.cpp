@@ -18,7 +18,7 @@
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
- * Solidity AST to EVM bytecode compiler for expressions.
+ * Solidity AST to ZVM bytecode compiler for expressions.
  */
 
 #include <libhyperion/codegen/ExpressionCompiler.h>
@@ -2704,7 +2704,7 @@ void ExpressionCompiler::appendExternalFunctionCall(
 		m_context << dupInstruction(m_context.baseToCurrentStackOffset(gasStackPos));
 	else
 	{
-		// Send all gas (requires tangerine whistle EVM)
+		// Send all gas (requires tangerine whistle ZVM)
 		m_context << Instruction::GAS;
 	}
 		

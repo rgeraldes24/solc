@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Yul dialects for EVM.
+ * Yul dialects for ZVM.
  */
 
 #pragma once
@@ -60,7 +60,7 @@ struct BuiltinFunctionForZVM: public BuiltinFunction
 
 
 /**
- * Yul dialect for EVM as a backend.
+ * Yul dialect for ZVM as a backend.
  * The main difference is that the builtin functions take an AbstractAssembly for the
  * code generation.
  */
@@ -104,7 +104,7 @@ protected:
 };
 
 /**
- * EVM dialect with types u256 (default) and bool.
+ * ZVM dialect with types u256 (default) and bool.
  * Difference to ZVMDialect:
  *  - All comparison functions return type bool
  *  - bitwise operations are called bitor, bitand, bitxor and bitnot

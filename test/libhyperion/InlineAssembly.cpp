@@ -56,7 +56,7 @@ std::optional<Error> parseAndReturnFirstError(
 	bool _assemble = false,
 	bool _allowWarnings = true,
 	YulStack::Language _language = YulStack::Language::Assembly,
-	YulStack::Machine _machine = YulStack::Machine::EVM
+	YulStack::Machine _machine = YulStack::Machine::ZVM
 )
 {
 	YulStack stack(
@@ -101,7 +101,7 @@ bool successParse(
 	bool _assemble = false,
 	bool _allowWarnings = true,
 	YulStack::Language _language = YulStack::Language::Assembly,
-	YulStack::Machine _machine = YulStack::Machine::EVM
+	YulStack::Machine _machine = YulStack::Machine::ZVM
 )
 {
 	return !parseAndReturnFirstError(_source, _assemble, _allowWarnings, _language, _machine);
@@ -110,7 +110,7 @@ bool successParse(
 bool successAssemble(std::string const& _source, bool _allowWarnings = true, YulStack::Language _language = YulStack::Language::Assembly)
 {
 	return
-		successParse(_source, true, _allowWarnings, _language, YulStack::Machine::EVM);
+		successParse(_source, true, _allowWarnings, _language, YulStack::Machine::ZVM);
 }
 
 Error expectError(

@@ -16,7 +16,7 @@
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Yul interpreter module that evaluates EVM instructions.
+ * Yul interpreter module that evaluates ZVM instructions.
  */
 
 #pragma once
@@ -55,7 +55,7 @@ void copyZeroExtended(
 struct InterpreterState;
 
 /**
- * Interprets EVM instructions based on the current state and logs instructions with
+ * Interprets ZVM instructions based on the current state and logs instructions with
  * side-effects.
  *
  * Since this is mainly meant to be used for differential fuzz testing, it is focused

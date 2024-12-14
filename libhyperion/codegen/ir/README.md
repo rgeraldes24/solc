@@ -2,7 +2,7 @@
 
 This directory contains the new experimental code generator that
 compiles Solidity to an intermediate representation in Yul
-with EVM dialect.
+with ZVM dialect.
 
 The main semantic differences to the legacy code generator are the following:
 

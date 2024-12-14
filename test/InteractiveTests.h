@@ -70,7 +70,7 @@ Testsuite const g_interactiveTestsuites[] = {
 	{"Control Flow Side Effects","libyul",    "controlFlowSideEffects",false, false, &yul::test::ControlFlowSideEffectsTest::create},
 	{"Function Side Effects",  "libyul",      "functionSideEffects",   false, false, &yul::test::FunctionSideEffects::create},
 	{"Yul Syntax",             "libyul",      "yulSyntaxTests",        false, false, &yul::test::SyntaxTest::create},
-	{"EVM Code Transform",     "libyul",      "evmCodeTransform",      false, false, &yul::test::ZVMCodeTransformTest::create, {"nooptions"}},
+	{"ZVM Code Transform",     "libyul",      "evmCodeTransform",      false, false, &yul::test::ZVMCodeTransformTest::create, {"nooptions"}},
 	{"Syntax",                 "libhyperion", "syntaxTests",           false, false, &SyntaxTest::create},
 	{"Semantic",               "libhyperion", "semanticTests",         false, true,  &SemanticTest::create},
 	{"JSON AST",               "libhyperion", "ASTJSON",               false, false, &ASTJSONTest::create},

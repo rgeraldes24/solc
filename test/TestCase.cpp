@@ -118,7 +118,7 @@ ZVMVersionRestrictedTestCase::ZVMVersionRestrictedTestCase(string const& _filena
 	versionString = versionString.substr(versionBegin);
 	std::optional<langutil::ZVMVersion> version = langutil::ZVMVersion::fromString(versionString);
 	if (!version)
-		BOOST_THROW_EXCEPTION(runtime_error{"Invalid EVM version: \"" + versionString + "\""});
+		BOOST_THROW_EXCEPTION(runtime_error{"Invalid ZVM version: \"" + versionString + "\""});
 
 	langutil::ZVMVersion zvmVersion = hyperion::test::CommonOptions::get().zvmVersion();
 	bool comparisonResult;
@@ -135,7 +135,7 @@ ZVMVersionRestrictedTestCase::ZVMVersionRestrictedTestCase(string const& _filena
 	else if (comparator == "!")
 		comparisonResult = !(zvmVersion == version);
 	else
-		BOOST_THROW_EXCEPTION(runtime_error{"Invalid EVM comparator: \"" + comparator + "\""});
+		BOOST_THROW_EXCEPTION(runtime_error{"Invalid ZVM comparator: \"" + comparator + "\""});
 
 	if (!comparisonResult)
 		m_shouldRun = false;

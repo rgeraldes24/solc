@@ -88,7 +88,7 @@ enum zvmc_flags
 };
 
 /**
- * The message describing an EVM call, including a zero-depth calls from a transaction origin.
+ * The message describing an ZVM call, including a zero-depth calls from a transaction origin.
  *
  * Most of the fields are modelled by the section 8. Message Call of the Ethereum Yellow Paper.
  */
@@ -213,7 +213,7 @@ struct zvmc_host_context;
 /**
  * Get transaction context callback function.
  *
- *  This callback function is used by an EVM to retrieve the transaction and
+ *  This callback function is used by an ZVM to retrieve the transaction and
  *  block context.
  *
  *  @param      context  The pointer to the Host execution context.
@@ -244,11 +244,11 @@ typedef zvmc_bytes32 (*zvmc_get_block_hash_fn)(struct zvmc_host_context* context
  * ::ZVMC_FAILURE code of value 1.
  *
  * Status codes with negative values represent VM internal errors
- * not provided by EVM specifications. These errors MUST not be passed back
+ * not provided by ZVM specifications. These errors MUST not be passed back
  * to the caller. They MAY be handled by the Client in predefined manner
  * (see e.g. ::ZVMC_REJECTED), otherwise internal errors are not recoverable.
  * The generic representant of errors is ::ZVMC_INTERNAL_ERROR but
- * an EVM implementation MAY return negative status codes that are not defined
+ * an ZVM implementation MAY return negative status codes that are not defined
  * in the ZVMC documentation.
  *
  * @note
@@ -288,12 +288,12 @@ enum zvmc_status_code
     ZVMC_UNDEFINED_INSTRUCTION = 5,
 
     /**
-     * The execution has attempted to put more items on the EVM stack
+     * The execution has attempted to put more items on the ZVM stack
      * than the specified limit.
      */
     ZVMC_STACK_OVERFLOW = 6,
 
-    /** Execution of an opcode has required more items on the EVM stack. */
+    /** Execution of an opcode has required more items on the ZVM stack. */
     ZVMC_STACK_UNDERFLOW = 7,
 
     /** Execution has violated the jump destination restrictions. */
@@ -320,7 +320,7 @@ enum zvmc_status_code
     ZVMC_PRECOMPILE_FAILURE = 12,
 
     /**
-     * Contract validation has failed (e.g. due to EVM 1.5 jump validity,
+     * Contract validation has failed (e.g. due to ZVM 1.5 jump validity,
      * Casper's purity checker or ewasm contract rules).
      */
     ZVMC_CONTRACT_VALIDATION_FAILURE = 13,
@@ -345,19 +345,19 @@ enum zvmc_status_code
     /** The caller does not have enough funds for value transfer. */
     ZVMC_INSUFFICIENT_BALANCE = 17,
 
-    /** EVM implementation generic internal error. */
+    /** ZVM implementation generic internal error. */
     ZVMC_INTERNAL_ERROR = -1,
 
     /**
      * The execution of the given code and/or message has been rejected
-     * by the EVM implementation.
+     * by the ZVM implementation.
      *
-     * This error SHOULD be used to signal that the EVM is not able to or
+     * This error SHOULD be used to signal that the ZVM is not able to or
      * willing to execute the given code type or message.
-     * If an EVM returns the ::ZVMC_REJECTED status code,
-     * the Client MAY try to execute it in other EVM implementation.
-     * For example, the Client tries running a code in the EVM 1.5. If the
-     * code is not supported there, the execution falls back to the EVM 1.0.
+     * If an ZVM returns the ::ZVMC_REJECTED status code,
+     * the Client MAY try to execute it in other ZVM implementation.
+     * For example, the Client tries running a code in the ZVM 1.5. If the
+     * code is not supported there, the execution falls back to the ZVM 1.0.
      */
     ZVMC_REJECTED = -2,
 
@@ -386,7 +386,7 @@ struct zvmc_result;
  */
 typedef void (*zvmc_release_result_fn)(const struct zvmc_result* result);
 
-/** The EVM code execution result. */
+/** The ZVM code execution result. */
 struct zvmc_result
 {
     /** The execution status code. */
@@ -414,7 +414,7 @@ struct zvmc_result
      * The output contains data coming from RETURN opcode (iff zvmc_result::code
      * field is ::ZVMC_SUCCESS) or from REVERT opcode.
      *
-     * The memory containing the output data is owned by EVM and has to be
+     * The memory containing the output data is owned by ZVM and has to be
      * freed with zvmc_result::release().
      *
      * This pointer MAY be NULL.
@@ -661,8 +661,8 @@ typedef zvmc_bytes32 (*zvmc_get_code_hash_fn)(struct zvmc_host_context* context,
 /**
  * Copy code callback function.
  *
- * This callback function is used by an EVM to request a copy of the code
- * of the given account to the memory buffer provided by the EVM.
+ * This callback function is used by an ZVM to request a copy of the code
+ * of the given account to the memory buffer provided by the ZVM.
  * The Client MUST copy the requested code, starting with the given offset,
  * to the provided memory buffer up to the size of the buffer or the size of
  * the code, whichever is smaller.
@@ -670,7 +670,7 @@ typedef zvmc_bytes32 (*zvmc_get_code_hash_fn)(struct zvmc_host_context* context,
  * @param context      The pointer to the Host execution context. See ::zvmc_host_context.
  * @param address      The address of the account.
  * @param code_offset  The offset of the code to copy.
- * @param buffer_data  The pointer to the memory buffer allocated by the EVM
+ * @param buffer_data  The pointer to the memory buffer allocated by the ZVM
  *                     to store a copy of the requested code.
  * @param buffer_size  The size of the memory buffer.
  * @return             The number of bytes copied to the buffer by the Client.
@@ -684,8 +684,8 @@ typedef size_t (*zvmc_copy_code_fn)(struct zvmc_host_context* context,
 /**
  * Log callback function.
  *
- * This callback function is used by an EVM to inform about a LOG that happened
- * during an EVM bytecode execution.
+ * This callback function is used by an ZVM to inform about a LOG that happened
+ * during an ZVM bytecode execution.
  *
  * @param context       The pointer to the Host execution context. See ::zvmc_host_context.
  * @param address       The address of the contract that generated the log.
@@ -748,7 +748,7 @@ typedef enum zvmc_access_status (*zvmc_access_storage_fn)(struct zvmc_host_conte
                                                           const zvmc_bytes32* key);
 
 /**
- * Pointer to the callback function supporting EVM calls.
+ * Pointer to the callback function supporting ZVM calls.
  *
  * @param context  The pointer to the Host execution context.
  * @param msg      The call parameters.
@@ -847,9 +847,9 @@ typedef enum zvmc_set_option_result (*zvmc_set_option_fn)(struct zvmc_vm* vm,
 
 
 /**
- * EVM revision.
+ * ZVM revision.
  *
- * The revision of the EVM specification based on the Ethereum
+ * The revision of the ZVM specification based on the Ethereum
  * upgrade / hard fork codenames.
  */
 enum zvmc_revision
@@ -861,13 +861,13 @@ enum zvmc_revision
      */
     ZVMC_SHANGHAI = 11,
 
-    /** The maximum EVM revision supported. */
+    /** The maximum ZVM revision supported. */
     ZVMC_MAX_REVISION = ZVMC_SHANGHAI,
 
     /**
-     * The latest known EVM revision with finalized specification.
+     * The latest known ZVM revision with finalized specification.
      *
-     * This is handy for EVM tools to always use the latest revision available.
+     * This is handy for ZVM tools to always use the latest revision available.
      */
     ZVMC_LATEST_STABLE_REVISION = ZVMC_SHANGHAI
 };
@@ -885,7 +885,7 @@ enum zvmc_revision
  *                   This argument MAY be NULL. The VM MUST pass the same
  *                   pointer to the methods of the @p host interface.
  *                   The VM MUST NOT dereference the pointer.
- * @param rev        The requested EVM specification revision.
+ * @param rev        The requested ZVM specification revision.
  * @param msg        The call parameters. See ::zvmc_message. This argument MUST NOT be NULL.
  * @param code       The reference to the code to be executed. This argument MAY be NULL.
  * @param code_size  The length of the code. If @p code is NULL this argument MUST be 0.
@@ -905,7 +905,7 @@ typedef struct zvmc_result (*zvmc_execute_fn)(struct zvmc_vm* vm,
 enum zvmc_capabilities
 {
     /**
-     * The VM is capable of executing EVM1 bytecode.
+     * The VM is capable of executing ZVM1 bytecode.
      */
     ZVMC_CAPABILITY_ZOND1 = (1u << 0),
 
@@ -1015,9 +1015,9 @@ struct zvmc_vm
 
 #ifdef ZVMC_DOCUMENTATION
 /**
- * Example of a function creating an instance of an example EVM implementation.
+ * Example of a function creating an instance of an example ZVM implementation.
  *
- * Each EVM implementation MUST provide a function returning an EVM instance.
+ * Each ZVM implementation MUST provide a function returning an ZVM instance.
  * The function SHOULD be named `zvmc_create_<vm-name>(void)`. If the VM name contains hyphens
  * replaces them with underscores in the function names.
  *

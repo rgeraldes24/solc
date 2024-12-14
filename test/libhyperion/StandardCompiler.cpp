@@ -1008,7 +1008,7 @@ BOOST_AUTO_TEST_CASE(linking_yul_same_library_name_different_files)
 	expectLinkReferences(contractResult, {{"fileC", {"L"}}});
 }
 
-BOOST_AUTO_TEST_CASE(evm_version)
+BOOST_AUTO_TEST_CASE(zvm_version)
 {
 	auto inputForVersion = [](std::string const& _version)
 	{
@@ -1035,7 +1035,7 @@ BOOST_AUTO_TEST_CASE(evm_version)
 	BOOST_CHECK(result["contracts"]["fileA"]["A"]["metadata"].asString().find("\"zvmVersion\":\"shanghai\"") != std::string::npos);
 	// test invalid
 	result = compile(inputForVersion("\"zvmVersion\": \"invalid\","));
-	BOOST_CHECK(result["errors"][0]["message"].asString() == "Invalid EVM version requested.");
+	BOOST_CHECK(result["errors"][0]["message"].asString() == "Invalid ZVM version requested.");
 }
 
 BOOST_AUTO_TEST_CASE(optimizer_settings_default_disabled)

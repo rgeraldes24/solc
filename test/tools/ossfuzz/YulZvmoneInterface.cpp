@@ -35,7 +35,7 @@ bytes YulAssembler::assemble()
 
 	if (m_optimiseYul)
 		m_stack.optimize();
-	return m_stack.assemble(YulStack::Machine::EVM).bytecode->bytecode;
+	return m_stack.assemble(YulStack::Machine::ZVM).bytecode->bytecode;
 }
 
 std::shared_ptr<yul::Object> YulAssembler::object()

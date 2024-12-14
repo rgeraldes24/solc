@@ -49,22 +49,22 @@ class SettingsPreset(Enum):
     IR_OPTIMIZE_ZVM_YUL = 'ir-optimize-evm+yul'
 
 
-def compiler_settings(evm_version: str, via_ir: bool = False, optimizer: bool = False, yul: bool = False) -> dict:
+def compiler_settings(zvm_version: str, via_ir: bool = False, optimizer: bool = False, yul: bool = False) -> dict:
     return {
         "optimizer": {"enabled": optimizer, "details": {"yul": yul}},
-        "zvmVersion": evm_version,
+        "zvmVersion": zvm_version,
         "viaIR": via_ir,
     }
 
 
-def settings_from_preset(preset: SettingsPreset, evm_version: str) -> dict:
+def settings_from_preset(preset: SettingsPreset, zvm_version: str) -> dict:
     return {
-        SettingsPreset.LEGACY_NO_OPTIMIZE:       compiler_settings(evm_version),
-        SettingsPreset.IR_NO_OPTIMIZE:           compiler_settings(evm_version, via_ir=True),
-        SettingsPreset.LEGACY_OPTIMIZE_ZVM_ONLY: compiler_settings(evm_version, optimizer=True),
-        SettingsPreset.IR_OPTIMIZE_ZVM_ONLY:     compiler_settings(evm_version, via_ir=True, optimizer=True),
-        SettingsPreset.LEGACY_OPTIMIZE_ZVM_YUL:  compiler_settings(evm_version, optimizer=True, yul=True),
-        SettingsPreset.IR_OPTIMIZE_ZVM_YUL:      compiler_settings(evm_version, via_ir=True, optimizer=True, yul=True),
+        SettingsPreset.LEGACY_NO_OPTIMIZE:       compiler_settings(zvm_version),
+        SettingsPreset.IR_NO_OPTIMIZE:           compiler_settings(zvm_version, via_ir=True),
+        SettingsPreset.LEGACY_OPTIMIZE_ZVM_ONLY: compiler_settings(zvm_version, optimizer=True),
+        SettingsPreset.IR_OPTIMIZE_ZVM_ONLY:     compiler_settings(zvm_version, via_ir=True, optimizer=True),
+        SettingsPreset.LEGACY_OPTIMIZE_ZVM_YUL:  compiler_settings(zvm_version, optimizer=True, yul=True),
+        SettingsPreset.IR_OPTIMIZE_ZVM_YUL:      compiler_settings(zvm_version, via_ir=True, optimizer=True, yul=True),
     }[preset]
 
 

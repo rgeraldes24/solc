@@ -35,7 +35,7 @@ namespace hyperion::yul
  *
  * Prerequisite: Disambiguator.
  *
- * Important: Can only be used on EVM code.
+ * Important: Can only be used on ZVM code.
  */
 class StructuralSimplifier: public ASTModifier
 {

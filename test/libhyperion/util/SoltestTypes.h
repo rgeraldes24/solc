@@ -94,7 +94,7 @@ namespace hyptest
  * return values to `bytes` and vice-versa.
  * Defaults to None, a 0-byte representation. 0-bytes
  * can also be interpreted as Failure, which means
- * either a REVERT or another EVM failure.
+ * either a REVERT or another ZVM failure.
  */
 struct ABIType
 {
@@ -200,7 +200,7 @@ struct FunctionCallExpectations
 	/// a function call when used in test framework.
 	ParameterList result;
 	/// Expected status of the transaction. It can be either
-	/// a REVERT or a different EVM failure (e.g. out-of-gas).
+	/// a REVERT or a different ZVM failure (e.g. out-of-gas).
 	bool failure = true;
 	/// A Comment that can be attached to the expectations,
 	/// that is retained and can be displayed.

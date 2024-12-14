@@ -697,7 +697,7 @@ bool AsmAnalyzer::validateInstructions(zvmasm::Instruction _instr, SourceLocatio
 			2450_error,
 			Error::Type::SyntaxError,
 			_location,
-			"PC instruction is a low-level EVM feature. "
+			"PC instruction is a low-level ZVM feature. "
 			"Because of that PC is disallowed in strict assembly."
 		);
 	else
