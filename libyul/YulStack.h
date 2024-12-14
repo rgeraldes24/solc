@@ -118,7 +118,7 @@ public:
 	/// Similar to @a assemblyWithDeployed, but returns EVM assembly objects.
 	/// Only available for EVM.
 	std::pair<std::shared_ptr<zvmasm::Assembly>, std::shared_ptr<zvmasm::Assembly>>
-	assembleEVMWithDeployed(
+	assembleZVMWithDeployed(
 		std::optional<std::string_view> _deployName = {}
 	) const;
 
@@ -137,7 +137,7 @@ private:
 	bool analyzeParsed();
 	bool analyzeParsed(yul::Object& _object);
 
-	void compileEVM(yul::AbstractAssembly& _assembly, bool _optimize) const;
+	void compileZVM(yul::AbstractAssembly& _assembly, bool _optimize) const;
 
 	void optimize(yul::Object& _object, bool _isCreation);
 

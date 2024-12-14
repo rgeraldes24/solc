@@ -41,7 +41,7 @@ from test_helpers import replace_version_pragmas
 from test_helpers import settings_from_preset
 from test_helpers import SettingsPreset
 
-CURRENT_EVM_VERSION: str = "shanghai"
+CURRENT_ZVM_VERSION: str = "shanghai"
 
 @dataclass
 class TestConfig:
@@ -51,7 +51,7 @@ class TestConfig:
     ref: str
     compile_only_presets: List[SettingsPreset] = field(default_factory=list)
     settings_presets: List[SettingsPreset] = field(default_factory=lambda: list(SettingsPreset))
-    evm_version: str = field(default=CURRENT_EVM_VERSION)
+    evm_version: str = field(default=CURRENT_ZVM_VERSION)
 
     def selected_presets(self) -> Set[SettingsPreset]:
         return set(self.compile_only_presets + self.settings_presets)

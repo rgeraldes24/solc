@@ -130,7 +130,7 @@ bool YulStack::analyzeParsed(Object& _object)
 	return success;
 }
 
-void YulStack::compileEVM(AbstractAssembly& _assembly, bool _optimize) const
+void YulStack::compileZVM(AbstractAssembly& _assembly, bool _optimize) const
 {
 	ZVMDialect const* dialect = nullptr;
 	switch (m_language)
@@ -223,7 +223,7 @@ MachineAssemblyObject YulStack::assemble(Machine _machine) const
 std::pair<MachineAssemblyObject, MachineAssemblyObject>
 YulStack::assembleWithDeployed(std::optional<std::string_view> _deployName) const
 {
-	auto [creationAssembly, deployedAssembly] = assembleEVMWithDeployed(_deployName);
+	auto [creationAssembly, deployedAssembly] = assembleZVMWithDeployed(_deployName);
 	yulAssert(creationAssembly, "");
 	yulAssert(m_charStream, "");
 
@@ -255,7 +255,7 @@ YulStack::assembleWithDeployed(std::optional<std::string_view> _deployName) cons
 }
 
 std::pair<std::shared_ptr<zvmasm::Assembly>, std::shared_ptr<zvmasm::Assembly>>
-YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) const
+YulStack::assembleZVMWithDeployed(std::optional<std::string_view> _deployName) const
 {
 	yulAssert(m_analysisSuccessful, "");
 	yulAssert(m_parserResult, "");
@@ -272,7 +272,7 @@ YulStack::assembleEVMWithDeployed(std::optional<std::string_view> _deployName) c
 		!m_optimiserSettings.runYulOptimiser &&
 		!yul::MSizeFinder::containsMSize(languageToDialect(m_language, m_zvmVersion), *m_parserResult)
 	);
-	compileEVM(adapter, optimize);
+	compileZVM(adapter, optimize);
 
 	assembly.optimise(zvmasm::Assembly::OptimiserSettings::translateSettings(m_optimiserSettings, m_zvmVersion));
 

@@ -22,7 +22,7 @@ set -e
 
 # Requires $REPO_ROOT to be defined and "${REPO_ROOT}/scripts/common.sh" to be included before.
 
-CURRENT_EVM_VERSION=shanghai
+CURRENT_ZVM_VERSION=shanghai
 
 AVAILABLE_PRESETS=(
     legacy-no-optimize
@@ -198,7 +198,7 @@ function force_truffle_compiler_settings
     local binary_type="$2"
     local hypc_path="$3"
     local preset="$4"
-    local evm_version="${5:-"$CURRENT_EVM_VERSION"}"
+    local evm_version="${5:-"$CURRENT_ZVM_VERSION"}"
     local extra_settings="$6"
     local extra_optimizer_settings="$7"
 
@@ -308,7 +308,7 @@ function force_hardhat_compiler_settings
     local config_file="$1"
     local preset="$2"
     local config_var_name="$3"
-    local evm_version="${4:-"$CURRENT_EVM_VERSION"}"
+    local evm_version="${4:-"$CURRENT_ZVM_VERSION"}"
     local extra_settings="$5"
     local extra_optimizer_settings="$6"
 
@@ -523,7 +523,7 @@ function truffle_run_test
     local extra_optimizer_settings="$9"
 
     truffle_clean
-    force_truffle_compiler_settings "$config_file" "$binary_type" "$hypc_path" "$preset" "$CURRENT_EVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
+    force_truffle_compiler_settings "$config_file" "$binary_type" "$hypc_path" "$preset" "$CURRENT_ZVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
     compile_and_run_test compile_fn test_fn truffle_verify_compiler_version "$preset" "$compile_only_presets"
 }
 
@@ -539,7 +539,7 @@ function hardhat_run_test
     local extra_optimizer_settings="$8"
 
     hardhat_clean
-    force_hardhat_compiler_settings "$config_file" "$preset" "$config_var_name" "$CURRENT_EVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
+    force_hardhat_compiler_settings "$config_file" "$preset" "$config_var_name" "$CURRENT_ZVM_VERSION" "$extra_settings" "$extra_optimizer_settings"
     compile_and_run_test compile_fn test_fn hardhat_verify_compiler_version "$preset" "$compile_only_presets"
 }
 

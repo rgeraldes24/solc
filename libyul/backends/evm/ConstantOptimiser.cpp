@@ -38,9 +38,9 @@ using Representation = ConstantOptimiser::Representation;
 
 namespace
 {
-struct MiniEVMInterpreter
+struct MiniZVMInterpreter
 {
-	explicit MiniEVMInterpreter(ZVMDialect const& _dialect): m_dialect(_dialect) {}
+	explicit MiniZVMInterpreter(ZVMDialect const& _dialect): m_dialect(_dialect) {}
 
 	u256 eval(Expression const& _expr)
 	{
@@ -165,7 +165,7 @@ Representation const& RepresentationFinder::findRepresentation(u256 const& _valu
 			m_maxSteps--;
 		routine = min(std::move(routine), std::move(newRoutine));
 	}
-	yulAssert(MiniEVMInterpreter{m_dialect}.eval(*routine.expression) == _value, "Invalid expression generated.");
+	yulAssert(MiniZVMInterpreter{m_dialect}.eval(*routine.expression) == _value, "Invalid expression generated.");
 	return m_cache[_value] = std::move(routine);
 }
 

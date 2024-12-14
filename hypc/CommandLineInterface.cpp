@@ -166,7 +166,7 @@ static bool coloredOutput(CommandLineOptions const& _options)
 		(_options.formatting.coloredOutput.has_value() && _options.formatting.coloredOutput.value());
 }
 
-void CommandLineInterface::handleEVMAssembly(std::string const& _contract)
+void CommandLineInterface::handleZVMAssembly(std::string const& _contract)
 {
 	solAssert(m_assemblyStack);
 	solAssert(
@@ -764,10 +764,10 @@ void CommandLineInterface::processInput()
 		outputCompilationResults();
 		break;
 	case InputMode::ZVMAssemblerJSON:
-		assembleFromEVMAssemblyJSON();
+		assembleFromZVMAssemblyJSON();
 		handleCombinedJSON();
 		handleBytecode(m_assemblyStack->contractNames().front());
-		handleEVMAssembly(m_assemblyStack->contractNames().front());
+		handleZVMAssembly(m_assemblyStack->contractNames().front());
 		break;
 	}
 }
@@ -785,7 +785,7 @@ void CommandLineInterface::printLicense()
 	sout() << licenseText << std::endl;
 }
 
-void CommandLineInterface::assembleFromEVMAssemblyJSON()
+void CommandLineInterface::assembleFromZVMAssemblyJSON()
 {
 	solAssert(m_options.input.mode == InputMode::ZVMAssemblerJSON);
 	solAssert(!m_assemblyStack);
@@ -1287,7 +1287,7 @@ void CommandLineInterface::outputCompilationResults()
 			if (needsHumanTargetedStdout(m_options))
 				sout() << std::endl << "======= " << contract << " =======" << std::endl;
 
-			handleEVMAssembly(contract);
+			handleZVMAssembly(contract);
 
 			if (m_options.compiler.estimateGas)
 				handleGasEstimation(contract);

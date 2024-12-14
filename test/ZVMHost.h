@@ -37,7 +37,7 @@ namespace hyperion::test
 using Address = util::h160;
 using StorageMap = std::map<zvmc::bytes32, zvmc::StorageValue>;
 
-struct EVMPrecompileOutput {
+struct ZVMPrecompileOutput {
 	bytes const output;
 	int64_t gas_used;
 };
@@ -114,7 +114,7 @@ private:
 	static zvmc::Result precompileALTBN128G1Add(zvmc_message const& _message) noexcept;
 	static zvmc::Result precompileALTBN128G1Mul(zvmc_message const& _message) noexcept;
 	static zvmc::Result precompileALTBN128PairingProduct(zvmc_message const& _message) noexcept;
-	static zvmc::Result precompileGeneric(zvmc_message const& _message, std::map<bytes, EVMPrecompileOutput> const& _inOut) noexcept;
+	static zvmc::Result precompileGeneric(zvmc_message const& _message, std::map<bytes, ZVMPrecompileOutput> const& _inOut) noexcept;
 	/// @returns a result object with gas usage and result data taken from @a _data.
 	/// The outcome will be a failure if the limit < required.
 	/// @note The return value is only valid as long as @a _data is alive!

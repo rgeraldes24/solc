@@ -45,7 +45,7 @@ static std::string const g_strBasePath = "base-path";
 static std::string const g_strIncludePath = "include-path";
 static std::string const g_strAssemble = "assemble";
 static std::string const g_strCombinedJson = "combined-json";
-static std::string const g_strEVM = "evm";
+static std::string const g_strZVM = "evm";
 static std::string const g_strZVMVersion = "evm-version";
 static std::string const g_strViaIR = "via-ir";
 static std::string const g_strExperimentalViaIR = "experimental-via-ir";
@@ -117,13 +117,13 @@ static std::string const g_strErrorIds = "error-codes";
 /// Possible arguments to for --machine
 static std::set<std::string> const g_machineArgs
 {
-	g_strEVM
+	g_strZVM
 };
 
 /// Possible arguments to for --yul-dialect
 static std::set<std::string> const g_yulDialectArgs
 {
-	g_strEVM
+	g_strZVM
 };
 
 /// Possible arguments to for --metadata-hash
@@ -1251,7 +1251,7 @@ void CommandLineParser::processArgs()
 		if (m_args.count(g_strMachine))
 		{
 			std::string machine = m_args[g_strMachine].as<std::string>();
-			if (machine == g_strEVM)
+			if (machine == g_strZVM)
 				m_options.assembly.targetMachine = Machine::EVM;
 			else
 				solThrow(CommandLineValidationError, "Invalid option for --" + g_strMachine + ": " + machine);
@@ -1259,7 +1259,7 @@ void CommandLineParser::processArgs()
 		if (m_args.count(g_strYulDialect))
 		{
 			std::string dialect = m_args[g_strYulDialect].as<std::string>();
-			if (dialect == g_strEVM)
+			if (dialect == g_strZVM)
 				m_options.assembly.inputLanguage = Input::StrictAssembly;
 			else
 				solThrow(CommandLineValidationError, "Invalid option for --" + g_strYulDialect + ": " + dialect);

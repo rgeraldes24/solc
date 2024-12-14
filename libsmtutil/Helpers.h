@@ -42,7 +42,7 @@ inline Expression abs(Expression _value)
 /// Signed modulo in SMTLIB2 behaves differently with regards
 /// to the sign than EVM.
 /// This does not check for modulo by zero!
-inline Expression signedModuloEVM(Expression _left, Expression _right)
+inline Expression signedModuloZVM(Expression _left, Expression _right)
 {
 	return Expression::ite(
 		_left >= 0,

@@ -43,10 +43,10 @@ HYPC_SHORT_VERSION_REGEX = re.compile(r"^([0-9.]+).*\+|\-$")
 class SettingsPreset(Enum):
     LEGACY_NO_OPTIMIZE = 'legacy-no-optimize'
     IR_NO_OPTIMIZE = 'ir-no-optimize'
-    LEGACY_OPTIMIZE_EVM_ONLY = 'legacy-optimize-evm-only'
-    IR_OPTIMIZE_EVM_ONLY = 'ir-optimize-evm-only'
-    LEGACY_OPTIMIZE_EVM_YUL = 'legacy-optimize-evm+yul'
-    IR_OPTIMIZE_EVM_YUL = 'ir-optimize-evm+yul'
+    LEGACY_OPTIMIZE_ZVM_ONLY = 'legacy-optimize-evm-only'
+    IR_OPTIMIZE_ZVM_ONLY = 'ir-optimize-evm-only'
+    LEGACY_OPTIMIZE_ZVM_YUL = 'legacy-optimize-evm+yul'
+    IR_OPTIMIZE_ZVM_YUL = 'ir-optimize-evm+yul'
 
 
 def compiler_settings(evm_version: str, via_ir: bool = False, optimizer: bool = False, yul: bool = False) -> dict:
@@ -61,10 +61,10 @@ def settings_from_preset(preset: SettingsPreset, evm_version: str) -> dict:
     return {
         SettingsPreset.LEGACY_NO_OPTIMIZE:       compiler_settings(evm_version),
         SettingsPreset.IR_NO_OPTIMIZE:           compiler_settings(evm_version, via_ir=True),
-        SettingsPreset.LEGACY_OPTIMIZE_EVM_ONLY: compiler_settings(evm_version, optimizer=True),
-        SettingsPreset.IR_OPTIMIZE_EVM_ONLY:     compiler_settings(evm_version, via_ir=True, optimizer=True),
-        SettingsPreset.LEGACY_OPTIMIZE_EVM_YUL:  compiler_settings(evm_version, optimizer=True, yul=True),
-        SettingsPreset.IR_OPTIMIZE_EVM_YUL:      compiler_settings(evm_version, via_ir=True, optimizer=True, yul=True),
+        SettingsPreset.LEGACY_OPTIMIZE_ZVM_ONLY: compiler_settings(evm_version, optimizer=True),
+        SettingsPreset.IR_OPTIMIZE_ZVM_ONLY:     compiler_settings(evm_version, via_ir=True, optimizer=True),
+        SettingsPreset.LEGACY_OPTIMIZE_ZVM_YUL:  compiler_settings(evm_version, optimizer=True, yul=True),
+        SettingsPreset.IR_OPTIMIZE_ZVM_YUL:      compiler_settings(evm_version, via_ir=True, optimizer=True, yul=True),
     }[preset]
 
 

@@ -86,7 +86,7 @@ private:
 	void printVersion();
 	void printLicense();
 	void compile();
-	void assembleFromEVMAssemblyJSON();
+	void assembleFromZVMAssemblyJSON();
 	void serveLSP();
 	void link();
 	void writeLinkedFiles();
@@ -101,7 +101,7 @@ private:
 
 	void handleCombinedJSON();
 	void handleAst();
-	void handleEVMAssembly(std::string const& _contract);
+	void handleZVMAssembly(std::string const& _contract);
 	void handleBinary(std::string const& _contract);
 	void handleOpcode(std::string const& _contract);
 	void handleIR(std::string const& _contract);

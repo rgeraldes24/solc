@@ -97,7 +97,7 @@ enum class PatternKind
 class Pattern
 {
 public:
-	using Builtins = zvmasm::EVMBuiltins<Pattern>;
+	using Builtins = zvmasm::ZVMBuiltins<Pattern>;
 	static constexpr size_t WordSize = 256;
 	using Word = u256;
 

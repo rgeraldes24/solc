@@ -907,7 +907,7 @@ enum zvmc_capabilities
     /**
      * The VM is capable of executing EVM1 bytecode.
      */
-    ZVMC_CAPABILITY_EVM1 = (1u << 0),
+    ZVMC_CAPABILITY_ZOND1 = (1u << 0),
 
     /**
      * The VM is capable of executing ewasm bytecode.

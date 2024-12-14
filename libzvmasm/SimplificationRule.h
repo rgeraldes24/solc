@@ -52,7 +52,7 @@ struct SimplificationRule
 };
 
 template <typename Pattern>
-struct EVMBuiltins
+struct ZVMBuiltins
 {
 	using InstrType = Instruction;
 

@@ -90,7 +90,7 @@ public:
 	using Expression = ExpressionClasses::Expression;
 	using Id = ExpressionClasses::Id;
 
-	using Builtins = zvmasm::EVMBuiltins<Pattern>;
+	using Builtins = zvmasm::ZVMBuiltins<Pattern>;
 	static constexpr size_t WordSize = 256;
 	using Word = u256;
 

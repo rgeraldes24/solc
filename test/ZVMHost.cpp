@@ -47,7 +47,7 @@ zvmc::VM& ZVMHost::getVM(string const& _path)
 		auto vm = zvmc::VM{zvmc_load_and_configure(_path.c_str(), &errorCode)};
 		if (vm && errorCode == ZVMC_LOADER_SUCCESS)
 		{
-			if (vm.get_capabilities() & (ZVMC_CAPABILITY_EVM1))
+			if (vm.get_capabilities() & (ZVMC_CAPABILITY_ZOND1))
 				vms[_path] = make_unique<zvmc::VM>(zvmc::VM(std::move(vm)));
 			else
 				cerr << "VM loaded does not support EVM1" << endl;
@@ -76,7 +76,7 @@ bool ZVMHost::checkVmPaths(vector<boost::filesystem::path> const& _vmPaths)
 		if (!vm)
 			continue;
 
-		if (vm.has_capability(ZVMC_CAPABILITY_EVM1))
+		if (vm.has_capability(ZVMC_CAPABILITY_ZOND1))
 		{
 			if (evmVmFound)
 				BOOST_THROW_EXCEPTION(runtime_error("Multiple evm1 zvmc vms defined. Please only define one evm1 zvmc vm."));
@@ -401,7 +401,7 @@ zvmc::Result ZVMHost::precompileALTBN128G1Add(zvmc_message const& _message) noex
 
 	int64_t gas_cost = 150;
 
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
+	static map<bytes, ZVMPrecompileOutput> const inputOutput{
 		{
 			fromHex(
 				"0000000000000000000000000000000000000000000000000000000000000000"
@@ -667,7 +667,7 @@ zvmc::Result ZVMHost::precompileALTBN128G1Mul(zvmc_message const& _message) noex
 
 	int64_t gas_cost = 6000;
 
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
+	static map<bytes, ZVMPrecompileOutput> const inputOutput{
 		{
 			fromHex("0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000"),
 			{
@@ -758,7 +758,7 @@ zvmc::Result ZVMHost::precompileALTBN128PairingProduct(zvmc_message const& _mess
 	};
 
 	// NOTE this is a partial implementation for some inputs.
-	static map<bytes, EVMPrecompileOutput> const inputOutput{
+	static map<bytes, ZVMPrecompileOutput> const inputOutput{
 		{
 			fromHex(
 				"17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9"
@@ -917,7 +917,7 @@ zvmc::Result ZVMHost::precompileALTBN128PairingProduct(zvmc_message const& _mess
 
 zvmc::Result ZVMHost::precompileGeneric(
 	zvmc_message const& _message,
-	map<bytes, EVMPrecompileOutput> const& _inOut) noexcept
+	map<bytes, ZVMPrecompileOutput> const& _inOut) noexcept
 {
 	bytes input(_message.input_data, _message.input_data + _message.input_size);
 	if (_inOut.count(input))

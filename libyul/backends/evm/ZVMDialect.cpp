@@ -46,7 +46,7 @@ using namespace hyperion::util;
 namespace
 {
 
-std::pair<YulString, BuiltinFunctionForZVM> createEVMFunction(
+std::pair<YulString, BuiltinFunctionForZVM> createZVMFunction(
 	std::string const& _name,
 	zvmasm::Instruction _instruction
 )
@@ -145,7 +145,7 @@ std::map<YulString, BuiltinFunctionForZVM> createBuiltins(bool _objectAccess)
 			opcode != zvmasm::Instruction::JUMPI &&
 			opcode != zvmasm::Instruction::JUMPDEST
 		)
-			builtins.emplace(createEVMFunction(name, opcode));
+			builtins.emplace(createZVMFunction(name, opcode));
 	}
 
 	if (_objectAccess)
