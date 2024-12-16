@@ -328,10 +328,10 @@ The Zond Virtual Machine
 Overview
 ========
 
-The Zond Virtual Machine or EVM is the runtime environment
+The Zond Virtual Machine or ZVM is the runtime environment
 for smart contracts in Ethereum. It is not only sandboxed but
 actually completely isolated, which means that code running
-inside the EVM has no access to network, filesystem or other processes.
+inside the ZVM has no access to network, filesystem or other processes.
 Smart contracts even have limited access to other smart contracts.
 
 .. index:: ! account, address, storage, balance
@@ -353,7 +353,7 @@ determined at the time the contract is created
 of transactions sent from that address, the so-called "nonce").
 
 Regardless of whether or not the account stores code, the two types are
-treated equally by the EVM.
+treated equally by the ZVM.
 
 Every account has a persistent key-value store mapping 256-bit words to 256-bit
 words called **storage**.
@@ -381,7 +381,7 @@ As already mentioned, the address of that contract is not
 the zero address but an address derived from the sender and
 its number of transactions sent (the "nonce"). The payload
 of such a contract creation transaction is taken to be
-EVM bytecode and executed. The output data of this execution is
+ZVM bytecode and executed. The output data of this execution is
 permanently stored as the code of the contract.
 This means that in order to create a contract, you do not
 send the actual code of the contract, but in fact code that
@@ -400,23 +400,23 @@ Gas
 
 Upon creation, each transaction is charged with a certain amount of **gas**
 that has to be paid for by the originator of the transaction (``tx.origin``).
-While the EVM executes the
+While the ZVM executes the
 transaction, the gas is gradually depleted according to specific rules.
 If the gas is used up at any point (i.e. it would be negative),
 an out-of-gas exception is triggered, which ends execution and reverts all modifications
 made to the state in the current call frame.
 
-This mechanism incentivizes economical use of EVM execution time
-and also compensates EVM executors (i.e. miners / stakers) for their work.
+This mechanism incentivizes economical use of ZVM execution time
+and also compensates ZVM executors (i.e. miners / stakers) for their work.
 Since each block has a maximum amount of gas, it also limits the amount
 of work needed to validate a block.
 
 The **gas price** is a value set by the originator of the transaction, who
-has to pay ``gas_price * gas`` up front to the EVM executor.
+has to pay ``gas_price * gas`` up front to the ZVM executor.
 If some gas is left after execution, it is refunded to the transaction originator.
 In case of an exception that reverts changes, already used up gas is not refunded.
 
-Since EVM executors can choose to include a transaction or not,
+Since ZVM executors can choose to include a transaction or not,
 transaction senders cannot abuse the system by setting a low gas price.
 
 .. index:: ! storage, ! memory, ! stack
@@ -444,7 +444,7 @@ accessing (either reading or writing) a previously untouched memory word (i.e. a
 within a word). At the time of expansion, the cost in gas must be paid. Memory is more
 costly the larger it grows (it scales quadratically).
 
-The EVM is not a register machine but a stack machine, so all
+The ZVM is not a register machine but a stack machine, so all
 computations are performed on a data area called the **stack**. It has a maximum size of
 1024 elements and contains words of 256 bits. Access to the stack is
 limited to the top end in the following way:
@@ -463,7 +463,7 @@ without first removing the top of the stack.
 Instruction Set
 ===============
 
-The instruction set of the EVM is kept minimal in order to avoid
+The instruction set of the ZVM is kept minimal in order to avoid
 incorrect or inconsistent implementations which could cause consensus problems.
 All instructions operate on the basic data type, 256-bit words or on slices of memory
 (or other byte arrays).
@@ -575,10 +575,10 @@ There is a small set of contract addresses that are special:
 The address range between ``1`` and (including) ``8`` contains
 "precompiled contracts" that can be called as any other contract
 but their behavior (and their gas consumption) is not defined
-by EVM code stored at that address (they do not contain code)
-but instead is implemented in the EVM execution environment itself.
+by ZVM code stored at that address (they do not contain code)
+but instead is implemented in the ZVM execution environment itself.
 
-Different EVM-compatible chains might use a different set of
+Different ZVM-compatible chains might use a different set of
 precompiled contracts. It might also be possible that new
 precompiled contracts are added to the Ethereum main chain in the future,
 but you can reasonably expect them to always be in the range between

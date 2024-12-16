@@ -108,9 +108,9 @@ If ``hypc`` is called with the option ``--link``, all input files are interprete
     of the fully qualified library name could be used.
 
 .. _zvm-version:
-.. index:: ! EVM version, compile target
+.. index:: ! ZVM version, compile target
 
-Setting the EVM Version to Target
+Setting the ZVM Version to Target
 *********************************
 
 When you compile your contract code you can specify the Ethereum virtual machine
@@ -118,11 +118,11 @@ version to compile for to avoid particular features or behaviors.
 
 .. warning::
 
-   Compiling for the wrong EVM version can result in wrong, strange and failing
+   Compiling for the wrong ZVM version can result in wrong, strange and failing
    behavior. Please ensure, especially if running a private chain, that you
-   use matching EVM versions.
+   use matching ZVM versions.
 
-On the command-line, you can select the EVM version as follows:
+On the command-line, you can select the ZVM version as follows:
 
 .. code-block:: shell
 
@@ -144,7 +144,7 @@ key in the ``"settings"`` field:
 Target Options
 --------------
 
-Below is a list of target EVM versions and the compiler-relevant changes introduced
+Below is a list of target ZVM versions and the compiler-relevant changes introduced
 at each version. Backward compatibility is not guaranteed between each version.
 
 - ``shanghai`` (**default**)
@@ -289,7 +289,7 @@ Input Description
             }
           }
         },
-        // Version of the EVM to compile for.
+        // Version of the ZVM to compile for.
         // Affects type checking and code generation. Can be shanghai (default)
         "zvmVersion": "shanghai",
         // Optional: Change compilation pipeline to go through the Yul intermediate representation.
@@ -304,7 +304,7 @@ Input Description
           // "debug" injects strings for compiler-generated internal reverts, implemented for ABI encoders V1 and V2 for now.
           // "verboseDebug" even appends further information to user-supplied revert strings (not yet implemented)
           "revertStrings": "default",
-          // Optional: How much extra debug information to include in comments in the produced EVM
+          // Optional: How much extra debug information to include in comments in the produced ZVM
           // assembly and Yul code. Available components are:
           // - `location`: Annotations of the form `@src <index>:<start>:<end>` indicating the
           //    location of the corresponding element in the original Hyperion file, where:
@@ -537,8 +537,8 @@ Output Description
                   "@mint_13": { // Internal name of the function
                     "entryPoint": 128, // Byte offset into the bytecode where the function starts (optional)
                     "id": 13, // AST ID of the function definition or null for compiler-internal functions (optional)
-                    "parameterSlots": 2, // Number of EVM stack slots for the function parameters (optional)
-                    "returnSlots": 1 // Number of EVM stack slots for the return values (optional)
+                    "parameterSlots": 2, // Number of ZVM stack slots for the function parameters (optional)
+                    "returnSlots": 1 // Number of ZVM stack slots for the return values (optional)
                   }
                 },
                 // The bytecode as a hex string.

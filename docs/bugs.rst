@@ -60,10 +60,10 @@ conditions
     keys can be used:
     ``optimizer``, Boolean value which
     means that the optimizer has to be switched on to enable the bug.
-    ``zvmVersion``, a string that indicates which EVM version compiler
+    ``zvmVersion``, a string that indicates which ZVM version compiler
     settings trigger the bug. The string can contain comparison
     operators. For example, ``">=constantinople"`` means that the bug
-    is present when the EVM version is set to ``constantinople`` or
+    is present when the ZVM version is set to ``constantinople`` or
     later.
     If no conditions are given, assume that the bug is present.
 check

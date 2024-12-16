@@ -109,7 +109,7 @@ Linux Packages
 ==============
 
 Binary packages of Hyperion are available at
-`solidity/releases <https://github.com/ethereum/solidity/releases>`_.
+`hyperion/releases <https://github.com/ethereum/solidity/releases>`_.
 
 We also have PPAs for Ubuntu, you can get the latest stable
 version using the following commands:

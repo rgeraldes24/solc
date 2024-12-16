@@ -233,7 +233,7 @@ Conventions in Hyperion
 Values of Typed Variables
 =========================
 
-In contrast to EVM assembly, Hyperion has types which are narrower than 256 bits,
+In contrast to ZVM assembly, Hyperion has types which are narrower than 256 bits,
 e.g. ``uint24``. For efficiency, most arithmetic operations ignore the fact that
 types can be shorter than 256
 bits, and the higher-order bits are cleaned when necessary,

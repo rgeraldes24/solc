@@ -4,7 +4,7 @@ Hyperion
 Hyperion is an object-oriented, high-level language for implementing smart contracts.
 Smart contracts are programs that govern the behavior of accounts within the Ethereum state.
 
-Hyperion is a `curly-bracket language <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_ designed to target the Zond Virtual Machine (EVM).
+Hyperion is a `curly-bracket language <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_ designed to target the Zond Virtual Machine (ZVM).
 It is influenced by C++, Python, and JavaScript.
 You can find more details about which languages Hyperion has been inspired by in the :doc:`language influences <language-influences>` section.
 

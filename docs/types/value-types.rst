@@ -148,7 +148,7 @@ large enough to hold the result and prepare for potential assertion failures or 
   In any case, gas cost tests and the use of the optimizer are advisable.
 
 .. note::
-  Note that ``0**0`` is defined by the EVM as ``1``.
+  Note that ``0**0`` is defined by the ZVM as ``1``.
 
 .. index:: ! ufixed, ! fixed, ! fixed point number
 
@@ -253,7 +253,7 @@ or if the Ether transfer is rejected by the receiving account. The ``transfer`` 
 reverts on failure.
 
 .. note::
-    If ``x`` is a contract address, its code (more specifically: its :ref:`receive-ether-function`, if present, or otherwise its :ref:`fallback-function`, if present) will be executed together with the ``transfer`` call (this is a feature of the EVM and cannot be prevented). If that execution runs out of gas or fails in any way, the Ether transfer will be reverted and the current contract will stop with an exception.
+    If ``x`` is a contract address, its code (more specifically: its :ref:`receive-ether-function`, if present, or otherwise its :ref:`fallback-function`, if present) will be executed together with the ``transfer`` call (this is a feature of the ZVM and cannot be prevented). If that execution runs out of gas or fails in any way, the Ether transfer will be reverted and the current contract will stop with an exception.
 
 * ``send``
 
@@ -331,7 +331,7 @@ on ``call``.
 
 * ``code`` and ``codehash``
 
-You can query the deployed code for any smart contract. Use ``.code`` to get the EVM bytecode as a
+You can query the deployed code for any smart contract. Use ``.code`` to get the ZVM bytecode as a
 ``bytes memory``, which might be empty. Use ``.codehash`` to get the Keccak-256 hash of that code
 (as a ``bytes32``). Note that ``addr.codehash`` is cheaper than using ``keccak256(addr.code)``.
 

@@ -934,7 +934,7 @@ The ControlFlowSimplifier does record the presence or absence of ``break``
 and ``continue`` statements during its traversal.
 
 Prerequisite: Disambiguator, FunctionHoister, ForLoopInitRewriter.
-Important: Introduces EVM opcodes and thus can only be used on EVM code for now.
+Important: Introduces ZVM opcodes and thus can only be used on ZVM code for now.
 
 .. _dead-code-eliminator:
 
@@ -1319,7 +1319,7 @@ One problem that makes code generation for the Zond Virtual Machine
 hard is the fact that there is a hard limit of 16 slots for reaching
 down the expression stack. This more or less translates to a limit
 of 16 local variables. The stack compressor takes Yul code and
-compiles it to EVM bytecode. Whenever the stack difference is too
+compiles it to ZVM bytecode. Whenever the stack difference is too
 large, it records the function this happened in.
 
 For each function that caused such a problem, the Rematerialiser
@@ -1339,7 +1339,7 @@ is comparatively cheap to evaluate. Furthermore, it is only semantically equival
 the value of the expression did not change between the point of assignment and the
 point of use. The main benefit of this stage is that it can save stack slots if it
 leads to a variable being eliminated completely (see below), but it can also
-save a DUP opcode on the EVM if the expression is very cheap.
+save a DUP opcode on the ZVM if the expression is very cheap.
 
 The Rematerialiser uses the Dataflow Analyzer to track the current values of variables,
 which are always movable.

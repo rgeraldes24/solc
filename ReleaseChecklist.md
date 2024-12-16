@@ -4,7 +4,7 @@
  - [ ] GitHub account with access to [solidity](https://github.com/ethereum/solidity), [hypc-js](https://github.com/ethereum/hypc-js),
        [hypc-bin](https://github.com/ethereum/hypc-bin), [solidity-website](https://github.com/ethereum/solidity-website).
  - [ ] DockerHub account with push rights to the [``hypc`` image](https://hub.docker.com/r/ethereum/hypc).
- - [ ] Launchpad (Ubuntu One) account with a membership in the ["Ethereum" team](https://launchpad.net/~ethereum) and
+ - [ ] Launchpad (Ubuntu One) account with a membership in the ["QRL" team](https://launchpad.net/~ethereum) and
        a gnupg key for your email in the ``ethereum.org`` domain (has to be version 1, gpg2 won't work).
  - [ ] Ubuntu/Debian dependencies of the PPA scripts: ``devscripts``, ``debhelper``, ``dput``, ``git``, ``wget``, ``ca-certificates``.
  - [ ] [npm Registry](https://www.npmjs.com) account added as a collaborator for the [``hypc`` package](https://www.npmjs.com/package/hypc).

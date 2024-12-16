@@ -292,7 +292,7 @@ YulTrue: 'true';
 YulHex: 'hex';
 
 /**
- * Builtin functions in the EVM Yul dialect.
+ * Builtin functions in the ZVM Yul dialect.
  */
 YulZVMBuiltin:
 	'stop' | 'add' | 'sub' | 'mul' | 'div' | 'sdiv' | 'mod' | 'smod' | 'exp' | 'not'

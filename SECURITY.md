@@ -30,9 +30,9 @@ In the bug report, please include all details necessary to reproduce the vulnera
 
 - Input program that triggers the bug
 - Compiler version affected
-- Target EVM version
+- Target ZVM version
 - Framework/IDE if applicable
-- EVM execution environment/client if applicable
+- ZVM execution environment/client if applicable
 - Operating system
 
 Please include steps to reproduce the bug you have found in as much detail as possible.

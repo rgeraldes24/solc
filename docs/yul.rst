@@ -54,15 +54,15 @@ which allows specializing Yul to the requirements of different
 target platforms and feature sets.
 
 Currently, there is only one specified dialect of Yul. This dialect uses
-the EVM opcodes as builtin functions
+the ZVM opcodes as builtin functions
 (see below) and defines only the type ``u256``, which is the native 256-bit
-type of the EVM. Because of that, we will not provide types in the examples below.
+type of the ZVM. Because of that, we will not provide types in the examples below.
 
 
 Simple Example
 ==============
 
-The following example program is written in the EVM dialect and computes exponentiation.
+The following example program is written in the ZVM dialect and computes exponentiation.
 It can be compiled using ``hypc --strict-assembly``. The builtin functions
 ``mul`` and ``div`` compute product and division, respectively.
 
@@ -107,7 +107,7 @@ the ERC-20 standard can be found.
 Stand-Alone Usage
 =================
 
-You can use Yul in its stand-alone form in the EVM dialect using the Hyperion compiler.
+You can use Yul in its stand-alone form in the ZVM dialect using the Hyperion compiler.
 This will use the :ref:`Yul object notation <yul-object>` so that it is possible to refer
 to code as data to deploy contracts. This Yul mode is available for the commandline compiler
 (use ``--strict-assembly``) and for the :ref:`standard-json interface <compiler-api>`:
@@ -125,15 +125,15 @@ to code as data to deploy contracts. This Yul mode is available for the commandl
 
 .. warning::
 
-    Yul is in active development and bytecode generation is only fully implemented for the EVM dialect of Yul
-    with EVM 1.0 as target.
+    Yul is in active development and bytecode generation is only fully implemented for the ZVM dialect of Yul
+    with ZVM 1.0 as target.
 
 
 Informal Description of Yul
 ===========================
 
 In the following, we will talk about each individual aspect
-of the Yul language. In examples, we will use the default EVM dialect.
+of the Yul language. In examples, we will use the default ZVM dialect.
 
 Syntax
 ------
@@ -179,7 +179,7 @@ As literals, you can use:
 
 - Hex strings (e.g. ``hex"616263"``).
 
-In the EVM dialect of Yul, literals represent 256-bit words as follows:
+In the ZVM dialect of Yul, literals represent 256-bit words as follows:
 
 - Decimal or hexadecimal constants must be less than ``2**256``.
   They represent the 256-bit word with that value as an unsigned integer in big endian encoding.
@@ -198,7 +198,7 @@ In the EVM dialect of Yul, literals represent 256-bit words as follows:
   each pair of contiguous hex digits as a byte.
   The byte sequence must not exceed 32 bytes (i.e. 64 hex digits), and is treated as above.
 
-When compiling for the EVM, this will be translated into an
+When compiling for the ZVM, this will be translated into an
 appropriate ``PUSHi`` instruction. In the following example,
 ``3`` and ``2`` are added resulting in 5 and then the
 bitwise ``and`` with the string "abc" is computed.
@@ -237,7 +237,7 @@ they have to be assigned to local variables.
     // Here, the user-defined function `f` returns two values.
     let x, y := f(1, mload(0))
 
-For built-in functions of the EVM, functional expressions
+For built-in functions of the ZVM, functional expressions
 can be directly translated to a stream of opcodes:
 You just read the expression from right to left to obtain the
 opcodes. In the case of the second line in the example, this
@@ -255,7 +255,7 @@ Variable Declarations
 
 You can use the ``let`` keyword to declare variables.
 A variable is only visible inside the
-``{...}``-block it was defined in. When compiling to the EVM,
+``{...}``-block it was defined in. When compiling to the ZVM,
 a new stack slot is created that is reserved
 for the variable and automatically removed again when the end of the block
 is reached. You can provide an initial value for the variable.
@@ -268,7 +268,7 @@ to memory or storage locations in the built-in functions
 Future dialects might introduce specific types for such pointers.
 
 When a variable is referenced, its current value is copied.
-For the EVM, this translates to a ``DUP`` instruction.
+For the ZVM, this translates to a ``DUP`` instruction.
 
 .. code-block:: yul
 
@@ -410,7 +410,7 @@ Yul allows the definition of functions. These should not be confused with functi
 in Hyperion since they are never part of an external interface of a contract and
 are part of a namespace separate from the one for Hyperion functions.
 
-For the EVM, Yul functions take their
+For the ZVM, Yul functions take their
 arguments (and a return PC) from the stack and also put the results onto the
 stack. User-defined functions and built-in functions are called in exactly the same way.
 
@@ -429,7 +429,7 @@ works like the ``return`` statement in other languages just that it does
 not take a value to return, it just exits the functions and the function
 will return whatever values are currently assigned to the return variable(s).
 
-Note that the EVM dialect has a built-in function called ``return`` that
+Note that the ZVM dialect has a built-in function called ``return`` that
 quits the full execution context (internal message call) and not just
 the current yul function.
 
@@ -617,9 +617,9 @@ on the various nodes of the AST. As builtin functions can have side effects,
 E takes two state objects and the AST node and returns two new
 state objects and a variable number of other values.
 The two state objects are the global state object
-(which in the context of the EVM is the memory, storage and state of the
+(which in the context of the ZVM is the memory, storage and state of the
 blockchain) and the local state object (the state of local variables, i.e. a
-segment of the stack in the EVM).
+segment of the stack in the ZVM).
 
 If the AST node is a statement, E returns the two state objects and a "mode",
 which is used for the ``break``, ``continue`` and ``leave`` statements.
@@ -727,7 +727,7 @@ We will use a destructuring notation for the AST nodes.
         G'', Ln, L''[$ret1], ..., L''[$retm]
     E(G, L, l: StringLiteral) = G, L, str(l),
         where str is the string evaluation function,
-        which for the EVM dialect is defined in the section 'Literals' above
+        which for the ZVM dialect is defined in the section 'Literals' above
     E(G, L, n: HexNumber) = G, L, hex(n)
         where hex is the hexadecimal evaluation function,
         which turns a sequence of hexadecimal digits into their big endian value
@@ -737,16 +737,16 @@ We will use a destructuring notation for the AST nodes.
 
 .. _opcodes:
 
-EVM Dialect
+ZVM Dialect
 -----------
 
-The default dialect of Yul currently is the EVM dialect for the currently selected version of the EVM.
+The default dialect of Yul currently is the ZVM dialect for the currently selected version of the ZVM.
 The only type available in this dialect
 is ``u256``, the 256-bit native type of the Zond Virtual Machine.
 Since it is the default type of this dialect, it can be omitted.
 
 The following table lists all builtin functions
-(depending on the EVM version) and provides a short description of the
+(depending on the ZVM version) and provides a short description of the
 semantics of the function / opcode.
 This document does not want to be a full description of the Ethereum virtual machine.
 Please refer to a different document if you are interested in the precise semantics.
@@ -949,7 +949,7 @@ are used to access other parts of a Yul object.
 
 ``datasize`` and ``dataoffset`` can only take string literals (the names of other objects)
 as arguments and return the size and offset in the data area, respectively.
-For the EVM, the ``datacopy`` function is equivalent to ``codecopy``.
+For the ZVM, the ``datacopy`` function is equivalent to ``codecopy``.
 
 
 setimmutable, loadimmutable
@@ -993,7 +993,7 @@ See :ref:`Using the Commandline Compiler <commandline-compiler>` for details abo
 memoryguard
 ^^^^^^^^^^^
 
-This function is available in the EVM dialect with objects. The caller of
+This function is available in the ZVM dialect with objects. The caller of
 ``let ptr := memoryguard(size)`` (where ``size`` has to be a literal number)
 promises that they only use memory in either the range ``[0, size)`` or the
 unbounded range starting at ``ptr``.
@@ -1082,7 +1082,7 @@ it can be removed.
 
 .. warning::
 
-    During discussions about whether or not EVM improvements
+    During discussions about whether or not ZVM improvements
     might break existing smart contracts, features inside ``verbatim``
     cannot receive the same consideration as those used by the Hyperion
     compiler itself.
@@ -1160,7 +1160,7 @@ An example Yul Object is shown below:
             // first create "Contract2"
             let size := datasize("Contract2")
             let offset := allocate(size)
-            // This will turn into codecopy for EVM
+            // This will turn into codecopy for ZVM
             datacopy(offset, dataoffset("Contract2"), size)
             // constructor parameter is a single number 0x1234
             mstore(add(offset, size), 0x1234)
@@ -1170,7 +1170,7 @@ An example Yul Object is shown below:
             // executing code is the constructor code)
             size := datasize("Contract1_deployed")
             offset := allocate(size)
-            // This will turn into a codecopy for EVM
+            // This will turn into a codecopy for ZVM
             datacopy(offset, dataoffset("Contract1_deployed"), size)
             return(offset, size)
         }

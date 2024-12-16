@@ -107,7 +107,7 @@ Like functions, modifiers can be :ref:`overridden <modifier-overriding>`.
 Events
 ======
 
-Events are convenience interfaces with the EVM logging facilities.
+Events are convenience interfaces with the ZVM logging facilities.
 
 .. code-block:: hyperion
 

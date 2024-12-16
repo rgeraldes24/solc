@@ -102,13 +102,13 @@ Solidity Tools
     Linter to identify and fix style and security issues in Solidity.
 
 * `evmdis <https://github.com/Arachnid/evmdis>`_
-    EVM Disassembler that performs static analysis on the bytecode to provide a higher level of abstraction than raw EVM operations.
+    ZVM Disassembler that performs static analysis on the bytecode to provide a higher level of abstraction than raw ZVM operations.
 
 * `EVM Lab <https://github.com/ethereum/evmlab/>`_
     Rich tool package to interact with the EVM. Includes a VM, Etherchain API, and a trace-viewer with gas cost display.
 
 * `hevm <https://github.com/dapphub/dapptools/tree/master/src/hevm#readme>`_
-    EVM debugger and symbolic execution engine.
+    ZVM debugger and symbolic execution engine.
 
 * `leafleth <https://github.com/clemlak/leafleth>`_
     A documentation generator for Hyperion smart-contracts.

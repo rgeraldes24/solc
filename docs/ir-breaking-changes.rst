@@ -7,8 +7,8 @@
 Hyperion IR-based Codegen Changes
 *********************************
 
-Hyperion can generate EVM bytecode in two different ways:
-Either directly from Hyperion to EVM opcodes ("old codegen") or through
+Hyperion can generate ZVM bytecode in two different ways:
+Either directly from Hyperion to ZVM opcodes ("old codegen") or through
 an intermediate representation ("IR") in Yul ("new codegen" or "IR-based codegen").
 
 The IR-based code generator was introduced with an aim to not only allow
