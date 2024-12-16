@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.0.0;
+pragma hyperion >=0.0.0;
 
 // Intentionally badly wrapped and commented in weird places to get source locations inside code
 // snippets in generated Yul. Also contains stuff that could break the assembly if not escaped properly.

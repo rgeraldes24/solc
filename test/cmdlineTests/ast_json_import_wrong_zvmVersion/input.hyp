@@ -29,7 +29,7 @@
             "id": 1,
             "literals":
             [
-              "solidity",
+              "hyperion",
               ">=",
               "0.0"
             ],

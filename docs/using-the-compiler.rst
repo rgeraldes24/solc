@@ -15,7 +15,7 @@ Using the Commandline Compiler
 Basic Usage
 -----------
 
-One of the build targets of the Solidity repository is ``hypc``, the Solidity commandline compiler.
+One of the build targets of the Hyperion repository is ``hypc``, the Hyperion commandline compiler.
 Using ``hypc --help`` provides you with an explanation of all options. The compiler can produce various outputs, ranging from simple binaries and assembly over an abstract syntax tree (parse tree) to estimations of gas usage.
 If you only want to compile a single file, you run it as ``hypc --bin sourceFile.hyp`` and it will print the binary. If you want to get some of the more advanced output variants of ``hypc``, it is probably better to tell it to output everything to separate files using ``hypc -o outputDirectory --bin --ast-compact-json --asm sourceFile.hyp``.
 
@@ -81,7 +81,7 @@ You can use ``hypc`` as a linker meaning that it will insert the library address
 Either add ``--libraries "file.hyp:Math=0x1234567890123456789012345678901234567890 file.hyp:Heap=0xabCD567890123456789012345678901234567890"`` to your command to provide an address for each library (use commas or spaces as separators) or store the string in a file (one library per line) and run ``hypc`` using ``--libraries fileName``.
 
 .. note::
-    Starting Solidity 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.hyp:Math:0x1234567890123456789012345678901234567890 file.hyp:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
+    Starting Hyperion 0.8.1 accepts ``=`` as separator between library and address, and ``:`` as a separator is deprecated. It will be removed in the future. Currently ``--libraries "file.hyp:Math:0x1234567890123456789012345678901234567890 file.hyp:Heap:0xabCD567890123456789012345678901234567890"`` will work too.
 
 .. index:: --standard-json, --base-path
 
@@ -155,7 +155,7 @@ at each version. Backward compatibility is not guaranteed between each version.
 Compiler Input and Output JSON Description
 ******************************************
 
-The recommended way to interface with the Solidity compiler especially for
+The recommended way to interface with the Hyperion compiler especially for
 more complex and automated setups is the so-called JSON-input-output interface.
 The same interface is provided by all distributions of the compiler.
 
@@ -175,8 +175,8 @@ Input Description
 .. code-block:: javascript
 
     {
-      // Required: Source code language. Currently supported are "Solidity", "Yul" and "SolidityAST" (experimental).
-      "language": "Solidity",
+      // Required: Source code language. Currently supported are "Hyperion", "Yul" and "HyperionAST" (experimental).
+      "language": "Hyperion",
       // Required
       "sources":
       {
@@ -202,7 +202,7 @@ Input Description
             // If files are used, their directories should be added to the command-line via
             // `--allow-paths <path>`.
           ]
-          // If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
+          // If language is set to "HyperionAST", an AST needs to be supplied under the "ast" key.
           // Note that importing ASTs is experimental and in particular that:
           // - importing invalid ASTs can produce undefined results and
           // - no proper error reporting is available on invalid ASTs.
@@ -266,7 +266,7 @@ Input Description
             // and inline assembly.
             // It is activated together with the global optimizer setting
             // and can be deactivated here.
-            // Before Solidity 0.6.0 it had to be activated through this switch.
+            // Before Hyperion 0.6.0 it had to be activated through this switch.
             "yul": false,
             // Tuning options for the Yul optimizer.
             "yulDetails": {
@@ -307,7 +307,7 @@ Input Description
           // Optional: How much extra debug information to include in comments in the produced EVM
           // assembly and Yul code. Available components are:
           // - `location`: Annotations of the form `@src <index>:<start>:<end>` indicating the
-          //    location of the corresponding element in the original Solidity file, where:
+          //    location of the corresponding element in the original Hyperion file, where:
           //     - `<index>` is the file index matching the `@use-src` annotation,
           //     - `<start>` is the index of the first byte at that location,
           //     - `<end>` is the index of the first byte after that location.
@@ -435,7 +435,7 @@ Input Description
           // Choose which targets should be checked: constantCondition,
           // underflow, overflow, divByZero, balance, assert, popEmptyArray, outOfBounds.
           // If the option is not given all targets are checked by default,
-          // except underflow/overflow for Solidity >=0.8.7.
+          // except underflow/overflow for Hyperion >=0.8.7.
           // See the Formal Verification section for the targets description.
           "targets": ["underflow", "overflow", "assert"],
           // Timeout for each SMT query in milliseconds.
@@ -554,7 +554,7 @@ Output Description
                   "ast": {/* ... */},
                   // Source file in its text form (may contain comments)
                   "contents":"{ function abi_decode(start, end) -> data { data := calldataload(start) } }",
-                  // Source file ID, used for source references, same "namespace" as the Solidity source files
+                  // Source file ID, used for source references, same "namespace" as the Hyperion source files
                   "id": 2,
                   "language": "Yul",
                   "name": "#utility.yul"

@@ -6,7 +6,7 @@ Contract Metadata
 
 .. index:: metadata, contract verification
 
-The Solidity compiler automatically generates a JSON file.
+The Hyperion compiler automatically generates a JSON file.
 The file contains two kinds of information about the compiled contract:
 
 - How to interact with the contract: ABI, and NatSpec documentation.
@@ -43,12 +43,12 @@ explanatory purposes.
       "compiler": {
         // Optional: Hash of the compiler binary which produced this output
         "keccak256": "0x123...",
-        // Required for Solidity: Version of the compiler
+        // Required for Hyperion: Version of the compiler
         "version": "0.8.2+commit.661d1103"
       },
       // Required: Source code language, basically selects a "sub-version"
       // of the specification
-      "language": "Solidity",
+      "language": "Hyperion",
       // Required: Generated information about the contract.
       "output": {
         // Required: ABI definition of the contract. See "Contract ABI Specification"
@@ -127,14 +127,14 @@ explanatory purposes.
       // Required: Compiler settings. Reflects the settings in the JSON input during compilation.
       // Check the documentation of standard JSON input's "settings" field
       "settings": {
-        // Required for Solidity: File path and the name of the contract or library this
+        // Required for Hyperion: File path and the name of the contract or library this
         // metadata is created for.
         "compilationTarget": {
           "myDirectory/myFile.hyp": "MyContract"
         },
-        // Required for Solidity.
+        // Required for Hyperion.
         "zvmVersion": "shanghai",
-        // Required for Solidity: Addresses for libraries used.
+        // Required for Hyperion: Addresses for libraries used.
         "libraries": {
           "MyLib": "0x123123..."
         },
@@ -170,7 +170,7 @@ explanatory purposes.
           "enabled": true,
           "runs": 500
         },
-        // Required for Solidity: Sorted list of import remappings.
+        // Required for Hyperion: Sorted list of import remappings.
         "remappings": [ ":g=/dir" ]
       },
       // Required: Compilation source files/source units, keys are file paths
@@ -205,7 +205,7 @@ explanatory purposes.
 
 .. note::
     The ABI definition above has no fixed order. It can change with compiler versions.
-    Starting from Solidity version 0.5.12, though, the array maintains a certain
+    Starting from Hyperion version 0.5.12, though, the array maintains a certain
     order.
 
 .. _encoding-of-the-metadata-hash-in-the-bytecode:

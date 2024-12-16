@@ -1,4 +1,4 @@
-# Solidity Commons Library (Solidity related sharing bits between libhyperion and libyul)
+# Hyperion Commons Library (Hyperion related sharing bits between libhyperion and libyul)
 set(sources
 	Common.h
 	CharStream.cpp

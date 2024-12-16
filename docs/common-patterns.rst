@@ -28,7 +28,7 @@ you receive the funds of the person who is now the richest.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract WithdrawalContract {
         address public richest;
@@ -66,7 +66,7 @@ This is as opposed to the more intuitive sending pattern:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract SendContract {
         address payable public richest;
@@ -133,7 +133,7 @@ restrictions highly readable.
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract AccessRestriction {
         // These will be assigned at the construction
@@ -203,7 +203,7 @@ restrictions highly readable.
         // fee being associated with a function call.
         // If the caller sent too much, he or she is
         // refunded, but only after the function body.
-        // This was dangerous before Solidity version 0.4.0,
+        // This was dangerous before Hyperion version 0.4.0,
         // where it was possible to skip the part after `_;`.
         modifier costs(uint amount) {
             if (msg.value < amount)
@@ -222,7 +222,7 @@ restrictions highly readable.
             owner = newOwner;
             // just some example condition
             if (uint160(owner) & 0 == 1)
-                // This did not refund for Solidity
+                // This did not refund for Hyperion
                 // before version 0.4.0.
                 return;
             // refund overpaid fees
@@ -283,7 +283,7 @@ function finishes.
 
 .. note::
     **Modifier May be Skipped**.
-    This only applies to Solidity before version 0.4.0:
+    This only applies to Hyperion before version 0.4.0:
     Since modifiers are applied by simply replacing
     code and not by using a function call,
     the code in the transitionNext modifier
@@ -297,7 +297,7 @@ function finishes.
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract StateMachine {
         enum Stages {

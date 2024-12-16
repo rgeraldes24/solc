@@ -2,7 +2,7 @@
 #
 # This script reads C++ or RST source files and writes all
 # multi-line strings into individual files.
-# This can be used to extract the Solidity test cases
+# This can be used to extract the Hyperion test cases
 # into files for e.g. fuzz testing as
 # scripts/isolate_tests.py test/libhyperion/*
 

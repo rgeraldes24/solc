@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Bash script to run commandline Solidity tests.
+# Bash script to run commandline Hyperion tests.
 #
-# The documentation for solidity is hosted at:
+# The documentation for hyperion is hosted at:
 #
 #     https://docs.soliditylang.org
 #
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2016 solidity contributors.
+# (c) 2016 hyperion contributors.
 #------------------------------------------------------------------------------
 
 set -eo pipefail
@@ -31,8 +31,8 @@ set -eo pipefail
 ## GLOBAL VARIABLES
 
 REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
-export REPO_ROOT SOLIDITY_BUILD_DIR
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
+export REPO_ROOT HYPERION_BUILD_DIR
 
 # shellcheck source=scripts/common.sh
 source "${REPO_ROOT}/scripts/common.sh"
@@ -100,13 +100,13 @@ popd > /dev/null
 
 case "$OSTYPE" in
     msys)
-        HYPC="${SOLIDITY_BUILD_DIR}/hypc/Release/hypc.exe"
+        HYPC="${HYPERION_BUILD_DIR}/hypc/Release/hypc.exe"
 
         # prevents msys2 path translation for a remapping test
         export MSYS2_ARG_CONV_EXCL="="
         ;;
     *)
-        HYPC="${SOLIDITY_BUILD_DIR}/hypc/hypc"
+        HYPC="${HYPERION_BUILD_DIR}/hypc/hypc"
         ;;
 esac
 echo "Using hypc binary at ${HYPC}"
@@ -220,7 +220,7 @@ json = re.sub("\n\\s*\n", "\n", json)                                           
 json = re.sub(r"},(\n{0,1})\n*(\s*(]|}))", r"}\1\2", json)                          # Remove trailing comma
 open("$stdout_path", "w").write(json)
 EOF
-        sed -i.bak -E -e 's/ Consider adding \\"pragma solidity \^[0-9.]*;\\"//g' "$stdout_path"
+        sed -i.bak -E -e 's/ Consider adding \\"pragma hyperion \^[0-9.]*;\\"//g' "$stdout_path"
         sed -i.bak -E -e 's/\"opcodes\":[[:space:]]*\"[^"]+\"/\"opcodes\":\"<OPCODES REMOVED>\"/g' "$stdout_path"
         sed -i.bak -E -e 's/\"sourceMap\":[[:space:]]*\"[0-9:;-]+\"/\"sourceMap\":\"<SOURCEMAP REMOVED>\"/g' "$stdout_path"
 

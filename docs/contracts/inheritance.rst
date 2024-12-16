@@ -4,7 +4,7 @@
 Inheritance
 ***********
 
-Solidity supports multiple inheritance including polymorphism.
+Hyperion supports multiple inheritance including polymorphism.
 
 Polymorphism means that a function call (internal and external)
 always executes the function of the same name (and parameter types)
@@ -39,7 +39,7 @@ Details are given in the following example.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract Owned {
         constructor() { owner = payable(msg.sender); }
@@ -127,7 +127,7 @@ seen in the following example:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -158,7 +158,7 @@ explicitly in the final override, but this function will bypass
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract owned {
         constructor() { owner = payable(msg.sender); }
@@ -214,7 +214,7 @@ The following example demonstrates changing mutability and visibility:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract Base
     {
@@ -238,7 +238,7 @@ bases, it has to explicitly override it:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     contract Base1
     {
@@ -265,7 +265,7 @@ that already overrides all other functions.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     contract A { function f() public pure{} }
     contract B is A {}
@@ -301,7 +301,7 @@ contracts can no longer change the behavior of that function.
 
 .. note::
 
-  Starting from Solidity 0.8.8, the ``override`` keyword is not
+  Starting from Hyperion 0.8.8, the ``override`` keyword is not
   required when overriding an interface function, except for the
   case where the function is defined in multiple bases.
 
@@ -313,7 +313,7 @@ of the variable:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     contract A
     {
@@ -345,7 +345,7 @@ and the ``override`` keyword must be used in the overriding modifier:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     contract Base
     {
@@ -364,7 +364,7 @@ explicitly:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     contract Base1
     {
@@ -412,7 +412,7 @@ equivalent to ``constructor() {}``. For example:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     abstract contract A {
         uint public a;
@@ -442,7 +442,7 @@ derived contracts need to specify all of them. This can be done in two ways:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract Base {
         uint x;
@@ -496,7 +496,7 @@ Multiple Inheritance and Linearization
 
 Languages that allow multiple inheritance have to deal with
 several problems.  One is the `Diamond Problem <https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem>`_.
-Solidity is similar to Python in that it uses "`C3 Linearization <https://en.wikipedia.org/wiki/C3_linearization>`_"
+Hyperion is similar to Python in that it uses "`C3 Linearization <https://en.wikipedia.org/wiki/C3_linearization>`_"
 to force a specific order in the directed acyclic graph (DAG) of base classes. This
 results in the desirable property of monotonicity but
 disallows some inheritance graphs. Especially, the order in
@@ -510,13 +510,13 @@ is defined multiple times in different contracts, the given bases
 are searched from right to left (left to right in Python) in a depth-first manner,
 stopping at the first match. If a base contract has already been searched, it is skipped.
 
-In the following code, Solidity will give the
+In the following code, Hyperion will give the
 error "Linearization of inheritance graph impossible".
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract X {}
     contract A is X {}
@@ -537,7 +537,7 @@ One area where inheritance linearization is especially important and perhaps not
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract Base1 {
         constructor() {}

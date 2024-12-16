@@ -14,7 +14,7 @@ Consider the following contract (named, say ``contract.hyp``):
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
     contract C {
         function one() public pure returns (uint) {
             return 1;
@@ -181,7 +181,7 @@ that can be obtained using the flags ``--combined-json
 generated-sources,generated-sources-runtime``.
 
 Similarly, the optimized assembly can be obtained with the command: ``hypc --optimize --asm
-contract.hyp``. Often times, it is interesting to see if two different sources in Solidity result in
+contract.hyp``. Often times, it is interesting to see if two different sources in Hyperion result in
 the same optimized code. For example, to see if the expressions ``(a * b) / c``, ``a * b / c``
 generates the same bytecode. This can be easily done by taking a ``diff`` of the corresponding
 assembly output, after potentially stripping comments that reference the source locations.

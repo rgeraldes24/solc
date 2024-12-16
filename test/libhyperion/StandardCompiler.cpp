@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -187,25 +187,25 @@ BOOST_AUTO_TEST_CASE(invalid_language)
 	}
 	)";
 	Json::Value result = compile(input);
-	BOOST_CHECK(containsError(result, "JSONError", "Only \"Solidity\", \"Yul\" or \"SolidityAST\" is supported as a language."));
+	BOOST_CHECK(containsError(result, "JSONError", "Only \"Hyperion\", \"Yul\" or \"HyperionAST\" is supported as a language."));
 }
 
 BOOST_AUTO_TEST_CASE(valid_language)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity"
+		"language": "Hyperion"
 	}
 	)";
 	Json::Value result = compile(input);
-	BOOST_CHECK(!containsError(result, "JSONError", "Only \"Solidity\" or \"Yul\" is supported as a language."));
+	BOOST_CHECK(!containsError(result, "JSONError", "Only \"Hyperion\" or \"Yul\" is supported as a language."));
 }
 
 BOOST_AUTO_TEST_CASE(no_sources)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity"
+		"language": "Hyperion"
 	}
 	)";
 	Json::Value result = compile(input);
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE(no_sources_empty_object)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {}
 	}
 	)";
@@ -228,7 +228,7 @@ BOOST_AUTO_TEST_CASE(no_sources_empty_array)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": []
 	}
 	)";
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE(sources_is_array)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": ["aa", "bb"]
 	}
 	)";
@@ -252,7 +252,7 @@ BOOST_AUTO_TEST_CASE(unexpected_trailing_test)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"A": {
 				"content": "contract A { function f() {} }"
@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_CASE(smoke_test)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"empty": {
 				"content": ""
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_CASE(optimizer_enabled_not_boolean)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"optimizer": {
 				"enabled": "wrong"
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_CASE(optimizer_runs_not_a_number)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"optimizer": {
 				"enabled": true,
@@ -329,7 +329,7 @@ BOOST_AUTO_TEST_CASE(optimizer_runs_not_an_unsigned_number)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"optimizer": {
 				"enabled": true,
@@ -351,7 +351,7 @@ BOOST_AUTO_TEST_CASE(basic_compilation)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"fileA": {
 				"content": "contract A { }"
@@ -459,7 +459,7 @@ BOOST_AUTO_TEST_CASE(compilation_error)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": {
@@ -499,7 +499,7 @@ BOOST_AUTO_TEST_CASE(output_selection_explicit)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": {
@@ -528,7 +528,7 @@ BOOST_AUTO_TEST_CASE(output_selection_all_contracts)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": {
@@ -557,7 +557,7 @@ BOOST_AUTO_TEST_CASE(output_selection_all_files_single_contract)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"*": {
@@ -586,7 +586,7 @@ BOOST_AUTO_TEST_CASE(output_selection_all_files_all_contracts)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"*": {
@@ -615,7 +615,7 @@ BOOST_AUTO_TEST_CASE(output_selection_dependent_contract)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"*": {
@@ -644,7 +644,7 @@ BOOST_AUTO_TEST_CASE(output_selection_dependent_contract_with_import)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"*": {
@@ -676,7 +676,7 @@ BOOST_AUTO_TEST_CASE(filename_with_colon)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"http://github.com/ethereum/solidity/std/StandardToken.hyp": {
@@ -705,7 +705,7 @@ BOOST_AUTO_TEST_CASE(library_filename_with_colon)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": {
@@ -736,7 +736,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_top_level)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": "42"
 		},
@@ -755,7 +755,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_entry)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": {
 				"L": "42"
@@ -776,7 +776,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_hex)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": {
 				"library.hyp": {
@@ -799,7 +799,7 @@ BOOST_AUTO_TEST_CASE(libraries_invalid_length)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": {
 				"library.hyp": {
@@ -823,7 +823,7 @@ BOOST_AUTO_TEST_CASE(libraries_missing_hex_prefix)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": {
 				"library.hyp": {
@@ -846,7 +846,7 @@ BOOST_AUTO_TEST_CASE(library_linking)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"libraries": {
 				"library.hyp": {
@@ -1014,7 +1014,7 @@ BOOST_AUTO_TEST_CASE(zvm_version)
 	{
 		return R"(
 			{
-				"language": "Solidity",
+				"language": "Hyperion",
 				"sources": { "fileA": { "content": "contract A { }" } },
 				"settings": {
 					)" + _version + R"(
@@ -1042,7 +1042,7 @@ BOOST_AUTO_TEST_CASE(optimizer_settings_default_disabled)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": { "A": [ "metadata" ] }
@@ -1074,7 +1074,7 @@ BOOST_AUTO_TEST_CASE(optimizer_settings_default_enabled)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": { "A": [ "metadata" ] }
@@ -1107,7 +1107,7 @@ BOOST_AUTO_TEST_CASE(optimizer_settings_details_exactly_as_default_disabled)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": { "A": [ "metadata" ] }
@@ -1148,7 +1148,7 @@ BOOST_AUTO_TEST_CASE(optimizer_settings_details_different)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": { "A": [ "metadata" ] }
@@ -1209,7 +1209,7 @@ BOOST_AUTO_TEST_CASE(metadata_without_compilation)
 	// If the metadata is successfully returned, that means no compilation was attempted.
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"fileA": { "A": [ "metadata" ] }
@@ -1241,7 +1241,7 @@ BOOST_AUTO_TEST_CASE(license_in_metadata)
 {
 	std::string const input = R"(
 			{
-				"language": "Solidity",
+				"language": "Hyperion",
 				"sources": {
 					"fileA": { "content": "import \"fileB\"; contract A { } // SPDX-License-Identifier: GPL-3.0 \n" },
 					"fileB": { "content": "import \"fileC\"; /* SPDX-License-Identifier: MIT */ contract B { }" },
@@ -1280,7 +1280,7 @@ BOOST_AUTO_TEST_CASE(common_pattern)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"outputSelection": {
 				"*": {
@@ -1311,7 +1311,7 @@ BOOST_AUTO_TEST_CASE(use_stack_optimization)
 	// If we enable stack optimization, though, it will compile.
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"settings": {
 			"optimizer": { "enabled": true, "details": { "yul": true } },
 			"outputSelection": {
@@ -1387,12 +1387,12 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 			"sources":
 		{
 			"A":
 			{
-				"content": "pragma solidity >=0.0; contract C { function f() public pure {} }"
+				"content": "pragma hyperion >=0.0; contract C { function f() public pure {} }"
 			}
 		},
 		"settings":
@@ -1428,12 +1428,12 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_colon_source)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
 		{
 			":A":
 			{
-				"content": "pragma solidity >=0.0; contract C { function f() public pure {} }"
+				"content": "pragma hyperion >=0.0; contract C { function f() public pure {} }"
 			}
 		},
 		"settings":
@@ -1468,12 +1468,12 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_empty_source)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
 		{
 			"":
 			{
-				"content": "pragma solidity >=0.0; contract C { function f() public pure {} }"
+				"content": "pragma hyperion >=0.0; contract C { function f() public pure {} }"
 			}
 		},
 		"settings":
@@ -1508,16 +1508,16 @@ BOOST_AUTO_TEST_CASE(standard_output_selection_wildcard_multiple_sources)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
 		{
 			"A":
 			{
-				"content": "pragma solidity >=0.0; contract C { function f() public pure {} }"
+				"content": "pragma hyperion >=0.0; contract C { function f() public pure {} }"
 			},
 			"B":
 			{
-				"content": "pragma solidity >=0.0; contract D { function f() public pure {} }"
+				"content": "pragma hyperion >=0.0; contract D { function f() public pure {} }"
 			}
 		},
 		"settings":
@@ -1553,9 +1553,9 @@ BOOST_AUTO_TEST_CASE(stopAfter_invalid_value)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
-		{ "": { "content": "pragma solidity >=0.0; contract C { function f() public pure {} }" } },
+		{ "": { "content": "pragma hyperion >=0.0; contract C { function f() public pure {} }" } },
 		"settings":
 		{
 			"stopAfter": "rrr",
@@ -1574,9 +1574,9 @@ BOOST_AUTO_TEST_CASE(stopAfter_invalid_type)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
-		{ "": { "content": "pragma solidity >=0.0; contract C { function f() public pure {} }" } },
+		{ "": { "content": "pragma hyperion >=0.0; contract C { function f() public pure {} }" } },
 		"settings":
 		{
 			"stopAfter": 3,
@@ -1595,9 +1595,9 @@ BOOST_AUTO_TEST_CASE(stopAfter_bin_conflict)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources":
-		{ "": { "content": "pragma solidity >=0.0; contract C { function f() public pure {} }" } },
+		{ "": { "content": "pragma hyperion >=0.0; contract C { function f() public pure {} }" } },
 		"settings":
 		{
 			"stopAfter": "parsing",
@@ -1616,7 +1616,7 @@ BOOST_AUTO_TEST_CASE(stopAfter_ast_output)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"a.hyp": {
 				"content": "// SPDX-License-Identifier: GPL-3.0\nimport \"tes32.hyp\";\n contract C is X { constructor() {} }"
@@ -1638,7 +1638,7 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"BlockRewardAuRaBase.hyp": {
 				"content": " contract Sacrifice { constructor() payable {} } abstract contract BlockRewardAuRaBase { function _transferNativeReward() internal { new Sacrifice(); } function _distributeTokenRewards() internal virtual; } "
@@ -1679,7 +1679,7 @@ BOOST_AUTO_TEST_CASE(dependency_tracking_of_abstract_contract_yul)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"A.hyp": {
 				"content": "contract A {} contract B {} contract C { constructor() { new B(); } } contract D {}"
@@ -1728,7 +1728,7 @@ BOOST_AUTO_TEST_CASE(source_location_of_bare_block)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"A.hyp": {
 				"content": "contract A { constructor() { uint x = 2; { uint y = 3; } } }"

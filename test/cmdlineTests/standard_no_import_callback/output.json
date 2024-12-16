@@ -7,7 +7,7 @@
             "formattedMessage": "ParserError: Source \"standard_no_import_callback/B.hyp\" not found: No import callback.
  --> A:2:24:
   |
-2 | pragma solidity >=0.0; import 'standard_no_import_callback/B.hyp';
+2 | pragma hyperion >=0.0; import 'standard_no_import_callback/B.hyp';
   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ",

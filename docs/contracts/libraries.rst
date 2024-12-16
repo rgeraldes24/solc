@@ -21,7 +21,7 @@ not possible to destroy a library.
 
 .. note::
     Until version 0.4.20, it was possible to destroy libraries by
-    circumventing Solidity's type system. Starting from that version,
+    circumventing Hyperion's type system. Starting from that version,
     libraries contain a :ref:`mechanism<call-protection>` that
     disallows state-modifying functions
     to be called directly (i.e. without ``DELEGATECALL``).
@@ -53,7 +53,7 @@ more advanced example to implement a set).
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
 
     // We define a new struct datatype that will be used to
@@ -132,7 +132,7 @@ custom types without the overhead of external function calls:
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.0;
+    pragma hyperion ^0.8.0;
 
     struct bigint {
         uint[] limbs;
@@ -219,7 +219,7 @@ Function Signatures and Selectors in Libraries
 ==============================================
 
 While external calls to public or external library functions are possible, the calling convention for such calls
-is considered to be internal to Solidity and not the same as specified for the regular :ref:`contract ABI<ABI>`.
+is considered to be internal to Hyperion and not the same as specified for the regular :ref:`contract ABI<ABI>`.
 External library functions support more argument types than external contract functions, for example recursive structs
 and storage pointers. For that reason, the function signatures used to compute the 4-byte selector are computed
 following an internal naming schema and arguments of types not supported in the contract ABI use an internal encoding.
@@ -239,12 +239,12 @@ The argument encoding is the same as for the regular contract ABI, except for st
 ``uint256`` value referring to the storage slot to which they point.
 
 Similarly to the contract ABI, the selector consists of the first four bytes of the Keccak256-hash of the signature.
-Its value can be obtained from Solidity using the ``.selector`` member as follows:
+Its value can be obtained from Hyperion using the ``.selector`` member as follows:
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.14 <0.9.0;
+    pragma hyperion >=0.5.14 <0.9.0;
 
     library L {
         function f(uint256) external {}

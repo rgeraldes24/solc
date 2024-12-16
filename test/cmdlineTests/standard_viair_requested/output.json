@@ -301,7 +301,7 @@ object \"D_16\" {
             "formattedMessage": "Warning: Unused local variable.
  --> A:2:93:
   |
-2 | pragma solidity >=0.0; pragma abicoder v2; contract C {} contract D { function f() public { C c = new C(); } }
+2 | pragma hyperion >=0.0; pragma abicoder v2; contract C {} contract D { function f() public { C c = new C(); } }
   |                                                                                             ^^^
 
 ",

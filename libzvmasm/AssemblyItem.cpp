@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -146,7 +146,7 @@ size_t AssemblyItem::bytesRequired(size_t _addressLength, Precision _precision) 
 			immutableOccurrences = 1; // Assume one immut. ref.
 		else
 		{
-			solAssert(m_immutableOccurrences, "No immutable references. `bytesRequired()` called before assembly()?");
+			hypAssert(m_immutableOccurrences, "No immutable references. `bytesRequired()` called before assembly()?");
 			immutableOccurrences = m_immutableOccurrences.value();
 		}
 
@@ -408,7 +408,7 @@ size_t AssemblyItem::opcodeCount() const noexcept
 			// For n immutable occurrences the first (n - 1) occurrences will
 			// generate 5 opcodes and the last will generate 3 opcodes,
 			// because it is reusing the 2 top-most elements on the stack.
-			solAssert(m_immutableOccurrences, "");
+			hypAssert(m_immutableOccurrences, "");
 
 			if (m_immutableOccurrences.value() != 0)
 				return (*m_immutableOccurrences - 1) * 5 + 3;

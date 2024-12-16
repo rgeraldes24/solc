@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -179,14 +179,14 @@ std::ostream& operator<<(std::ostream& _out, CompilerOutputs const& _selection)
 
 std::string const& CompilerOutputs::componentName(bool CompilerOutputs::* _component)
 {
-	solAssert(_component, "");
+	hypAssert(_component, "");
 
 	// NOTE: Linear search is not optimal but it's simpler than getting pointers-to-members to work as map keys.
 	for (auto const& [componentName, component]: CompilerOutputs::componentMap())
 		if (component == _component)
 			return componentName;
 
-	solAssert(false, "");
+	hypAssert(false, "");
 }
 
 bool CombinedJsonRequests::operator==(CombinedJsonRequests const& _other) const noexcept
@@ -210,13 +210,13 @@ std::ostream& operator<<(std::ostream& _out, CombinedJsonRequests const& _reques
 
 std::string const& CombinedJsonRequests::componentName(bool CombinedJsonRequests::* _component)
 {
-	solAssert(_component, "");
+	hypAssert(_component, "");
 
 	for (auto const& [componentName, component]: CombinedJsonRequests::componentMap())
 		if (component == _component)
 			return componentName;
 
-	solAssert(false, "");
+	hypAssert(false, "");
 }
 
 bool CommandLineOptions::operator==(CommandLineOptions const& _other) const noexcept
@@ -285,7 +285,7 @@ OptimiserSettings CommandLineOptions::optimiserSettings() const
 		if (delimiterPos != std::string::npos)
 			settings.yulOptimiserCleanupSteps = fullSequence.substr(delimiterPos + 1);
 		else
-			solAssert(settings.yulOptimiserCleanupSteps == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
+			hypAssert(settings.yulOptimiserCleanupSteps == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
 	}
 
 	return settings;
@@ -484,7 +484,7 @@ void CommandLineParser::parseOutputSelection()
 		case InputMode::License:
 		case InputMode::Version:
 		case InputMode::LanguageServer:
-			solAssert(false);
+			hypAssert(false);
 		case InputMode::Compiler:
 		case InputMode::CompilerWithASTImport:
 			return util::contains(compilerModeOutputs, _outputName);
@@ -497,7 +497,7 @@ void CommandLineParser::parseOutputSelection()
 			return false;
 		}
 
-		solAssert(false, "");
+		hypAssert(false, "");
 	};
 
 	for (auto&& [optionName, outputComponent]: CompilerOutputs::componentMap())
@@ -538,7 +538,7 @@ are welcome to redistribute it under certain conditions. See 'hypc --)" + g_strL
 for details.
 
 Usage: hypc [options] [input_file...]
-Compiles the given Solidity input files (or the standard input if "-" is
+Compiles the given Hyperion input files (or the standard input if "-" is
 used as a file name) and outputs the components specified in the options
 at standard output or in files in the output directory, if specified.
 Imports are automatically read from the filesystem, but it is also possible to
@@ -1406,7 +1406,7 @@ void CommandLineParser::processArgs()
 		m_args.count(g_strModelCheckerTimeout);
 	m_options.output.viaIR = (m_args.count(g_strExperimentalViaIR) > 0 || m_args.count(g_strViaIR) > 0);
 
-	solAssert(
+	hypAssert(
 		m_options.input.mode == InputMode::Compiler ||
 		m_options.input.mode == InputMode::CompilerWithASTImport ||
 		m_options.input.mode == InputMode::ZVMAssemblerJSON

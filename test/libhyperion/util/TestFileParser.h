@@ -1,15 +1,15 @@
 /*
-	This file is part of solidity.
-	solidity is free software: you can redistribute it and/or modify
+	This file is part of hyperion.
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
@@ -30,7 +30,7 @@ namespace hyperion::frontend::test
 {
 
 /**
- * Class that is able to parse an additional and well-formed comment section in a Solidity
+ * Class that is able to parse an additional and well-formed comment section in a Hyperion
  * source file used by the file-based unit test environment. For now, it parses function
  * calls and their expected result after the call was made.
  *
@@ -97,7 +97,7 @@ private:
 		/// Advances current position in the input stream.
 		void advance(unsigned n = 1)
 		{
-			solAssert(m_char != m_source.end(), "Cannot advance beyond end.");
+			hypAssert(m_char != m_source.end(), "Cannot advance beyond end.");
 			m_char = std::next(m_char, static_cast<int>(n));
 		}
 

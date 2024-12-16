@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -117,13 +117,13 @@ void Interpreter::operator()(ExpressionStatement const& _expressionStatement)
 
 void Interpreter::operator()(Assignment const& _assignment)
 {
-	solAssert(_assignment.value, "");
+	hypAssert(_assignment.value, "");
 	vector<u256> values = evaluateMulti(*_assignment.value);
-	solAssert(values.size() == _assignment.variableNames.size(), "");
+	hypAssert(values.size() == _assignment.variableNames.size(), "");
 	for (size_t i = 0; i < values.size(); ++i)
 	{
 		YulString varName = _assignment.variableNames.at(i).name;
-		solAssert(m_variables.count(varName), "");
+		hypAssert(m_variables.count(varName), "");
 		m_variables[varName] = values.at(i);
 	}
 }
@@ -134,11 +134,11 @@ void Interpreter::operator()(VariableDeclaration const& _declaration)
 	if (_declaration.value)
 		values = evaluateMulti(*_declaration.value);
 
-	solAssert(values.size() == _declaration.variables.size(), "");
+	hypAssert(values.size() == _declaration.variables.size(), "");
 	for (size_t i = 0; i < values.size(); ++i)
 	{
 		YulString varName = _declaration.variables.at(i).name;
-		solAssert(!m_variables.count(varName), "");
+		hypAssert(!m_variables.count(varName), "");
 		m_variables[varName] = values.at(i);
 		m_scope->names.emplace(varName, nullptr);
 	}
@@ -146,16 +146,16 @@ void Interpreter::operator()(VariableDeclaration const& _declaration)
 
 void Interpreter::operator()(If const& _if)
 {
-	solAssert(_if.condition, "");
+	hypAssert(_if.condition, "");
 	if (evaluate(*_if.condition) != 0)
 		(*this)(_if.body);
 }
 
 void Interpreter::operator()(Switch const& _switch)
 {
-	solAssert(_switch.expression, "");
+	hypAssert(_switch.expression, "");
 	u256 val = evaluate(*_switch.expression);
-	solAssert(!_switch.cases.empty(), "");
+	hypAssert(!_switch.cases.empty(), "");
 	for (auto const& c: _switch.cases)
 		// Default case has to be last.
 		if (!c.value || evaluate(*c.value) == val)
@@ -171,7 +171,7 @@ void Interpreter::operator()(FunctionDefinition const&)
 
 void Interpreter::operator()(ForLoop const& _forLoop)
 {
-	solAssert(_forLoop.condition, "");
+	hypAssert(_forLoop.condition, "");
 
 	enterScope(_forLoop.pre);
 	ScopeGuard g([this]{ leaveScope(); });
@@ -295,7 +295,7 @@ void ExpressionEvaluator::operator()(Literal const& _literal)
 
 void ExpressionEvaluator::operator()(Identifier const& _identifier)
 {
-	solAssert(m_variables.count(_identifier.name), "");
+	hypAssert(m_variables.count(_identifier.name), "");
 	incrementStep();
 	setValue(m_variables.at(_identifier.name));
 }
@@ -355,7 +355,7 @@ void ExpressionEvaluator::operator()(FunctionCall const& _funCall)
 
 u256 ExpressionEvaluator::value() const
 {
-	solAssert(m_values.size() == 1, "");
+	hypAssert(m_values.size() == 1, "");
 	return m_values.front();
 }
 

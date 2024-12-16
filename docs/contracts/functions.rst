@@ -15,7 +15,7 @@ that call them, similar to internal library functions.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.1 <0.9.0;
+    pragma hyperion >=0.7.1 <0.9.0;
 
     function sum(uint[] memory arr) pure returns (uint s) {
         for (uint i = 0; i < arr.length; i++)
@@ -61,7 +61,7 @@ with two integers, you would use something like the following:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract Simple {
         uint sum;
@@ -86,7 +86,7 @@ two integers passed as function parameters, then you use something like:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract Simple {
         function arithmetic(uint a, uint b)
@@ -113,7 +113,7 @@ statement:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract Simple {
         function arithmetic(uint a, uint b)
@@ -184,7 +184,7 @@ The following statements are considered modifying the state:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
 
     contract C {
         function f(uint a, uint b) public view returns (uint) {
@@ -233,7 +233,7 @@ In addition to the list of state modifying statements explained above, the follo
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
 
     contract C {
         function f(uint a, uint b) public pure returns (uint) {
@@ -312,7 +312,7 @@ will consume more gas than the 2300 gas stipend:
     When Ether is sent directly to a contract (without a function call, i.e. sender uses ``send`` or ``transfer``)
     but the receiving contract does not define a receive Ether function or a payable fallback function,
     an exception will be thrown, sending back the Ether (this was different
-    before Solidity v0.4.0). If you want your contract to receive Ether,
+    before Hyperion v0.4.0). If you want your contract to receive Ether,
     you have to implement a receive Ether function (using payable fallback functions for receiving Ether is
     not recommended, since the fallback is invoked and would not fail for interface confusions
     on the part of the sender).
@@ -324,7 +324,7 @@ will consume more gas than the 2300 gas stipend:
 
     A contract cannot react to such Ether transfers and thus also
     cannot reject them. This is a design choice of the EVM and
-    Solidity cannot work around it.
+    Hyperion cannot work around it.
 
     It also means that ``address(this).balance`` can be higher
     than the sum of some manual accounting implemented in a
@@ -335,7 +335,7 @@ Below you can see an example of a Sink contract that uses function ``receive``.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     // This contract keeps all Ether sent to it with no way
     // to get it back.
@@ -397,7 +397,7 @@ operations as long as there is enough gas passed on to it.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.2 <0.9.0;
+    pragma hyperion >=0.6.2 <0.9.0;
 
     contract Test {
         uint x;
@@ -475,7 +475,7 @@ The following example shows overloading of the function
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract A {
         function f(uint value) public pure returns (uint out) {
@@ -489,12 +489,12 @@ The following example shows overloading of the function
     }
 
 Overloaded functions are also present in the external interface. It is an error if two
-externally visible functions differ by their Solidity types but not by their external types.
+externally visible functions differ by their Hyperion types but not by their external types.
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     // This will not compile
     contract A {
@@ -512,7 +512,7 @@ externally visible functions differ by their Solidity types but not by their ext
 
 
 Both ``f`` function overloads above end up accepting the address type for the ABI although
-they are considered different inside Solidity.
+they are considered different inside Hyperion.
 
 Overload resolution and Argument matching
 -----------------------------------------
@@ -528,7 +528,7 @@ candidate, resolution fails.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract A {
         function f(uint8 val) public pure returns (uint8 out) {

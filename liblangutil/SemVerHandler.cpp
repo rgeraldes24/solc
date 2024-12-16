@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -37,7 +37,7 @@ using namespace hyperion::util;
 SemVerMatchExpressionParser::SemVerMatchExpressionParser(std::vector<Token> _tokens, std::vector<std::string> _literals):
 	m_tokens(std::move(_tokens)), m_literals(std::move(_literals))
 {
-	solAssert(m_tokens.size() == m_literals.size(), "");
+	hypAssert(m_tokens.size() == m_literals.size(), "");
 }
 
 SemVerVersion::SemVerVersion(std::string const& _versionString)
@@ -134,7 +134,7 @@ bool SemVerMatchExpression::MatchComponent::matches(SemVerVersion const& _versio
 		case Token::GreaterThanOrEqual:
 			return cmp >= 0;
 		default:
-			solAssert(false, "Invalid SemVer expression");
+			hypAssert(false, "Invalid SemVer expression");
 		}
 		return false;
 	}

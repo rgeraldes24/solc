@@ -14,7 +14,7 @@ difference between what you did (the specification) and how you did it
 (the actual implementation). You still need to check whether the specification
 is what you wanted and that you did not miss any unintended effects of it.
 
-Solidity implements a formal verification approach based on
+Hyperion implements a formal verification approach based on
 `SMT (Satisfiability Modulo Theories) <https://en.wikipedia.org/wiki/Satisfiability_modulo_theories>`_ and
 `Horn <https://en.wikipedia.org/wiki/Horn-satisfiability>`_ solving.
 The SMTChecker module automatically tries to prove that the code satisfies the
@@ -35,11 +35,11 @@ The other verification targets that the SMTChecker checks at compile time are:
 - Insufficient funds for a transfer.
 
 All the targets above are automatically checked by default if all engines are
-enabled, except underflow and overflow for Solidity >=0.8.7.
+enabled, except underflow and overflow for Hyperion >=0.8.7.
 
 The potential warnings that the SMTChecker reports are:
 
-- ``<failing  property> happens here.``. This means that the SMTChecker proved that a certain property fails. A counterexample may be given, however in complex situations it may also not show a counterexample. This result may also be a false positive in certain cases, when the SMT encoding adds abstractions for Solidity code that is either hard or impossible to express.
+- ``<failing  property> happens here.``. This means that the SMTChecker proved that a certain property fails. A counterexample may be given, however in complex situations it may also not show a counterexample. This result may also be a false positive in certain cases, when the SMT encoding adds abstractions for Hyperion code that is either hard or impossible to express.
 - ``<failing property> might happen here``. This means that the solver could not prove either case within the given timeout. Since the result is unknown, the SMTChecker reports the potential failure for soundness. This may be solved by increasing the query timeout, but the problem might also simply be too hard for the engine to solve.
 
 To enable the SMTChecker, you must select :ref:`which engine should run<smtchecker_engines>`,
@@ -67,7 +67,7 @@ Overflow
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Overflow {
         uint immutable x;
@@ -87,7 +87,7 @@ Overflow
     }
 
 The contract above shows an overflow check example.
-The SMTChecker does not check underflow and overflow by default for Solidity >=0.8.7,
+The SMTChecker does not check underflow and overflow by default for Hyperion >=0.8.7,
 so we need to use the command-line option ``--model-checker-targets "underflow,overflow"``
 or the JSON option ``settings.modelChecker.targets = ["underflow", "overflow"]``.
 See :ref:`this section for targets configuration<smtchecker_targets>`.
@@ -116,7 +116,7 @@ the SMTChecker proves that no overflow is reachable (by not reporting warnings):
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Overflow {
         uint immutable x;
@@ -154,7 +154,7 @@ definition to see what results come out!
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Monotonic {
         function f(uint x) internal pure returns (uint) {
@@ -176,7 +176,7 @@ equal every element in the array.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Max {
         function max(uint[] memory a) public pure returns (uint) {
@@ -210,7 +210,7 @@ For example, changing the code to
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Max {
         function max(uint[] memory a) public pure returns (uint) {
@@ -262,7 +262,7 @@ below.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Robot {
         int x = 0;
@@ -362,7 +362,7 @@ anything, including reenter the caller contract.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     interface Unknown {
         function run() external;
@@ -469,7 +469,7 @@ The keywords that represent the targets are:
 A common subset of targets might be, for example:
 ``--model-checker-targets assert,overflow``.
 
-All targets are checked by default, except underflow and overflow for Solidity >=0.8.7.
+All targets are checked by default, except underflow and overflow for Hyperion >=0.8.7.
 
 There is no precise heuristic on how and when to split verification targets,
 but it can be useful especially when dealing with large contracts.
@@ -493,7 +493,7 @@ the JSON option ``settings.modelChecker.showUnproved = true`` can be used.
 Unsupported Language Features
 =============================
 
-Certain Solidity language features are not completely supported by the SMT
+Certain Hyperion language features are not completely supported by the SMT
 encoding that the SMTChecker applies, for example assembly blocks.
 The unsupported construct is abstracted via overapproximation to preserve
 soundness, meaning any properties reported safe are safe even though this
@@ -544,7 +544,7 @@ as an example:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Ext {
         uint public x;
@@ -583,7 +583,7 @@ unsound results if the assumptions are inconsistent, such as the example below:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract D {
         constructor(uint _x) { x = _x; }
@@ -630,7 +630,7 @@ most derived type in case of inheritance.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     interface Token {
         function balanceOf(address _a) external view returns (uint);
@@ -691,7 +691,7 @@ transactions to ``B``.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract A {
         uint public x;
@@ -739,7 +739,7 @@ Division and Modulo With Slack Variables
 
 Spacer, the default Horn solver used by the SMTChecker, often dislikes division
 and modulo operations inside Horn rules. Because of that, by default the
-Solidity division and modulo operations are encoded using the constraint
+Hyperion division and modulo operations are encoded using the constraint
 ``a = b * d + m`` where ``d = a / b`` and ``m = a % b``.
 However, other solvers, such as Eldarica, prefer the syntactically precise operations.
 The command-line flag ``--model-checker-div-mod-no-slacks`` and the JSON option
@@ -825,8 +825,8 @@ option ``--model-checker-solvers {all,cvc4,eld,smtlib2,z3}`` or the JSON option
 - ``z3`` is available
 
   - if ``hypc`` is compiled with it;
-  - if a dynamic ``z3`` library of version >=4.8.x is installed in a Linux system (from Solidity 0.7.6);
-  - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the JavaScript binary of the compiler.
+  - if a dynamic ``z3`` library of version >=4.8.x is installed in a Linux system (from Hyperion 0.7.6);
+  - statically in ``soljson.js`` (from Hyperion 0.6.9), that is, the JavaScript binary of the compiler.
 
 .. note::
   z3 version 4.8.16 broke ABI compatibility with previous versions and cannot
@@ -860,12 +860,12 @@ with more information may also give some more power to the solver.
 SMT Encoding and Types
 ======================
 
-The SMTChecker encoding tries to be as precise as possible, mapping Solidity types
+The SMTChecker encoding tries to be as precise as possible, mapping Hyperion types
 and expressions to their closest `SMT-LIB <http://smtlib.cs.uiowa.edu/>`_
 representation, as shown in the table below.
 
 +-----------------------+--------------------------------+-----------------------------+
-|Solidity type          |SMT sort                        |Theories                     |
+|Hyperion type          |SMT sort                        |Theories                     |
 +=======================+================================+=============================+
 |Boolean                |Bool                            |Bool                         |
 +-----------------------+--------------------------------+-----------------------------+
@@ -884,7 +884,7 @@ Types that are not yet supported are abstracted by a single 256-bit unsigned
 integer, where their unsupported operations are ignored.
 
 For more details on how the SMT encoding works internally, see the paper
-`SMT-based Verification of Solidity Smart Contracts <https://github.com/chriseth/solidity_isola/blob/master/main.pdf>`_.
+`SMT-based Verification of Hyperion Smart Contracts <https://github.com/chriseth/solidity_isola/blob/master/main.pdf>`_.
 
 Function Calls
 ==============
@@ -956,7 +956,7 @@ on state variables.
 Reference Types and Aliasing
 ============================
 
-Solidity implements aliasing for reference types with the same :ref:`data
+Hyperion implements aliasing for reference types with the same :ref:`data
 location<data-location>`.
 That means one variable may be modified through a reference to the same data
 area.
@@ -970,7 +970,7 @@ types.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.0;
+    pragma hyperion >=0.8.0;
 
     contract Aliasing
     {
@@ -1043,7 +1043,7 @@ the contract's balance may grow by at least ``msg.value``.
 Real World Assumptions
 **********************
 
-Some scenarios can be expressed in Solidity and the EVM, but are expected to
+Some scenarios can be expressed in Hyperion and the EVM, but are expected to
 never occur in practice.
 One of such cases is the length of a dynamic storage array overflowing during a
 push: If the ``push`` operation is applied to an array of length 2^256 - 1, its

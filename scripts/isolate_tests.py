@@ -2,7 +2,7 @@
 #
 # This script reads C++ or RST source files and writes all
 # multi-line strings into individual files.
-# This can be used to extract the Solidity test cases
+# This can be used to extract the Hyperion test cases
 # into files for e.g. fuzz testing as
 # scripts/isolate_tests.py test/libhyperion/*
 
@@ -39,7 +39,7 @@ def extract_test_cases(path):
 def extract_hyperion_docs_cases(path):
     tests = extract_docs_cases(path, [".. code-block:: hyperion", '::'])
 
-    codeStart = "(// SPDX-License-Identifier:|pragma solidity|contract.*{|library.*{|interface.*{)"
+    codeStart = "(// SPDX-License-Identifier:|pragma hyperion|contract.*{|library.*{|interface.*{)"
 
     # Filter out tests that are not supposed to be compilable.
     return [

@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
 # vim:ts=4:et
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) solidity contributors.
+# (c) hyperion contributors.
 # ------------------------------------------------------------------------------
 # Bash script to test the import/exports.
 #
@@ -43,8 +43,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 REPO_ROOT=$(${READLINK} -f "$(dirname "$0")"/..)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
-HYPC="${SOLIDITY_BUILD_DIR}/hypc/hypc"
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
+HYPC="${HYPERION_BUILD_DIR}/hypc/hypc"
 SPLITSOURCES="${REPO_ROOT}/scripts/splitSources.py"
 
 # shellcheck source=scripts/common.sh
@@ -139,7 +139,7 @@ function test_ast_import_export_equivalence
     echo ". += {\"sources\":" > _ast_json.json
     jq .sources expected.json >> _ast_json.json
     echo "}" >> _ast_json.json
-    echo "{\"language\": \"SolidityAST\", \"settings\": {\"outputSelection\": {\"*\": {\"\": [\"ast\"]}}}}" > standard_json.json
+    echo "{\"language\": \"HyperionAST\", \"settings\": {\"outputSelection\": {\"*\": {\"\": [\"ast\"]}}}}" > standard_json.json
     jq --from-file _ast_json.json standard_json.json > standard_json_input.json
 
     # (re)import ast via standard json - and export it again as obtained result (silently)

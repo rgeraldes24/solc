@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -117,24 +117,24 @@ void SyntaxTest::filterObtainedErrors()
 		{
 			locationStart = location->start;
 			locationEnd = location->end;
-			solAssert(location->sourceName, "");
+			hypAssert(location->sourceName, "");
 			sourceName = *location->sourceName;
 			if(m_sources.sources.count(sourceName) == 1)
 			{
 				int preambleSize =
 						static_cast<int>(compiler().charStream(sourceName).size()) -
 						static_cast<int>(m_sources.sources[sourceName].size());
-				solAssert(preambleSize >= 0, "");
+				hypAssert(preambleSize >= 0, "");
 
 				// ignore the version & license pragma inserted by the testing tool when calculating locations.
 				if (location->start != -1)
 				{
-					solAssert(location->start >= preambleSize, "");
+					hypAssert(location->start >= preambleSize, "");
 					locationStart = location->start - preambleSize;
 				}
 				if (location->end != -1)
 				{
-					solAssert(location->end >= preambleSize, "");
+					hypAssert(location->end >= preambleSize, "");
 					locationEnd = location->end - preambleSize;
 				}
 			}

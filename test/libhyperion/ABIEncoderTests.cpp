@@ -1,25 +1,25 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
- * Unit tests for Solidity's ABI encoder.
+ * Unit tests for Hyperion's ABI encoder.
  */
 
-#include <test/libhyperion/SolidityExecutionFramework.h>
+#include <test/libhyperion/HyperionExecutionFramework.h>
 
 #include <test/libhyperion/ABITestsCommon.h>
 
@@ -45,7 +45,7 @@ namespace hyperion::frontend::test
 	ABI_CHECK(logData(0), DATA); \
 } while (false)
 
-BOOST_FIXTURE_TEST_SUITE(ABIEncoderTest, SolidityExecutionFramework)
+BOOST_FIXTURE_TEST_SUITE(ABIEncoderTest, HyperionExecutionFramework)
 
 BOOST_AUTO_TEST_CASE(value_types)
 {

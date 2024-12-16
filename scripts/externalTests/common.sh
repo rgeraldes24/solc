@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2019 solidity contributors.
+# (c) 2019 hyperion contributors.
 #------------------------------------------------------------------------------
 set -e
 
@@ -141,7 +141,7 @@ function replace_version_pragmas
     # Replace fixed-version pragmas (part of Consensys best practice).
     # Include all directories to also cover node dependencies.
     printLog "Replacing fixed-version pragmas..."
-    find . test -name '*.hyp' -type f -print0 | xargs -0 sed -i -E -e 's/pragma solidity [^;]+;/pragma solidity >=0.0;/'
+    find . test -name '*.hyp' -type f -print0 | xargs -0 sed -i -E -e 's/pragma hyperion [^;]+;/pragma hyperion >=0.0;/'
 }
 
 function neutralize_package_lock
@@ -329,13 +329,13 @@ function force_hardhat_compiler_settings
         [[ $config_var_name == "" ]] || assertFail
         echo "require('hardhat-gas-reporter');"
         echo "module.exports.gasReporter = ${gas_reporter_settings};"
-        echo "module.exports.solidity = ${compiler_settings};"
+        echo "module.exports.hyperion = ${compiler_settings};"
     else
         [[ $config_file == *\.ts ]] || assertFail
         [[ $config_var_name != "" ]] || assertFail
         echo 'import "hardhat-gas-reporter";'
         echo "${config_var_name}.gasReporter = ${gas_reporter_settings};"
-        echo "${config_var_name}.solidity = {compilers: [${compiler_settings}]};"
+        echo "${config_var_name}.hyperion = {compilers: [${compiler_settings}]};"
     fi >> "$config_file"
 }
 
@@ -452,17 +452,17 @@ function hardhat_hypc_build_subtask {
     [[ $binary_type == hypcjs ]] && local is_hypcjs=true
 
     if [[ $language == js ]]; then
-        echo "const {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} = require('hardhat/builtin-tasks/task-names');"
+        echo "const {TASK_COMPILE_HYPERION_GET_HYPC_BUILD} = require('hardhat/builtin-tasks/task-names');"
         echo "const assert = require('assert');"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args, hre, runSuper) => {"
+        echo "subtask(TASK_COMPILE_HYPERION_GET_HYPC_BUILD, async (args, hre, runSuper) => {"
     else
         [[ $language == ts ]] || assertFail
-        echo "import {TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD} from 'hardhat/builtin-tasks/task-names';"
+        echo "import {TASK_COMPILE_HYPERION_GET_HYPC_BUILD} from 'hardhat/builtin-tasks/task-names';"
         echo "import assert = require('assert');"
         echo "import {subtask} from 'hardhat/config';"
         echo
-        echo "subtask(TASK_COMPILE_SOLIDITY_GET_HYPC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
+        echo "subtask(TASK_COMPILE_HYPERION_GET_HYPC_BUILD, async (args: any, _hre: any, _runSuper: any) => {"
     fi
 
     echo "    assert(args.hypcVersion == '${hypc_version}', 'Unexpected hypc version: ' + args.hypcVersion)"

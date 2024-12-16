@@ -7,7 +7,7 @@ List of Known Bugs
 ##################
 
 Below, you can find a JSON-formatted list of some of the known security-relevant bugs in the
-Solidity compiler. The file itself is hosted in the `Github repository
+Hyperion compiler. The file itself is hosted in the `Github repository
 <https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
 The list stretches back as far as version 0.3.0, bugs known to be present only
 in versions preceding that are not listed.
@@ -75,9 +75,9 @@ check
     accuracy, the checks should be applied to the source code after stripping
     comments.
     The second type of check are patterns to be checked on the compact AST of
-    the Solidity program ("ast-compact-json-path"). The specified search query
+    the Hyperion program ("ast-compact-json-path"). The specified search query
     is a `JsonPath <https://github.com/json-path/JsonPath>`_ expression.
-    If at least one path of the Solidity AST matches the query, the bug is
+    If at least one path of the Hyperion AST matches the query, the bug is
     likely present.
 
 .. literalinclude:: bugs.json

@@ -1,22 +1,22 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
-#include <test/tools/ossfuzz/SolidityZvmoneInterface.h>
+#include <test/tools/ossfuzz/HyperionZvmoneInterface.h>
 
 #include <test/tools/ossfuzz/protoToAbiV2.h>
 
@@ -41,7 +41,7 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 
 	if (const char* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
 	{
-		// With libFuzzer binary run this to generate the solidity source file x.hyp from a proto input:
+		// With libFuzzer binary run this to generate the hyperion source file x.hyp from a proto input:
 		// PROTO_FUZZER_DUMP_PATH=x.hyp ./a.out proto-input
 		ofstream of(dump_path);
 		of << contractSource;
@@ -53,7 +53,7 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 	if (!typeString.empty() && converter.coderFunction())
 	{
 		auto [encodeStatus, encodedData] = coder.encode(typeString, valueString);
-		solAssert(encodeStatus, "Isabelle abicoder fuzzer: Encoding failed");
+		hypAssert(encodeStatus, "Isabelle abicoder fuzzer: Encoding failed");
 
 		// We target the default ZVM which is the latest
 		langutil::ZVMVersion version;
@@ -69,9 +69,9 @@ DEFINE_PROTO_FUZZER(Contract const& _contract)
 			{}
 		);
 		auto result = zvmoneUtil.compileDeployAndExecute(encodedData);
-		solAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: ZVM One reverted.");
+		hypAssert(result.status_code != ZVMC_REVERT, "Proto ABIv2 fuzzer: ZVM One reverted.");
 		if (result.status_code == ZVMC_SUCCESS)
-			solAssert(
+			hypAssert(
 				ZvmoneUtility::zeroWord(result.output_data, result.output_size),
 				"Proto ABIv2 fuzzer: ABIv2 coding failure found."
 			);

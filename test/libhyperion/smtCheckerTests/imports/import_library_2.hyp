@@ -1,8 +1,8 @@
 ==== Source: Address.hyp ====
-pragma solidity ^0.8.0;
+pragma hyperion ^0.8.0;
 library Address { function s() internal pure {} }
 ==== Source: ERC20.hyp ====
-pragma solidity ^0.8.0;
+pragma hyperion ^0.8.0;
 
 import "./Address.hyp";
 

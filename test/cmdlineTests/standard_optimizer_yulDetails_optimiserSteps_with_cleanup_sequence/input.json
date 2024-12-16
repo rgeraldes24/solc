@@ -1,5 +1,5 @@
 {
-    "language": "Solidity",
+    "language": "Hyperion",
     "sources": {
         "A": {"urls": ["standard_optimizer_yulDetails_optimiserSteps_with_cleanup_sequence/in.hyp"]}
     },

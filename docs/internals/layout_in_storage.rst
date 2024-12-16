@@ -53,7 +53,7 @@ as individual values.
 
 .. note::
      The layout of state variables in storage is considered to be part of the external interface
-     of Solidity due to the fact that storage pointers can be passed to libraries. This means that
+     of Hyperion due to the fact that storage pointers can be passed to libraries. This means that
      any change to the rules outlined in this section is considered a breaking change
      of the language and due to its critical nature should be considered very carefully before
      being executed. In the event of such a breaking change, we would want to release a
@@ -102,7 +102,7 @@ As an example, consider the following contract:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
 
     contract C {
@@ -210,7 +210,7 @@ the same format as the top-level ``storage`` (see :ref:`above
 
 .. note::
   The JSON output format of a contract's storage layout is still considered experimental
-  and is subject to change in non-breaking releases of Solidity.
+  and is subject to change in non-breaking releases of Hyperion.
 
 The following example shows a contract and its storage layout, containing
 value and reference types, types that are encoded packed, and nested types.
@@ -219,7 +219,7 @@ value and reference types, types that are encoded packed, and nested types.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
     contract A {
         struct S {
             uint128 a;

@@ -1,22 +1,22 @@
 /*
-	This file is part of solidity.
-	solidity is free software: you can redistribute it and/or modify
+	This file is part of hyperion.
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
 
 #include <test/libhyperion/util/TestFileParser.h>
 #include <test/libhyperion/util/TestFunctionCall.h>
-#include <test/libhyperion/SolidityExecutionFramework.h>
+#include <test/libhyperion/HyperionExecutionFramework.h>
 #include <test/libhyperion/AnalysisFramework.h>
 #include <test/TestCase.h>
 #include <liblangutil/Exceptions.h>
@@ -48,11 +48,11 @@ std::ostream& operator<<(std::ostream& _output, RequiresYulOptimizer _requiresYu
 
 /**
  * Class that represents a semantic test (or end-to-end test) and allows running it as part of the
- * boost unit test environment or ihyptest. It reads the Solidity source and an additional comment
+ * boost unit test environment or ihyptest. It reads the Hyperion source and an additional comment
  * section from the given file. This comment section should define a set of functions to be called
  * and an expected result they return after being executed.
  */
-class SemanticTest: public SolidityExecutionFramework, public ZVMVersionRestrictedTestCase
+class SemanticTest: public HyperionExecutionFramework, public ZVMVersionRestrictedTestCase
 {
 public:
 	static std::unique_ptr<TestCase> create(Config const& _options)

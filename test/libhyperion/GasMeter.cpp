@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -21,7 +21,7 @@
  * Unit tests for the gas estimator.
  */
 
-#include <test/libhyperion/SolidityExecutionFramework.h>
+#include <test/libhyperion/HyperionExecutionFramework.h>
 #include <libzvmasm/GasMeter.h>
 #include <libzvmasm/KnownState.h>
 #include <libzvmasm/PathGasMeter.h>
@@ -36,13 +36,13 @@ using namespace hyperion::frontend::test;
 namespace hyperion::frontend::test
 {
 
-class GasMeterTestFramework: public SolidityExecutionFramework
+class GasMeterTestFramework: public HyperionExecutionFramework
 {
 public:
 	void compile(std::string const& _sourceCode)
 	{
 		m_compiler.reset();
-		m_compiler.setSources({{"", "pragma solidity >=0.0;\n"
+		m_compiler.setSources({{"", "pragma hyperion >=0.0;\n"
 				"// SPDX-License-Identifier: GPL-3.0\n" + _sourceCode}});
 		m_compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);
 		m_compiler.setZVMVersion(m_zvmVersion);

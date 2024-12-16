@@ -2,10 +2,10 @@ A normal block with parameters.
 
 .. code-block:: hyperion
     :force:
-    :language: Solidity
+    :language: Hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     contract C {
         function foo() public view {}
@@ -31,7 +31,7 @@ Sphinx will treat the second one as a part of the code.
 .. code-block:: hyperion
     :force:
 
-    :language: Solidity
+    :language: Hyperion
 
     contract D {}
     :linenos:

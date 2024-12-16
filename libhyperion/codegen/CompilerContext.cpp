@@ -1,24 +1,24 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
- * Utilities for the solidity compiler.
+ * Utilities for the hyperion compiler.
  */
 
 #include <libhyperion/codegen/CompilerContext.h>
@@ -52,7 +52,7 @@
 #include <utility>
 
 // Change to "define" to output all intermediate code
-#undef SOL_OUTPUT_ASM
+#undef HYP_OUTPUT_ASM
 
 
 using namespace hyperion;
@@ -72,25 +72,25 @@ void CompilerContext::addStateVariable(
 
 void CompilerContext::addImmutable(VariableDeclaration const& _variable)
 {
-	solAssert(_variable.immutable(), "Attempted to register a non-immutable variable as immutable.");
+	hypAssert(_variable.immutable(), "Attempted to register a non-immutable variable as immutable.");
 	solUnimplementedAssert(_variable.annotation().type->isValueType(), "Only immutable variables of value type are supported.");
-	solAssert(m_runtimeContext, "Attempted to register an immutable variable for runtime code generation.");
+	hypAssert(m_runtimeContext, "Attempted to register an immutable variable for runtime code generation.");
 	m_immutableVariables[&_variable] = CompilerUtils::generalPurposeMemoryStart + *m_reservedMemory;
-	solAssert(_variable.annotation().type->memoryHeadSize() == 32, "Memory writes might overlap.");
+	hypAssert(_variable.annotation().type->memoryHeadSize() == 32, "Memory writes might overlap.");
 	*m_reservedMemory += _variable.annotation().type->memoryHeadSize();
 }
 
 size_t CompilerContext::immutableMemoryOffset(VariableDeclaration const& _variable) const
 {
-	solAssert(m_immutableVariables.count(&_variable), "Memory offset of unknown immutable queried.");
-	solAssert(m_runtimeContext, "Attempted to fetch the memory offset of an immutable variable during runtime code generation.");
+	hypAssert(m_immutableVariables.count(&_variable), "Memory offset of unknown immutable queried.");
+	hypAssert(m_runtimeContext, "Attempted to fetch the memory offset of an immutable variable during runtime code generation.");
 	return m_immutableVariables.at(&_variable);
 }
 
 std::vector<std::string> CompilerContext::immutableVariableSlotNames(VariableDeclaration const& _variable)
 {
 	std::string baseName = std::to_string(_variable.id());
-	solAssert(_variable.annotation().type->sizeOnStack() > 0, "");
+	hypAssert(_variable.annotation().type->sizeOnStack() > 0, "");
 	if (_variable.annotation().type->sizeOnStack() == 1)
 		return {baseName};
 	std::vector<std::string> names;
@@ -107,7 +107,7 @@ std::vector<std::string> CompilerContext::immutableVariableSlotNames(VariableDec
 
 size_t CompilerContext::reservedMemory()
 {
-	solAssert(m_reservedMemory.has_value(), "Reserved memory was used before ");
+	hypAssert(m_reservedMemory.has_value(), "Reserved memory was used before ");
 	size_t reservedMemory = *m_reservedMemory;
 	m_reservedMemory = std::nullopt;
 	return reservedMemory;
@@ -185,13 +185,13 @@ void CompilerContext::appendMissingLowLevelFunctions()
 		generator(*this);
 		CompilerUtils(*this).moveToStackTop(outArgs);
 		appendJump(zvmasm::AssemblyItem::JumpType::OutOfFunction);
-		solAssert(stackHeight() == outArgs, "Invalid stack height in low-level function " + name + ".");
+		hypAssert(stackHeight() == outArgs, "Invalid stack height in low-level function " + name + ".");
 	}
 }
 
 void CompilerContext::appendYulUtilityFunctions(OptimiserSettings const& _optimiserSettings)
 {
-	solAssert(!m_appendYulUtilityFunctionsRan, "requestedYulFunctions called more than once.");
+	hypAssert(!m_appendYulUtilityFunctionsRan, "requestedYulFunctions called more than once.");
 	m_appendYulUtilityFunctionsRan = true;
 
 	std::string code = m_yulFunctionCollector.requestedFunctions();
@@ -205,7 +205,7 @@ void CompilerContext::appendYulUtilityFunctions(OptimiserSettings const& _optimi
 			_optimiserSettings,
 			yulUtilityFileName()
 		);
-		solAssert(!m_generatedYulUtilityCode.empty(), "");
+		hypAssert(!m_generatedYulUtilityCode.empty(), "");
 	}
 }
 
@@ -214,17 +214,17 @@ void CompilerContext::addVariable(
 	unsigned _offsetToCurrent
 )
 {
-	solAssert(m_asm->deposit() >= 0 && unsigned(m_asm->deposit()) >= _offsetToCurrent, "");
+	hypAssert(m_asm->deposit() >= 0 && unsigned(m_asm->deposit()) >= _offsetToCurrent, "");
 	unsigned sizeOnStack = _declaration.annotation().type->sizeOnStack();
 	// Variables should not have stack size other than [1, 2],
 	// but that might change when new types are introduced.
-	solAssert(sizeOnStack == 1 || sizeOnStack == 2, "");
+	hypAssert(sizeOnStack == 1 || sizeOnStack == 2, "");
 	m_localVariables[&_declaration].push_back(unsigned(m_asm->deposit()) - _offsetToCurrent);
 }
 
 void CompilerContext::removeVariable(Declaration const& _declaration)
 {
-	solAssert(m_localVariables.count(&_declaration) && !m_localVariables[&_declaration].empty(), "");
+	hypAssert(m_localVariables.count(&_declaration) && !m_localVariables[&_declaration].empty(), "");
 	m_localVariables[&_declaration].pop_back();
 	if (m_localVariables[&_declaration].empty())
 		m_localVariables.erase(&_declaration);
@@ -235,8 +235,8 @@ void CompilerContext::removeVariablesAboveStackHeight(unsigned _stackHeight)
 	std::vector<Declaration const*> toRemove;
 	for (auto _var: m_localVariables)
 	{
-		solAssert(!_var.second.empty(), "");
-		solAssert(_var.second.back() <= stackHeight(), "");
+		hypAssert(!_var.second.empty(), "");
+		hypAssert(_var.second.back() <= stackHeight(), "");
 		if (_var.second.back() >= _stackHeight)
 			toRemove.push_back(_var.first);
 	}
@@ -252,14 +252,14 @@ unsigned CompilerContext::numberOfLocalVariables() const
 std::shared_ptr<zvmasm::Assembly> CompilerContext::compiledContract(ContractDefinition const& _contract) const
 {
 	auto ret = m_otherCompilers.find(&_contract);
-	solAssert(ret != m_otherCompilers.end(), "Compiled contract not found.");
+	hypAssert(ret != m_otherCompilers.end(), "Compiled contract not found.");
 	return ret->second->assemblyPtr();
 }
 
 std::shared_ptr<zvmasm::Assembly> CompilerContext::compiledContractRuntime(ContractDefinition const& _contract) const
 {
 	auto ret = m_otherCompilers.find(&_contract);
-	solAssert(ret != m_otherCompilers.end(), "Compiled contract not found.");
+	hypAssert(ret != m_otherCompilers.end(), "Compiled contract not found.");
 	return ret->second->runtimeAssemblyPtr();
 }
 
@@ -280,19 +280,19 @@ zvmasm::AssemblyItem CompilerContext::functionEntryLabelIfExists(Declaration con
 
 FunctionDefinition const& CompilerContext::superFunction(FunctionDefinition const& _function, ContractDefinition const& _base)
 {
-	solAssert(m_mostDerivedContract, "No most derived contract set.");
+	hypAssert(m_mostDerivedContract, "No most derived contract set.");
 	ContractDefinition const* super = _base.superContract(mostDerivedContract());
-	solAssert(super, "Super contract not available.");
+	hypAssert(super, "Super contract not available.");
 
 	FunctionDefinition const& resolvedFunction = _function.resolveVirtual(mostDerivedContract(), super);
-	solAssert(resolvedFunction.isImplemented(), "");
+	hypAssert(resolvedFunction.isImplemented(), "");
 
 	return resolvedFunction;
 }
 
 ContractDefinition const& CompilerContext::mostDerivedContract() const
 {
-	solAssert(m_mostDerivedContract, "Most derived contract not set.");
+	hypAssert(m_mostDerivedContract, "Most derived contract not set.");
 	return *m_mostDerivedContract;
 }
 
@@ -304,8 +304,8 @@ Declaration const* CompilerContext::nextFunctionToCompile() const
 unsigned CompilerContext::baseStackOffsetOfVariable(Declaration const& _declaration) const
 {
 	auto res = m_localVariables.find(&_declaration);
-	solAssert(res != m_localVariables.end(), "Variable not found on stack.");
-	solAssert(!res->second.empty(), "");
+	hypAssert(res != m_localVariables.end(), "Variable not found on stack.");
+	hypAssert(!res->second.empty(), "");
 	return res->second.back();
 }
 
@@ -322,7 +322,7 @@ unsigned CompilerContext::currentToBaseStackOffset(unsigned _offset) const
 std::pair<u256, unsigned> CompilerContext::storageLocationOfVariable(Declaration const& _declaration) const
 {
 	auto it = m_stateVariables.find(&_declaration);
-	solAssert(it != m_stateVariables.end(), "Variable not found in storage.");
+	hypAssert(it != m_stateVariables.end(), "Variable not found in storage.");
 	return it->second;
 }
 
@@ -411,9 +411,9 @@ void CompilerContext::appendInlineAssembly(
 		yul::AbstractAssembly& _assembly
 	)
 	{
-		solAssert(_context == yul::IdentifierContext::RValue || _context == yul::IdentifierContext::LValue, "");
+		hypAssert(_context == yul::IdentifierContext::RValue || _context == yul::IdentifierContext::LValue, "");
 		auto it = std::find(_localVariables.begin(), _localVariables.end(), _identifier.name.str());
-		solAssert(it != _localVariables.end(), "");
+		hypAssert(it != _localVariables.end(), "");
 		auto stackDepth = static_cast<size_t>(distance(it, _localVariables.end()));
 		size_t stackDiff = static_cast<size_t>(_assembly.stackHeight()) - startStackHeight + stackDepth;
 		if (_context == yul::IdentifierContext::LValue)
@@ -443,7 +443,7 @@ void CompilerContext::appendInlineAssembly(
 	std::shared_ptr<yul::Block> parserResult =
 		yul::Parser(errorReporter, dialect, std::move(locationOverride))
 		.parse(charStream);
-#ifdef SOL_OUTPUT_ASM
+#ifdef HYP_OUTPUT_ASM
 	cout << yul::AsmPrinter(&dialect)(*parserResult) << endl;
 #endif
 
@@ -457,11 +457,11 @@ void CompilerContext::appendInlineAssembly(
 			"------------------ Errors: ----------------\n";
 		for (auto const& error: errorReporter.errors())
 			// TODO if we have "locationOverride", it will be the wrong char stream,
-			// but we do not have access to the solidity scanner.
+			// but we do not have access to the hyperion scanner.
 			message += SourceReferenceFormatter::formatErrorInformation(*error, charStream);
 		message += "-------------------------------------------\n";
 
-		solAssert(false, message);
+		hypAssert(false, message);
 	};
 
 	yul::AsmAnalysisInfo analysisInfo;
@@ -484,13 +484,13 @@ void CompilerContext::appendInlineAssembly(
 		obj.code = parserResult;
 		obj.analysisInfo = std::make_shared<yul::AsmAnalysisInfo>(analysisInfo);
 
-		solAssert(!dialect.providesObjectAccess());
+		hypAssert(!dialect.providesObjectAccess());
 		optimizeYul(obj, dialect, _optimiserSettings, externallyUsedIdentifiers);
 
 		if (_system)
 		{
 			// Store as generated sources, but first re-parse to update the source references.
-			solAssert(m_generatedYulUtilityCode.empty(), "");
+			hypAssert(m_generatedYulUtilityCode.empty(), "");
 			m_generatedYulUtilityCode = yul::AsmPrinter(dialect)(*obj.code);
 			std::string code = yul::AsmPrinter{dialect}(*obj.code);
 			langutil::CharStream charStream(m_generatedYulUtilityCode, _sourceName);
@@ -501,7 +501,7 @@ void CompilerContext::appendInlineAssembly(
 		analysisInfo = std::move(*obj.analysisInfo);
 		parserResult = std::move(obj.code);
 
-#ifdef SOL_OUTPUT_ASM
+#ifdef HYP_OUTPUT_ASM
 		cout << "After optimizer:" << endl;
 		cout << yul::AsmPrinter(&dialect)(*parserResult) << endl;
 #endif
@@ -509,14 +509,14 @@ void CompilerContext::appendInlineAssembly(
 	else if (_system)
 	{
 		// Store as generated source.
-		solAssert(m_generatedYulUtilityCode.empty(), "");
+		hypAssert(m_generatedYulUtilityCode.empty(), "");
 		m_generatedYulUtilityCode = _assembly;
 	}
 
 	if (!errorReporter.errors().empty())
 		reportError("Failed to analyze inline assembly block.");
 
-	solAssert(errorReporter.errors().empty(), "Failed to analyze inline assembly block.");
+	hypAssert(errorReporter.errors().empty(), "Failed to analyze inline assembly block.");
 	yul::CodeGenerator::assemble(
 		*parserResult,
 		analysisInfo,
@@ -534,7 +534,7 @@ void CompilerContext::appendInlineAssembly(
 
 void CompilerContext::optimizeYul(yul::Object& _object, yul::ZVMDialect const& _dialect, OptimiserSettings const& _optimiserSettings, std::set<yul::YulString> const& _externalIdentifiers)
 {
-#ifdef SOL_OUTPUT_ASM
+#ifdef HYP_OUTPUT_ASM
 	cout << yul::AsmPrinter(*dialect)(*_object.code) << endl;
 #endif
 
@@ -551,7 +551,7 @@ void CompilerContext::optimizeYul(yul::Object& _object, yul::ZVMDialect const& _
 		_externalIdentifiers
 	);
 
-#ifdef SOL_OUTPUT_ASM
+#ifdef HYP_OUTPUT_ASM
 	cout << "After optimizer:" << endl;
 	cout << yul::AsmPrinter(*dialect)(*object.code) << endl;
 #endif

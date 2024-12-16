@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 #include <libhyperion/ast/AST.h>
@@ -81,7 +81,7 @@ int toDiagnosticSeverity(Error::Type _errorType)
 	case Error::Severity::Warning: return 2;
 	case Error::Severity::Info: return 3;
 	}
-	solAssert(false);
+	hypAssert(false);
 	return -1;
 }
 
@@ -213,7 +213,7 @@ void LanguageServer::changeConfiguration(Json::Value const& _settings)
 	}
 }
 
-std::vector<boost::filesystem::path> LanguageServer::allSolidityFilesFromProject() const
+std::vector<boost::filesystem::path> LanguageServer::allHyperionFilesFromProject() const
 {
 	std::vector<fs::path> collectedPaths{};
 
@@ -243,9 +243,9 @@ void LanguageServer::compile()
 	FileRepository oldRepository(m_fileRepository.basePath(), m_fileRepository.includePaths());
 	std::swap(oldRepository, m_fileRepository);
 
-	// Load all solidity files from project.
+	// Load all hyperion files from project.
 	if (m_fileLoadStrategy == FileLoadStrategy::ProjectDirectory)
-		for (auto const& projectFile: allSolidityFilesFromProject())
+		for (auto const& projectFile: allHyperionFilesFromProject())
 		{
 			lspDebug(fmt::format("adding project file: {}", projectFile.generic_string()));
 			m_fileRepository.setSourceByUri(

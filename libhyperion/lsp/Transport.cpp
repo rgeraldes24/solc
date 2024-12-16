@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 #include <libhyperion/lsp/Transport.h>
@@ -128,7 +128,7 @@ void Transport::error(MessageID _id, ErrorCode _code, std::string _message)
 
 void Transport::send(Json::Value _json, MessageID _id)
 {
-	solAssert(_json.isObject());
+	hypAssert(_json.isObject());
 	_json["jsonrpc"] = "2.0";
 	if (_id != Json::nullValue)
 		_json["id"] = _id;
@@ -213,7 +213,7 @@ void StdioTransport::writeBytes(std::string_view _data)
 {
 	lspDebug(fmt::format("Sending: {}", _data));
 	auto const bytesWritten = fwrite(_data.data(), 1, _data.size(), stdout);
-	solAssert(bytesWritten == _data.size());
+	hypAssert(bytesWritten == _data.size());
 }
 
 void StdioTransport::flushOutput()

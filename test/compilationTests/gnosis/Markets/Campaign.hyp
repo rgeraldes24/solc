@@ -1,4 +1,4 @@
-pragma solidity >=0.0;
+pragma hyperion >=0.0;
 import "../Events/Event.hyp";
 import "../Markets/StandardMarketFactory.hyp";
 import "../Utils/Math.hyp";

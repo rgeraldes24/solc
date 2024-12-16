@@ -90,15 +90,15 @@ set(libhyperion_sources
     libhyperion/SemVerMatcher.cpp
     libhyperion/SMTCheckerTest.cpp
     libhyperion/SMTCheckerTest.h
-    libhyperion/SolidityCompiler.cpp
-    libhyperion/SolidityEndToEndTest.cpp
-    libhyperion/SolidityExecutionFramework.cpp
-    libhyperion/SolidityExecutionFramework.h
-    libhyperion/SolidityExpressionCompiler.cpp
-    libhyperion/SolidityNameAndTypeResolution.cpp
-    libhyperion/SolidityOptimizer.cpp
-    libhyperion/SolidityParser.cpp
-    libhyperion/SolidityTypes.cpp
+    libhyperion/HyperionCompiler.cpp
+    libhyperion/HyperionEndToEndTest.cpp
+    libhyperion/HyperionExecutionFramework.cpp
+    libhyperion/HyperionExecutionFramework.h
+    libhyperion/HyperionExpressionCompiler.cpp
+    libhyperion/HyperionNameAndTypeResolution.cpp
+    libhyperion/HyperionOptimizer.cpp
+    libhyperion/HyperionParser.cpp
+    libhyperion/HyperionTypes.cpp
     libhyperion/StandardCompiler.cpp
     libhyperion/SyntaxTest.cpp
     libhyperion/SyntaxTest.h
@@ -203,13 +203,13 @@ add_executable(hyptest ${sources}
     ${hypcli_sources}
     ${yul_phaser_sources}
 )
-target_link_libraries(hyptest PRIVATE hypcli libhypc yul solidity smtutil hyputil phaser Boost::boost yulInterpreter zvmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
+target_link_libraries(hyptest PRIVATE hypcli libhypc yul hyperion smtutil hyputil phaser Boost::boost yulInterpreter zvmasm Boost::filesystem Boost::program_options Boost::unit_test_framework zvmc)
 
 
 # Special compilation flag for Visual Studio (version 2019 at least affected)
-# in order to compile SolidityEndToEndTest.cpp, which is quite huge.
+# in order to compile HyperionEndToEndTest.cpp, which is quite huge.
 # We can remove this flag once we've extracted the tests.
-# TODO: Remove this option as soon as we have reduced the SLoC's in SolidityEndToEndTest.cpp
+# TODO: Remove this option as soon as we have reduced the SLoC's in HyperionEndToEndTest.cpp
 if (MSVC)
     target_compile_options(hyptest PUBLIC "/bigobj")
 endif()

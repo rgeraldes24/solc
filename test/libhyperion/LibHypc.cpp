@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -55,18 +55,18 @@ bool containsError(Json::Value const& _compilerResult, std::string const& _type,
 
 Json::Value compile(std::string const& _input, CStyleReadFileCallback _callback = nullptr)
 {
-	char* output_ptr = solidity_compile(_input.c_str(), _callback, nullptr);
+	char* output_ptr = hyperion_compile(_input.c_str(), _callback, nullptr);
 	std::string output(output_ptr);
-	solidity_free(output_ptr);
-	solidity_reset();
+	hyperion_free(output_ptr);
+	hyperion_reset();
 	Json::Value ret;
 	BOOST_REQUIRE(util::jsonParseStrict(output, ret));
 	return ret;
 }
 
-char* stringToSolidity(std::string const& _input)
+char* stringToHyperion(std::string const& _input)
 {
-	char* ptr = solidity_alloc(_input.length());
+	char* ptr = hyperion_alloc(_input.length());
 	BOOST_REQUIRE(ptr != nullptr);
 	std::memcpy(ptr, _input.c_str(), _input.length());
 	return ptr;
@@ -78,13 +78,13 @@ BOOST_AUTO_TEST_SUITE(LibHypc)
 
 BOOST_AUTO_TEST_CASE(read_version)
 {
-	std::string output(solidity_version());
+	std::string output(hyperion_version());
 	BOOST_CHECK(output.find(VersionString) == 0);
 }
 
 BOOST_AUTO_TEST_CASE(read_license)
 {
-	std::string output(solidity_license());
+	std::string output(hyperion_license());
 	BOOST_CHECK(output.find("GNU GENERAL PUBLIC LICENSE") != std::string::npos);
 }
 
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(standard_compilation)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"fileA": {
 				"content": "contract A { }"
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(missing_callback)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"fileA": {
 				"content": "import \"missing.hyp\"; contract A { }"
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(with_callback)
 {
 	char const* input = R"(
 	{
-		"language": "Solidity",
+		"language": "Hyperion",
 		"sources": {
 			"fileA": {
 				"content": "import \"found.hyp\"; import \"notfound.hyp\"; contract A { }"
@@ -151,13 +151,13 @@ BOOST_AUTO_TEST_CASE(with_callback)
 			if (std::string(_path) == "found.hyp")
 			{
 				static std::string content{"import \"missing.hyp\"; contract B {}"};
-				*o_contents = stringToSolidity(content);
+				*o_contents = stringToHyperion(content);
 				*o_error = nullptr;
 			}
 			else if (std::string(_path) == "missing.hyp")
 			{
 				static std::string errorMsg{"Missing file."};
-				*o_error = stringToSolidity(errorMsg);
+				*o_error = stringToHyperion(errorMsg);
 				*o_contents = nullptr;
 			}
 			else

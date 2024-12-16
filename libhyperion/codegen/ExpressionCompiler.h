@@ -1,25 +1,25 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @author Gav Wood <g@ethdev.com>
  * @date 2014
- * Solidity AST to ZVM bytecode compiler for expressions.
+ * Hyperion AST to ZVM bytecode compiler for expressions.
  */
 
 #pragma once
@@ -148,7 +148,7 @@ private:
 template <class LValueType, class... Arguments>
 void ExpressionCompiler::setLValue(Expression const& _expression, Arguments const&... _arguments)
 {
-	solAssert(!m_currentLValue, "Current LValue not reset before trying to set new one.");
+	hypAssert(!m_currentLValue, "Current LValue not reset before trying to set new one.");
 	std::unique_ptr<LValueType> lvalue = std::make_unique<LValueType>(m_context, _arguments...);
 	if (_expression.annotation().willBeWrittenTo)
 		m_currentLValue = std::move(lvalue);

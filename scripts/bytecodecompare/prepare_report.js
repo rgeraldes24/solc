@@ -63,7 +63,7 @@ for (const preset of presets)
     for (const filename of inputFiles)
     {
         let input = {
-            language: 'Solidity',
+            language: 'Hyperion',
             sources: {
                 [filename]: {content: loadSource(filename, stripSMTPragmas)}
             },

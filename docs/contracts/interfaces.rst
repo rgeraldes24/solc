@@ -25,7 +25,7 @@ Interfaces are denoted by their own keyword:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.2 <0.9.0;
+    pragma hyperion >=0.6.2 <0.9.0;
 
     interface Token {
         enum TokenType { Fungible, NonFungible }
@@ -46,7 +46,7 @@ inheritance.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.2 <0.9.0;
+    pragma hyperion >=0.6.2 <0.9.0;
 
     interface ParentA {
         function test() external returns (uint256);
@@ -67,5 +67,5 @@ can be accessed from other contracts: ``Token.TokenType`` or ``Token.Coin``.
 
 .. warning::
 
-    Interfaces have supported ``enum`` types since :doc:`Solidity version 0.5.0 <050-breaking-changes>`, make
+    Interfaces have supported ``enum`` types since :doc:`Hyperion version 0.5.0 <050-breaking-changes>`, make
     sure the pragma version specifies this version as a minimum.

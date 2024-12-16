@@ -1,18 +1,18 @@
 /*
-    This file is part of solidity.
+    This file is part of hyperion.
 
-    solidity is free software: you can redistribute it and/or modify
+    hyperion is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    solidity is distributed in the hope that it will be useful,
+    hyperion is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+    along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <test/tools/ossfuzz/yulProto.pb.h>
@@ -70,7 +70,7 @@ bool recursiveFunctionExists(Dialect const& _dialect, yul::Object& _object)
 
 DEFINE_PROTO_FUZZER(Program const& _input)
 {
-	// Solidity creates an invalid instruction for subobjects, so we simply
+	// Hyperion creates an invalid instruction for subobjects, so we simply
 	// ignore them in this fuzzer.
 	if (_input.has_obj())
 		return;
@@ -131,19 +131,19 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		noRevertInSource = yul_source.find("revert") == string::npos;
 		noInvalidInSource = yul_source.find("invalid") == string::npos;
 		if (noInvalidInSource)
-			solAssert(
+			hypAssert(
 				callResult.status_code != ZVMC_INVALID_INSTRUCTION,
 				"Invalid instruction."
 			);
 		if (noRevertInSource)
-			solAssert(
+			hypAssert(
 				callResult.status_code != ZVMC_REVERT,
-				"SolidityZvmoneInterface: ZVM One reverted"
+				"HyperionZvmoneInterface: ZVM One reverted"
 			);
 		// Bail out on serious errors encountered during a call.
 		if (YulZvmoneUtility{}.seriousCallError(callResult.status_code))
 			return;
-		solAssert(
+		hypAssert(
 			(callResult.status_code == ZVMC_SUCCESS ||
 			(!noRevertInSource && callResult.status_code == ZVMC_REVERT) ||
 			(!noInvalidInSource && callResult.status_code == ZVMC_INVALID_INSTRUCTION)),
@@ -172,23 +172,23 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	// Reset host before running optimised code.
 	hostContext.reset();
 	zvmc::Result deployResultOpt = YulZvmoneUtility{}.deployCode(optimisedByteCode, hostContext);
-	solAssert(
+	hypAssert(
 		deployResultOpt.status_code == ZVMC_SUCCESS,
 		"Zvmone: Optimized contract creation failed"
 	);
 	auto callMessageOpt = YulZvmoneUtility{}.callMessage(deployResultOpt.create_address);
 	zvmc::Result callResultOpt = hostContext.call(callMessageOpt);
 	if (noRevertInSource)
-		solAssert(
+		hypAssert(
 			callResultOpt.status_code != ZVMC_REVERT,
-			"SolidityZvmoneInterface: ZVM One reverted"
+			"HyperionZvmoneInterface: ZVM One reverted"
 		);
 	if (noInvalidInSource)
-		solAssert(
+		hypAssert(
 			callResultOpt.status_code != ZVMC_INVALID_INSTRUCTION,
 			"Invalid instruction."
 		);
-	solAssert(
+	hypAssert(
 		(callResultOpt.status_code == ZVMC_SUCCESS ||
 		 (!noRevertInSource && callResultOpt.status_code == ZVMC_REVERT) ||
 		 (!noInvalidInSource && callResultOpt.status_code == ZVMC_INVALID_INSTRUCTION)),
@@ -201,7 +201,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	{
 		cout << unoptimizedState.str() << endl;
 		cout << optimizedState.str() << endl;
-		solAssert(
+		hypAssert(
 			false,
 			"State of unoptimised and optimised stack reused code do not match."
 		);

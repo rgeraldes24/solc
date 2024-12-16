@@ -1,5 +1,5 @@
 # PR Review Checklist
-The Solidity compiler is a critical piece of infrastructure in the Ethereum ecosystem.
+The Hyperion compiler is a critical piece of infrastructure in the Ethereum ecosystem.
 For this reason, our review process is quite strict and all PRs have to fulfill certain quality
 expectations and guidelines.
 The list below is meant to reduce the workload on the core team by helping contributors self-identify
@@ -64,7 +64,7 @@ If the answers above are "Yes, Yes, No", thank the contributor for their effort 
 - [ ] Does the PR follow our [coding style](CODING_STYLE.md)?
 
 ### Reliability
-- [ ] **Use assertions liberally.** If you are certain your assumption will not be broken, prove it with `solAssert()`.
+- [ ] **Use assertions liberally.** If you are certain your assumption will not be broken, prove it with `hypAssert()`.
 - [ ] **Validate inputs and handle errors**. Note that assertions are **not** validation.
 
 ### Readability
@@ -159,9 +159,9 @@ The following points are all covered by the coding style but come up so often th
         match your search actually fits your case is even harder.
 - [ ] **Do not include version pragma and the SPDX comment in semantic and syntax test cases**.
     In other test types include them if necessary to suppress warnings.
-- [ ] **If you have to use a version pragma, avoid hard-coding version.** Use `pragma solidity *`.
+- [ ] **If you have to use a version pragma, avoid hard-coding version.** Use `pragma hyperion *`.
 - [ ] **When writing StandardJSON command-line tests, use `urls` instead of `content`** and put
-    the Solidity or Yul code in a separate file.
+    the Hyperion or Yul code in a separate file.
 
 ## Compiler-specific
 - [ ] **Are error messages sensible and understandable to users?**

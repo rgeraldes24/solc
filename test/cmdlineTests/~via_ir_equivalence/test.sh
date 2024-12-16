@@ -9,12 +9,12 @@ source "${REPO_ROOT}/scripts/common_cmdline.sh"
 function test_via_ir_equivalence()
 {
     (( $# <= 2 )) || fail "This function accepts at most two arguments."
-    local solidity_file="$1"
+    local hyperion_file="$1"
     local optimize_flag="$2"
     [[ $optimize_flag == --optimize || $optimize_flag == "" ]] || assertFail "The second argument must be --optimize if present."
 
     local output_file_prefix
-    output_file_prefix=$(basename "$solidity_file" .hyp)
+    output_file_prefix=$(basename "$hyperion_file" .hyp)
 
     SOLTMPDIR=$(mktemp -d -t "cmdline-test-via-ir-equivalence-${output_file_prefix}-XXXXXX")
     pushd "$SOLTMPDIR" > /dev/null
@@ -24,7 +24,7 @@ function test_via_ir_equivalence()
     [[ $optimize_flag == "" ]] || output_file_prefix+="_optimize"
 
     msg_on_error --no-stderr \
-        "$HYPC" --ir-optimized --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
+        "$HYPC" --ir-optimized --debug-info location "${optimizer_flags[@]}" "$hyperion_file" |
             stripCLIDecorations |
             split_on_empty_lines_into_numbered_files "$output_file_prefix" ".yul"
 
@@ -40,7 +40,7 @@ function test_via_ir_equivalence()
 
     asm_output_via_ir=$(
         msg_on_error --no-stderr \
-            "$HYPC" --via-ir --asm --debug-info location "${optimizer_flags[@]}" "$solidity_file" |
+            "$HYPC" --via-ir --asm --debug-info location "${optimizer_flags[@]}" "$hyperion_file" |
                 stripCLIDecorations
     )
 
@@ -58,7 +58,7 @@ function test_via_ir_equivalence()
 
     bin_output_via_ir=$(
         msg_on_error --no-stderr \
-            "$HYPC" --via-ir --bin "${optimizer_flags[@]}" "$solidity_file" | stripCLIDecorations
+            "$HYPC" --via-ir --bin "${optimizer_flags[@]}" "$hyperion_file" | stripCLIDecorations
     )
 
     diff_values "$bin_output_two_stage" "$bin_output_via_ir" --ignore-space-change --ignore-blank-lines

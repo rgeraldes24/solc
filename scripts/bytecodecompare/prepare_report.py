@@ -223,7 +223,7 @@ def prepare_compiler_input(
 
     if interface == CompilerInterface.STANDARD_JSON:
         json_input: dict = {
-            'language': 'Solidity',
+            'language': 'Hyperion',
             'sources': {
                 str(source_file_name): {'content': load_source(source_file_name, smt_use)}
             },
@@ -411,7 +411,7 @@ def commandline_parser() -> ArgumentParser:
     )
 
     parser = ArgumentParser(description=script_description)
-    parser.add_argument(dest='compiler_path', help="Solidity compiler executable")
+    parser.add_argument(dest='compiler_path', help="Hyperion compiler executable")
     parser.add_argument(
         '--interface',
         dest='interface',

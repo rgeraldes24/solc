@@ -24,7 +24,7 @@ while (( "$#" )); do
   shift
 done
 
-SOLIDITY_REPO_URL="https://github.com/ethereum/solidity"
+HYPERION_REPO_URL="https://github.com/ethereum/solidity"
 HYPC_JS_REPO_URL="https://github.com/ethereum/hypc-js"
 HYPC_JS_BRANCH=wasmRebuildTests
 RELEASE_URL="https://binaries.soliditylang.org/bin"
@@ -97,7 +97,7 @@ function process_tag
   fi
 
   # compatibility symlink
-  ln -s . solidity
+  ln -s . hyperion
 
   local VERSION
   if [ -f ./scripts/get_version.sh ]; then
@@ -182,11 +182,11 @@ function process_tag
 
 cd /tmp
 
-echo "Check out solidity repository..."
+echo "Check out hyperion repository..."
 if [ -d /root/project ]; then
-  echo "Solidity repo checkout already exists."
+  echo "Hyperion repo checkout already exists."
 else
-  git clone "${SOLIDITY_REPO_URL}" /root/project --quiet
+  git clone "${HYPERION_REPO_URL}" /root/project --quiet
 fi
 
 echo "Extract bytecode comparison scripts from v0.6.1..."

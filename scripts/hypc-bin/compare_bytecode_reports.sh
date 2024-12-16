@@ -9,28 +9,28 @@
 # The reports should be placed in subdirectories of the current working
 # directory and their names should follow one of the following patterns:
 #
-#     report-hypc-<platform>-v<solidity version>+commit.<commit hash>.txt
-#     report-soljson-<platform>-v<solidity version>+commit.<commit hash>.js.txt
+#     report-hypc-<platform>-v<hyperion version>+commit.<commit hash>.txt
+#     report-soljson-<platform>-v<hyperion version>+commit.<commit hash>.js.txt
 #
 # Reports corresponding to the same version and commit hash are grouped together
 # and the script succeeds only if the files within each group are identical.
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2020 solidity contributors.
+# (c) 2020 hyperion contributors.
 #------------------------------------------------------------------------------
 
 set -euo pipefail
@@ -49,11 +49,11 @@ versions_in_report_names=$(
 )
 
 num_failed_comparisons=0
-for solidity_version_and_commit in $versions_in_report_names; do
-    echo "Comparing reports for Solidity ${solidity_version_and_commit}:"
+for hyperion_version_and_commit in $versions_in_report_names; do
+    echo "Comparing reports for Hyperion ${hyperion_version_and_commit}:"
     mapfile -t report_files_for_version < <(
         echo "$report_files" |
-        sed -n -E '/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v'"${solidity_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
+        sed -n -E '/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v'"${hyperion_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
     )
 
     diff --report-identical-files --brief --from-file "${report_files_for_version[@]}" || ((++num_failed_comparisons))

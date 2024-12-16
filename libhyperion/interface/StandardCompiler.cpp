@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -246,7 +246,7 @@ bool isArtifactRequested(Json::Value const& _outputSelection, std::string const&
 /// @returns all artifact names of the ZVM object, either for creation or deploy time.
 std::vector<std::string> zvmObjectComponents(std::string const& _objectKind)
 {
-	solAssert(_objectKind == "bytecode" || _objectKind == "deployedBytecode", "");
+	hypAssert(_objectKind == "bytecode" || _objectKind == "deployedBytecode", "");
 	std::vector<std::string> components{"", ".object", ".opcodes", ".sourceMap", ".functionDebugData", ".generatedSources", ".linkReferences"};
 	if (_objectKind == "deployedBytecode")
 		components.push_back(".immutableReferences");
@@ -483,7 +483,7 @@ std::optional<Json::Value> checkOptimizerDetailSteps(Json::Value const& _details
 			if (delimiterPos != std::string::npos)
 				_cleanupSetting = fullSequence.substr(delimiterPos + 1);
 			else
-				solAssert(_cleanupSetting == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
+				hypAssert(_cleanupSetting == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
 		}
 		else
 			return formatFatalError(Error::Type::JSONError, "\"settings.optimizer.details." + _name + "\" must be a string");
@@ -650,7 +650,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 
 	ret.errors = Json::arrayValue;
 
-	if (ret.language == "Solidity" || ret.language == "Yul")
+	if (ret.language == "Hyperion" || ret.language == "Yul")
 	{
 		for (auto const& sourceName: sources.getMemberNames())
 		{
@@ -724,7 +724,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 				return formatFatalError(Error::Type::JSONError, "Invalid input source specified.");
 		}
 	}
-	else if (ret.language == "SolidityAST")
+	else if (ret.language == "HyperionAST")
 	{
 		for (auto const& sourceName: sources.getMemberNames())
 			ret.sources[sourceName] = util::jsonCompactPrint(sources[sourceName]);
@@ -912,7 +912,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json::Value> StandardCompiler:
 	if (auto result = checkMetadataKeys(metadataSettings))
 		return *result;
 
-	solAssert(CompilerStack::defaultMetadataFormat() != CompilerStack::MetadataFormat::NoMetadata, "");
+	hypAssert(CompilerStack::defaultMetadataFormat() != CompilerStack::MetadataFormat::NoMetadata, "");
 	ret.metadataFormat =
 		metadataSettings.get("appendCBOR", Json::Value(true)).asBool() ?
 		CompilerStack::defaultMetadataFormat() :
@@ -1147,12 +1147,12 @@ std::map<std::string, Json::Value> StandardCompiler::parseAstFromInput(StringMap
 	return sourceJsons;
 }
 
-Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSettings _inputsAndSettings)
+Json::Value StandardCompiler::compileHyperion(StandardCompiler::InputsAndSettings _inputsAndSettings)
 {
 	CompilerStack compilerStack(m_readFile);
 
 	StringMap sourceList = std::move(_inputsAndSettings.sources);
-	if (_inputsAndSettings.language == "Solidity")
+	if (_inputsAndSettings.language == "Hyperion")
 		compilerStack.setSources(sourceList);
 	for (auto const& smtLib2Response: _inputsAndSettings.smtLib2Responses)
 		compilerStack.addSMTLib2Response(smtLib2Response.first, smtLib2Response.second);
@@ -1179,7 +1179,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 
 	try
 	{
-		if (_inputsAndSettings.language == "SolidityAST")
+		if (_inputsAndSettings.language == "HyperionAST")
 		{
 			try
 			{
@@ -1352,7 +1352,7 @@ Json::Value StandardCompiler::compileSolidity(StandardCompiler::InputsAndSetting
 	for (std::string const& contractName: analysisSuccess ? compilerStack.contractNames() : std::vector<std::string>())
 	{
 		size_t colon = contractName.rfind(':');
-		solAssert(colon != std::string::npos, "");
+		hypAssert(colon != std::string::npos, "");
 		std::string file = contractName.substr(0, colon);
 		std::string name = contractName.substr(colon + 1);
 
@@ -1600,14 +1600,14 @@ Json::Value StandardCompiler::compile(Json::Value const& _input) noexcept
 		if (std::holds_alternative<Json::Value>(parsed))
 			return std::get<Json::Value>(std::move(parsed));
 		InputsAndSettings settings = std::get<InputsAndSettings>(std::move(parsed));
-		if (settings.language == "Solidity")
-			return compileSolidity(std::move(settings));
+		if (settings.language == "Hyperion")
+			return compileHyperion(std::move(settings));
 		else if (settings.language == "Yul")
 			return compileYul(std::move(settings));
-		else if (settings.language == "SolidityAST")
-			return compileSolidity(std::move(settings));
+		else if (settings.language == "HyperionAST")
+			return compileHyperion(std::move(settings));
 		else
-			return formatFatalError(Error::Type::JSONError, "Only \"Solidity\", \"Yul\" or \"SolidityAST\" is supported as a language.");
+			return formatFatalError(Error::Type::JSONError, "Only \"Hyperion\", \"Yul\" or \"HyperionAST\" is supported as a language.");
 	}
 	catch (Json::LogicError const& _exception)
 	{

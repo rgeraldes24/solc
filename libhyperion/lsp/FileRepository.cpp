@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -66,7 +66,7 @@ std::string FileRepository::sourceUnitNameToUri(std::string const& _sourceUnitNa
 
 	if (m_sourceUnitNamesToUri.count(_sourceUnitName))
 	{
-		solAssert(boost::starts_with(m_sourceUnitNamesToUri.at(_sourceUnitName), "file://"), "");
+		hypAssert(boost::starts_with(m_sourceUnitNamesToUri.at(_sourceUnitName), "file://"), "");
 		return m_sourceUnitNamesToUri.at(_sourceUnitName);
 	}
 	else if (_sourceUnitName.find("file://") == 0)
@@ -149,7 +149,7 @@ Result<boost::filesystem::path> FileRepository::tryResolvePath(std::string const
 
 frontend::ReadCallback::Result FileRepository::readFile(std::string const& _kind, std::string const& _sourceUnitName)
 {
-	solAssert(
+	hypAssert(
 		_kind == ReadCallback::kindString(ReadCallback::Kind::ReadFile),
 		"ReadFile callback used as callback kind " + _kind
 	);
@@ -166,7 +166,7 @@ frontend::ReadCallback::Result FileRepository::readFile(std::string const& _kind
 			return ReadCallback::Result{false, resolvedPath.message()};
 
 		auto contents = readFileAsString(resolvedPath.get());
-		solAssert(m_sourceCodes.count(_sourceUnitName) == 0, "");
+		hypAssert(m_sourceCodes.count(_sourceUnitName) == 0, "");
 		m_sourceCodes[_sourceUnitName] = contents;
 		return ReadCallback::Result{true, std::move(contents)};
 	}

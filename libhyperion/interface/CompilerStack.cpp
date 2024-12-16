@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -113,7 +113,7 @@ CompilerStack::CompilerStack(ReadCallback::Callback _readFile):
 {
 	// Because TypeProvider is currently a singleton API, we must ensure that
 	// no more than one entity is actually using it at a time.
-	solAssert(g_compilerStackCounts == 0, "You shall not have another CompilerStack aside me.");
+	hypAssert(g_compilerStackCounts == 0, "You shall not have another CompilerStack aside me.");
 	++g_compilerStackCounts;
 }
 
@@ -145,7 +145,7 @@ void CompilerStack::createAndAssignCallGraphs()
 				)
 			);
 
-			solAssert(annotation.contractDependencies.empty(), "contractDependencies expected to be empty?!");
+			hypAssert(annotation.contractDependencies.empty(), "contractDependencies expected to be empty?!");
 
 			annotation.contractDependencies = annotation.creationCallGraph->get()->bytecodeDependency;
 
@@ -216,7 +216,7 @@ void CompilerStack::setRemappings(std::vector<ImportRemapper::Remapping> _remapp
 	if (m_stackState >= ParsedAndImported)
 		solThrow(CompilerError, "Must set remappings before parsing.");
 	for (auto const& remapping: _remappings)
-		solAssert(!remapping.prefix.empty(), "");
+		hypAssert(!remapping.prefix.empty(), "");
 	m_importRemapper.setRemappings(std::move(_remappings));
 }
 
@@ -359,14 +359,14 @@ bool CompilerStack::parse()
 		Source& source = m_sources[path];
 		source.ast = parser.parse(*source.charStream);
 		if (!source.ast)
-			solAssert(Error::containsErrors(m_errorReporter.errors()), "Parser returned null but did not report error.");
+			hypAssert(Error::containsErrors(m_errorReporter.errors()), "Parser returned null but did not report error.");
 		else
 		{
 			source.ast->annotation().path = path;
 
 			for (auto const& import: ASTNode::filteredNodes<ImportDirective>(source.ast->nodes()))
 			{
-				solAssert(!import->path().empty(), "Import path cannot be empty.");
+				hypAssert(!import->path().empty(), "Import path cannot be empty.");
 				// Check whether the import directive is for the standard library,
 				// and if yes, add specified file to source units to be parsed.
 				auto it = stdlib::sources.find(import->path());
@@ -423,7 +423,7 @@ void CompilerStack::importASTs(std::map<std::string, Json::Value> const& _source
 		m_sources[path] = std::move(source);
 	}
 	m_stackState = ParsedAndImported;
-	m_compilationSourceType = CompilationSourceType::SolidityAST;
+	m_compilationSourceType = CompilationSourceType::HyperionAST;
 
 	storeContractDefinitions();
 }
@@ -444,7 +444,7 @@ bool CompilerStack::analyze()
 
 	try
 	{
-		bool experimentalSolidity = !m_sourceOrder.empty() && m_sourceOrder.front()->ast->experimentalSolidity();
+		bool experimentalHyperion = !m_sourceOrder.empty() && m_sourceOrder.front()->ast->experimentalHyperion();
 
 		SyntaxChecker syntaxChecker(m_errorReporter, m_optimiserSettings.runYulOptimiser);
 		for (Source const* source: m_sourceOrder)
@@ -477,7 +477,7 @@ bool CompilerStack::analyze()
 			if (source->ast && !resolver.resolveNamesAndTypes(*source->ast))
 				return false;
 
-		if (experimentalSolidity)
+		if (experimentalHyperion)
 		{
 			if (!analyzeExperimental())
 				noErrors = false;
@@ -646,7 +646,7 @@ bool CompilerStack::analyzeLegacy(bool _noErrorsSoFar)
 
 bool CompilerStack::analyzeExperimental()
 {
-	solAssert(!m_experimentalAnalysis);
+	hypAssert(!m_experimentalAnalysis);
 	m_experimentalAnalysis = std::make_unique<experimental::Analysis>(m_errorReporter);
 	std::vector<std::shared_ptr<SourceUnit const>> sourceAsts;
 	for (Source const* source: m_sourceOrder)
@@ -764,7 +764,7 @@ bool CompilerStack::compile(State _stopAfter)
 
 void CompilerStack::link()
 {
-	solAssert(m_stackState >= CompilationSuccessful, "");
+	hypAssert(m_stackState >= CompilationSuccessful, "");
 	for (auto& contract: m_contracts)
 	{
 		contract.second.object.link(m_libraries);
@@ -829,7 +829,7 @@ Json::Value CompilerStack::generatedSources(std::string const& _contractName, bo
 		// sources were generated (or we compiled "via IR").
 		if (c.compiler)
 		{
-			solAssert(!m_viaIR, "");
+			hypAssert(!m_viaIR, "");
 			std::string source =
 				_runtime ?
 				c.compiler->runtimeGeneratedYulUtilityCode() :
@@ -843,7 +843,7 @@ Json::Value CompilerStack::generatedSources(std::string const& _contractName, bo
 				CharStream charStream(source, sourceName);
 				yul::ZVMDialect const& dialect = yul::ZVMDialect::strictAssemblyForZVM(m_zvmVersion);
 				std::shared_ptr<yul::Block> parserResult = yul::Parser{errorReporter, dialect}.parse(charStream);
-				solAssert(parserResult, "");
+				hypAssert(parserResult, "");
 				sources[0]["ast"] = yul::AsmJsonConverter{sourceIndex}(*parserResult);
 				sources[0]["name"] = sourceName;
 				sources[0]["id"] = sourceIndex;
@@ -994,7 +994,7 @@ std::map<std::string, unsigned> CompilerStack::sourceIndices() const
 	unsigned index = 0;
 	for (auto const& s: m_sources)
 		indices[s.first] = index++;
-	solAssert(!indices.count(CompilerContext::yulUtilityFileName()), "");
+	hypAssert(!indices.count(CompilerContext::yulUtilityFileName()), "");
 	indices[CompilerContext::yulUtilityFileName()] = index++;
 	return indices;
 }
@@ -1012,7 +1012,7 @@ Json::Value const& CompilerStack::contractABI(Contract const& _contract) const
 	if (m_stackState < AnalysisSuccessful)
 		solThrow(CompilerError, "Analysis was not successful.");
 
-	solAssert(_contract.contract, "");
+	hypAssert(_contract.contract, "");
 
 	return _contract.abi.init([&]{ return ABI::generate(*_contract.contract); });
 }
@@ -1030,7 +1030,7 @@ Json::Value const& CompilerStack::storageLayout(Contract const& _contract) const
 	if (m_stackState < AnalysisSuccessful)
 		solThrow(CompilerError, "Analysis was not successful.");
 
-	solAssert(_contract.contract, "");
+	hypAssert(_contract.contract, "");
 
 	return _contract.storageLayout.init([&]{ return StorageLayout().generate(*_contract.contract); });
 }
@@ -1048,7 +1048,7 @@ Json::Value const& CompilerStack::natspecUser(Contract const& _contract) const
 	if (m_stackState < AnalysisSuccessful)
 		solThrow(CompilerError, "Analysis was not successful.");
 
-	solAssert(_contract.contract, "");
+	hypAssert(_contract.contract, "");
 
 	return _contract.userDocumentation.init([&]{ return Natspec::userDocumentation(*_contract.contract); });
 }
@@ -1066,7 +1066,7 @@ Json::Value const& CompilerStack::natspecDev(Contract const& _contract) const
 	if (m_stackState < AnalysisSuccessful)
 		solThrow(CompilerError, "Analysis was not successful.");
 
-	solAssert(_contract.contract, "");
+	hypAssert(_contract.contract, "");
 
 	return _contract.devDocumentation.init([&]{ return Natspec::devDocumentation(*_contract.contract); });
 }
@@ -1114,7 +1114,7 @@ std::string const& CompilerStack::metadata(Contract const& _contract) const
 	if (m_stackState < AnalysisSuccessful)
 		solThrow(CompilerError, "Analysis was not successful.");
 
-	solAssert(_contract.contract, "");
+	hypAssert(_contract.contract, "");
 
 	return _contract.metadata.init([&]{ return createMetadata(_contract, m_viaIR); });
 }
@@ -1124,7 +1124,7 @@ CharStream const& CompilerStack::charStream(std::string const& _sourceName) cons
 	if (m_stackState < SourcesSet)
 		solThrow(CompilerError, "No sources set.");
 
-	solAssert(source(_sourceName).charStream, "");
+	hypAssert(source(_sourceName).charStream, "");
 
 	return *source(_sourceName).charStream;
 }
@@ -1185,7 +1185,7 @@ std::string const& CompilerStack::Source::ipfsUrl() const
 
 StringMap CompilerStack::loadMissingSources(SourceUnit const& _ast)
 {
-	solAssert(m_stackState < ParsedAndImported, "");
+	hypAssert(m_stackState < ParsedAndImported, "");
 	StringMap newSources;
 	try
 	{
@@ -1216,20 +1216,20 @@ StringMap CompilerStack::loadMissingSources(SourceUnit const& _ast)
 	}
 	catch (FatalError const&)
 	{
-		solAssert(m_errorReporter.hasErrors(), "");
+		hypAssert(m_errorReporter.hasErrors(), "");
 	}
 	return newSources;
 }
 
 std::string CompilerStack::applyRemapping(std::string const& _path, std::string const& _context)
 {
-	solAssert(m_stackState < ParsedAndImported, "");
+	hypAssert(m_stackState < ParsedAndImported, "");
 	return m_importRemapper.apply(_path, _context);
 }
 
 bool CompilerStack::resolveImports()
 {
-	solAssert(m_stackState == ParsedAndImported, "");
+	hypAssert(m_stackState == ParsedAndImported, "");
 
 	// topological sorting (depth first search) of the import graph, cutting potential cycles
 	std::vector<Source const*> sourceOrder;
@@ -1240,12 +1240,12 @@ bool CompilerStack::resolveImports()
 		if (sourcesSeen.count(_source))
 			return;
 		sourcesSeen.insert(_source);
-		solAssert(_source->ast);
+		hypAssert(_source->ast);
 		for (ASTPointer<ASTNode> const& node: _source->ast->nodes())
 			if (ImportDirective const* import = dynamic_cast<ImportDirective*>(node.get()))
 			{
 				std::string const& path = *import->annotation().absolutePath;
-				solAssert(m_sources.count(path), "");
+				hypAssert(m_sources.count(path), "");
 				import->annotation().sourceUnit = m_sources[path].ast.get();
 				toposort(&m_sources[path]);
 			}
@@ -1257,10 +1257,10 @@ bool CompilerStack::resolveImports()
 	{
 		if (isRequestedSource(sourcePair.first))
 			toposort(&sourcePair.second);
-		if (sourcePair.second.ast && sourcePair.second.ast->experimentalSolidity())
+		if (sourcePair.second.ast && sourcePair.second.ast->experimentalHyperion())
 			for (ASTPointer<ASTNode> const& node: sourcePair.second.ast->nodes())
 				if (PragmaDirective const* pragma = dynamic_cast<PragmaDirective*>(node.get()))
-					if (pragma->literals().size() >=2 && pragma->literals()[0] == "experimental" && pragma->literals()[1] == "solidity")
+					if (pragma->literals().size() >=2 && pragma->literals()[0] == "experimental" && pragma->literals()[1] == "hyperion")
 					{
 						experimentalPragmaDirectives.push_back(pragma);
 						break;
@@ -1273,7 +1273,7 @@ bool CompilerStack::resolveImports()
 			m_errorReporter.parserError(
 					2141_error,
 					pragma->location(),
-					"File declares \"pragma experimental solidity\". If you want to enable the experimental mode, all source units must include the pragma."
+					"File declares \"pragma experimental hyperion\". If you want to enable the experimental mode, all source units must include the pragma."
 			);
 		return false;
 	}
@@ -1317,7 +1317,7 @@ void CompilerStack::annotateInternalFunctionIDs()
 					if (auto const* callable = std::get_if<CallableDeclaration const*>(&node))
 						if (auto const* function = dynamic_cast<FunctionDefinition const*>(*callable))
 						{
-							solAssert(contract->annotation().internalFunctionIDs.count(function) == 0);
+							hypAssert(contract->annotation().internalFunctionIDs.count(function) == 0);
 							contract->annotation().internalFunctionIDs[function] = internalFunctionID++;
 						}
 			if (auto const* creationTimeInternalDispatch = util::valueOrNullptr((*annotation.creationCallGraph)->edges, CallGraph::SpecialNode::InternalDispatch))
@@ -1325,7 +1325,7 @@ void CompilerStack::annotateInternalFunctionIDs()
 					if (auto const* callable = std::get_if<CallableDeclaration const*>(&node))
 						if (auto const* function = dynamic_cast<FunctionDefinition const*>(*callable))
 							// Make sure the function already got an ID since it also occurs in the deploy-time internal dispatch.
-							solAssert(contract->annotation().internalFunctionIDs.count(function) != 0);
+							hypAssert(contract->annotation().internalFunctionIDs.count(function) != 0);
 		}
 	}
 }
@@ -1347,12 +1347,12 @@ void CompilerStack::assembleYul(
 	std::shared_ptr<zvmasm::Assembly> _runtimeAssembly
 )
 {
-	solAssert(m_stackState >= AnalysisSuccessful, "");
+	hypAssert(m_stackState >= AnalysisSuccessful, "");
 
 	Contract& compiledContract = m_contracts.at(_contract.fullyQualifiedName());
 
 	compiledContract.zvmAssembly = _assembly;
-	solAssert(compiledContract.zvmAssembly, "");
+	hypAssert(compiledContract.zvmAssembly, "");
 	try
 	{
 		// Assemble deployment (incl. runtime)  object.
@@ -1360,12 +1360,12 @@ void CompilerStack::assembleYul(
 	}
 	catch (zvmasm::AssemblyException const&)
 	{
-		solAssert(false, "Assembly exception for bytecode");
+		hypAssert(false, "Assembly exception for bytecode");
 	}
-	solAssert(compiledContract.object.immutableReferences.empty(), "Leftover immutables.");
+	hypAssert(compiledContract.object.immutableReferences.empty(), "Leftover immutables.");
 
 	compiledContract.zvmRuntimeAssembly = _runtimeAssembly;
-	solAssert(compiledContract.zvmRuntimeAssembly, "");
+	hypAssert(compiledContract.zvmRuntimeAssembly, "");
 	try
 	{
 		// Assemble runtime object.
@@ -1373,7 +1373,7 @@ void CompilerStack::assembleYul(
 	}
 	catch (zvmasm::AssemblyException const&)
 	{
-		solAssert(false, "Assembly exception for deployed bytecode");
+		hypAssert(false, "Assembly exception for deployed bytecode");
 	}
 
 	// Throw a warning if EIP-170 limits are exceeded:
@@ -1416,8 +1416,8 @@ void CompilerStack::compileContract(
 	std::map<ContractDefinition const*, std::shared_ptr<Compiler const>>& _otherCompilers
 )
 {
-	solAssert(!m_viaIR, "");
-	solAssert(m_stackState >= AnalysisSuccessful, "");
+	hypAssert(!m_viaIR, "");
+	hypAssert(m_stackState >= AnalysisSuccessful, "");
 
 	if (_otherCompilers.count(&_contract))
 		return;
@@ -1433,7 +1433,7 @@ void CompilerStack::compileContract(
 	std::shared_ptr<Compiler> compiler = std::make_shared<Compiler>(m_zvmVersion, m_revertStrings, m_optimiserSettings);
 	compiledContract.compiler = compiler;
 
-	solAssert(!m_viaIR, "");
+	hypAssert(!m_viaIR, "");
 	bytes cborEncodedMetadata = createCBORMetadata(compiledContract, /* _forIR */ false);
 
 	try
@@ -1443,7 +1443,7 @@ void CompilerStack::compileContract(
 	}
 	catch(zvmasm::OptimizerException const&)
 	{
-		solAssert(false, "Optimizer exception during compilation");
+		hypAssert(false, "Optimizer exception during compilation");
 	}
 
 	_otherCompilers[compiledContract.contract] = compiler;
@@ -1453,7 +1453,7 @@ void CompilerStack::compileContract(
 
 void CompilerStack::generateIR(ContractDefinition const& _contract)
 {
-	solAssert(m_stackState >= AnalysisSuccessful, "");
+	hypAssert(m_stackState >= AnalysisSuccessful, "");
 
 	if (m_experimentalAnalysis)
 		solThrow(CompilerError, "IR codegen after experimental analysis is unsupported.");
@@ -1502,7 +1502,7 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 		m_debugInfoSelection
 	);
 	bool yulAnalysisSuccessful = stack.parseAndAnalyze("", compiledContract.yulIR);
-	solAssert(
+	hypAssert(
 		yulAnalysisSuccessful,
 		compiledContract.yulIR + "\n\n"
 		"Invalid IR generated:\n" +
@@ -1517,13 +1517,13 @@ void CompilerStack::generateIR(ContractDefinition const& _contract)
 
 void CompilerStack::generateZVMFromIR(ContractDefinition const& _contract)
 {
-	solAssert(m_stackState >= AnalysisSuccessful, "");
+	hypAssert(m_stackState >= AnalysisSuccessful, "");
 
 	if (!_contract.canBeDeployed())
 		return;
 
 	Contract& compiledContract = m_contracts.at(_contract.fullyQualifiedName());
-	solAssert(!compiledContract.yulIROptimized.empty(), "");
+	hypAssert(!compiledContract.yulIROptimized.empty(), "");
 	if (!compiledContract.object.bytecode.empty())
 		return;
 
@@ -1535,19 +1535,19 @@ void CompilerStack::generateZVMFromIR(ContractDefinition const& _contract)
 		m_debugInfoSelection
 	);
 	bool analysisSuccessful = stack.parseAndAnalyze("", compiledContract.yulIROptimized);
-	solAssert(analysisSuccessful);
+	hypAssert(analysisSuccessful);
 
 	//cout << yul::AsmPrinter{}(*stack.parserResult()->code) << endl;
 
 	std::string deployedName = IRNames::deployedObject(_contract);
-	solAssert(!deployedName.empty(), "");
+	hypAssert(!deployedName.empty(), "");
 	tie(compiledContract.zvmAssembly, compiledContract.zvmRuntimeAssembly) = stack.assembleZVMWithDeployed(deployedName);
 	assembleYul(_contract, compiledContract.zvmAssembly, compiledContract.zvmRuntimeAssembly);
 }
 
 CompilerStack::Contract const& CompilerStack::contract(std::string const& _contractName) const
 {
-	solAssert(m_stackState >= AnalysisSuccessful, "");
+	hypAssert(m_stackState >= AnalysisSuccessful, "");
 
 	auto it = m_contracts.find(_contractName);
 	if (it != m_contracts.end())
@@ -1592,11 +1592,11 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 	std::string sourceType;
 	switch (m_compilationSourceType)
 	{
-	case CompilationSourceType::Solidity:
-		sourceType = "Solidity";
+	case CompilationSourceType::Hyperion:
+		sourceType = "Hyperion";
 		break;
-	case CompilationSourceType::SolidityAST:
-		sourceType = "SolidityAST";
+	case CompilationSourceType::HyperionAST:
+		sourceType = "HyperionAST";
 		break;
 	}
 	meta["language"] = sourceType;
@@ -1614,7 +1614,7 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 		if (!referencedSources.count(s.first))
 			continue;
 
-		solAssert(s.second.charStream, "Character stream not available");
+		hypAssert(s.second.charStream, "Character stream not available");
 		meta["sources"][s.first]["keccak256"] = "0x" + util::toHex(s.second.keccak256().asBytes());
 		if (std::optional<std::string> licenseString = s.second.ast->licenseString())
 			meta["sources"][s.first]["license"] = *licenseString;
@@ -1629,7 +1629,7 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 	}
 
 	static_assert(sizeof(m_optimiserSettings.expectedExecutionsPerDeployment) <= sizeof(Json::LargestUInt), "Invalid word size.");
-	solAssert(static_cast<Json::LargestUInt>(m_optimiserSettings.expectedExecutionsPerDeployment) < std::numeric_limits<Json::LargestUInt>::max(), "");
+	hypAssert(static_cast<Json::LargestUInt>(m_optimiserSettings.expectedExecutionsPerDeployment) < std::numeric_limits<Json::LargestUInt>::max(), "");
 	meta["settings"]["optimizer"]["runs"] = Json::Value(Json::LargestUInt(m_optimiserSettings.expectedExecutionsPerDeployment));
 
 	/// Backwards compatibility: If set to one of the default settings, do not provide details.
@@ -1664,15 +1664,15 @@ std::string CompilerStack::createMetadata(Contract const& _contract, bool _forIR
 			OptimiserSuite::isEmptyOptimizerSequence(m_optimiserSettings.yulOptimiserCleanupSteps)
 		)
 		{
-			solAssert(m_optimiserSettings.optimizeStackAllocation == false);
+			hypAssert(m_optimiserSettings.optimizeStackAllocation == false);
 			details["yulDetails"] = Json::objectValue;
 			details["yulDetails"]["optimizerSteps"] = ":";
 		}
 		else
 		{
-			solAssert(m_optimiserSettings.optimizeStackAllocation == false);
-			solAssert(m_optimiserSettings.yulOptimiserSteps == OptimiserSettings::DefaultYulOptimiserSteps);
-			solAssert(m_optimiserSettings.yulOptimiserCleanupSteps == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
+			hypAssert(m_optimiserSettings.optimizeStackAllocation == false);
+			hypAssert(m_optimiserSettings.yulOptimiserSteps == OptimiserSettings::DefaultYulOptimiserSteps);
+			hypAssert(m_optimiserSettings.yulOptimiserCleanupSteps == OptimiserSettings::DefaultYulOptimiserCleanupSteps);
 		}
 
 		meta["settings"]["optimizer"]["details"] = std::move(details);
@@ -1741,8 +1741,8 @@ public:
 	bytes serialise() const
 	{
 		size_t size = m_data.size() + 1;
-		solAssert(size <= 0xffff, "Metadata too large.");
-		solAssert(m_entryCount <= 0x1f, "Too many map entries.");
+		hypAssert(size <= 0xffff, "Metadata too large.");
+		hypAssert(m_entryCount <= 0x1f, "Too many map entries.");
 
 		// CBOR fixed-length map
 		bytes ret{static_cast<unsigned char>(0xa0 + m_entryCount)};
@@ -1768,7 +1768,7 @@ private:
 			m_data += key;
 		}
 		else
-			solAssert(false, "Text std::string too large.");
+			hypAssert(false, "Text std::string too large.");
 	}
 	void pushByteString(bytes const& key)
 	{
@@ -1784,7 +1784,7 @@ private:
 			m_data += key;
 		}
 		else
-			solAssert(false, "Byte std::string too large.");
+			hypAssert(false, "Byte std::string too large.");
 	}
 	void pushBool(bool value)
 	{
@@ -1815,7 +1815,7 @@ bytes CompilerStack::createCBORMetadata(Contract const& _contract, bool _forIR) 
 	else if (m_metadataHash == MetadataHash::Bzzr1)
 		encoder.pushBytes("bzzr1", util::bzzr1Hash(meta).asBytes());
 	else
-		solAssert(m_metadataHash == MetadataHash::None, "Invalid metadata hash");
+		hypAssert(m_metadataHash == MetadataHash::None, "Invalid metadata hash");
 
 	if (experimentalMode)
 		encoder.pushBool("experimental", true);
@@ -1823,7 +1823,7 @@ bytes CompilerStack::createCBORMetadata(Contract const& _contract, bool _forIR) 
 		encoder.pushBytes("hypc", VersionCompactBytes);
 	else
 	{
-		solAssert(
+		hypAssert(
 			m_metadataFormat == MetadataFormat::WithPrereleaseVersionTag,
 			"Invalid metadata format."
 		);

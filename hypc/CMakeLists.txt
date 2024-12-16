@@ -5,7 +5,7 @@ set(libhypcli_sources
 )
 
 add_library(hypcli ${libhypcli_sources})
-target_link_libraries(hypcli PUBLIC solidity Boost::boost Boost::program_options)
+target_link_libraries(hypcli PUBLIC hyperion Boost::boost Boost::program_options)
 
 set(sources main.cpp)
 

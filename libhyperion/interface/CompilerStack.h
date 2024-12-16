@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -88,7 +88,7 @@ class Analysis;
 }
 
 /**
- * Easy to use and self-contained Solidity compiler with as few header dependencies as possible.
+ * Easy to use and self-contained Hyperion compiler with as few header dependencies as possible.
  * It holds state and can be used to either step through the compilation stages (and abort e.g.
  * before compilation to bytecode) or run the whole compilation in one call.
  */
@@ -121,10 +121,10 @@ public:
 	};
 
 	enum class CompilationSourceType {
-		/// Regular compilation from Solidity source files.
-		Solidity,
-		/// Compilation from an imported Solidity AST.
-		SolidityAST,
+		/// Regular compilation from Hyperion source files.
+		Hyperion,
+		/// Compilation from an imported Hyperion AST.
+		HyperionAST,
 	};
 
 	/// Creates a new compiler stack.
@@ -515,7 +515,7 @@ private:
 	MetadataHash m_metadataHash = MetadataHash::IPFS;
 	langutil::DebugInfoSelection m_debugInfoSelection = langutil::DebugInfoSelection::Default();
 	State m_stackState = Empty;
-	CompilationSourceType m_compilationSourceType = CompilationSourceType::Solidity;
+	CompilationSourceType m_compilationSourceType = CompilationSourceType::Hyperion;
 	MetadataFormat m_metadataFormat = defaultMetadataFormat();
 };
 

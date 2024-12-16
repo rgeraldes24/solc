@@ -1,25 +1,25 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
  * Tests that check that the cost of certain operations stay within range.
  */
 
-#include <test/libhyperion/SolidityExecutionFramework.h>
+#include <test/libhyperion/HyperionExecutionFramework.h>
 #include <liblangutil/ZVMVersion.h>
 #include <libhyputil/IpfsHash.h>
 #include <libzvmasm/GasMeter.h>
@@ -79,7 +79,7 @@ namespace hyperion::frontend::test
 		); \
 	} while(0)
 
-BOOST_FIXTURE_TEST_SUITE(GasCostTests, SolidityExecutionFramework)
+BOOST_FIXTURE_TEST_SUITE(GasCostTests, HyperionExecutionFramework)
 
 BOOST_AUTO_TEST_CASE(string_storage)
 {

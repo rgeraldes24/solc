@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -47,7 +47,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 	// need to leave "target_ref target_byte_off" on the stack at the end
 
 	// stack layout: [source_ref] [source length] target_ref (top)
-	solAssert(_targetType.location() == DataLocation::Storage, "");
+	hypAssert(_targetType.location() == DataLocation::Storage, "");
 
 	Type const* targetBaseType = _targetType.baseType();
 	Type const* sourceBaseType = _sourceType.baseType();
@@ -128,13 +128,13 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 			if (_targetType.isDynamicallySized())
 			{
 				// store new target length
-				solAssert(!_targetType.isByteArrayOrString());
+				hypAssert(!_targetType.isByteArrayOrString());
 				_context << Instruction::DUP3 << Instruction::DUP3 << Instruction::SSTORE;
 			}
 			if (sourceBaseType->category() == Type::Category::Mapping)
 			{
-				solAssert(targetBaseType->category() == Type::Category::Mapping, "");
-				solAssert(_sourceType.location() == DataLocation::Storage, "");
+				hypAssert(targetBaseType->category() == Type::Category::Mapping, "");
+				hypAssert(_sourceType.location() == DataLocation::Storage, "");
 				// nothing to copy
 				_context
 					<< Instruction::POP << Instruction::POP
@@ -155,7 +155,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 			// stack: target_ref target_data_end source_length target_data_pos source_ref
 
 			zvmasm::AssemblyItem copyLoopEndWithoutByteOffset = _context.newTag();
-			solAssert(!_targetType.isByteArrayOrString());
+			hypAssert(!_targetType.isByteArrayOrString());
 			// skip copying if source length is zero
 			_context << Instruction::DUP3 << Instruction::ISZERO;
 			_context.appendConditionalJumpTo(copyLoopEndWithoutByteOffset);
@@ -183,7 +183,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 			// copy
 			if (sourceBaseType->category() == Type::Category::Array)
 			{
-				solAssert(byteOffsetSize == 0, "Byte offset for array as base type.");
+				hypAssert(byteOffsetSize == 0, "Byte offset for array as base type.");
 				auto const& sourceBaseArrayType = dynamic_cast<ArrayType const&>(*sourceBaseType);
 
 				solUnimplementedAssert(
@@ -201,7 +201,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 			}
 			else if (directCopy)
 			{
-				solAssert(byteOffsetSize == 0, "Byte offset for direct copy.");
+				hypAssert(byteOffsetSize == 0, "Byte offset for direct copy.");
 				_context
 					<< Instruction::DUP3 << Instruction::SLOAD
 					<< Instruction::DUP3 << Instruction::SSTORE;
@@ -422,10 +422,10 @@ void ArrayUtils::copyArrayToMemory(ArrayType const& _sourceType, bool _padToWord
 	}
 	else
 	{
-		solAssert(_sourceType.location() == DataLocation::Storage, "");
+		hypAssert(_sourceType.location() == DataLocation::Storage, "");
 		unsigned storageBytes = _sourceType.baseType()->storageBytes();
 		u256 storageSize = _sourceType.baseType()->storageSize();
-		solAssert(storageSize > 1 || (storageSize == 1 && storageBytes > 0), "");
+		hypAssert(storageSize > 1 || (storageSize == 1 && storageBytes > 0), "");
 
 		retrieveLength(_sourceType);
 		// stack here: memory_offset storage_offset length
@@ -517,8 +517,8 @@ void ArrayUtils::copyArrayToMemory(ArrayType const& _sourceType, bool _padToWord
 			m_context << Instruction::SWAP1 << Instruction::POP;
 		if (!_sourceType.isByteArrayOrString())
 		{
-			solAssert(_sourceType.calldataStride() % 32 == 0, "");
-			solAssert(_sourceType.memoryStride() % 32 == 0, "");
+			hypAssert(_sourceType.calldataStride() % 32 == 0, "");
+			hypAssert(_sourceType.memoryStride() % 32 == 0, "");
 		}
 		if (_padToWordBoundaries && _sourceType.isByteArrayOrString())
 		{
@@ -545,14 +545,14 @@ void ArrayUtils::clearArray(ArrayType const& _typeIn) const
 		{
 			ArrayType const& _type = dynamic_cast<ArrayType const&>(*type);
 			unsigned stackHeightStart = _context.stackHeight();
-			solAssert(_type.location() == DataLocation::Storage, "");
+			hypAssert(_type.location() == DataLocation::Storage, "");
 			if (_type.baseType()->storageBytes() < 32)
 			{
-				solAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
-				solAssert(_type.baseType()->storageSize() <= 1, "Invalid storage size for type.");
+				hypAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
+				hypAssert(_type.baseType()->storageSize() <= 1, "Invalid storage size for type.");
 			}
 			if (_type.baseType()->isValueType())
-				solAssert(_type.baseType()->storageSize() <= 1, "Invalid size for value type.");
+				hypAssert(_type.baseType()->storageSize() <= 1, "Invalid size for value type.");
 
 			_context << Instruction::POP; // remove byte offset
 			if (_type.isDynamicallySized())
@@ -572,7 +572,7 @@ void ArrayUtils::clearArray(ArrayType const& _typeIn) const
 			else if (!_type.baseType()->isValueType() && _type.length() <= 4)
 			{
 				// unroll loop for small arrays @todo choose a good value
-				solAssert(_type.baseType()->storageBytes() >= 32, "Invalid storage size.");
+				hypAssert(_type.baseType()->storageBytes() >= 32, "Invalid storage size.");
 				for (unsigned i = 1; i < _type.length(); ++i)
 				{
 					_context << u256(0);
@@ -595,15 +595,15 @@ void ArrayUtils::clearArray(ArrayType const& _typeIn) const
 					ArrayUtils(_context).clearStorageLoop(_type.baseType());
 				_context << Instruction::POP;
 			}
-			solAssert(_context.stackHeight() == stackHeightStart - 2, "");
+			hypAssert(_context.stackHeight() == stackHeightStart - 2, "");
 		}
 	);
 }
 
 void ArrayUtils::clearDynamicArray(ArrayType const& _type) const
 {
-	solAssert(_type.location() == DataLocation::Storage, "");
-	solAssert(_type.isDynamicallySized(), "");
+	hypAssert(_type.location() == DataLocation::Storage, "");
+	hypAssert(_type.isDynamicallySized(), "");
 
 	// fetch length
 	retrieveLength(_type);
@@ -649,10 +649,10 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 		[type](CompilerContext& _context)
 		{
 			ArrayType const& _type = dynamic_cast<ArrayType const&>(*type);
-			solAssert(_type.location() == DataLocation::Storage, "");
-			solAssert(_type.isDynamicallySized(), "");
+			hypAssert(_type.location() == DataLocation::Storage, "");
+			hypAssert(_type.isDynamicallySized(), "");
 			if (!_type.isByteArrayOrString() && _type.baseType()->storageBytes() < 32)
-				solAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
+				hypAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
 
 			unsigned stackHeightStart = _context.stackHeight();
 			zvmasm::AssemblyItem resizeEnd = _context.newTag();
@@ -661,7 +661,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 			// fetch old length
 			ArrayUtils(_context).retrieveLength(_type, 1);
 			// stack: ref new_length old_length
-			solAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "2");
+			hypAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "2");
 
 			// Special case for short byte arrays, they are stored together with their length
 			if (_type.isByteArrayOrString())
@@ -672,7 +672,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 				_context << Instruction::DUP3 << Instruction::SLOAD;
 				// stack: ref new_length current_length ref_value
 
-				solAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
 				_context << Instruction::DUP2 << u256(31) << Instruction::LT;
 				zvmasm::AssemblyItem currentIsLong = _context.appendConditionalJump();
 				_context << Instruction::DUP3 << u256(31) << Instruction::LT;
@@ -694,7 +694,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 				_context << Instruction::OR;
 				// Store.
 				_context << Instruction::DUP4 << Instruction::SSTORE;
-				solAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "3");
 				_context.appendJumpTo(resizeEnd);
 
 				_context.adjustStackOffset(1); // we have to do that because of the jumps
@@ -702,7 +702,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 
 				_context << newIsLong;
 				// stack: ref new_length current_length ref_value
-				solAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
 				// Zero out lower-order byte.
 				_context << u256(0xff) << Instruction::NOT << Instruction::AND;
 				// Store at data location.
@@ -715,7 +715,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 				_context << u256(1) << Instruction::ADD;
 				// stack: ref new_length current_length 2*new_length+1
 				_context << Instruction::DUP4 << Instruction::SSTORE;
-				solAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 3 - 2, "3");
 				_context.appendJumpTo(resizeEnd);
 
 				_context.adjustStackOffset(1); // we have to do that because of the jumps
@@ -729,7 +729,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 				// then jump to the short -> short case.
 
 				// stack: ref new_length current_length ref_value
-				solAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
 				_context << Instruction::POP << Instruction::DUP3;
 				CompilerUtils(_context).computeHashStatic();
 				_context << Instruction::DUP1 << Instruction::SLOAD << Instruction::SWAP1;
@@ -741,7 +741,7 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 				ArrayUtils(_context).clearStorageLoop(TypeProvider::uint256());
 				_context << Instruction::POP;
 				// stack: ref new_length current_length first_word
-				solAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
+				hypAssert(_context.stackHeight() - stackHeightStart == 4 - 2, "3");
 				_context.appendJumpTo(shortToShort);
 
 				_context << regularPath;
@@ -784,17 +784,17 @@ void ArrayUtils::resizeDynamicArray(ArrayType const& _typeIn) const
 			_context << resizeEnd;
 			// cleanup
 			_context << Instruction::POP << Instruction::POP << Instruction::POP;
-			solAssert(_context.stackHeight() == stackHeightStart - 2, "");
+			hypAssert(_context.stackHeight() == stackHeightStart - 2, "");
 		}
 	);
 }
 
 void ArrayUtils::incrementDynamicArraySize(ArrayType const& _type) const
 {
-	solAssert(_type.location() == DataLocation::Storage, "");
-	solAssert(_type.isDynamicallySized(), "");
+	hypAssert(_type.location() == DataLocation::Storage, "");
+	hypAssert(_type.isDynamicallySized(), "");
 	if (!_type.isByteArrayOrString() && _type.baseType()->storageBytes() < 32)
-		solAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
+		hypAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
 
 	if (_type.isByteArrayOrString())
 	{
@@ -835,10 +835,10 @@ void ArrayUtils::incrementDynamicArraySize(ArrayType const& _type) const
 
 void ArrayUtils::popStorageArrayElement(ArrayType const& _type) const
 {
-	solAssert(_type.location() == DataLocation::Storage, "");
-	solAssert(_type.isDynamicallySized(), "");
+	hypAssert(_type.location() == DataLocation::Storage, "");
+	hypAssert(_type.isDynamicallySized(), "");
 	if (!_type.isByteArrayOrString() && _type.baseType()->storageBytes() < 32)
-		solAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
+		hypAssert(_type.baseType()->isValueType(), "Invalid storage size for non-value type.");
 
 	if (_type.isByteArrayOrString())
 	{
@@ -923,7 +923,7 @@ void ArrayUtils::popStorageArrayElement(ArrayType const& _type) const
 
 void ArrayUtils::clearStorageLoop(Type const* _type) const
 {
-	solAssert(_type->storageBytes() >= 32, "");
+	hypAssert(_type->storageBytes() >= 32, "");
 	m_context.callLowLevelFunction(
 		"$clearStorageLoop_" + _type->identifier(),
 		2,
@@ -959,7 +959,7 @@ void ArrayUtils::clearStorageLoop(Type const* _type) const
 			_context << zeroLoopEnd;
 			_context << Instruction::POP;
 
-			solAssert(_context.stackHeight() == stackHeightStart - 1, "");
+			hypAssert(_context.stackHeight() == stackHeightStart - 1, "");
 		}
 	);
 }
@@ -1096,7 +1096,7 @@ void ArrayUtils::accessIndex(ArrayType const& _arrayType, bool _doBoundsCheck, b
 			// goal:
 			// <ref> <byte_number> = <base_ref + index / itemsPerSlot> <(index % itemsPerSlot) * byteSize>
 			unsigned byteSize = _arrayType.baseType()->storageBytes();
-			solAssert(byteSize != 0, "");
+			hypAssert(byteSize != 0, "");
 			unsigned itemsPerSlot = 32 / byteSize;
 			m_context << u256(itemsPerSlot) << Instruction::SWAP2;
 			// stack: itemsPerSlot index data_ref
@@ -1123,7 +1123,7 @@ void ArrayUtils::accessIndex(ArrayType const& _arrayType, bool _doBoundsCheck, b
 
 void ArrayUtils::accessCallDataArrayElement(ArrayType const& _arrayType, bool _doBoundsCheck) const
 {
-	solAssert(_arrayType.location() == DataLocation::CallData, "");
+	hypAssert(_arrayType.location() == DataLocation::CallData, "");
 	if (_arrayType.baseType()->isDynamicallyEncoded())
 	{
 		// stack layout: <base_ref> <length> <index>
@@ -1138,7 +1138,7 @@ void ArrayUtils::accessCallDataArrayElement(ArrayType const& _arrayType, bool _d
 		ArrayUtils(m_context).accessIndex(_arrayType, _doBoundsCheck);
 		if (_arrayType.baseType()->isValueType())
 		{
-			solAssert(_arrayType.baseType()->storageBytes() <= 32, "");
+			hypAssert(_arrayType.baseType()->storageBytes() <= 32, "");
 			if (
 				!_arrayType.isByteArrayOrString() &&
 				_arrayType.baseType()->storageBytes() < 32 &&
@@ -1157,7 +1157,7 @@ void ArrayUtils::accessCallDataArrayElement(ArrayType const& _arrayType, bool _d
 				);
 		}
 		else
-			solAssert(
+			hypAssert(
 				_arrayType.baseType()->category() == Type::Category::Struct ||
 				_arrayType.baseType()->category() == Type::Category::Array,
 				"Invalid statically sized non-value base type on array access."
@@ -1167,8 +1167,8 @@ void ArrayUtils::accessCallDataArrayElement(ArrayType const& _arrayType, bool _d
 
 void ArrayUtils::incrementByteOffset(unsigned _byteSize, unsigned _byteOffsetPosition, unsigned _storageOffsetPosition) const
 {
-	solAssert(_byteSize < 32, "");
-	solAssert(_byteSize != 0, "");
+	hypAssert(_byteSize < 32, "");
+	hypAssert(_byteSize != 0, "");
 	// We do the following, but avoiding jumps:
 	// byteOffset += byteSize
 	// if (byteOffset + byteSize > 32)

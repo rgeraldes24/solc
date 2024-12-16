@@ -1,9 +1,9 @@
 FROM alpine AS build
 MAINTAINER chriseth <chris@ethereum.org>
-#Official solidity docker image
+#Official hyperion docker image
 
-#Establish working directory as solidity
-WORKDIR /solidity
+#Establish working directory as hyperion
+WORKDIR /hyperion
 
 # Build dependencies
 RUN apk update && apk add boost-dev boost-static build-base cmake git
@@ -34,5 +34,5 @@ RUN make hypc \
 RUN strip hypc/hypc
 
 FROM scratch
-COPY --from=build /solidity/hypc/hypc /usr/bin/hypc
+COPY --from=build /hyperion/hypc/hypc /usr/bin/hypc
 ENTRYPOINT ["/usr/bin/hypc"]

@@ -6,7 +6,7 @@
 Events
 ******
 
-Solidity events give an abstraction on top of the EVM's logging functionality.
+Hyperion events give an abstraction on top of the EVM's logging functionality.
 Applications can subscribe and listen to these events through the RPC interface of an Ethereum client.
 
 Events can be defined at file level or as inheritable members of contracts (including interfaces and libraries).
@@ -89,7 +89,7 @@ Example
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.21 <0.9.0;
+    pragma hyperion >=0.4.21 <0.9.0;
 
     contract ClientReceipt {
         event Deposit(

@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2023 solidity contributors.
+# (c) 2023 hyperion contributors.
 # ------------------------------------------------------------------------------
 
 from argparse import ArgumentParser, Namespace
@@ -83,7 +83,7 @@ def run_external_tests(args: dict):
 
 
 def parse_commandline() -> Namespace:
-    script_description = "Script to run external Solidity tests."
+    script_description = "Script to run external Hyperion tests."
 
     parser = ArgumentParser(description=script_description)
     subparser = parser.add_subparsers()
@@ -105,14 +105,14 @@ def parse_commandline() -> Namespace:
         type=str,
         required=True,
         choices=["native", "hypcjs"],
-        help="Type of the solidity compiler binary to be used.",
+        help="Type of the hyperion compiler binary to be used.",
     )
     run_command.add_argument(
         "--hypc-binary-path",
         dest="hypc_binary_path",
         type=Path,
         required=True,
-        help="Path to the solidity compiler binary.",
+        help="Path to the hyperion compiler binary.",
     )
 
     running_mode = run_command.add_mutually_exclusive_group()

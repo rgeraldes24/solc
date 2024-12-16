@@ -14,23 +14,23 @@ from bytecodecompare.prepare_report import load_source, parse_cli_output, parse_
 # pragma pylint: enable=import-error
 
 
-SMT_SMOKE_TEST_SOL_PATH = FIXTURE_DIR / 'smt_smoke_test.hyp'
-SMT_SMOKE_TEST_SOL_CODE = load_fixture(SMT_SMOKE_TEST_SOL_PATH)
+SMT_SMOKE_TEST_HYP_PATH = FIXTURE_DIR / 'smt_smoke_test.hyp'
+SMT_SMOKE_TEST_HYP_CODE = load_fixture(SMT_SMOKE_TEST_HYP_PATH)
 
-SMT_CONTRACT_WITH_LF_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_lf_newlines.hyp'
-SMT_CONTRACT_WITH_CRLF_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_crlf_newlines.hyp'
-SMT_CONTRACT_WITH_CR_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_cr_newlines.hyp'
-SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH = FIXTURE_DIR / 'smt_contract_with_mixed_newlines.hyp'
-SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_CODE = load_fixture(SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH)
+SMT_CONTRACT_WITH_LF_NEWLINES_HYP_PATH = FIXTURE_DIR / 'smt_contract_with_lf_newlines.hyp'
+SMT_CONTRACT_WITH_CRLF_NEWLINES_HYP_PATH = FIXTURE_DIR / 'smt_contract_with_crlf_newlines.hyp'
+SMT_CONTRACT_WITH_CR_NEWLINES_HYP_PATH = FIXTURE_DIR / 'smt_contract_with_cr_newlines.hyp'
+SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH = FIXTURE_DIR / 'smt_contract_with_mixed_newlines.hyp'
+SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_CODE = load_fixture(SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH)
 
-SYNTAX_SMOKE_TEST_SOL_PATH = LIBHYPERION_TEST_DIR / 'syntaxTests/smoke_test.hyp'
-SYNTAX_SMOKE_TEST_SOL_CODE = load_libhyperion_test_case(SYNTAX_SMOKE_TEST_SOL_PATH)
+SYNTAX_SMOKE_TEST_HYP_PATH = LIBHYPERION_TEST_DIR / 'syntaxTests/smoke_test.hyp'
+SYNTAX_SMOKE_TEST_HYP_CODE = load_libhyperion_test_case(SYNTAX_SMOKE_TEST_HYP_PATH)
 
-LIBRARY_INHERITED2_SOL_JSON_OUTPUT = load_fixture('library_inherited2_sol_json_output.json')
-LIBRARY_INHERITED2_SOL_CLI_OUTPUT = load_fixture('library_inherited2_sol_cli_output.txt')
+LIBRARY_INHERITED2_HYP_JSON_OUTPUT = load_fixture('library_inherited2_sol_json_output.json')
+LIBRARY_INHERITED2_HYP_CLI_OUTPUT = load_fixture('library_inherited2_sol_cli_output.txt')
 
-UNKNOWN_PRAGMA_SOL_JSON_OUTPUT = load_fixture('unknown_pragma_sol_json_output.json')
-UNKNOWN_PRAGMA_SOL_CLI_OUTPUT = load_fixture('unknown_pragma_sol_cli_output.txt')
+UNKNOWN_PRAGMA_HYP_JSON_OUTPUT = load_fixture('unknown_pragma_sol_json_output.json')
+UNKNOWN_PRAGMA_HYP_CLI_OUTPUT = load_fixture('unknown_pragma_sol_cli_output.txt')
 
 UNIMPLEMENTED_FEATURE_JSON_OUTPUT = load_fixture('unimplemented_feature_json_output.json')
 UNIMPLEMENTED_FEATURE_CLI_OUTPUT = load_fixture('unimplemented_feature_cli_output.txt')
@@ -65,7 +65,7 @@ class TestFileReport(PrepareReportTestBase):
                     contract_name='B',
                     file_name=Path('syntaxTests/smoke_test.hyp'),
                     bytecode=None,
-                    metadata='{"language":"Solidity"}',
+                    metadata='{"language":"Hyperion"}',
                 ),
                 ContractReport(
                     contract_name='Lib',
@@ -80,7 +80,7 @@ class TestFileReport(PrepareReportTestBase):
             "syntaxTests/scoping/library_inherited2.hyp:A <NO BYTECODE>\n"
             "syntaxTests/scoping/library_inherited2.hyp:A <NO METADATA>\n"
             "syntaxTests/scoping/library_inherited2.hyp:B <NO BYTECODE>\n"
-            "syntaxTests/scoping/library_inherited2.hyp:B {\"language\":\"Solidity\"}\n"
+            "syntaxTests/scoping/library_inherited2.hyp:B {\"language\":\"Hyperion\"}\n"
             "syntaxTests/scoping/library_inherited2.hyp:Lib 60566050600b828282398051\n"
             "syntaxTests/scoping/library_inherited2.hyp:Lib <NO METADATA>\n"
         )
@@ -160,11 +160,11 @@ class TestLoadSource(PrepareReportTestBase):
             "}\n"
         )
 
-        self.assertEqual(load_source(SMT_SMOKE_TEST_SOL_PATH, SMTUse.STRIP_PRAGMAS), expected_file_content)
+        self.assertEqual(load_source(SMT_SMOKE_TEST_HYP_PATH, SMTUse.STRIP_PRAGMAS), expected_file_content)
 
     def test_load_source_should_not_strip_smt_pragmas_if_not_requested(self):
-        self.assertEqual(load_source(SMT_SMOKE_TEST_SOL_PATH, SMTUse.DISABLE), SMT_SMOKE_TEST_SOL_CODE)
-        self.assertEqual(load_source(SMT_SMOKE_TEST_SOL_PATH, SMTUse.PRESERVE), SMT_SMOKE_TEST_SOL_CODE)
+        self.assertEqual(load_source(SMT_SMOKE_TEST_HYP_PATH, SMTUse.DISABLE), SMT_SMOKE_TEST_HYP_CODE)
+        self.assertEqual(load_source(SMT_SMOKE_TEST_HYP_PATH, SMTUse.PRESERVE), SMT_SMOKE_TEST_HYP_CODE)
 
     def test_load_source_preserves_lf_newlines(self):
         expected_output = (
@@ -174,7 +174,7 @@ class TestLoadSource(PrepareReportTestBase):
             "}\n"
         )
 
-        self.assertEqual(load_source(SMT_CONTRACT_WITH_LF_NEWLINES_SOL_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
+        self.assertEqual(load_source(SMT_CONTRACT_WITH_LF_NEWLINES_HYP_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
 
     def test_load_source_preserves_crlf_newlines(self):
         expected_output = (
@@ -184,7 +184,7 @@ class TestLoadSource(PrepareReportTestBase):
             "}\r\n"
         )
 
-        self.assertEqual(load_source(SMT_CONTRACT_WITH_CRLF_NEWLINES_SOL_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
+        self.assertEqual(load_source(SMT_CONTRACT_WITH_CRLF_NEWLINES_HYP_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
 
     def test_load_source_preserves_cr_newlines(self):
         expected_output = (
@@ -194,7 +194,7 @@ class TestLoadSource(PrepareReportTestBase):
             "}\r"
         )
 
-        self.assertEqual(load_source(SMT_CONTRACT_WITH_CR_NEWLINES_SOL_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
+        self.assertEqual(load_source(SMT_CONTRACT_WITH_CR_NEWLINES_HYP_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
 
     def test_load_source_preserves_mixed_newlines(self):
         expected_output = (
@@ -204,15 +204,15 @@ class TestLoadSource(PrepareReportTestBase):
             "}\r\n"
         )
 
-        self.assertEqual(load_source(SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
+        self.assertEqual(load_source(SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH, SMTUse.STRIP_PRAGMAS), expected_output)
 
 
 class TestPrepareCompilerInput(PrepareReportTestBase):
     def test_prepare_compiler_input_should_work_with_standard_json_interface(self):
         expected_compiler_input = {
-            'language': 'Solidity',
+            'language': 'Hyperion',
             'sources': {
-                str(SMT_SMOKE_TEST_SOL_PATH): {'content': SMT_SMOKE_TEST_SOL_CODE},
+                str(SMT_SMOKE_TEST_HYP_PATH): {'content': SMT_SMOKE_TEST_HYP_CODE},
             },
             'settings': {
                 'optimizer': {'enabled': True},
@@ -223,7 +223,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         (command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_SMOKE_TEST_SOL_PATH,
+            SMT_SMOKE_TEST_HYP_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=False,
             interface=CompilerInterface.STANDARD_JSON,
@@ -237,7 +237,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
     def test_prepare_compiler_input_should_work_with_cli_interface(self):
         (command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_SMOKE_TEST_SOL_PATH,
+            SMT_SMOKE_TEST_HYP_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=False,
             interface=CompilerInterface.CLI,
@@ -247,15 +247,15 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--optimize', '--model-checker-engine', 'none']
+            ['hypc', str(SMT_SMOKE_TEST_HYP_PATH), '--bin', '--metadata', '--optimize', '--model-checker-engine', 'none']
         )
-        self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
+        self.assertEqual(compiler_input, SMT_SMOKE_TEST_HYP_CODE)
 
     def test_prepare_compiler_input_for_json_preserves_newlines(self):
         expected_compiler_input = {
-            'language': 'Solidity',
+            'language': 'Hyperion',
             'sources': {
-                str(SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH): {
+                str(SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH): {
                     'content':
                         "pragma experimental SMTChecker;\n"
                         "\n"
@@ -273,7 +273,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         (command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH,
+            SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH,
             preset=SettingsPreset.VIA_IR_OPTIMIZE,
             force_no_optimize_yul=False,
             interface=CompilerInterface.STANDARD_JSON,
@@ -287,7 +287,7 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
     def test_prepare_compiler_input_for_cli_preserves_newlines(self):
         (_command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_PATH,
+            SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_PATH,
             preset=SettingsPreset.LEGACY_OPTIMIZE,
             force_no_optimize_yul=True,
             interface=CompilerInterface.CLI,
@@ -295,12 +295,12 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
             metadata_option_supported=True,
         )
 
-        self.assertEqual(compiler_input, SMT_CONTRACT_WITH_MIXED_NEWLINES_SOL_CODE)
+        self.assertEqual(compiler_input, SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_CODE)
 
     def test_prepare_compiler_input_for_cli_should_handle_force_no_optimize_yul_flag(self):
         (command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_SMOKE_TEST_SOL_PATH,
+            SMT_SMOKE_TEST_HYP_PATH,
             preset=SettingsPreset.LEGACY_NO_OPTIMIZE,
             force_no_optimize_yul=True,
             interface=CompilerInterface.CLI,
@@ -310,14 +310,14 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--metadata', '--no-optimize-yul', '--model-checker-engine', 'none'],
+            ['hypc', str(SMT_SMOKE_TEST_HYP_PATH), '--bin', '--metadata', '--no-optimize-yul', '--model-checker-engine', 'none'],
         )
-        self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
+        self.assertEqual(compiler_input, SMT_SMOKE_TEST_HYP_CODE)
 
     def test_prepare_compiler_input_for_cli_should_not_use_metadata_option_if_not_supported(self):
         (command_line, compiler_input) = prepare_compiler_input(
             Path('hypc'),
-            SMT_SMOKE_TEST_SOL_PATH,
+            SMT_SMOKE_TEST_HYP_PATH,
             preset=SettingsPreset.VIA_IR_OPTIMIZE,
             force_no_optimize_yul=False,
             interface=CompilerInterface.CLI,
@@ -327,9 +327,9 @@ class TestPrepareCompilerInput(PrepareReportTestBase):
 
         self.assertEqual(
             command_line,
-            ['hypc', str(SMT_SMOKE_TEST_SOL_PATH), '--bin', '--optimize', '--via-ir'],
+            ['hypc', str(SMT_SMOKE_TEST_HYP_PATH), '--bin', '--optimize', '--via-ir'],
         )
-        self.assertEqual(compiler_input, SMT_SMOKE_TEST_SOL_CODE)
+        self.assertEqual(compiler_input, SMT_SMOKE_TEST_HYP_CODE)
 
 
 class TestParseStandardJSONOutput(PrepareReportTestBase):
@@ -342,19 +342,19 @@ class TestParseStandardJSONOutput(PrepareReportTestBase):
                     contract_name='A',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122086e727f29d40b264a19bbfcad38d64493dca4bab5dbba8c82ffdaae389d2bba064736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"A"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"A"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 ContractReport(
                     contract_name='B',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='608060405234801561001057600080fd5b506101cc806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80630423a13214610030575b600080fd5b61004a6004803603810190610045919061009d565b610060565b60405161005791906100d5565b60405180910390f35b600061006b82610072565b9050919050565b6000602a8261008191906100f0565b9050919050565b6000813590506100978161017f565b92915050565b6000602082840312156100af57600080fd5b60006100bd84828501610088565b91505092915050565b6100cf81610146565b82525050565b60006020820190506100ea60008301846100c6565b92915050565b60006100fb82610146565b915061010683610146565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0382111561013b5761013a610150565b5b828201905092915050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b61018881610146565b811461019357600080fd5b5056fea2646970667358221220104c345633313efe410492448844d96d78452c3044ce126b5e041b7fbeaa790064736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 ContractReport(
                     contract_name='Lib',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212207f9515e2263fa71a7984707e2aefd82241fac15c497386ca798b526f14f8ba6664736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"Lib"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"Lib"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 # pragma pylint: enable=line-too-long
             ]
@@ -362,14 +362,14 @@ class TestParseStandardJSONOutput(PrepareReportTestBase):
 
         report = parse_standard_json_output(
             Path('syntaxTests/scoping/library_inherited2.hyp'),
-            LIBRARY_INHERITED2_SOL_JSON_OUTPUT,
+            LIBRARY_INHERITED2_HYP_JSON_OUTPUT,
         )
         self.assertEqual(report, expected_report)
 
     def test_parse_standard_json_output_should_report_error_on_compiler_errors(self):
         expected_report = FileReport(file_name=Path('syntaxTests/pragma/unknown_pragma.hyp'), contract_reports=None)
 
-        report = parse_standard_json_output(Path('syntaxTests/pragma/unknown_pragma.hyp'), UNKNOWN_PRAGMA_SOL_JSON_OUTPUT)
+        report = parse_standard_json_output(Path('syntaxTests/pragma/unknown_pragma.hyp'), UNKNOWN_PRAGMA_HYP_JSON_OUTPUT)
         self.assertEqual(report, expected_report)
 
     def test_parse_standard_json_output_should_report_error_on_empty_json(self):
@@ -469,31 +469,31 @@ class TestParseCLIOutput(PrepareReportTestBase):
                     contract_name='A',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122086e727f29d40b264a19bbfcad38d64493dca4bab5dbba8c82ffdaae389d2bba064736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"A"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"A"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 ContractReport(
                     contract_name='B',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='608060405234801561001057600080fd5b506101cc806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80630423a13214610030575b600080fd5b61004a6004803603810190610045919061009d565b610060565b60405161005791906100d5565b60405180910390f35b600061006b82610072565b9050919050565b6000602a8261008191906100f0565b9050919050565b6000813590506100978161017f565b92915050565b6000602082840312156100af57600080fd5b60006100bd84828501610088565b91505092915050565b6100cf81610146565b82525050565b60006020820190506100ea60008301846100c6565b92915050565b60006100fb82610146565b915061010683610146565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0382111561013b5761013a610150565b5b828201905092915050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b61018881610146565b811461019357600080fd5b5056fea2646970667358221220104c345633313efe410492448844d96d78452c3044ce126b5e041b7fbeaa790064736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 ContractReport(
                     contract_name='Lib',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode='60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212207f9515e2263fa71a7984707e2aefd82241fac15c497386ca798b526f14f8ba6664736f6c63430008000033',
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"Lib"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"Lib"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 # pragma pylint: enable=line-too-long
             ]
         )
 
-        report = parse_cli_output(Path('syntaxTests/scoping/library_inherited2.hyp'), LIBRARY_INHERITED2_SOL_CLI_OUTPUT)
+        report = parse_cli_output(Path('syntaxTests/scoping/library_inherited2.hyp'), LIBRARY_INHERITED2_HYP_CLI_OUTPUT)
         self.assertEqual(report, expected_report)
 
     def test_parse_cli_output_should_report_error_on_compiler_errors(self):
         expected_report = FileReport(file_name=Path('syntaxTests/pragma/unknown_pragma.hyp'), contract_reports=None)
 
-        report = parse_cli_output(Path('syntaxTests/pragma/unknown_pragma.hyp'), UNKNOWN_PRAGMA_SOL_CLI_OUTPUT)
+        report = parse_cli_output(Path('syntaxTests/pragma/unknown_pragma.hyp'), UNKNOWN_PRAGMA_HYP_CLI_OUTPUT)
         self.assertEqual(report, expected_report)
 
     def test_parse_cli_output_should_report_error_on_empty_output(self):
@@ -507,7 +507,7 @@ class TestParseCLIOutput(PrepareReportTestBase):
             ======= syntaxTests/scoping/library_inherited2.hyp:B =======
             608060405234801561001057600080fd5b506101cc806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80630423a13214610030575b600080fd5b61004a6004803603810190610045919061009d565b610060565b60405161005791906100d5565b60405180910390f35b600061006b82610072565b9050919050565b6000602a8261008191906100f0565b9050919050565b6000813590506100978161017f565b92915050565b6000602082840312156100af57600080fd5b60006100bd84828501610088565b91505092915050565b6100cf81610146565b82525050565b60006020820190506100ea60008301846100c6565b92915050565b60006100fb82610146565b915061010683610146565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0382111561013b5761013a610150565b5b828201905092915050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b61018881610146565b811461019357600080fd5b5056fea2646970667358221220104c345633313efe410492448844d96d78452c3044ce126b5e041b7fbeaa790064736f6c63430008000033
             Metadata:
-            {"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}
+            {"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}
 
             ======= syntaxTests/scoping/library_inherited2.hyp:Lib =======
             Binary:
@@ -529,7 +529,7 @@ class TestParseCLIOutput(PrepareReportTestBase):
                     contract_name='B',
                     file_name=Path('syntaxTests/scoping/library_inherited2.hyp'),
                     bytecode=None,
-                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Solidity","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.8.0+commit.c7dfd78e"},"language":"Hyperion","output":{"abi":[{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"bar","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"}],"devdoc":{"kind":"dev","methods":{},"version":1},"userdoc":{"kind":"user","methods":{},"version":1}},"settings":{"compilationTarget":{"syntaxTests/scoping/library_inherited2.hyp":"B"},"zvmVersion":"shanghai","libraries":{},"metadata":{"bytecodeHash":"ipfs"},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"syntaxTests/scoping/library_inherited2.hyp":{"keccak256":"0xd0619f00638fdfea187368965615dbd599fead93dd14b6558725e85ec7011d96","urls":["bzz-raw://ec7af066be66a223f0d25ba3bf9ba6dc103e1a57531a66a38a5ca2b6ce172f55","dweb:/ipfs/QmW1NrqQNhnY1Tkgr3Z9oM8buCGLUJCJVCDTVejJTT5Vet"]}},"version":1}',
                 ),
                 ContractReport(
                     contract_name='Lib',
@@ -582,7 +582,7 @@ class TestParseCLIOutput(PrepareReportTestBase):
                     contract_name='C',
                     file_name=None,
                     bytecode='6060604052346000575b60358060166000396000f30060606040525b60005600a165627a7a72305820ccf9337430b4c4f7d6ad41efb10a94411a2af6a9f173ef52daeadd31f4bf11890029',
-                    metadata='{"compiler":{"version":"0.4.8+commit.60cc1668.mod.Darwin.appleclang"},"language":"Solidity","output":{"abi":[],"devdoc":{"methods":{}},"userdoc":{"methods":{}}},"settings":{"compilationTarget":{"contract.hyp":"C"},"libraries":{},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"contract.hyp":{"keccak256":"0xbe86d3681a198587296ad6d4a834606197e1a8f8944922c501631b04e21eeba2","urls":["bzzr://af16957d3d86013309d64d3cc572d007b1d8b08a821f2ff366840deb54a78524"]}},"version":1}',
+                    metadata='{"compiler":{"version":"0.4.8+commit.60cc1668.mod.Darwin.appleclang"},"language":"Hyperion","output":{"abi":[],"devdoc":{"methods":{}},"userdoc":{"methods":{}}},"settings":{"compilationTarget":{"contract.hyp":"C"},"libraries":{},"optimizer":{"enabled":false,"runs":200},"remappings":[]},"sources":{"contract.hyp":{"keccak256":"0xbe86d3681a198587296ad6d4a834606197e1a8f8944922c501631b04e21eeba2","urls":["bzzr://af16957d3d86013309d64d3cc572d007b1d8b08a821f2ff366840deb54a78524"]}},"version":1}',
                 )
                 # pragma pylint: enable=line-too-long
             ]

@@ -8,7 +8,7 @@ Style Guide
 Introduction
 ************
 
-This guide is intended to provide coding conventions for writing Solidity code.
+This guide is intended to provide coding conventions for writing Hyperion code.
 This guide should be thought of as an evolving document that will change over
 time as useful conventions are found and old conventions are rendered obsolete.
 
@@ -20,7 +20,7 @@ taken from Python's
 `pep8 style guide <https://peps.python.org/pep-0008/>`_.
 
 The goal of this guide is *not* to be the right way or the best way to write
-Solidity code.  The goal of this guide is *consistency*.  A quote from Python's
+Hyperion code.  The goal of this guide is *consistency*.  A quote from Python's
 `pep8 <https://peps.python.org/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds>`_
 captures this concept well.
 
@@ -51,14 +51,14 @@ Mixing tabs and spaces should be avoided.
 Blank Lines
 ===========
 
-Surround top level declarations in Solidity source with two blank lines.
+Surround top level declarations in Hyperion source with two blank lines.
 
 Yes:
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract A {
         // ...
@@ -79,7 +79,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract A {
         // ...
@@ -101,7 +101,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     abstract contract A {
         function spam() public virtual pure;
@@ -124,7 +124,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma hyperion >=0.6.0 <0.9.0;
 
     abstract contract A {
         function spam() virtual pure public;
@@ -272,7 +272,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     import "./Owned.hyp";
 
@@ -290,7 +290,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract A {
         // ...
@@ -326,7 +326,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     contract A {
         constructor() {
             // ...
@@ -364,7 +364,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     contract A {
 
         // External functions
@@ -491,7 +491,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract Coin {
         struct Bank {
@@ -505,7 +505,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract Coin
     {
@@ -838,7 +838,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     // Base contracts just to make this compile
     contract B {
         constructor(uint) {
@@ -876,7 +876,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     // Base contracts just to make this compile
     contract B {
@@ -1072,7 +1072,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.4 <0.9.0;
+    pragma hyperion >=0.8.4 <0.9.0;
 
     abstract contract Math {
         error DivideByZero();
@@ -1084,7 +1084,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.4 <0.9.0;
+    pragma hyperion >=0.8.4 <0.9.0;
 
     abstract contract Math {
         function divide(int256 numerator, int256 denominator) public virtual returns (uint256);
@@ -1150,7 +1150,7 @@ Yes:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     // Owned.hyp
     contract Owned {
@@ -1175,7 +1175,7 @@ and in ``Congress.hyp``:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     import "./Owned.hyp";
 
@@ -1189,7 +1189,7 @@ No:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
 
     // owned.hyp
     contract owned {
@@ -1214,7 +1214,7 @@ and in ``Congress.hyp``:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.7.0;
+    pragma hyperion ^0.7.0;
 
 
     import "./owned.hyp";
@@ -1305,7 +1305,7 @@ and a common source of security vulnerabilities (avoid find-replace-all tooling 
 NatSpec
 *******
 
-Solidity contracts can also contain NatSpec comments. They are written with a
+Hyperion contracts can also contain NatSpec comments. They are written with a
 triple slash (``///``) or a double asterisk block (``/** ... */``) and
 they should be used directly above function declarations or statements.
 
@@ -1315,9 +1315,9 @@ added looks like the one below:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
-    /// @author The Solidity Team
+    /// @author The Hyperion Team
     /// @title A simple storage example
     contract SimpleStorage {
         uint storedData;
@@ -1337,6 +1337,6 @@ added looks like the one below:
         }
     }
 
-It is recommended that Solidity contracts are fully annotated using :ref:`NatSpec <natspec>` for all public interfaces (everything in the ABI).
+It is recommended that Hyperion contracts are fully annotated using :ref:`NatSpec <natspec>` for all public interfaces (everything in the ABI).
 
 Please see the section about :ref:`NatSpec <natspec>` for a detailed explanation.

@@ -7,7 +7,7 @@ Voting
 ******
 
 The following contract is quite complex, but showcases
-a lot of Solidity's features. It implements a voting
+a lot of Hyperion's features. It implements a voting
 contract. Of course, the main problems of electronic
 voting is how to assign voting rights to the correct
 persons and how to prevent manipulation. We will not
@@ -33,7 +33,7 @@ of votes.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     /// @title Voting with delegation.
     contract Ballot {
         // This declares a new complex type which will

@@ -35,8 +35,8 @@ if (OSSFUZZ)
             hypc_ossfuzz.cpp
             ../fuzzer_common.cpp
             ../../TestCaseReader.cpp
-            SolidityGenerator.cpp
-            SolidityCustomMutatorInterface.cpp
+            HyperionGenerator.cpp
+            HyperionCustomMutatorInterface.cpp
     )
     target_link_libraries(hypc_mutator_ossfuzz PRIVATE libhypc zvmasm)
     set_target_properties(hypc_mutator_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
@@ -141,14 +141,14 @@ if (OSSFUZZ)
     add_executable(abiv2_proto_ossfuzz
             ../../ZVMHost.cpp
             abiV2ProtoFuzzer.cpp
-            SolidityZvmoneInterface.cpp
+            HyperionZvmoneInterface.cpp
             protoToAbiV2.cpp
             abiV2Proto.pb.cc
     )
     target_include_directories(abiv2_proto_ossfuzz PRIVATE
             /usr/include/libprotobuf-mutator
     )
-    target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
+    target_link_libraries(abiv2_proto_ossfuzz PRIVATE hyperion
             zvmc
             zvmone-standalone
             protobuf-mutator-libfuzzer.a
@@ -160,7 +160,7 @@ if (OSSFUZZ)
 
     add_executable(abiv2_isabelle_ossfuzz
             AbiV2IsabelleFuzzer.cpp
-            SolidityZvmoneInterface.cpp
+            HyperionZvmoneInterface.cpp
             ../../ZVMHost.cpp
             protoToAbiV2.cpp
             abiV2Proto.pb.cc
@@ -168,7 +168,7 @@ if (OSSFUZZ)
     target_include_directories(abiv2_isabelle_ossfuzz PRIVATE
             /usr/include/libprotobuf-mutator
     )
-    target_link_libraries(abiv2_isabelle_ossfuzz PRIVATE solidity
+    target_link_libraries(abiv2_isabelle_ossfuzz PRIVATE hyperion
             zvmc
             zvmone-standalone
             protobuf-mutator-libfuzzer.a
@@ -182,15 +182,15 @@ if (OSSFUZZ)
 
     add_executable(sol_proto_ossfuzz
             solProtoFuzzer.cpp
-            SolidityZvmoneInterface.cpp
-            protoToSol.cpp
+            HyperionZvmoneInterface.cpp
+            protoToHyp.cpp
             solProto.pb.cc
             ../../ZVMHost.cpp
     )
     target_include_directories(sol_proto_ossfuzz PRIVATE
             /usr/include/libprotobuf-mutator
     )
-    target_link_libraries(sol_proto_ossfuzz PRIVATE solidity libhypc
+    target_link_libraries(sol_proto_ossfuzz PRIVATE hyperion libhypc
             zvmc
             zvmone-standalone
             protobuf-mutator-libfuzzer.a
@@ -261,7 +261,7 @@ else()
 #            /src/libprotobuf-mutator
 #            /src/zvmone/include
 #    )
-#    target_link_libraries(abiv2_proto_ossfuzz PRIVATE solidity
+#    target_link_libraries(abiv2_proto_ossfuzz PRIVATE hyperion
 #            zvmone intx ethash keccak zvmc-instructions zvmc
 #            protobuf-mutator-libfuzzer.a
 #            protobuf-mutator.a

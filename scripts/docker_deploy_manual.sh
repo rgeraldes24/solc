@@ -17,7 +17,7 @@ DIR=$(mktemp -d)
 cd "$DIR"
 
 git clone --depth 2 https://github.com/theQRL/hyperion.git -b "$branch"
-cd solidity
+cd hyperion
 commithash=$(git rev-parse --short=8 HEAD)
 echo -n "$commithash" > commit_hash.txt
 version=$("$(dirname "$0")/get_version.sh")

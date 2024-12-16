@@ -38,7 +38,7 @@ number [to indicate this fast pace of change](https://semver.org/#spec-item-4).
 ## Build and Install
 
 Instructions about how to build and install the Hyperion compiler can be
-found in the [Hyperion documentation](https://docs.soliditylang.org/en/latest/installing-solidity.html#building-from-source).
+found in the [Hyperion documentation](https://docs.soliditylang.org/en/latest/installing-hyperion.html#building-from-source).
 
 
 ## Example
@@ -47,7 +47,7 @@ A "Hello World" program in Hyperion is of even less use than in other languages,
 
 ```hyperion
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.9.0;
+pragma hyperion >=0.6.0 <0.9.0;
 
 contract HelloWorld {
     function helloWorld() external pure returns (string memory) {

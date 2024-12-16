@@ -83,7 +83,7 @@ TEST_REGEXES = TestRegexesTuple(
 )
 
 """
-Named tuple holding regexes to find tags in the solidity code
+Named tuple holding regexes to find tags in the hyperion code
 """
 TagRegexesTuple = namedtuple("TagRegexestuple", ["simpleRange", "multilineRange"])
 TAG_REGEXES = TagRegexesTuple(
@@ -287,7 +287,7 @@ class JSONExpectationFailed(ExpectationFailed):
 
 
 def create_cli_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Solidity LSP Test suite")
+    parser = argparse.ArgumentParser(description="Hyperion LSP Test suite")
     parser.set_defaults(fail_fast=False)
     parser.add_argument(
         "-f", "--fail-fast",
@@ -342,7 +342,7 @@ def create_cli_parser() -> argparse.ArgumentParser:
         "project_root_dir",
         type=str,
         default=f"{os.path.dirname(os.path.realpath(__file__))}/..",
-        help="Path to Solidity project's root directory (must be fully qualified).",
+        help="Path to Hyperion project's root directory (must be fully qualified).",
         nargs="?"
     )
     return parser
@@ -840,7 +840,7 @@ class FileTestRunner:
         return replace_tag(contentJson, markersFallback)
 
 
-class SolidityLSPTestSuite: # {{{
+class HyperionLSPTestSuite: # {{{
     test_counter = Counter()
     assertion_counter = Counter()
     print_assertions: bool = False
@@ -870,8 +870,8 @@ class SolidityLSPTestSuite: # {{{
         """
         all_tests = sorted([
             str(name)[5:]
-            for name in dir(SolidityLSPTestSuite)
-            if callable(getattr(SolidityLSPTestSuite, name)) and name.startswith("test_")
+            for name in dir(HyperionLSPTestSuite)
+            if callable(getattr(HyperionLSPTestSuite, name)) and name.startswith("test_")
         ])
         filtered_tests = fnmatch.filter(all_tests, self.test_pattern)
         if filtered_tests.count("generic") == 0:
@@ -1078,7 +1078,7 @@ class SolidityLSPTestSuite: # {{{
                 'textDocument':
                 {
                     'uri': self.get_test_file_uri(test_case_name, sub_dir),
-                    'languageId': 'Solidity',
+                    'languageId': 'Hyperion',
                     'version': 1,
                     'text': self.get_test_file_contents(test_case_name, sub_dir)
                 }
@@ -1774,11 +1774,11 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_A_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text': ''.join([
                     '// SPDX-License-Identifier: UNLICENSED\n',
-                    'pragma solidity >=0.8.0;\n',
+                    'pragma hyperion >=0.8.0;\n',
                 ])
             }
         })
@@ -1790,11 +1790,11 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_B_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text': ''.join([
                     '// SPDX-License-Identifier: UNLICENSED\n',
-                    'pragma solidity >=0.8.0;\n',
+                    'pragma hyperion >=0.8.0;\n',
                 ])
             }
         })
@@ -1844,11 +1844,11 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_A_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text':
                     '// SPDX-License-Identifier: UNLICENSED\n'
-                    'pragma solidity >=0.8.0;\n'
+                    'pragma hyperion >=0.8.0;\n'
                     'import "./goto/lib.hyp";\n'
             }
         })
@@ -1881,7 +1881,7 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text': self.get_test_file_contents(FILE_NAME)
             }
@@ -1943,7 +1943,7 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text': ''
             }
@@ -1983,7 +1983,7 @@ class SolidityLSPTestSuite: # {{{
         hypc.send_message('textDocument/didOpen', {
             'textDocument': {
                 'uri': FILE_URI,
-                'languageId': 'Solidity',
+                'languageId': 'Hyperion',
                 'version': 1,
                 'text': self.get_test_file_contents(FILE_NAME)
             }
@@ -2056,6 +2056,6 @@ class SolidityLSPTestSuite: # {{{
 
 
 if __name__ == "__main__":
-    suite = SolidityLSPTestSuite()
+    suite = HyperionLSPTestSuite()
     exit_code = suite.main()
     sys.exit(exit_code)

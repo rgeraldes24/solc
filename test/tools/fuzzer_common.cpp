@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -50,7 +50,7 @@ void FuzzerUtil::testCompilerJsonInterface(string const& _input, bool _optimize,
 		cout << "Testing compiler " << (_optimize ? "with" : "without") << " optimizer." << endl;
 
 	Json::Value config = Json::objectValue;
-	config["language"] = "Solidity";
+	config["language"] = "Hyperion";
 	config["sources"] = Json::objectValue;
 	config["sources"][""] = Json::objectValue;
 	config["sources"][""]["content"] = _input;
@@ -139,12 +139,12 @@ void FuzzerUtil::runCompiler(string const& _input, bool _quiet)
 {
 	if (!_quiet)
 		cout << "Input JSON: " << _input << endl;
-	string outputString(solidity_compile(_input.c_str(), nullptr, nullptr));
+	string outputString(hyperion_compile(_input.c_str(), nullptr, nullptr));
 	if (!_quiet)
 		cout << "Output JSON: " << outputString << endl;
 
 	// This should be safe given the above copies the output.
-	solidity_reset();
+	hyperion_reset();
 
 	Json::Value output;
 	if (!jsonParseStrict(outputString, output))

@@ -8,7 +8,7 @@ add_executable(hypfuzzer afl_fuzzer.cpp fuzzer_common.cpp)
 target_link_libraries(hypfuzzer PRIVATE libhypc zvmasm Boost::boost Boost::program_options Boost::system)
 
 add_executable(yulopti yulopti.cpp)
-target_link_libraries(yulopti PRIVATE solidity Boost::boost Boost::program_options Boost::system)
+target_link_libraries(yulopti PRIVATE hyperion Boost::boost Boost::program_options Boost::system)
 
 add_executable(ihyptest
 	ihyptest.cpp
@@ -29,7 +29,7 @@ add_executable(ihyptest
 	../libhyperion/SyntaxTest.cpp
 	../libhyperion/SemanticTest.cpp
 	../libhyperion/AnalysisFramework.cpp
-	../libhyperion/SolidityExecutionFramework.cpp
+	../libhyperion/HyperionExecutionFramework.cpp
 	../ExecutionFramework.cpp
 	../libhyperion/ABIJsonTest.cpp
 	../libhyperion/ASTJSONTest.cpp
@@ -49,4 +49,4 @@ add_executable(ihyptest
 	../libyul/YulInterpreterTest.cpp
 )
 target_compile_definitions(ihyptest PRIVATE ISOLTEST)
-target_link_libraries(ihyptest PRIVATE zvmc libhypc solidity yulInterpreter zvmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)
+target_link_libraries(ihyptest PRIVATE zvmc libhypc hyperion yulInterpreter zvmasm Boost::boost Boost::program_options Boost::unit_test_framework Threads::Threads)

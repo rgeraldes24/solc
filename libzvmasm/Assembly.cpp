@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /** @file Assembly.cpp
@@ -83,7 +83,7 @@ unsigned Assembly::codeSize(unsigned subTagSize) const
 
 void Assembly::importAssemblyItemsFromJSON(Json::Value const& _code, std::vector<std::string> const& _sourceList)
 {
-	solAssert(m_items.empty());
+	hypAssert(m_items.empty());
 	solRequire(_code.isArray(), AssemblyImportException, "Supplied JSON is not an array.");
 	for (auto jsonItemIter = std::begin(_code); jsonItemIter != std::end(_code); ++jsonItemIter)
 	{
@@ -141,7 +141,7 @@ AssemblyItem Assembly::createAssemblyItemFromJSON(Json::Value const& _json, std:
 	auto storeImmutableHash = [&](std::string const& _immutableName) -> h256
 	{
 		h256 hash(util::keccak256(_immutableName));
-		solAssert(m_immutables.count(hash) == 0 || m_immutables[hash] == _immutableName);
+		hypAssert(m_immutables.count(hash) == 0 || m_immutables[hash] == _immutableName);
 		m_immutables[hash] = _immutableName;
 		return hash;
 	};
@@ -149,7 +149,7 @@ AssemblyItem Assembly::createAssemblyItemFromJSON(Json::Value const& _json, std:
 	auto storeLibraryHash = [&](std::string const& _libraryName) -> h256
 	{
 		h256 hash(util::keccak256(_libraryName));
-		solAssert(m_libraries.count(hash) == 0 || m_libraries[hash] == _libraryName);
+		hypAssert(m_libraries.count(hash) == 0 || m_libraries[hash] == _libraryName);
 		m_libraries[hash] = _libraryName;
 		return hash;
 	};
@@ -535,8 +535,8 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 	std::vector<std::string> parsedSourceList;
 	if (_json.isMember("sourceList"))
 	{
-		solAssert(_level == 0);
-		solAssert(_sourceList.empty());
+		hypAssert(_level == 0);
+		hypAssert(_sourceList.empty());
 		for (Json::Value const& sourceName: _json["sourceList"])
 		{
 			solRequire(
@@ -569,7 +569,7 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 		std::map<size_t, std::shared_ptr<Assembly>> subAssemblies;
 		for (Json::ValueConstIterator dataIter = data.begin(); dataIter != data.end(); dataIter++)
 		{
-			solAssert(dataIter.key().isString());
+			hypAssert(dataIter.key().isString());
 			std::string dataItemID = dataIter.key().asString();
 			Json::Value const& dataItem = data[dataItemID];
 			if (dataItem.isString())
@@ -602,9 +602,9 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 				}
 
 				auto [subAssembly, emptySourceList] = Assembly::fromJSON(dataItem, _level == 0 ? parsedSourceList : _sourceList, _level + 1);
-				solAssert(subAssembly);
-				solAssert(emptySourceList.empty());
-				solAssert(subAssemblies.count(index) == 0);
+				hypAssert(subAssembly);
+				hypAssert(emptySourceList.empty());
+				hypAssert(subAssemblies.count(index) == 0);
 				subAssemblies[index] = subAssembly;
 			}
 			else

@@ -9,7 +9,7 @@
 ## If the given branch is "release", the resulting package will be uploaded to
 ## ethereum/ethereum PPA, or ethereum/ethereum-dev PPA otherwise.
 ##
-## It will clone the Solidity git from github, determine the version,
+## It will clone the Hyperion git from github, determine the version,
 ## create a source archive and push it to the ubuntu ppa servers.
 ##
 ## To interact with launchpad, you need to set the variables $LAUNCHPAD_EMAIL
@@ -120,8 +120,8 @@ fi
 ppafilesurl=https://launchpad.net/~ethereum/+archive/ubuntu/${pparepo}/+files
 
 # Fetch source
-git clone --depth 2 --recursive https://github.com/ethereum/solidity.git -b "$branch"
-mv solidity hypc
+git clone --depth 2 --recursive https://github.com/ethereum/hyperion.git -b "$branch"
+mv hyperion hypc
 
 # Fetch dependencies
 mkdir -p ./hypc/deps/downloads/ 2>/dev/null || true
@@ -173,7 +173,7 @@ Build-Depends: ${SMTDEPENDENCY}debhelper (>= 9.0.0),
                scons
 Standards-Version: 3.9.5
 Homepage: https://ethereum.org
-Vcs-Git: https://github.com/ethereum/solidity.git
+Vcs-Git: https://github.com/ethereum/hyperion.git
 Vcs-Browser: https://github.com/ethereum/solidity
 
 Package: hypc
@@ -181,8 +181,8 @@ Architecture: any-amd64
 Multi-Arch: same
 Depends: \${shlibs:Depends}, \${misc:Depends}
 Conflicts: libethereum (<= 1.2.9)
-Description: Solidity compiler.
- The commandline interface to the Solidity smart contract compiler.
+Description: Hyperion compiler.
+ The commandline interface to the Hyperion smart contract compiler.
 EOF
 cat <<EOF > debian/rules
 #!/usr/bin/make -f

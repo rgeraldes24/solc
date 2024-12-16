@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -36,7 +36,7 @@
 #pragma warning(pop)
 #endif
 
-#include <test/libhyperion/SolidityExecutionFramework.h>
+#include <test/libhyperion/HyperionExecutionFramework.h>
 
 using namespace hyperion::test;
 using namespace hyperion::util;
@@ -55,7 +55,7 @@ static char const* walletCode = R"DELIMITER(
 // some number (specified in constructor) of the set of owners (specified in the constructor, modifiable) before the
 // interior is executed.
 
-pragma solidity >=0.4.0 <0.9.0;
+pragma hyperion >=0.4.0 <0.9.0;
 
 contract multiowned {
 
@@ -438,7 +438,7 @@ contract Wallet is multisig, multiowned, daylimit {
 
 static LazyInit<bytes> s_compiledWallet;
 
-class WalletTestFramework: public SolidityExecutionFramework
+class WalletTestFramework: public HyperionExecutionFramework
 {
 protected:
 	void deployWallet(
@@ -460,7 +460,7 @@ protected:
 };
 
 /// This is a test suite that tests optimised code!
-BOOST_FIXTURE_TEST_SUITE(SolidityWallet, WalletTestFramework)
+BOOST_FIXTURE_TEST_SUITE(HyperionWallet, WalletTestFramework)
 
 BOOST_AUTO_TEST_CASE(creation)
 {

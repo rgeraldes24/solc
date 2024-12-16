@@ -32,7 +32,7 @@ At least a day before the release:
  - [ ] Create a draft of the release on github.
  - [ ] Create a draft PR to update soliditylang.org.
  - [ ] Create drafts of blog posts.
- - [ ] Prepare drafts of Twitter, Reddit and Solidity Forum announcements.
+ - [ ] Prepare drafts of Twitter, Reddit and Hyperion Forum announcements.
 
 ### Blog Post
  - [ ] Create a post on [solidity-website](https://github.com/ethereum/solidity-website/tree/main/src/posts) in the ``Releases`` category and explain some of the new features or concepts.
@@ -71,13 +71,13 @@ At least a day before the release:
  - [ ] Create a pull request in solc-bin and merge.
 
 ### Homebrew and MacOS
- - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in the [``solidity`` formula in Homebrew core repository](https://github.com/Homebrew/homebrew-core/blob/master/Formula/solidity.rb).
+ - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in the [``solidity`` formula in Homebrew core repository](https://github.com/Homebrew/homebrew-core/blob/master/Formula/hyperion.rb).
 
 ### Docker
  - [ ] Run ``./scripts/docker_deploy_manual.sh v$VERSION``.
 
 ### PPA
- - [ ] Create ``.release_ppa_auth`` at the root of your local Solidity checkout and set ``LAUNCHPAD_EMAIL`` and ``LAUNCHPAD_KEYID`` to your key's email and key id.
+ - [ ] Create ``.release_ppa_auth`` at the root of your local Hyperion checkout and set ``LAUNCHPAD_EMAIL`` and ``LAUNCHPAD_KEYID`` to your key's email and key id.
  - [ ] Double-check that the ``DISTRIBUTIONS`` list in ``scripts/release_ppa.sh`` and ``scripts/deps-ppa/static_z3.sh`` contains the most recent versions of Ubuntu.
  - [ ] Make sure the [``~ethereum/cpp-build-deps`` PPA repository](https://launchpad.net/~ethereum/+archive/ubuntu/cpp-build-deps) contains ``libz3-static-dev builds`` for all current versions of Ubuntu.
        Note that it may be included in the ``z3-static`` multipackage (follow the ``View package details`` link to check).

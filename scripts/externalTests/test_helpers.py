@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2023 solidity contributors.
+# (c) 2023 hyperion contributors.
 # ------------------------------------------------------------------------------
 
 import os
@@ -79,7 +79,7 @@ def parse_command_line(description: str, args: List[str]):
         type=str,
         default="native",
         choices=["native", "hypcjs"],
-        help="""Solidity compiler binary type""",
+        help="""Hyperion compiler binary type""",
     )
     arg_parser.add_argument(
         "hypc_binary_path",
@@ -146,6 +146,6 @@ def replace_version_pragmas(test_dir: Path):
     print("Replacing fixed-version pragmas...")
     for source in test_dir.glob("**/*.hyp"):
         content = source.read_text(encoding="utf-8")
-        content = re.sub(r"pragma solidity [^;]+;", r"pragma solidity >=0.0;", content)
+        content = re.sub(r"pragma hyperion [^;]+;", r"pragma hyperion >=0.0;", content)
         with open(source, "w", encoding="utf-8") as f:
             f.write(content)

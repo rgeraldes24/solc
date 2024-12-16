@@ -3,28 +3,28 @@
 #------------------------------------------------------------------------------
 # Bash script to run optimizer performance tests.
 # ------------------------------------------------------------------------------
-# This file is part of solidity.
+# This file is part of hyperion.
 #
-# solidity is free software: you can redistribute it and/or modify
+# hyperion is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# solidity is distributed in the hope that it will be useful,
+# hyperion is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with solidity.  If not, see <http://www.gnu.org/licenses/>
+# along with hyperion.  If not, see <http://www.gnu.org/licenses/>
 #
-# (c) 2022 solidity contributors.
+# (c) 2022 hyperion contributors.
 #------------------------------------------------------------------------------
 
 set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "$0")/../../" && pwd)
-SOLIDITY_BUILD_DIR=${SOLIDITY_BUILD_DIR:-${REPO_ROOT}/build}
+HYPERION_BUILD_DIR=${HYPERION_BUILD_DIR:-${REPO_ROOT}/build}
 
 output_dir=$(mktemp -d -t hypc-benchmark-XXXXXX)
 result_legacy_file="${output_dir}/benchmark-legacy.txt"
@@ -38,7 +38,7 @@ function cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
-hypc="${SOLIDITY_BUILD_DIR}/hypc/hypc"
+hypc="${HYPERION_BUILD_DIR}/hypc/hypc"
 benchmarks_dir="${REPO_ROOT}/test/benchmarks"
 benchmarks=("chains.hyp" "OptimizorClub.hyp" "verifier.hyp")
 time_bin_path=$(type -P time)

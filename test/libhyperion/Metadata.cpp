@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * @date 2017
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(metadata_stamp)
 {
 	// Check that the metadata stamp is at the end of the runtime bytecode.
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		pragma experimental __testOnlyAnalysis;
 		contract test {
 			function g(function(uint) external returns (uint) x) public {}
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE(metadata_stamp_experimental)
 {
 	// Check that the metadata stamp is at the end of the runtime bytecode.
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		pragma experimental __test;
 		contract test {
 			function g(function(uint) external returns (uint) x) public {}
@@ -229,13 +229,13 @@ BOOST_AUTO_TEST_CASE(metadata_relevant_sources)
 {
 	CompilerStack compilerStack;
 	char const* sourceCodeA = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract A {
 			function g(function(uint) external returns (uint) x) public {}
 		}
 	)";
 	char const* sourceCodeB = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract B {
 			function g(function(uint) external returns (uint) x) public {}
 		}
@@ -261,20 +261,20 @@ BOOST_AUTO_TEST_CASE(metadata_relevant_sources_imports)
 {
 	CompilerStack compilerStack;
 	char const* sourceCodeA = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract A {
 			function g(function(uint) external returns (uint) x) public virtual {}
 		}
 	)";
 	char const* sourceCodeB = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		import "./A";
 		contract B is A {
 			function g(function(uint) external returns (uint) x) public virtual override {}
 		}
 	)";
 	char const* sourceCodeC = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		import "./B";
 		contract C is B {
 			function g(function(uint) external returns (uint) x) public override {}
@@ -304,7 +304,7 @@ BOOST_AUTO_TEST_CASE(metadata_useLiteralContent)
 {
 	// Check that the metadata contains "useLiteralContent"
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract test {
 		}
 	)";
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(metadata_useLiteralContent)
 BOOST_AUTO_TEST_CASE(metadata_viair)
 {
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract test {
 		}
 	)";
@@ -383,7 +383,7 @@ BOOST_AUTO_TEST_CASE(metadata_revert_strings)
 {
 	CompilerStack compilerStack;
 	char const* sourceCodeA = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract A {
 		}
 	)";
@@ -402,7 +402,7 @@ BOOST_AUTO_TEST_CASE(metadata_revert_strings)
 BOOST_AUTO_TEST_CASE(metadata_optimiser_sequence)
 {
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract C {
 		}
 	)";
@@ -449,7 +449,7 @@ BOOST_AUTO_TEST_CASE(metadata_optimiser_sequence)
 BOOST_AUTO_TEST_CASE(metadata_license_missing)
 {
 	char const* sourceCode = R"(
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract C {
 		}
 	)";
@@ -462,7 +462,7 @@ BOOST_AUTO_TEST_CASE(metadata_license_gpl3)
 	char const* sourceCode =
 		"// NOTE: we also add trailing whitespace after the license, to see it is trimmed.\n"
 		"// SPDX-License-Identifier: GPL-3.0    \n"
-		"pragma solidity >=0.0;\n"
+		"pragma hyperion >=0.0;\n"
 		"contract C {\n"
 		"}\n";
 	BOOST_CHECK(compileAndCheckLicenseMetadata("C", sourceCode) == "GPL-3.0");
@@ -490,7 +490,7 @@ BOOST_AUTO_TEST_CASE(metadata_license_gpl3_or_apache2)
 {
 	char const* sourceCode = R"(
 		// SPDX-License-Identifier: GPL-3.0 OR Apache-2.0
-		pragma solidity >=0.0;
+		pragma hyperion >=0.0;
 		contract C {
 		}
 	)";
@@ -600,7 +600,7 @@ BOOST_AUTO_TEST_CASE(metadata_license_no_whitespace_multiline)
 BOOST_AUTO_TEST_CASE(metadata_license_nonempty_line)
 {
 	char const* sourceCode = R"(
-		pragma solidity >= 0.0; // SPDX-License-Identifier: GPL-3.0
+		pragma hyperion >= 0.0; // SPDX-License-Identifier: GPL-3.0
 		contract C {}
 	)";
 	BOOST_CHECK(compileAndCheckLicenseMetadata("C", sourceCode) == "GPL-3.0");

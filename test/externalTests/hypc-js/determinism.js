@@ -15,7 +15,7 @@ tape('Deterministic Compilation', function (t) {
     }
     for (i = 0; i < 10; i++) {
       const output = JSON.parse(hypc.compile(JSON.stringify({
-        language: 'Solidity',
+        language: 'Hyperion',
         settings: {
           optimizer: {
             enabled: true

@@ -1,24 +1,24 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
  * @author Christian <c@ethdev.com>
  * @date 2014
- * Solidity compiler.
+ * Hyperion compiler.
  */
 
 
@@ -77,7 +77,7 @@ public:
 		m_context(_context), stackHeight(m_context.stackHeight()) {}
 	void check()
 	{
-		solAssert(
+		hypAssert(
 			m_context.stackHeight() == stackHeight,
 			std::string("I sense a disturbance in the stack: ") + std::to_string(m_context.stackHeight()) + " vs " + std::to_string(stackHeight)
 		);
@@ -147,7 +147,7 @@ void ContractCompiler::appendCallValueCheck()
 
 void ContractCompiler::appendInitAndConstructorCode(ContractDefinition const& _contract)
 {
-	solAssert(!_contract.isLibrary(), "Tried to initialize library.");
+	hypAssert(!_contract.isLibrary(), "Tried to initialize library.");
 	CompilerContext::LocationSetter locationSetter(m_context, _contract);
 
 	m_baseArguments = &_contract.annotation().baseConstructorArguments;
@@ -169,8 +169,8 @@ void ContractCompiler::appendInitAndConstructorCode(ContractDefinition const& _c
 
 size_t ContractCompiler::packIntoContractCreator(ContractDefinition const& _contract)
 {
-	solAssert(!!m_runtimeCompiler, "");
-	solAssert(!_contract.isLibrary(), "Tried to use contract creator or library.");
+	hypAssert(!!m_runtimeCompiler, "");
+	hypAssert(!_contract.isLibrary(), "Tried to use contract creator or library.");
 
 	appendInitAndConstructorCode(_contract);
 
@@ -186,7 +186,7 @@ size_t ContractCompiler::packIntoContractCreator(ContractDefinition const& _cont
 	CompilerContext::LocationSetter locationSetter(m_context, _contract);
 	m_context << deployRoutine;
 
-	solAssert(m_context.runtimeSub() != std::numeric_limits<size_t>::max(), "Runtime sub not registered");
+	hypAssert(m_context.runtimeSub() != std::numeric_limits<size_t>::max(), "Runtime sub not registered");
 
 	ContractType contractType(_contract);
 	auto const& immutables = contractType.immutableVariables();
@@ -222,15 +222,15 @@ size_t ContractCompiler::packIntoContractCreator(ContractDefinition const& _cont
 
 size_t ContractCompiler::deployLibrary(ContractDefinition const& _contract)
 {
-	solAssert(!!m_runtimeCompiler, "");
-	solAssert(_contract.isLibrary(), "Tried to deploy contract as library.");
+	hypAssert(!!m_runtimeCompiler, "");
+	hypAssert(_contract.isLibrary(), "Tried to deploy contract as library.");
 
 	appendMissingFunctions();
 	m_runtimeCompiler->appendMissingFunctions();
 
 	CompilerContext::LocationSetter locationSetter(m_context, _contract);
 
-	solAssert(m_context.runtimeSub() != std::numeric_limits<size_t>::max(), "Runtime sub not registered");
+	hypAssert(m_context.runtimeSub() != std::numeric_limits<size_t>::max(), "Runtime sub not registered");
 	m_context.pushSubroutineSize(m_context.runtimeSub());
 	m_context.pushSubroutineOffset(m_context.runtimeSub());
 	// This code replaces the address added by appendDeployTimeAddress().
@@ -267,16 +267,16 @@ void ContractCompiler::appendBaseConstructor(FunctionDefinition const& _construc
 	FunctionType constructorType(_constructor);
 	if (!constructorType.parameterTypes().empty())
 	{
-		solAssert(m_baseArguments, "");
-		solAssert(m_baseArguments->count(&_constructor), "");
+		hypAssert(m_baseArguments, "");
+		hypAssert(m_baseArguments->count(&_constructor), "");
 		std::vector<ASTPointer<Expression>> const* arguments = nullptr;
 		ASTNode const* baseArgumentNode = m_baseArguments->at(&_constructor);
 		if (auto inheritanceSpecifier = dynamic_cast<InheritanceSpecifier const*>(baseArgumentNode))
 			arguments = inheritanceSpecifier->arguments();
 		else if (auto modifierInvocation = dynamic_cast<ModifierInvocation const*>(baseArgumentNode))
 			arguments = modifierInvocation->arguments();
-		solAssert(arguments, "");
-		solAssert(arguments->size() == constructorType.parameterTypes().size(), "");
+		hypAssert(arguments, "");
+		hypAssert(arguments->size() == constructorType.parameterTypes().size(), "");
 		for (unsigned i = 0; i < arguments->size(); ++i)
 			compileExpression(*(arguments->at(i)), constructorType.parameterTypes()[i]);
 	}
@@ -415,14 +415,14 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 
 	if (_contract.isLibrary())
 	{
-		solAssert(m_context.stackHeight() == 1, "CALL / DELEGATECALL flag expected.");
+		hypAssert(m_context.stackHeight() == 1, "CALL / DELEGATECALL flag expected.");
 	}
 
 	FunctionDefinition const* fallback = _contract.fallbackFunction();
-	solAssert(!_contract.isLibrary() || !fallback, "Libraries can't have fallback functions");
+	hypAssert(!_contract.isLibrary() || !fallback, "Libraries can't have fallback functions");
 
 	FunctionDefinition const* etherReceiver = _contract.receiveFunction();
-	solAssert(!_contract.isLibrary() || !etherReceiver, "Libraries can't have ether receiver functions");
+	hypAssert(!_contract.isLibrary() || !etherReceiver, "Libraries can't have ether receiver functions");
 
 	bool needToAddCallvalueCheck = true;
 	if (!hasPayableFunctions(_contract) && !interfaceFunctions.empty() && !_contract.isLibrary())
@@ -469,10 +469,10 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 			m_context << Instruction::CALLDATASIZE;
 			m_context.appendConditionalJumpTo(notFound);
 
-			solAssert(!_contract.isLibrary(), "");
-			solAssert(etherReceiver->isReceive(), "");
-			solAssert(FunctionType(*etherReceiver).parameterTypes().empty(), "");
-			solAssert(FunctionType(*etherReceiver).returnParameterTypes().empty(), "");
+			hypAssert(!_contract.isLibrary(), "");
+			hypAssert(etherReceiver->isReceive(), "");
+			hypAssert(FunctionType(*etherReceiver).parameterTypes().empty(), "");
+			hypAssert(FunctionType(*etherReceiver).returnParameterTypes().empty(), "");
 			etherReceiver->accept(*this);
 			m_context << Instruction::STOP;
 		}
@@ -480,11 +480,11 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 		m_context << notFound;
 		if (fallback)
 		{
-			solAssert(!_contract.isLibrary(), "");
+			hypAssert(!_contract.isLibrary(), "");
 			if (!fallback->isPayable() && needToAddCallvalueCheck)
 				appendCallValueCheck();
 
-			solAssert(fallback->isFallback(), "");
+			hypAssert(fallback->isFallback(), "");
 			m_context.setStackOffset(0);
 
 			if (!FunctionType(*fallback).parameterTypes().empty())
@@ -510,7 +510,7 @@ void ContractCompiler::appendFunctionSelector(ContractDefinition const& _contrac
 	{
 		m_context.setStackOffset(1);
 		FunctionTypePointer const& functionType = it.second;
-		solAssert(functionType->hasDeclaration(), "");
+		hypAssert(functionType->hasDeclaration(), "");
 		CompilerContext::LocationSetter locationSetter(m_context, functionType->declaration());
 
 		m_context << callDataUnpackerEntryPoints.at(it.first);
@@ -576,14 +576,14 @@ void ContractCompiler::registerStateVariables(ContractDefinition const& _contrac
 
 void ContractCompiler::registerImmutableVariables(ContractDefinition const& _contract)
 {
-	solAssert(m_runtimeCompiler, "Attempted to register immutables for runtime code generation.");
+	hypAssert(m_runtimeCompiler, "Attempted to register immutables for runtime code generation.");
 	for (auto const& var: ContractType(_contract).immutableVariables())
 		m_context.addImmutable(*var);
 }
 
 void ContractCompiler::initializeStateVariables(ContractDefinition const& _contract)
 {
-	solAssert(!_contract.isLibrary(), "Tried to initialize state variables of library.");
+	hypAssert(!_contract.isLibrary(), "Tried to initialize state variables of library.");
 	for (VariableDeclaration const* variable: _contract.stateVariables())
 		if (variable->value() && !variable->isConstant())
 			ExpressionCompiler(m_context, m_optimiserSettings.runOrderLiterals).appendStateVariableInitialization(*variable);
@@ -591,7 +591,7 @@ void ContractCompiler::initializeStateVariables(ContractDefinition const& _contr
 
 bool ContractCompiler::visit(VariableDeclaration const& _variableDeclaration)
 {
-	solAssert(_variableDeclaration.isStateVariable(), "Compiler visit to non-state variable declaration.");
+	hypAssert(_variableDeclaration.isStateVariable(), "Compiler visit to non-state variable declaration.");
 	CompilerContext::LocationSetter locationSetter(m_context, _variableDeclaration);
 
 	m_context.startFunction(_variableDeclaration);
@@ -610,7 +610,7 @@ bool ContractCompiler::visit(VariableDeclaration const& _variableDeclaration)
 
 bool ContractCompiler::visit(FunctionDefinition const& _function)
 {
-	solAssert(_function.isImplemented(), "");
+	hypAssert(_function.isImplemented(), "");
 
 	CompilerContext::LocationSetter locationSetter(m_context, _function);
 
@@ -640,7 +640,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 		))
 			appendBaseConstructor(*c);
 
-	solAssert(m_returnTags.empty(), "");
+	hypAssert(m_returnTags.empty(), "");
 	m_breakTags.clear();
 	m_continueTags.clear();
 	m_currentFunction = &_function;
@@ -650,7 +650,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 
 	appendModifierOrFunctionCode();
 	m_context.setModifierDepth(0);
-	solAssert(m_returnTags.empty(), "");
+	hypAssert(m_returnTags.empty(), "");
 
 	// Now we need to re-shuffle the stack. For this we keep a record of the stack layout
 	// that shows the target positions of the elements, where "-1" denotes that this element needs
@@ -687,7 +687,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 		}
 	for (size_t i = 0; i < stackLayout.size(); ++i)
 		if (stackLayout[i] != static_cast<int>(i))
-			solAssert(false, "Invalid stack layout on cleanup.");
+			hypAssert(false, "Invalid stack layout on cleanup.");
 
 	for (ASTPointer<VariableDeclaration> const& variable: _function.parameters() + _function.returnParameters())
 		m_context.removeVariable(*variable);
@@ -697,7 +697,7 @@ bool ContractCompiler::visit(FunctionDefinition const& _function)
 	/// The constructor and the fallback function doesn't to jump out.
 	if (!_function.isConstructor())
 	{
-		solAssert(m_context.numberOfLocalVariables() == 0, "");
+		hypAssert(m_context.numberOfLocalVariables() == 0, "");
 		if (!_function.isFallback() && !_function.isReceive())
 			m_context.appendJump(zvmasm::AssemblyItem::JumpType::OutOfFunction);
 	}
@@ -714,25 +714,25 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 		yul::AbstractAssembly& _assembly
 	)
 	{
-		solAssert(_context == yul::IdentifierContext::RValue || _context == yul::IdentifierContext::LValue, "");
+		hypAssert(_context == yul::IdentifierContext::RValue || _context == yul::IdentifierContext::LValue, "");
 		auto ref = _inlineAssembly.annotation().externalReferences.find(&_identifier);
-		solAssert(ref != _inlineAssembly.annotation().externalReferences.end(), "");
+		hypAssert(ref != _inlineAssembly.annotation().externalReferences.end(), "");
 		Declaration const* decl = ref->second.declaration;
-		solAssert(!!decl, "");
+		hypAssert(!!decl, "");
 		if (_context == yul::IdentifierContext::RValue)
 		{
 			int const depositBefore = _assembly.stackHeight();
-			solAssert(!!decl->type(), "Type of declaration required but not yet determined.");
+			hypAssert(!!decl->type(), "Type of declaration required but not yet determined.");
 			if (auto variable = dynamic_cast<VariableDeclaration const*>(decl))
 			{
-				solAssert(!variable->immutable(), "");
+				hypAssert(!variable->immutable(), "");
 				if (variable->isConstant())
 				{
 					variable = rootConstVariableDeclaration(*variable);
 					// If rootConstVariableDeclaration fails and returns nullptr,
 					// it should have failed in TypeChecker already, causing a compilation error.
 					// In such case we should not get here.
-					solAssert(variable, "");
+					hypAssert(variable, "");
 
 					u256 value;
 					if (variable->value()->annotation().type->category() == Type::Category::RationalNumber)
@@ -741,7 +741,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 						if (FixedBytesType const* bytesType = dynamic_cast<FixedBytesType const*>(variable->type()))
 							value = value << (256 - 8 * bytesType->numBytes());
 						else
-							solAssert(variable->type()->category() == Type::Category::Integer, "");
+							hypAssert(variable->type()->category() == Type::Category::Integer, "");
 					}
 					else if (Literal const* literal = dynamic_cast<Literal const*>(variable->value().get()))
 					{
@@ -754,24 +754,24 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 							// Either both the literal and the variable are bools, or they are both addresses.
 							// If they are both bools, comparing category is the same as comparing the types.
 							// If they are both addresses, compare category so that payable/nonpayable is not compared.
-							solAssert(type->category() == variable->annotation().type->category(), "");
+							hypAssert(type->category() == variable->annotation().type->category(), "");
 							value = type->literalValue(literal);
 							break;
 						case Type::Category::StringLiteral:
 						{
 							StringLiteralType const& stringLiteral = dynamic_cast<StringLiteralType const&>(*type);
-							solAssert(variable->type()->category() == Type::Category::FixedBytes, "");
+							hypAssert(variable->type()->category() == Type::Category::FixedBytes, "");
 							unsigned const numBytes = dynamic_cast<FixedBytesType const&>(*variable->type()).numBytes();
-							solAssert(stringLiteral.value().size() <= numBytes, "");
+							hypAssert(stringLiteral.value().size() <= numBytes, "");
 							value = u256(h256(stringLiteral.value(), h256::AlignLeft));
 							break;
 						}
 						default:
-							solAssert(false, "");
+							hypAssert(false, "");
 						}
 					}
 					else
-						solAssert(false, "Invalid constant in inline assembly.");
+						hypAssert(false, "Invalid constant in inline assembly.");
 					m_context << value;
 				}
 				else if (m_context.isStateVariable(decl))
@@ -782,7 +782,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 					else if (ref->second.suffix == "offset")
 						m_context << u256(location.second);
 					else
-						solAssert(false, "");
+						hypAssert(false, "");
 				}
 				else if (m_context.isLocalVariable(decl))
 				{
@@ -792,7 +792,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 						std::string const& suffix = ref->second.suffix;
 						if (variable->type()->dataStoredIn(DataLocation::Storage))
 						{
-							solAssert(suffix == "offset" || suffix == "slot", "");
+							hypAssert(suffix == "offset" || suffix == "slot", "");
 							unsigned size = variable->type()->sizeOnStack();
 							if (size == 2)
 							{
@@ -802,7 +802,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 							}
 							else
 							{
-								solAssert(size == 1, "");
+								hypAssert(size == 1, "");
 								// only slot, offset is zero
 								if (suffix == "offset")
 								{
@@ -814,12 +814,12 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 						else if (variable->type()->dataStoredIn(DataLocation::CallData))
 						{
 							auto const* arrayType = dynamic_cast<ArrayType const*>(variable->type());
-							solAssert(
+							hypAssert(
 								arrayType && arrayType->isDynamicallySized() && arrayType->dataStoredIn(DataLocation::CallData),
 								""
 							);
-							solAssert(suffix == "offset" || suffix == "length", "");
-							solAssert(variable->type()->sizeOnStack() == 2, "");
+							hypAssert(suffix == "offset" || suffix == "length", "");
+							hypAssert(variable->type()->sizeOnStack() == 2, "");
 							if (suffix == "length")
 								stackDiff--;
 						}
@@ -828,16 +828,16 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 							functionType && functionType->kind() == FunctionType::Kind::External
 						)
 						{
-							solAssert(suffix == "selector" || suffix == "address", "");
-							solAssert(variable->type()->sizeOnStack() == 2, "");
+							hypAssert(suffix == "selector" || suffix == "address", "");
+							hypAssert(variable->type()->sizeOnStack() == 2, "");
 							if (suffix == "selector")
 								stackDiff--;
 						}
 						else
-							solAssert(false, "");
+							hypAssert(false, "");
 					}
 					else
-						solAssert(variable->type()->sizeOnStack() == 1, "");
+						hypAssert(variable->type()->sizeOnStack() == 1, "");
 					if (stackDiff < 1 || stackDiff > 16)
 						BOOST_THROW_EXCEPTION(
 							StackTooDeepError() <<
@@ -847,17 +847,17 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 					_assembly.appendInstruction(dupInstruction(stackDiff));
 				}
 				else
-					solAssert(false, "");
+					hypAssert(false, "");
 			}
 			else if (auto contract = dynamic_cast<ContractDefinition const*>(decl))
 			{
-				solAssert(ref->second.suffix.empty(), "");
-				solAssert(contract->isLibrary(), "");
+				hypAssert(ref->second.suffix.empty(), "");
+				hypAssert(contract->isLibrary(), "");
 				_assembly.appendLinkerSymbol(contract->fullyQualifiedName());
 			}
 			else
-				solAssert(false, "Invalid declaration type.");
-			solAssert(_assembly.stackHeight() - depositBefore == static_cast<int>(ref->second.valueSize), "");
+				hypAssert(false, "Invalid declaration type.");
+			hypAssert(_assembly.stackHeight() - depositBefore == static_cast<int>(ref->second.valueSize), "");
 		}
 		else
 		{
@@ -867,12 +867,12 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 			std::string const& suffix = ref->second.suffix;
 			if (variable->type()->dataStoredIn(DataLocation::Storage))
 			{
-				solAssert(
+				hypAssert(
 					!!variable && m_context.isLocalVariable(variable),
 					"Can only assign to stack variables in inline assembly."
 				);
-				solAssert(variable->type()->sizeOnStack() == 1, "");
-				solAssert(suffix == "slot", "");
+				hypAssert(variable->type()->sizeOnStack() == 1, "");
+				hypAssert(suffix == "slot", "");
 			}
 			else if (variable->type()->dataStoredIn(DataLocation::CallData))
 			{
@@ -880,23 +880,23 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 				{
 					if (arrayType->isDynamicallySized())
 					{
-						solAssert(suffix == "offset" || suffix == "length", "");
-						solAssert(variable->type()->sizeOnStack() == 2, "");
+						hypAssert(suffix == "offset" || suffix == "length", "");
+						hypAssert(variable->type()->sizeOnStack() == 2, "");
 						if (suffix == "length")
 							stackDiff--;
 					}
 					else
 					{
-						solAssert(variable->type()->sizeOnStack() == 1, "");
-						solAssert(suffix.empty(), "");
+						hypAssert(variable->type()->sizeOnStack() == 1, "");
+						hypAssert(suffix.empty(), "");
 					}
 				}
 				else
 				{
 					auto const* structType = dynamic_cast<StructType const*>(variable->type());
-					solAssert(structType, "");
-					solAssert(variable->type()->sizeOnStack() == 1, "");
-					solAssert(suffix.empty(), "");
+					hypAssert(structType, "");
+					hypAssert(variable->type()->sizeOnStack() == 1, "");
+					hypAssert(suffix.empty(), "");
 				}
 			}
 			else if (
@@ -904,13 +904,13 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 				functionType && functionType->kind() == FunctionType::Kind::External
 			)
 			{
-				solAssert(suffix == "selector" || suffix == "address", "");
-				solAssert(variable->type()->sizeOnStack() == 2, "");
+				hypAssert(suffix == "selector" || suffix == "address", "");
+				hypAssert(variable->type()->sizeOnStack() == 2, "");
 				if (suffix == "selector")
 					stackDiff--;
 			}
 			else
-				solAssert(suffix.empty(), "");
+				hypAssert(suffix.empty(), "");
 
 			if (stackDiff > 16 || stackDiff < 1)
 				BOOST_THROW_EXCEPTION(
@@ -937,7 +937,7 @@ bool ContractCompiler::visit(InlineAssembly const& _inlineAssembly)
 	)
 	{
 		yul::ZVMDialect const* dialect = dynamic_cast<decltype(dialect)>(&_inlineAssembly.dialect());
-		solAssert(dialect, "");
+		hypAssert(dialect, "");
 
 		// Create a modifiable copy of the code and analysis
 		object.code = std::make_shared<yul::Block>(yul::ASTCopier().translate(*code));
@@ -992,9 +992,9 @@ bool ContractCompiler::visit(TryStatement const& _tryStatement)
 			if (auto tupleType = dynamic_cast<TupleType const*>(exprTypes.front()))
 				exprTypes = tupleType->components();
 			std::vector<ASTPointer<VariableDeclaration>> const& params = successClause.parameters()->parameters();
-			solAssert(exprTypes.size() == params.size(), "");
+			hypAssert(exprTypes.size() == params.size(), "");
 			for (size_t i = 0; i < exprTypes.size(); ++i)
-				solAssert(params[i] && exprTypes[i] && *params[i]->annotation().type == *exprTypes[i], "");
+				hypAssert(params[i] && exprTypes[i] && *params[i]->annotation().type == *exprTypes[i], "");
 		}
 		else
 			CompilerUtils(m_context).popStackSlots(static_cast<size_t>(returnSize));
@@ -1021,9 +1021,9 @@ void ContractCompiler::handleCatch(std::vector<ASTPointer<TryCatchClause>> const
 		else if (_catchClauses[i]->errorName().empty())
 			fallback = _catchClauses[i];
 		else
-			solAssert(false, "");
+			hypAssert(false, "");
 
-	solAssert(_catchClauses.size() == 1ul + (error ? 1 : 0) + (panic ? 1 : 0) + (fallback ? 1 : 0), "");
+	hypAssert(_catchClauses.size() == 1ul + (error ? 1 : 0) + (panic ? 1 : 0) + (fallback ? 1 : 0), "");
 
 	zvmasm::AssemblyItem endTag = m_context.newTag();
 	zvmasm::AssemblyItem fallbackTag = m_context.newTag();
@@ -1035,7 +1035,7 @@ void ContractCompiler::handleCatch(std::vector<ASTPointer<TryCatchClause>> const
 		// stack: <selector>
 	if (error)
 	{
-		solAssert(
+		hypAssert(
 			error->parameters() &&
 			error->parameters()->parameters().size() == 1 &&
 			error->parameters()->parameters().front() &&
@@ -1066,7 +1066,7 @@ void ContractCompiler::handleCatch(std::vector<ASTPointer<TryCatchClause>> const
 	m_context << panicTag;
 	if (panic)
 	{
-		solAssert(
+		hypAssert(
 			panic->parameters() &&
 			panic->parameters()->parameters().size() == 1 &&
 			panic->parameters()->parameters().front() &&
@@ -1099,7 +1099,7 @@ void ContractCompiler::handleCatch(std::vector<ASTPointer<TryCatchClause>> const
 	{
 		if (fallback->parameters())
 		{
-			solAssert(
+			hypAssert(
 				fallback->parameters()->parameters().size() == 1 &&
 				fallback->parameters()->parameters().front() &&
 				*fallback->parameters()->parameters().front()->annotation().type == *TypeProvider::bytesMemory(),
@@ -1129,7 +1129,7 @@ bool ContractCompiler::visit(TryCatchClause const& _clause)
 	if (_clause.parameters())
 		for (ASTPointer<VariableDeclaration> const& varDecl: _clause.parameters()->parameters() | ranges::views::reverse)
 		{
-			solAssert(varDecl, "");
+			hypAssert(varDecl, "");
 			varSize += varDecl->annotation().type->sizeOnStack();
 			m_context.addVariable(*varDecl, varSize);
 		}
@@ -1266,7 +1266,7 @@ bool ContractCompiler::visit(ForStatement const& _forStatement)
 bool ContractCompiler::visit(Continue const& _continueStatement)
 {
 	CompilerContext::LocationSetter locationSetter(m_context, _continueStatement);
-	solAssert(!m_continueTags.empty(), "");
+	hypAssert(!m_continueTags.empty(), "");
 	CompilerUtils(m_context).popAndJump(m_continueTags.back().second, m_continueTags.back().first);
 	return false;
 }
@@ -1274,7 +1274,7 @@ bool ContractCompiler::visit(Continue const& _continueStatement)
 bool ContractCompiler::visit(Break const& _breakStatement)
 {
 	CompilerContext::LocationSetter locationSetter(m_context, _breakStatement);
-	solAssert(!m_breakTags.empty(), "");
+	hypAssert(!m_breakTags.empty(), "");
 	CompilerUtils(m_context).popAndJump(m_breakTags.back().second, m_breakTags.back().first);
 	return false;
 }
@@ -1284,7 +1284,7 @@ bool ContractCompiler::visit(Return const& _return)
 	CompilerContext::LocationSetter locationSetter(m_context, _return);
 	if (Expression const* expression = _return.expression())
 	{
-		solAssert(_return.annotation().functionReturnParameters, "Invalid return parameters pointer.");
+		hypAssert(_return.annotation().functionReturnParameters, "Invalid return parameters pointer.");
 		std::vector<ASTPointer<VariableDeclaration>> const& returnParameters =
 			_return.annotation().functionReturnParameters->parameters();
 		TypePointers types;
@@ -1345,11 +1345,11 @@ bool ContractCompiler::visit(VariableDeclarationStatement const& _variableDeclar
 		else
 			valueTypes = TypePointers{expression->annotation().type};
 		auto const& declarations = _variableDeclarationStatement.declarations();
-		solAssert(declarations.size() == valueTypes.size(), "");
+		hypAssert(declarations.size() == valueTypes.size(), "");
 		for (size_t i = 0; i < declarations.size(); ++i)
 		{
 			size_t j = declarations.size() - i - 1;
-			solAssert(!!valueTypes[j], "");
+			hypAssert(!!valueTypes[j], "");
 			if (VariableDeclaration const* varDecl = declarations[j].get())
 			{
 				utils.convertType(*valueTypes[j], *varDecl->annotation().type);
@@ -1378,9 +1378,9 @@ bool ContractCompiler::visit(PlaceholderStatement const& _placeholderStatement)
 {
 	StackHeightChecker checker(m_context);
 	CompilerContext::LocationSetter locationSetter(m_context, _placeholderStatement);
-	solAssert(m_context.arithmetic() == Arithmetic::Checked, "Placeholder cannot be used inside checked block.");
+	hypAssert(m_context.arithmetic() == Arithmetic::Checked, "Placeholder cannot be used inside checked block.");
 	appendModifierOrFunctionCode();
-	solAssert(m_context.arithmetic() == Arithmetic::Checked, "Arithmetic not reset to 'checked'.");
+	hypAssert(m_context.arithmetic() == Arithmetic::Checked, "Arithmetic not reset to 'checked'.");
 	checker.check();
 	return true;
 }
@@ -1390,7 +1390,7 @@ bool ContractCompiler::visit(Block const& _block)
 	m_context.pushVisitedNodes(&_block);
 	if (_block.unchecked())
 	{
-		solAssert(m_context.arithmetic() == Arithmetic::Checked, "");
+		hypAssert(m_context.arithmetic() == Arithmetic::Checked, "");
 		m_context.setArithmetic(Arithmetic::Wrapping);
 	}
 	storeStackHeight(&_block);
@@ -1401,7 +1401,7 @@ void ContractCompiler::endVisit(Block const& _block)
 {
 	if (_block.unchecked())
 	{
-		solAssert(m_context.arithmetic() == Arithmetic::Wrapping, "");
+		hypAssert(m_context.arithmetic() == Arithmetic::Wrapping, "");
 		m_context.setArithmetic(Arithmetic::Checked);
 	}
 	// Frees local variables declared in the scope of this block.
@@ -1415,7 +1415,7 @@ void ContractCompiler::appendMissingFunctions()
 	{
 		m_context.setStackOffset(0);
 		function->accept(*this);
-		solAssert(m_context.nextFunctionToCompile() != function, "Compiled the wrong function?");
+		hypAssert(m_context.nextFunctionToCompile() != function, "Compiled the wrong function?");
 	}
 	m_context.appendMissingLowLevelFunctions();
 	m_context.appendYulUtilityFunctions(m_optimiserSettings);
@@ -1423,7 +1423,7 @@ void ContractCompiler::appendMissingFunctions()
 
 void ContractCompiler::appendModifierOrFunctionCode()
 {
-	solAssert(m_currentFunction, "");
+	hypAssert(m_currentFunction, "");
 	unsigned stackSurplus = 0;
 	Block const* codeBlock = nullptr;
 	std::vector<VariableDeclaration const*> addedVariables;
@@ -1433,7 +1433,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 
 	if (m_modifierDepth >= m_currentFunction->modifiers().size())
 	{
-		solAssert(m_currentFunction->isImplemented(), "");
+		hypAssert(m_currentFunction->isImplemented(), "");
 		codeBlock = &m_currentFunction->body();
 	}
 	else
@@ -1449,7 +1449,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 				*modifierInvocation->name().annotation().referencedDeclaration
 			);
 			VirtualLookup lookup = *modifierInvocation->name().annotation().requiredLookup;
-			solAssert(lookup == VirtualLookup::Virtual || lookup == VirtualLookup::Static, "");
+			hypAssert(lookup == VirtualLookup::Virtual || lookup == VirtualLookup::Static, "");
 			ModifierDefinition const& modifier =
 				lookup == VirtualLookup::Virtual ?
 				referencedModifier.resolveVirtual(m_context.mostDerivedContract()) :
@@ -1459,7 +1459,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 			std::vector<ASTPointer<Expression>> const& modifierArguments =
 				modifierInvocation->arguments() ? *modifierInvocation->arguments() : std::vector<ASTPointer<Expression>>();
 
-			solAssert(modifier.parameters().size() == modifierArguments.size(), "");
+			hypAssert(modifier.parameters().size() == modifierArguments.size(), "");
 			for (unsigned i = 0; i < modifier.parameters().size(); ++i)
 			{
 				m_context.addVariable(*modifier.parameters()[i]);
@@ -1487,7 +1487,7 @@ void ContractCompiler::appendModifierOrFunctionCode()
 
 		m_context.setUseABICoderV2(coderV2Outside);
 
-		solAssert(!m_returnTags.empty(), "");
+		hypAssert(!m_returnTags.empty(), "");
 		m_context << m_returnTags.back().first;
 		m_returnTags.pop_back();
 
@@ -1508,7 +1508,7 @@ void ContractCompiler::appendStackVariableInitialisation(
 	m_context.addVariable(_variable);
 	if (!_provideDefaultValue && _variable.type()->dataStoredIn(DataLocation::Memory))
 	{
-		solAssert(_variable.type()->sizeOnStack() == 1, "");
+		hypAssert(_variable.type()->sizeOnStack() == 1, "");
 		m_context << u256(0);
 	}
 	else
@@ -1527,7 +1527,7 @@ void ContractCompiler::popScopedVariables(ASTNode const* _node)
 {
 	unsigned blockHeight = m_scopeStackHeight.at(m_modifierDepth).at(_node);
 	m_context.removeVariablesAboveStackHeight(blockHeight);
-	solAssert(m_context.stackHeight() >= blockHeight, "");
+	hypAssert(m_context.stackHeight() >= blockHeight, "");
 	unsigned stackDiff = m_context.stackHeight() - blockHeight;
 	CompilerUtils(m_context).popStackSlots(stackDiff);
 	m_scopeStackHeight[m_modifierDepth].erase(_node);

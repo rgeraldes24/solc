@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -186,7 +186,7 @@ void UnusedStoreEliminator::visit(Statement const& _statement)
 		{
 			// Out-of-bounds access to the returndata buffer results in a revert,
 			// so we are careful not to remove a potentially reverting call to a builtin.
-			// The only way the Solidity compiler uses `returndatacopy` is
+			// The only way the Hyperion compiler uses `returndatacopy` is
 			// `returndatacopy(X, 0, returndatasize())`, so we only allow to remove this pattern
 			// (which is guaranteed to never cause an out-of-bounds revert).
 			bool allowReturndatacopyToBeRemoved = false;

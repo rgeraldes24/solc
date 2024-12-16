@@ -2,25 +2,25 @@
 Contributing
 ############
 
-Help is always welcome and there are plenty of options to contribute to Solidity.
+Help is always welcome and there are plenty of options to contribute to Hyperion.
 
 In particular, we appreciate support in the following areas:
 
 * Reporting issues.
-* Fixing and responding to `Solidity's GitHub issues
+* Fixing and responding to `Hyperion's GitHub issues
   <https://github.com/ethereum/solidity/issues>`_, especially those tagged as
   `"good first issue" <https://github.com/ethereum/solidity/labels/good%20first%20issue>`_ which are
   meant as introductory issues for external contributors.
 * Improving the documentation.
 * `Translating <https://github.com/solidity-docs>`_ the documentation into more languages.
 * Responding to questions from other users on `StackExchange
-  <https://ethereum.stackexchange.com>`_ and the `Solidity Gitter Chat
+  <https://ethereum.stackexchange.com>`_ and the `Hyperion Gitter Chat
   <https://gitter.im/ethereum/solidity>`_.
-* Getting involved in the language design process by proposing language changes or new features in the `Solidity forum <https://forum.soliditylang.org/>`_ and providing feedback.
+* Getting involved in the language design process by proposing language changes or new features in the `Hyperion forum <https://forum.soliditylang.org/>`_ and providing feedback.
 
 To get started, you can try :ref:`building-from-source` in order to familiarize
-yourself with the components of Solidity and the build process. Also, it may be
-useful to become well-versed at writing smart-contracts in Solidity.
+yourself with the components of Hyperion and the build process. Also, it may be
+useful to become well-versed at writing smart-contracts in Hyperion.
 
 Please note that this project is released with a `Contributor Code of Conduct <https://raw.githubusercontent.com/ethereum/solidity/develop/CODE_OF_CONDUCT.md>`_. By participating in this project — in the issues, pull requests, or Gitter channels — you agree to abide by its terms.
 
@@ -41,7 +41,7 @@ To report an issue, please use the
 `GitHub issues tracker <https://github.com/ethereum/solidity/issues>`_. When
 reporting issues, please mention the following details:
 
-* Solidity version.
+* Hyperion version.
 * Source code (if applicable).
 * Operating system.
 * Steps to reproduce the issue.
@@ -51,7 +51,7 @@ Reducing the source code that caused the issue to a bare minimum is always
 very helpful, and sometimes even clarifies a misunderstanding.
 
 For technical discussions about language design, a post in the
-`Solidity forum <https://forum.soliditylang.org/>`_ is the correct place (see :ref:`solidity_language_design`).
+`Hyperion forum <https://forum.soliditylang.org/>`_ is the correct place (see :ref:`solidity_language_design`).
 
 Workflow for Pull Requests
 ==========================
@@ -68,7 +68,7 @@ more easily.
 Additionally, if you are writing a new feature, please ensure you add appropriate
 test cases under ``test/`` (see below).
 
-However, if you are making a larger change, please consult with the `Solidity Development Gitter channel
+However, if you are making a larger change, please consult with the `Hyperion Development Gitter channel
 <https://gitter.im/ethereum/solidity-dev>`_ (different from the one mentioned above — this one is
 focused on compiler and language development instead of language usage) first.
 
@@ -108,11 +108,11 @@ or
 Running the Tests
 -----------------
 
-Solidity includes different types of tests, most of them bundled into the
+Hyperion includes different types of tests, most of them bundled into the
 `Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_ application ``hyptest``.
 Running ``build/test/hyptest`` or its wrapper ``scripts/hyptest.sh`` is sufficient for most changes.
 
-The ``./scripts/tests.sh`` script executes most Solidity tests automatically,
+The ``./scripts/tests.sh`` script executes most Hyperion tests automatically,
 including those bundled into the `Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_
 application ``hyptest`` (or its wrapper ``scripts/hyptest.sh``), as well as command-line tests and
 compilation tests.
@@ -177,7 +177,7 @@ For example, you could run the following command in your ``build`` folder:
 This creates symbols so that when you debug a test using the ``--debug`` flag,
 you have access to functions and variables in which you can break or print with.
 
-The CI runs additional tests (including ``hypc-js`` and testing third party Solidity
+The CI runs additional tests (including ``hypc-js`` and testing third party Hyperion
 frameworks) that require compiling the Emscripten target.
 
 Writing and Running Syntax Tests
@@ -284,14 +284,14 @@ It is also possible to exclude files matching a specific pattern by prefixing it
 
 By default the script assumes that a ``hypc`` binary is available inside the ``build/`` subdirectory
 inside the working copy.
-If you build the compiler outside of the source tree, you can use the ``SOLIDITY_BUILD_DIR`` environment
+If you build the compiler outside of the source tree, you can use the ``HYPERION_BUILD_DIR`` environment
 variable to specify a different location for the build directory.
 
 Example:
 
 .. code-block:: bash
 
-    export SOLIDITY_BUILD_DIR=~/solidity/build/
+    export HYPERION_BUILD_DIR=~/solidity/build/
     test/cmdlineTests.sh "standard_*" "*_yul_*" --exclude "standard_yul_*"
 
 The commands above will run tests from directories starting with ``test/cmdlineTests/standard_`` and
@@ -398,7 +398,7 @@ from the documentation or the other tests:
     mkdir /tmp/test_cases
     cd /tmp/test_cases
     # extract from tests:
-    path/to/solidity/scripts/isolate_tests.py path/to/solidity/test/libhyperion/SolidityEndToEndTest.cpp
+    path/to/solidity/scripts/isolate_tests.py path/to/solidity/test/libhyperion/HyperionEndToEndTest.cpp
     # extract from documentation:
     path/to/solidity/scripts/isolate_tests.py path/to/solidity/docs
 
@@ -448,7 +448,7 @@ Documentation Style Guide
 =========================
 
 In the following section you find style recommendations specifically focusing on documentation
-contributions to Solidity.
+contributions to Hyperion.
 
 English Language
 ----------------
@@ -462,7 +462,7 @@ Below are some references to help:
 
 .. note::
 
-    While the official Solidity documentation is written in English, there are community contributed :ref:`translations`
+    While the official Hyperion documentation is written in English, there are community contributed :ref:`translations`
     in other languages available. Please refer to the `translation guide <https://github.com/solidity-docs#solidity-documentation-translation-guide>`_
     for information on how to contribute to the community translations.
 
@@ -493,20 +493,20 @@ Active and Passive Voice
 
 Active voice is typically recommended for tutorial style documentation as it
 helps the reader understand who or what is performing a task. However, as the
-Solidity documentation is a mixture of tutorials and reference content, passive
+Hyperion documentation is a mixture of tutorials and reference content, passive
 voice is sometimes more applicable.
 
 As a summary:
 
 * Use passive voice for technical reference, for example language definition and internals of the Ethereum VM.
-* Use active voice when describing recommendations on how to apply an aspect of Solidity.
+* Use active voice when describing recommendations on how to apply an aspect of Hyperion.
 
-For example, the below is in passive voice as it specifies an aspect of Solidity:
+For example, the below is in passive voice as it specifies an aspect of Hyperion:
 
   Functions can be declared ``pure`` in which case they promise not to read
   from or modify the state.
 
-For example, the below is in active voice as it discusses an application of Solidity:
+For example, the below is in active voice as it discusses an application of Hyperion:
 
   When invoking the compiler, you can specify how to discover the first element
   of a path, and also path prefix remappings.
@@ -519,12 +519,12 @@ Common Terms
 Code Examples
 -------------
 
-A CI process tests all code block formatted code examples that begin with ``pragma solidity``, ``contract``, ``library``
+A CI process tests all code block formatted code examples that begin with ``pragma hyperion``, ``contract``, ``library``
 or ``interface`` using the ``./test/cmdlineTests.sh`` script when you create a PR. If you are adding new code examples,
 ensure they work and pass tests before creating the PR.
 
 Ensure that all code examples begin with a ``pragma`` version that spans the largest where the contract code is valid.
-For example ``pragma solidity >=0.4.0 <0.9.0;``.
+For example ``pragma hyperion >=0.4.0 <0.9.0;``.
 
 Running Documentation Tests
 ---------------------------
@@ -534,17 +534,17 @@ needed for documentation and checks for any problems such as broken links or syn
 
 .. _solidity_language_design:
 
-Solidity Language Design
+Hyperion Language Design
 ========================
 
-To actively get involved in the language design process and to share your ideas concerning the future of Solidity,
-please join the `Solidity forum <https://forum.soliditylang.org/>`_.
+To actively get involved in the language design process and to share your ideas concerning the future of Hyperion,
+please join the `Hyperion forum <https://forum.soliditylang.org/>`_.
 
-The Solidity forum serves as the place to propose and discuss new language features and their implementation in
+The Hyperion forum serves as the place to propose and discuss new language features and their implementation in
 the early stages of ideation or modifications of existing features.
 
 As soon as proposals get more tangible, their
-implementation will also be discussed in the `Solidity GitHub repository <https://github.com/ethereum/solidity>`_
+implementation will also be discussed in the `Hyperion GitHub repository <https://github.com/ethereum/solidity>`_
 in the form of issues.
 
 In addition to the forum and issue discussions, we regularly host language design discussion calls in which selected
@@ -552,11 +552,11 @@ topics, issues or feature implementations are debated in detail. The invitation 
 
 We are also sharing feedback surveys and other content that is relevant to language design in the forum.
 
-If you want to know where the team is standing in terms or implementing new features, you can follow the implementation status in the `Solidity Github project <https://github.com/ethereum/solidity/projects/43>`_.
+If you want to know where the team is standing in terms or implementing new features, you can follow the implementation status in the `Hyperion Github project <https://github.com/ethereum/solidity/projects/43>`_.
 Issues in the design backlog need further specification and will either be discussed in a language design call or in a regular team call. You can
 see the upcoming changes for the next breaking release by changing from the default branch (`develop`) to the `breaking branch <https://github.com/ethereum/solidity/tree/breaking>`_.
 
-For ad-hoc cases and questions, you can reach out to us via the `Solidity-dev Gitter channel <https://gitter.im/ethereum/solidity-dev>`_ — a
-dedicated chatroom for conversations around the Solidity compiler and language development.
+For ad-hoc cases and questions, you can reach out to us via the `Hyperion-dev Gitter channel <https://gitter.im/ethereum/solidity-dev>`_ — a
+dedicated chatroom for conversations around the Hyperion compiler and language development.
 
 We are happy to hear your thoughts on how we can improve the language design process to be even more collaborative and transparent.

@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 
@@ -46,7 +46,7 @@ ASTPropertyTest::ASTPropertyTest(std::string const& _filename):
 	TestCase(_filename)
 {
 	if (!boost::algorithm::ends_with(_filename, ".hyp"))
-		BOOST_THROW_EXCEPTION(std::runtime_error("Not a Solidity file: \"" + _filename + "\"."));
+		BOOST_THROW_EXCEPTION(std::runtime_error("Not a Hyperion file: \"" + _filename + "\"."));
 
 	m_source = m_reader.source();
 	readExpectations();
@@ -185,7 +185,7 @@ TestCase::TestResult ASTPropertyTest::run(std::ostream& _stream, std::string con
 
 	compiler.setSources({{
 		"A",
-		"pragma solidity >=0.0;\n// SPDX-License-Identifier: GPL-3.0\n" + m_source
+		"pragma hyperion >=0.0;\n// SPDX-License-Identifier: GPL-3.0\n" + m_source
 	}});
 	compiler.setZVMVersion(hyperion::test::CommonOptions::get().zvmVersion());
 	compiler.setOptimiserSettings(hyperion::test::CommonOptions::get().optimize);

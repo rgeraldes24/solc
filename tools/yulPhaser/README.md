@@ -20,7 +20,7 @@ tools/yul-phaser ../test/libyul/yulOptimizerTests/fullSuite/*.yul \
     --random-population 100
 ```
 
-This assumes that you have a working copy of the Solidity repository and you're in the build directory within that working copy.
+This assumes that you have a working copy of the Hyperion repository and you're in the build directory within that working copy.
 
 Run `yul-phaser --help` for a full list of available options.
 
@@ -62,7 +62,7 @@ tools/yul-phaser *.yul                    \
     --population <your sequence>
 ```
 
-#### Using output from Solidity compiler
+#### Using output from Hyperion compiler
 `yul-phaser` can process the intermediate representation produced by `hypc`:
 
 ``` bash

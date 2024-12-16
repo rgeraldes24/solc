@@ -18,7 +18,7 @@ Storage Example
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.16 <0.9.0;
+    pragma hyperion >=0.4.16 <0.9.0;
 
     contract SimpleStorage {
         uint storedData;
@@ -37,12 +37,12 @@ GPL version 3.0. Machine-readable license specifiers are important
 in a setting where publishing the source code is the default.
 
 The next line specifies that the source code is written for
-Solidity version 0.4.16, or a newer version of the language up to, but not including version 0.9.0.
+Hyperion version 0.4.16, or a newer version of the language up to, but not including version 0.9.0.
 This is to ensure that the contract is not compilable with a new (breaking) compiler version, where it could behave differently.
 :ref:`Pragmas<pragma>` are common instructions for compilers about how to treat the
 source code (e.g. `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
-A contract in the sense of Solidity is a collection of code (its *functions*) and
+A contract in the sense of Hyperion is a collection of code (its *functions*) and
 data (its *state*) that resides at a specific address on the Ethereum
 blockchain. The line ``uint storedData;`` declares a state variable called ``storedData`` of
 type ``uint`` (*u*\nsigned *int*\eger of *256* bits). You can think of it as a single slot
@@ -85,7 +85,7 @@ registering with a username and password, all you need is an Ethereum keypair.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract Coin {
         // The keyword "public" makes variables
@@ -491,7 +491,7 @@ with the inner message call and how much it wants to retain.
 If an out-of-gas exception happens in the inner call (or any
 other exception), this will be signaled by an error value put onto the stack.
 In this case, only the gas sent together with the call is used up.
-In Solidity, the calling contract causes a manual exception by default in
+In Hyperion, the calling contract causes a manual exception by default in
 such situations, so that exceptions "bubble up" the call stack.
 
 As already said, the called contract (which can be the same as the caller)
@@ -520,7 +520,7 @@ This means that a contract can dynamically load code from a different
 address at runtime. Storage, current address and balance still
 refer to the calling contract, only the code is taken from the called address.
 
-This makes it possible to implement the "library" feature in Solidity:
+This makes it possible to implement the "library" feature in Hyperion:
 Reusable library code that can be applied to a contract's storage, e.g. in
 order to implement a complex data structure.
 
@@ -531,7 +531,7 @@ Logs
 
 It is possible to store data in a specially indexed data structure
 that maps all the way up to the block level. This feature called **logs**
-is used by Solidity in order to implement :ref:`events <events>`.
+is used by Hyperion in order to implement :ref:`events <events>`.
 Contracts cannot access log data after it has been created, but they
 can be efficiently accessed from outside the blockchain.
 Since some part of the log data is stored in `bloom filters <https://en.wikipedia.org/wiki/Bloom_filter>`_, it is

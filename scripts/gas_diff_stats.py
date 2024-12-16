@@ -13,7 +13,7 @@ Run from root project dir.
 
 Note that the changes to semantic tests have to be committed.
 
-Assumes that there is a remote named ``origin`` pointing to the Solidity github
+Assumes that there is a remote named ``origin`` pointing to the Hyperion github
 repository. The changes are compared against ``origin/develop``.
 
 """

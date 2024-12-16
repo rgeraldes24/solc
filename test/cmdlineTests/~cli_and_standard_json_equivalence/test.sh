@@ -29,7 +29,7 @@ function test_cli_and_standard_json_equivalence
     )
     standard_json_output=$(
         singleContractOutputViaStandardJSON \
-            Solidity \
+            Hyperion \
             "$selected_standard_json_output" \
             "$standard_json_settings" \
             "$input_file_relative_path"

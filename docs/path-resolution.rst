@@ -4,11 +4,11 @@
 Import Path Resolution
 **********************
 
-In order to be able to support reproducible builds on all platforms, the Solidity compiler has to
+In order to be able to support reproducible builds on all platforms, the Hyperion compiler has to
 abstract away the details of the filesystem where source files are stored.
 Paths used in imports must work the same way everywhere while the command-line interface must be
 able to work with platform-specific paths to provide good user experience.
-This section aims to explain in detail how Solidity reconciles these requirements.
+This section aims to explain in detail how Hyperion reconciles these requirements.
 
 .. index:: ! virtual filesystem, ! VFS, ! source unit name
 .. _virtual-filesystem:
@@ -66,7 +66,7 @@ The initial content of the VFS depends on how you invoke the compiler:
 #. **hypc / command-line interface**
 
    When you compile a file using the command-line interface of the compiler, you provide one or
-   more paths to files containing Solidity code:
+   more paths to files containing Hyperion code:
 
    .. code-block:: bash
 
@@ -90,7 +90,7 @@ The initial content of the VFS depends on how you invoke the compiler:
    .. code-block:: json
 
        {
-           "language": "Solidity",
+           "language": "Hyperion",
            "sources": {
                "contract.hyp": {
                    "content": "import \"./util.hyp\";\ncontract C {}"
@@ -118,7 +118,7 @@ The initial content of the VFS depends on how you invoke the compiler:
    .. code-block:: json
 
        {
-           "language": "Solidity",
+           "language": "Hyperion",
            "sources": {
                "/usr/local/dapp-bin/token.hyp": {
                    "urls": [

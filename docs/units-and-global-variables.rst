@@ -247,7 +247,7 @@ For more information, see the section on :ref:`address`.
 
 .. warning::
     Due to the fact that the EVM considers a call to a non-existing contract to always succeed,
-    Solidity includes an extra check using the ``extcodesize`` opcode when performing external calls.
+    Hyperion includes an extra check using the ``extcodesize`` opcode when performing external calls.
     This ensures that the contract that is about to be called either actually exists (it contains code)
     or an exception is raised.
 
@@ -256,7 +256,7 @@ For more information, see the section on :ref:`address`.
     check, which makes them cheaper in terms of gas but also less safe.
 
 .. note::
-   Prior to version 0.5.0, Solidity allowed address members to be accessed by a contract instance, for example ``this.balance``.
+   Prior to version 0.5.0, Hyperion allowed address members to be accessed by a contract instance, for example ``this.balance``.
    This is now forbidden and an explicit conversion to address must be done: ``address(this).balance``.
 
 .. note::
@@ -332,7 +332,7 @@ The following properties are available for an integer type ``T``:
 Reserved Keywords
 =================
 
-These keywords are reserved in Solidity. They might become part of the syntax in the future:
+These keywords are reserved in Hyperion. They might become part of the syntax in the future:
 
 ``after``, ``alias``, ``apply``, ``auto``, ``byte``, ``case``, ``copyof``, ``default``,
 ``define``, ``final``, ``implements``, ``in``, ``inline``, ``let``, ``macro``, ``match``,

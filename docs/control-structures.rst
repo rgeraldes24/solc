@@ -10,12 +10,12 @@ Expressions and Control Structures
 Control Structures
 ===================
 
-Most of the control structures known from curly-braces languages are available in Solidity:
+Most of the control structures known from curly-braces languages are available in Hyperion:
 
 There is: ``if``, ``else``, ``while``, ``do``, ``for``, ``break``, ``continue``, ``return``, with
 the usual semantics known from C or JavaScript.
 
-Solidity also supports exception handling in the form of ``try``/``catch``-statements,
+Hyperion also supports exception handling in the form of ``try``/``catch``-statements,
 but only for :ref:`external function calls <external-function-calls>` and
 contract creation calls. Errors can be created using the :ref:`revert statement <revert-statement>`.
 
@@ -24,7 +24,7 @@ around single-statement bodies.
 
 Note that there is no type conversion from non-boolean to boolean types as
 there is in C and JavaScript, so ``if (1) { ... }`` is *not* valid
-Solidity.
+Hyperion.
 
 .. index:: ! function;call, function;internal, function;external
 
@@ -44,7 +44,7 @@ this nonsensical example:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.22 <0.9.0;
+    pragma hyperion >=0.4.22 <0.9.0;
 
     // This will report a warning
     contract C {
@@ -88,7 +88,7 @@ to the total balance of that contract:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.2 <0.9.0;
+    pragma hyperion >=0.6.2 <0.9.0;
 
     contract InfoFeed {
         function info() public payable returns (uint ret) { return 42; }
@@ -112,7 +112,7 @@ otherwise, the ``value`` option would not be available.
   ``feed.info{value: 10, gas: 800}()`` performs the function call.
 
 Due to the fact that the EVM considers a call to a non-existing contract to
-always succeed, Solidity uses the ``extcodesize`` opcode to check that
+always succeed, Hyperion uses the ``extcodesize`` opcode to check that
 the contract that is about to be called actually exists (it contains code)
 and causes an exception if it does not. This check is skipped if the return
 data will be decoded after the call and thus the ABI decoder will catch the
@@ -156,7 +156,7 @@ parameters from the function declaration, but can be in arbitrary order.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma hyperion >=0.4.0 <0.9.0;
 
     contract C {
         mapping(uint => uint) data;
@@ -181,7 +181,7 @@ can still return a value to the caller by use of the ``return`` statement.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.22 <0.9.0;
+    pragma hyperion >=0.4.22 <0.9.0;
 
     contract C {
         // omitted name for parameter
@@ -205,7 +205,7 @@ is compiled so recursive creation-dependencies are not possible.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     contract D {
         uint public x;
         constructor(uint a) payable {
@@ -260,7 +260,7 @@ which only need to be created if there is a dispute.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma hyperion >=0.7.0 <0.9.0;
     contract D {
         uint public x;
         constructor(uint a) {
@@ -317,19 +317,19 @@ Assignment
 Destructuring Assignments and Returning Multiple Values
 -------------------------------------------------------
 
-Solidity internally allows tuple types, i.e. a list of objects
+Hyperion internally allows tuple types, i.e. a list of objects
 of potentially different types whose number is a constant at
 compile-time. Those tuples can be used to return multiple values at the same time.
 These can then either be assigned to newly declared variables
 or to pre-existing variables (or LValues in general).
 
-Tuples are not proper types in Solidity, they can only be used to form syntactic
+Tuples are not proper types in Hyperion, they can only be used to form syntactic
 groupings of expressions.
 
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
 
     contract C {
         uint index;
@@ -375,7 +375,7 @@ because only a reference and not a copy is passed.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.22 <0.9.0;
+    pragma hyperion >=0.4.22 <0.9.0;
 
     contract C {
         uint[20] x;
@@ -413,7 +413,7 @@ to its type. For dynamically-sized arrays, ``bytes``
 and ``string``, the default value is an empty array or string.
 For the ``enum`` type, the default value is its first member.
 
-Scoping in Solidity follows the widespread scoping rules of C99
+Scoping in Hyperion follows the widespread scoping rules of C99
 (and many other languages): Variables are visible from the point right after their declaration
 until the end of the smallest ``{ }``-block that contains the declaration.
 As an exception to this rule, variables declared in the
@@ -434,7 +434,7 @@ the two variables have the same name but disjoint scopes.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
     contract C {
         function minimalScoping() pure public {
             {
@@ -456,7 +456,7 @@ In any case, you will get a warning about the outer variable being shadowed.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
     // This will report a warning
     contract C {
         function f() pure public returns (uint) {
@@ -470,7 +470,7 @@ In any case, you will get a warning about the outer variable being shadowed.
     }
 
 .. warning::
-    Before version 0.5.0 Solidity followed the same scoping rules as
+    Before version 0.5.0 Hyperion followed the same scoping rules as
     JavaScript, that is, a variable declared anywhere within a function would be in scope
     for the entire function, regardless where it was declared. The following example shows a code snippet that used
     to compile but leads to an error starting from version 0.5.0.
@@ -478,7 +478,7 @@ In any case, you will get a warning about the outer variable being shadowed.
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
     // This will not compile
     contract C {
         function f() pure public returns (uint) {
@@ -498,11 +498,11 @@ Checked or Unchecked Arithmetic
 An overflow or underflow is the situation where the resulting value of an arithmetic operation,
 when executed on an unrestricted integer, falls outside the range of the result type.
 
-Prior to Solidity 0.8.0, arithmetic operations would always wrap in case of
+Prior to Hyperion 0.8.0, arithmetic operations would always wrap in case of
 under- or overflow leading to widespread use of libraries that introduce
 additional checks.
 
-Since Solidity 0.8.0, all arithmetic operations revert on over- and underflow by default,
+Since Hyperion 0.8.0, all arithmetic operations revert on over- and underflow by default,
 thus making the use of these libraries unnecessary.
 
 To obtain the previous behavior, an ``unchecked`` block can be used:
@@ -510,7 +510,7 @@ To obtain the previous behavior, an ``unchecked`` block can be used:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.0;
+    pragma hyperion ^0.8.0;
     contract C {
         function f(uint a, uint b) pure public returns (uint) {
             // This subtraction will wrap on underflow.
@@ -565,7 +565,7 @@ with the exception of a conversion from an integer to an enum type.
 Error handling: Assert, Require, Revert and Exceptions
 ======================================================
 
-Solidity uses state-reverting exceptions to handle errors.
+Hyperion uses state-reverting exceptions to handle errors.
 Such an exception undoes all changes made to the
 state in the current call (and all its sub-calls) and
 flags an error to the caller.
@@ -671,7 +671,7 @@ and ``assert`` for internal error checking.
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma hyperion >=0.5.0 <0.9.0;
 
     contract Sharer {
         function sendHalf(address payable addr) public payable returns (uint balance) {
@@ -686,7 +686,7 @@ and ``assert`` for internal error checking.
         }
     }
 
-Internally, Solidity performs a revert operation (instruction
+Internally, Hyperion performs a revert operation (instruction
 ``0xfd``). This causes
 the EVM to revert all changes made to the state. The reason for reverting
 is that there is no safe way to continue execution, because an expected effect
@@ -699,7 +699,7 @@ the changes in the callee will always be reverted.
 
 .. note::
 
-    Panic exceptions used to use the ``invalid`` opcode before Solidity 0.8.0,
+    Panic exceptions used to use the ``invalid`` opcode before Hyperion 0.8.0,
     which consumed all gas available to the call.
     Exceptions that use ``require`` used to consume all gas until before the Metropolis release.
 
@@ -735,7 +735,7 @@ together with ``revert`` and the equivalent ``require``:
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity ^0.8.4;
+    pragma hyperion ^0.8.4;
 
     contract VendingMachine {
         address owner;
@@ -790,7 +790,7 @@ A failure in an external call can be caught using a try/catch statement, as foll
 .. code-block:: hyperion
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.8.1;
+    pragma hyperion >=0.8.1;
 
     interface DataFeed { function getData(address token) external returns (uint value); }
 
@@ -833,7 +833,7 @@ matching the types returned by the external call. In case there was no error,
 these variables are assigned and the contract's execution continues inside the
 first success block. If the end of the success block is reached, execution continues after the ``catch`` blocks.
 
-Solidity supports different kinds of catch blocks depending on the
+Hyperion supports different kinds of catch blocks depending on the
 type of error:
 
 - ``catch Error(string memory reason) { ... }``: This catch clause is executed if the error was caused by ``revert("reasonString")`` or

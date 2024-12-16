@@ -43,7 +43,7 @@ echo "Creating parser"
 (
 cd "${ROOT_DIR}"/docs/grammar
 # Create lexer/parser from grammar
-java -jar "${ANTLR_JAR}" SolidityParser.g4 SolidityLexer.g4 -o "${WORKDIR}/src/"
+java -jar "${ANTLR_JAR}" HyperionParser.g4 HyperionLexer.g4 -o "${WORKDIR}/src/"
 
 # Compile lexer/parser sources
 javac -classpath "${ANTLR_JAR}" "${WORKDIR}/src/"*.java -d "${WORKDIR}/target/"
@@ -53,39 +53,39 @@ javac -classpath "${ANTLR_JAR}" "${WORKDIR}/src/"*.java -d "${WORKDIR}/target/"
 failed_count=0
 function test_file
 {
-  local SOL_FILE
-  SOL_FILE="$(${READLINK}  -m "${1}")"
+  local HYP_FILE
+  HYP_FILE="$(${READLINK}  -m "${1}")"
   local cur=${2}
   local max=${3}
   local solOrYul=${4}
 
-  echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${SOL_FILE}${SGR_RESET} ..."
+  echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${HYP_FILE}${SGR_RESET} ..."
   local output
   if [[ "${solOrYul}" == "sol" ]]; then
     output=$(
-      grep -v "^==== ExternalSource:" "${SOL_FILE}" | java \
+      grep -v "^==== ExternalSource:" "${HYP_FILE}" | java \
         -classpath "${ANTLR_JAR}:${WORKDIR}/target/" \
         "org.antlr.v4.gui.TestRig" \
-        Solidity \
+        Hyperion \
         sourceUnit 2>&1
     )
   else
     output=$(
-      echo "assembly $(cat "${SOL_FILE}")" | java \
+      echo "assembly $(cat "${HYP_FILE}")" | java \
         -classpath "${ANTLR_JAR}:${WORKDIR}/target/" \
         "org.antlr.v4.gui.TestRig" \
-        Solidity \
+        Hyperion \
         assemblyStatement 2>&1
     )
   fi
   vt_cursor_up
   vt_cursor_begin_of_line
-  if grep -qE "^\/\/ ParserError" "${SOL_FILE}"; then
+  if grep -qE "^\/\/ ParserError" "${HYP_FILE}"; then
     if [[ "${output}" != "" ]]
     then
-      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${SOL_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_GREEN}FAILED AS EXPECTED${SGR_RESET}"
+      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${HYP_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_GREEN}FAILED AS EXPECTED${SGR_RESET}"
     else
-      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${SOL_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_RED}SUCCEEDED DESPITE PARSER ERROR${SGR_RESET}"
+      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${HYP_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_RED}SUCCEEDED DESPITE PARSER ERROR${SGR_RESET}"
       echo "${output}"
       failed_count=$((failed_count + 1))
       exit 1
@@ -93,9 +93,9 @@ function test_file
   else
     if [[ "${output}" == "" ]]
     then
-      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${SOL_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_GREEN}OK${SGR_RESET}"
+      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${HYP_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_GREEN}OK${SGR_RESET}"
     else
-      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${SOL_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_RED}FAILED${SGR_RESET}"
+      echo -e "${SGR_BLUE}[${cur}/${max}] Testing ${HYP_FILE}${SGR_RESET} ${SGR_BOLD}${SGR_RED}FAILED${SGR_RESET}"
       echo "${output}"
       failed_count=$((failed_count + 1))
       exit 1
@@ -104,13 +104,13 @@ function test_file
 }
 
 # we only want to use files that do not contain excluded parser errors, analysis errors or multi-source files.
-SOL_FILES=()
+HYP_FILES=()
 while IFS='' read -r line
 do
-  SOL_FILES+=("$line")
+  HYP_FILES+=("$line")
 done < <(
   grep --include "*.hyp" -riL -E \
-    "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental solidity;" \
+    "^\/\/ (Syntax|Type|Declaration)Error|^\/\/ ParserError (1684|2837|3716|3997|5333|6275|6281|6933|7319|8185|7637)|^==== Source:|^pragma experimental hyperion;" \
     "${ROOT_DIR}/test/libhyperion/syntaxTests" \
     "${ROOT_DIR}/test/libhyperion/semanticTests" |
       # Skipping the unicode tests as I couldn't adapt the lexical grammar to recursively counting RLO/LRO/PDF's.
@@ -140,12 +140,12 @@ done < <(
     "${ROOT_DIR}/test/libyul/yulOptimizerTests"
 )
 
-num_tests=$((${#SOL_FILES[*]} + ${#YUL_FILES[*]}))
+num_tests=$((${#HYP_FILES[*]} + ${#YUL_FILES[*]}))
 test_count=0
-for SOL_FILE in "${SOL_FILES[@]}"
+for HYP_FILE in "${HYP_FILES[@]}"
 do
   test_count=$((test_count + 1))
-  test_file "${SOL_FILE}" ${test_count} $num_tests "sol"
+  test_file "${HYP_FILE}" ${test_count} $num_tests "sol"
 done
 for YUL_FILE in "${YUL_FILES[@]}"
 do

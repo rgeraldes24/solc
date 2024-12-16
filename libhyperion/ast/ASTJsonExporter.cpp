@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -216,8 +216,8 @@ bool ASTJsonExporter::visit(SourceUnit const& _node)
 		std::make_pair("nodes", toJson(_node.nodes())),
 	};
 
-	if (_node.experimentalSolidity())
-		attributes.emplace_back("experimentalSolidity", Json::Value(_node.experimentalSolidity()));
+	if (_node.experimentalHyperion())
+		attributes.emplace_back("experimentalHyperion", Json::Value(_node.experimentalHyperion()));
 
 	if (_node.annotation().exportedSymbols.set())
 	{
@@ -267,7 +267,7 @@ bool ASTJsonExporter::visit(ImportDirective const& _node)
 	for (auto const& symbolAlias: _node.symbolAliases())
 	{
 		Json::Value tuple(Json::objectValue);
-		solAssert(symbolAlias.symbol, "");
+		hypAssert(symbolAlias.symbol, "");
 		tuple["foreign"] = toJson(*symbolAlias.symbol);
 		tuple["local"] =  symbolAlias.alias ? Json::Value(*symbolAlias.alias) : Json::nullValue;
 		tuple["nameLocation"] = sourceLocationToString(_node.nameLocation());
@@ -363,8 +363,8 @@ bool ASTJsonExporter::visit(UsingForDirective const& _node)
 	else
 	{
 		auto const& functionAndOperators = _node.functionsAndOperators();
-		solAssert(_node.functionsAndOperators().size() == 1);
-		solAssert(!functionAndOperators.front().second.has_value());
+		hypAssert(_node.functionsAndOperators().size() == 1);
+		hypAssert(!functionAndOperators.front().second.has_value());
 		attributes.emplace_back("libraryName", toJson(*(functionAndOperators.front().first)));
 	}
 	attributes.emplace_back("global", _node.global());
@@ -419,7 +419,7 @@ bool ASTJsonExporter::visit(EnumValue const& _node)
 
 bool ASTJsonExporter::visit(UserDefinedValueTypeDefinition const& _node)
 {
-	solAssert(_node.underlyingType(), "");
+	hypAssert(_node.underlyingType(), "");
 	std::vector<std::pair<std::string, Json::Value>> attributes = {
 		std::make_pair("name", _node.name()),
 		std::make_pair("nameLocation", sourceLocationToString(_node.nameLocation())),
@@ -1076,7 +1076,7 @@ std::string ASTJsonExporter::functionCallKind(FunctionCallKind _kind)
 	case FunctionCallKind::StructConstructorCall:
 		return "structConstructorCall";
 	default:
-		solAssert(false, "Unknown kind of function call.");
+		hypAssert(false, "Unknown kind of function call.");
 	}
 }
 
@@ -1096,7 +1096,7 @@ std::string ASTJsonExporter::literalTokenKind(Token _token)
 	case Token::FalseLiteral:
 		return "bool";
 	default:
-		solAssert(false, "Unknown kind of literal token.");
+		hypAssert(false, "Unknown kind of literal token.");
 	}
 }
 

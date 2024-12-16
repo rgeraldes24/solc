@@ -1,5 +1,5 @@
 function f() pure {
-    /// @solidity memory-safe-assembly
+    /// @hyperion memory-safe-assembly
     assembly "zvmasm" ("memory-safe") {
     }
 }

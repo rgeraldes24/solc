@@ -25,11 +25,11 @@ class TestExtractDocsCases(unittest.TestCase):
         self.maxDiff = 10000
 
 
-    def test_solidity_block(self):
+    def test_hyperion_block(self):
         expected_cases = [formatCase(case) for case in [
             """
                 // SPDX-License-Identifier: GPL-3.0
-                pragma solidity >=0.7.0 <0.9.0;
+                pragma hyperion >=0.7.0 <0.9.0;
 
                 contract C {
                     function foo() public view {}
@@ -43,11 +43,11 @@ class TestExtractDocsCases(unittest.TestCase):
 
         self.assertEqual(extract_hyperion_docs_cases(CODE_BLOCK_RST_PATH), expected_cases)
 
-    def test_solidity_block_with_directives(self):
+    def test_hyperion_block_with_directives(self):
         expected_cases = [formatCase(case) for case in [
             """
                 // SPDX-License-Identifier: GPL-3.0
-                pragma solidity >=0.7.0 <0.9.0;
+                pragma hyperion >=0.7.0 <0.9.0;
 
                 contract C {
                     function foo() public view {}

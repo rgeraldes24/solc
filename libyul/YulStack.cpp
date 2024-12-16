@@ -1,18 +1,18 @@
 /*
-	This file is part of solidity.
+	This file is part of hyperion.
 
-	solidity is free software: you can redistribute it and/or modify
+	hyperion is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	solidity is distributed in the hope that it will be useful,
+	hyperion is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with solidity.  If not, see <http://www.gnu.org/licenses/>.
+	along with hyperion.  If not, see <http://www.gnu.org/licenses/>.
 */
 // SPDX-License-Identifier: GPL-3.0
 /**
@@ -288,7 +288,7 @@ YulStack::assembleZVMWithDeployed(std::optional<std::string_view> _deployName) c
 				break;
 			}
 
-		solAssert(subIndex.has_value(), "Failed to find object to be deployed.");
+		hypAssert(subIndex.has_value(), "Failed to find object to be deployed.");
 	}
 	// Otherwise use heuristic: If there is a single sub-assembly, this is likely the object to be deployed.
 	else if (assembly.numSubs() == 1)
@@ -304,12 +304,12 @@ YulStack::assembleZVMWithDeployed(std::optional<std::string_view> _deployName) c
 }
 
 std::string YulStack::print(
-	CharStreamProvider const* _soliditySourceProvider
+	CharStreamProvider const* _hyperionSourceProvider
 ) const
 {
 	yulAssert(m_parserResult, "");
 	yulAssert(m_parserResult->code, "");
-	return m_parserResult->toString(&languageToDialect(m_language, m_zvmVersion), m_debugInfoSelection, _soliditySourceProvider) + "\n";
+	return m_parserResult->toString(&languageToDialect(m_language, m_zvmVersion), m_debugInfoSelection, _hyperionSourceProvider) + "\n";
 }
 
 Json::Value YulStack::astJson() const
