@@ -48,7 +48,7 @@ function verify_input
     local binary_path="$2"
     local selected_presets="$3"
 
-    (( $# >= 2 && $# <= 3 )) || fail "Usage: $0 native|hypcjs <path to hypc or soljson.js> [preset]"
+    (( $# >= 2 && $# <= 3 )) || fail "Usage: $0 native|hypcjs <path to hypc or hypjson.js> [preset]"
     [[ $binary_type == native || $binary_type == hypcjs ]] || fail "Invalid binary type: '${binary_type}'. Must be either 'native' or 'hypcjs'."
     [[ -f "$binary_path" ]] || fail "The compiler binary does not exist at '${binary_path}'"
 
@@ -92,7 +92,7 @@ function setup_hypc
 
         pushd "$install_dir"
         npm install
-        cp "$binary_path" soljson.js
+        cp "$binary_path" hypjson.js
         npm run build
         HYPCVERSION=$(dist/hypc.js --version)
         popd
@@ -180,11 +180,11 @@ function force_hypc_modules
     [[ -d node_modules/ ]] || assertFail
 
     printLog "Replacing all installed hypc-js with a link to the latest version..."
-    soljson_binaries=$(find node_modules -type f -path "*/hypc/soljson.js")
-    for soljson_binary in $soljson_binaries
+    hypjson_binaries=$(find node_modules -type f -path "*/hypc/hypjson.js")
+    for hypjson_binary in $hypjson_binaries
     do
         local hypc_module_path
-        hypc_module_path=$(dirname "$soljson_binary")
+        hypc_module_path=$(dirname "$hypjson_binary")
 
         printLog "Found and replaced hypc-js in $hypc_module_path"
         rm -r "$hypc_module_path"

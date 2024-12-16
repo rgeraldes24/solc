@@ -118,8 +118,8 @@ set(libhyperion_util_sources
     libhyperion/util/Common.h
     libhyperion/util/ContractABIUtils.cpp
     libhyperion/util/ContractABIUtils.h
-    libhyperion/util/SoltestErrors.h
-    libhyperion/util/SoltestTypes.h
+    libhyperion/util/HyptestErrors.h
+    libhyperion/util/HyptestTypes.h
     libhyperion/util/TestFileParser.cpp
     libhyperion/util/TestFileParser.h
     libhyperion/util/TestFileParserTests.cpp

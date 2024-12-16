@@ -73,7 +73,7 @@ function getAllAvailableVersions
     local allListedVersions
     mapfile -t allListedVersions <<< "$(
         wget -q -O- https://binaries.soliditylang.org/bin/list.txt |
-        grep -Po '(?<=soljson-v)\d+.\d+.\d+(?=\+commit)' |
+        grep -Po '(?<=hypjson-v)\d+.\d+.\d+(?=\+commit)' |
         sort -V
     )"
     for listed in "${allListedVersions[@]}"

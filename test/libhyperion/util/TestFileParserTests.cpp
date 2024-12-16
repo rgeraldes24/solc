@@ -27,7 +27,7 @@
 #include <liblangutil/Exceptions.h>
 #include <test/ExecutionFramework.h>
 
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 #include <test/libhyperion/util/TestFileParser.h>
 
 using namespace hyperion::util;

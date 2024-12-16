@@ -18,7 +18,7 @@
 
 #include <libhyputil/TemporaryDirectory.h>
 
-#include <libhyperion/util/SoltestErrors.h>
+#include <libhyperion/util/HyptestErrors.h>
 
 #include <boost/filesystem.hpp>
 #include <boost/test/unit_test.hpp>

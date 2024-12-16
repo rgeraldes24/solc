@@ -22,7 +22,7 @@
 #include <test/libhyperion/util/TestFileParser.h>
 
 #include <test/libhyperion/util/BytesUtils.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 #include <test/Common.h>
 
 #include <liblangutil/Common.h>

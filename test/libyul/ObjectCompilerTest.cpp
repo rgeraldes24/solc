@@ -18,7 +18,7 @@
 
 #include <test/libyul/ObjectCompilerTest.h>
 
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <test/Common.h>
 

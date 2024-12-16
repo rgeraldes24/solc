@@ -53,19 +53,19 @@ set -e
 
 mkdir -p upload
 
-if [ ! -f upload/soljson.js ]; then
-  if [ -f build/hypc/soljson.js ]; then
-    cp build/hypc/soljson.js upload
-  elif [ -f build/libhypc/soljson.js ]; then
-    cp build/libhypc/soljson.js upload
-  elif [ -f emscripten_build/hypc/soljson.js ]; then
-    cp emscripten_build/hypc/soljson.js upload
-  elif [ -f emscripten_build/libhypc/soljson.js ]; then
-    cp emscripten_build/libhypc/soljson.js upload
+if [ ! -f upload/hypjson.js ]; then
+  if [ -f build/hypc/hypjson.js ]; then
+    cp build/hypc/hypjson.js upload
+  elif [ -f build/libhypc/hypjson.js ]; then
+    cp build/libhypc/hypjson.js upload
+  elif [ -f emscripten_build/hypc/hypjson.js ]; then
+    cp emscripten_build/hypc/hypjson.js upload
+  elif [ -f emscripten_build/libhypc/hypjson.js ]; then
+    cp emscripten_build/libhypc/hypjson.js upload
   fi
 fi
 
-if [ -f upload/soljson.js ]; then
+if [ -f upload/hypjson.js ]; then
   echo "========== SUCCESS ========== ($(date))"
   exit 0
 else

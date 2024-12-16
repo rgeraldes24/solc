@@ -28,11 +28,11 @@ namespace hyperion::test::hypprotofuzzer
 {
 /// Random number generator that is seeded with a fuzzer
 /// supplied unsigned integer.
-struct SolRandomNumGenerator
+struct HypRandomNumGenerator
 {
 	using RandomEngine = std::minstd_rand;
 
-	explicit SolRandomNumGenerator(unsigned _seed): m_random(RandomEngine(_seed)) {}
+	explicit HypRandomNumGenerator(unsigned _seed): m_random(RandomEngine(_seed)) {}
 
 	/// @returns a pseudo random unsigned integer
 	unsigned operator()()
@@ -170,7 +170,7 @@ private:
 	/// Flag that states whether library call is tested (true) or not (false).
 	bool m_libraryTest = false;
 	/// A smart pointer to fuzzer driven random number generator
-	std::shared_ptr<SolRandomNumGenerator> m_randomGen;
+	std::shared_ptr<HypRandomNumGenerator> m_randomGen;
 	/// Maps protobuf program to its string name
 	std::map<CIL, std::string> m_programNameMap;
 	/// List of tuples containing library name, function and its expected output

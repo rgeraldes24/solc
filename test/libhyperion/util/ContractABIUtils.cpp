@@ -18,7 +18,7 @@
 
 #include <test/libhyperion/util/ContractABIUtils.h>
 
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <libhyperion/ast/Types.h>
 #include <libhyperion/ast/TypeProvider.h>

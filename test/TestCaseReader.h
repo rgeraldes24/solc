@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <libhyputil/StringUtils.h>
 

@@ -119,14 +119,14 @@ echo "Commit range: ${base_ref}..${top_ref}"
 
 modified_release_versions=$(
     git diff --name-only "${base_ref}" "${top_ref}" |
-    sed -n -E 's/^[^\/]+\/(hypc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+)\+commit\.[0-9a-f]+(.[^.]+)?$/\2/p' |
+    sed -n -E 's/^[^\/]+\/(hypc|hypjson)-[0-9a-zA-Z-]+-v([0-9.]+)\+commit\.[0-9a-f]+(.[^.]+)?$/\2/p' |
     sort -V |
     uniq
 )
 echo "Release versions modified in the commit range:"
 echo "$modified_release_versions"
 
-# NOTE: We want perform the check when the soljson-* files in bin/ and wasm/ are modified too
+# NOTE: We want perform the check when the hypjson-* files in bin/ and wasm/ are modified too
 # because in that case the symlinks in emscripten-wasm32/ and emscripten-asmjs/ might remain
 # unchanged but were're assuming that these directories are never directly used as a platform name.
 [[ $platform != bin && $platform != wasm ]] || die "Invalid platform name."
@@ -150,8 +150,8 @@ for binary_name in $platform_binaries; do
         "${script_dir}/isolate_tests.py" "${work_dir}/hyperion/test/"
 
         if [[ $platform == emscripten-wasm32 ]] || [[ $platform == emscripten-asmjs ]]; then
-            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/soljson.js"
-            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/dist/soljson.js"
+            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/hypjson.js"
+            ln -sf "${hypc_bin_dir}/${platform}/${binary_name}" "${hypcjs_dir}/dist/hypjson.js"
             npm install "${hypcjs_dir}/dist"
             cp "${script_dir}/bytecodecompare/prepare_report.js" prepare_report.js
 

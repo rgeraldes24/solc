@@ -22,7 +22,7 @@
 #include <test/libhyperion/AnalysisFramework.h>
 
 #include <test/libhyperion/util/Common.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 #include <test/Common.h>
 
 #include <libhyperion/interface/CompilerStack.h>

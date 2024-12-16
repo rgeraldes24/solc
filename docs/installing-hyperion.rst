@@ -41,60 +41,60 @@ Further options on this page detail installing command-line Hyperion compiler so
 on your computer. Choose a command-line compiler if you are working on a larger contract
 or if you require more compilation options.
 
-.. _solcjs:
+.. _hypcjs:
 
 npm / Node.js
 =============
 
-Use ``npm`` for a convenient and portable way to install ``solcjs``, a Hyperion compiler. The
-`solcjs` program has fewer features than the ways to access the compiler described
+Use ``npm`` for a convenient and portable way to install ``hypcjs``, a Hyperion compiler. The
+`hypcjs` program has fewer features than the ways to access the compiler described
 further down this page. The
 :ref:`commandline-compiler` documentation assumes you are using
-the full-featured compiler, ``solc``. The usage of ``solcjs`` is documented inside its own
-`repository <https://github.com/ethereum/solc-js>`_.
+the full-featured compiler, ``hypc``. The usage of ``hypcjs`` is documented inside its own
+`repository <https://github.com/ethereum/hypc-js>`_.
 
-Note: The solc-js project is derived from the C++
-`solc` by using Emscripten, which means that both use the same compiler source code.
-`solc-js` can be used in JavaScript projects directly (such as Remix).
-Please refer to the solc-js repository for instructions.
+Note: The hypc-js project is derived from the C++
+`hypc` by using Emscripten, which means that both use the same compiler source code.
+`hypc-js` can be used in JavaScript projects directly (such as Remix).
+Please refer to the hypc-js repository for instructions.
 
 .. code-block:: bash
 
-    npm install -g solc
+    npm install -g hypc
 
 .. note::
 
-    The command-line executable is named ``solcjs``.
+    The command-line executable is named ``hypcjs``.
 
-    The command-line options of ``solcjs`` are not compatible with ``solc`` and tools (such as ``geth``)
-    expecting the behavior of ``solc`` will not work with ``solcjs``.
+    The command-line options of ``hypcjs`` are not compatible with ``hypc`` and tools (such as ``geth``)
+    expecting the behavior of ``hypc`` will not work with ``hypcjs``.
 
 Docker
 ======
 
-Docker images of Hyperion builds are available using the ``solc`` image from the ``ethereum`` organization.
+Docker images of Hyperion builds are available using the ``hypc`` image from the ``ethereum`` organization.
 Use the ``stable`` tag for the latest released version, and ``nightly`` for potentially unstable changes in the develop branch.
 
 The Docker image runs the compiler executable so that you can pass all compiler arguments to it.
-For example, the command below pulls the stable version of the ``solc`` image (if you do not have it already),
+For example, the command below pulls the stable version of the ``hypc`` image (if you do not have it already),
 and runs it in a new container, passing the ``--help`` argument.
 
 .. code-block:: bash
 
-    docker run ethereum/solc:stable --help
+    docker run ethereum/hypc:stable --help
 
 For example, You can specify release build versions in the tag for the 0.5.4 release.
 
 .. code-block:: bash
 
-    docker run ethereum/solc:0.5.4 --help
+    docker run ethereum/hypc:0.5.4 --help
 
 To use the Docker image to compile Hyperion files on the host machine, mount a
 local folder for input and output, and specify the contract to compile. For example.
 
 .. code-block:: bash
 
-    docker run -v /local/path:/sources ethereum/solc:stable -o /sources/output --abi --bin /sources/Contract.hyp
+    docker run -v /local/path:/sources ethereum/hypc:stable -o /sources/output --abi --bin /sources/Contract.hyp
 
 You can also use the standard JSON interface (which is recommended when using the compiler with tooling).
 When using this interface, it is not necessary to mount any directories as long as the JSON input is
@@ -103,7 +103,7 @@ self-contained (i.e. it does not refer to any external files that would have to 
 
 .. code-block:: bash
 
-    docker run ethereum/solc:stable --standard-json < input.json > output.json
+    docker run ethereum/hypc:stable --standard-json < input.json > output.json
 
 Linux Packages
 ==============
@@ -118,7 +118,7 @@ version using the following commands:
 
     sudo add-apt-repository ppa:ethereum/ethereum
     sudo apt-get update
-    sudo apt-get install solc
+    sudo apt-get install hypc
 
 The nightly version can be installed using these commands:
 
@@ -127,7 +127,7 @@ The nightly version can be installed using these commands:
     sudo add-apt-repository ppa:ethereum/ethereum
     sudo add-apt-repository ppa:ethereum/ethereum-dev
     sudo apt-get update
-    sudo apt-get install solc
+    sudo apt-get install hypc
 
 Furthermore, some Linux distributions provide their own packages. These packages are not directly
 maintained by us but usually kept up-to-date by the respective package maintainers.
@@ -140,13 +140,13 @@ and `solidity-bin <https://aur.archlinux.org/packages/solidity-bin>`_.
     Please be aware that `AUR <https://wiki.archlinux.org/title/Arch_User_Repository>`_ packages
     are user-produced content and unofficial packages. Exercise caution when using them.
 
-There is also a `snap package <https://snapcraft.io/solc>`_, however, it is **currently unmaintained**.
+There is also a `snap package <https://snapcraft.io/hypc>`_, however, it is **currently unmaintained**.
 It is installable in all the `supported Linux distros <https://snapcraft.io/docs/core/install>`_. To
-install the latest stable version of solc:
+install the latest stable version of hypc:
 
 .. code-block:: bash
 
-    sudo snap install solc
+    sudo snap install hypc
 
 If you want to help testing the latest development version of Hyperion
 with the most recent changes, please use the following:
@@ -205,7 +205,7 @@ Static Binaries
 ===============
 
 We maintain a repository containing static builds of past and current compiler versions for all
-supported platforms at `solc-bin`_. This is also the location where you can find the nightly builds.
+supported platforms at `hypc-bin`_. This is also the location where you can find the nightly builds.
 
 The repository is not only a quick and easy way for end users to get binaries ready to be used
 out-of-the-box but it is also meant to be friendly to third-party tools:
@@ -227,16 +227,16 @@ out-of-the-box but it is also meant to be friendly to third-party tools:
 The same binaries are in most cases available on the `Hyperion release page on Github`_. The
 difference is that we do not generally update old releases on the Github release page. This means
 that we do not rename them if the naming convention changes and we do not add builds for platforms
-that were not supported at the time of release. This only happens in ``solc-bin``.
+that were not supported at the time of release. This only happens in ``hypc-bin``.
 
-The ``solc-bin`` repository contains several top-level directories, each representing a single platform.
+The ``hypc-bin`` repository contains several top-level directories, each representing a single platform.
 Each one includes a ``list.json`` file listing the available binaries. For example in
 ``emscripten-wasm32/list.json`` you will find the following information about version 0.7.4:
 
 .. code-block:: json
 
     {
-      "path": "solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js",
+      "path": "hypc-emscripten-wasm32-v0.7.4+commit.3f05b770.js",
       "version": "0.7.4",
       "build": "commit.3f05b770",
       "longVersion": "0.7.4+commit.3f05b770",
@@ -251,10 +251,10 @@ Each one includes a ``list.json`` file listing the available binaries. For examp
 This means that:
 
 - You can find the binary in the same directory under the name
-  `solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js <https://github.com/ethereum/solc-bin/blob/gh-pages/emscripten-wasm32/solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js>`_.
+  `hypc-emscripten-wasm32-v0.7.4+commit.3f05b770.js <https://github.com/ethereum/hypc-bin/blob/gh-pages/emscripten-wasm32/hypc-emscripten-wasm32-v0.7.4+commit.3f05b770.js>`_.
   Note that the file might be a symlink, and you will need to resolve it yourself if you are not using
   git to download it or your file system does not support symlinks.
-- The binary is also mirrored at https://binaries.soliditylang.org/emscripten-wasm32/solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js.
+- The binary is also mirrored at https://binaries.soliditylang.org/emscripten-wasm32/hypc-emscripten-wasm32-v0.7.4+commit.3f05b770.js.
   In this case git is not necessary and symlinks are resolved transparently, either by serving a copy
   of the file or returning a HTTP redirect.
 - The file is also available on IPFS at `QmTLs5MuLEWXQkths41HiACoXDiH8zxyqBHGFDRSzVE5CS`_.
@@ -280,14 +280,14 @@ This means that:
      if you want to be sure whether you are downloading a wasm or an asm.js binary.
    - Use ``list.json`` instead of ``list.js`` and ``list.txt``. The JSON list format contains all
      the information from the old ones and more.
-   - Use https://binaries.soliditylang.org instead of https://solc-bin.ethereum.org. To keep things
+   - Use https://binaries.soliditylang.org instead of https://hypc-bin.ethereum.org. To keep things
      simple we moved almost everything related to the compiler under the new ``soliditylang.org``
-     domain and this applies to ``solc-bin`` too. While the new domain is recommended, the old one
+     domain and this applies to ``hypc-bin`` too. While the new domain is recommended, the old one
      is still fully supported and guaranteed to point at the same location.
 
 .. warning::
 
-    The binaries are also available at https://ethereum.github.io/solc-bin/ but this page
+    The binaries are also available at https://ethereum.github.io/hypc-bin/ but this page
     stopped being updated just after the release of version 0.7.2, will not receive any new releases
     or nightly builds for any platform and does not serve the new directory structure, including
     non-emscripten builds.
@@ -300,7 +300,7 @@ This means that:
 
 .. _IPFS: https://ipfs.io
 .. _Swarm: https://swarm-gateways.net/bzz:/swarm.eth
-.. _solc-bin: https://github.com/ethereum/solc-bin/
+.. _hypc-bin: https://github.com/ethereum/hypc-bin/
 .. _Hyperion release page on github: https://github.com/ethereum/solidity/releases
 .. _sha3sum: https://github.com/maandree/sha3sum
 .. _keccak256() function from ethereumjs-util: https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/modules/_hash_.md#const-keccak256

@@ -10,7 +10,7 @@
 # directory and their names should follow one of the following patterns:
 #
 #     report-hypc-<platform>-v<hyperion version>+commit.<commit hash>.txt
-#     report-soljson-<platform>-v<hyperion version>+commit.<commit hash>.js.txt
+#     report-hypjson-<platform>-v<hyperion version>+commit.<commit hash>.js.txt
 #
 # Reports corresponding to the same version and commit hash are grouped together
 # and the script succeeds only if the files within each group are identical.
@@ -43,7 +43,7 @@ echo "$report_files"
 
 versions_in_report_names=$(
     echo "$report_files" |
-    sed -n -E 's/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v([0-9.]+\+commit\.[0-9a-f]+)(.[^.]+)?\.txt$/\2/p' |
+    sed -n -E 's/^\.\/[^\/]+\/report-(hypc|hypjson)-[0-9a-zA-Z-]+-v([0-9.]+\+commit\.[0-9a-f]+)(.[^.]+)?\.txt$/\2/p' |
     sort -V |
     uniq
 )
@@ -53,7 +53,7 @@ for hyperion_version_and_commit in $versions_in_report_names; do
     echo "Comparing reports for Hyperion ${hyperion_version_and_commit}:"
     mapfile -t report_files_for_version < <(
         echo "$report_files" |
-        sed -n -E '/^\.\/[^\/]+\/report-(hypc|soljson)-[0-9a-zA-Z-]+-v'"${hyperion_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
+        sed -n -E '/^\.\/[^\/]+\/report-(hypc|hypjson)-[0-9a-zA-Z-]+-v'"${hyperion_version_and_commit//\+/\\+}"'+(.[^.]+)?\.txt$/p'
     )
 
     diff --report-identical-files --brief --from-file "${report_files_for_version[@]}" || ((++num_failed_comparisons))

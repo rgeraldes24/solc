@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include <test/libhyperion/util/SoltestTypes.h>
+#include <test/libhyperion/util/HyptestTypes.h>
 
 #include <libhyputil/CommonData.h>
 

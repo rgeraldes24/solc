@@ -119,7 +119,7 @@ Solidity Tools
 * `sol2uml <https://www.npmjs.com/package/sol2uml>`_
     Unified Modeling Language (UML) class diagram generator for Hyperion contracts.
 
-* `solc-select <https://github.com/crytic/solc-select>`_
+* `hypc-select <https://github.com/crytic/hypc-select>`_
     A script to quickly switch between Hyperion compiler versions.
 
 * `Solidity prettier plugin <https://github.com/prettier-solidity/prettier-plugin-solidity>`_

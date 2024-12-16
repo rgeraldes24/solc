@@ -59,8 +59,8 @@ function generate_bytecode_report
 
       for dir in build/hypc build/libhypc emscripten_build/libhypc; do
         mkdir -p $dir
-        rm -rf $dir/soljson.js
-        ln -sf "$1" $dir/soljson.js
+        rm -rf $dir/hypjson.js
+        ln -sf "$1" $dir/hypjson.js
       done
 
        /tmp/storebytecode.sh >/dev/null 2>&1
@@ -110,15 +110,15 @@ function process_tag
   local FULL_VERSION_SUFFIX="${TAG}+commit.${COMMIT_HASH}"
   local HISTORIC_VERSION_SUFFIX="${TAG}+commit.${HISTORIC_COMMIT_HASH}"
 
-  if [ ! -f "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js" ]; then
+  if [ ! -f "${OUTPUTDIR}/bin/hypjson-${FULL_VERSION_SUFFIX}.js" ]; then
     echo -ne "BUILDING ${CYAN}${TAG}${RESET}... "
     set +e
     (
       set -e
       "${SCRIPTDIR}/rebuild_current.sh" "${VERSION}" >"${OUTPUTDIR}/log/running/build-$TAG.txt" 2>&1
-      "${SCRIPTDIR}/patch.sh" "$TAG" upload/soljson.js
-      cp upload/soljson.js "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js"
-      rm upload/soljson.js
+      "${SCRIPTDIR}/patch.sh" "$TAG" upload/hypjson.js
+      cp upload/hypjson.js "${OUTPUTDIR}/bin/hypjson-${FULL_VERSION_SUFFIX}.js"
+      rm upload/hypjson.js
     )
     local EXIT_STATUS=$?
     set -e
@@ -138,18 +138,18 @@ function process_tag
     fi
   fi
 
-  if [ -f "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js" ]; then
+  if [ -f "${OUTPUTDIR}/bin/hypjson-${FULL_VERSION_SUFFIX}.js" ]; then
 
     echo -ne "GENERATE BYTECODE REPORT FOR ${CYAN}${TAG}${RESET}... "
-    generate_bytecode_report "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js" "${OUTPUTDIR}/log/reports/report-${TAG}.txt" "${TAG}"
+    generate_bytecode_report "${OUTPUTDIR}/bin/hypjson-${FULL_VERSION_SUFFIX}.js" "${OUTPUTDIR}/log/reports/report-${TAG}.txt" "${TAG}"
     echo -ne "GENERATE BYTECODE REPORT FOR HISTORIC ${CYAN}${TAG}${RESET}... "
-    rm -rf /tmp/soljson.js
-    if wget -q "$RELEASE_URL/soljson-${HISTORIC_VERSION_SUFFIX}.js" -O /tmp/soljson.js; then
-      generate_bytecode_report /tmp/soljson.js "${OUTPUTDIR}/log/reports/report-historic-${TAG}.txt" "${TAG}"
+    rm -rf /tmp/hypjson.js
+    if wget -q "$RELEASE_URL/hypjson-${HISTORIC_VERSION_SUFFIX}.js" -O /tmp/hypjson.js; then
+      generate_bytecode_report /tmp/hypjson.js "${OUTPUTDIR}/log/reports/report-historic-${TAG}.txt" "${TAG}"
     else
       echo -e "${ORANGE}CANNOT FETCH RELEASE${RESET}"
     fi
-    rm -rf /tmp/soljson.js
+    rm -rf /tmp/hypjson.js
 
     if [ -f "${OUTPUTDIR}/log/reports/report-${TAG}.txt" ] && [ -f "${OUTPUTDIR}/log/reports/report-historic-${TAG}.txt" ]; then
       rm -rf "${OUTPUTDIR}/log/success/bytecode-${TAG}.txt"
@@ -167,7 +167,7 @@ function process_tag
     cd /root/hypc-js
     npm version --allow-same-version --no-git-tag-version "${VERSION}" >/dev/null
     sed -i -e "s/runTests(hypc, .*)/runTests(hypc, '${FULL_VERSION_SUFFIX}')/" test/compiler.js
-    ln -sf "${OUTPUTDIR}/bin/soljson-${FULL_VERSION_SUFFIX}.js" soljson.js
+    ln -sf "${OUTPUTDIR}/bin/hypjson-${FULL_VERSION_SUFFIX}.js" hypjson.js
     rm -f "${OUTPUTDIR}/log/success/test-$TAG.txt"
     rm -f "${OUTPUTDIR}/log/fail/test-$TAG.txt"
     if npm test >"${OUTPUTDIR}/log/running/test-$TAG.txt" 2>&1; then

@@ -4,7 +4,7 @@ set -euo pipefail
 # shellcheck source=scripts/common.sh
 source "${REPO_ROOT}/scripts/common.sh"
 
-HYPTMPDIR=$(mktemp -d -t "cmdline-test-soljson-via-fuzzer-XXXXXX")
+HYPTMPDIR=$(mktemp -d -t "cmdline-test-hypjson-via-fuzzer-XXXXXX")
 cd "$HYPTMPDIR"
 
 "$REPO_ROOT"/scripts/isolate_tests.py "$REPO_ROOT"/test/

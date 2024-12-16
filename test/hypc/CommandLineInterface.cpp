@@ -25,7 +25,7 @@
 
 #include <test/Common.h>
 #include <test/libhyperion/util/Common.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 #include <liblangutil/SemVerHandler.h>
 #include <test/FilesystemUtils.h>
 

@@ -32,7 +32,7 @@ string ProtoConverter::protoToHyperion(Program const& _p)
 {
 	// Create random number generator with fuzzer supplied
 	// seed.
-	m_randomGen = make_shared<SolRandomNumGenerator>(_p.seed());
+	m_randomGen = make_shared<HypRandomNumGenerator>(_p.seed());
 	return visit(_p);
 }
 
@@ -198,7 +198,7 @@ string ProtoConverter::visit(Library const& _library)
 
 tuple<string, string, string> ProtoConverter::pseudoRandomLibraryTest()
 {
-	hypAssert(m_libraryTests.size() > 0, "Sol proto fuzzer: No library tests found");
+	hypAssert(m_libraryTests.size() > 0, "Hyp proto fuzzer: No library tests found");
 	unsigned index = randomNumber() % m_libraryTests.size();
 	return m_libraryTests[index];
 }
@@ -218,12 +218,12 @@ void ProtoConverter::openProgramScope(CIL _program)
 
 string ProtoConverter::programName(CIL _program)
 {
-	hypAssert(m_programNameMap.count(_program), "Sol proto fuzzer: Unregistered program");
+	hypAssert(m_programNameMap.count(_program), "Hyp proto fuzzer: Unregistered program");
 	return m_programNameMap[_program];
 }
 
 unsigned ProtoConverter::randomNumber()
 {
-	hypAssert(m_randomGen, "Sol proto fuzzer: Uninitialized random number generator");
+	hypAssert(m_randomGen, "Hyp proto fuzzer: Uninitialized random number generator");
 	return m_randomGen->operator()();
 }

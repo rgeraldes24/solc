@@ -24,7 +24,7 @@
 
 #include <test/Common.h>
 #include <test/FilesystemUtils.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <libhyputil/TemporaryDirectory.h>
 

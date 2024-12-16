@@ -27,7 +27,7 @@
 
 #include <test/zvmc/zvmc.hpp>
 
-#include <test/libhyperion/util/SoltestTypes.h>
+#include <test/libhyperion/util/HyptestTypes.h>
 
 #include <libhyputil/CommonIO.h>
 

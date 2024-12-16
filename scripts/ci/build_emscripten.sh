@@ -75,14 +75,14 @@ function build() {
         -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}" \
         -DTESTS=0 \
     ..
-    make soljson
+    make hypjson
 
     cd ..
     mkdir -p upload
-    scripts/ci/pack_soljson.sh "$build_dir/libhypc/soljson.js" "$build_dir/libhypc/soljson.wasm" upload/soljson.js
-    cp upload/soljson.js ./
+    scripts/ci/pack_hypjson.sh "$build_dir/libhypc/hypjson.js" "$build_dir/libhypc/hypjson.wasm" upload/hypjson.js
+    cp upload/hypjson.js ./
 
-    OUTPUT_SIZE=$(ls -la soljson.js)
+    OUTPUT_SIZE=$(ls -la hypjson.js)
 
     echo "Emscripten output size: $OUTPUT_SIZE"
 }

@@ -18,7 +18,7 @@
 
 #include <test/libhyperion/util/BytesUtils.h>
 #include <test/libhyperion/util/ContractABIUtils.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <libhyputil/CommonData.h>
 #include <libhyputil/CommonIO.h>

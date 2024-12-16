@@ -24,7 +24,7 @@
 #include <test/hypc/Common.h>
 
 #include <test/Common.h>
-#include <test/libhyperion/util/SoltestErrors.h>
+#include <test/libhyperion/util/HyptestErrors.h>
 
 #include <libhyputil/CommonData.h>
 #include <liblangutil/ZVMVersion.h>

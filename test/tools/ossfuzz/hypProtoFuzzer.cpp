@@ -79,7 +79,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 		methodName
 	);
 	auto minimalResult = zvmoneUtil.compileDeployAndExecute();
-	hypAssert(minimalResult.status_code != ZVMC_REVERT, "Sol proto fuzzer: Zvmone reverted.");
+	hypAssert(minimalResult.status_code != ZVMC_REVERT, "Hyp proto fuzzer: Zvmone reverted.");
 	if (minimalResult.status_code == ZVMC_SUCCESS)
 		hypAssert(
 			ZvmoneUtility::zeroWord(minimalResult.output_data, minimalResult.output_size),

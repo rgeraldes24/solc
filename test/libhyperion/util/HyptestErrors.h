@@ -26,7 +26,7 @@
 namespace hyperion::frontend::test
 {
 
-struct InternalSoltestError: virtual util::Exception {};
+struct InternalHyptestError: virtual util::Exception {};
 
 #if !BOOST_PP_VARIADICS_MSVC
 #define hyptestAssert(...) BOOST_PP_OVERLOAD(hyptestAssert_,__VA_ARGS__)(__VA_ARGS__)
@@ -40,9 +40,9 @@ struct InternalSoltestError: virtual util::Exception {};
 #define hyptestAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
-		::hyperion::frontend::test::InternalSoltestError, \
+		::hyperion::frontend::test::InternalHyptestError, \
 		(DESCRIPTION), \
-		"Soltest assertion failed" \
+		"Hyptest assertion failed" \
 	)
 
 class TestParserError: virtual public util::Exception

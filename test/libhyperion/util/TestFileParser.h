@@ -16,7 +16,7 @@
 
 #include <liblangutil/Exceptions.h>
 #include <libhyputil/CommonData.h>
-#include <test/libhyperion/util/SoltestTypes.h>
+#include <test/libhyperion/util/HyptestTypes.h>
 
 #include <iosfwd>
 #include <iterator>
