@@ -129,7 +129,7 @@ They can both be read and assigned to.
 Local variables that refer to memory evaluate to the address of the variable in memory, not the value itself.
 Such variables can also be assigned to, but note that an assignment will only change the pointer and not the data
 and that it is your responsibility to respect Hyperion's memory management.
-See :ref:`Conventions in Hyperion <conventions-in-solidity>`.
+See :ref:`Conventions in Hyperion <conventions-in-hyperion>`.
 
 Similarly, local variables that refer to statically-sized calldata arrays or calldata structs
 evaluate to the address of the variable in calldata, not the value itself.
@@ -223,7 +223,7 @@ functional-style opcodes, counting stack height for
 variable access and removing stack slots for assembly-local variables when the end
 of their block is reached.
 
-.. _conventions-in-solidity:
+.. _conventions-in-hyperion:
 
 Conventions in Hyperion
 -----------------------
@@ -369,7 +369,7 @@ of Hyperion, you can use a special comment to annotate an assembly block as memo
 
 .. code-block:: hyperion
 
-    /// @solidity memory-safe-assembly
+    /// @hyperion memory-safe-assembly
     assembly {
         ...
     }

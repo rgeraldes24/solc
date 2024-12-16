@@ -18,7 +18,7 @@
 
 #include <test/tools/ossfuzz/protoToHyp.h>
 #include <test/tools/ossfuzz/HyperionZvmoneInterface.h>
-#include <test/tools/ossfuzz/solProto.pb.h>
+#include <test/tools/ossfuzz/hypProto.pb.h>
 
 #include <test/ZVMHost.h>
 
@@ -40,27 +40,27 @@ using namespace std;
 DEFINE_PROTO_FUZZER(Program const& _input)
 {
 	ProtoConverter converter;
-	string sol_source = converter.protoToHyperion(_input);
+	string hyp_source = converter.protoToHyperion(_input);
 
 	if (char const* dump_path = getenv("PROTO_FUZZER_DUMP_PATH"))
 	{
 		// With libFuzzer binary run this to generate a YUL source file x.yul:
 		// PROTO_FUZZER_DUMP_PATH=x.yul ./a.out proto-input
 		ofstream of(dump_path);
-		of.write(sol_source.data(), static_cast<streamsize>(sol_source.size()));
+		of.write(hyp_source.data(), static_cast<streamsize>(hyp_source.size()));
 	}
 
 	if (char const* dump_path = getenv("HYP_DEBUG_FILE"))
 	{
-		sol_source.clear();
+		hyp_source.clear();
 		// With libFuzzer binary run this to generate a YUL source file x.yul:
 		// PROTO_FUZZER_LOAD_PATH=x.yul ./a.out proto-input
 		ifstream ifstr(dump_path);
-		sol_source = {
+		hyp_source = {
 			std::istreambuf_iterator<char>(ifstr),
 			std::istreambuf_iterator<char>()
 		};
-		std::cout << sol_source << std::endl;
+		std::cout << hyp_source << std::endl;
 	}
 
 	// We target the default ZVM which is the latest
@@ -69,7 +69,7 @@ DEFINE_PROTO_FUZZER(Program const& _input)
 	string contractName = "C";
 	string libraryName = converter.libraryTest() ? converter.libraryName() : "";
 	string methodName = "test()";
-	StringMap source({{"test.hyp", sol_source}});
+	StringMap source({{"test.hyp", hyp_source}});
 	CompilerInput cInput(version, source, contractName, OptimiserSettings::minimal(), {});
 	ZvmoneUtility zvmoneUtil(
 		hostContext,

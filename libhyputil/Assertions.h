@@ -58,7 +58,7 @@ namespace hyperion::util
 
 [[noreturn]] inline void unreachable()
 {
-	solThrow(Exception, "Unreachable");
+	hypThrow(Exception, "Unreachable");
 }
 #endif
 
@@ -83,7 +83,7 @@ inline std::string stringOrDefault(std::string _string, std::string _defaultStri
 	do \
 	{ \
 		if (!(_condition)) \
-			solThrow( \
+			hypThrow( \
 				_exceptionType, \
 				::hyperion::util::assertions::stringOrDefault((_description), (_defaultDescription)) \
 			); \

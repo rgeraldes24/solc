@@ -1191,7 +1191,7 @@ Json::Value StandardCompiler::compileHyperion(StandardCompiler::InputsAndSetting
 			}
 			catch (util::Exception const& _exc)
 			{
-				solThrow(util::Exception, "Failed to import AST: "s + _exc.what());
+				hypThrow(util::Exception, "Failed to import AST: "s + _exc.what());
 			}
 		}
 		else

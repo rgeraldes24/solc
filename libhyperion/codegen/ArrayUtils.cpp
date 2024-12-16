@@ -186,7 +186,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 				hypAssert(byteOffsetSize == 0, "Byte offset for array as base type.");
 				auto const& sourceBaseArrayType = dynamic_cast<ArrayType const&>(*sourceBaseType);
 
-				solUnimplementedAssert(
+				hypUnimplementedAssert(
 					_sourceType.location() != DataLocation::CallData ||
 					!_sourceType.isDynamicallyEncoded() ||
 					!sourceBaseArrayType.isDynamicallySized(),
@@ -224,7 +224,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 				else if (sourceBaseType->isValueType())
 					CompilerUtils(_context).loadFromMemoryDynamic(*sourceBaseType, fromCalldata, true, false);
 				else
-					solUnimplemented("Copying of type " + _sourceType.toString(false) + " to storage not yet supported.");
+					hypUnimplemented("Copying of type " + _sourceType.toString(false) + " to storage not yet supported.");
 				// stack: target_ref target_data_end source_data_pos target_data_pos source_data_end [target_byte_offset] [source_byte_offset] <source_value>...
 				assertThrow(
 					2 + byteOffsetSize + sourceBaseType->sizeOnStack() <= 16,
@@ -300,7 +300,7 @@ void ArrayUtils::copyArrayToStorage(ArrayType const& _targetType, ArrayType cons
 
 void ArrayUtils::copyArrayToMemory(ArrayType const& _sourceType, bool _padToWordBoundaries) const
 {
-	solUnimplementedAssert(
+	hypUnimplementedAssert(
 		!_sourceType.baseType()->isDynamicallySized(),
 		"Nested dynamic arrays not implemented here."
 	);

@@ -198,7 +198,7 @@ void CompilerUtils::storeInMemoryDynamic(Type const& _type, bool _padToWordBound
 	// process special types (Reference, StringLiteral, Function)
 	if (auto ref = dynamic_cast<ReferenceType const*>(&_type))
 	{
-		solUnimplementedAssert(
+		hypUnimplementedAssert(
 			ref->location() == DataLocation::Memory,
 			"Only in-memory reference type can be stored."
 		);
@@ -272,14 +272,14 @@ void CompilerUtils::abiDecode(TypePointers const& _typeParameters, bool _fromMem
 	{
 		// stack: v1 v2 ... v(k-1) input_end base_offset current_offset
 		Type const* type = parameterType->decodingType();
-		solUnimplementedAssert(type, "No decoding type found.");
+		hypUnimplementedAssert(type, "No decoding type found.");
 		if (type->category() == Type::Category::Array)
 		{
 			auto const& arrayType = dynamic_cast<ArrayType const&>(*type);
-			solUnimplementedAssert(!arrayType.baseType()->isDynamicallyEncoded(), "Nested arrays not yet implemented.");
+			hypUnimplementedAssert(!arrayType.baseType()->isDynamicallyEncoded(), "Nested arrays not yet implemented.");
 			if (_fromMemory)
 			{
-				solUnimplementedAssert(
+				hypUnimplementedAssert(
 					arrayType.baseType()->isValueType(),
 					"Nested memory arrays not yet implemented here."
 				);
@@ -429,7 +429,7 @@ void CompilerUtils::encodeToMemory(
 	for (Type const*& t: targetTypes)
 	{
 		Type const* tEncoding = t->fullEncodingType(_encodeAsLibraryTypes, encoderV2, !_padToWordBoundaries);
-		solUnimplementedAssert(tEncoding, "Encoding type \"" + t->toString() + "\" not yet implemented.");
+		hypUnimplementedAssert(tEncoding, "Encoding type \"" + t->toString() + "\" not yet implemented.");
 		t = std::move(tEncoding);
 	}
 
@@ -806,7 +806,7 @@ void CompilerUtils::convertType(
 	}
 
 	if (targetTypeCategory == Type::Category::FixedPoint)
-		solUnimplemented("Not yet implemented - FixedPointType.");
+		hypUnimplemented("Not yet implemented - FixedPointType.");
 
 	switch (stackTypeCategory)
 	{
@@ -858,7 +858,7 @@ void CompilerUtils::convertType(
 		}
 		break;
 	case Type::Category::FixedPoint:
-		solUnimplemented("Not yet implemented - FixedPointType.");
+		hypUnimplemented("Not yet implemented - FixedPointType.");
 	case Type::Category::Address:
 	case Type::Category::Integer:
 	case Type::Category::Contract:
@@ -908,7 +908,7 @@ void CompilerUtils::convertType(
 			if (auto typeOnStack = dynamic_cast<IntegerType const*>(&_typeOnStack))
 				if (targetFixedPointType.numBits() > typeOnStack->numBits())
 					cleanHigherOrderBits(*typeOnStack);
-			solUnimplemented("Not yet implemented - FixedPointType.");
+			hypUnimplemented("Not yet implemented - FixedPointType.");
 		}
 		else
 		{
@@ -926,7 +926,7 @@ void CompilerUtils::convertType(
 				RationalNumberType const& constType = dynamic_cast<RationalNumberType const&>(_typeOnStack);
 				// We know that the stack is clean, we only have to clean for a narrowing conversion
 				// where cleanup is forced.
-				solUnimplementedAssert(!constType.isFractional(), "Not yet implemented - FixedPointType.");
+				hypUnimplementedAssert(!constType.isFractional(), "Not yet implemented - FixedPointType.");
 				if (targetType.numBits() < constType.integerType()->numBits() && _cleanupNeeded)
 					cleanHigherOrderBits(targetType);
 			}

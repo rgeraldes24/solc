@@ -1182,7 +1182,7 @@ string AssignCheckVisitor::checkString(string const& _ref, string const& _value,
 			.render();
 		break;
 	case DataType::ARRAY:
-		solUnimplemented("Proto ABIv2 fuzzer: Invalid data type.");
+		hypUnimplemented("Proto ABIv2 fuzzer: Invalid data type.");
 	}
 	string checkStmt = Whiskers(R"(if (<checkPred>) return <errCode>;)")
 		("checkPred", checkPred)
@@ -1296,24 +1296,24 @@ std::string ValueGetterVisitor::addressValueAsString(unsigned _counter)
 	return "address(" + maskUnsignedIntToHex(_counter, 40) + ")";
 }
 
-std::string ValueGetterVisitor::isabelleAddressValueAsString(std::string& _solAddressString)
+std::string ValueGetterVisitor::isabelleAddressValueAsString(std::string& _hypAddressString)
 {
 	// Isabelle encoder expects address literal to be exactly
 	// 20 bytes and a hex string.
 	// Example: 0x0102030405060708090a0102030405060708090a
 	std::regex const addressPattern("address\\((.*)\\)");
 	std::smatch match;
-	hypAssert(std::regex_match(_solAddressString, match, addressPattern), "Abiv2 fuzzer: Invalid address string");
+	hypAssert(std::regex_match(_hypAddressString, match, addressPattern), "Abiv2 fuzzer: Invalid address string");
 	std::string addressHex = match[1].str();
 	addressHex.erase(2, 24);
 	return addressHex;
 }
 
-std::string ValueGetterVisitor::isabelleBytesValueAsString(std::string& _solBytesString)
+std::string ValueGetterVisitor::isabelleBytesValueAsString(std::string& _hypBytesString)
 {
 	std::regex const bytesPattern("hex\"(.*)\"");
 	std::smatch match;
-	hypAssert(std::regex_match(_solBytesString, match, bytesPattern), "Abiv2 fuzzer: Invalid bytes string");
+	hypAssert(std::regex_match(_hypBytesString, match, bytesPattern), "Abiv2 fuzzer: Invalid bytes string");
 	std::string bytesHex = match[1].str();
 	return "0x" + bytesHex;
 }

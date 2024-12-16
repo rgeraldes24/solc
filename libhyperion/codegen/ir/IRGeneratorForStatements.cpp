@@ -107,7 +107,7 @@ private:
 	{
 		auto const& reference = m_references.at(&_identifier);
 		auto const varDecl = dynamic_cast<VariableDeclaration const*>(reference.declaration);
-		solUnimplementedAssert(varDecl);
+		hypUnimplementedAssert(varDecl);
 		std::string const& suffix = reference.suffix;
 
 		std::string value;
@@ -773,7 +773,7 @@ bool IRGeneratorForStatements::visit(UnaryOperation const& _unaryOperation)
 			) << "(" << IRVariable(_unaryOperation.subExpression()).name() << ")\n";
 		}
 		else
-			solUnimplemented("Unary operator not yet implemented");
+			hypUnimplemented("Unary operator not yet implemented");
 	}
 	else if (resultType.category() == Type::Category::FixedBytes)
 	{
@@ -791,7 +791,7 @@ bool IRGeneratorForStatements::visit(UnaryOperation const& _unaryOperation)
 		appendSimpleUnaryOperation(_unaryOperation, _unaryOperation.subExpression());
 	}
 	else
-		solUnimplemented("Unary operator not yet implemented");
+		hypUnimplemented("Unary operator not yet implemented");
 
 	return false;
 }
@@ -864,7 +864,7 @@ bool IRGeneratorForStatements::visit(BinaryOperation const& _binOp)
 
 		if (functionType && functionType->kind() ==  FunctionType::Kind::External)
 		{
-			solUnimplementedAssert(functionType->sizeOnStack() == 2, "");
+			hypUnimplementedAssert(functionType->sizeOnStack() == 2, "");
 			expr = m_utils.externalFunctionPointersEqualFunction() +
 				"(" +
 				IRVariable{_binOp.leftExpression()}.part("address").name() + "," +
@@ -1641,7 +1641,7 @@ void IRGeneratorForStatements::endVisit(FunctionCall const& _functionCall)
 		break;
 	}
 	default:
-		solUnimplemented("FunctionKind " + toString(static_cast<int>(functionType->kind())) + " not yet implemented");
+		hypUnimplemented("FunctionKind " + toString(static_cast<int>(functionType->kind())) + " not yet implemented");
 	}
 }
 
@@ -1650,7 +1650,7 @@ void IRGeneratorForStatements::endVisit(FunctionCallOptions const& _options)
 	setLocation(_options);
 	FunctionType const& previousType = dynamic_cast<FunctionType const&>(*_options.expression().annotation().type);
 
-	solUnimplementedAssert(!previousType.hasBoundFirstArgument());
+	hypUnimplementedAssert(!previousType.hasBoundFirstArgument());
 
 	// Copy over existing values.
 	for (auto const& item: previousType.stackItems())
@@ -1831,7 +1831,7 @@ void IRGeneratorForStatements::endVisit(MemberAccess const& _memberAccess)
 		}
 		else if (member == "address")
 		{
-			solUnimplementedAssert(
+			hypUnimplementedAssert(
 				dynamic_cast<FunctionType const&>(*_memberAccess.expression().annotation().type).kind() ==
 				FunctionType::Kind::External
 			);
@@ -2380,7 +2380,7 @@ void IRGeneratorForStatements::endVisit(IndexRangeAccess const& _indexRangeAcces
 			break;
 		}
 		default:
-			solUnimplemented("Index range accesses is implemented only on calldata arrays.");
+			hypUnimplemented("Index range accesses is implemented only on calldata arrays.");
 	}
 }
 
@@ -2469,7 +2469,7 @@ bool IRGeneratorForStatements::visit(Literal const& _literal)
 	case Type::Category::StringLiteral:
 		break; // will be done during conversion
 	default:
-		solUnimplemented("Only integer, boolean and string literals implemented for now.");
+		hypUnimplemented("Only integer, boolean and string literals implemented for now.");
 	}
 	return false;
 }
@@ -2872,7 +2872,7 @@ std::string IRGeneratorForStatements::binaryOperation(
 	}
 	else if (TokenTraits::isArithmeticOp(_operator))
 	{
-		solUnimplementedAssert(
+		hypUnimplementedAssert(
 			_type.category() != Type::Category::FixedPoint,
 			"Not yet implemented - FixedPointType."
 		);
@@ -2901,7 +2901,7 @@ std::string IRGeneratorForStatements::binaryOperation(
 		}
 	}
 
-	solUnimplementedAssert(!fun.empty(), "Type: " + _type.toString());
+	hypUnimplementedAssert(!fun.empty(), "Type: " + _type.toString());
 	return fun + "(" + _left + ", " + _right + ")\n";
 }
 
@@ -2911,7 +2911,7 @@ std::string IRGeneratorForStatements::shiftOperation(
 	IRVariable const& _amountToShift
 )
 {
-	solUnimplementedAssert(
+	hypUnimplementedAssert(
 		_amountToShift.type().category() != Type::Category::FixedPoint &&
 		_value.type().category() != Type::Category::FixedPoint,
 		"Not yet implemented - FixedPointType."
@@ -3021,8 +3021,8 @@ void IRGeneratorForStatements::writeToLValue(IRLValue const& _lvalue, IRVariable
 			[&](IRLValue::Stack const& _stack) { assign(_stack.variable, _value); },
 			[&](IRLValue::Immutable const& _immutable)
 			{
-				solUnimplementedAssert(_lvalue.type.isValueType());
-				solUnimplementedAssert(_lvalue.type.sizeOnStack() == 1);
+				hypUnimplementedAssert(_lvalue.type.isValueType());
+				hypUnimplementedAssert(_lvalue.type.sizeOnStack() == 1);
 				hypAssert(_lvalue.type == *_immutable.variable->type());
 				size_t memOffset = m_context.immutableMemoryOffset(*_immutable.variable);
 
@@ -3081,8 +3081,8 @@ IRVariable IRGeneratorForStatements::readFromLValue(IRLValue const& _lvalue)
 			define(result, _stack.variable);
 		},
 		[&](IRLValue::Immutable const& _immutable) {
-			solUnimplementedAssert(_lvalue.type.isValueType());
-			solUnimplementedAssert(_lvalue.type.sizeOnStack() == 1);
+			hypUnimplementedAssert(_lvalue.type.isValueType());
+			hypUnimplementedAssert(_lvalue.type.sizeOnStack() == 1);
 			hypAssert(_lvalue.type == *_immutable.variable->type());
 			if (m_context.executionContext() == IRGenerationContext::ExecutionContext::Creation)
 			{

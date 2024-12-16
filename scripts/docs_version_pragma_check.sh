@@ -132,10 +132,10 @@ function findMinimalVersion
 }
 
 printTask "Verifying that all examples from the documentation have the correct version range..."
-SOLTMPDIR=$(mktemp -d)
+HYPTMPDIR=$(mktemp -d)
 (
     set -e
-    cd "$SOLTMPDIR"
+    cd "$HYPTMPDIR"
     "$REPO_ROOT"/scripts/isolate_tests.py "$REPO_ROOT"/docs/
 
     getAllAvailableVersions
@@ -192,8 +192,8 @@ SOLTMPDIR=$(mktemp -d)
         ln -sf "$hypc_bin" "hypc"
         chmod a+x hypc
 
-        HYPC="$SOLTMPDIR/hypc" compileFull "${opts[@]}" "$SOLTMPDIR/$f"
+        HYPC="$HYPTMPDIR/hypc" compileFull "${opts[@]}" "$HYPTMPDIR/$f"
     done
 )
-rm -rf "$SOLTMPDIR"
+rm -rf "$HYPTMPDIR"
 echo "Done."

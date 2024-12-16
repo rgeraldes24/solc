@@ -528,10 +528,10 @@ void CommandLineInterface::readInputFiles()
 	if (m_fileReader.basePath() != "")
 	{
 		if (!boost::filesystem::exists(m_fileReader.basePath()))
-			solThrow(CommandLineValidationError, "Base path does not exist: \"" + m_fileReader.basePath().string() + '"');
+			hypThrow(CommandLineValidationError, "Base path does not exist: \"" + m_fileReader.basePath().string() + '"');
 
 		if (!boost::filesystem::is_directory(m_fileReader.basePath()))
-			solThrow(CommandLineValidationError, "Base path is not a directory: \"" + m_fileReader.basePath().string() + '"');
+			hypThrow(CommandLineValidationError, "Base path is not a directory: \"" + m_fileReader.basePath().string() + '"');
 	}
 
 	for (boost::filesystem::path const& includePath: m_options.input.includePaths)
@@ -557,7 +557,7 @@ void CommandLineInterface::readInputFiles()
 			message += util::joinHumanReadable(normalizedInputPaths | ranges::views::transform(pathToQuotedString)) + "\n";
 		}
 
-		solThrow(CommandLineValidationError, message);
+		hypThrow(CommandLineValidationError, message);
 	}
 
 	for (boost::filesystem::path const& infile: m_options.input.paths)
@@ -565,7 +565,7 @@ void CommandLineInterface::readInputFiles()
 		if (!boost::filesystem::exists(infile))
 		{
 			if (!m_options.input.ignoreMissingFiles)
-				solThrow(CommandLineValidationError, '"' + infile.string() + "\" is not found.");
+				hypThrow(CommandLineValidationError, '"' + infile.string() + "\" is not found.");
 			else
 				report(Error::Severity::Info, fmt::format("\"{}\" is not found. Skipping.", infile.string()));
 
@@ -575,7 +575,7 @@ void CommandLineInterface::readInputFiles()
 		if (!boost::filesystem::is_regular_file(infile))
 		{
 			if (!m_options.input.ignoreMissingFiles)
-				solThrow(CommandLineValidationError, '"' + infile.string() + "\" is not a valid file.");
+				hypThrow(CommandLineValidationError, '"' + infile.string() + "\" is not a valid file.");
 			else
 				report(Error::Severity::Info, fmt::format("\"{}\" is not a valid file. Skipping.", infile.string()));
 
@@ -612,7 +612,7 @@ void CommandLineInterface::readInputFiles()
 		m_fileReader.sourceUnits().empty() &&
 		!m_standardJsonInput.has_value()
 	)
-		solThrow(CommandLineValidationError, "All specified input files either do not exist or are not regular files.");
+		hypThrow(CommandLineValidationError, "All specified input files either do not exist or are not regular files.");
 }
 
 std::map<std::string, Json::Value> CommandLineInterface::parseAstFromInput()
@@ -658,12 +658,12 @@ void CommandLineInterface::createFile(std::string const& _fileName, std::string 
 
 	std::string pathName = (m_options.output.dir / _fileName).string();
 	if (fs::exists(pathName) && !m_options.output.overwriteFiles)
-		solThrow(CommandLineOutputError, "Refusing to overwrite existing file \"" + pathName + "\" (use --overwrite to force).");
+		hypThrow(CommandLineOutputError, "Refusing to overwrite existing file \"" + pathName + "\" (use --overwrite to force).");
 
 	std::ofstream outFile(pathName);
 	outFile << _data;
 	if (!outFile)
-		solThrow(CommandLineOutputError, "Could not write to file \"" + pathName + "\".");
+		hypThrow(CommandLineOutputError, "Could not write to file \"" + pathName + "\".");
 }
 
 void CommandLineInterface::createJson(std::string const& _fileName, std::string const& _json)
@@ -801,7 +801,7 @@ void CommandLineInterface::assembleFromZVMAssemblyJSON()
 	}
 	catch (zvmasm::AssemblyImportException const& _exception)
 	{
-		solThrow(CommandLineExecutionError, "Assembly Import Error: "s + _exception.what());
+		hypThrow(CommandLineExecutionError, "Assembly Import Error: "s + _exception.what());
 	}
 
 	if (m_options.output.debugInfoSelection.has_value())
@@ -884,7 +884,7 @@ void CommandLineInterface::compile()
 			{
 				// FIXME: AST import is missing proper validations. This hack catches failing
 				// assertions and presents them as if they were compiler errors.
-				solThrow(CommandLineExecutionError, "Failed to import AST: "s + _exc.what());
+				hypThrow(CommandLineExecutionError, "Failed to import AST: "s + _exc.what());
 			}
 		}
 		else
@@ -899,7 +899,7 @@ void CommandLineInterface::compile()
 		}
 
 		if (!successful)
-			solThrow(CommandLineExecutionError, "");
+			hypThrow(CommandLineExecutionError, "");
 	}
 	catch (CompilerError const& _exception)
 	{
@@ -908,20 +908,20 @@ void CommandLineInterface::compile()
 			_exception,
 			Error::errorSeverity(Error::Type::CompilerError)
 		);
-		solThrow(CommandLineExecutionError, "");
+		hypThrow(CommandLineExecutionError, "");
 	}
 	catch (Error const& _error)
 	{
 		if (_error.type() == Error::Type::DocstringParsingError)
 		{
 			report(Error::Severity::Error, *boost::get_error_info<errinfo_comment>(_error));
-			solThrow(CommandLineExecutionError, "Documentation parsing failed.");
+			hypThrow(CommandLineExecutionError, "Documentation parsing failed.");
 		}
 		else
 		{
 			m_hasOutput = true;
 			formatter.printErrorInformation(_error);
-			solThrow(CommandLineExecutionError, "");
+			hypThrow(CommandLineExecutionError, "");
 		}
 	}
 }
@@ -1074,7 +1074,7 @@ void CommandLineInterface::serveLSP()
 {
 	lsp::StdioTransport transport;
 	if (!lsp::LanguageServer{transport}.run())
-		solThrow(CommandLineExecutionError, "LSP terminated abnormally.");
+		hypThrow(CommandLineExecutionError, "LSP terminated abnormally.");
 }
 
 void CommandLineInterface::link()
@@ -1115,7 +1115,7 @@ void CommandLineInterface::link()
 				*(it + placeholderSize - 2) != '_' ||
 				*(it + placeholderSize - 1) != '_'
 			)
-				solThrow(
+				hypThrow(
 					CommandLineExecutionError,
 					"Error in binary object file " + src.first + " at position " + std::to_string(it - src.second.begin()) + "\n" +
 					'"' + std::string(it, it + std::min(placeholderSize, static_cast<int>(end - it))) + "\" is not a valid link reference."
@@ -1155,7 +1155,7 @@ void CommandLineInterface::writeLinkedFiles()
 			std::ofstream outFile(src.first);
 			outFile << src.second;
 			if (!outFile)
-				solThrow(CommandLineOutputError, "Could not write to file " + src.first + ". Aborting.");
+				hypThrow(CommandLineOutputError, "Could not write to file " + src.first + ". Aborting.");
 		}
 	sout() << "Linking completed." << std::endl;
 }
@@ -1217,7 +1217,7 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 	if (!successful)
 	{
 		hypAssert(m_hasOutput);
-		solThrow(CommandLineExecutionError, "");
+		hypThrow(CommandLineExecutionError, "");
 	}
 
 	for (auto const& src: m_fileReader.sourceUnits())

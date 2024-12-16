@@ -16,8 +16,8 @@ function test_via_ir_equivalence()
     local output_file_prefix
     output_file_prefix=$(basename "$hyperion_file" .hyp)
 
-    SOLTMPDIR=$(mktemp -d -t "cmdline-test-via-ir-equivalence-${output_file_prefix}-XXXXXX")
-    pushd "$SOLTMPDIR" > /dev/null
+    HYPTMPDIR=$(mktemp -d -t "cmdline-test-via-ir-equivalence-${output_file_prefix}-XXXXXX")
+    pushd "$HYPTMPDIR" > /dev/null
 
     local optimizer_flags=()
     [[ $optimize_flag == "" ]] || optimizer_flags+=("$optimize_flag")
@@ -64,7 +64,7 @@ function test_via_ir_equivalence()
     diff_values "$bin_output_two_stage" "$bin_output_via_ir" --ignore-space-change --ignore-blank-lines
 
     popd > /dev/null
-    rm -r "$SOLTMPDIR"
+    rm -r "$HYPTMPDIR"
 }
 
 externalContracts=(

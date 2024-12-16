@@ -280,7 +280,7 @@ std::string ABIFunctions::abiEncodingFunction(
 )
 {
 	Type const* toInterface = _to.fullEncodingType(_options.encodeAsLibraryTypes, true, false);
-	solUnimplementedAssert(toInterface, "Encoding type \"" + _to.toString() + "\" not yet implemented.");
+	hypUnimplementedAssert(toInterface, "Encoding type \"" + _to.toString() + "\" not yet implemented.");
 	Type const& to = *toInterface;
 
 	if (_from.category() == Type::Category::StringLiteral)
@@ -872,7 +872,7 @@ std::string ABIFunctions::abiEncodingFunctionStruct(
 			hypAssert(member.type, "");
 			hypAssert(!member.type->containsNestedMapping(), "");
 			Type const* memberTypeTo = member.type->fullEncodingType(_options.encodeAsLibraryTypes, true, false);
-			solUnimplementedAssert(memberTypeTo, "Encoding type \"" + member.type->toString() + "\" not yet implemented.");
+			hypUnimplementedAssert(memberTypeTo, "Encoding type \"" + member.type->toString() + "\" not yet implemented.");
 			auto memberTypeFrom = _from.memberType(member.name);
 			hypAssert(memberTypeFrom, "");
 			bool dynamicMember = memberTypeTo->isDynamicallyEncoded();

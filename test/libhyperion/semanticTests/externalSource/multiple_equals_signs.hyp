@@ -1,4 +1,4 @@
-==== ExternalSource: a=_external/external.hyp=sol ====
+==== ExternalSource: a=_external/external.hyp=hyp ====
 import {External} from "a";
 contract C {
 }

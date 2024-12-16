@@ -88,7 +88,7 @@ void IRGenerationContext::resetLocalVariables()
 void IRGenerationContext::registerImmutableVariable(VariableDeclaration const& _variable)
 {
 	hypAssert(_variable.immutable(), "Attempted to register a non-immutable variable as immutable.");
-	solUnimplementedAssert(
+	hypUnimplementedAssert(
 		_variable.annotation().type->isValueType(),
 		"Only immutable variables of value type are supported."
 	);

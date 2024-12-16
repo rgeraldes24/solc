@@ -186,7 +186,7 @@ bool CommonOptions::parse(int argc, char const* const* argv)
 	}
 	catch (po::error const& exception)
 	{
-		solThrow(ConfigException, exception.what());
+		hypThrow(ConfigException, exception.what());
 	}
 
 	if (vmPaths.empty())

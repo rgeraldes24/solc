@@ -295,7 +295,7 @@ std::string YulUtilFunctions::leftAlignFunction(Type const& _type)
 			templ("body", "aligned := " + leftAlignFunction(IntegerType(8)) + "(value)");
 			break;
 		case Type::Category::FixedPoint:
-			solUnimplemented("Fixed point types not implemented.");
+			hypUnimplemented("Fixed point types not implemented.");
 			break;
 		case Type::Category::Array:
 		case Type::Category::Struct:
@@ -415,7 +415,7 @@ std::string YulUtilFunctions::shiftRightSignedFunctionDynamic()
 
 std::string YulUtilFunctions::typedShiftLeftFunction(Type const& _type, Type const& _amountType)
 {
-	solUnimplementedAssert(_type.category() != Type::Category::FixedPoint, "Not yet implemented - FixedPointType.");
+	hypUnimplementedAssert(_type.category() != Type::Category::FixedPoint, "Not yet implemented - FixedPointType.");
 	hypAssert(_type.category() == Type::Category::FixedBytes || _type.category() == Type::Category::Integer, "");
 	hypAssert(_amountType.category() == Type::Category::Integer, "");
 	hypAssert(!dynamic_cast<IntegerType const&>(_amountType).isSigned(), "");
@@ -438,7 +438,7 @@ std::string YulUtilFunctions::typedShiftLeftFunction(Type const& _type, Type con
 
 std::string YulUtilFunctions::typedShiftRightFunction(Type const& _type, Type const& _amountType)
 {
-	solUnimplementedAssert(_type.category() != Type::Category::FixedPoint, "Not yet implemented - FixedPointType.");
+	hypUnimplementedAssert(_type.category() != Type::Category::FixedPoint, "Not yet implemented - FixedPointType.");
 	hypAssert(_type.category() == Type::Category::FixedBytes || _type.category() == Type::Category::Integer, "");
 	hypAssert(_amountType.category() == Type::Category::Integer, "");
 	hypAssert(!dynamic_cast<IntegerType const&>(_amountType).isSigned(), "");
@@ -1229,7 +1229,7 @@ std::string YulUtilFunctions::extractByteArrayLengthFunction()
 std::string YulUtilFunctions::resizeArrayFunction(ArrayType const& _type)
 {
 	hypAssert(_type.location() == DataLocation::Storage, "");
-	solUnimplementedAssert(_type.baseType()->storageBytes() <= 32);
+	hypUnimplementedAssert(_type.baseType()->storageBytes() <= 32);
 
 	if (_type.isByteArrayOrString())
 		return resizeDynamicByteArrayFunction(_type);
@@ -1271,7 +1271,7 @@ std::string YulUtilFunctions::cleanUpStorageArrayEndFunction(ArrayType const& _t
 	hypAssert(_type.location() == DataLocation::Storage, "");
 	hypAssert(_type.baseType()->category() != Type::Category::Mapping, "");
 	hypAssert(!_type.isByteArrayOrString(), "");
-	solUnimplementedAssert(_type.baseType()->storageBytes() <= 32);
+	hypUnimplementedAssert(_type.baseType()->storageBytes() <= 32);
 
 	std::string functionName = "cleanup_storage_array_end_" + _type.identifier();
 	return m_functionCollector.createFunction(functionName, [&](std::vector<std::string>& _args, std::vector<std::string>&) {
@@ -1489,7 +1489,7 @@ std::string YulUtilFunctions::storageArrayPopFunction(ArrayType const& _type)
 {
 	hypAssert(_type.location() == DataLocation::Storage, "");
 	hypAssert(_type.isDynamicallySized(), "");
-	solUnimplementedAssert(_type.baseType()->storageBytes() <= 32, "Base type is not yet implemented.");
+	hypUnimplementedAssert(_type.baseType()->storageBytes() <= 32, "Base type is not yet implemented.");
 	if (_type.isByteArrayOrString())
 		return storageByteArrayPopFunction(_type);
 
@@ -1567,7 +1567,7 @@ std::string YulUtilFunctions::storageArrayPushFunction(ArrayType const& _type, T
 	if (!_fromType)
 		_fromType = _type.baseType();
 	else if (_fromType->isValueType())
-		solUnimplementedAssert(*_fromType == *_type.baseType());
+		hypUnimplementedAssert(*_fromType == *_type.baseType());
 
 	std::string functionName =
 		std::string{"array_push_from_"} +
@@ -1635,7 +1635,7 @@ std::string YulUtilFunctions::storageArrayPushZeroFunction(ArrayType const& _typ
 {
 	hypAssert(_type.location() == DataLocation::Storage, "");
 	hypAssert(_type.isDynamicallySized(), "");
-	solUnimplementedAssert(_type.baseType()->storageBytes() <= 32, "Base type is not yet implemented.");
+	hypUnimplementedAssert(_type.baseType()->storageBytes() <= 32, "Base type is not yet implemented.");
 
 	std::string functionName = "array_push_zero_" + _type.identifier();
 	return m_functionCollector.createFunction(functionName, [&]() {
@@ -3351,10 +3351,10 @@ std::string YulUtilFunctions::conversionFunction(Type const& _from, Type const& 
 				if (auto const* toFixedBytes = dynamic_cast<FixedBytesType const*>(&_to))
 					convert = shiftLeftFunction(256 - toFixedBytes->numBytes() * 8);
 				else if (dynamic_cast<FixedPointType const*>(&_to))
-					solUnimplemented("");
+					hypUnimplemented("");
 				else if (dynamic_cast<IntegerType const*>(&_to))
 				{
-					solUnimplementedAssert(fromCategory != Type::Category::FixedPoint);
+					hypUnimplementedAssert(fromCategory != Type::Category::FixedPoint);
 					convert = identityFunction();
 				}
 				else if (toCategory == Type::Category::Enum)
@@ -3380,7 +3380,7 @@ std::string YulUtilFunctions::conversionFunction(Type const& _from, Type const& 
 			break;
 		}
 		case Type::Category::FixedPoint:
-			solUnimplemented("Fixed point types not implemented.");
+			hypUnimplemented("Fixed point types not implemented.");
 			break;
 		case Type::Category::Struct:
 		{
@@ -3393,8 +3393,8 @@ std::string YulUtilFunctions::conversionFunction(Type const& _from, Type const& 
 				body = "converted := value";
 			else
 			{
-				solUnimplementedAssert(toStructType.location() == DataLocation::Memory);
-				solUnimplementedAssert(fromStructType.location() != DataLocation::Memory);
+				hypUnimplementedAssert(toStructType.location() == DataLocation::Memory);
+				hypUnimplementedAssert(fromStructType.location() != DataLocation::Memory);
 
 				if (fromStructType.location() == DataLocation::CallData)
 					body = Whiskers(R"(
@@ -3463,7 +3463,7 @@ std::string YulUtilFunctions::conversionFunction(Type const& _from, Type const& 
 		}
 		case Type::Category::Tuple:
 		{
-			solUnimplemented("Tuple conversion not implemented.");
+			hypUnimplemented("Tuple conversion not implemented.");
 			break;
 		}
 		case Type::Category::TypeType:
@@ -3784,7 +3784,7 @@ std::string YulUtilFunctions::cleanupFunction(Type const& _type)
 			templ("body", "cleaned := iszero(iszero(value))");
 			break;
 		case Type::Category::FixedPoint:
-			solUnimplemented("Fixed point types not implemented.");
+			hypUnimplemented("Fixed point types not implemented.");
 			break;
 		case Type::Category::Function:
 			switch (dynamic_cast<FunctionType const&>(_type).kind())
@@ -4144,7 +4144,7 @@ std::string YulUtilFunctions::zeroValueFunction(Type const& _type, bool _splitFu
 			else if (auto const* structType = dynamic_cast<StructType const*>(&_type))
 				templ("zeroValue", allocateAndInitializeMemoryStructFunction(*structType) + "()");
 			else
-				solUnimplemented("");
+				hypUnimplemented("");
 		}
 
 		return templ.render();
@@ -4191,7 +4191,7 @@ std::string YulUtilFunctions::storageSetToZeroFunction(Type const& _type)
 			("panic", panicFunction(PanicCode::Generic))
 			.render();
 		else
-			solUnimplemented("setToZero for type " + _type.identifier() + " not yet implemented!");
+			hypUnimplemented("setToZero for type " + _type.identifier() + " not yet implemented!");
 	});
 }
 
@@ -4242,7 +4242,7 @@ std::string YulUtilFunctions::conversionFunctionSpecial(Type const& _from, Type 
 			.render();
 		}
 
-		solUnimplementedAssert(
+		hypUnimplementedAssert(
 			_from.category() == Type::Category::StringLiteral,
 			"Type conversion " + _from.toString() + " -> " + _to.toString() + " not yet implemented."
 		);

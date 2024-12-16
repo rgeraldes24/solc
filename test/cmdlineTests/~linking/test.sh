@@ -4,8 +4,8 @@ set -euo pipefail
 # shellcheck source=scripts/common.sh
 source "${REPO_ROOT}/scripts/common.sh"
 
-SOLTMPDIR=$(mktemp -d -t "cmdline-test-linking-XXXXXX")
-cd "$SOLTMPDIR"
+HYPTMPDIR=$(mktemp -d -t "cmdline-test-linking-XXXXXX")
+cd "$HYPTMPDIR"
 
 echo 'library L { function f() public pure {} } contract C { function f() public pure { L.f(); } }' > x.hyp
 msg_on_error --no-stderr "$HYPC" --bin -o . x.hyp
@@ -23,4 +23,4 @@ msg_on_error "$HYPC" --link --libraries x.hyp:L=0x90f20564390eAe531E810af625A22f
 # Now the placeholder and explanation should be gone.
 grep -q -v '[/_]' C.bin
 
-rm -r "$SOLTMPDIR"
+rm -r "$HYPTMPDIR"

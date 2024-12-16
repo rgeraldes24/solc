@@ -1,4 +1,4 @@
-//sol FixedFeeRegistrar
+//hyp FixedFeeRegistrar
 // Simple global registrar with fixed-fee reservations.
 // @authors:
 //   Gav Wood <g@ethdev.com>

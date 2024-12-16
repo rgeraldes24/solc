@@ -73,15 +73,15 @@ struct InvalidAstError: virtual util::Exception {};
 
 /// Assertion that throws an UnimplementedFeatureError containing the given description if it is not met.
 #if !BOOST_PP_VARIADICS_MSVC
-#define solUnimplementedAssert(...) BOOST_PP_OVERLOAD(solUnimplementedAssert_,__VA_ARGS__)(__VA_ARGS__)
+#define hypUnimplementedAssert(...) BOOST_PP_OVERLOAD(hypUnimplementedAssert_,__VA_ARGS__)(__VA_ARGS__)
 #else
-#define solUnimplementedAssert(...) BOOST_PP_CAT(BOOST_PP_OVERLOAD(solUnimplementedAssert_,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
+#define hypUnimplementedAssert(...) BOOST_PP_CAT(BOOST_PP_OVERLOAD(hypUnimplementedAssert_,__VA_ARGS__)(__VA_ARGS__),BOOST_PP_EMPTY())
 #endif
 
-#define solUnimplementedAssert_1(CONDITION) \
-	solUnimplementedAssert_2((CONDITION), "")
+#define hypUnimplementedAssert_1(CONDITION) \
+	hypUnimplementedAssert_2((CONDITION), "")
 
-#define solUnimplementedAssert_2(CONDITION, DESCRIPTION) \
+#define hypUnimplementedAssert_2(CONDITION, DESCRIPTION) \
 	assertThrowWithDefaultDescription( \
 		(CONDITION), \
 		::hyperion::langutil::UnimplementedFeatureError, \
@@ -91,8 +91,8 @@ struct InvalidAstError: virtual util::Exception {};
 
 
 /// Helper that unconditionally reports an unimplemented feature.
-#define solUnimplemented(DESCRIPTION) \
-	solUnimplementedAssert(false, DESCRIPTION)
+#define hypUnimplemented(DESCRIPTION) \
+	hypUnimplementedAssert(false, DESCRIPTION)
 
 
 /// Assertion that throws an InvalidAstError containing the given description if it is not met.

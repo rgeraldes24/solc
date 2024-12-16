@@ -100,7 +100,7 @@ All other entities' first alpha is lower case.
 
 ## 5. Assertions
 
-Use `hypAssert` and `solUnimplementedAssert` generously to check assumptions that span across different parts of the code base, for example before dereferencing a pointer.
+Use `hypAssert` and `hypUnimplementedAssert` generously to check assumptions that span across different parts of the code base, for example before dereferencing a pointer.
 
 ## 6. Declarations
 

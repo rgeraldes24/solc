@@ -530,7 +530,7 @@ std::string IRGenerator::generateGetter(VariableDeclaration const& _varDecl)
 		if (_varDecl.immutable())
 		{
 			hypAssert(paramTypes.empty(), "");
-			solUnimplementedAssert(type->sizeOnStack() == 1);
+			hypUnimplementedAssert(type->sizeOnStack() == 1);
 			return Whiskers(R"(
 				<astIDComment><sourceLocationComment>
 				function <functionName>() -> rval {
@@ -961,8 +961,8 @@ std::string IRGenerator::deployCode(ContractDefinition const& _contract)
 	else
 		for (VariableDeclaration const* immutable: ContractType(_contract).immutableVariables())
 		{
-			solUnimplementedAssert(immutable->type()->isValueType());
-			solUnimplementedAssert(immutable->type()->sizeOnStack() == 1);
+			hypUnimplementedAssert(immutable->type()->isValueType());
+			hypUnimplementedAssert(immutable->type()->sizeOnStack() == 1);
 			immutables.emplace_back(std::map<std::string, std::string>{
 				{"immutableName"s, std::to_string(immutable->id())},
 				{"value"s, "mload(" + std::to_string(m_context.immutableMemoryOffset(*immutable)) + ")"}

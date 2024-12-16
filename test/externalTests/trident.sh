@@ -87,7 +87,7 @@ function trident_test
     sed -i 's|uint32(-1)|type(uint32).max|g' contracts/flat/BentoBoxV1Flat.hyp
     sed -i 's|IERC20(0)|IERC20(address(0))|g' contracts/flat/BentoBoxV1Flat.hyp
     sed -i 's|IStrategy(0)|IStrategy(address(0))|g' contracts/flat/BentoBoxV1Flat.hyp
-    find contracts -name "*.hyp" -exec sed -i -e 's/^\(\s*\)\(assembly\)/\1\/\/\/ @solidity memory-safe-assembly\n\1\2/' '{}' \;
+    find contracts -name "*.hyp" -exec sed -i -e 's/^\(\s*\)\(assembly\)/\1\/\/\/ @hyperion memory-safe-assembly\n\1\2/' '{}' \;
 
     # TODO: Remove this when https://github.com/NomicFoundation/hardhat/issues/3365 gets fixed.
     sed -i 's|it\(("Reverts on direct deployment via factory"\)|it.skip\1|g' test/MasterDeployer.test.ts

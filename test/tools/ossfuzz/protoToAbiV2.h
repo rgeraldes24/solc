@@ -844,8 +844,8 @@ public:
 		hypAssert(false, "ABIv2 proto fuzzer: Cannot call valuegettervisitor on complex type");
 	}
 	using AbiV2ProtoVisitor<std::string>::visit;
-	static std::string isabelleAddressValueAsString(std::string& _solAddressString);
-	static std::string isabelleBytesValueAsString(std::string& _solFixedBytesString);
+	static std::string isabelleAddressValueAsString(std::string& _hypAddressString);
+	static std::string isabelleBytesValueAsString(std::string& _hypFixedBytesString);
 private:
 	unsigned counter()
 	{

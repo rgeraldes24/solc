@@ -26,11 +26,11 @@ SMT_CONTRACT_WITH_MIXED_NEWLINES_HYP_CODE = load_fixture(SMT_CONTRACT_WITH_MIXED
 SYNTAX_SMOKE_TEST_HYP_PATH = LIBHYPERION_TEST_DIR / 'syntaxTests/smoke_test.hyp'
 SYNTAX_SMOKE_TEST_HYP_CODE = load_libhyperion_test_case(SYNTAX_SMOKE_TEST_HYP_PATH)
 
-LIBRARY_INHERITED2_HYP_JSON_OUTPUT = load_fixture('library_inherited2_sol_json_output.json')
-LIBRARY_INHERITED2_HYP_CLI_OUTPUT = load_fixture('library_inherited2_sol_cli_output.txt')
+LIBRARY_INHERITED2_HYP_JSON_OUTPUT = load_fixture('library_inherited2_hyp_json_output.json')
+LIBRARY_INHERITED2_HYP_CLI_OUTPUT = load_fixture('library_inherited2_hyp_cli_output.txt')
 
-UNKNOWN_PRAGMA_HYP_JSON_OUTPUT = load_fixture('unknown_pragma_sol_json_output.json')
-UNKNOWN_PRAGMA_HYP_CLI_OUTPUT = load_fixture('unknown_pragma_sol_cli_output.txt')
+UNKNOWN_PRAGMA_HYP_JSON_OUTPUT = load_fixture('unknown_pragma_hyp_json_output.json')
+UNKNOWN_PRAGMA_HYP_CLI_OUTPUT = load_fixture('unknown_pragma_hyp_cli_output.txt')
 
 UNIMPLEMENTED_FEATURE_JSON_OUTPUT = load_fixture('unimplemented_feature_json_output.json')
 UNIMPLEMENTED_FEATURE_CLI_OUTPUT = load_fixture('unimplemented_feature_cli_output.txt')

@@ -17,7 +17,7 @@
 // SPDX-License-Identifier: GPL-3.0
 #pragma once
 
-#include <test/tools/ossfuzz/solProto.pb.h>
+#include <test/tools/ossfuzz/hypProto.pb.h>
 
 #include <random>
 #include <string>

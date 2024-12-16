@@ -44,7 +44,7 @@ using namespace hyperion::util;
 namespace hyperion::frontend::test
 {
 static char const* walletCode = R"DELIMITER(
-//sol Wallet
+//hyp Wallet
 // Multi-sig, daily-limited account proxy/wallet.
 // @authors:
 // Gav Wood <g@ethdev.com>

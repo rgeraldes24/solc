@@ -11,7 +11,7 @@ add_dependencies(ossfuzz
 if (OSSFUZZ)
     add_custom_target(ossfuzz_proto)
     add_dependencies(ossfuzz_proto
-            sol_proto_ossfuzz
+            hyp_proto_ossfuzz
             yul_proto_ossfuzz
             yul_proto_diff_ossfuzz
             yul_proto_diff_custom_mutate_ossfuzz
@@ -180,25 +180,25 @@ if (OSSFUZZ)
     set_target_properties(abiv2_isabelle_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
     target_compile_options(abiv2_isabelle_ossfuzz PUBLIC ${COMPILE_OPTIONS} -Wno-sign-conversion -Wno-suggest-destructor-override -Wno-inconsistent-missing-destructor-override -Wno-shorten-64-to-32)
 
-    add_executable(sol_proto_ossfuzz
-            solProtoFuzzer.cpp
+    add_executable(hyp_proto_ossfuzz
+            hypProtoFuzzer.cpp
             HyperionZvmoneInterface.cpp
             protoToHyp.cpp
-            solProto.pb.cc
+            hypProto.pb.cc
             ../../ZVMHost.cpp
     )
-    target_include_directories(sol_proto_ossfuzz PRIVATE
+    target_include_directories(hyp_proto_ossfuzz PRIVATE
             /usr/include/libprotobuf-mutator
     )
-    target_link_libraries(sol_proto_ossfuzz PRIVATE hyperion libhypc
+    target_link_libraries(hyp_proto_ossfuzz PRIVATE hyperion libhypc
             zvmc
             zvmone-standalone
             protobuf-mutator-libfuzzer.a
             protobuf-mutator.a
             protobuf.a
     )
-    set_target_properties(sol_proto_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
-    target_compile_options(sol_proto_ossfuzz PUBLIC ${COMPILE_OPTIONS} -Wno-sign-conversion -Wno-suggest-destructor-override -Wno-inconsistent-missing-destructor-override -Wno-shorten-64-to-32)
+    set_target_properties(hyp_proto_ossfuzz PROPERTIES LINK_FLAGS ${LIB_FUZZING_ENGINE})
+    target_compile_options(hyp_proto_ossfuzz PUBLIC ${COMPILE_OPTIONS} -Wno-sign-conversion -Wno-suggest-destructor-override -Wno-inconsistent-missing-destructor-override -Wno-shorten-64-to-32)
 else()
     add_library(hypc_ossfuzz
             hypc_ossfuzz.cpp

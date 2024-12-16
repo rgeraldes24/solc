@@ -1228,7 +1228,7 @@ protected:
 		// If that changes, before removing the hypAssert, make sure the function does the right thing and is used properly.
 		// Note that different tuple members can have different data locations, so using decomposition() to check
 		// the tuple validity for a data location might require special care.
-		solUnimplemented("Tuple decomposition is not expected.");
+		hypUnimplemented("Tuple decomposition is not expected.");
 		return m_components;
 	}
 

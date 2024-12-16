@@ -45,7 +45,7 @@ struct Exception: virtual std::exception, virtual boost::exception
 /// exception was thrown from.
 /// @param _exceptionType The type of the exception to throw (not an instance).
 /// @param _description The message that describes the error.
-#define solThrow(_exceptionType, _description) \
+#define hypThrow(_exceptionType, _description) \
 	::boost::throw_exception( \
 		_exceptionType() << \
 		::hyperion::util::errinfo_comment((_description)) << \
@@ -61,7 +61,7 @@ struct Exception: virtual std::exception, virtual boost::exception
 /// @param _description The message that describes the error.
 #define solRequire(_condition, _exceptionType, _description) \
 	if (!(_condition)) \
-		solThrow(_exceptionType, (_description))
+		hypThrow(_exceptionType, (_description))
 
 /// Defines an exception type that's meant to signal a specific condition and be caught rather than
 /// unwind the stack all the way to the top-level exception handler and interrupt the program.

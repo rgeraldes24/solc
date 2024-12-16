@@ -89,12 +89,12 @@ void Assembly::importAssemblyItemsFromJSON(Json::Value const& _code, std::vector
 	{
 		AssemblyItem const& newItem = m_items.emplace_back(createAssemblyItemFromJSON(*jsonItemIter, _sourceList));
 		if (newItem == Instruction::JUMPDEST)
-			solThrow(AssemblyImportException, "JUMPDEST instruction without a tag");
+			hypThrow(AssemblyImportException, "JUMPDEST instruction without a tag");
 		else if (newItem.type() == AssemblyItemType::Tag)
 		{
 			++jsonItemIter;
 			if (jsonItemIter != std::end(_code) && createAssemblyItemFromJSON(*jsonItemIter, _sourceList) != Instruction::JUMPDEST)
-				solThrow(AssemblyImportException, "JUMPDEST expected after tag.");
+				hypThrow(AssemblyImportException, "JUMPDEST expected after tag.");
 		}
 	}
 }
@@ -187,11 +187,11 @@ AssemblyItem Assembly::createAssemblyItemFromJSON(Json::Value const& _json, std:
 			{
 				std::optional<AssemblyItem::JumpType> parsedJumpType = AssemblyItem::parseJumpType(jumpType);
 				if (!parsedJumpType.has_value())
-					solThrow(AssemblyImportException, "Invalid jump type.");
+					hypThrow(AssemblyImportException, "Invalid jump type.");
 				item.setJumpType(parsedJumpType.value());
 			}
 			else
-				solThrow(
+				hypThrow(
 					AssemblyImportException,
 					"Member 'jumpType' set on instruction different from JUMP or JUMPI (was set on instruction '" + name + "')"
 				);
@@ -273,7 +273,7 @@ AssemblyItem Assembly::createAssemblyItemFromJSON(Json::Value const& _json, std:
 			result = item;
 		}
 		else
-			solThrow(InvalidOpcode, "Invalid opcode: " + name);
+			hypThrow(InvalidOpcode, "Invalid opcode: " + name);
 	}
 	result.setLocation(location);
 	result.m_modifierDepth = modifierDepth;
@@ -594,11 +594,11 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 				}
 				catch (std::invalid_argument const&)
 				{
-					solThrow(AssemblyImportException, "The key '" + dataItemID + "' inside '.data' is not an integer.");
+					hypThrow(AssemblyImportException, "The key '" + dataItemID + "' inside '.data' is not an integer.");
 				}
 				catch (std::out_of_range const&)
 				{
-					solThrow(AssemblyImportException, "The key '" + dataItemID + "' inside '.data' is out of the supported integer range.");
+					hypThrow(AssemblyImportException, "The key '" + dataItemID + "' inside '.data' is out of the supported integer range.");
 				}
 
 				auto [subAssembly, emptySourceList] = Assembly::fromJSON(dataItem, _level == 0 ? parsedSourceList : _sourceList, _level + 1);
@@ -608,7 +608,7 @@ std::pair<std::shared_ptr<Assembly>, std::vector<std::string>> Assembly::fromJSO
 				subAssemblies[index] = subAssembly;
 			}
 			else
-				solThrow(AssemblyImportException, "The value of key '" + dataItemID + "' inside '.data' is neither a hex string nor an object.");
+				hypThrow(AssemblyImportException, "The value of key '" + dataItemID + "' inside '.data' is neither a hex string nor an object.");
 		}
 
 		if (!subAssemblies.empty())

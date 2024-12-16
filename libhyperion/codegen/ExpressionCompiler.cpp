@@ -466,7 +466,7 @@ bool ExpressionCompiler::visit(UnaryOperation const& _unaryOperation)
 	case Token::Inc: // ++ (pre- or postfix)
 	case Token::Dec: // -- (pre- or postfix)
 		hypAssert(!!m_currentLValue, "LValue not retrieved.");
-		solUnimplementedAssert(
+		hypUnimplementedAssert(
 			type.category() != Type::Category::FixedPoint,
 			"Not yet implemented - FixedPointType."
 		);
@@ -474,7 +474,7 @@ bool ExpressionCompiler::visit(UnaryOperation const& _unaryOperation)
 		if (!_unaryOperation.isPrefixOperation())
 		{
 			// store value for later
-			solUnimplementedAssert(type.sizeOnStack() == 1, "Stack size != 1 not implemented.");
+			hypUnimplementedAssert(type.sizeOnStack() == 1, "Stack size != 1 not implemented.");
 			m_context << Instruction::DUP1;
 			if (m_currentLValue->sizeOnStack() > 0)
 				for (unsigned i = 1 + m_currentLValue->sizeOnStack(); i > 0; --i)
@@ -513,7 +513,7 @@ bool ExpressionCompiler::visit(UnaryOperation const& _unaryOperation)
 		// According to SyntaxChecker...
 		hypAssert(false, "Use of unary + is disallowed.");
 	case Token::Sub: // -
-		solUnimplementedAssert(
+		hypUnimplementedAssert(
 			type.category() != Type::Category::FixedPoint,
 			"Not yet implemented - FixedPointType."
 		);
@@ -2226,7 +2226,7 @@ bool ExpressionCompiler::visit(IndexRangeAccess const& _indexAccess)
 			arrayType = &sliceType->arrayType();
 
 	hypAssert(arrayType, "");
-	solUnimplementedAssert(
+	hypUnimplementedAssert(
 		arrayType->location() == DataLocation::CallData &&
 		arrayType->isDynamicallySized() &&
 		!arrayType->baseType()->isDynamicallyEncoded()
@@ -2337,7 +2337,7 @@ void ExpressionCompiler::endVisit(Literal const& _literal)
 	case Type::Category::StringLiteral:
 		break; // will be done during conversion
 	default:
-		solUnimplemented("Only integer, boolean and string literals implemented for now.");
+		hypUnimplemented("Only integer, boolean and string literals implemented for now.");
 	}
 }
 
@@ -2363,7 +2363,7 @@ void ExpressionCompiler::appendCompareOperatorCode(Token _operator, Type const& 
 		FunctionType const* functionType = dynamic_cast<decltype(functionType)>(&_type);
 		if (functionType && functionType->kind() == FunctionType::Kind::External)
 		{
-			solUnimplementedAssert(functionType->sizeOnStack() == 2, "");
+			hypUnimplementedAssert(functionType->sizeOnStack() == 2, "");
 			m_context << Instruction::SWAP3;
 
 			m_context << ((u256(1) << 160) - 1) << Instruction::AND;
@@ -2437,7 +2437,7 @@ void ExpressionCompiler::appendOrdinaryBinaryOperatorCode(Token _operator, Type 
 void ExpressionCompiler::appendArithmeticOperatorCode(Token _operator, Type const& _type)
 {
 	if (_type.category() == Type::Category::FixedPoint)
-		solUnimplemented("Not yet implemented - FixedPointType.");
+		hypUnimplemented("Not yet implemented - FixedPointType.");
 
 	IntegerType const& type = dynamic_cast<IntegerType const&>(_type);
 	if (m_context.arithmetic() == Arithmetic::Checked)
@@ -2799,7 +2799,7 @@ void ExpressionCompiler::appendExternalFunctionCall(
 
 void ExpressionCompiler::appendExpressionCopyToMemory(Type const& _expectedType, Expression const& _expression)
 {
-	solUnimplementedAssert(_expectedType.isValueType(), "Not implemented for non-value types.");
+	hypUnimplementedAssert(_expectedType.isValueType(), "Not implemented for non-value types.");
 	acceptAndConvert(_expression, _expectedType, true);
 	utils().storeInMemoryDynamic(_expectedType);
 }

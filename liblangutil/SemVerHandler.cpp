@@ -54,7 +54,7 @@ SemVerVersion::SemVerVersion(std::string const& _versionString)
 		if (level < 2)
 		{
 			if (i == end || *i != '.')
-				solThrow(SemVerError, "Invalid versionString: "s + _versionString);
+				hypThrow(SemVerError, "Invalid versionString: "s + _versionString);
 			else
 				++i;
 		}
@@ -72,7 +72,7 @@ SemVerVersion::SemVerVersion(std::string const& _versionString)
 		build = std::string(buildStart, i);
 	}
 	if (i != end)
-		solThrow(SemVerError, "Invalid versionString "s + _versionString);
+		hypThrow(SemVerError, "Invalid versionString "s + _versionString);
 }
 
 bool SemVerMatchExpression::MatchComponent::matches(SemVerVersion const& _version) const
@@ -163,7 +163,7 @@ SemVerMatchExpression SemVerMatchExpressionParser::parse()
 	reset();
 
 	if (m_tokens.empty())
-		solThrow(SemVerError, "Empty version pragma.");
+		hypThrow(SemVerError, "Empty version pragma.");
 
 	try
 	{
@@ -174,7 +174,7 @@ SemVerMatchExpression SemVerMatchExpressionParser::parse()
 				break;
 			if (currentToken() != Token::Or)
 			{
-				solThrow(
+				hypThrow(
 					SemVerError,
 					"You can only combine version ranges using the || operator."
 				);
@@ -272,16 +272,16 @@ unsigned SemVerMatchExpressionParser::parseVersionPart()
 		{
 			c = currentChar();
 			if (v * 10 < v || v * 10 + static_cast<unsigned>(c - '0') < v * 10)
-				solThrow(SemVerError, "Integer too large to be used in a version number.");
+				hypThrow(SemVerError, "Integer too large to be used in a version number.");
 			v = v * 10 + static_cast<unsigned>(c - '0');
 			nextChar();
 		}
 		return v;
 	}
 	else if (c == char(-1))
-		solThrow(SemVerError, "Expected version number but reached end of pragma.");
+		hypThrow(SemVerError, "Expected version number but reached end of pragma.");
 	else
-		solThrow(
+		hypThrow(
 			SemVerError, fmt::format(
 				"Expected the start of a version number but instead found character '{}'. "
 				"Version number is invalid or the pragma is not terminated with a semicolon.",

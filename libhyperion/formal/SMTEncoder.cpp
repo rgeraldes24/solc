@@ -1946,7 +1946,7 @@ void SMTEncoder::compareOperation(BinaryOperation const& _op)
 		}
 		else // Bool
 		{
-			solUnimplementedAssert(smt::isBool(*commonType), "Operation not yet supported");
+			hypUnimplementedAssert(smt::isBool(*commonType), "Operation not yet supported");
 			value = std::make_shared<smtutil::Expression>(
 				op == Token::Equal ? (left == right) :
 				/*op == Token::NotEqual*/ (left != right)
