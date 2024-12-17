@@ -111,11 +111,11 @@
                     }
                   ]
                 },
-                "zvmVersion": %ZVMVERSION%,
                 "externalReferences": [],
                 "id": 3,
                 "nodeType": "InlineAssembly",
-                "src": "52:52:1"
+                "src": "52:52:1",
+                "zvmVersion": %ZVMVERSION%
               }
             ]
           },

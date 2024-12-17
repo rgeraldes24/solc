@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(test_small)
 {
 	BOOST_CHECK_EQUAL(ipfsHashBase58({}), "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH");
 	BOOST_CHECK_EQUAL(ipfsHashBase58("x"), "QmULKig5Fxrs2sC4qt9nNduucXfb92AFYQ6Hi3YRqDmrYC");
-	BOOST_CHECK_EQUAL(ipfsHashBase58("Hyperion\n"), "QmSsm9M7PQRBnyiz1smizk8hZw3URfk8fSeHzeTo3oZidS");
+	BOOST_CHECK_EQUAL(ipfsHashBase58("Hyperion\n"), "Qmf2AibT6ur7w527jTJ8smU2gyW7iLamz1qtBkz76qR2oJ");
 	BOOST_CHECK_EQUAL(ipfsHashBase58(std::string(200ul, char(0))), "QmSXR1N23uWzsANi8wpxMPw5dmmhqBVUAb4hUrHVLpNaMr");
 	BOOST_CHECK_EQUAL(ipfsHashBase58(std::string(10250ul, char(0))), "QmVJJBB3gKKBWYC9QTywpH8ZL1bDeTDJ17B63Af5kino9i");
 	BOOST_CHECK_EQUAL(ipfsHashBase58(std::string(100000ul, char(0))), "QmYgKa25YqEGpQmmZtPPFMNK3kpqqneHk6nMSEUYryEX1C");
