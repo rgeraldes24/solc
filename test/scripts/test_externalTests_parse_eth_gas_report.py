@@ -24,7 +24,7 @@ class TestEthGasReport(unittest.TestCase):
         parsed_report = parse_report(ETH_GAS_REPORT_GNOSIS_RST_CONTENT)
 
         expected_report = {
-            'solc_version': '0.8.10',
+            'hypc_version': '0.8.10',
             'optimize': True,
             'runs': 200,
             'block_limit': 100000000,
@@ -148,12 +148,12 @@ class TestEthGasReport(unittest.TestCase):
 
     def test_parse_report_should_fail_if_report_has_more_than_one_header(self):
         text_report = dedent("""
-            | Solc version: 0.8.10 · Optimizer enabled: true  · Runs: 200 · Block limit: 100000000 gas |
-            | Solc version: 0.8.9  · Optimizer enabled: false · Runs: 111 · Block limit: 999999999 gas |
+            | Hypc version: 0.8.10 · Optimizer enabled: true  · Runs: 200 · Block limit: 100000000 gas |
+            | Hypc version: 0.8.9  · Optimizer enabled: false · Runs: 111 · Block limit: 999999999 gas |
         """).strip('\n')
         expected_message = dedent("""
             Parsing error on line 2: Duplicate report header.
-            | Solc version: 0.8.9  | Optimizer enabled: false | Runs: 111 | Block limit: 999999999 gas |
+            | Hypc version: 0.8.9  | Optimizer enabled: false | Runs: 111 | Block limit: 999999999 gas |
         """).strip('\n')
 
         with self.assertRaises(ReportParsingError) as manager:

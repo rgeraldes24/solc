@@ -1,13 +1,13 @@
 ## Checklist for making a release:
 
 ### Requirements
- - [ ] GitHub account with access to [solidity](https://github.com/ethereum/solidity), [solc-js](https://github.com/ethereum/solc-js),
-       [solc-bin](https://github.com/ethereum/solc-bin), [solidity-website](https://github.com/ethereum/solidity-website).
- - [ ] DockerHub account with push rights to the [``solc`` image](https://hub.docker.com/r/ethereum/solc).
- - [ ] Launchpad (Ubuntu One) account with a membership in the ["Ethereum" team](https://launchpad.net/~ethereum) and
+ - [ ] GitHub account with access to [solidity](https://github.com/ethereum/solidity), [hypc-js](https://github.com/ethereum/hypc-js),
+       [hypc-bin](https://github.com/ethereum/hypc-bin), [solidity-website](https://github.com/ethereum/solidity-website).
+ - [ ] DockerHub account with push rights to the [``hypc`` image](https://hub.docker.com/r/ethereum/hypc).
+ - [ ] Launchpad (Ubuntu One) account with a membership in the ["QRL" team](https://launchpad.net/~ethereum) and
        a gnupg key for your email in the ``ethereum.org`` domain (has to be version 1, gpg2 won't work).
  - [ ] Ubuntu/Debian dependencies of the PPA scripts: ``devscripts``, ``debhelper``, ``dput``, ``git``, ``wget``, ``ca-certificates``.
- - [ ] [npm Registry](https://www.npmjs.com) account added as a collaborator for the [``solc`` package](https://www.npmjs.com/package/solc).
+ - [ ] [npm Registry](https://www.npmjs.com) account added as a collaborator for the [``hypc`` package](https://www.npmjs.com/package/hypc).
  - [ ] Access to the [solidity_lang Twitter account](https://twitter.com/solidity_lang).
  - [ ] [Reddit](https://www.reddit.com) account that is at least 10 days old with a minimum of 20 comment karma (``/r/ethereum`` requirements).
 
@@ -18,21 +18,21 @@ At least a day before the release:
  - [ ] Double-check that [the most recent docs builds at readthedocs](https://readthedocs.org/projects/solidity/builds/) succeeded.
  - [ ] Make sure that all merged PRs that should have changelog entries do have them.
  - [ ] Rerun CI on the top commits of main branches in all repositories that do not have daily activity by creating a test branch or PR:
-      - [ ] ``solc-js``
-      - [ ] ``solc-bin`` (make sure the bytecode comparison check did run)
+      - [ ] ``hypc-js``
+      - [ ] ``hypc-bin`` (make sure the bytecode comparison check did run)
  - [ ] (Optional) Create a prerelease in our Ubuntu PPA by following the steps in the PPA section below on ``develop`` rather than on a tag.
        This is recommended especially when dealing with PPA for the first time, when we add a new Ubuntu version or when the PPA scripts were modified in this release cycle.
- - [ ] Verify that the release tarball of ``solc-js`` works.
-       Bump version locally, add ``soljson.js`` from CI, build it, compare the file structure with the previous version, install it locally and try to use it.
+ - [ ] Verify that the release tarball of ``hypc-js`` works.
+       Bump version locally, add ``hypjson.js`` from CI, build it, compare the file structure with the previous version, install it locally and try to use it.
 
 ### Drafts
 At least a day before the release:
  - [ ] Create a draft PR to sort the changelog.
- - [ ] Create draft PRs to bump version in ``solidity`` and ``solc-js``.
+ - [ ] Create draft PRs to bump version in ``solidity`` and ``hypc-js``.
  - [ ] Create a draft of the release on github.
  - [ ] Create a draft PR to update soliditylang.org.
  - [ ] Create drafts of blog posts.
- - [ ] Prepare drafts of Twitter, Reddit and Solidity Forum announcements.
+ - [ ] Prepare drafts of Twitter, Reddit and Hyperion Forum announcements.
 
 ### Blog Post
  - [ ] Create a post on [solidity-website](https://github.com/ethereum/solidity-website/tree/main/src/posts) in the ``Releases`` category and explain some of the new features or concepts.
@@ -65,19 +65,19 @@ At least a day before the release:
  - [ ] Run ``scripts/create_source_tarball.sh`` while being on the tag to create the source tarball. This will create the tarball in a directory called ``upload``.
  - [ ] Take the tarball from the upload directory (its name should be ``solidity_x.x.x.tar.gz``, otherwise ``prerelease.txt`` was missing in the step before) and upload the source tarball to the release page.
  - [ ] Take the ``github-binaries.tar`` tarball from ``c_release_binaries`` run of the tagged commit in circle-ci and add all binaries from it to the release page.
-       Make sure it contains four binaries: ``solc-windows.exe``, ``solc-macos``, ``solc-static-linux`` and ``soljson.js``.
- - [ ] Take the ``solc-bin-binaries.tar`` tarball from ``c_release_binaries`` run of the tagged commit in circle-ci and add all binaries from it to solc-bin.
- - [ ] Run ``npm run update -- --reuse-hashes`` in ``solc-bin`` and verify that the script has updated ``list.js``, ``list.txt`` and ``list.json`` files correctly and that symlinks to the new release have been added in ``solc-bin/wasm/`` and ``solc-bin/emscripten-wasm32/``.
- - [ ] Create a pull request in solc-bin and merge.
+       Make sure it contains four binaries: ``hypc-windows.exe``, ``hypc-macos``, ``hypc-static-linux`` and ``hypjson.js``.
+ - [ ] Take the ``hypc-bin-binaries.tar`` tarball from ``c_release_binaries`` run of the tagged commit in circle-ci and add all binaries from it to hypc-bin.
+ - [ ] Run ``npm run update -- --reuse-hashes`` in ``hypc-bin`` and verify that the script has updated ``list.js``, ``list.txt`` and ``list.json`` files correctly and that symlinks to the new release have been added in ``hypc-bin/wasm/`` and ``hypc-bin/emscripten-wasm32/``.
+ - [ ] Create a pull request in hypc-bin and merge.
 
 ### Homebrew and MacOS
- - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in the [``solidity`` formula in Homebrew core repository](https://github.com/Homebrew/homebrew-core/blob/master/Formula/solidity.rb).
+ - [ ] Update the version and the hash (``sha256sum solidity_$VERSION.tar.gz``) in the [``solidity`` formula in Homebrew core repository](https://github.com/Homebrew/homebrew-core/blob/master/Formula/hyperion.rb).
 
 ### Docker
  - [ ] Run ``./scripts/docker_deploy_manual.sh v$VERSION``.
 
 ### PPA
- - [ ] Create ``.release_ppa_auth`` at the root of your local Solidity checkout and set ``LAUNCHPAD_EMAIL`` and ``LAUNCHPAD_KEYID`` to your key's email and key id.
+ - [ ] Create ``.release_ppa_auth`` at the root of your local Hyperion checkout and set ``LAUNCHPAD_EMAIL`` and ``LAUNCHPAD_KEYID`` to your key's email and key id.
  - [ ] Double-check that the ``DISTRIBUTIONS`` list in ``scripts/release_ppa.sh`` and ``scripts/deps-ppa/static_z3.sh`` contains the most recent versions of Ubuntu.
  - [ ] Make sure the [``~ethereum/cpp-build-deps`` PPA repository](https://launchpad.net/~ethereum/+archive/ubuntu/cpp-build-deps) contains ``libz3-static-dev builds`` for all current versions of Ubuntu.
        Note that it may be included in the ``z3-static`` multipackage (follow the ``View package details`` link to check).
@@ -91,10 +91,10 @@ At least a day before the release:
        Copy the static package to the [``~ethereum/ethereum`` PPA](https://launchpad.net/~ethereum/+archive/ubuntu/ethereum)
        for the destination series ``Trusty``, ``Xenial`` and ``Bionic`` while selecting ``Copy existing binaries``.
 
-### Release solc-js
- - [ ] Wait until solc-bin was properly deployed. You can test this via remix - a test run through remix is advisable anyway.
+### Release hypc-js
+ - [ ] Wait until hypc-bin was properly deployed. You can test this via remix - a test run through remix is advisable anyway.
  - [ ] Increment the version number, create a pull request for that, merge it after tests succeeded.
- - [ ] Run ``npm run build:tarball`` in the updated ``solc-js`` repository to create ``solc-<version>.tgz``. Inspect the tarball to ensure that it contains an up to date compiler binary.
+ - [ ] Run ``npm run build:tarball`` in the updated ``hypc-js`` repository to create ``hypc-<version>.tgz``. Inspect the tarball to ensure that it contains an up to date compiler binary.
  - [ ] Run ``npm run publish:tarball`` to publish the newly created tarball.
  - [ ] Create a tag using ``git tag --annotate v$VERSION`` and push it with ``git push --tags``.
 
@@ -111,5 +111,5 @@ At least a day before the release:
  - [ ] Share the announcement on the [Solidity forum](https://forum.soliditylang.org) in the ``Announcements`` category.
  - [ ] Share the announcement on [Project Updates](https://discord.com/channels/420394352083337236/798974456704925696)
  - [ ] Share the announcement on [`#solidity` channel on Matrix](https://matrix.to/#/#ethereum_solidity:gitter.im)
- - [ ] Share the announcement on [`#solc-tooling`](https://matrix.to/#/#solc-tooling:matrix.org)
+ - [ ] Share the announcement on [`#hypc-tooling`](https://matrix.to/#/#hypc-tooling:matrix.org)
  - [ ] Lean back, wait for bug reports and repeat from step 1 :).

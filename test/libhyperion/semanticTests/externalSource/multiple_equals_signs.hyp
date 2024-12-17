@@ -1,0 +1,6 @@
+==== ExternalSource: a=_external/external.hyp=hyp ====
+import {External} from "a";
+contract C {
+}
+// ----
+// constructor()
